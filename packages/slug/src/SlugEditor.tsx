@@ -29,6 +29,8 @@ export interface SlugEditorProps {
       trackingFieldId?: string;
     };
   };
+
+  access?: boolean;
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' {
@@ -47,6 +49,7 @@ function FieldConnectorCallback({
   createdAt,
   performUniqueCheck,
   id,
+  access = true,
 }: {
   Component: typeof SlugEditorFieldStatic | typeof SlugEditorField;
   value: string | null | undefined;
@@ -59,6 +62,7 @@ function FieldConnectorCallback({
   createdAt: string;
   performUniqueCheck: (value: string) => Promise<boolean>;
   id?: string;
+  access?: boolean;
 }) {
   // it is needed to silent permission errors
   // this happens when setValue is called on a field which is disabled for permission reasons
@@ -70,7 +74,7 @@ function FieldConnectorCallback({
         // do nothing
       }
     },
-    [setValue]
+    [setValue],
   );
 
   return (
@@ -86,13 +90,14 @@ function FieldConnectorCallback({
         titleValue={titleValue}
         setValue={safeSetValue}
         id={id}
+        access={access}
       />
     </div>
   );
 }
 
 export function SlugEditor(props: SlugEditorProps) {
-  const { field, parameters, id } = props;
+  const { access, field, parameters, id } = props;
   const { locales, entry, space } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
@@ -111,7 +116,7 @@ export function SlugEditor(props: SlugEditorProps) {
   // one or the title field is also localized with a custom value.
   const isOptionalFieldLocale = Boolean(!field.required || isLocaleOptional);
   const isOptionalLocaleWithFallback = Boolean(
-    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
+    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode),
   );
 
   const performUniqueCheck = React.useCallback(
@@ -127,7 +132,7 @@ export function SlugEditor(props: SlugEditorProps) {
         return res.total === 0;
       });
     },
-    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, space]
+    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, space],
   );
 
   return (
@@ -163,6 +168,7 @@ export function SlugEditor(props: SlugEditorProps) {
                 performUniqueCheck={performUniqueCheck}
                 key={`slug-editor-${externalReset}`}
                 id={id}
+                access={access}
               />
             );
           }}

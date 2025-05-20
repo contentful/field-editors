@@ -18,14 +18,26 @@ interface SlugEditorFieldProps {
   setValue: (value: string | null | undefined) => void;
   performUniqueCheck: (value: string) => Promise<boolean>;
   id?: string;
+  access?: boolean;
 }
 
 type CheckerState = 'checking' | 'unique' | 'duplicate';
 
 function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
-  const { value, setValue, createdAt, locale, titleValue, isOptionalLocaleWithFallback } = props;
+  const {
+    access = true,
+    value,
+    setValue,
+    createdAt,
+    locale,
+    titleValue,
+    isOptionalLocaleWithFallback,
+  } = props;
 
   React.useEffect(() => {
+    if (!access) {
+      return;
+    }
     if (check === false) {
       return;
     }
@@ -37,7 +49,7 @@ function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
     if (newSlug !== value) {
       setValue(newSlug);
     }
-  }, [value, titleValue, isOptionalLocaleWithFallback, check, createdAt, locale, setValue]);
+  }, [value, titleValue, isOptionalLocaleWithFallback, check, createdAt, locale, setValue, access]);
 }
 
 function useUniqueChecker(props: SlugEditorFieldProps) {
@@ -69,7 +81,7 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
 }
 
 export function SlugEditorFieldStatic(
-  props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function }
+  props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function },
 ) {
   const { hasError, isDisabled, value, setValue, onChange, onBlur, id } = props;
 
@@ -114,7 +126,7 @@ export function SlugEditorFieldStatic(
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
-  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value } = props;
+  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value, access } = props;
 
   const areEqual = React.useCallback(() => {
     const potentialSlug = makeSlug(titleValue, {
@@ -126,6 +138,9 @@ export function SlugEditorField(props: SlugEditorFieldProps) {
   }, [titleValue, isOptionalLocaleWithFallback, locale, createdAt, value]);
 
   const [check, setCheck] = React.useState<boolean>(() => {
+    if (!access) {
+      return false;
+    }
     if (props.value) {
       if (!props.titleValue) {
         return false;
