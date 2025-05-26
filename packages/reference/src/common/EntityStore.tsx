@@ -277,7 +277,7 @@ async function fetchExternalResource({
   let resourceFetchError: unknown;
   const [resource, resourceTypes] = await Promise.all([
     fetch(
-      ['resource', spaceId, environmentId, resourceType, urn],
+      ['resource', spaceId, environmentId, resourceType, urn, locale],
       ({ cmaClient }): Promise<ExternalResource | null> =>
         cmaClient.resource
           .getMany({
