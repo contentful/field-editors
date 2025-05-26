@@ -21,3 +21,4 @@ cypress.env.json
 reports/
 snapshots.js
 .nx
+.swc
