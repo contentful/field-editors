@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.5...@contentful/field-editor-reference@6.6.6) (2025-05-26)
+
+### Bug Fixes
+
+- use unique query key for fetchExternalResource for each locale ([#1870](https://github.com/contentful/field-editors/issues/1870)) ([8a42849](https://github.com/contentful/field-editors/commit/8a42849be38e91a2307e6ee024dc8a64bb3799ba))
+
 ## [6.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.4...@contentful/field-editor-reference@6.6.5) (2025-05-02)
 
 ### Bug Fixes
