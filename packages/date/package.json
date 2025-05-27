@@ -45,10 +45,12 @@
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@contentful/field-editor-test-utils": "^1.5.2",
+    "@lingui/core": "5.2.0",
     "@types/timezoned-date": "^3.0.0",
     "timezoned-date": "^3.0.2"
   },
   "peerDependencies": {
+    "@lingui/core": "^5.2.0",
     "react": ">=16.8.0"
   },
   "publishConfig": {
