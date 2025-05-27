@@ -72,12 +72,14 @@
     "slate-react": "0.102.0"
   },
   "peerDependencies": {
+    "@lingui/core": "^5.2.0",
     "react": ">=16.14.0",
     "react-dom": ">=16.14.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^1.5.2",
     "@contentful/rich-text-react-renderer": "^16.0.0",
+    "@lingui/core": "5.2.0",
     "@types/is-hotkey": "^0.1.6",
     "@udecode/plate-test-utils": "^3.2.0",
     "prism-react-renderer": "2.4.0",
