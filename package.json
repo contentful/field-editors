@@ -29,7 +29,9 @@
     "storybook": "storybook dev -p 9000",
     "build-storybook": "storybook build -o dist",
     "cm": "git-cz",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "upload-translation-keys": "node ./tools/extract-new-translation-keys/extract-new-translation-keys.mjs",
+    "extract-translation-keys": "lingui extract"
   },
   "workspaces": [
     "packages/**",

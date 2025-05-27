@@ -4726,7 +4726,7 @@
     "@lingui/message-utils" "5.2.0"
     unraw "^3.0.0"
 
-"@lingui/core@5.3.1":
+"@lingui/core@5.3.1", "@lingui/core@^5.2.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@lingui/core/-/core-5.3.1.tgz#043de7371f0c176c0037bd64833a9f88bef7c94a"
   integrity sha512-Y6WdhTlzzz+HzE6rn34rVoyXuKvTHTF5JmKdevTRu5x7ZfURaEtcoT9y6k9jgA2QMaP8YblcnU50M0svn/UZTA==
