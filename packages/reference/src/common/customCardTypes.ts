@@ -24,7 +24,7 @@ export type DefaultCardRenderer = (props?: Partial<CustomEntityCardProps>) => Re
 export type CustomCardRenderer = (
   props: CustomEntityCardProps,
   linkActionsProps: CustomActionProps,
-  renderDefaultCard: DefaultCardRenderer,
+  renderDefaultCard?: DefaultCardRenderer,
 ) => React.ReactElement | false;
 
 export type CustomEntityCardProps = {
