@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ContentType, ContentEntityType, ReferenceValue } from '../types';
-import { CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
+import { CustomCardRenderer, CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -30,14 +30,14 @@ function Editor(props: EditorProps) {
 
   const onCreate = useCallback(
     (id: string) => void setValue({ sys: { type: 'Link', linkType: entityType, id } }),
-    [setValue, entityType]
+    [setValue, entityType],
   );
   const onLink = useCallback(
     (ids: string[]) => {
       const [id] = ids;
       setValue({ sys: { type: 'Link', linkType: entityType, id } });
     },
-    [setValue, entityType]
+    [setValue, entityType],
   );
 
   const linkActionsProps = useLinkActionsProps({
@@ -52,14 +52,14 @@ function Editor(props: EditorProps) {
     (
       cardProps: CustomEntityCardProps,
       _: LinkActionsProps,
-      renderDefaultCard: DefaultCardRenderer
+      renderDefaultCard: DefaultCardRenderer,
     ) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-    [linkActionsProps]
-  );
+    [linkActionsProps],
+  ) as CustomCardRenderer;
 
   if (!props.entityId) {
     return (
@@ -77,7 +77,7 @@ export function SingleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ChildProps) => React.ReactElement;
-  }
+  },
 ) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();
 
