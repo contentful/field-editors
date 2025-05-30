@@ -12,7 +12,7 @@ import { useEntity, useEntityLoader } from '../../common/EntityStore';
 import { LinkActionsProps, MissingAssetCard } from '../../components';
 import { Action, Asset, FieldAppSDK, ViewType, RenderDragFn } from '../../types';
 import { WrappedAssetCard, WrappedAssetCardProps } from './WrappedAssetCard';
-import { WrappedAssetLink } from './WrappedAssetLink';
+import { WrappedAssetLink, WrappedAssetLinkProps } from './WrappedAssetLink';
 
 type FetchingWrappedAssetCardProps = {
   assetId: string;
@@ -32,7 +32,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
-    [getEntityScheduledActions, props.assetId]
+    [getEntityScheduledActions, props.assetId],
   );
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
   const activeLocales = useActiveLocales(props.sdk);
@@ -44,17 +44,20 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [asset]);
 
-  const onEdit = async () => {
-    const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
-    props.onAction &&
-      props.onAction({
-        entity: 'Asset',
-        type: 'edit',
-        id: props.assetId,
-        contentTypeId: '',
-        slide,
-      });
-  };
+  const onEdit =
+    typeof props.sdk.navigator.openAsset === 'function'
+      ? async () => {
+          const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
+          props.onAction &&
+            props.onAction({
+              entity: 'Asset',
+              type: 'edit',
+              id: props.assetId,
+              contentTypeId: '',
+              slide,
+            });
+        }
+      : undefined;
 
   const onRemove = () => {
     props.onRemove();
@@ -100,26 +103,37 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       activeLocales,
     };
 
-    if (props.viewType === 'link') {
-      if (status === 'loading') {
-        return <EntryCard size="small" isLoading />;
-      }
+    if (status === 'loading') {
+      return props.viewType === 'link' ? (
+        <EntryCard size="small" isLoading />
+      ) : (
+        <AssetCard size={size} isLoading />
+      );
+    }
+
+    function _renderDefaultLink(props?: Partial<WrappedAssetLinkProps>) {
+      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> & {
+        isClickable?: WrappedAssetCardProps['isClickable'];
+      } = {
+        ...commonProps,
+        ...props,
+        getEntityScheduledActions: loadEntityScheduledActions,
+        getAssetUrl: getEntityUrl,
+      };
+
       return (
         <WrappedAssetLink
-          {...commonProps}
+          {...builtinCardProps}
           href={commonProps.entityUrl}
           getEntityScheduledActions={loadEntityScheduledActions}
         />
       );
     }
 
-    if (status === 'loading') {
-      return <AssetCard size={size} isLoading />;
-    }
-
-    function renderDefaultCard(props?: CustomEntityCardProps) {
-      // isClickable has a default value, so omit it from the props
-      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> = {
+    function _renderDefaultCard(props?: Partial<CustomEntityCardProps>) {
+      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> & {
+        isClickable?: WrappedAssetCardProps['isClickable'];
+      } = {
         ...commonProps,
         ...props,
         getEntityScheduledActions: loadEntityScheduledActions,
@@ -128,6 +142,14 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       };
 
       return <WrappedAssetCard {...builtinCardProps} />;
+    }
+
+    const viewType = props.viewType;
+
+    function renderDefaultCard(
+      props?: Partial<CustomEntityCardProps> | Partial<WrappedAssetLinkProps>,
+    ) {
+      return viewType === 'link' ? _renderDefaultLink(props) : _renderDefaultCard(props);
     }
 
     if (props.renderCustomCard) {
@@ -140,7 +162,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       const renderedCustomCard = props.renderCustomCard(
         customProps,
         {} as LinkActionsProps,
-        renderDefaultCard
+        renderDefaultCard,
       );
       // Only `false` indicates to render the original card. E.g. `null` would result in no card.
       if (renderedCustomCard !== false) {

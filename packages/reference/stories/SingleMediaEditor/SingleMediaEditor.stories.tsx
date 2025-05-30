@@ -121,3 +121,33 @@ export const CustomCard: Story = {
     );
   },
 };
+
+export const UnclickableCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <SingleMediaEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            },
+          }}
+          renderCustomCard={(_, __, renderDefaultCard) => {
+            return renderDefaultCard({
+              isClickable: false,
+            });
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};

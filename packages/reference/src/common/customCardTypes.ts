@@ -3,6 +3,7 @@ import * as React from 'react';
 import { LocalePublishStatusMap } from '@contentful/field-editor-shared';
 import { LocaleProps } from 'contentful-management';
 
+import { WrappedAssetCardProps } from '../assets/WrappedAssetCard/WrappedAssetCard';
 import { Asset, ContentType, Entry, RenderDragFn } from '../types';
 import { CustomActionProps } from './ReferenceEditor';
 
@@ -18,12 +19,12 @@ export type RenderCustomMissingEntityCard = ({
   defaultCard,
 }: MissingEntityCardProps) => React.ReactElement;
 
-export type DefaultCardRenderer = (props?: CustomEntityCardProps) => React.ReactElement;
+export type DefaultCardRenderer = (props?: Partial<CustomEntityCardProps>) => React.ReactElement;
 
 export type CustomCardRenderer = (
   props: CustomEntityCardProps,
   linkActionsProps: CustomActionProps,
-  renderDefaultCard: DefaultCardRenderer
+  renderDefaultCard: DefaultCardRenderer,
 ) => React.ReactElement | false;
 
 export type CustomEntityCardProps = {
@@ -46,4 +47,4 @@ export type CustomEntityCardProps = {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-};
+} & Partial<WrappedAssetCardProps>;
