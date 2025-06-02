@@ -53,11 +53,6 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
     ? props.asset.fields.file[props.localeCode] || props.asset.fields.file[props.defaultLocaleCode]
     : undefined;
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    onEdit && onEdit();
-  };
-
   return (
     <EntryCard
       as={isClickable && href ? 'a' : 'article'}
@@ -80,7 +75,14 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       thumbnailElement={
         entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
       }
-      onClick={isClickable ? handleClick : undefined}
+      onClick={
+        isClickable
+          ? (e: React.MouseEvent<HTMLElement>) => {
+              e.preventDefault();
+              onEdit && onEdit();
+            }
+          : undefined
+      }
       onKeyDown={
         isClickable
           ? (e: React.KeyboardEvent<HTMLElement>) => {

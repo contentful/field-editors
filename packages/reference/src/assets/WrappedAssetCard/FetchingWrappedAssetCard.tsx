@@ -44,20 +44,17 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [asset]);
 
-  const onEdit =
-    typeof props.sdk.navigator.openAsset === 'function'
-      ? async () => {
-          const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
-          props.onAction &&
-            props.onAction({
-              entity: 'Asset',
-              type: 'edit',
-              id: props.assetId,
-              contentTypeId: '',
-              slide,
-            });
-        }
-      : undefined;
+  const onEdit = async () => {
+    const { slide } = await props.sdk.navigator.openAsset(props.assetId, { slideIn: true });
+    props.onAction &&
+      props.onAction({
+        entity: 'Asset',
+        type: 'edit',
+        id: props.assetId,
+        contentTypeId: '',
+        slide,
+      });
+  };
 
   const onRemove = () => {
     props.onRemove();
