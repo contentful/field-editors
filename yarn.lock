@@ -2565,11 +2565,6 @@
   dependencies:
     contentful-management ">=7.30.0"
 
-"@contentful/browserslist-config@4.0.0":
-  version "4.0.0"
-  resolved "https://npm.pkg.github.com/download/@contentful/browserslist-config/4.0.0/b9d59ba05bd53918d3d8023e6729ee19928d127b#b9d59ba05bd53918d3d8023e6729ee19928d127b"
-  integrity sha512-Z4nx1Mpg+8jIsxEeqQ4b8ZPFTqRnm7k7QjBIRpMdrf0s84zCp2cvL8taTZdlPEYWd12Enfbq2WC1ws5BIe49PA==
-
 "@contentful/browserslist-config@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@contentful/browserslist-config/-/browserslist-config-3.0.0.tgz#e1cc8bc1cecaec9406633ffaf600fb489a204273"
