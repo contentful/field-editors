@@ -160,7 +160,7 @@ async function createPluralMessageEntry(client, languageValues, count) {
 
 async function createTranslationEntry(client, key, description, messageEntry) {
   return client.entry
-    .createWithId(
+    .create(
       {
         contentTypeId: 'translation',
         spaceId: SPACE_ID,
