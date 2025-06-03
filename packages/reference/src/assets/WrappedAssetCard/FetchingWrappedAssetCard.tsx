@@ -108,45 +108,32 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       );
     }
 
-    function _renderDefaultLink(props?: Partial<WrappedAssetLinkProps>) {
-      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> & {
-        isClickable?: WrappedAssetCardProps['isClickable'];
-      } = {
-        ...commonProps,
-        ...props,
-        getEntityScheduledActions: loadEntityScheduledActions,
-        getAssetUrl: getEntityUrl,
-      };
-
-      return (
-        <WrappedAssetLink
-          {...builtinCardProps}
-          href={commonProps.entityUrl}
-          getEntityScheduledActions={loadEntityScheduledActions}
-        />
-      );
-    }
-
-    function _renderDefaultCard(props?: Partial<CustomEntityCardProps>) {
-      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> & {
-        isClickable?: WrappedAssetCardProps['isClickable'];
-      } = {
-        ...commonProps,
-        ...props,
-        getEntityScheduledActions: loadEntityScheduledActions,
-        asset: (props?.entity as Asset) || commonProps.asset,
-        getAssetUrl: getEntityUrl,
-      };
-
-      return <WrappedAssetCard {...builtinCardProps} />;
-    }
-
     const viewType = props.viewType;
 
     function renderDefaultCard(
       props?: Partial<CustomEntityCardProps> | Partial<WrappedAssetLinkProps>,
     ) {
-      return viewType === 'link' ? _renderDefaultLink(props) : _renderDefaultCard(props);
+      const builtinCardProps: Omit<WrappedAssetCardProps, 'isClickable'> & {
+        isClickable?: WrappedAssetCardProps['isClickable'];
+      } = {
+        ...commonProps,
+        ...props,
+        getEntityScheduledActions: loadEntityScheduledActions,
+        asset: ((props as CustomEntityCardProps)?.entity as Asset) || commonProps.asset,
+        getAssetUrl: getEntityUrl,
+      };
+
+      if (viewType === 'link') {
+        return (
+          <WrappedAssetLink
+            {...builtinCardProps}
+            href={commonProps.entityUrl}
+            getEntityScheduledActions={loadEntityScheduledActions}
+          />
+        );
+      }
+
+      return <WrappedAssetCard {...builtinCardProps} />;
     }
 
     if (props.renderCustomCard) {
