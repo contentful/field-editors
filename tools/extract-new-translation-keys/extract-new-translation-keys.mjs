@@ -165,7 +165,6 @@ async function createTranslationEntry(client, key, description, messageEntry) {
         contentTypeId: 'translation',
         spaceId: SPACE_ID,
         environmentId: ENVIRONMENT_ID,
-        entryId: key,
       },
       {
         fields: {
@@ -185,8 +184,9 @@ async function createTranslationEntry(client, key, description, messageEntry) {
     )
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     .then((_entry) => {
+
       console.log(
-        `Created ${ansiEscapes.link('entry', `${CONTENTFUL_URL}/entries/${key}`)} for key ${key}.`
+        `Created ${ansiEscapes.link('entry', `${CONTENTFUL_URL}/entries/${_entry.sys.id}`)} for key ${key}.`
       );
     })
     .catch(async (err) => {
@@ -201,8 +201,7 @@ async function createTranslationEntry(client, key, description, messageEntry) {
       }
       if (err.name === 'VersionMismatch') {
         console.error(
-          `${ansiEscapes.link('Entry', `${CONTENTFUL_URL}/entries/${key}`)} for key ${key} already exists.`
-        );
+          `Entry for key ${key} already exists.`);
         return;
       }
       console.error(err);
