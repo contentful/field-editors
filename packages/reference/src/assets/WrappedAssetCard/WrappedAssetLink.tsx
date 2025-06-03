@@ -21,20 +21,21 @@ export interface WrappedAssetLinkProps {
   href?: string;
   className?: string;
   isDisabled: boolean;
-  onEdit: () => void;
-  onRemove: () => void;
+  onEdit?: () => void;
+  onRemove?: () => void;
   renderDragHandle?: RenderDragFn;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  isClickable?: boolean;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
-  const { className, href, onEdit, onRemove, isDisabled } = props;
+  const { className, href, onEdit, onRemove, isDisabled, isClickable = true } = props;
 
   const status = entityHelpers.getEntityStatus(
     props.asset.sys,
-    props.useLocalizedEntityStatus ? props.localeCode : undefined
+    props.useLocalizedEntityStatus ? props.localeCode : undefined,
   );
 
   if (status === 'deleted') {
@@ -54,11 +55,11 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
 
   return (
     <EntryCard
-      as={href ? 'a' : 'article'}
+      as={isClickable && href ? 'a' : 'article'}
       contentType="Asset"
       title={entityTitle}
       className={className}
-      href={href}
+      href={isClickable ? href : undefined}
       size="small"
       badge={
         <EntityStatusBadge
@@ -74,16 +75,24 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
       thumbnailElement={
         entityFile && isValidImage(entityFile) ? <AssetThumbnail file={entityFile} /> : undefined
       }
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        onEdit();
-      }}
-      onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-        if (e.key === 'Enter' && onEdit) {
-          e.preventDefault();
-          onEdit();
-        }
-      }}
+      onClick={
+        isClickable
+          ? (e: React.MouseEvent<HTMLElement>) => {
+              e.preventDefault();
+              onEdit && onEdit();
+            }
+          : undefined
+      }
+      onKeyDown={
+        isClickable
+          ? (e: React.KeyboardEvent<HTMLElement>) => {
+              if (e.key === 'Enter' && onEdit) {
+                e.preventDefault();
+                onEdit();
+              }
+            }
+          : undefined
+      }
       dragHandleRender={props.renderDragHandle}
       withDragHandle={!!props.renderDragHandle && !isDisabled}
       actions={[
