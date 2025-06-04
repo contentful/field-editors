@@ -62,9 +62,12 @@ export const CustomCard: Story = {
         <SingleEntryReferenceEditor
           hasCardEditActions={false}
           renderCustomCard={(props) =>
+            // @ts-expect-error
             props.entity.fields.exField ? (
               <Card testId="custom-card">
+                {/*@ts-expect-error*/}
                 <Heading>{props.entity.fields.exField.en}</Heading>
+                {/*@ts-expect-error*/}
                 <Paragraph>{props.entity.fields.exDesc.en}</Paragraph>
                 <Button onClick={props.onEdit} style={{ marginRight: '10px' }}>
                   Edit
@@ -105,9 +108,41 @@ export const CustomCardRelyingOnDefaultCard: Story = {
       <div data-test-id="custom-card-using-default">
         <SingleEntryReferenceEditor
           hasCardEditActions={false}
-          renderCustomCard={(props, _, renderDefaultCard) => {
-            // @ts-expect-error
+          renderCustomCard={(_, __, renderDefaultCard) => {
             return renderDefaultCard({ size: 'small' });
+          }}
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: instanceParams ?? {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            },
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
+export const UnclickableCustomCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const instanceParams = JSON.parse(window.localStorage.getItem('instanceParams') as string) as {
+      showCreateEntityAction: boolean;
+      showLinkEntityAction: boolean;
+    };
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div data-test-id="custom-card-using-default">
+        <SingleEntryReferenceEditor
+          hasCardEditActions={false}
+          renderCustomCard={(_, __, renderDefaultCard) => {
+            return renderDefaultCard({ size: 'small', isClickable: false });
           }}
           viewType="card"
           sdk={sdk}

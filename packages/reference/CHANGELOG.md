@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.6...@contentful/field-editor-reference@6.7.0) (2025-06-03)
+
+### Features
+
+- enable read-only assets and reference cards [SPA-2702] ([#1872](https://github.com/contentful/field-editors/issues/1872)) ([8f055e6](https://github.com/contentful/field-editors/commit/8f055e6f546499fc9d415ae84db887896c7dec1c))
+
 ## [6.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.5...@contentful/field-editor-reference@6.6.6) (2025-05-26)
 
 ### Bug Fixes

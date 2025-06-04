@@ -8,7 +8,7 @@ import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
 import { useSortIDs } from '../utils/useSortIDs';
-import { CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
+import { CustomCardRenderer, CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -34,7 +34,7 @@ function onLinkOrCreate(
   entityType: ChildProps['entityType'],
   items: ChildProps['items'],
   ids: string[],
-  index = items.length
+  index = items.length,
 ): void {
   const links: ReferenceValue[] = ids.map((id) => ({
     sys: { type: 'Link', linkType: entityType, id },
@@ -78,7 +78,7 @@ function Editor(props: EditorProps) {
       setIndexToUpdate && setIndexToUpdate(undefined);
       document.body.classList.remove('grabbing');
     },
-    [items, onSortingEnd, setIndexToUpdate, setValue]
+    [items, onSortingEnd, setIndexToUpdate, setValue],
   );
 
   const onMove = useCallback(
@@ -87,17 +87,17 @@ function Editor(props: EditorProps) {
       rearrangeSortIDs(oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, rearrangeSortIDs, setValue]
+    [items, rearrangeSortIDs, setValue],
   );
 
   const onCreate = useCallback(
     (id: string, index?: number) => onLinkOrCreate(setValue, entityType, items, [id], index),
-    [setValue, items, entityType]
+    [setValue, items, entityType],
   );
 
   const onLink = useCallback(
     (ids: string[], index?: number) => onLinkOrCreate(setValue, entityType, items, ids, index),
-    [setValue, items, entityType]
+    [setValue, items, entityType],
   );
 
   const linkActionsProps = useLinkActionsProps({
@@ -113,14 +113,14 @@ function Editor(props: EditorProps) {
     (
       cardProps: CustomEntityCardProps,
       _: LinkActionsProps,
-      renderDefaultCard: DefaultCardRenderer
+      renderDefaultCard: DefaultCardRenderer,
     ) =>
       props.renderCustomCard
         ? props.renderCustomCard(cardProps, linkActionsProps, renderDefaultCard)
         : false,
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-    [linkActionsProps]
-  );
+    [linkActionsProps],
+  ) as CustomCardRenderer;
 
   return (
     <>
@@ -141,7 +141,7 @@ export function MultipleReferenceEditor(
     entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
     setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
-  }
+  },
 ) {
   const allContentTypes = props.sdk.space.getCachedContentTypes();
 

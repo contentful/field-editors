@@ -88,7 +88,7 @@ export function WrappedEntryCard({
           localeCode,
           defaultLocaleCode,
         },
-        getAsset
+        getAsset,
       )
         .then((file) => {
           if (mounted) {
@@ -132,8 +132,8 @@ export function WrappedEntryCard({
 
   return (
     <EntryCard
-      as={entryUrl ? 'a' : 'article'}
-      href={entryUrl}
+      as={isClickable && entryUrl ? 'a' : 'article'}
+      href={isClickable ? entryUrl : undefined}
       title={title}
       description={description}
       contentType={contentType?.name}

@@ -33,7 +33,7 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
 async function openEntry(
   sdk: FieldAppSDK,
   entryId: string,
-  options: { bulkEditing?: boolean; index?: number }
+  options: { bulkEditing?: boolean; index?: number },
 ) {
   let slide: NavigatorSlideInfo | undefined;
 
@@ -65,7 +65,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', props.entryId),
-    [getEntityScheduledActions, props.entryId]
+    [getEntityScheduledActions, props.entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
 
@@ -135,7 +135,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       entity: entry,
       entityUrl: props.getEntityUrl && props.getEntityUrl(entry.sys.id),
       contentType: props.allContentTypes.find(
-        (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
+        (contentType) => contentType.sys.id === entry.sys.contentType.sys.id,
       ),
       isDisabled: props.isDisabled,
       size,
@@ -154,7 +154,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;
 
-    function renderDefaultCard(props?: CustomEntityCardProps) {
+    function renderDefaultCard(props?: Partial<CustomEntityCardProps>) {
       const builtinCardProps: WrappedEntryCardProps = {
         ...sharedCardProps,
         ...props,
@@ -175,7 +175,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       const renderedCustomCard = props.renderCustomCard(
         sharedCardProps,
         {} as LinkActionsProps,
-        renderDefaultCard
+        renderDefaultCard,
       );
       // Only `false` indicates to render the original card. E.g. `null` would result in no card.
       if (renderedCustomCard !== false) {

@@ -66,6 +66,37 @@ export const Link: Story = {
   },
 };
 
+export const UnclickableLink: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div>
+        <MultipleMediaEditor
+          viewType="link"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            },
+          }}
+          renderCustomCard={(_, __, renderDefaultCard) => {
+            return renderDefaultCard({
+              isClickable: false,
+              renderDragHandle: undefined,
+            });
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
 export const CustomActions: Story = {
   parameters: {
     controls: { hideNoControlsWarning: true },
@@ -130,6 +161,37 @@ export const CustomCard: Story = {
                 <Button onClick={props.onRemove}>Remove</Button>
               </Card>
             );
+          }}
+        />
+        <ActionsPlayground mitt={mitt} />
+      </div>
+    );
+  },
+};
+
+export const UnclickableCard: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
+  render: () => {
+    const [sdk, mitt] = newReferenceEditorFakeSdk();
+    return (
+      <div data-test-id="multiple-media-editor-custom-cards-integration-test">
+        <MultipleMediaEditor
+          viewType="card"
+          sdk={sdk}
+          isInitiallyDisabled={false}
+          parameters={{
+            instance: {
+              showCreateEntityAction: true,
+              showLinkEntityAction: true,
+            },
+          }}
+          renderCustomCard={(_, __, renderDefaultCard) => {
+            return renderDefaultCard({
+              isClickable: false,
+              renderDragHandle: undefined,
+            });
           }}
         />
         <ActionsPlayground mitt={mitt} />

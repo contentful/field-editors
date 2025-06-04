@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SpaceAPI } from '@contentful/app-sdk';
 import { AssetCard } from '@contentful/f36-components';
 import { entityHelpers, LocalePublishStatusMap } from '@contentful/field-editor-shared';
-// @ts-expect-error
+// @ts-expect-error mimetype is not typed
 import mimetype from '@contentful/mimetype';
 import { LocaleProps } from 'contentful-management';
 
@@ -38,7 +38,7 @@ export interface WrappedAssetCardProps {
   onRemove?: () => void;
   size: 'default' | 'small';
   renderDragHandle?: RenderDragFn;
-  isClickable: boolean;
+  isClickable?: boolean;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
@@ -82,7 +82,7 @@ export const WrappedAssetCard = ({
 }: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
     asset.sys,
-    useLocalizedEntityStatus ? localeCode : undefined
+    useLocalizedEntityStatus ? localeCode : undefined,
   );
 
   if (status === 'deleted') {
@@ -104,12 +104,12 @@ export const WrappedAssetCard = ({
 
   return (
     <AssetCard
-      as={href ? 'a' : 'article'}
+      as={isClickable && href ? 'a' : 'article'}
       type={getFileType(entityFile)}
       title={entityTitle}
       className={className}
       isSelected={isSelected}
-      href={href}
+      href={isClickable ? href : undefined}
       badge={
         <EntityStatusBadge
           getEntityScheduledActions={getEntityScheduledActions}
