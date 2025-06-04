@@ -182,7 +182,6 @@ async function createTranslationEntry(client, key, description, messageEntry) {
         },
       }
     )
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     .then((_entry) => {
 
       console.log(
