@@ -33,6 +33,7 @@ export { entityHelpers };
 export { ConstraintsUtils };
 
 export * from './LocalePublishingEntityStatusBadge';
+export * from './ReleaseEntityStatusBadge';
 import * as ModalDialogLauncher from './ModalDialogLauncher';
 import * as ConstraintsUtils from './utils/constraints';
 import * as entityHelpers from './utils/entityHelpers';
