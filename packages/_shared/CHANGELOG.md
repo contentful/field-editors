@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.5.0...@contentful/field-editor-shared@2.5.1) (2025-06-05)
+
+### Bug Fixes
+
+- typo in prop [TOL-3103] ([#1877](https://github.com/contentful/field-editors/issues/1877)) ([3d8f653](https://github.com/contentful/field-editors/commit/3d8f653b32540ef3bdaf790c97cd3240081edfed))
+
 # [2.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.4.2...@contentful/field-editor-shared@2.5.0) (2025-06-05)
 
 ### Features
