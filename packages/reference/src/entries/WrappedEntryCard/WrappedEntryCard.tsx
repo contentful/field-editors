@@ -6,6 +6,9 @@ import {
   entityHelpers,
   isValidImage,
   LocalePublishStatusMap,
+  type ReleaseAction,
+  type ReleaseLocalesStatusMap,
+  type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 import { LocaleProps } from 'contentful-management';
 
@@ -40,6 +43,10 @@ export interface WrappedEntryCardProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  releaseAction?: ReleaseAction;
+  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
+  isReleasesLoading?: boolean;
+  activeRelease?: ReleaseV2Props;
 }
 
 const defaultProps = {
@@ -74,6 +81,10 @@ export function WrappedEntryCard({
   onRemove,
   onMoveTop,
   onMoveBottom,
+  releaseAction,
+  releaseLocalesStatusMap,
+  isReleasesLoading,
+  activeRelease,
 }: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
@@ -148,6 +159,10 @@ export function WrappedEntryCard({
           entity={entry}
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
+          releaseAction={releaseAction}
+          releaseLocalesStatusMap={releaseLocalesStatusMap}
+          isReleasesLoading={isReleasesLoading}
+          activeRelease={activeRelease}
         />
       }
       icon={

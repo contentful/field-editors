@@ -31,6 +31,8 @@ export * from './hooks/useActiveLocales';
 export { ModalDialogLauncher };
 export { entityHelpers };
 export { ConstraintsUtils };
+export * from './types';
+export * from './hooks/useActiveReleaseLocalesStatuses';
 
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';

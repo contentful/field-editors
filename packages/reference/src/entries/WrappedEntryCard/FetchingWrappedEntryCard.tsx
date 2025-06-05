@@ -1,8 +1,13 @@
 import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
-import { useLocalePublishStatus } from '@contentful/field-editor-shared';
-import { EntryProps } from 'contentful-management';
+import {
+  ReleaseAction,
+  useLocalePublishStatus,
+  useActiveReleaseLocalesStatuses,
+  type ReleaseV2Props,
+} from '@contentful/field-editor-shared';
+import { CollectionProp, EntryProps, LocaleProps } from 'contentful-management';
 import get from 'lodash/get';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
@@ -61,6 +66,20 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
+  const {
+    releaseVersionMap,
+    locales,
+    activeRelease,
+    isActiveReleaseLoading,
+    releases,
+  }: {
+    releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
+    locales: LocaleProps[];
+    activeRelease: ReleaseV2Props;
+    isActiveReleaseLoading: boolean;
+    releases: CollectionProp<ReleaseV2Props>;
+  } = JSON.parse(props.sdk.parameters.instance.release);
+
   const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
@@ -68,6 +87,14 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     [getEntityScheduledActions, props.entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
+  const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
+    currentEntryDraft: entry,
+    entryId: props.entryId,
+    releaseVersionMap,
+    locales,
+    activeRelease,
+    releases,
+  });
 
   const size = props.viewType === 'link' ? 'small' : 'default';
   const { getEntity } = useEntityLoader();
@@ -150,6 +177,9 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
       activeLocales: props.activeLocales,
+      releaseLocalesStatusMap,
+      isReleasesLoading: isActiveReleaseLoading,
+      activeRelease,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

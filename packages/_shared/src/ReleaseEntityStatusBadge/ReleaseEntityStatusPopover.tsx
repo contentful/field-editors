@@ -5,9 +5,9 @@ import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
 import { cx, css } from 'emotion';
 
+import type { ReleaseLocalesStatusMap, ReleaseEntityStatus } from '../types';
 import { RELEASE_BADGES } from './constants';
 import { ReleaseEntityStatusLocalesList } from './ReleaseEntityStatusLocalesList';
-import type { ReleaseLocalesStatusMap, ReleaseEntityStatus } from './types';
 
 type BadgeSVGType = {
   isHover: boolean;
