@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.19...@contentful/field-editor-radio@1.5.20) (2025-06-05)
+
+**Note:** Version bump only for package @contentful/field-editor-radio
+
 ## [1.5.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-radio@1.5.18...@contentful/field-editor-radio@1.5.19) (2025-04-30)
 
 **Note:** Version bump only for package @contentful/field-editor-radio

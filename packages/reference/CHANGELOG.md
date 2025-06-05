@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.7.0...@contentful/field-editor-reference@6.7.1) (2025-06-05)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
 # [6.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.6.6...@contentful/field-editor-reference@6.7.0) (2025-06-03)
 
 ### Features
