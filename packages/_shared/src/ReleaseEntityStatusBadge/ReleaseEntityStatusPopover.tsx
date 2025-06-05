@@ -86,7 +86,7 @@ const styles = {
 
 const determineBadgeStatus = (
   localesStatusMap: ReleaseLocalesStatusMap,
-  activeLocales: Pick<LocaleProps, 'code'>[] | undefined
+  activeLocales: Pick<LocaleProps, 'code'>[] | undefined,
 ): Status => {
   // If there is only one locale, or only active locale, we would not show the stacking
   if (activeLocales && activeLocales.length === 1) {
@@ -142,13 +142,13 @@ const determineBadgeStatus = (
 };
 
 type ReleaseLocalePublishingPopoverProps = {
-  ReleaseLocalesStatusMap: ReleaseLocalesStatusMap;
+  releaseLocalesStatusMap: ReleaseLocalesStatusMap;
   activeLocales: Pick<LocaleProps, 'code'>[];
   isLoading?: boolean;
 };
 
 export function ReleaseEntityStatusPopover({
-  ReleaseLocalesStatusMap,
+  releaseLocalesStatusMap,
   activeLocales,
   isLoading = false,
 }: ReleaseLocalePublishingPopoverProps) {
@@ -169,7 +169,7 @@ export function ReleaseEntityStatusPopover({
     }, 300);
   }, []);
 
-  const status = determineBadgeStatus(ReleaseLocalesStatusMap, activeLocales);
+  const status = determineBadgeStatus(releaseLocalesStatusMap, activeLocales);
   const ariaLabel = status.secondary ? 'Multiple statuses' : status.primary;
   const wrapperClass = generateDynamicStyles(status);
 
@@ -199,7 +199,7 @@ export function ReleaseEntityStatusPopover({
 
   return (
     <Popover
-      isOpen={ReleaseLocalesStatusMap && isOpen}
+      isOpen={releaseLocalesStatusMap && isOpen}
       onClose={() => setIsOpen(false)}
       autoFocus={false}
       placement="bottom-end"
@@ -253,10 +253,10 @@ export function ReleaseEntityStatusPopover({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {!!ReleaseLocalesStatusMap && (
+        {!!releaseLocalesStatusMap && (
           <>
             <ReleaseEntityStatusLocalesList
-              statusMap={ReleaseLocalesStatusMap}
+              statusMap={releaseLocalesStatusMap}
               activeLocales={activeLocales}
             />
           </>
