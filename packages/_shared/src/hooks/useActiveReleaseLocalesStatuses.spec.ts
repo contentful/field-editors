@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import type { CollectionProp, EntryProps, LocaleProps } from 'contentful-management';
-import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from 'types';
 
+import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from '../types';
 import { getPreviousReleaseEntryVersion } from '../utils/getPreviousReleaseEntryVersion';
 import { useActiveReleaseLocalesStatuses } from './useActiveReleaseLocalesStatuses';
 
