@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.7.2...@contentful/field-editor-reference@6.8.0) (2025-06-06)
+
+### Features
+
+- release status in references [TOL-3103] ([#1876](https://github.com/contentful/field-editors/issues/1876)) ([a7fc3a4](https://github.com/contentful/field-editors/commit/a7fc3a4c1a1b64d2457afb17bc806eda5e8d9981))
+
 ## [6.7.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.7.1...@contentful/field-editor-reference@6.7.2) (2025-06-05)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

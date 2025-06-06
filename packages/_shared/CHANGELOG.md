@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.5.1...@contentful/field-editor-shared@2.6.0) (2025-06-06)
+
+### Features
+
+- release status in references [TOL-3103] ([#1876](https://github.com/contentful/field-editors/issues/1876)) ([a7fc3a4](https://github.com/contentful/field-editors/commit/a7fc3a4c1a1b64d2457afb17bc806eda5e8d9981))
+
 ## [2.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.5.0...@contentful/field-editor-shared@2.5.1) (2025-06-05)
 
 ### Bug Fixes
