@@ -1,6 +1,6 @@
-import { BadgeVariant } from '@contentful/f36-components';
-import { CollectionProp, ReleaseProps } from 'contentful-management/types';
-import { LocaleProps } from 'contentful-management/types';
+import type { BadgeVariant } from '@contentful/f36-components';
+import type { CollectionProp, ReleaseProps } from 'contentful-management/types';
+import type { LocaleProps } from 'contentful-management/types';
 
 export type ValidationType =
   | {
