@@ -2,12 +2,11 @@ import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
 import {
-  ReleaseAction,
+  parseReleaseParams,
   useLocalePublishStatus,
   useActiveReleaseLocalesStatuses,
-  type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
-import { CollectionProp, EntryProps, LocaleProps } from 'contentful-management';
+import { EntryProps } from 'contentful-management';
 import get from 'lodash/get';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
@@ -66,19 +65,8 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const {
-    releaseVersionMap,
-    locales,
-    activeRelease,
-    isActiveReleaseLoading,
-    releases,
-  }: {
-    releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
-    locales: LocaleProps[];
-    activeRelease: ReleaseV2Props;
-    isActiveReleaseLoading: boolean;
-    releases: CollectionProp<ReleaseV2Props>;
-  } = JSON.parse(props.sdk.parameters.instance.release);
+  const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
+    parseReleaseParams(props.sdk.parameters.instance.release);
 
   const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
