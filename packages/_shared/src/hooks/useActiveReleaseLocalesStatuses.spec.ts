@@ -5,7 +5,7 @@ import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from
 import { getPreviousReleaseEntryVersion } from '../utils/getPreviousReleaseEntryVersion';
 import { useActiveReleaseLocalesStatuses } from './useActiveReleaseLocalesStatuses';
 
-const buildEntryDraft = (status: 'draft' | 'published' | 'changed') =>
+const buildEntry = (status: 'draft' | 'published' | 'changed') =>
   ({
     sys: {
       fieldStatus: {
@@ -99,7 +99,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         useActiveReleaseLocalesStatuses({
           ...baseParams,
           activeRelease: createEntryBasedRelease(),
-          currentEntryDraft: buildEntryDraft('draft'),
+          currentEntryDraft: buildEntry('draft'),
         }),
       );
 
@@ -128,7 +128,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         useActiveReleaseLocalesStatuses({
           ...baseParams,
           activeRelease: createEntryBasedRelease({ action: 'unpublish' }),
-          currentEntryDraft: buildEntryDraft('published'),
+          currentEntryDraft: buildEntry('published'),
         }),
       );
 
@@ -154,7 +154,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         useActiveReleaseLocalesStatuses({
           ...baseParams,
           activeRelease: createEntryBasedRelease({ action: 'unpublish' }),
-          currentEntryDraft: buildEntryDraft('draft'),
+          currentEntryDraft: buildEntry('draft'),
         }),
       );
 
@@ -179,7 +179,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
             entryId: 'entry-2',
             action: 'publish',
           }),
-          currentEntryDraft: buildEntryDraft('draft'),
+          currentEntryDraft: buildEntry('draft'),
         }),
       );
 
@@ -210,7 +210,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         useActiveReleaseLocalesStatuses({
           ...baseParams,
           activeRelease: createLocaleBasedRelease(),
-          currentEntryDraft: buildEntryDraft('draft'),
+          currentEntryDraft: buildEntry('draft'),
         }),
       );
 
@@ -239,7 +239,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         useActiveReleaseLocalesStatuses({
           ...baseParams,
           activeRelease: createLocaleBasedRelease({ verb: 'remove' }),
-          currentEntryDraft: buildEntryDraft('published'),
+          currentEntryDraft: buildEntry('published'),
         }),
       );
 
@@ -265,7 +265,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         useActiveReleaseLocalesStatuses({
           ...baseParams,
           activeRelease: createLocaleBasedRelease({ verb: 'remove' }),
-          currentEntryDraft: buildEntryDraft('draft'),
+          currentEntryDraft: buildEntry('draft'),
         }),
       );
 
@@ -290,7 +290,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
             entryId: 'entry-2',
             verb: 'add',
           }),
-          currentEntryDraft: buildEntryDraft('draft'),
+          currentEntryDraft: buildEntry('draft'),
         }),
       );
 
