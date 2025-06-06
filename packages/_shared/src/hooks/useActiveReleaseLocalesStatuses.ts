@@ -21,12 +21,16 @@ export const useActiveReleaseLocalesStatuses = ({
   activeRelease: ReleaseV2Props;
   releases: CollectionProp<ReleaseV2Props>;
 }) => {
-  const { previousReleaseEntity } = getPreviousReleaseEntryVersion({
-    entryId,
-    releaseVersionMap,
-    activeRelease,
-    releases,
-  });
+  const previousReleaseEntity = useMemo(
+    () =>
+      getPreviousReleaseEntryVersion({
+        entryId,
+        releaseVersionMap,
+        activeRelease,
+        releases,
+      }).previousReleaseEntity,
+    [entryId, releaseVersionMap, activeRelease, releases],
+  );
   const activeReleaseReleaseEntity = useMemo(
     () => activeRelease?.entities.items.find((entity) => entity.entity.sys.id === entryId),
     [activeRelease?.entities.items, entryId],
