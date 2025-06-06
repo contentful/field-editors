@@ -8,7 +8,12 @@ interface SdkProviderProps {
 }
 
 function useSdk({ sdk }: SdkProviderProps) {
-  const sdkMemo = React.useMemo<FieldAppSDK>(() => sdk, [sdk.parameters.instance.release]); // eslint-disable-line -- TODO: explain this disable
+  /* eslint-disable -- TODO: explain this disable */
+  const sdkMemo = React.useMemo<FieldAppSDK>(
+    () => sdk,
+    [sdk.parameters.instance.release, sdk.field.validations],
+  );
+  /* eslint-enable */
 
   return sdkMemo;
 }
