@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.4.10...@contentful/field-editor-rich-text@4.5.0) (2025-06-06)
+
+### Features
+
+- pass correct params to show release status [TOL-3103] ([#1878](https://github.com/contentful/field-editors/issues/1878)) ([ec5ef46](https://github.com/contentful/field-editors/commit/ec5ef465ab36ec51fec83d38a7bcf6cbf50f0ac4))
+
 ## [4.4.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.4.9...@contentful/field-editor-rich-text@4.4.10) (2025-06-06)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
