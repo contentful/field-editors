@@ -6,9 +6,9 @@ import type { ReleaseAction } from '../types';
 export type ParsedReleaseParams = {
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   locales: LocaleProps[];
-  activeRelease: ReleaseV2Props;
+  activeRelease: ReleaseV2Props | undefined;
   isActiveReleaseLoading: boolean;
-  releases: CollectionProp<ReleaseV2Props>;
+  releases: CollectionProp<ReleaseV2Props> | undefined;
 };
 
 type RawReleaseParams = {
@@ -19,8 +19,19 @@ type RawReleaseParams = {
   releases: CollectionProp<ReleaseV2Props>;
 };
 
-export function parseReleaseParams(raw: string): ParsedReleaseParams {
+export function parseReleaseParams(raw: string | undefined): ParsedReleaseParams {
   let parsedRaw: RawReleaseParams;
+
+  if (!raw) {
+    return {
+      releaseVersionMap: new Map(),
+      locales: [],
+      activeRelease: undefined,
+      isActiveReleaseLoading: false,
+      releases: undefined,
+    };
+  }
+
   try {
     parsedRaw = JSON.parse(raw) as RawReleaseParams;
   } catch (e) {
