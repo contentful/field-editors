@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-import { LocalePublishStatusMap } from '@contentful/field-editor-shared';
+import {
+  LocalePublishStatusMap,
+  type ReleaseAction,
+  type ReleaseLocalesStatusMap,
+  type ReleaseV2Props,
+} from '@contentful/field-editor-shared';
 import { LocaleProps } from 'contentful-management';
 
 import { WrappedAssetCardProps } from '../assets/WrappedAssetCard/WrappedAssetCard';
@@ -47,4 +52,8 @@ export type CustomEntityCardProps = {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
+  isReleasesLoading?: boolean;
+  releaseAction?: ReleaseAction;
+  activeRelease?: ReleaseV2Props;
 } & Partial<WrappedAssetCardProps>;

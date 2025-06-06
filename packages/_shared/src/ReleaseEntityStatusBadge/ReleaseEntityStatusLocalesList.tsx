@@ -4,13 +4,13 @@ import { MenuSectionTitle } from '@contentful/f36-components';
 import type { LocaleProps } from 'contentful-management';
 import { sortBy } from 'lodash';
 
+import { ReleaseLocalesStatus, ReleaseLocalesStatusMap } from '../types';
 import { Banner } from './Banner';
 import { ReleaseEntityStatusLocale } from './ReleaseEntityStatusLocale';
-import { ReleaseLocalesStatus, ReleaseLocalesStatusMap } from './types';
 
 function groupAndSortLocales(
   entries: [string, ReleaseLocalesStatus][],
-  activeLocales?: Pick<LocaleProps, 'code'>[]
+  activeLocales?: Pick<LocaleProps, 'code'>[],
 ) {
   // Group into selected locales (for editing) and non selected
   const { selected, nonSelected } = entries.reduce(
@@ -25,7 +25,7 @@ function groupAndSortLocales(
             nonSelected: [...prev.nonSelected, localeStatusType],
           };
     },
-    { selected: [] as ReleaseLocalesStatus[], nonSelected: [] as ReleaseLocalesStatus[] }
+    { selected: [] as ReleaseLocalesStatus[], nonSelected: [] as ReleaseLocalesStatus[] },
   );
 
   return {
@@ -65,7 +65,7 @@ export function ReleaseEntityStatusLocalesList({
       willPublish: prev.willPublish + (status === 'willPublish' ? 1 : 0),
       remainsDraft: prev.remainsDraft + (status === 'remainsDraft' ? 1 : 0),
     }),
-    { willPublish: 0, becomesDraft: 0, remainsDraft: 0 }
+    { willPublish: 0, becomesDraft: 0, remainsDraft: 0 },
   );
 
   const { selected, nonSelected } = groupAndSortLocales(entries, activeLocales);

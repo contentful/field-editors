@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Badge, BadgeVariant } from '@contentful/f36-components';
 
-import type { ReleaseAction } from './types';
+import type { ReleaseAction } from '../types';
 
 type ReleaseEntityActionBadgeProps = {
   action: ReleaseAction;

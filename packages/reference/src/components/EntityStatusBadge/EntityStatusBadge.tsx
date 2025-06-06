@@ -1,7 +1,15 @@
 import React from 'react';
 
 import { EntityStatusBadge as StatusBadge, type EntityStatus } from '@contentful/f36-components';
-import { LocalePublishingPopover, LocalePublishStatusMap } from '@contentful/field-editor-shared';
+import {
+  LocalePublishingPopover,
+  LocalePublishStatusMap,
+  ReleaseEntityStatusPopover,
+  ReleaseEntityStatusBadge,
+  type ReleaseAction,
+  type ReleaseLocalesStatusMap,
+  type ReleaseV2Props,
+} from '@contentful/field-editor-shared';
 import { EntryProps, LocaleProps, AssetProps } from 'contentful-management';
 
 import {
@@ -16,6 +24,10 @@ type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
+  isReleasesLoading?: boolean;
+  releaseAction?: ReleaseAction;
+  activeRelease?: ReleaseV2Props;
 };
 
 export function EntityStatusBadge({
@@ -26,6 +38,10 @@ export function EntityStatusBadge({
   localesStatusMap,
   activeLocales,
   entity,
+  releaseLocalesStatusMap,
+  isReleasesLoading,
+  releaseAction,
+  activeRelease,
   ...props
 }: EntityStatusBadgeProps) {
   const { isError, isLoading, jobs } = useScheduledActions({
@@ -34,6 +50,23 @@ export function EntityStatusBadge({
     getEntityScheduledActions,
   });
 
+  // release entry + locale based publishing
+  if (activeRelease && releaseLocalesStatusMap && useLocalizedEntityStatus && activeLocales) {
+    return (
+      <ReleaseEntityStatusPopover
+        releaseLocalesStatusMap={releaseLocalesStatusMap}
+        activeLocales={activeLocales}
+        isLoading={isReleasesLoading}
+      />
+    );
+  }
+
+  // release entry + entry based publishing
+  if (activeRelease && releaseAction) {
+    return <ReleaseEntityStatusBadge action={releaseAction} />;
+  }
+
+  // current base entry + locale based publishing
   if (useLocalizedEntityStatus && activeLocales && localesStatusMap) {
     return (
       <LocalePublishingPopover
@@ -46,6 +79,7 @@ export function EntityStatusBadge({
     );
   }
 
+  // current base entry + entry based publishing
   if (isError || isLoading || jobs.length === 0) {
     return <StatusBadge {...props} entityStatus={status} />;
   }

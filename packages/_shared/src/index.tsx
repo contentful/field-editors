@@ -26,11 +26,14 @@ export { PredefinedValuesError } from './PredefinedValuesError';
 export { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
+export * from './utils/parseReleaseParameters';
 export * from './hooks/useLocalePublishStatus';
 export * from './hooks/useActiveLocales';
 export { ModalDialogLauncher };
 export { entityHelpers };
 export { ConstraintsUtils };
+export * from './types';
+export * from './hooks/useActiveReleaseLocalesStatuses';
 
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';
