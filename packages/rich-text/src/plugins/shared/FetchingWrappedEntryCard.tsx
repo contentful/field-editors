@@ -13,6 +13,10 @@ import {
   LocalePublishStatusMap,
   useLocalePublishStatus,
   useActiveLocales,
+  parseReleaseParams,
+  useActiveReleaseLocalesStatuses,
+  type ReleaseLocalesStatusMap,
+  type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -26,10 +30,20 @@ interface InternalEntryCard {
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
   localesStatusMap?: LocalePublishStatusMap;
+  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
+  isActiveReleaseLoading?: boolean;
+  activeRelease?: ReleaseV2Props;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  const { entry, sdk, loadEntityScheduledActions } = props;
+  const {
+    entry,
+    sdk,
+    loadEntityScheduledActions,
+    releaseLocalesStatusMap,
+    isActiveReleaseLoading,
+    activeRelease,
+  } = props;
 
   const contentType = sdk.space
     .getCachedContentTypes()
@@ -58,6 +72,9 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
           ? (dragHandleProps) => <DragHandle label="drag embedded entry" {...dragHandleProps} />
           : undefined
       }
+      releaseLocalesStatusMap={releaseLocalesStatusMap}
+      isReleasesLoading={isActiveReleaseLoading}
+      activeRelease={activeRelease}
     />
   );
 }, areEqual);
@@ -81,9 +98,19 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', entryId),
-    [getEntityScheduledActions, entryId]
+    [getEntityScheduledActions, entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
+  const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
+    parseReleaseParams(props.sdk.parameters.instance.release);
+  const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
+    currentEntryDraft: entry,
+    entryId: props.entryId,
+    releaseVersionMap,
+    locales,
+    activeRelease,
+    releases,
+  });
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -116,6 +143,9 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       onRemove={props.onRemove}
       loadEntityScheduledActions={loadEntityScheduledActions}
       localesStatusMap={localesStatusMap}
+      releaseLocalesStatusMap={releaseLocalesStatusMap}
+      isActiveReleaseLoading={isActiveReleaseLoading}
+      activeRelease={activeRelease}
     />
   );
 };

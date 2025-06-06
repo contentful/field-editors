@@ -18,8 +18,8 @@ export const useActiveReleaseLocalesStatuses = ({
   entryId: string;
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   locales: LocaleProps[];
-  activeRelease: ReleaseV2Props;
-  releases: CollectionProp<ReleaseV2Props>;
+  activeRelease: ReleaseV2Props | undefined;
+  releases: CollectionProp<ReleaseV2Props> | undefined;
 }) => {
   const previousReleaseEntity = useMemo(
     () =>
