@@ -52,10 +52,12 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@contentful/app-sdk": "^4.29.0",
-    "@contentful/field-editor-test-utils": "^1.5.2"
+    "@contentful/field-editor-test-utils": "^1.5.2",
+    "@lingui/core": "5.2.0"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.29.0",
+    "@lingui/core": "^5.2.0",
     "react": ">=16.8.0"
   },
   "publishConfig": {

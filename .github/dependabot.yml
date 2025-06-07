@@ -26,3 +26,13 @@ updates:
       - npm-github
     reviewers:
       - 'contentful/team-tolkien'
+    groups:
+      lingui:
+        patterns:
+          - "@lingui/react"
+          - "@lingui/core"
+          - "@lingui/cli"
+          - "@lingui/swc-plugin"
+        update-types:
+          - "minor"
+          - "patch"
