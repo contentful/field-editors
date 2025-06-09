@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.5.0...@contentful/field-editor-rich-text@4.6.0) (2025-06-09)
+
+### Features
+
+- update cached sdk on field.validations change [FUS-621] ([#1879](https://github.com/contentful/field-editors/issues/1879)) ([73d7059](https://github.com/contentful/field-editors/commit/73d7059628b13a0d57666ddf2c314748e96c054f))
+
 # [4.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.4.10...@contentful/field-editor-rich-text@4.5.0) (2025-06-06)
 
 ### Features
