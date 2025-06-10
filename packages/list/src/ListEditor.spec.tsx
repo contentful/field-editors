@@ -2,7 +2,14 @@ import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';
-import { RenderResult, cleanup, configure, fireEvent, render } from '@testing-library/react';
+import {
+  RenderResult,
+  cleanup,
+  configure,
+  fireEvent,
+  render,
+  waitFor,
+} from '@testing-library/react';
 
 import { ListEditor } from './ListEditor';
 
@@ -31,7 +38,7 @@ describe('ListEditor', () => {
       };
     });
     const renderResult = render(
-      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expectInputValue(renderResult, '');
@@ -48,7 +55,7 @@ describe('ListEditor', () => {
     }, initialValue);
 
     const renderResult = render(
-      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expectInputValue(renderResult, 'test1, test2, test3');
@@ -65,7 +72,7 @@ describe('ListEditor', () => {
     });
 
     const renderResult = render(
-      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     changeInputValue(renderResult, 'test1');
@@ -91,16 +98,41 @@ describe('ListEditor', () => {
           validations: [],
         };
       },
-      ['test1']
+      ['test1'],
     );
 
     const renderResult = render(
-      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     changeInputValue(renderResult, 'test1,');
 
     expect(field.setValue).toHaveBeenLastCalledWith(['test1']);
     expectInputValue(renderResult, 'test1,');
+  });
+
+  it('listens to external changes', async () => {
+    const [field] = createFakeFieldAPI(
+      (field) => {
+        jest.spyOn(field, 'setValue');
+        return {
+          ...field,
+          validations: [],
+        };
+      },
+      ['test1'],
+    );
+
+    const renderResult = render(
+      <ListEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
+    );
+
+    expectInputValue(renderResult, 'test1');
+
+    field.setValue(['test1', 'test2']);
+
+    await waitFor(() => {
+      expectInputValue(renderResult, 'test1, test2');
+    });
   });
 });
