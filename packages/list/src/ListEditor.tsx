@@ -35,6 +35,20 @@ function isEmptyListValue(value: ListValue | null) {
   return value === null || value.length === 0;
 }
 
+const useExternalChanges = (cb: (newValue: string) => void, externalValue?: ListValue | null) => {
+  const lastExternalValue = React.useRef(externalValue);
+
+  React.useEffect(() => {
+    if (isEqual(lastExternalValue.current, externalValue)) {
+      return;
+    }
+
+    lastExternalValue.current = externalValue;
+
+    cb((externalValue ?? []).join(', '));
+  }, [cb, externalValue]);
+};
+
 export function ListEditor(props: ListEditorProps) {
   const { field, locales, id } = props;
 
@@ -85,6 +99,9 @@ function ListEditorInternal({
     const valueAsString = valueAsArray.join(', ');
     setValueState(changed ? valueAsString : e.target.value);
   };
+
+  // Ensure changes done via sdk.field.setValue are reflected
+  useExternalChanges(setValueState, value);
 
   return (
     <TextInput
