@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.5.5...@contentful/field-editor-list@1.5.6) (2025-06-11)
+
+### Bug Fixes
+
+- **list:** listen for external value updates ([#1882](https://github.com/contentful/field-editors/issues/1882)) ([9aea4b3](https://github.com/contentful/field-editors/commit/9aea4b3356f8206195c951a7e0900a9aafb0808d))
+
 ## [1.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-list@1.5.4...@contentful/field-editor-list@1.5.5) (2025-06-06)
 
 **Note:** Version bump only for package @contentful/field-editor-list
