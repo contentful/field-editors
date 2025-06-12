@@ -90,24 +90,9 @@ To ensure uniqueness, consistency, and descriptive keys, the keys follow a namin
 
 A custom [ESLint rule](./tools/eslint-rules/custom/enforce-translation-key-naming.js) is available to ensure the naming convention is followed, and that only supported projects prefixes are used.
 
-[Learn more about how to structure your translation keys](https://contentful.atlassian.net/wiki/x/vgDpNQE).
-
 ## Adding translations
 
 Depending on the structure and complexity of your strings, use the `t` function or `Trans` component.
-
-[Learn more about how to add translations](https://contentful.atlassian.net/wiki/x/GIDPOQE).
-
-## How to extract and sync keys with Contentful
-
-> [!WARNING]  
-> As of May 2025, extracting keys is limited to the UI Foundation team members.
-> We aim to automate the keys extraction on the CI when a Pull Request is opened.
-> This document and our Confluence pages will be updated accordingly.
-
-Run the `npm run upload-translation-keys <CMA_TOKEN>` to extract keys and sync them to the UI Foundation Contentful space.
-
-The [extract-new-translation-keys.mjs](./tools/extract-new-translation-keys/extract-new-translation-keys.mjs) takes care of the local keys extraction and remote entries creation/sync processes.
 
 ## Quality & Code Style
 
