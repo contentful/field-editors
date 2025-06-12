@@ -78,6 +78,37 @@ yarn link '@contentful/field-editor-single-line'
 
 To add another package create a new directory in the `packages` folder. Since we are using Lerna all package scripts are available from the root by running `lerna run <script_name>`.
 
+## Internationalization (i18n) setup
+
+The project supports i18n thanks to the [Lingui library](https://lingui.dev/).
+
+## Prerequisites & Naming conventions
+
+To translate your strings, you need to make them identifiable with a translation key, represented by the `id`.
+
+To ensure uniqueness, consistency, and descriptive keys, the keys follow a naming convention.
+
+A custom [ESLint rule](./tools/eslint-rules/custom/enforce-translation-key-naming.js) is available to ensure the naming convention is followed, and that only supported projects prefixes are used.
+
+[Learn more about how to structure your translation keys](https://contentful.atlassian.net/wiki/x/vgDpNQE).
+
+## Adding translations
+
+Depending on the structure and complexity of your strings, use the `t` function or `Trans` component.
+
+[Learn more about how to add translations](https://contentful.atlassian.net/wiki/x/GIDPOQE).
+
+## How to extract and sync keys with Contentful
+
+> [!WARNING]  
+> As of May 2025, extracting keys is limited to the UI Foundation team members.
+> We aim to automate the keys extraction on the CI when a Pull Request is opened.
+> This document and our Confluence pages will be updated accordingly.
+
+Run the `npm run upload-translation-keys <CMA_TOKEN>` to extract keys and sync them to the UI Foundation Contentful space.
+
+The [extract-new-translation-keys.mjs](./tools/extract-new-translation-keys/extract-new-translation-keys.mjs) takes care of the local keys extraction and remote entries creation/sync processes.
+
 ## Quality & Code Style
 
 ### Commit messages
