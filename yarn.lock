@@ -4184,12 +4184,12 @@
     slash "^3.0.0"
     strip-ansi "^6.0.0"
 
-"@jest/create-cache-key-function@^27.4.2":
-  version "27.5.1"
-  resolved "https://registry.yarnpkg.com/@jest/create-cache-key-function/-/create-cache-key-function-27.5.1.tgz#7448fae15602ea95c828f5eceed35c202a820b31"
-  integrity sha512-dmH1yW+makpTSURTy8VzdUwFnfQh1G8R+DxO2Ho2FFmBbKFEVm+3jWdvFhE2VqB/LATCTokkP0dotjyQyw5/AQ==
+"@jest/create-cache-key-function@^29.7.0":
+  version "29.7.0"
+  resolved "https://registry.yarnpkg.com/@jest/create-cache-key-function/-/create-cache-key-function-29.7.0.tgz#793be38148fab78e65f40ae30c36785f4ad859f0"
+  integrity sha512-4QqS3LY5PBmTRHj9sAg1HLoPzqAI0uOX6wI/TRqHIcOxlFidy6YEmCQJk6FSZjNLGCeubDMfmkWL+qaLKhSGQA==
   dependencies:
-    "@jest/types" "^27.5.1"
+    "@jest/types" "^29.6.3"
 
 "@jest/environment@^27.5.1":
   version "27.5.1"
@@ -4648,39 +4648,39 @@
   dependencies:
     "@lezer/common" "^1.0.0"
 
-"@lingui/babel-plugin-extract-messages@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@lingui/babel-plugin-extract-messages/-/babel-plugin-extract-messages-5.2.0.tgz#5d6dfce132256042e894c6bd04fee353573d1ca9"
-  integrity sha512-hQ6tFK72ZXX2813PU9thJbnwJ+SjSrfR3/tt4aqHJcOUdrb67wMVY/0xiUe+vb5y6kVZjZ4oPqdgCfGZ2jWBEw==
+"@lingui/babel-plugin-extract-messages@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/babel-plugin-extract-messages/-/babel-plugin-extract-messages-5.3.0.tgz#2d698267f2d771d09d69794f89b040b69991dab2"
+  integrity sha512-cusecMVMT6oLUYiiw9lUtyna+v+B7u3HtbPDZTjGJXWGPSBtIUASL4c9dhvf5u6/BQyyiwZTsnC9vNMso+iRLQ==
 
-"@lingui/babel-plugin-lingui-macro@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@lingui/babel-plugin-lingui-macro/-/babel-plugin-lingui-macro-5.2.0.tgz#62a59042a09c45baf78b5cdadb3d417409f5ba41"
-  integrity sha512-IEpEfKW2WoGiK30dbovwXaPj69dKUP+GEAk00/6KUMB0sonaBWO4NO3Bj9G6NSdA6fB1lm9BtvuPqJQ2DvjF5g==
+"@lingui/babel-plugin-lingui-macro@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/babel-plugin-lingui-macro/-/babel-plugin-lingui-macro-5.3.0.tgz#8e95aed7ed74f6e2b5cd11e4d9b9663a4435d044"
+  integrity sha512-vU8mGvZR4ope5l9Fq5gChFs+XyuscKmgVVVavkuns/w7K5ITNbFMjITTGNE6wUoOwYGabjIsc/eK/7clmK/KeA==
   dependencies:
     "@babel/core" "^7.20.12"
     "@babel/runtime" "^7.20.13"
     "@babel/types" "^7.20.7"
-    "@lingui/conf" "5.2.0"
-    "@lingui/core" "5.2.0"
-    "@lingui/message-utils" "5.2.0"
+    "@lingui/conf" "5.3.0"
+    "@lingui/core" "5.3.0"
+    "@lingui/message-utils" "5.3.0"
 
-"@lingui/cli@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@lingui/cli/-/cli-5.2.0.tgz#a884a5e1a558ca5d76cd3be84d41816c1a32e4bf"
-  integrity sha512-SLMPi9VMNAmhKRGt3HCGIZVHHmxfAcb7zNK9qwrEhlvcwxNmtsPtLb4iJvKy/VpdCQYm7C6D34tFjyVjUZ4ROg==
+"@lingui/cli@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/cli/-/cli-5.3.0.tgz#6decb488a5a436873874e6c0648cdbbecdaf2bc2"
+  integrity sha512-HRyD6B7gzabVnMmrIogmFgtY9PbzhZwRE+5ZtXPWKFRNkY4ooaTu6UsR/anhM+bOvPuC4hqFxKkyuSTVVzup/A==
   dependencies:
     "@babel/core" "^7.21.0"
     "@babel/generator" "^7.21.1"
     "@babel/parser" "^7.22.0"
     "@babel/runtime" "^7.21.0"
     "@babel/types" "^7.21.2"
-    "@lingui/babel-plugin-extract-messages" "5.2.0"
-    "@lingui/babel-plugin-lingui-macro" "5.2.0"
-    "@lingui/conf" "5.2.0"
-    "@lingui/core" "5.2.0"
-    "@lingui/format-po" "5.2.0"
-    "@lingui/message-utils" "5.2.0"
+    "@lingui/babel-plugin-extract-messages" "5.3.0"
+    "@lingui/babel-plugin-lingui-macro" "5.3.0"
+    "@lingui/conf" "5.3.0"
+    "@lingui/core" "5.3.0"
+    "@lingui/format-po" "5.3.0"
+    "@lingui/message-utils" "5.3.0"
     babel-plugin-macros "^3.0.1"
     chalk "^4.1.0"
     chokidar "3.5.1"
@@ -4700,10 +4700,10 @@
     pseudolocale "^2.0.0"
     source-map "^0.8.0-beta.0"
 
-"@lingui/conf@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@lingui/conf/-/conf-5.2.0.tgz#21016dc806ba015ac2c6ed64a61d56d5ec652910"
-  integrity sha512-3biQJxGntCP+EnOe9jjlquGCBfk6ogq+I8ZduHwmBceY5aQ0OR7V23ItDrMz0NBy8dFNk5YoeHun3CYKYOS/Jg==
+"@lingui/conf@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/conf/-/conf-5.3.0.tgz#60210d32d46f2b4367eb298ffcfa2eabd0ed55a5"
+  integrity sha512-MmLRc9sOq3o6JOnivLhaDkADrskFL2KM7j3xftm000QFcqv8thS6BrFHdvDvF1qcAH5XQ2DV8xZj+b1u4XvNkg==
   dependencies:
     "@babel/runtime" "^7.20.13"
     chalk "^4.1.0"
@@ -4721,7 +4721,16 @@
     "@lingui/message-utils" "5.2.0"
     unraw "^3.0.0"
 
-"@lingui/core@5.3.1", "@lingui/core@^5.2.0":
+"@lingui/core@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/core/-/core-5.3.0.tgz#a5a0dc4132fb6d59c15dd93b6f5d0b2072223fcf"
+  integrity sha512-Y0anQ4a/E7nqwnrOLGlrVanWufx8xy6+WDT18U3GavJ2LRNv44NYzjw85jd6SJOsxgfcSFnTf4xh/Bq44AgRpQ==
+  dependencies:
+    "@babel/runtime" "^7.20.13"
+    "@lingui/message-utils" "5.3.0"
+    unraw "^3.0.0"
+
+"@lingui/core@5.3.1":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@lingui/core/-/core-5.3.1.tgz#043de7371f0c176c0037bd64833a9f88bef7c94a"
   integrity sha512-Y6WdhTlzzz+HzE6rn34rVoyXuKvTHTF5JmKdevTRu5x7ZfURaEtcoT9y6k9jgA2QMaP8YblcnU50M0svn/UZTA==
@@ -4730,13 +4739,13 @@
     "@lingui/message-utils" "5.3.1"
     unraw "^3.0.0"
 
-"@lingui/format-po@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@lingui/format-po/-/format-po-5.2.0.tgz#4d960f8c7513a3050bc58e300104df52733606bf"
-  integrity sha512-viUQaoRa8UxSghayTY7xjtwXbfXIVdlM8C4HsxmozQnl5TXnPVEwlaPYds3sdJ8PmQGcYCm35r8EsmuKBoWYDQ==
+"@lingui/format-po@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/format-po/-/format-po-5.3.0.tgz#4b55b71e51a021e1a53b3f68e6cf47d6dd9657cf"
+  integrity sha512-ekMpkM9oscsPirxBGHLjV+lKCb3ZIXlcVzfybUfQc4k2uqrIova9WuBiraS5K7BFpHiRsshphPPd0mztFWGUyg==
   dependencies:
-    "@lingui/conf" "5.2.0"
-    "@lingui/message-utils" "5.2.0"
+    "@lingui/conf" "5.3.0"
+    "@lingui/message-utils" "5.3.0"
     date-fns "^3.6.0"
     pofile "^1.1.4"
 
@@ -4744,6 +4753,14 @@
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@lingui/message-utils/-/message-utils-5.2.0.tgz#8bef7a5a26723ece5661a70f911ffb941f1d942e"
   integrity sha512-qJFKNc1b7SRX6y5ywtA1x+2/gaY22e09hjC6fiDvDpAFdEguI4qAJGmBmqlAZG/kcokR0tmMpo9zYUF8jjcHEA==
+  dependencies:
+    "@messageformat/parser" "^5.0.0"
+    js-sha256 "^0.10.1"
+
+"@lingui/message-utils@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/message-utils/-/message-utils-5.3.0.tgz#ac75c5087c65dfb84aada861389366a70cae9357"
+  integrity sha512-pWh7rUUkIdfq2WrxXpXXlnikmKDf+2OvHUb0LTb60AyWAvvFT0rtZ1O2OSLUQ68rKfSQJCTYl1o6LELHJ38EXA==
   dependencies:
     "@messageformat/parser" "^5.0.0"
     js-sha256 "^0.10.1"
@@ -4764,10 +4781,10 @@
     "@babel/runtime" "^7.20.13"
     "@lingui/core" "5.3.1"
 
-"@lingui/swc-plugin@5.5.2":
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/@lingui/swc-plugin/-/swc-plugin-5.5.2.tgz#0cd4221229930c1765318b99b5973c1192b14346"
-  integrity sha512-QIqfvB6N07o8qvVFptPKh9vZWTTz/l88+7yPP9C6r9niLCHCZeizbpzuTz6o7G0Kd0ZR9txdlUnCkkFD188kkw==
+"@lingui/swc-plugin@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@lingui/swc-plugin/-/swc-plugin-5.3.0.tgz#e15dff3bb05a327a98a365b88922466dbe08a68d"
+  integrity sha512-SjffZi97TgjBGYynuCcOA130VHUYOQdUTXw6t0C7NpCcF3MIKRCgqaKqACBzPf/LzRR6NRclkPcvMhte2n24eA==
 
 "@mapbox/point-geometry@^0.1.0":
   version "0.1.0"
@@ -6099,92 +6116,93 @@
     slash "3.0.0"
     source-map "^0.7.3"
 
-"@swc/core-darwin-arm64@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.11.10.tgz#d1c9000839d4483983f203f9088fe4bf173616b7"
-  integrity sha512-FWwYyhUu+xRXldXHw4CBP6M0rXQs9gnE5/qodsb+cyOJaTHI8kU6FJtwaC0PiOVxjREdg/DoTrXS4sZUiL881A==
+"@swc/core-darwin-arm64@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.7.26.tgz#5f4096c00e71771ca1b18c824f0c92a052c70760"
+  integrity sha512-FF3CRYTg6a7ZVW4yT9mesxoVVZTrcSWtmZhxKCYJX9brH4CS/7PRPjAKNk6kzWgWuRoglP7hkjQcd6EpMcZEAw==
 
-"@swc/core-darwin-x64@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-darwin-x64/-/core-darwin-x64-1.11.10.tgz#ff6d96e86b92835621a8600d370221661b36d384"
-  integrity sha512-NKQ62w81TGR5YAidV3KF7CDY0nu62OWmz6Hl/mB/i8Cd9xPc+MnLwdY1cJOU/DsrU4YnRFSaOfBF4Fx4mKLWxA==
+"@swc/core-darwin-x64@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-x64/-/core-darwin-x64-1.7.26.tgz#867b7a4f094e6b64201090ca5fcbf3da7d0f3e22"
+  integrity sha512-az3cibZdsay2HNKmc4bjf62QVukuiMRh5sfM5kHR/JMTrLyS6vSw7Ihs3UTkZjUxkLTT8ro54LI6sV6sUQUbLQ==
 
-"@swc/core-linux-arm-gnueabihf@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.11.10.tgz#272b7a61b4cfd7b55858f45c18f515be00250c34"
-  integrity sha512-1Vu+ZjoR7M8ShIf0Koi+B1OJ6DsU7jd4Py743KCgKlabvLFrv/uahp5fPJ1kyAUTxFE5d37qWqWLl5NkYDmDtQ==
+"@swc/core-linux-arm-gnueabihf@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.7.26.tgz#35bb43894def296d92aaa2cc9372d48042f37777"
+  integrity sha512-VYPFVJDO5zT5U3RpCdHE5v1gz4mmR8BfHecUZTmD2v1JeFY6fv9KArJUpjrHEEsjK/ucXkQFmJ0jaiWXmpOV9Q==
 
-"@swc/core-linux-arm64-gnu@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.11.10.tgz#eb640594f7445bf219a50b30f70b28a38c802289"
-  integrity sha512-mP26821Auyqa+Dce8gFlH4GxxbJ8xJU8H5/iIU8ObK12ulmK75G2VdILoc3gFDKfx3K7IqQkfokW3PAGI9X2Vg==
+"@swc/core-linux-arm64-gnu@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.7.26.tgz#8e2321cc4ec84cbfed8f8e16ff1ed7b854450443"
+  integrity sha512-YKevOV7abpjcAzXrhsl+W48Z9mZvgoVs2eP5nY+uoMAdP2b3GxC0Df1Co0I90o2lkzO4jYBpTMcZlmUXLdXn+Q==
 
-"@swc/core-linux-arm64-musl@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.11.10.tgz#6541a5dade06f06a5edd8fc49a00efcfdea492f2"
-  integrity sha512-XZ61quwNgTqvbMqpFAa6/ZqoErabocHUHMWQHyShxbqM2nkP1sBe6EgODX6mNSzLn0u+KDVRyQUy9ratt+xbFw==
+"@swc/core-linux-arm64-musl@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.7.26.tgz#b1c16e4b23ffa9ff19973eda6ffee35d2a7de7b0"
+  integrity sha512-3w8iZICMkQQON0uIcvz7+Q1MPOW6hJ4O5ETjA0LSP/tuKqx30hIniCGOgPDnv3UTMruLUnQbtBwVCZTBKR3Rkg==
 
-"@swc/core-linux-x64-gnu@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.11.10.tgz#c96479183a2055f7f35b4acd5863e996085dd481"
-  integrity sha512-BwohorC2nkak8YQuS6IH/70XkhBjqmPbL7KT0NKmr4sstRe52I3F5Vbo30xBckpvT8ZRPvjmjK3FvJ2Rf3PRmw==
+"@swc/core-linux-x64-gnu@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.7.26.tgz#388e2cc13a010cd28787aead2cecf31eb491836d"
+  integrity sha512-c+pp9Zkk2lqb06bNGkR2Looxrs7FtGDMA4/aHjZcCqATgp348hOKH5WPvNLBl+yPrISuWjbKDVn3NgAvfvpH4w==
 
-"@swc/core-linux-x64-musl@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.11.10.tgz#01d25fc3e5da63af7765041a74175ad93eb4873a"
-  integrity sha512-bCaEJVB1+5KscAolNfL6qd3I1bVovhNDShutrTlNXNvjqNavWrX8z8ZfSJ3oK6CvrBzFR6fjCSqkoD+ckKBYBA==
+"@swc/core-linux-x64-musl@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.7.26.tgz#51e0ff30981f26d7a5b97a7a7b5b291bad050d1a"
+  integrity sha512-PgtyfHBF6xG87dUSSdTJHwZ3/8vWZfNIXQV2GlwEpslrOkGqy+WaiiyE7Of7z9AvDILfBBBcJvJ/r8u980wAfQ==
 
-"@swc/core-win32-arm64-msvc@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.11.10.tgz#f4971229837c2360ce4e074d11b1ce25b8491b9a"
-  integrity sha512-Gq4svadhEVP7xClzsV8W2/8R/kfEUbJJKIS2fj8hb9lM6/AVs/PVmDiLGye6cYfVpQzkdDsJLm8r4yhSAIFsFQ==
+"@swc/core-win32-arm64-msvc@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.7.26.tgz#a7fdcc4074c34ee6a026506b594d00323383c11f"
+  integrity sha512-9TNXPIJqFynlAOrRD6tUQjMq7KApSklK3R/tXgIxc7Qx+lWu8hlDQ/kVPLpU7PWvMMwC/3hKBW+p5f+Tms1hmA==
 
-"@swc/core-win32-ia32-msvc@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.11.10.tgz#ea912ff454548f71ec7c87af7525a0f8d6b6a5be"
-  integrity sha512-RkZYTY0pQiHgcoFJwZoFZiEWw4WB/XVLp+y90l4Ar1nnoQQNmfb4FyvWYZbDQgrMGP0Wj5WhZuMXzW12/qI5Kg==
+"@swc/core-win32-ia32-msvc@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.7.26.tgz#ae7be6dde798eebee2000b8fd84e01a439b5bd6a"
+  integrity sha512-9YngxNcG3177GYdsTum4V98Re+TlCeJEP4kEwEg9EagT5s3YejYdKwVAkAsJszzkXuyRDdnHUpYbTrPG6FiXrQ==
 
-"@swc/core-win32-x64-msvc@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.11.10.tgz#55f5d75783c9f580aa378c603fb3181aaa37bf5e"
-  integrity sha512-clDl+oAl6YLsqZiGb8NzpEXTdIzCTPCJSRFCeHIldjLlsAs+qsqItry2r2xSAKU1pFv4D7j9WgJmVVxOPgs/Jg==
+"@swc/core-win32-x64-msvc@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.7.26.tgz#310d607004d7319085a4dec20c0c38c3405cc05b"
+  integrity sha512-VR+hzg9XqucgLjXxA13MtV5O3C0bK0ywtLIBw/+a+O+Oc6mxFWHtdUeXDbIi5AiPbn0fjgVJMqYnyjGyyX8u0w==
 
-"@swc/core@1.11.10":
-  version "1.11.10"
-  resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.11.10.tgz#86db933284d4d74f13424f2e27dc42246719c5f3"
-  integrity sha512-Si27CiYwqJSF3K0HgxugQnjHNfH7YqqD89V+fLpyRHr81uTmCQpF0bnVdRMQ2SGAkCFJACYETRiBSrZOQ660+Q==
+"@swc/core@1.7.26":
+  version "1.7.26"
+  resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.7.26.tgz#beda9b82063fcec7b56c958804a4d175aecf9a9d"
+  integrity sha512-f5uYFf+TmMQyYIoxkn/evWhNGuUzC730dFwAKGwBVHHVoPyak1/GvJUm6i1SKl+2Hrj9oN0i3WSoWWZ4pgI8lw==
   dependencies:
     "@swc/counter" "^0.1.3"
-    "@swc/types" "^0.1.19"
+    "@swc/types" "^0.1.12"
   optionalDependencies:
-    "@swc/core-darwin-arm64" "1.11.10"
-    "@swc/core-darwin-x64" "1.11.10"
-    "@swc/core-linux-arm-gnueabihf" "1.11.10"
-    "@swc/core-linux-arm64-gnu" "1.11.10"
-    "@swc/core-linux-arm64-musl" "1.11.10"
-    "@swc/core-linux-x64-gnu" "1.11.10"
-    "@swc/core-linux-x64-musl" "1.11.10"
-    "@swc/core-win32-arm64-msvc" "1.11.10"
-    "@swc/core-win32-ia32-msvc" "1.11.10"
-    "@swc/core-win32-x64-msvc" "1.11.10"
+    "@swc/core-darwin-arm64" "1.7.26"
+    "@swc/core-darwin-x64" "1.7.26"
+    "@swc/core-linux-arm-gnueabihf" "1.7.26"
+    "@swc/core-linux-arm64-gnu" "1.7.26"
+    "@swc/core-linux-arm64-musl" "1.7.26"
+    "@swc/core-linux-x64-gnu" "1.7.26"
+    "@swc/core-linux-x64-musl" "1.7.26"
+    "@swc/core-win32-arm64-msvc" "1.7.26"
+    "@swc/core-win32-ia32-msvc" "1.7.26"
+    "@swc/core-win32-x64-msvc" "1.7.26"
 
 "@swc/counter@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@swc/counter/-/counter-0.1.3.tgz#cc7463bd02949611c6329596fccd2b0ec782b0e9"
   integrity sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==
 
-"@swc/jest@0.2.29":
-  version "0.2.29"
-  resolved "https://registry.yarnpkg.com/@swc/jest/-/jest-0.2.29.tgz#b27d647ec430c909f9bb567d1df2a47eaa3841f4"
-  integrity sha512-8reh5RvHBsSikDC3WGCd5ZTd2BXKkyOdK7QwynrCH58jk2cQFhhHhFBg/jvnWZehUQe/EoOImLENc9/DwbBFow==
+"@swc/jest@0.2.37":
+  version "0.2.37"
+  resolved "https://registry.yarnpkg.com/@swc/jest/-/jest-0.2.37.tgz#9c2aaf22c87682aa968016e3e4843d1a25cae6bd"
+  integrity sha512-CR2BHhmXKGxTiFr21DYPRHQunLkX3mNIFGFkxBGji6r9uyIR5zftTOVYj1e0sFNMV2H7mf/+vpaglqaryBtqfQ==
   dependencies:
-    "@jest/create-cache-key-function" "^27.4.2"
+    "@jest/create-cache-key-function" "^29.7.0"
+    "@swc/counter" "^0.1.3"
     jsonc-parser "^3.2.0"
 
-"@swc/types@^0.1.19":
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/@swc/types/-/types-0.1.21.tgz#6fcadbeca1d8bc89e1ab3de4948cef12344a38c0"
-  integrity sha512-2YEtj5HJVbKivud9N4bpPBAyZhj4S2Ipe5LkUG94alTpr7in/GU/EARgPAd3BwU+YOmFVJC2+kjqhGRi3r0ZpQ==
+"@swc/types@^0.1.12":
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/@swc/types/-/types-0.1.23.tgz#7eabf88b9cfd929253859c562ae95982ee04b4e8"
+  integrity sha512-u1iIVZV9Q0jxY+yM2vw/hZGDNudsN85bBpTqzAQ9rzkxW9D+e3aEM4Han+ow518gSewkXgjmEK0BD79ZcNVgPw==
   dependencies:
     "@swc/counter" "^0.1.3"
 
