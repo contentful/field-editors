@@ -1,7 +1,11 @@
 import { GlobalStyles } from '@contentful/f36-core';
 import tokens from '@contentful/f36-tokens';
 import { styled } from '@storybook/theming';
+import { i18n } from '@lingui/core';
+import { I18nProvider } from '@lingui/react';
 import * as React from 'react';
+i18n.activate('en-US');
+
 const preview = {
   parameters: {
     docs: {
@@ -25,7 +29,9 @@ const preview = {
     (Story) => (
       <div>
         <GlobalStyles />
-        <Story />
+        <I18nProvider i18n={i18n}>
+          <Story />
+        </I18nProvider>
       </div>
     ),
   ],

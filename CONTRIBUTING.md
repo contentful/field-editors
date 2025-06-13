@@ -78,6 +78,22 @@ yarn link '@contentful/field-editor-single-line'
 
 To add another package create a new directory in the `packages` folder. Since we are using Lerna all package scripts are available from the root by running `lerna run <script_name>`.
 
+## Internationalization (i18n) setup
+
+The project supports i18n thanks to the [Lingui library](https://lingui.dev/).
+
+## Prerequisites & Naming conventions
+
+To translate your strings, you need to make them identifiable with a translation key, represented by the `id`.
+
+To ensure uniqueness, consistency, and descriptive keys, the keys follow a naming convention.
+
+A custom [ESLint rule](./tools/eslint-rules/custom/enforce-translation-key-naming.js) is available to ensure the naming convention is followed, and that only supported projects prefixes are used.
+
+## Adding translations
+
+Depending on the structure and complexity of your strings, use the `t` function from `@lingui/core/macro` or the `Trans` react component from `@lingui/react`. Important: you have to add a default message to every new key added, in case the frontend application where a package is used, is not providing a translation catalog.
+
 ## Quality & Code Style
 
 ### Commit messages
