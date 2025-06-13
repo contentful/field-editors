@@ -92,7 +92,7 @@ A custom [ESLint rule](./tools/eslint-rules/custom/enforce-translation-key-namin
 
 ## Adding translations
 
-Depending on the structure and complexity of your strings, use the `t` function or `Trans` component.
+Depending on the structure and complexity of your strings, use the `t` function from `@lingui/core/macro` or the `Trans` react component from `@lingui/react`. Important: you have to add a default message to every new key added, in case the frontend application where a package is used, is not providing a translation catalog.
 
 ## Quality & Code Style
 
