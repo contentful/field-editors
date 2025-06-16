@@ -8,6 +8,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:lingui/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,7 +18,13 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'eslint-plugin-import-helpers'],
+  plugins: [
+    'react',
+    'react-hooks',
+    '@typescript-eslint',
+    'eslint-plugin-import-helpers',
+    'custom-lingui',
+  ],
   rules: {
     'react-hooks/exhaustive-deps': 'error',
     '@typescript-eslint/no-explicit-any': 'warn',
@@ -33,6 +40,7 @@ module.exports = {
     'no-restricted-imports': ['warn'],
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
+    'custom-lingui/enforce-translation-key-naming': 'error',
   },
   settings: {
     react: { version: 'detect' },

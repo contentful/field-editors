@@ -6,7 +6,7 @@ This is the monorepo for all field editors and apps by [Contentful][contentful].
 
 Since these are developed using the [App SDK][app-sdk], this will allow you to understand how each editor works, fork existing apps or create your own apps based on existing Contentful components' source rather than starting from scratch.
 
-It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and is managed using [Lerna][lerna]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
+It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design system & component library by Contentful) and is managed using [Lerna][lerna]. It supports translations with [linguiJs][lingui]. Code is automatically formatted with [Prettier][prettier] and checked with [ESLint][eslint] on every commit using Git hooks.
 
 ## Available field editors
 
@@ -101,3 +101,4 @@ All field editor packages are open source software [licensed as MIT](./LICENSE).
 [lerna]: https://github.com/lerna/lerna
 [prettier]: https://prettier.io/
 [eslint]: https://eslint.org/
+[lingui]: https://lingui.dev/
