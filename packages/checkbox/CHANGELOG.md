@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.38...@contentful/field-editor-checkbox@1.5.0) (2025-06-16)
+
+### Features
+
+- setup lingui [UFO-1763] ([#1871](https://github.com/contentful/field-editors/issues/1871)) ([49d44a2](https://github.com/contentful/field-editors/commit/49d44a2cd191bc214d6406d6c8cb7cd44796c110))
+
 ## [1.4.38](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@1.4.37...@contentful/field-editor-checkbox@1.4.38) (2025-06-06)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox

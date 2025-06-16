@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.8.1...@contentful/field-editor-reference@6.9.0) (2025-06-16)
+
+### Features
+
+- setup lingui [UFO-1763] ([#1871](https://github.com/contentful/field-editors/issues/1871)) ([49d44a2](https://github.com/contentful/field-editors/commit/49d44a2cd191bc214d6406d6c8cb7cd44796c110))
+
 ## [6.8.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.8.0...@contentful/field-editor-reference@6.8.1) (2025-06-06)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
