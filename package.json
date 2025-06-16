@@ -64,7 +64,7 @@
     "@swc/cli": "0.1.62",
     "@swc/core": "1.7.26",
     "@swc/jest": "0.2.37",
-    "@testing-library/cypress": "10.0.1",
+    "@testing-library/cypress": "10.0.3",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
     "@types/jest": "29.5.1",
