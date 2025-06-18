@@ -15,7 +15,7 @@ import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export function getWithEmbeddedEntryInlineEvents(
   nodeType: INLINES.EMBEDDED_ENTRY | INLINES.EMBEDDED_RESOURCE,
-  sdk: FieldAppSDK
+  sdk: FieldAppSDK,
 ): KeyboardHandler<HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
@@ -55,7 +55,7 @@ const createInlineEntryNode = (nodeType, entity) => {
 export async function selectEntityAndInsert(
   editor,
   sdk,
-  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction'],
 ) {
   const nodeType = INLINES.EMBEDDED_ENTRY;
   logAction('openCreateEmbedDialog', { nodeType });
@@ -75,7 +75,7 @@ export async function selectEntityAndInsert(
     // (i.e. when using hotkeys and slide-in)
     select(editor, selection);
     insertNodes(editor, createInlineEntryNode(nodeType, entry));
-    logAction('insert', { nodeType });
+    logAction('insert', { nodeType, entity: entry });
   }
   rteSlide.onActive(() => {
     rteSlide.unwatch();
@@ -86,7 +86,7 @@ export async function selectEntityAndInsert(
 export async function selectResourceEntityAndInsert(
   editor,
   sdk,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
 ) {
   const nodeType = INLINES.EMBEDDED_RESOURCE;
   logAction('openCreateEmbedDialog', { nodeType });
