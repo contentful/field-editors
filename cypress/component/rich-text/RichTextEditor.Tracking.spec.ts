@@ -703,7 +703,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           );
           cy.get('@onAction').should(
             'be.calledWithMatch',
-            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
+            ...insert(origin, {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              entity: Cypress.sinon.match.object,
+            }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -763,7 +766,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           );
           cy.get('@onAction').should(
             'be.calledWithMatch',
-            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
+            ...insert(origin, {
+              nodeType: BLOCKS.EMBEDDED_ASSET,
+              entity: Cypress.sinon.match.object,
+            }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -879,7 +885,10 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           );
           cy.get('@onAction').should(
             'be.calledWithMatch',
-            ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
+            ...insert(origin, {
+              nodeType: INLINES.EMBEDDED_ENTRY,
+              entity: Cypress.sinon.match.object,
+            }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
