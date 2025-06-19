@@ -29,7 +29,7 @@ import { TrackingPluginActions } from '../Tracking';
 
 export function getWithEmbeddedBlockEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET | BLOCKS.EMBEDDED_RESOURCE,
-  sdk: FieldAppSDK
+  sdk: FieldAppSDK,
 ): KeyboardHandler<HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event) => {
@@ -61,7 +61,7 @@ export async function selectEntityAndInsert(
   nodeType,
   sdk,
   editor,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
 ) {
   logAction('openCreateEmbedDialog', { nodeType });
 
@@ -83,7 +83,7 @@ export async function selectEntityAndInsert(
     select(editor, selection);
     insertBlock(editor, nodeType, entity);
     ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY]);
-    logAction('insert', { nodeType });
+    logAction('insert', { nodeType, entity });
   }
   // If user chose to create a new entity, this might open slide-in to edit the
   // entity. In this case, no point in focusing RTE which is now in the slide below.
@@ -96,7 +96,7 @@ export async function selectEntityAndInsert(
 export async function selectResourceEntityAndInsert(
   sdk,
   editor,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
 ) {
   logAction('openCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
 
@@ -135,7 +135,7 @@ function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   const lastNode = getLastNodeByLevel(editor, level);
 
   const isTextContainer = (TEXT_CONTAINERS as string[]).includes(
-    (lastNode?.[0].type ?? '') as string
+    (lastNode?.[0].type ?? '') as string,
   );
 
   // If the new block isn't followed by a sibling text container (e.g. paragraph)

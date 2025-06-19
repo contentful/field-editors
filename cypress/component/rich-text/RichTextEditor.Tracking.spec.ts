@@ -55,7 +55,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Unknown',
-        })
+        }),
       );
 
       richText.editor.click().type('{enter}').paste({ 'text/plain': 'Hello World!' });
@@ -67,7 +67,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 13,
           characterCountSelection: 0,
           source: 'Unknown',
-        })
+        }),
       );
       cy.get('@onAction').should('have.callCount', 2);
     });
@@ -84,7 +84,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Google Docs',
-        })
+        }),
       );
     });
 
@@ -100,7 +100,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Google Spreadsheets',
-        })
+        }),
       );
     });
 
@@ -116,7 +116,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Slack',
-        })
+        }),
       );
     });
 
@@ -132,7 +132,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Apple Notes',
-        })
+        }),
       );
     });
 
@@ -148,7 +148,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Microsoft Word',
-        })
+        }),
       );
     });
 
@@ -164,7 +164,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           characterCountBefore: 0,
           characterCountSelection: 0,
           source: 'Microsoft Excel',
-        })
+        }),
       );
     });
   });
@@ -192,13 +192,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
         toggleMarkViaToolbar(mark);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...action('mark', 'toolbar-icon', { markType: mark })
+          ...action('mark', 'toolbar-icon', { markType: mark }),
         );
 
         toggleMarkViaToolbar(mark);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...action('unmark', 'toolbar-icon', { markType: mark })
+          ...action('unmark', 'toolbar-icon', { markType: mark }),
         );
 
         cy.get('@onAction').should('have.callCount', 2);
@@ -208,13 +208,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
         richText.editor.click().type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...action('mark', 'shortcut', { markType: mark })
+          ...action('mark', 'shortcut', { markType: mark }),
         );
 
         richText.editor.click().type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...action('unmark', 'shortcut', { markType: mark })
+          ...action('unmark', 'shortcut', { markType: mark }),
         );
 
         cy.get('@onAction').should('have.callCount', 2);
@@ -237,13 +237,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
         richText.toolbar.toggleHeading(type);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...insert('toolbar-icon', { nodeType: type })
+          ...insert('toolbar-icon', { nodeType: type }),
         );
 
         richText.toolbar.toggleHeading(type);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...remove('toolbar-icon', { nodeType: type })
+          ...remove('toolbar-icon', { nodeType: type }),
         );
 
         cy.get('@onAction').should('have.callCount', 2);
@@ -253,13 +253,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
         richText.editor.click().type('Heading').type('{selectall}').type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...insert('shortcut', { nodeType: type })
+          ...insert('shortcut', { nodeType: type }),
         );
 
         richText.editor.click().type('{selectall}').type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...remove('shortcut', { nodeType: type })
+          ...remove('shortcut', { nodeType: type }),
         );
 
         cy.get('@onAction').should('have.callCount', 2);
@@ -292,13 +292,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
         toggleQuote();
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...insert(origin, { nodeType: BLOCKS.QUOTE })
+          ...insert(origin, { nodeType: BLOCKS.QUOTE }),
         );
 
         toggleQuote();
         cy.get('@onAction').should(
           'be.calledWithExactly',
-          ...remove(origin, { nodeType: BLOCKS.QUOTE })
+          ...remove(origin, { nodeType: BLOCKS.QUOTE }),
         );
 
         cy.get('@onAction').should('have.callCount', 2);
@@ -363,7 +363,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -378,7 +378,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -393,7 +393,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -408,7 +408,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -423,7 +423,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -438,7 +438,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -453,7 +453,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
               numColumns: 2,
               numRows: 2,
             },
-          })
+          }),
         );
         cy.get('@onAction').should('have.callCount', 2);
       });
@@ -699,11 +699,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedEntry('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
           );
           cy.get('@onAction').should(
-            'be.calledWithExactly',
-            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY })
+            'be.calledWithMatch',
+            ...insert(origin, {
+              nodeType: BLOCKS.EMBEDDED_ENTRY,
+              entity: Cypress.sinon.match.object,
+            }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -716,11 +719,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedEntry('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
           );
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY)
+            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ENTRY),
           );
 
           cy.get('@onAction').should('have.callCount', 2);
@@ -759,11 +762,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedAsset('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
           );
           cy.get('@onAction').should(
-            'be.calledWithExactly',
-            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET })
+            'be.calledWithMatch',
+            ...insert(origin, {
+              nodeType: BLOCKS.EMBEDDED_ASSET,
+              entity: Cypress.sinon.match.object,
+            }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -776,11 +782,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedAsset('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET)
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_ASSET),
           );
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET)
+            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_ASSET),
           );
 
           cy.get('@onAction').should('have.callCount', 2);
@@ -817,11 +823,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedResource('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
           );
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE })
+            ...insert(origin, { nodeType: BLOCKS.EMBEDDED_RESOURCE }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -834,11 +840,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedResource('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
+            ...openCreateEmbedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
           );
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE)
+            ...cancelEmbeddedDialog(origin, BLOCKS.EMBEDDED_RESOURCE),
           );
 
           cy.get('@onAction').should('have.callCount', 2);
@@ -875,11 +881,14 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedInline('confirm');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
+            ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
           );
           cy.get('@onAction').should(
-            'be.calledWithExactly',
-            ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY })
+            'be.calledWithMatch',
+            ...insert(origin, {
+              nodeType: INLINES.EMBEDDED_ENTRY,
+              entity: Cypress.sinon.match.object,
+            }),
           );
           cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -892,11 +901,11 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           triggerEmbeddedInline('cancel');
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY)
+            ...openCreateEmbedDialog(origin, INLINES.EMBEDDED_ENTRY),
           );
           cy.get('@onAction').should(
             'be.calledWithExactly',
-            ...cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY)
+            ...cancelEmbeddedDialog(origin, INLINES.EMBEDDED_ENTRY),
           );
 
           cy.get('@onAction').should('have.callCount', 2);
@@ -932,7 +941,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
       getCommandList().findByText('The best article ever').click();
       cy.get('@onAction').should(
         'be.calledWithExactly',
-        ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY })
+        ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ENTRY }),
       );
       cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -946,7 +955,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
       getCommandList().findByText('The best article ever').click();
       cy.get('@onAction').should(
         'be.calledWithExactly',
-        ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY })
+        ...insert(origin, { nodeType: INLINES.EMBEDDED_ENTRY }),
       );
       cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
@@ -960,7 +969,7 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
       getCommandList().findByText('test').click();
       cy.get('@onAction').should(
         'be.calledWithExactly',
-        ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET })
+        ...insert(origin, { nodeType: BLOCKS.EMBEDDED_ASSET }),
       );
       cy.get('@onAction').should('be.calledWithExactly', ...linkRendered());
 
