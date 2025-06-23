@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.7.0...@contentful/field-editor-rich-text@4.8.0) (2025-06-23)
+
+### Features
+
+- adding entity to event data [] ([#1883](https://github.com/contentful/field-editors/issues/1883)) ([ce99082](https://github.com/contentful/field-editors/commit/ce99082aff68eb1b043c5828ba65b048762ee7fb))
+
 # [4.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.6.0...@contentful/field-editor-rich-text@4.7.0) (2025-06-16)
 
 ### Features
