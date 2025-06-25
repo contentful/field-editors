@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.9.0...@contentful/field-editor-reference@6.10.0) (2025-06-25)
+
+### Features
+
+- show release action badge entry publishing [TOL-3103] ([#1886](https://github.com/contentful/field-editors/issues/1886)) ([351ecc2](https://github.com/contentful/field-editors/commit/351ecc2ea413ed808aacf3312eb476b9b7631cf0))
+
 # [6.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.8.1...@contentful/field-editor-reference@6.9.0) (2025-06-16)
 
 ### Features
