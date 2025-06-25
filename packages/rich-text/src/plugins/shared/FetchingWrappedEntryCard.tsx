@@ -15,8 +15,10 @@ import {
   useActiveLocales,
   parseReleaseParams,
   useActiveReleaseLocalesStatuses,
+  getEntryReleaseStatus,
   type ReleaseLocalesStatusMap,
   type ReleaseV2Props,
+  type ReleaseAction,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -33,6 +35,7 @@ interface InternalEntryCard {
   releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
   isActiveReleaseLoading?: boolean;
   activeRelease?: ReleaseV2Props;
+  releaseAction?: ReleaseAction;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
@@ -43,6 +46,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
     releaseLocalesStatusMap,
     isActiveReleaseLoading,
     activeRelease,
+    releaseAction,
   } = props;
 
   const contentType = sdk.space
@@ -75,6 +79,7 @@ const InternalEntryCard = React.memo((props: InternalEntryCard) => {
       releaseLocalesStatusMap={releaseLocalesStatusMap}
       isReleasesLoading={isActiveReleaseLoading}
       activeRelease={activeRelease}
+      releaseAction={releaseAction}
     />
   );
 }, areEqual);
@@ -111,6 +116,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     activeRelease,
     releases,
   });
+  const { releaseAction } = getEntryReleaseStatus(props.entryId, locales, activeRelease);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -146,6 +152,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       releaseLocalesStatusMap={releaseLocalesStatusMap}
       isActiveReleaseLoading={isActiveReleaseLoading}
       activeRelease={activeRelease}
+      releaseAction={releaseAction}
     />
   );
 };
