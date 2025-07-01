@@ -4,12 +4,13 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { PlateContent, Plate, PlatePlugin } from '@udecode/plate-common';
+import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
+import { defaultScrollSelectionIntoView } from './editor-overrides';
 import { toSlateValue } from './helpers/toSlateValue';
 import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
@@ -58,7 +59,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
-    [sdk, onAction, restrictedMarks]
+    [sdk, onAction, restrictedMarks],
   );
 
   const initialValue = React.useMemo(() => {
@@ -67,7 +68,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
         plugins,
         disableCorePlugins,
       },
-      toSlateValue(props.value)
+      toSlateValue(props.value),
     );
   }, [props.value, plugins]);
 
@@ -80,7 +81,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
     props.isToolbarHidden && styles.hiddenToolbar,
-    direction === 'rtl' ? styles.rtl : styles.ltr
+    direction === 'rtl' ? styles.rtl : styles.ltr,
   );
 
   return (
@@ -103,7 +104,14 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
                 </StickyToolbarWrapper>
               )}
               <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-              <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
+              <PlateContent
+                id={id}
+                className={classNames}
+                readOnly={props.isDisabled}
+                scrollSelectionIntoView={
+                  defaultScrollSelectionIntoView as PlateContentProps['scrollSelectionIntoView']
+                }
+              />
             </Plate>
           </div>
         </ContentfulEditorIdProvider>
@@ -124,7 +132,7 @@ const RichTextEditor = (props: RichTextProps) => {
   } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
-    []
+    [],
   );
   React.useEffect(() => {
     if (!onChange) {
