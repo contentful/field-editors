@@ -42,6 +42,12 @@ type FieldProps = {
   getOptions?: (widgetId: WidgetType, sdk: FieldAppSDK) => EditorOptions;
 };
 
+type EntryRoute = {
+  spaceId: string;
+  environmentId: string;
+  entryId: string;
+};
+
 const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
   multipleLine: [MultipleLineEditor],
   boolean: [BooleanEditor],
@@ -108,11 +114,12 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
 
   const [WidgetComponent, widgetStaticProps] = widgetComponents[widgetId];
 
-  const isResourceReferenceEditor =
-    widgetId === 'resourceLinkEditor' ||
-    widgetId === 'resourceCardEditor' ||
-    widgetId === 'resourceLinksEditor' ||
-    widgetId === 'resourceCardsEditor';
+  const isResourceReferenceEditor = [
+    'resourceLinkEditor',
+    'resourceCardEditor',
+    'resourceLinksEditor',
+    'resourceCardsEditor',
+  ].includes(widgetId);
 
   const widgetComponentProps = {
     sdk,
@@ -124,7 +131,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     // @ts-expect-error
     ...options[widgetId],
     ...(isResourceReferenceEditor && {
-      getEntryRouteHref: (entryRoute: any) => {
+      getEntryRouteHref: (entryRoute: EntryRoute) => {
         // Provide a default implementation for getEntryRouteHref
         // This can be overridden via the options prop
         const { spaceId, environmentId, entryId } = entryRoute;
