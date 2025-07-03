@@ -13,8 +13,10 @@ import { RatingEditor } from '@contentful/field-editor-rating';
 import {
   MultipleEntryReferenceEditor,
   MultipleMediaEditor,
+  MultipleResourceReferenceEditor,
   SingleEntryReferenceEditor,
   SingleMediaEditor,
+  SingleResourceReferenceEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
@@ -42,6 +44,10 @@ export type WidgetType =
   | 'entryCardEditor'
   | 'entryLinksEditor'
   | 'entryCardsEditor'
+  | 'resourceLinkEditor'
+  | 'resourceCardEditor'
+  | 'resourceLinksEditor'
+  | 'resourceCardsEditor'
   | 'assetLinkEditor'
   | 'assetLinksEditor'
   | 'assetGalleryEditor'
@@ -69,6 +75,10 @@ export type EditorOptions = {
   entryLinkEditor?: Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>;
   entryLinksEditor?: Partial<Parameters<typeof MultipleEntryReferenceEditor>[0]>;
   entryCardsEditor?: Partial<Parameters<typeof MultipleEntryReferenceEditor>[0]>;
+  resourceLinkEditor?: Partial<Parameters<typeof SingleResourceReferenceEditor>[0]>;
+  resourceCardEditor?: Partial<Parameters<typeof SingleResourceReferenceEditor>[0]>;
+  resourceLinksEditor?: Partial<Parameters<typeof MultipleResourceReferenceEditor>[0]>;
+  resourceCardsEditor?: Partial<Parameters<typeof MultipleResourceReferenceEditor>[0]>;
   assetLinkEditor?: Partial<Parameters<typeof SingleMediaEditor>[0]>;
   assetLinksEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
   assetGalleryEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;

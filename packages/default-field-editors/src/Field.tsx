@@ -15,8 +15,10 @@ import { RatingEditor } from '@contentful/field-editor-rating';
 import {
   MultipleEntryReferenceEditor,
   MultipleMediaEditor,
+  MultipleResourceReferenceEditor,
   SingleEntryReferenceEditor,
   SingleMediaEditor,
+  SingleResourceReferenceEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
@@ -35,7 +37,7 @@ type FieldProps = {
   renderFieldEditor?: (
     widgetId: WidgetType,
     sdk: FieldAppSDK,
-    isInitiallyDisabled: boolean
+    isInitiallyDisabled: boolean,
   ) => JSX.Element | false;
   getOptions?: (widgetId: WidgetType, sdk: FieldAppSDK) => EditorOptions;
 };
@@ -60,6 +62,10 @@ const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
   entryCardEditor: [SingleEntryReferenceEditor, { viewType: 'card', hasCardEditActions: true }],
   entryLinksEditor: [MultipleEntryReferenceEditor, { viewType: 'link', hasCardEditActions: true }],
   entryCardsEditor: [MultipleEntryReferenceEditor, { viewType: 'card', hasCardEditActions: true }],
+  resourceLinkEditor: [SingleResourceReferenceEditor, { viewType: 'link' }],
+  resourceCardEditor: [SingleResourceReferenceEditor, { viewType: 'card' }],
+  resourceLinksEditor: [MultipleResourceReferenceEditor, { viewType: 'link' }],
+  resourceCardsEditor: [MultipleResourceReferenceEditor, { viewType: 'card' }],
   assetLinkEditor: [SingleMediaEditor, { viewType: 'link' }],
   assetLinksEditor: [MultipleMediaEditor, { viewType: 'link' }],
   assetGalleryEditor: [MultipleMediaEditor, { viewType: 'card' }],
@@ -102,6 +108,12 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
 
   const [WidgetComponent, widgetStaticProps] = widgetComponents[widgetId];
 
+  const isResourceReferenceEditor =
+    widgetId === 'resourceLinkEditor' ||
+    widgetId === 'resourceCardEditor' ||
+    widgetId === 'resourceLinksEditor' ||
+    widgetId === 'resourceCardsEditor';
+
   const widgetComponentProps = {
     sdk,
     field,
@@ -111,6 +123,15 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     ...widgetStaticProps,
     // @ts-expect-error
     ...options[widgetId],
+    ...(isResourceReferenceEditor && {
+      getEntryRouteHref: (entryRoute: any) => {
+        // Provide a default implementation for getEntryRouteHref
+        // This can be overridden via the options prop
+        const { spaceId, environmentId, entryId } = entryRoute;
+        return `/spaces/${spaceId}/environments/${environmentId}/entries/${entryId}`;
+      },
+      apiUrl: sdk.hostnames?.delivery,
+    }),
   };
 
   const baseSdk = widgetId === 'slugEditor' ? sdk : undefined;
