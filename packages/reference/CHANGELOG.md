@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.10.0...@contentful/field-editor-reference@6.10.1) (2025-07-07)
+
+### Bug Fixes
+
+- pass locale argument to ResourceCard [FUS-746] ([#1892](https://github.com/contentful/field-editors/issues/1892)) ([18031fe](https://github.com/contentful/field-editors/commit/18031fe4757773096e25fac99873bae35c99ea95))
+
 # [6.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.9.0...@contentful/field-editor-reference@6.10.0) (2025-06-25)
 
 ### Features
