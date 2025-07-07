@@ -39,21 +39,21 @@ function ResourceEditor(props: EditorProps) {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, setValue],
   );
   const onMove = useCallback(
     (oldIndex: number, newIndex: number) => {
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
     },
-    [items, setValue]
+    [items, setValue],
   );
 
   const onRemoteItemAtIndex = useCallback(
     (index: number) => {
       setValue(items.filter((_v, i) => i !== index));
     },
-    [items, setValue]
+    [items, setValue],
   );
 
   const linkActionsProps = useResourceLinkActions({
@@ -99,11 +99,11 @@ function WithPerItemCallbacks({
 }) {
   const handleMoveTop = React.useMemo(
     () => (index > 0 ? () => onMove(index, 0) : undefined),
-    [index, onMove]
+    [index, onMove],
   );
   const handleMoveBottom = React.useMemo(
     () => (index < listLength - 1 ? () => onMove(index, listLength - 1) : undefined),
-    [index, onMove, listLength]
+    [index, onMove, listLength],
   );
   const handleRemove = useCallback(() => onRemoteItemAtIndex(index), [index, onRemoteItemAtIndex]);
 
@@ -124,7 +124,7 @@ export function MultipleResourceReferenceEditor(
   props: ReferenceEditorProps & {
     apiUrl: string;
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
-  }
+  },
 ) {
   return (
     <EntityProvider sdk={props.sdk}>
@@ -158,6 +158,7 @@ export function MultipleResourceReferenceEditor(
                           key={index}
                           index={index}
                           resourceLink={item}
+                          locale={props.sdk.field.locale}
                           isDisabled={isDisabled}
                           renderDragHandle={DragHandle}
                           onMoveTop={onMoveTop}
