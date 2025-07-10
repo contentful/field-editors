@@ -1,31 +1,30 @@
 import * as React from 'react';
 
 import {
-  TextLink,
   Button,
+  Form,
   FormControl,
   FormLabel,
-  Select,
-  TextInput,
-  Form,
   ModalContent,
   ModalControls,
+  Select,
+  TextInput,
+  TextLink,
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { EntityProvider } from '@contentful/field-editor-reference';
-import { Link } from '@contentful/field-editor-reference';
-import { ModalDialogLauncher, FieldAppSDK } from '@contentful/field-editor-shared';
+import { EntityProvider, Link } from '@contentful/field-editor-reference';
+import { FieldAppSDK, ModalDialogLauncher } from '@contentful/field-editor-shared';
 import { INLINES, ResourceLink } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
-import { getNodeEntryFromSelection, insertLink, LINK_TYPES, focus } from '../../helpers/editor';
+import { focus, getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import getAllowedResourcesForNodeType from '../../helpers/getAllowedResourcesForNodeType';
 import getLinkedContentTypeIdsForNodeType from '../../helpers/getLinkedContentTypeIdsForNodeType';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { withoutNormalizing } from '../../internal';
 import { getText, isEditorReadOnly } from '../../internal/queries';
 import { select } from '../../internal/transforms';
-import { PlateEditor, Path } from '../../internal/types';
+import { Path, PlateEditor } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';
 import { FetchingWrappedAssetCard } from '../shared/FetchingWrappedAssetCard';
 import { FetchingWrappedEntryCard } from '../shared/FetchingWrappedEntryCard';
@@ -63,14 +62,14 @@ const LINK_TYPE_SELECTION_VALUES = {
 
 export function HyperlinkModal(props: HyperlinkModalProps) {
   const enabledLinkTypes = LINK_TYPES.filter((nodeType) =>
-    isNodeTypeEnabled(props.sdk.field, nodeType)
+    isNodeTypeEnabled(props.sdk.field, nodeType),
   );
   const [defaultLinkType] = enabledLinkTypes;
   const [linkText, setLinkText] = React.useState(props.linkText ?? '');
   const [linkType, setLinkType] = React.useState(props.linkType ?? defaultLinkType);
   const [linkTarget, setLinkTarget] = React.useState(props.linkTarget ?? '');
   const [linkEntity, setLinkEntity] = React.useState<Link | ResourceLink | null>(
-    props.linkEntity ?? null
+    props.linkEntity ?? null,
   );
   const linkTargetInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -132,6 +131,9 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     const options = {
       locale: props.sdk.field.locale,
       contentTypes: getLinkedContentTypeIdsForNodeType(props.sdk.field, INLINES.ENTRY_HYPERLINK),
+      recommendations: {
+        searchQuery: props.linkText,
+      },
     };
     const entry = await props.sdk.dialogs.selectSingleEntry(options);
     if (entry) {
@@ -337,7 +339,7 @@ export async function addOrEditLink(
     | TrackingPluginActions['onToolbarAction']
     | TrackingPluginActions['onShortcutAction']
     | TrackingPluginActions['onViewportAction'],
-  targetPath?: Path
+  targetPath?: Path,
 ) {
   const isReadOnly = isEditorReadOnly(editor);
   const selectionBeforeBlur = editor.selection ? { ...editor.selection } : undefined;
@@ -383,7 +385,7 @@ export async function addOrEditLink(
           readonly={isReadOnly}
         />
       );
-    }
+    },
   );
   select(editor, selectionAfterFocus);
 
