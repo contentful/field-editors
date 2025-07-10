@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "6.9.0",
+  "version": "6.10.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -38,7 +38,7 @@
     "@contentful/f36-components": "^4.70.0",
     "@contentful/f36-icons": "^4.29.0",
     "@contentful/f36-tokens": "^4.0.5",
-    "@contentful/field-editor-shared": "^2.8.0",
+    "@contentful/field-editor-shared": "^2.9.0",
     "@contentful/mimetype": "^2.2.29",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^7.0.0",

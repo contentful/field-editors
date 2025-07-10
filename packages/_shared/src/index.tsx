@@ -18,25 +18,30 @@ export {
   SpaceAPI,
   WindowAPI,
 } from '@contentful/app-sdk';
+
 export { CharCounter } from './CharCounter';
 export { CharValidation } from './CharValidation';
+export { ConstraintsUtils };
+export { entityHelpers };
 export { FieldConnector } from './FieldConnector';
-export type { FieldConnectorChildProps } from './FieldConnector';
+export { ModalDialogLauncher };
 export { PredefinedValuesError } from './PredefinedValuesError';
 export { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
-export * from './utils/parseReleaseParameters';
-export * from './hooks/useLocalePublishStatus';
-export * from './hooks/useActiveLocales';
-export { ModalDialogLauncher };
-export { entityHelpers };
-export { ConstraintsUtils };
-export * from './types';
-export * from './hooks/useActiveReleaseLocalesStatuses';
 
+export type { FieldConnectorChildProps } from './FieldConnector';
+export * from './types';
+
+export * from './hooks/useActiveLocales';
+export * from './hooks/useActiveReleaseLocalesStatuses';
+export * from './hooks/useLocalePublishStatus';
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';
+export * from './utils/determineReleaseAction';
+export * from './utils/getEntryReleaseStatus';
+export * from './utils/parseReleaseParameters';
+
 import * as ModalDialogLauncher from './ModalDialogLauncher';
 import * as ConstraintsUtils from './utils/constraints';
 import * as entityHelpers from './utils/entityHelpers';

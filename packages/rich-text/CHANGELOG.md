@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.9.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.9.1...@contentful/field-editor-rich-text@4.9.2) (2025-07-07)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.9.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.9.0...@contentful/field-editor-rich-text@4.9.1) (2025-07-01)
+
+### Bug Fixes
+
+- overriding scrollselectionintoview to stop scrolling [] ([#1887](https://github.com/contentful/field-editors/issues/1887)) ([404ef6f](https://github.com/contentful/field-editors/commit/404ef6fa53fda327d1a1c491ca7620e288c7bc53))
+
+# [4.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.8.0...@contentful/field-editor-rich-text@4.9.0) (2025-06-25)
+
+### Features
+
+- show release action badge entry publishing [TOL-3103] ([#1886](https://github.com/contentful/field-editors/issues/1886)) ([351ecc2](https://github.com/contentful/field-editors/commit/351ecc2ea413ed808aacf3312eb476b9b7631cf0))
+
 # [4.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.7.0...@contentful/field-editor-rich-text@4.8.0) (2025-06-23)
 
 ### Features
