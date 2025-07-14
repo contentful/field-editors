@@ -197,7 +197,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
               ...response,
               items: localizeContentTypes(response.items),
             };
-          })
+          }),
         );
       },
       async getEntityScheduledActions() {
@@ -210,16 +210,20 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           src={assets.published.fields.file['en-US'].url}
           title={assets.published.fields.title['en-US']}
         />,
-        assets.published
+        assets.published,
       ),
       selectMultipleAssets: async () => [assets.published, assets.changed],
-      selectSingleEntry: createOpenDialog(
-        <EntryCard title={entries.published.fields.exField['en-US']} />,
-        entries.published
-      ),
+      selectSingleEntry: (options?: any) => {
+        // Store options for test verification
+        (window as any).lastSelectSingleEntryOptions = options;
+        return createOpenDialog(
+          <EntryCard title={entries.published.fields.exField['en-US']} />,
+          entries.published,
+        )();
+      },
       selectSingleResourceEntity: createOpenDialog(
         <EntryCard title={resources.published.sys.urn} />,
-        resources.published
+        resources.published,
       ),
       selectMultipleEntries: async () => [entries.published, entries.changed],
     },
