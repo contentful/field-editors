@@ -3,8 +3,8 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import {
   block,
   document as doc,
-  text,
   inline,
+  text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { mod, openEditLink } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
@@ -32,9 +32,9 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             if (nodeType === 'text') return text(...content);
             const [data, textContent] = content;
             return inline(nodeType, data, text(textContent));
-          })
-        )
-      )
+          }),
+        ),
+      ),
     );
   };
 
@@ -82,7 +82,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         expectDocumentStructure(
           ['text', 'The quick brown fox jumps over the lazy '],
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'dog'],
-          ['text', '']
+          ['text', ''],
         );
 
         richText.editor.click().type('{selectall}');
@@ -99,7 +99,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         expectDocumentStructure(
           // TODO: the editor should normalize this
           ['text', 'The quick brown fox jumps over the lazy '],
-          ['text', 'dog']
+          ['text', 'dog'],
         );
       });
 
@@ -121,7 +121,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         expectDocumentStructure(
           ['text', ''],
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
-          ['text', '']
+          ['text', ''],
         );
       });
 
@@ -138,6 +138,13 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
         form.linkEntityTarget.should('have.text', 'Select entry').click();
+
+        cy.window().then((win) => {
+          const options = (win as any).lastSelectSingleEntryOptions;
+          expect(options).to.exist;
+          expect(options.recommendations).to.exist;
+          expect(options.recommendations.searchQuery).to.equal('My cool entry');
+        });
         richText.forms.embed.confirm();
 
         cy.findByTestId('cf-ui-entry-card').should('exist');
@@ -158,7 +165,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
             'My cool entry',
           ],
-          ['text', '']
+          ['text', ''],
         );
       });
 
@@ -202,7 +209,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             },
             'My cool resource',
           ],
-          ['text', '']
+          ['text', ''],
         );
       });
 
@@ -240,7 +247,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             { target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } } },
             'My cool asset',
           ],
-          ['text', '']
+          ['text', ''],
         );
       });
 
@@ -260,7 +267,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         expectDocumentStructure(
           ['text', ''],
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
-          ['text', '']
+          ['text', ''],
         );
 
         // Part 2:
@@ -279,7 +286,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
             'My cool website',
           ],
-          ['text', '']
+          ['text', ''],
         );
 
         // Part 3:
@@ -298,7 +305,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             { target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } } },
             'My cool website',
           ],
-          ['text', '']
+          ['text', ''],
         );
 
         // Part 4:
@@ -325,7 +332,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             },
             'My cool website',
           ],
-          ['text', '']
+          ['text', ''],
         );
 
         // Part 5:
@@ -339,7 +346,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         expectDocumentStructure(
           ['text', ''],
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
-          ['text', '']
+          ['text', ''],
         );
       });
 
@@ -357,7 +364,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         expectDocumentStructure(
           ['text', ''],
           [INLINES.HYPERLINK, { uri: 'https://link.com' }, 'Link'],
-          ['text', '']
+          ['text', ''],
         );
 
         richText.editor
