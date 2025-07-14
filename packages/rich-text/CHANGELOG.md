@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.9.2...@contentful/field-editor-rich-text@4.10.0) (2025-07-14)
+
+### Features
+
+- [PIC-330] Enable showing semantic suggestions when creating hyperlinks in Rich Text Editor ([#1893](https://github.com/contentful/field-editors/issues/1893)) ([3a90cae](https://github.com/contentful/field-editors/commit/3a90cae714a0f23e88d31539c3c190ac64eaa8e0))
+
 ## [4.9.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.9.1...@contentful/field-editor-rich-text@4.9.2) (2025-07-07)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
