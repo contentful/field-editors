@@ -56,7 +56,7 @@
     "@udecode/plate-list": "36.0.0",
     "@udecode/plate-paragraph": "36.0.0",
     "@udecode/plate-reset-node": "36.0.0",
-    "@udecode/plate-select": "36.0.0",
+    "@udecode/plate-select": "49.0.0",
     "@udecode/plate-serializer-docx": "36.0.10",
     "@udecode/plate-serializer-html": "36.0.0",
     "@udecode/plate-table": "36.5.9",
