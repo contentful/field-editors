@@ -44,14 +44,14 @@ export const isNode = (value: unknown): value is Node => {
 
 export const isSelectionAtBlockEnd = (
   editor: PlateEditor,
-  options?: p.GetAboveNodeOptions<Value>,
+  options?: p.GetAboveNodeOptions<Value>
 ) => {
   return p.isSelectionAtBlockEnd(editor, options);
 };
 
 export const isSelectionAtBlockStart = (
   editor: PlateEditor,
-  options?: p.GetAboveNodeOptions<Value>,
+  options?: p.GetAboveNodeOptions<Value>
 ) => {
   return p.isSelectionAtBlockStart(editor, options);
 };
@@ -72,7 +72,7 @@ export const getNodeEntries = (editor: PlateEditor, options?: p.GetNodeEntriesOp
 export const getNodeChildren = (
   root: Ancestor,
   path: Path,
-  options?: s.NodeChildrenOptions | undefined,
+  options?: s.NodeChildrenOptions | undefined
 ) => {
   return p.getNodeChildren(root, path, options);
 };
@@ -80,7 +80,7 @@ export const getNodeChildren = (
 export const getParentNode = (
   editor: PlateEditor,
   at: Location,
-  options?: s.EditorParentOptions,
+  options?: s.EditorParentOptions
 ) => {
   return p.getParentNode(editor, at, options) as NodeEntry | undefined;
 };
@@ -109,7 +109,7 @@ export const getDescendantNodeByPath = (root: Node, path: s.Path): Node => {
 
 export const getNodeDescendants = (
   root: PlateEditor | Node,
-  options?: s.NodeDescendantsOptions,
+  options?: s.NodeDescendantsOptions
 ) => {
   return p.getNodeDescendants(root, { ...options, pass: undefined });
 };
@@ -123,7 +123,7 @@ export const isRangeAcrossBlocks = (
   editor: p.TEditor<p.Value>,
   options?:
     | (Omit<p.GetAboveNodeOptions<p.Value>, 'at'> & { at?: s.BaseRange | null | undefined })
-    | undefined,
+    | undefined
 ) => {
   return p.isRangeAcrossBlocks(editor, options);
 };
@@ -159,7 +159,7 @@ export const getNextNode = (editor: PlateEditor, opts?: p.GetNextNodeOptions<Val
 export const getCommonNode = (
   root: PlateEditor | Node,
   path: s.Path,
-  another: s.Path,
+  another: s.Path
 ): NodeEntry => {
   return p.getCommonNode(root, path, another);
 };
@@ -171,7 +171,7 @@ export const getNodeTexts = (
     to?: s.Path;
     pass?: (ne: NodeEntry) => boolean;
     reverse?: boolean;
-  },
+  }
 ) => {
   return p.getNodeTexts(root, opts);
 };
@@ -258,7 +258,7 @@ export const matchNode = (node: Node, path: s.Path, fn: p.Predicate<PlateEditor 
 
 export const someHtmlElement = (
   rootNode: globalThis.Node,
-  predicate: (node: HTMLElement) => boolean,
+  predicate: (node: HTMLElement) => boolean
 ) => {
   return p.someHtmlElement(rootNode, predicate);
 };
@@ -266,7 +266,7 @@ export const someHtmlElement = (
 export const getPointBefore = (
   editor: PlateEditor,
   at: Location,
-  options?: s.EditorBeforeOptions,
+  options?: s.EditorBeforeOptions
 ) => {
   return p.getPointBefore(editor, at, options);
 };
@@ -274,7 +274,7 @@ export const getPointBefore = (
 export const getPointAfter = (
   editor: PlateEditor,
   at: Location,
-  options?: s.EditorAfterOptions,
+  options?: s.EditorAfterOptions
 ) => {
   return p.getPointAfter(editor, at, options);
 };
@@ -282,7 +282,7 @@ export const getPointAfter = (
 export const isEndPoint = (
   editor: PlateEditor,
   point: BasePoint | null | undefined,
-  at: Location,
+  at: Location
 ) => {
   return p.isEndPoint(editor, point, at);
 };
