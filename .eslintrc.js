@@ -40,6 +40,7 @@ module.exports = {
     'no-restricted-imports': ['warn'],
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
+    'custom-lingui/enforce-translation-call-format': 'error',
     'custom-lingui/enforce-translation-key-naming': 'error',
   },
   settings: {
