@@ -26,9 +26,11 @@ module.exports = {
       /^FieldEditors\.([A-Z][a-zA-Z0-9]*)\.([A-Z][a-zA-Z0-9]*)\.([A-Z][a-zA-Z0-9]*)$/;
 
     // Track any aliases used for the `t` function
-    let linguiTNames = new Set();
+    const linguiTNames = new Set();
     // Track any aliases used for the `Trans` component
-    let transNames = new Set();
+    const transNames = new Set();
+    // Track any aliases used for the `Plural` component macro
+    const pluralComponentNames = new Set();
 
     const toPascalCase = (str) =>
       str
@@ -90,6 +92,13 @@ module.exports = {
             }
           });
         }
+        if (node.source.value === '@lingui/react/macro') {
+          node.specifiers.forEach((spec) => {
+            if (spec.imported.name === 'Plural') {
+              pluralComponentNames.add(spec.local.name);
+            }
+          });
+        }
       },
 
       // Validate t({ id: '...' }) calls
@@ -128,7 +137,7 @@ module.exports = {
       // Validate <Trans id="..." /> usages
       JSXOpeningElement(node) {
         const tag = node.name;
-        if (!tag || !transNames.has(tag.name)) return;
+        if (!tag || (!transNames.has(tag.name) && !pluralComponentNames.has(tag.name))) return;
 
         // Look for the id="..." attribute
         const idAttr = node.attributes.find(
