@@ -22,6 +22,10 @@ ruleTester.run('translation-key-format', rule, {
     {
       code: `import { Trans } from '@lingui/react'; <Trans id="FieldEditors.Dashboard.Widget.Header" />;`,
     },
+    // Valid Plural usage
+    {
+      code: `import { Plural } from '@lingui/react/macro'; <Plural id="FieldEditors.Dashboard.Widget.Header" />;`,
+    },
     // Alias for t
     {
       code: `import { t as translate } from '@lingui/core/macro'; translate({ id: 'FieldEditors.About.Info.Section' });`,
@@ -29,6 +33,10 @@ ruleTester.run('translation-key-format', rule, {
     // Alias for Trans
     {
       code: `import { Trans as T } from '@lingui/react'; <T id="FieldEditors.Account.Profile.Avatar" />;`,
+    },
+    // Alias for Plural
+    {
+      code: `import { Plural as P } from '@lingui/react/macro'; <P id="FieldEditors.Account.Profile.Avatar" />;`,
     },
   ],
 
@@ -43,9 +51,14 @@ ruleTester.run('translation-key-format', rule, {
       code: `import { Trans } from '@lingui/react'; <Trans />;`,
       errors: [{ messageId: 'missingId' }],
     },
+    // Missing id in Plural
+    {
+      code: `import { Plural } from '@lingui/react/macro'; <Plural />;`,
+      errors: [{ messageId: 'missingId' }],
+    },
     // Too few segments
     {
-      code: `import { t } from '@lingui/core/macro'; t({ id: 'UI.Home' });`,
+      code: `import { t } from '@lingui/core/macro'; t({ id: 'FieldEditors.Home' });`,
       errors: [{ messageId: 'tooFewSegments' }],
     },
     // Too many segments
@@ -68,6 +81,12 @@ ruleTester.run('translation-key-format', rule, {
     {
       code: `import { Trans as T } from '@lingui/react'; <T id="FieldEditors.welcome.screen.button" />;`,
       output: `import { Trans as T } from '@lingui/react'; <T id="FieldEditors.Welcome.Screen.Button" />;`,
+      errors: [{ messageId: 'invalidIdFormat' }],
+    },
+    // Alias for Plural with invalid format (with autofix)
+    {
+      code: `import { Plural as P } from '@lingui/react/macro'; <P id="FieldEditors.welcome.screen.button" />;`,
+      output: `import { Plural as P } from '@lingui/react/macro'; <P id="FieldEditors.Welcome.Screen.Button" />;`,
       errors: [{ messageId: 'invalidIdFormat' }],
     },
   ],
