@@ -50,7 +50,7 @@ function UniquenessError(props: UniquenessErrorProps) {
       entityHelpers.getEntryTitle({
         entry,
         defaultTitle: t({
-          id: 'FieldEditors.ValidationErrors.UniquenessError.UntitledEntry',
+          id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
           message: 'Untitled',
         }),
         localeCode: props.localeCode,

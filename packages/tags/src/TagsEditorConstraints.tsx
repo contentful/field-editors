@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Text } from '@contentful/f36-components';
-import { t } from '@lingui/core/macro';
+import { t, plural } from '@lingui/core/macro';
 import { css } from 'emotion';
 
 import { Constraint, ConstraintsType } from './types';
@@ -29,28 +29,24 @@ export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
     >
       {constraintsType === 'min' && (
         <span>
-          {min === 1
-            ? t({
-                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresAtLeastOneTag',
-                message: 'Requires at least 1 tag',
-              })
-            : t({
-                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresAtLeastNTags',
-                message: `Requires at least ${min} tags`,
-              })}
+          {t({
+            id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresAtLeastNTags',
+            message: plural(min || 0, {
+              one: 'Requires at least # tag',
+              other: 'Requires at least # tags',
+            }),
+          })}
         </span>
       )}
       {constraintsType === 'max' && (
         <span>
-          {max === 1
-            ? t({
-                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresNoMoreThanOneTag',
-                message: 'Requires no more than 1 tag',
-              })
-            : t({
-                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresNoMoreThanNTags',
-                message: `Requires no more than ${max} tags`,
-              })}
+          {t({
+            id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresNoMoreThanNTags',
+            message: plural(max || 0, {
+              one: 'Requires no more than # tag',
+              other: 'Requires no more than # tags',
+            }),
+          })}
         </span>
       )}
       {constraintsType === 'min-max' && max !== min && (
@@ -63,15 +59,13 @@ export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
       )}
       {constraintsType === 'min-max' && max === min && (
         <span>
-          {max === 1
-            ? t({
-                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresExactlyOneTag',
-                message: 'Requires exactly 1 tag',
-              })
-            : t({
-                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresExactlyNTags',
-                message: `Requires exactly ${max} tags`,
-              })}
+          {t({
+            id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresExactlyNTags',
+            message: plural(max || 0, {
+              one: 'Requires exactly # tag',
+              other: 'Requires exactly # tags',
+            }),
+          })}
         </span>
       )}
     </Text>

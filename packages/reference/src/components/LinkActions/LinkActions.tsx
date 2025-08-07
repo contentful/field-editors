@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
 import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
-import { t } from '@lingui/core/macro';
+import { t, plural } from '@lingui/core/macro';
 
 import {
   ContentEntityType,
@@ -48,15 +48,13 @@ const defaultEntryLabels: ActionLabels = {
         });
   },
   linkExisting: (props) =>
-    props?.canLinkMultiple
-      ? t({
-          id: 'FieldEditors.Reference.LinkActions.LinkExistingEntries',
-          message: 'Link existing entries',
-        })
-      : t({
-          id: 'FieldEditors.Reference.LinkActions.LinkExistingEntry',
-          message: 'Link existing entry',
-        }),
+    t({
+      id: 'FieldEditors.Reference.LinkActions.LinkExistingEntries',
+      message: plural(props?.canLinkMultiple ? 0 : 1, {
+        one: 'Link existing entry',
+        other: 'Link existing entries',
+      }),
+    }),
 };
 
 const defaultAssetLabels: ActionLabels = {
@@ -66,15 +64,13 @@ const defaultAssetLabels: ActionLabels = {
       message: 'Create new asset and link',
     }),
   linkExisting: (props) =>
-    props?.canLinkMultiple
-      ? t({
-          id: 'FieldEditors.Reference.LinkActions.LinkExistingAssets',
-          message: 'Link existing assets',
-        })
-      : t({
-          id: 'FieldEditors.Reference.LinkActions.LinkExistingAsset',
-          message: 'Link existing asset',
-        }),
+    t({
+      id: 'FieldEditors.Reference.LinkActions.LinkExistingAssets',
+      message: plural(props?.canLinkMultiple ? 0 : 1, {
+        one: 'Link existing asset',
+        other: 'Link existing assets',
+      }),
+    }),
 };
 
 export const testIds = {
