@@ -13,6 +13,7 @@ import {
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { t } from '@lingui/core/macro';
 import { css } from 'emotion';
 import PropTypes from 'prop-types';
 
@@ -50,7 +51,7 @@ export class HyperlinkDialog extends React.Component {
     }),
     entitySelectorConfigs: PropTypes.object,
     allowedHyperlinkTypes: PropTypes.arrayOf(
-      PropTypes.oneOf([LINK_TYPES.ENTRY, LINK_TYPES.ASSET, LINK_TYPES.URI])
+      PropTypes.oneOf([LINK_TYPES.ENTRY, LINK_TYPES.ASSET, LINK_TYPES.URI]),
     ),
     hideText: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
@@ -58,8 +59,14 @@ export class HyperlinkDialog extends React.Component {
 
   static defaultProps = {
     labels: {
-      title: 'Insert link',
-      confirm: 'Insert link',
+      title: t({
+        id: 'FieldEditors.RichText.HyperlinkDialog.DefaultTitle',
+        message: 'Insert link',
+      }),
+      confirm: t({
+        id: 'FieldEditors.RichText.HyperlinkDialog.DefaultConfirm',
+        message: 'Insert link',
+      }),
     },
     value: {},
     hideText: false,
@@ -153,7 +160,7 @@ export class HyperlinkDialog extends React.Component {
               testId="cancel-cta"
               size="small"
             >
-              Cancel
+              {t({ id: 'FieldEditors.RichText.HyperlinkDialog.Cancel', message: 'Cancel' })}
             </Button>
             <Button
               type="submit"
@@ -180,7 +187,9 @@ export class HyperlinkDialog extends React.Component {
       <Form>
         {hideText ? null : (
           <FormControl id="link-text" isRequired>
-            <FormControl.Label>Link text</FormControl.Label>
+            <FormControl.Label>
+              {t({ id: 'FieldEditors.RichText.HyperlinkDialog.LinkText', message: 'Link text' })}
+            </FormControl.Label>
             <TextInput
               testId="link-text-input"
               name="link-text"
@@ -193,7 +202,9 @@ export class HyperlinkDialog extends React.Component {
         )}
         {isFeaturingEntitySelector(entitySelectorConfigs) && (
           <FormControl id="link-type" name="link-type">
-            <FormControl.Label>Link type</FormControl.Label>
+            <FormControl.Label>
+              {t({ id: 'FieldEditors.RichText.HyperlinkDialog.LinkType', message: 'Link type' })}
+            </FormControl.Label>
             <Select
               value={type}
               onChange={(e) => this.setState({ type: e.target.value })}
@@ -201,20 +212,31 @@ export class HyperlinkDialog extends React.Component {
             >
               {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
               {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
-                <Select.Option value={LINK_TYPES.URI}>URL</Select.Option>
+                <Select.Option value={LINK_TYPES.URI}>
+                  {t({ id: 'FieldEditors.RichText.HyperlinkDialog.URL', message: 'URL' })}
+                </Select.Option>
               ) : null}
               {allowedHyperlinkTypes.includes(LINK_TYPES.ENTRY) || type === LINK_TYPES.ENTRY ? (
-                <Select.Option value={LINK_TYPES.ENTRY}>Entry</Select.Option>
+                <Select.Option value={LINK_TYPES.ENTRY}>
+                  {t({ id: 'FieldEditors.RichText.HyperlinkDialog.Entry', message: 'Entry' })}
+                </Select.Option>
               ) : null}
               {allowedHyperlinkTypes.includes(LINK_TYPES.ASSET) || type === LINK_TYPES.ASSET ? (
-                <Select.Option value={LINK_TYPES.ASSET}>Asset</Select.Option>
+                <Select.Option value={LINK_TYPES.ASSET}>
+                  {t({ id: 'FieldEditors.RichText.HyperlinkDialog.Asset', message: 'Asset' })}
+                </Select.Option>
               ) : null}
             </Select>
           </FormControl>
         )}
         {type === LINK_TYPES.URI ? (
           <FormControl id="link-uri" isRequired>
-            <FormControl.Label>Link target</FormControl.Label>
+            <FormControl.Label>
+              {t({
+                id: 'FieldEditors.RichText.HyperlinkDialog.LinkTarget',
+                message: 'Link target',
+              })}
+            </FormControl.Label>
             <TextInput
               testId="link-target-input"
               name="link-uri"
@@ -224,7 +246,12 @@ export class HyperlinkDialog extends React.Component {
               // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
               autoFocus={isUriInputAutoFocused}
             />
-            <FormControl.HelpText>A protocol may be required, e.g. https://</FormControl.HelpText>
+            <FormControl.HelpText>
+              {t({
+                id: 'FieldEditors.RichText.HyperlinkDialog.ProtocolHelpText',
+                message: 'A protocol may be required, e.g. https://',
+              })}
+            </FormControl.HelpText>
           </FormControl>
         ) : (
           this.renderEntityField()
@@ -241,7 +268,7 @@ export class HyperlinkDialog extends React.Component {
     return (
       <div>
         <FormLabel required htmlFor="">
-          Link target
+          {t({ id: 'FieldEditors.RichText.HyperlinkDialog.LinkTarget', message: 'Link target' })}
         </FormLabel>
         {!isEntitySelectorVisible && (
           <TextLink
@@ -249,7 +276,10 @@ export class HyperlinkDialog extends React.Component {
             className={css({ marginLeft: tokens.spacingS })}
             onClick={resetEntity}
           >
-            Remove selection
+            {t({
+              id: 'FieldEditors.RichText.HyperlinkDialog.RemoveSelection',
+              message: 'Remove selection',
+            })}
           </TextLink>
         )}
         {entityLink && (
@@ -285,12 +315,18 @@ export class HyperlinkDialog extends React.Component {
       <div className={css({ marginTop: tokens.spacingS })}>
         {type === LINK_TYPES.ENTRY && (
           <TextLink as="button" onClick={this.selectEntry}>
-            Select entry
+            {t({
+              id: 'FieldEditors.RichText.HyperlinkDialog.SelectEntry',
+              message: 'Select entry',
+            })}
           </TextLink>
         )}
         {type === LINK_TYPES.ASSET && (
           <TextLink as="button" onClick={this.selectAsset}>
-            Select asset
+            {t({
+              id: 'FieldEditors.RichText.HyperlinkDialog.SelectAsset',
+              message: 'Select asset',
+            })}
           </TextLink>
         )}
       </div>
@@ -300,13 +336,23 @@ export class HyperlinkDialog extends React.Component {
 
 export const openHyperlinkDialog = (
   dialogs,
-  { value, showTextInput, allowedHyperlinkTypes, entitySelectorConfigs }
+  { value, showTextInput, allowedHyperlinkTypes, entitySelectorConfigs },
 ) => {
   const isNew = !(value.uri || value.target);
   const props = {
     labels: {
-      title: isNew ? 'Insert hyperlink' : 'Edit hyperlink',
-      confirm: isNew ? 'Insert' : 'Update',
+      title: isNew
+        ? t({
+            id: 'FieldEditors.RichText.HyperlinkDialog.InsertHyperlink',
+            message: 'Insert hyperlink',
+          })
+        : t({
+            id: 'FieldEditors.RichText.HyperlinkDialog.EditHyperlink',
+            message: 'Edit hyperlink',
+          }),
+      confirm: isNew
+        ? t({ id: 'FieldEditors.RichText.HyperlinkDialog.Insert', message: 'Insert' })
+        : t({ id: 'FieldEditors.RichText.HyperlinkDialog.Update', message: 'Update' }),
     },
     value,
     hideText: !showTextInput,

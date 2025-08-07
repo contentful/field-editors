@@ -9,6 +9,7 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
+import { t } from '@lingui/core/macro';
 import { cx } from 'emotion';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
@@ -64,7 +65,7 @@ function getOptions(field: FieldAPI, id: string): CheckboxOption[] {
 const getInvalidValues = (
   field: FieldAPI,
   values: string[],
-  options: CheckboxOption[]
+  options: CheckboxOption[],
 ): CheckboxOption[] => {
   const getValueFromOptions = (options as CheckboxOption[]).map((item) => item.value);
   const invalidValues = values
@@ -142,14 +143,20 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                 {item.invalid && (
                   <>
                     <span data-test-id="invalid-text" className={styles.invalidText}>
-                      (invalid)
+                      {t({
+                        id: 'FieldEditors.Checkbox.CheckboxEditor.InvalidText',
+                        message: '(invalid)',
+                      })}
                     </span>
                     <TextLink
                       as="button"
                       className={styles.removeBtn}
                       onClick={() => removeValue(item.value)}
                     >
-                      Remove
+                      {t({
+                        id: 'FieldEditors.Checkbox.CheckboxEditor.RemoveButton',
+                        message: 'Remove',
+                      })}
                     </TextLink>
                   </>
                 )}

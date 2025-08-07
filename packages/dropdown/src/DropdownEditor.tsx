@@ -7,6 +7,7 @@ import {
   PredefinedValuesError,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
+import { t } from '@lingui/core/macro';
 
 import { getOptions, parseValue } from './dropdownUtils';
 import * as styles from './styles';
@@ -64,7 +65,12 @@ export function DropdownEditor(props: DropdownEditorProps) {
             setValue(parseValue(value, field.type));
           }}
         >
-          <Select.Option value="">Choose a value</Select.Option>
+          <Select.Option value="">
+            {t({
+              id: 'FieldEditors.Dropdown.DropdownEditor.ChooseValue',
+              message: 'Choose a value',
+            })}
+          </Select.Option>
           {options.map((option) => (
             <Select.Option key={option.value} value={String(option.value)}>
               {option.label}

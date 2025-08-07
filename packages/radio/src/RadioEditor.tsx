@@ -8,6 +8,7 @@ import {
   PredefinedValuesError,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
+import { t } from '@lingui/core/macro';
 import { cx } from 'emotion';
 
 import * as styles from './styles';
@@ -80,7 +81,7 @@ export function RadioEditor(props: RadioEditorProps) {
                   </Radio>
                   {checked && !disabled && (
                     <TextLink as="button" className={styles.clearBtn} onClick={clearOption}>
-                      Clear
+                      {t({ id: 'FieldEditors.Radio.RadioEditor.Clear', message: 'Clear' })}
                     </TextLink>
                   )}
                 </Flex>

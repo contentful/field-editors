@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { EntryCard, IconButton } from '@contentful/f36-components';
 import { CloseIcon } from '@contentful/f36-icons';
+import { t } from '@lingui/core/macro';
 
 type MissingEntityCardProps = {
   customMessage?: string;
@@ -24,7 +25,12 @@ export function MissingEntityCard({
   testId = 'cf-ui-missing-entity-card',
   children,
 }: MissingEntityCardProps) {
-  const description = customMessage ?? 'Content missing or inaccessible';
+  const description =
+    customMessage ??
+    t({
+      id: 'FieldEditors.Reference.MissingEntityCard.DefaultMessage',
+      message: 'Content missing or inaccessible',
+    });
 
   function CustomActionButton() {
     if (isDisabled || !onRemove) return null;

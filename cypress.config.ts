@@ -26,11 +26,18 @@ export default defineConfig({
   component: {
     setupNodeEvents(on, config) {
       on('task', task);
+
+      // Ensure the reports directory exists for CircleCI
+      const reportsDir = 'cypress/reports/component';
+      if (!fs.existsSync(reportsDir)) {
+        fs.mkdirSync(reportsDir, { recursive: true });
+      }
+
       on('after:spec', (_, results: CypressCommandLine.RunResult) => {
         if (results && results.video) {
           // Do we have failures for any retry attempts?
           const failures = results.tests.some((test) =>
-            test.attempts.some((attempt) => attempt.state === 'failed')
+            test.attempts.some((attempt) => attempt.state === 'failed'),
           );
           if (!failures) {
             // delete the video if the spec passed and no tests retried

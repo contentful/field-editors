@@ -14,6 +14,7 @@ import {
   TextInput,
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
+import { t } from '@lingui/core/macro';
 import { css } from 'emotion';
 
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
@@ -84,7 +85,12 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
       <ModalContent testId="embed-external-dialog">
         <Form>
           <FormControl id="external-link-url-field" isRequired isInvalid={!urlIsValid}>
-            <FormControl.Label>Content URL</FormControl.Label>
+            <FormControl.Label>
+              {t({
+                id: 'FieldEditors.Markdown.EmbedExternalContent.ContentURL',
+                message: 'Content URL',
+              })}
+            </FormControl.Label>
             <TextInput
               name="external-link-url"
               value={url}
@@ -97,9 +103,19 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
               placeholder="https://example.com"
               ref={mainInputRef}
             />
-            <FormControl.HelpText>Include protocol (e.g. https://)</FormControl.HelpText>
+            <FormControl.HelpText>
+              {t({
+                id: 'FieldEditors.Markdown.EmbedExternalContent.ProtocolHelpText',
+                message: 'Include protocol (e.g. https://',
+              })}
+            </FormControl.HelpText>
             {!urlIsValid && (
-              <FormControl.ValidationMessage>URL is invalid</FormControl.ValidationMessage>
+              <FormControl.ValidationMessage>
+                {t({
+                  id: 'FieldEditors.Markdown.EmbedExternalContent.URLInvalidMessage',
+                  message: 'URL is invalid',
+                })}
+              </FormControl.ValidationMessage>
             )}
           </FormControl>
           <TextLink href="http://embed.ly/providers" target="_blank" rel="noopener noreferrer">
@@ -109,7 +125,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             <FormControl
               id="embedded-content-width"
               isRequired
-              isInvalid={!isWidthValid(Number(width), selectedUnit)}>
+              isInvalid={!isWidthValid(Number(width), selectedUnit)}
+            >
               <FormControl.Label>Width</FormControl.Label>
               <TextInput
                 value={width}
@@ -132,7 +149,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
                 value="percent"
                 isChecked={selectedUnit === 'percent'}
                 onChange={() => setUnit('percent')}
-                className={styles.radioButton}>
+                className={styles.radioButton}
+              >
                 percent
               </Radio>
               <Radio
@@ -140,7 +158,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
                 value="pixels"
                 isChecked={selectedUnit === 'px'}
                 onChange={() => setUnit('px')}
-                className={styles.radioButton}>
+                className={styles.radioButton}
+              >
                 pixels
               </Radio>
             </div>
@@ -151,7 +170,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             value="Yes"
             isChecked={attachSocial}
             onChange={() => setAttachSocial(!attachSocial)}
-            testId="attach-social-checkbox">
+            testId="attach-social-checkbox"
+          >
             Attach social sharing links to this element
           </Checkbox>
           <Text as="p" fontColor="gray500" marginTop="spacingXs">
@@ -159,7 +179,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             <TextLink
               href="http://embed.ly/docs/products/cards"
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               Embedly&apos;s platform.js
             </TextLink>
             &nbsp;on your development environment
@@ -172,7 +193,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
           testId="emded-external-cancel"
           onClick={() => onClose(false)}
           variant="secondary"
-          size="small">
+          size="small"
+        >
           Cancel
         </Button>
         <Button
@@ -181,7 +203,8 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
             onClose(makeEmbedlyLink({ url, width: Number(width), selectedUnit, attachSocial }))
           }
           variant="positive"
-          size="small">
+          size="small"
+        >
           Insert
         </Button>
       </ModalControls>
@@ -190,7 +213,7 @@ export const EmbedExternalContentModal = ({ onClose }: EmbedExternalContentModal
 };
 
 export const openEmbedExternalContentDialog = (
-  dialogs: DialogsAPI
+  dialogs: DialogsAPI,
 ): Promise<EmbedExternalContentModalResult> => {
   return dialogs.openCurrent({
     title: 'Embed external content',

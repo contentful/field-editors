@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Spinner, TextInput, ValidationMessage } from '@contentful/f36-components';
 import { LinkIcon } from '@contentful/f36-icons';
+import { t } from '@lingui/core/macro';
 import { useDebounce } from 'use-debounce';
 
 import { makeSlug } from './services/makeSlug';
@@ -69,7 +70,7 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
 }
 
 export function SlugEditorFieldStatic(
-  props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function }
+  props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function },
 ) {
   const { hasError, isDisabled, value, setValue, onChange, onBlur, id } = props;
 
@@ -106,7 +107,10 @@ export function SlugEditorFieldStatic(
           testId="slug-editor-duplicate-error"
           className={styles.uniqueValidationError}
         >
-          This slug has already been published in another entry
+          {t({
+            id: 'FieldEditors.Slug.SlugEditorField.DuplicateSlugError',
+            message: 'This slug has already been published in another entry',
+          })}
         </ValidationMessage>
       )}
     </div>
