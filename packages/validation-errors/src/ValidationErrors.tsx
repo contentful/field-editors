@@ -11,6 +11,7 @@ import type {
   SpaceAPI,
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
+import { t } from '@lingui/core/macro';
 
 import * as styles from './styles';
 
@@ -39,21 +40,24 @@ function UniquenessError(props: UniquenessErrorProps) {
           ...prev,
           [ct.sys.id]: ct,
         }),
-        {}
+        {},
       ),
-    [props.space]
+    [props.space],
   );
 
   const getTitle = React.useCallback(
     (entry: Entry) =>
       entityHelpers.getEntryTitle({
         entry,
-        defaultTitle: 'Untitled',
+        defaultTitle: t({
+          id: 'FieldEditors.ValidationErrors.UniquenessError.UntitledEntry',
+          message: 'Untitled',
+        }),
         localeCode: props.localeCode,
         defaultLocaleCode: props.defaultLocaleCode,
         contentType: contentTypesById[entry.sys.contentType.sys.id],
       }),
-    [props.localeCode, props.defaultLocaleCode, contentTypesById]
+    [props.localeCode, props.defaultLocaleCode, contentTypesById],
   );
 
   let conflicting: Link<'Entry', 'Link'>[] = [];
@@ -94,7 +98,12 @@ function UniquenessError(props: UniquenessErrorProps) {
     <List className={styles.errorList} testId="validation-errors-uniqueness">
       <ListItem className={styles.entryLink}>
         {state.loading ? (
-          <div>Loading title for conflicting entry…</div>
+          <div>
+            {t({
+              id: 'FieldEditors.ValidationErrors.UniquenessError.LoadingMessage',
+              message: 'Loading title for conflicting entry…',
+            })}
+          </div>
         ) : (
           state.entries.map((entry) => (
             <TextLink

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
 import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
+import { t } from '@lingui/core/macro';
 
 import {
   ContentEntityType,
@@ -34,16 +35,46 @@ export interface LinkActionsProps {
 }
 
 const defaultEntryLabels: ActionLabels = {
-  createNew: (props) =>
-    props?.contentType ? `Create new ${props.contentType} and link` : 'Create new entry and link',
+  createNew: (props) => {
+    const contentType = props?.contentType;
+    return contentType
+      ? t({
+          id: 'FieldEditors.Reference.LinkActions.CreateNewEntryWithType',
+          message: `Create new ${contentType} and link`,
+        })
+      : t({
+          id: 'FieldEditors.Reference.LinkActions.CreateNewEntry',
+          message: 'Create new entry and link',
+        });
+  },
   linkExisting: (props) =>
-    props?.canLinkMultiple ? 'Link existing entries' : 'Link existing entry',
+    props?.canLinkMultiple
+      ? t({
+          id: 'FieldEditors.Reference.LinkActions.LinkExistingEntries',
+          message: 'Link existing entries',
+        })
+      : t({
+          id: 'FieldEditors.Reference.LinkActions.LinkExistingEntry',
+          message: 'Link existing entry',
+        }),
 };
 
 const defaultAssetLabels: ActionLabels = {
-  createNew: () => `Create new asset and link`,
+  createNew: () =>
+    t({
+      id: 'FieldEditors.Reference.LinkActions.CreateNewAsset',
+      message: 'Create new asset and link',
+    }),
   linkExisting: (props) =>
-    props?.canLinkMultiple ? 'Link existing assets' : 'Link existing asset',
+    props?.canLinkMultiple
+      ? t({
+          id: 'FieldEditors.Reference.LinkActions.LinkExistingAssets',
+          message: 'Link existing assets',
+        })
+      : t({
+          id: 'FieldEditors.Reference.LinkActions.LinkExistingAsset',
+          message: 'Link existing asset',
+        }),
 };
 
 export const testIds = {
@@ -93,7 +124,8 @@ export function LinkActions(props: LinkActionsProps) {
               }}
               variant="secondary"
               startIcon={<PlusIcon />}
-              size="small">
+              size="small"
+            >
               {labels.createNew()}
             </Button>
           )}
@@ -109,7 +141,8 @@ export function LinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<LinkIcon />}
-          size="small">
+          size="small"
+        >
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </Button>
       )}

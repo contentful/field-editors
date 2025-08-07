@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Text } from '@contentful/f36-components';
+import { t } from '@lingui/core/macro';
 import { css } from 'emotion';
 
 import { Constraint, ConstraintsType } from './types';
@@ -12,6 +13,9 @@ interface TagEditorConstraintsProps {
 
 export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
   const { constraintsType, constraints } = props;
+  const min = constraints.min;
+  const max = constraints.max;
+
   return (
     <Text
       as="p"
@@ -25,22 +29,49 @@ export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
     >
       {constraintsType === 'min' && (
         <span>
-          Requires at least {constraints.min} {constraints.min === 1 ? 'tag' : 'tags'}
+          {min === 1
+            ? t({
+                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresAtLeastOneTag',
+                message: 'Requires at least 1 tag',
+              })
+            : t({
+                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresAtLeastNTags',
+                message: `Requires at least ${min} tags`,
+              })}
         </span>
       )}
       {constraintsType === 'max' && (
         <span>
-          Requires no more than {constraints.max} {constraints.max === 1 ? 'tag' : 'tags'}
+          {max === 1
+            ? t({
+                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresNoMoreThanOneTag',
+                message: 'Requires no more than 1 tag',
+              })
+            : t({
+                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresNoMoreThanNTags',
+                message: `Requires no more than ${max} tags`,
+              })}
         </span>
       )}
-      {constraintsType === 'min-max' && constraints.max !== constraints.min && (
+      {constraintsType === 'min-max' && max !== min && (
         <span>
-          Requires between {constraints.min} and {constraints.max} tags
+          {t({
+            id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresBetweenNAndMTags',
+            message: `Requires between ${min} and ${max} tags`,
+          })}
         </span>
       )}
-      {constraintsType === 'min-max' && constraints.max === constraints.min && (
+      {constraintsType === 'min-max' && max === min && (
         <span>
-          Requires exactly {constraints.max} {constraints.max === 1 ? 'tag' : 'tags'}
+          {max === 1
+            ? t({
+                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresExactlyOneTag',
+                message: 'Requires exactly 1 tag',
+              })
+            : t({
+                id: 'FieldEditors.Tags.TagsEditorConstraints.RequiresExactlyNTags',
+                message: `Requires exactly ${max} tags`,
+              })}
         </span>
       )}
     </Text>
