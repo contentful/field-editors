@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { Flex, Text, TextLink } from '@contentful/f36-components';
+import { ErrorCircleOutlineIcon, ExternalLinkIcon } from '@contentful/f36-icons';
+import { t } from '@lingui/core/macro';
 
 import { MissingEntityCard } from '..';
-
-import { ErrorCircleOutlineIcon, ExternalLinkIcon } from '@contentful/f36-icons';
 
 import { useResourceProvider } from '../../common/EntityStore';
 
@@ -42,10 +42,21 @@ export function FunctionInvocationErrorCard({
     >
       <Flex justifyContent="left" alignItems="center">
         <ErrorCircleOutlineIcon variant="negative" />
-        <Text fontColor="colorNegative">&nbsp;Function invocation error.</Text>
+        <Text fontColor="colorNegative">
+          &nbsp;
+          {t({
+            id: 'FieldEditors.Reference.FunctionInvocationErrorCard.ErrorMessage',
+            message: 'Function invocation error.',
+          })}
+        </Text>
         {status === 'success' && functionId && (
           <Text fontColor="colorNegative">
-            &nbsp;For more information, go to&nbsp;
+            &nbsp;
+            {t({
+              id: 'FieldEditors.Reference.FunctionInvocationErrorCard.LogsInfo',
+              message: 'For more information, go to',
+            })}
+            &nbsp;
             <TextLink
               testId="cf-ui-function-invocation-log-link"
               icon={<ExternalLinkIcon />}
@@ -53,7 +64,10 @@ export function FunctionInvocationErrorCard({
               alignIcon="end"
               href={functionLink}
             >
-              function logs
+              {t({
+                id: 'FieldEditors.Reference.FunctionInvocationErrorCard.FunctionLogs',
+                message: 'function logs',
+              })}
             </TextLink>
           </Text>
         )}

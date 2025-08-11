@@ -25,6 +25,12 @@ import '@testing-library/cypress/add-commands';
 import 'cypress-plugin-tab';
 
 import { configure } from '@testing-library/cypress';
+import { i18n } from '@lingui/core';
+
+// Initialize Lingui for component tests with a basic catalog
+// In tests, we just use the message values directly
+i18n.load('en', {});
+i18n.activate('en');
 
 configure({ testIdAttribute: 'data-test-id' });
 

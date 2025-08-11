@@ -5,6 +5,7 @@ function getConfig(packageName) {
     testEnvironment: 'jsdom',
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
     testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+    setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
     reporters: [
       'default',
       [
