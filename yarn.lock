@@ -3034,10 +3034,10 @@
     "@contentful/f36-tokens" "^4.0.4"
     emotion "^10.0.17"
 
-"@contentful/f36-tokens@4.0.5", "@contentful/f36-tokens@^4.0.1", "@contentful/f36-tokens@^4.0.4", "@contentful/f36-tokens@^4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@contentful/f36-tokens/-/f36-tokens-4.0.5.tgz#20fbaa7f58115be7b31998fb1af618c3bb85bfbe"
-  integrity sha512-s2EB5De7ZCRASS6LnUIg42nyckP3yvZXAK+unROeYEzsV1hyV2WtdCfedHrNa3FA/mYnkPE7U/2XTUXNMKk+mA==
+"@contentful/f36-tokens@4.2.0", "@contentful/f36-tokens@^4.0.1", "@contentful/f36-tokens@^4.0.4", "@contentful/f36-tokens@^4.0.5":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-tokens/-/f36-tokens-4.2.0.tgz#bb12fb8730c71a7fdc568d2a66ce5a7b438863e0"
+  integrity sha512-fB7ZEO8+NJPlcGvx6EHuEoPdhgpaFAeCnymXlgC+xVLTXYKXSk8JJD4WEr9rBLcXpyyS+e3g51kNFv90cDOeEQ==
 
 "@contentful/f36-tooltip@^4.70.0":
   version "4.70.0"
