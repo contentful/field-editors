@@ -37,13 +37,13 @@
   "devDependencies": {
     "@contentful/app-sdk": "^4.29.0",
     "@contentful/field-editor-test-utils": "^1.5.2",
-    "@lingui/core": "5.3.0",
     "@testing-library/react": "16.0.1"
   },
   "dependencies": {
     "@contentful/f36-components": "^4.70.0",
     "@contentful/f36-note": "^4.70.0",
     "@contentful/f36-tokens": "^4.0.5",
+    "@lingui/core": "5.3.0",
     "contentful-management": "^11.45.1",
     "emotion": "^10.0.17",
     "fast-deep-equal": "^3.1.3",
