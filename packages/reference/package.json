@@ -43,6 +43,7 @@
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^7.0.0",
     "@dnd-kit/sortable": "^8.0.0",
+    "@lingui/core": "5.3.0",
     "@tanstack/react-query": "^4.3.9",
     "constate": "^3.3.2",
     "contentful-management": "^11.45.1",
@@ -55,7 +56,6 @@
   "devDependencies": {
     "@contentful/app-sdk": "^4.29.0",
     "@contentful/field-editor-test-utils": "^1.5.2",
-    "@lingui/core": "5.3.0",
     "@testing-library/react-hooks": "^8.0.1"
   },
   "peerDependencies": {
