@@ -17,6 +17,7 @@ export type ValidationType =
       max: number;
     };
 
+//@TODO: use Release types from contentful management once they are ready
 export type ReleaseV2Entity = {
   entity: {
     sys: { type: 'Link'; linkType: 'Entry'; id: string };
@@ -40,12 +41,25 @@ export type ReleaseV2EntityWithLocales = {
   };
 };
 
+export type ReleaseV2AnnotationType = 'Hidden' | 'Ideation';
+
+export type ReleaseV2Annotations = {
+  'Contentful:Timeline'?: {
+    type?: ReleaseV2AnnotationType;
+  };
+};
+
+export type ReleaseMetadataV2 = {
+  annotations?: ReleaseV2Annotations;
+};
+
 export type ReleaseV2Props = Omit<ReleaseProps, 'entities' | 'sys'> & {
   sys: ReleaseProps['sys'] & {
     schemaVersion: 'Release.v2';
   };
   entities: CollectionProp<ReleaseV2Entity | ReleaseV2EntityWithLocales>;
   startDate?: string;
+  metadata?: ReleaseMetadataV2;
 };
 
 export type ReleaseAction = 'publish' | 'unpublish' | 'not-in-release';
