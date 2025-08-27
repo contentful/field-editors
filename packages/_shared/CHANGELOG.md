@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.9.1...@contentful/field-editor-shared@2.10.0) (2025-08-27)
+
+### Features
+
+- add release metadata types [] ([#1913](https://github.com/contentful/field-editors/issues/1913)) ([7d5d25b](https://github.com/contentful/field-editors/commit/7d5d25b97206723f9bbcba48869ec89796566df7))
+
 ## [2.9.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.9.0...@contentful/field-editor-shared@2.9.1) (2025-08-11)
 
 **Note:** Version bump only for package @contentful/field-editor-shared
