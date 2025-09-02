@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Link, ValidationError } from '@contentful/app-sdk';
 import { List, ListItem, TextLink } from '@contentful/f36-components';
-import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
+import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
 import type {
   ContentType,
   Entry,
@@ -100,7 +100,7 @@ function UniquenessError(props: UniquenessErrorProps) {
             <TextLink
               key={entry.id}
               href={entry.href}
-              icon={<ExternalLinkIcon />}
+              icon={<ArrowSquareOutIcon />}
               alignIcon="end"
               variant="negative"
               target="_blank"
@@ -149,7 +149,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             data-error-code={`entry.schema.${error.name}`}
             className={styles.errorItem}
           >
-            <InfoCircleIcon variant="negative" />
+            <InfoIcon variant="negative" />
             <div className={styles.errorMessage}>
               {props.errorMessageOverride?.(error.message) ?? error.message}
               {error.name === 'unique' && (

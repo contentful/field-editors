@@ -18,7 +18,7 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
+import { XIcon, CaretDownIcon, CaretUpIcon } from '@contentful/f36-icons';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -47,7 +47,7 @@ const SortableFieldItem = SortableElement(
         </div>
         <IconButton
           variant="transparent"
-          icon={<CloseIcon variant="negative" />}
+          icon={<XIcon variant="negative" />}
           aria-label="Remove field"
           onClick={() =>
             dispatch({
@@ -156,7 +156,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         {unassignedFields.length > 0 ? (
           <Menu>
             <Menu.Trigger>
-              <Button endIcon={<ChevronDownIcon />} size="small" variant="secondary">
+              <Button endIcon={<CaretDownIcon />} size="small" variant="secondary">
                 Select a field to add
               </Button>
             </Menu.Trigger>
@@ -171,7 +171,8 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                       fieldName: name,
                     });
                   }}
-                  key={id}>
+                  key={id}
+                >
                   {name}
                 </Menu.Item>
               ))}
@@ -192,16 +193,18 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           as="button"
           className={styles.fieldGroupConfigurationTextLink}
           variant="negative"
-          icon={<CloseIcon />}
-          onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
+          icon={<XIcon />}
+          onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}
+        >
           Remove
         </TextLink>
         {!last ? (
           <TextLink
             as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon={<ChevronDownIcon />}
-            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
+            icon={<CaretDownIcon />}
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}
+          >
             Move down
           </TextLink>
         ) : null}
@@ -209,8 +212,9 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           <TextLink
             as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon={<ChevronUpIcon />}
-            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
+            icon={<CaretUpIcon />}
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}
+          >
             Move up
           </TextLink>
         ) : null}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FormatItalicIcon } from '@contentful/f36-icons';
+import { TextItalicIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
@@ -13,7 +13,7 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarItalicButton = createMarkToolbarButton({
   title: 'Italic',
   mark: MARKS.ITALIC,
-  icon: <FormatItalicIcon />,
+  icon: <TextItalicIcon />,
 });
 
 const styles = {

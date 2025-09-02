@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { EntryCard, IconButton } from '@contentful/f36-components';
-import { CloseIcon } from '@contentful/f36-icons';
+import { XIcon } from '@contentful/f36-icons';
 
 type MissingEntityCardProps = {
   customMessage?: string;
@@ -32,7 +32,7 @@ export function MissingEntityCard({
     return (
       <IconButton
         aria-label="Actions"
-        icon={<CloseIcon variant="muted" />}
+        icon={<XIcon variant="muted" />}
         size="small"
         variant="transparent"
         onClick={() => {

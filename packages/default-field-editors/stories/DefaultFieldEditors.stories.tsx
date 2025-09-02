@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Text } from '@contentful/f36-components';
-import { EditIcon, HelpCircleIcon } from '@contentful/f36-icons';
+import { PencilSimpleIcon, HelpCircleIcon } from '@contentful/f36-icons';
 import { BooleanEditor } from '@contentful/field-editor-boolean';
 import {
   ActionsPlayground,
@@ -67,7 +67,7 @@ export const Default: Story = {
           name="customField"
           renderHeading={(name) => (
             <div>
-              <EditIcon size="tiny" /> Custom {name} heading
+              <PencilSimpleIcon size="tiny" /> Custom {name} heading
             </div>
           )}
           renderHelpText={(helpText) => (

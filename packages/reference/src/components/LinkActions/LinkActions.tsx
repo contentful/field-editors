@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
+import { PlusIcon, LinkSimpleIcon } from '@contentful/f36-icons';
 
 import {
   ContentEntityType,
@@ -93,7 +93,8 @@ export function LinkActions(props: LinkActionsProps) {
               }}
               variant="secondary"
               startIcon={<PlusIcon />}
-              size="small">
+              size="small"
+            >
               {labels.createNew()}
             </Button>
           )}
@@ -108,8 +109,9 @@ export function LinkActions(props: LinkActionsProps) {
             props.onLinkExisting();
           }}
           variant="secondary"
-          startIcon={<LinkIcon />}
-          size="small">
+          startIcon={<LinkSimpleIcon />}
+          size="small"
+        >
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </Button>
       )}

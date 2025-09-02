@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FormatBoldIcon } from '@contentful/f36-icons';
+import { TextBIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
@@ -13,7 +13,7 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarBoldButton = createMarkToolbarButton({
   title: 'Bold',
   mark: MARKS.BOLD,
-  icon: <FormatBoldIcon />,
+  icon: <TextBIcon />,
 });
 
 const styles = {

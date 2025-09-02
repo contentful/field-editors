@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { TextInput } from '@contentful/f36-components';
-import { ArrowUpTrimmedIcon, ArrowDownTrimmedIcon } from '@contentful/f36-icons';
+import { ArrowUpIcon, ArrowDownIcon } from '@contentful/f36-icons';
 import {
   FieldAPI,
   FieldConnector,
@@ -155,15 +155,17 @@ function InnerNumberEditor({
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Increment)}
-            onPointerDown={handleControlPointerDown}>
-            <ArrowUpTrimmedIcon size="medium" />
+            onPointerDown={handleControlPointerDown}
+          >
+            <ArrowUpIcon size="medium" />
           </button>
           <button
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Decrement)}
-            onPointerDown={handleControlPointerDown}>
-            <ArrowDownTrimmedIcon size="medium" />
+            onPointerDown={handleControlPointerDown}
+          >
+            <ArrowDownIcon size="medium" />
           </button>
         </div>
       )}

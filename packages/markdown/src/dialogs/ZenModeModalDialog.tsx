@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DialogAppSDK, DialogsAPI } from '@contentful/app-sdk';
 import { Grid } from '@contentful/f36-components';
-import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
+import { CaretLeftIcon, CaretRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
@@ -179,7 +179,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             setShowPreview(false);
           }}
         >
-          <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
+          <CaretRightIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
       {!showPreview && (
@@ -190,7 +190,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             setShowPreview(true);
           }}
         >
-          <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
+          <CaretLeftIcon variant="muted" size="tiny" className={styles.icon} />
         </button>
       )}
       <Grid.Item className={styles.bottomSplit}>

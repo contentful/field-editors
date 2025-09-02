@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { IconButton, Menu } from '@contentful/f36-components';
-import { ChevronDownIcon } from '@contentful/f36-icons';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
@@ -111,7 +111,7 @@ export const TableActions = () => {
           variant="transparent"
           tabIndex={-1}
           className={styles.topRight}
-          icon={<ChevronDownIcon />}
+          icon={<CaretDownIcon />}
           aria-label="Open table menu"
           testId="cf-table-actions-button"
         />

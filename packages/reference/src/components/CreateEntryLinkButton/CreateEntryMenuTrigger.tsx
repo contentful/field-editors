@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 
 import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
-import { SearchIcon } from '@contentful/f36-icons';
+import { MagnifyingGlassIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import get from 'lodash/get';
@@ -31,7 +31,7 @@ const styles = {
     paddingRight: tokens.spacingXl,
     textOverflow: 'ellipsis',
   }),
-  searchIcon: css({
+  MagnifyingGlassIcon: css({
     position: 'absolute',
     right: tokens.spacingM,
     top: tokens.spacingS,
@@ -222,7 +222,7 @@ export const CreateEntryMenuTrigger = ({
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <SearchIcon className={styles.searchIcon} />
+                  <MagnifyingGlassIcon className={styles.MagnifyingGlassIcon} />
                 </div>
                 <Menu.Divider />
               </>

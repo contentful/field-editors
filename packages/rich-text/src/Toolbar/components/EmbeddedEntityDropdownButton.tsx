@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button, Menu } from '@contentful/f36-components';
-import { PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
+import { PlusIcon, CaretDownIcon } from '@contentful/f36-icons';
 
 export interface EmbeddedEntityDropdownButtonProps {
   children: React.ReactNode;
@@ -22,12 +22,13 @@ export function EmbeddedEntityDropdownButton({
     <Menu placement="bottom-end" isOpen={isOpen} onClose={onClose} onOpen={onToggle}>
       <Menu.Trigger>
         <Button
-          endIcon={<ChevronDownIcon />}
+          endIcon={<CaretDownIcon />}
           testId="toolbar-entity-dropdown-toggle"
           variant="secondary"
           size="small"
           startIcon={<PlusIcon />}
-          isDisabled={isDisabled}>
+          isDisabled={isDisabled}
+        >
           Embed
         </Button>
       </Menu.Trigger>

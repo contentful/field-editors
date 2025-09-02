@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Popover, IconButton, Tooltip, Flex } from '@contentful/f36-components';
-import { EditIcon, CopyIcon } from '@contentful/f36-icons';
+import { PencilSimpleIcon, CopySimpleIcon } from '@contentful/f36-icons';
 
 import { styles } from './styles';
 
@@ -70,7 +70,7 @@ export const LinkPopover = ({
                 size="small"
                 variant="transparent"
                 aria-label="Copy link"
-                icon={<CopyIcon size="tiny" />}
+                icon={<CopySimpleIcon size="tiny" />}
               />
             </Tooltip>
           )}
@@ -81,7 +81,7 @@ export const LinkPopover = ({
               size="small"
               variant="transparent"
               aria-label="Edit link"
-              icon={<EditIcon size="tiny" />}
+              icon={<PencilSimpleIcon size="tiny" />}
             />
           </Tooltip>
           <Tooltip placement="bottom" content="Remove link" usePortal>

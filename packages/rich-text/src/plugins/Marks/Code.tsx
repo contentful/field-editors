@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CodeIcon } from '@contentful/f36-icons';
+import { CodeSimpleIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createCodePlugin as createDefaultCodePlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
@@ -12,7 +12,7 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarCodeButton = createMarkToolbarButton({
   title: 'Code',
   mark: MARKS.CODE,
-  icon: <CodeIcon />,
+  icon: <CodeSimpleIcon />,
 });
 
 export const ToolbarDropdownCodeButton = createMarkToolbarButton({

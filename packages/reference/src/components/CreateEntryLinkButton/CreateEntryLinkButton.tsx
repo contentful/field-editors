@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
+import { CaretDownIcon, PlusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import get from 'lodash/get';
@@ -81,7 +81,7 @@ export const CreateEntryLinkButton = ({
     >
       {({ isSelecting }) => (
         <Button
-          endIcon={hasDropdown ? <ChevronDownIcon /> : undefined}
+          endIcon={hasDropdown ? <CaretDownIcon /> : undefined}
           variant="secondary"
           className={styles.action}
           isDisabled={disabled || isSelecting} // (contentTypes && contentTypes.length === 0)}

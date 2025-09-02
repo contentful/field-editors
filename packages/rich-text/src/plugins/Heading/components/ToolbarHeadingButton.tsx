@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Menu, Button } from '@contentful/f36-components';
-import { ChevronDownIcon } from '@contentful/f36-icons';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css, cx } from 'emotion';
@@ -141,7 +141,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           size="small"
           testId="toolbar-heading-toggle"
           variant="transparent"
-          endIcon={<ChevronDownIcon />}
+          endIcon={<CaretDownIcon />}
           isDisabled={props.isDisabled}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
           className={styles.button}

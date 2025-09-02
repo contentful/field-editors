@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { Menu, Flex } from '@contentful/f36-components';
-import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
+import { EmbeddedLineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
@@ -66,7 +66,7 @@ export function EmbeddedInlineToolbarIcon({
       onClick={handleClick}
     >
       <Flex alignItems="center" flexDirection="row">
-        <EmbeddedEntryInlineIcon
+        <EmbeddedLineIcon
           variant="secondary"
           className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
         />

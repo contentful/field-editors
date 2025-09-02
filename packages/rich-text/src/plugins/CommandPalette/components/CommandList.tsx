@@ -1,14 +1,8 @@
 import * as React from 'react';
 import { usePopper } from 'react-popper';
 
-import {
-  Popover,
-  Stack,
-  SectionHeading,
-  ScreenReaderOnly,
-  Flex,
-  AssetIcon,
-} from '@contentful/f36-components';
+import { Popover, Stack, SectionHeading, ScreenReaderOnly, Flex } from '@contentful/f36-components';
+import { ImageSquareIcon } from '@contentful/f36-icons';
 import { Portal } from '@contentful/f36-utils';
 import { cx } from 'emotion';
 
@@ -70,7 +64,7 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
       {command.thumbnail ? (
         <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
       ) : (
-        <AssetIcon width="30" height="30" className={styles.thumbnail} />
+        <ImageSquareIcon size="medium" className={styles.thumbnail} />
       )}
       <span>{command.label}</span>
     </Flex>

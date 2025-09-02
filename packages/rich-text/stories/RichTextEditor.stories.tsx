@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { IconButton } from '@contentful/f36-components';
-import { CopyIcon } from '@contentful/f36-icons';
+import { CopySimpleIcon } from '@contentful/f36-icons';
 import {
   ActionsPlayground,
   createFakeCMAAdapter,
@@ -258,7 +258,7 @@ const DemoRichTextEditor = () => {
         <IconButton
           variant="transparent"
           aria-label="Copy"
-          icon={<CopyIcon size="tiny" variant="positive" />}
+          icon={<CopySimpleIcon size="tiny" variant="positive" />}
           className={structurePreviewCopyButton}
           onClick={async () => {
             // https://stackoverflow.com/a/65996386

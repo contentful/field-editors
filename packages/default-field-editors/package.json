@@ -35,7 +35,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.70.0",
+    "@contentful/f36-components": "5.1.0",
     "@contentful/field-editor-boolean": "^1.4.31",
     "@contentful/field-editor-checkbox": "^1.4.31",
     "@contentful/field-editor-date": "^1.7.3",

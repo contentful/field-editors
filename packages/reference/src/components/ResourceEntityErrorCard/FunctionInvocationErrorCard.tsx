@@ -4,7 +4,7 @@ import { Flex, Text, TextLink } from '@contentful/f36-components';
 
 import { MissingEntityCard } from '..';
 
-import { ErrorCircleOutlineIcon, ExternalLinkIcon } from '@contentful/f36-icons';
+import { WarningOctagonIcon, ArrowSquareOutIcon } from '@contentful/f36-icons';
 
 import { useResourceProvider } from '../../common/EntityStore';
 
@@ -41,14 +41,14 @@ export function FunctionInvocationErrorCard({
       testId="cf-ui-function-invocation-error-card"
     >
       <Flex justifyContent="left" alignItems="center">
-        <ErrorCircleOutlineIcon variant="negative" />
+        <WarningOctagonIcon variant="negative" />
         <Text fontColor="colorNegative">&nbsp;Function invocation error.</Text>
         {status === 'success' && functionId && (
           <Text fontColor="colorNegative">
             &nbsp;For more information, go to&nbsp;
             <TextLink
               testId="cf-ui-function-invocation-log-link"
-              icon={<ExternalLinkIcon />}
+              icon={<ArrowSquareOutIcon />}
               target="_blank"
               alignIcon="end"
               href={functionLink}

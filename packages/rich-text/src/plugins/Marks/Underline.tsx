@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FormatUnderlinedIcon } from '@contentful/f36-icons';
+import { TextUnderlineIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '@udecode/plate-basic-marks';
 
@@ -12,7 +12,7 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarUnderlineButton = createMarkToolbarButton({
   title: 'Underline',
   mark: MARKS.UNDERLINE,
-  icon: <FormatUnderlinedIcon />,
+  icon: <TextUnderlineIcon />,
 });
 
 export function Underline(props: RenderLeafProps) {

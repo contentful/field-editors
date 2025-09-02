@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Flex, Text, Tooltip } from '@contentful/f36-components';
-import { FolderOpenTrimmedIcon } from '@contentful/f36-icons';
+import { FolderOpenIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
@@ -33,7 +33,7 @@ export function SpaceName(props: SourceProps) {
   return (
     <Tooltip placement="top" as="div" content={content}>
       <Flex alignItems="center" gap="spacingXs">
-        <FolderOpenTrimmedIcon className={styles.spaceIcon} size="tiny" aria-label="Source space" />
+        <FolderOpenIcon className={styles.spaceIcon} size="tiny" aria-label="Source space" />
         <Text className={styles.spaceName}>{props.spaceName}</Text>
       </Flex>
     </Tooltip>

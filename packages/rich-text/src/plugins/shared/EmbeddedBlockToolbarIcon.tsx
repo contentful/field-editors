@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { Flex, Icon, Menu } from '@contentful/f36-components';
-import { AssetIcon, EmbeddedEntryBlockIcon } from '@contentful/f36-icons';
+import { ImageSquareIcon, EmbeddedBlockIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -56,7 +56,7 @@ export function EmbeddedBlockToolbarIcon({
     >
       <Flex alignItems="center" flexDirection="row">
         <Icon
-          as={type === 'Asset' ? AssetIcon : EmbeddedEntryBlockIcon}
+          as={type === 'Asset' ? ImageSquareIcon : EmbeddedBlockIcon}
           className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
           variant="secondary"
         />
