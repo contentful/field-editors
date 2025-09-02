@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-
 import { IconButton } from '@contentful/f36-components';
 import { StarIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
 type RatingRibbonProps = {
@@ -60,7 +60,7 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
             size="small"
             icon={
               <StarIcon
-                variant={this.isSelected(num) ? 'primary' : 'muted'}
+                color={this.isSelected(num) ? tokens.colorPrimary : tokens.gray600}
                 className={css({ width: '22px', height: '22px' })}
               />
             }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-import { PlusIcon, LinkIcon } from '@contentful/f36-icons';
+import { LinkSimpleIcon, PlusIcon } from '@contentful/f36-icons';
 import { t, plural } from '@lingui/core/macro';
 
 import {
@@ -136,13 +136,12 @@ export function LinkActions(props: LinkActionsProps) {
             props.onLinkExisting();
           }}
           variant="secondary"
-          startIcon={<LinkIcon />}
+          startIcon={<LinkSimpleIcon />}
           size="small"
         >
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </Button>
       )}
-
       {!props.canCreateEntity && !props.canLinkEntity && <NoLinkPermissionsInfo />}
     </div>
   );

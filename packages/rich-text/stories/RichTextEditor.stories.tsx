@@ -4,7 +4,8 @@ import { useMemo } from 'react';
 
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { IconButton } from '@contentful/f36-components';
-import { CopyIcon } from '@contentful/f36-icons';
+import { CopySimpleIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import {
   ActionsPlayground,
   createFakeCMAAdapter,
@@ -22,6 +23,8 @@ import { css } from 'emotion';
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';
 import { RichTextPreview } from './RichTextPreview';
+
+
 
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor',
@@ -126,7 +129,7 @@ const DemoRichTextEditor = () => {
             ];
         return mock;
       }, initialValue),
-    [fieldValidations, initialValue]
+    [fieldValidations, initialValue],
   );
 
   const isDisabled = window.localStorage.getItem('initialDisabled') || false;
@@ -184,7 +187,7 @@ const DemoRichTextEditor = () => {
       selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry'),
       selectSingleResourceEntity: newEntitySelectorDummyDialog(
         'selectSingleResourceEntity',
-        'Contentful:Entry'
+        'Contentful:Entry',
       ),
     },
     access: {
@@ -258,7 +261,7 @@ const DemoRichTextEditor = () => {
         <IconButton
           variant="transparent"
           aria-label="Copy"
-          icon={<CopyIcon size="tiny" variant="positive" />}
+          icon={<CopySimpleIcon size="tiny" color={tokens.colorPositive} />}
           className={structurePreviewCopyButton}
           onClick={async () => {
             // https://stackoverflow.com/a/65996386

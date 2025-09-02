@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ListBulletedIcon, ListNumberedIcon } from '@contentful/f36-icons';
+import { ListBulletsIcon, ListNumbersIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -41,7 +41,7 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
           isActive={isListTypeActive(editor, BLOCKS.UL_LIST)}
           isDisabled={props.isDisabled}
         >
-          <ListBulletedIcon />
+          <ListBulletsIcon />
         </ToolbarButton>
       )}
       {isNodeTypeEnabled(sdk.field, BLOCKS.OL_LIST) && (
@@ -52,7 +52,7 @@ export function ToolbarListButton(props: ToolbarListButtonProps) {
           isActive={isListTypeActive(editor, BLOCKS.OL_LIST)}
           isDisabled={props.isDisabled}
         >
-          <ListNumberedIcon />
+          <ListNumbersIcon />
         </ToolbarButton>
       )}
     </React.Fragment>

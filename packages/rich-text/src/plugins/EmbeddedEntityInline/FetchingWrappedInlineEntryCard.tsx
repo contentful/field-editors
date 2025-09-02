@@ -12,6 +12,7 @@ import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shar
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
+
 const { getEntryTitle, getEntityStatus } = entityHelpers;
 
 const styles = {
@@ -53,7 +54,7 @@ function InternalFetchingWrappedInlineEntryCard({
     }
 
     return allContentTypes.find(
-      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
+      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id,
     );
   }, [allContentTypes, entry]);
 
@@ -66,7 +67,7 @@ function InternalFetchingWrappedInlineEntryCard({
         defaultLocaleCode: defaultLocale,
         defaultTitle: 'Untitled',
       }),
-    [entry, contentType, locale, defaultLocale]
+    [entry, contentType, locale, defaultLocale],
   );
 
   return (
@@ -89,7 +90,11 @@ function InternalFetchingWrappedInlineEntryCard({
         entityType="Entry"
         entityId={entry.sys.id}
       >
-        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
+        <ClockIcon
+          className={styles.scheduledIcon}
+          color={tokens.gray600}
+          testId="scheduled-icon"
+        />
       </ScheduledIconWithTooltip>
       <Text>{title}</Text>
     </InlineEntryCard>
@@ -135,7 +140,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   const entryStatus = getEntityStatus(
     entry.sys,
-    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined
+    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined,
   );
 
   if (entryStatus === 'deleted') {
