@@ -41,7 +41,7 @@
     "@testing-library/react": "16.0.1"
   },
   "dependencies": {
-    "@contentful/f36-components": "^4.70.0",
+    "@contentful/f36-components": "^5.1.0",
     "@contentful/f36-note": "^4.70.0",
     "@contentful/f36-tokens": "^4.0.5",
     "contentful-management": "^11.45.1",
