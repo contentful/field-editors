@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Menu, Button } from '@contentful/f36-components';
-import { ChevronDownIcon } from '@contentful/f36-icons';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css, cx } from 'emotion';
@@ -16,6 +16,7 @@ import {
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { Element } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
+
 
 const styles = {
   // prevent the layout to jump due switch from "normal text" to "headline" and vice versa
@@ -94,7 +95,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
   const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
     const nodeTypesByEnablement = Object.fromEntries(
-      Object.keys(LABELS).map((nodeType) => [nodeType, isNodeTypeEnabled(sdk.field, nodeType)])
+      Object.keys(LABELS).map((nodeType) => [nodeType, isNodeTypeEnabled(sdk.field, nodeType)]),
     );
     const someHeadingsEnabled = Object.values(nodeTypesByEnablement).filter(Boolean).length > 0;
     return [nodeTypesByEnablement, someHeadingsEnabled];
@@ -141,7 +142,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           size="small"
           testId="toolbar-heading-toggle"
           variant="transparent"
-          endIcon={<ChevronDownIcon />}
+          endIcon={<CaretDownIcon />}
           isDisabled={props.isDisabled}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
           className={styles.button}
@@ -165,7 +166,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                     {LABELS[nodeType]}
                   </span>
                 </Menu.Item>
-              )
+              ),
           )
           .filter(Boolean)}
       </Menu.List>

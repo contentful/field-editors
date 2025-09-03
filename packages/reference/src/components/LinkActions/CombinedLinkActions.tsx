@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button, Menu } from '@contentful/f36-components';
-import { LinkIcon, PlusIcon, ChevronDownIcon } from '@contentful/f36-icons';
+import { CaretDownIcon, LinkSimpleIcon, PlusIcon } from '@contentful/f36-icons';
 
 import { CreateEntryLinkButton } from '../CreateEntryLinkButton/CreateEntryLinkButton';
 import { testIds as sharedTextIds, LinkActionsProps } from './LinkActions';
@@ -59,7 +59,8 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
               testId={testIds.linkExisting}
               onClick={() => {
                 props.onLinkExisting();
-              }}>
+              }}
+            >
               Add existing content
             </Menu.Item>
           ) : undefined
@@ -76,8 +77,9 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
           props.onLinkExisting();
         }}
         variant="secondary"
-        startIcon={<LinkIcon />}
-        size="small">
+        startIcon={<LinkSimpleIcon />}
+        size="small"
+      >
         Add existing content
       </Button>
     );
@@ -100,7 +102,8 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small">
+          size="small"
+        >
           Add existing media
         </Button>
       );
@@ -116,7 +119,8 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small">
+          size="small"
+        >
           Add media
         </Button>
       );
@@ -134,16 +138,18 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       }}
       onOpen={() => {
         setOpen(true);
-      }}>
+      }}
+    >
       <Menu.Trigger>
         <Button
-          endIcon={<ChevronDownIcon />}
+          endIcon={<CaretDownIcon />}
           isDisabled={props.isDisabled}
           testId={testIds.actionsWrapper}
           className={styles.action}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small">
+          size="small"
+        >
           Add media
         </Button>
       </Menu.Trigger>
@@ -153,14 +159,16 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
             testId={testIds.linkExisting}
             onClick={() => {
               props.onLinkExisting();
-            }}>
+            }}
+          >
             Add existing media
           </Menu.Item>
           <Menu.Item
             testId={testIds.createAndLink}
             onClick={() => {
               props.onCreate();
-            }}>
+            }}
+          >
             Add new media
           </Menu.Item>
         </Menu.List>

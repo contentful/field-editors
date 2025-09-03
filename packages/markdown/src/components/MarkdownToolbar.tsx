@@ -4,16 +4,16 @@ import * as React from 'react';
 import type { ButtonProps } from '@contentful/f36-components';
 import { Flex, IconButton, Tooltip } from '@contentful/f36-components';
 import {
-  CodeIcon,
-  FormatBoldIcon,
-  FormatItalicIcon,
-  HeadingIcon,
-  HorizontalRuleIcon,
-  LinkIcon,
-  ListBulletedIcon,
-  ListNumberedIcon,
-  MoreHorizontalIcon,
-  QuoteIcon,
+  CodeSimpleIcon,
+  TextBIcon,
+  TextItalicIcon,
+  TextHIcon,
+  MinusIcon,
+  LinkSimpleIcon,
+  ListBulletsIcon,
+  ListNumbersIcon,
+  DotsThreeIcon,
+  QuotesIcon,
 } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
@@ -118,7 +118,7 @@ function MainButtons(props: MarkdownToolbarProps) {
           tooltip="Headings"
           tooltipPlace={tooltipPlace}
         >
-          <HeadingIcon aria-label="Headings" className={styles.icon} />
+          <TextHIcon aria-label="Headings" className={styles.icon} />
         </ToolbarButton>
       </HeadingSelector>
       <ToolbarButton
@@ -128,7 +128,7 @@ function MainButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.bold}
       >
-        <FormatBoldIcon aria-label="Bold" className={styles.icon} />
+        <TextBIcon aria-label="Bold" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -137,7 +137,7 @@ function MainButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.italic}
       >
-        <FormatItalicIcon aria-label="Italic" className={styles.icon} />
+        <TextItalicIcon aria-label="Italic" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -146,7 +146,7 @@ function MainButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.quote}
       >
-        <QuoteIcon aria-label="Quote" className={styles.icon} />
+        <QuotesIcon aria-label="Quote" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -155,7 +155,7 @@ function MainButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.ul}
       >
-        <ListBulletedIcon aria-label="Unordered list" className={styles.icon} />
+        <ListBulletsIcon aria-label="Unordered list" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -164,7 +164,7 @@ function MainButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.ol}
       >
-        <ListNumberedIcon aria-label="Ordered list" className={styles.icon} />
+        <ListNumbersIcon aria-label="Ordered list" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -173,7 +173,7 @@ function MainButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.insertLink}
       >
-        <LinkIcon aria-label="Link" className={styles.icon} />
+        <LinkSimpleIcon aria-label="Link" className={styles.icon} />
       </ToolbarButton>
     </>
   );
@@ -199,7 +199,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.code}
       >
-        <CodeIcon aria-label="Code block" className={styles.icon} />
+        <CodeSimpleIcon aria-label="Code block" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -208,7 +208,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.hr}
       >
-        <HorizontalRuleIcon aria-label="Horizontal rule" className={styles.icon} />
+        <MinusIcon aria-label="Horizontal rule" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -302,7 +302,7 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
               setShowAdditional(!showAdditional);
             }}
           >
-            <MoreHorizontalIcon className={styles.icon} />
+            <DotsThreeIcon className={styles.icon} />
           </ToolbarButton>
         </Flex>
         <Flex>

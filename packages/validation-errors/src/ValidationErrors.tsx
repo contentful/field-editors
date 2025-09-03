@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { Link, ValidationError } from '@contentful/app-sdk';
 import { List, ListItem, TextLink } from '@contentful/f36-components';
-import { ExternalLinkIcon, InfoCircleIcon } from '@contentful/f36-icons';
+import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import type {
   ContentType,
   Entry,
@@ -14,6 +15,7 @@ import { entityHelpers } from '@contentful/field-editor-shared';
 import { t } from '@lingui/core/macro';
 
 import * as styles from './styles';
+
 
 type UniquenessErrorProps = {
   error: ValidationError;
@@ -109,7 +111,7 @@ function UniquenessError(props: UniquenessErrorProps) {
             <TextLink
               key={entry.id}
               href={entry.href}
-              icon={<ExternalLinkIcon />}
+              icon={<ArrowSquareOutIcon />}
               alignIcon="end"
               variant="negative"
               target="_blank"
@@ -158,7 +160,7 @@ export function ValidationErrors(props: ValidationErrorsProps) {
             data-error-code={`entry.schema.${error.name}`}
             className={styles.errorItem}
           >
-            <InfoCircleIcon variant="negative" />
+            <InfoIcon color={tokens.colorNegative} />
             <div className={styles.errorMessage}>
               {props.errorMessageOverride?.(error.message) ?? error.message}
               {error.name === 'unique' && (

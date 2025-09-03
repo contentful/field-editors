@@ -1,12 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import {
-  EntityStatus,
-  EntityStatusBadge,
-  Flex,
-  Popover,
-  generateIcon,
-} from '@contentful/f36-components';
+import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-components';
+import { ArrowDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type {
   LocaleProps,
@@ -92,23 +87,11 @@ const styles = {
   }),
 };
 
-// TODO: use from forma icons, once it's changed there (currently a custom one here: https://github.com/contentful/forma-36/blob/main/packages/components/navbar/src/icons/ArrowDownIcon.tsx)
-const ArrowDownIcon = generateIcon({
-  name: 'ArrowDownIcon',
-  viewBox: '0 0 12 20',
-  path: (
-    <path
-      d="M3.03076 8C2.20109 8 1.73228 8.95209 2.23814 9.60971L5.20727 13.4696C5.60757 13.99 6.39223 13.99 6.79252 13.4696L9.76166 9.60971C10.2675 8.95209 9.79871 8 8.96904 8L3.03076 8Z"
-      fill="currentColor"
-    />
-  ),
-});
-
 type Status = { primary: EntityStatus; secondary?: EntityStatus; tertiary?: EntityStatus };
 
 const determineBadgeStatus = (
   localesStatusMap?: LocalePublishStatusMap,
-  activeLocales?: Pick<LocaleProps, 'code'>[]
+  activeLocales?: Pick<LocaleProps, 'code'>[],
 ): Status | undefined => {
   // Early return for null or undefined locales
   if (!localesStatusMap) return;
@@ -196,7 +179,7 @@ export function LocalePublishingPopover({
 
   const entityStatus = entityHelpers.getEntityStatus(
     entity.sys,
-    activeLocales?.map((locale) => locale.code)
+    activeLocales?.map((locale) => locale.code),
   );
 
   if (['archived', 'deleted'].includes(entityStatus)) {

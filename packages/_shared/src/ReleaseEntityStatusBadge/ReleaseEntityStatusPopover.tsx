@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { Badge, Flex, generateIcon, Popover, Skeleton } from '@contentful/f36-components';
+import { Badge, Flex, Popover, Skeleton } from '@contentful/f36-components';
+import { ArrowDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
 import { cx, css } from 'emotion';
@@ -172,18 +173,6 @@ export function ReleaseEntityStatusPopover({
   const status = determineBadgeStatus(releaseLocalesStatusMap, activeLocales);
   const ariaLabel = status.secondary ? 'Multiple statuses' : status.primary;
   const wrapperClass = generateDynamicStyles(status);
-
-  // TODO: use from forma icons, once it's changed there (currently a custom one here: https://github.com/contentful/forma-36/blob/main/packages/components/navbar/src/icons/ArrowDownIcon.tsx)
-  const ArrowDownIcon = generateIcon({
-    name: 'ArrowDownIcon',
-    viewBox: '0 0 12 20',
-    path: (
-      <path
-        d="M3.03076 8C2.20109 8 1.73228 8.95209 2.23814 9.60971L5.20727 13.4696C5.60757 13.99 6.39223 13.99 6.79252 13.4696L9.76166 9.60971C10.2675 8.95209 9.79871 8 8.96904 8L3.03076 8Z"
-        fill="currentColor"
-      />
-    ),
-  });
 
   if (isLoading) {
     return (

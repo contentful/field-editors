@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DialogAppSDK, DialogsAPI } from '@contentful/app-sdk';
 import { Grid } from '@contentful/f36-components';
-import { ChevronLeftIcon, ChevronRightIcon } from '@contentful/f36-icons';
+import { CaretLeftIcon, CaretRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from 'emotion';
 
@@ -135,7 +135,6 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       <Grid.Item className={styles.topSplit}>
         <MarkdownToolbar mode="zen" disabled={false} canUploadAssets={false} actions={actions} />
       </Grid.Item>
-
       <Grid.Item
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
@@ -179,7 +178,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             setShowPreview(false);
           }}
         >
-          <ChevronRightIcon variant="muted" size="tiny" className={styles.icon} />
+          <CaretRightIcon color={tokens.gray600} size="tiny" className={styles.icon} />
         </button>
       )}
       {!showPreview && (
@@ -190,7 +189,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             setShowPreview(true);
           }}
         >
-          <ChevronLeftIcon variant="muted" size="tiny" className={styles.icon} />
+          <CaretLeftIcon color={tokens.gray600} size="tiny" className={styles.icon} />
         </button>
       )}
       <Grid.Item className={styles.bottomSplit}>
@@ -209,7 +208,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
 export const openZenMode = (
   dialogs: DialogsAPI,
-  options: { initialValue: string; locale: string }
+  options: { initialValue: string; locale: string },
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
     width: 'fullWidth',

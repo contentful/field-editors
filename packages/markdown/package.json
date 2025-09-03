@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@contentful/f36-components": "^5.1.0",
-    "@contentful/f36-icons": "^4.29.0",
-    "@contentful/f36-tokens": "^4.0.5",
+    "@contentful/f36-icons": "^5.1.0",
+    "@contentful/f36-tokens": "^5.1.0",
     "@contentful/field-editor-shared": "^2.10.0",
     "@types/codemirror": "0.0.109",
     "codemirror": "^5.65.11",
