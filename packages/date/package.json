@@ -36,8 +36,8 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^5.1.0",
-    "@contentful/f36-tokens": "^5.1.0",
+    "@contentful/f36-components": "5.1.0",
+    "@contentful/f36-tokens": "5.1.0",
     "@contentful/field-editor-shared": "^2.10.0",
     "emotion": "^10.0.17",
     "moment": "^2.20.0"
