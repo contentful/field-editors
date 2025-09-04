@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { Flex, Menu } from '@contentful/f36-components';
-import { Icon } from '@contentful/f36-icon';
+import { Icon } from '@contentful/f36-components';
 import { ImageSquareIcon, EmbeddedBlockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
@@ -12,8 +12,6 @@ import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';
 import { selectEntityAndInsert, selectResourceEntityAndInsert } from '../shared/EmbeddedBlockUtil';
 import { ResourceNewBadge } from './ResourceNewBadge';
-
-
 
 export const styles = {
   icon: css({

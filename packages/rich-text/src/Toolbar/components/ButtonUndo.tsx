@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Icon } from '@contentful/f36-icon';
+import { Icon } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
-
-
 
 export const ButtonUndo = () => {
   const editor = useContentfulEditor();
