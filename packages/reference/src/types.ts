@@ -1,6 +1,6 @@
-import { NavigatorSlideInfo, ContentEntityType } from '@contentful/app-sdk';
-import { Entry, Asset } from '@contentful/field-editor-shared';
-import { ResourceProps } from 'contentful-management';
+import type { NavigatorSlideInfo, ContentEntityType } from '@contentful/app-sdk';
+import type { Entry, Asset } from '@contentful/field-editor-shared';
+import type { ResourceProps } from 'contentful-management';
 
 export type {
   BaseAppSDK,
@@ -19,7 +19,7 @@ export type {
   SpaceEnvResourceTypeProps as ResourceType,
 } from 'contentful-management';
 
-export { Entry, File, Asset } from '@contentful/field-editor-shared';
+export type { Entry, File, Asset } from '@contentful/field-editor-shared';
 
 export type { ResourceInfo } from './common/EntityStore';
 
