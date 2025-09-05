@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.10.0...@contentful/field-editor-shared@2.11.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
 # [2.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.9.1...@contentful/field-editor-shared@2.10.0) (2025-08-27)
 
 ### Features

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.10.3...@contentful/field-editor-rich-text@4.11.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
 ## [4.10.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.10.2...@contentful/field-editor-rich-text@4.10.3) (2025-09-05)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

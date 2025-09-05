@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-date",
-  "version": "1.8.3",
+  "version": "1.9.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -39,13 +39,13 @@
   "dependencies": {
     "@contentful/f36-components": "^4.70.0",
     "@contentful/f36-tokens": "^4.0.5",
-    "@contentful/field-editor-shared": "^2.10.0",
+    "@contentful/field-editor-shared": "^2.11.0",
     "emotion": "^10.0.17",
     "moment": "^2.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
-    "@contentful/field-editor-test-utils": "^1.5.2",
+    "@contentful/field-editor-test-utils": "^1.6.0",
     "@lingui/core": "5.3.0",
     "@types/timezoned-date": "^3.0.0",
     "timezoned-date": "^3.0.2"
