@@ -1,3 +1,7 @@
+import * as ModalDialogLauncher from './ModalDialogLauncher';
+import * as ConstraintsUtils from './utils/constraints';
+import * as entityHelpers from './utils/entityHelpers';
+
 export {
   AccessAPI,
   AppConfigAPI,
@@ -41,7 +45,3 @@ export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
 export * from './utils/getEntryReleaseStatus';
 export * from './utils/parseReleaseParameters';
-
-import * as ModalDialogLauncher from './ModalDialogLauncher';
-import * as ConstraintsUtils from './utils/constraints';
-import * as entityHelpers from './utils/entityHelpers';
