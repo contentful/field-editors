@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.10.6...@contentful/field-editor-reference@6.10.7) (2025-09-05)
+
+### Bug Fixes
+
+- [] Import and export type fixes ([#1926](https://github.com/contentful/field-editors/issues/1926)) ([f5d7cd1](https://github.com/contentful/field-editors/commit/f5d7cd17c79bc9602b44e96274288f99b546147e))
+
 ## [6.10.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.10.5...@contentful/field-editor-reference@6.10.6) (2025-09-05)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
