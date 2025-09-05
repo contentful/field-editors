@@ -7,6 +7,7 @@ import { focus } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { insertTableAndFocusFirstCell, isTableActive } from './../helpers';
 
+
 export interface ToolbarTableButtonProps {
   isDisabled: boolean | undefined;
 }

@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import { Asset, Button, Card, Heading, TextLink } from '@contentful/f36-components';
-import { ThumbUpIcon } from '@contentful/f36-icons';
+import { ThumbsUpIcon } from '@contentful/f36-icons';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { SingleMediaEditor } from '../../src';
 import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';
+
 
 const meta: Meta<typeof SingleMediaEditor> = {
   title: 'editors/Single Media',
@@ -60,7 +61,7 @@ export const CustomActions: Story = {
               testId="custom-link"
               onClick={props.onLinkExisting as any}
               variant="primary"
-              icon={<ThumbUpIcon />}
+              icon={<ThumbsUpIcon />}
               alignIcon="end"
             >
               Re-use something

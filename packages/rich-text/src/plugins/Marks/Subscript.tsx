@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SubscriptIcon } from '@contentful/f36-icons';
+import { TextSubscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
@@ -8,6 +8,7 @@ import { css } from 'emotion';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
+
 
 const styles = {
   subscript: css({
@@ -19,7 +20,7 @@ const styles = {
 export const ToolbarSubscriptButton = createMarkToolbarButton({
   title: 'Subscript',
   mark: MARKS.SUBSCRIPT,
-  icon: <SubscriptIcon viewBox="0 0 23 18" />,
+  icon: <TextSubscriptIcon viewBox="0 0 23 18" />,
 });
 
 export const ToolbarDropdownSubscriptButton = createMarkToolbarButton({

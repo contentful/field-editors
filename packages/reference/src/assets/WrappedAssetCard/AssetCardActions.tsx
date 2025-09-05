@@ -95,7 +95,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
         )}
       </dl>
     </Menu.Item>,
-  ];
+  ].map((item, i) => <Menu key={i}>{item}</Menu>);
 }
 
 export function renderActions(props: {
@@ -131,5 +131,7 @@ export function renderActions(props: {
         Remove
       </Menu.Item>
     ) : null,
-  ].filter((item) => item);
+  ]
+    .filter((item) => item)
+    .map((item, i) => <Menu key={i}>{item}</Menu>);
 }

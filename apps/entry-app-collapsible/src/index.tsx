@@ -14,7 +14,7 @@ import styles from './styles';
 
 import { TextLink } from '@contentful/f36-components';
 
-import { EditIcon } from '@contentful/f36-icons';
+import { PencilSimpleIcon } from '@contentful/f36-icons';
 
 interface AppProps {
   sdk: EditorAppSDK;
@@ -34,7 +34,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const [state, dispatch] = useAppState(
     props.sdk.contentType.fields,
     storageId(props.sdk),
-    props.sdk.contentType.sys.updatedAt
+    props.sdk.contentType.sys.updatedAt,
   );
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -49,7 +49,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
         <div className={styles.widthContainer}>
           <TextLink
             as="button"
-            icon={<EditIcon />}
+            icon={<PencilSimpleIcon />}
             className={styles.editGroupsButton}
             onClick={openDialog}
           >
@@ -98,7 +98,7 @@ function renderAtRoot(element: JSX.Element) {
       <GlobalStyles />
       {element}
     </>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 }
 

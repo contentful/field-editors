@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
+import { InlineEntryCard, Menu, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import {
@@ -53,7 +53,7 @@ function InternalFetchingWrappedInlineEntryCard({
     }
 
     return allContentTypes.find(
-      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id
+      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id,
     );
   }, [allContentTypes, entry]);
 
@@ -66,7 +66,7 @@ function InternalFetchingWrappedInlineEntryCard({
         defaultLocaleCode: defaultLocale,
         defaultTitle: 'Untitled',
       }),
-    [entry, contentType, locale, defaultLocale]
+    [entry, contentType, locale, defaultLocale],
   );
 
   return (
@@ -82,14 +82,20 @@ function InternalFetchingWrappedInlineEntryCard({
         <MenuItem key="remove" onClick={onRemove} disabled={isDisabled} testId="delete">
           Remove
         </MenuItem>,
-      ]}
+      ].map((item, i) => (
+        <Menu key={i}>{item}</Menu>
+      ))}
     >
       <ScheduledIconWithTooltip
         getEntityScheduledActions={getEntityScheduledActions}
         entityType="Entry"
         entityId={entry.sys.id}
       >
-        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
+        <ClockIcon
+          className={styles.scheduledIcon}
+          color={tokens.gray600}
+          testId="scheduled-icon"
+        />
       </ScheduledIconWithTooltip>
       <Text>{title}</Text>
     </InlineEntryCard>
@@ -135,7 +141,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   const entryStatus = getEntityStatus(
     entry.sys,
-    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined
+    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined,
   );
 
   if (entryStatus === 'deleted') {
@@ -148,7 +154,9 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
           <MenuItem key="remove" onClick={props.onRemove} testId="delete">
             Remove
           </MenuItem>,
-        ]}
+        ].map((item, i) => (
+          <Menu key={i}>{item}</Menu>
+        ))}
       />
     );
   }

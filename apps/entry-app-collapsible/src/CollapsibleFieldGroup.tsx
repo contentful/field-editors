@@ -6,7 +6,7 @@ import styles from './styles';
 import { Text } from '@contentful/f36-components';
 import { EntryFieldAPI } from '@contentful/app-sdk';
 
-import { ChevronDownIcon, ChevronRightIcon } from '@contentful/f36-icons';
+import { CaretDownIcon, CaretRightIcon } from '@contentful/f36-icons';
 
 interface CollapsibleFieldGroupProps {
   fieldGroup: FieldGroupType;
@@ -29,9 +29,9 @@ export const CollapsibleFieldGroup: React.FC<CollapsibleFieldGroupProps> = ({
           <button className={styles.collapsibleContainerButton} onClick={toggleOpen}>
             <div className={styles.collapsibleContainerInfo}>
               {isOpen ? (
-                <ChevronDownIcon className={styles.icon} />
+                <CaretDownIcon className={styles.icon} />
               ) : (
-                <ChevronRightIcon className={styles.icon} />
+                <CaretRightIcon className={styles.icon} />
               )}
               <h3>{fieldGroup.name}</h3>
             </div>

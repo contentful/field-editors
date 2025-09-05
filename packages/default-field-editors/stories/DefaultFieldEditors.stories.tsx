@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Text } from '@contentful/f36-components';
-import { EditIcon, HelpCircleIcon } from '@contentful/f36-icons';
+import { PencilSimpleIcon, InfoIcon } from '@contentful/f36-icons';
 import { BooleanEditor } from '@contentful/field-editor-boolean';
 import {
   ActionsPlayground,
@@ -36,7 +36,7 @@ export const Default: Story = {
           validations: [{ in: ['test1', 'test2'] }],
         },
       }),
-      []
+      [],
     );
     const space = createFakeSpaceAPI();
     const locales = createFakeLocalesAPI();
@@ -57,28 +57,25 @@ export const Default: Story = {
         <FieldWrapper sdk={sdk as any} name="field">
           <Field sdk={sdk as any} widgetId="singleLine" />
         </FieldWrapper>
-
         <FieldWrapper sdk={sdk as any} name="anotherField">
           <Field sdk={sdk as any} widgetId="rating" />
         </FieldWrapper>
-
         <FieldWrapper
           sdk={sdk as any}
           name="customField"
           renderHeading={(name) => (
             <div>
-              <EditIcon size="tiny" /> Custom {name} heading
+              <PencilSimpleIcon size="tiny" /> Custom {name} heading
             </div>
           )}
           renderHelpText={(helpText) => (
             <Text as="p" fontColor="gray500" marginTop="spacingXs">
-              <HelpCircleIcon size="tiny" /> Custom help text: {helpText}
+              <InfoIcon size="tiny" /> Custom help text: {helpText}
             </Text>
           )}
         >
           <Field sdk={sdk as any} widgetId="datePicker" />
         </FieldWrapper>
-
         <FieldWrapper sdk={sdk as any} name="customEditor">
           <Field
             sdk={sdk as any}
@@ -97,7 +94,6 @@ export const Default: Story = {
             }}
           />
         </FieldWrapper>
-
         <ActionsPlayground mitt={mitt} />
       </div>
     );

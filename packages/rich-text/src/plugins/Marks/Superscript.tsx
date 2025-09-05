@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SuperscriptIcon } from '@contentful/f36-icons';
+import { TextSuperscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
 import { css } from 'emotion';
@@ -8,6 +8,7 @@ import { css } from 'emotion';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
+
 
 const styles = {
   superscript: css({
@@ -19,7 +20,7 @@ const styles = {
 export const ToolbarSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
   mark: MARKS.SUPERSCRIPT,
-  icon: <SuperscriptIcon />,
+  icon: <TextSuperscriptIcon />,
 });
 
 export const ToolbarDropdownSuperscriptButton = createMarkToolbarButton({

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { HorizontalRuleIcon } from '@contentful/f36-icons';
+import { MinusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css, cx } from 'emotion';
@@ -17,6 +17,7 @@ import { getText } from '../../internal/queries';
 import { insertNodes, setNodes, removeNodes } from '../../internal/transforms';
 import { PlatePlugin, PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../shared/ToolbarButton';
+
 
 const styles = {
   container: css`
@@ -100,8 +101,9 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       isDisabled={props.isDisabled}
       onClick={handleOnClick}
       testId="hr-toolbar-button"
-      isActive={isBlockSelected(editor, BLOCKS.HR)}>
-      <HorizontalRuleIcon />
+      isActive={isBlockSelected(editor, BLOCKS.HR)}
+    >
+      <MinusIcon />
     </ToolbarButton>
   );
 }
@@ -115,11 +117,13 @@ export function Hr(props: Slate.RenderLeafProps) {
       {...props.attributes}
       className={styles.container}
       // COMPAT: To make HR copyable in Safari, we verify this attribute below on `deserialize`
-      data-void-element={BLOCKS.HR}>
+      data-void-element={BLOCKS.HR}
+    >
       <div
         draggable={true}
         // Moving `contentEditable` to this div makes it to be selectable when being the first void element, e.g pressing ctrl + a to select everything
-        contentEditable={false}>
+        contentEditable={false}
+      >
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       {props.children}

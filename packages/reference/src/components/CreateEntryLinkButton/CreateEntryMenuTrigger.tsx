@@ -3,12 +3,13 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 
 import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
-import { SearchIcon } from '@contentful/f36-icons';
+import { MagnifyingGlassIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import get from 'lodash/get';
 
 import { ContentType } from '../../types';
+
 
 const MAX_ITEMS_WITHOUT_SEARCH = 5;
 
@@ -52,7 +53,7 @@ type CreateEntryMenuTriggerChildProps = {
   isSelecting: boolean;
 };
 export type CreateEntryMenuTriggerChild = (
-  props: CreateEntryMenuTriggerChildProps
+  props: CreateEntryMenuTriggerChildProps,
 ) => React.ReactElement;
 export type CreateCustomEntryMenuItems = ({
   closeMenu,
@@ -113,11 +114,11 @@ export const CreateEntryMenuTrigger = ({
         ? contentTypes.filter((contentType) => {
             const annotations = get(contentType, 'metadata.annotations.ContentType', []);
             return !annotations.some(
-              (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType'
+              (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType',
             );
           })
         : contentTypes,
-    [contentTypes, filterExperienceTypes]
+    [contentTypes, filterExperienceTypes],
   );
 
   const hasDropdown = contentTypes.length > 1 || !!customDropdownItems;
@@ -147,7 +148,7 @@ export const CreateEntryMenuTrigger = ({
       setSelecting(true);
       res.then(
         () => setSelecting(false),
-        () => setSelecting(false)
+        () => setSelecting(false),
       );
     }
   };
@@ -176,11 +177,11 @@ export const CreateEntryMenuTrigger = ({
   const isSearchable = filteredContentTypes.length > MAX_ITEMS_WITHOUT_SEARCH;
   const maxDropdownHeight = suggestedContentTypeId ? 300 : 250;
   const suggestedContentType = filteredContentTypes.find(
-    (ct) => ct.sys.id === suggestedContentTypeId
+    (ct) => ct.sys.id === suggestedContentTypeId,
   );
   const searchFilteredContentTypes = filteredContentTypes.filter(
     (ct) =>
-      !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase())
+      !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase()),
   );
 
   return (
@@ -222,7 +223,7 @@ export const CreateEntryMenuTrigger = ({
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <SearchIcon className={styles.searchIcon} />
+                  <MagnifyingGlassIcon className={styles.searchIcon} />
                 </div>
                 <Menu.Divider />
               </>

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { Flex, IconButton, Menu } from '@contentful/f36-components';
-import { MoreHorizontalIcon } from '@contentful/f36-icons';
+import { DotsThreeIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { css } from 'emotion';
@@ -34,6 +34,7 @@ import { useSdkContext } from '../SdkProvider';
 import { ButtonRedo } from './components/ButtonRedo';
 import { ButtonUndo } from './components/ButtonUndo';
 import { EmbedEntityWidget } from './components/EmbedEntityWidget';
+
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -90,7 +91,7 @@ const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean 
             size="small"
             className={styles.toolbarBtn}
             variant={isActive ? 'secondary' : 'transparent'}
-            icon={<MoreHorizontalIcon />}
+            icon={<DotsThreeIcon />}
             aria-label="toggle menu"
             isDisabled={isDisabled}
             testId="dropdown-toolbar-button"
@@ -218,12 +219,12 @@ function getValidationInfo(field: FieldAppSDK['field']): {
       INLINES.ENTRY_HYPERLINK,
       INLINES.RESOURCE_HYPERLINK,
     ],
-    isNodeTypeEnabled
+    isNodeTypeEnabled,
   );
 
   const isAnyBlockFormattingEnabled = someWithValidation(
     [BLOCKS.UL_LIST, BLOCKS.OL_LIST, BLOCKS.QUOTE, BLOCKS.HR],
-    isNodeTypeEnabled
+    isNodeTypeEnabled,
   );
 
   return {
