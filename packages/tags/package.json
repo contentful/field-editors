@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-tags",
-  "version": "1.6.3",
+  "version": "1.7.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -8,6 +8,7 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
     "./package.json": "./package.json"
@@ -38,7 +39,7 @@
     "@contentful/f36-components": "5.1.0",
     "@contentful/f36-icons": "5.1.0",
     "@contentful/f36-tokens": "5.1.0",
-    "@contentful/field-editor-shared": "^2.10.0",
+    "@contentful/field-editor-shared": "^2.11.1",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^7.0.0",
     "@dnd-kit/sortable": "^8.0.0",
@@ -46,7 +47,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^1.5.2",
+    "@contentful/field-editor-test-utils": "^1.6.0",
     "@lingui/core": "5.3.0"
   },
   "peerDependencies": {

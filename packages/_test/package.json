@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-test-utils",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -8,6 +8,7 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
     "./package.json": "./package.json"

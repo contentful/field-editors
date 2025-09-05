@@ -1,3 +1,7 @@
+import * as ModalDialogLauncher from './ModalDialogLauncher';
+import * as ConstraintsUtils from './utils/constraints';
+import * as entityHelpers from './utils/entityHelpers';
+
 export {
   AccessAPI,
   AppConfigAPI,
@@ -26,7 +30,7 @@ export { entityHelpers };
 export { FieldConnector } from './FieldConnector';
 export { ModalDialogLauncher };
 export { PredefinedValuesError } from './PredefinedValuesError';
-export { Asset, Entry, File } from './typesEntity';
+export type { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
 
@@ -41,7 +45,3 @@ export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
 export * from './utils/getEntryReleaseStatus';
 export * from './utils/parseReleaseParameters';
-
-import * as ModalDialogLauncher from './ModalDialogLauncher';
-import * as ConstraintsUtils from './utils/constraints';
-import * as entityHelpers from './utils/entityHelpers';
