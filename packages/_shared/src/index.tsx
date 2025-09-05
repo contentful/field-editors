@@ -30,7 +30,7 @@ export { entityHelpers };
 export { FieldConnector } from './FieldConnector';
 export { ModalDialogLauncher };
 export { PredefinedValuesError } from './PredefinedValuesError';
-export { Asset, Entry, File } from './typesEntity';
+export type { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
 export { shortenStorageUnit, toLocaleString } from './utils/shortenStorageUnit';
 
