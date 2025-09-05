@@ -50,24 +50,26 @@ export function EmbeddedBlockToolbarIcon({
   const type = getEntityTypeFromNodeType(nodeType);
   const baseClass = `rich-text__${nodeType}`;
   return (
-    <Menu.Item
-      disabled={isDisabled}
-      className={`${baseClass}-list-item`}
-      onClick={handleClick}
-      testId={`toolbar-toggle-${nodeType}`}
-    >
-      <Flex alignItems="center" flexDirection="row">
-        <Icon
-          as={type === 'Asset' ? ImageSquareIcon : EmbeddedBlockIcon}
-          className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-          color={tokens.gray900}
-        />
-        <span>
-          {type}
-          {nodeType == BLOCKS.EMBEDDED_RESOURCE && <ResourceNewBadge />}
-        </span>
-      </Flex>
-    </Menu.Item>
+    <Menu>
+      <Menu.Item
+        disabled={isDisabled}
+        className={`${baseClass}-list-item`}
+        onClick={handleClick}
+        testId={`toolbar-toggle-${nodeType}`}
+      >
+        <Flex alignItems="center" flexDirection="row">
+          <Icon
+            as={type === 'Asset' ? ImageSquareIcon : EmbeddedBlockIcon}
+            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
+            color={tokens.gray900}
+          />
+          <span>
+            {type}
+            {nodeType == BLOCKS.EMBEDDED_RESOURCE && <ResourceNewBadge />}
+          </span>
+        </Flex>
+      </Menu.Item>
+    </Menu>
   );
 }
 

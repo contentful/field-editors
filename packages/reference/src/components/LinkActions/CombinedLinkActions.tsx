@@ -55,14 +55,16 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         }}
         customDropdownItems={
           props.canLinkEntity ? (
-            <Menu.Item
-              testId={testIds.linkExisting}
-              onClick={() => {
-                props.onLinkExisting();
-              }}
-            >
-              Add existing content
-            </Menu.Item>
+            <Menu>
+              <Menu.Item
+                testId={testIds.linkExisting}
+                onClick={() => {
+                  props.onLinkExisting();
+                }}
+              >
+                Add existing content
+              </Menu.Item>
+            </Menu>
           ) : undefined
         }
       />

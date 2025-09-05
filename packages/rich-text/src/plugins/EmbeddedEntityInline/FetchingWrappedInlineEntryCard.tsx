@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
+import { InlineEntryCard, Menu, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import {
@@ -11,7 +11,6 @@ import {
 import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-
 
 const { getEntryTitle, getEntityStatus } = entityHelpers;
 
@@ -83,7 +82,9 @@ function InternalFetchingWrappedInlineEntryCard({
         <MenuItem key="remove" onClick={onRemove} disabled={isDisabled} testId="delete">
           Remove
         </MenuItem>,
-      ]}
+      ].map((item, i) => (
+        <Menu key={i}>{item}</Menu>
+      ))}
     >
       <ScheduledIconWithTooltip
         getEntityScheduledActions={getEntityScheduledActions}
@@ -153,7 +154,9 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
           <MenuItem key="remove" onClick={props.onRemove} testId="delete">
             Remove
           </MenuItem>,
-        ]}
+        ].map((item, i) => (
+          <Menu key={i}>{item}</Menu>
+        ))}
       />
     );
   }
