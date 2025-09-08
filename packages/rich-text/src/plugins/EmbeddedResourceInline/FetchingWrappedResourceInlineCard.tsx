@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Entry } from '@contentful/app-sdk';
-import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
+import { InlineEntryCard, Menu, MenuItem, Text } from '@contentful/f36-components';
 import { ResourceLink, ResourceInfo, useResource } from '@contentful/field-editor-reference';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { FieldAppSDK } from '@contentful/field-editor-shared';
@@ -23,7 +23,7 @@ interface FetchingWrappedResourceInlineCardProps {
 export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResourceInlineCardProps) {
   const { link, onEntityFetchComplete, sdk } = props;
   const { data, status: requestStatus } = useResource(link.linkType, link.urn, {
-    locale: sdk.field.locale,
+    locale: sdk.field.locale
   });
 
   React.useEffect(() => {
@@ -53,7 +53,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     contentType,
     defaultLocaleCode,
     localeCode: defaultLocaleCode,
-    defaultTitle: 'Untitled',
+    defaultTitle: 'Untitled'
   });
   const truncatedTitle = truncateTitle(title, 40);
   const status = getEntityStatus(
@@ -70,8 +70,10 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
       actions={[
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
           Remove
-        </MenuItem>,
-      ]}
+        </MenuItem>
+      ].map((item, i) => (
+        <Menu key={i}>{item}</Menu>
+      ))}
     >
       <Text>{title}</Text>
     </InlineEntryCard>

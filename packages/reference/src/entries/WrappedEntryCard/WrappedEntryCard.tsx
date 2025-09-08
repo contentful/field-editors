@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
+import { EntryCard, Menu, MenuDivider } from '@contentful/f36-components';
 import {
   entityHelpers,
   isValidImage,
@@ -178,7 +178,7 @@ export function WrappedEntryCard({
         onEdit || onRemove
           ? [
               hasCardEditActions && onEdit ? (
-                <MenuItem
+                <Menu.Item
                   key="edit"
                   testId="edit"
                   onClick={() => {
@@ -186,10 +186,10 @@ export function WrappedEntryCard({
                   }}
                 >
                   Edit
-                </MenuItem>
+                </Menu.Item>
               ) : null,
               hasCardRemoveActions && onRemove && !isDisabled ? (
-                <MenuItem
+                <Menu.Item
                   key="delete"
                   testId="delete"
                   onClick={() => {
@@ -197,26 +197,32 @@ export function WrappedEntryCard({
                   }}
                 >
                   Remove
-                </MenuItem>
+                </Menu.Item>
               ) : null,
               hasCardMoveActions && (onMoveTop || onMoveBottom) && !isDisabled ? (
                 <MenuDivider key="divider" />
               ) : null,
               hasCardMoveActions && onMoveTop && !isDisabled ? (
-                <MenuItem key="move-top" onClick={() => onMoveTop && onMoveTop()} testId="move-top">
+                <Menu.Item
+                  key="move-top"
+                  onClick={() => onMoveTop && onMoveTop()}
+                  testId="move-top"
+                >
                   Move to top
-                </MenuItem>
+                </Menu.Item>
               ) : null,
               hasCardMoveActions && onMoveBottom && !isDisabled ? (
-                <MenuItem
+                <Menu.Item
                   key="move-bottom"
                   onClick={() => onMoveBottom && onMoveBottom()}
                   testId="move-bottom"
                 >
                   Move to bottom
-                </MenuItem>
+                </Menu.Item>
               ) : null,
-            ].filter((item) => item)
+            ]
+              .filter((item) => item)
+              .map((item, i) => <Menu key={i}>{item}</Menu>)
           : []
       }
       onClick={

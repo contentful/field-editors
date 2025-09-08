@@ -1,18 +1,13 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import {
-  EntityStatus,
-  EntityStatusBadge,
-  Flex,
-  Popover,
-  generateIcon,
-} from '@contentful/f36-components';
+import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-components';
+import { ArrowDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type {
   LocaleProps,
   EntryProps,
   AssetProps,
-  ScheduledActionProps,
+  ScheduledActionProps
 } from 'contentful-management';
 import { cx, css } from 'emotion';
 
@@ -31,7 +26,7 @@ const colors = {
   changed: { default: tokens.blue300, hover: tokens.blue400, icon: tokens.blue400 },
   archived: { default: tokens.gray300, hover: tokens.gray400, icon: tokens.gray400 },
   deleted: { default: tokens.red300, hover: tokens.red400, icon: tokens.red400 },
-  new: { default: tokens.blue600, hover: tokens.blue700, icon: tokens.blue700 },
+  new: { default: tokens.blue600, hover: tokens.blue700, icon: tokens.blue700 }
 };
 
 const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
@@ -44,24 +39,24 @@ const generateDynamicStyles = (status?: Status) => {
     '& svg[data-status="secondary"]': {
       fill: getColor({
         secondary: status?.secondary,
-        isHover: false,
-      } as BadgeSVGType),
+        isHover: false
+      } as BadgeSVGType)
     },
     '& svg[data-status="tertiary"]': {
       fill: getColor({
         tertiary: status?.tertiary,
-        isHover: false,
-      } as BadgeSVGType),
+        isHover: false
+      } as BadgeSVGType)
     },
     '&:hover svg[data-status="secondary"]': {
       fill: getColor({
         secondary: status?.secondary,
-        isHover: true,
-      } as BadgeSVGType),
+        isHover: true
+      } as BadgeSVGType)
     },
     '&:hover svg[data-status="tertiary"]': {
-      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
-    },
+      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType)
+    }
   });
 
   return wrapperClass;
@@ -73,36 +68,24 @@ const styles = {
   badge: css({
     '&:focus': {
       outline: 'none',
-      boxShadow: `inset ${tokens.glowPrimary}`, // inset style necessary since wrapper component (SecretiveLink) has overflow hidden
-    },
+      boxShadow: `inset ${tokens.glowPrimary}` // inset style necessary since wrapper component (SecretiveLink) has overflow hidden
+    }
   }),
   wrapper: css({
     '& svg': {
-      transition: 'fill 0.2s ease-in-out',
+      transition: 'fill 0.2s ease-in-out'
     },
     '& svg[data-status="tertiary"]': {
-      marginLeft: '-1px',
-    },
+      marginLeft: '-1px'
+    }
   }),
   popoverContent: css({
     maxWidth: '336px',
     maxHeight: '368px',
     overflowY: 'auto',
-    padding: `${tokens.spacing2Xs} 0`,
-  }),
+    padding: `${tokens.spacing2Xs} 0`
+  })
 };
-
-// TODO: use from forma icons, once it's changed there (currently a custom one here: https://github.com/contentful/forma-36/blob/main/packages/components/navbar/src/icons/ArrowDownIcon.tsx)
-const ArrowDownIcon = generateIcon({
-  name: 'ArrowDownIcon',
-  viewBox: '0 0 12 20',
-  path: (
-    <path
-      d="M3.03076 8C2.20109 8 1.73228 8.95209 2.23814 9.60971L5.20727 13.4696C5.60757 13.99 6.39223 13.99 6.79252 13.4696L9.76166 9.60971C10.2675 8.95209 9.79871 8 8.96904 8L3.03076 8Z"
-      fill="currentColor"
-    />
-  ),
-});
 
 type Status = { primary: EntityStatus; secondary?: EntityStatus; tertiary?: EntityStatus };
 
@@ -175,7 +158,7 @@ export function LocalePublishingPopover({
   jobs,
   isScheduled,
   localesStatusMap,
-  activeLocales,
+  activeLocales
 }: LocalePublishingPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>();

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
+import { InlineEntryCard, Menu, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import {
   ScheduledIconWithTooltip,
   useEntity,
-  useEntityLoader,
+  useEntityLoader
 } from '@contentful/field-editor-reference';
 import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
@@ -17,8 +17,8 @@ const { getEntryTitle, getEntityStatus } = entityHelpers;
 const styles = {
   scheduledIcon: css({
     verticalAlign: 'text-bottom',
-    marginRight: tokens.spacing2Xs,
-  }),
+    marginRight: tokens.spacing2Xs
+  })
 };
 
 type InternalFetchingWrappedInlineEntryCardProps = Pick<
@@ -45,7 +45,7 @@ function InternalFetchingWrappedInlineEntryCard({
   getEntityScheduledActions,
   onEdit,
   onRemove,
-  isDisabled,
+  isDisabled
 }: InternalFetchingWrappedInlineEntryCardProps) {
   const contentType = React.useMemo(() => {
     if (!allContentTypes) {
@@ -64,7 +64,7 @@ function InternalFetchingWrappedInlineEntryCard({
         contentType,
         localeCode: locale,
         defaultLocaleCode: defaultLocale,
-        defaultTitle: 'Untitled',
+        defaultTitle: 'Untitled'
       }),
     [entry, contentType, locale, defaultLocale]
   );
@@ -81,15 +81,21 @@ function InternalFetchingWrappedInlineEntryCard({
         </MenuItem>,
         <MenuItem key="remove" onClick={onRemove} disabled={isDisabled} testId="delete">
           Remove
-        </MenuItem>,
-      ]}
+        </MenuItem>
+      ].map((item, i) => (
+        <Menu key={i}>{item}</Menu>
+      ))}
     >
       <ScheduledIconWithTooltip
         getEntityScheduledActions={getEntityScheduledActions}
         entityType="Entry"
         entityId={entry.sys.id}
       >
-        <ClockIcon className={styles.scheduledIcon} variant="muted" testId="scheduled-icon" />
+        <ClockIcon
+          className={styles.scheduledIcon}
+          color={tokens.gray600}
+          testId="scheduled-icon"
+        />
       </ScheduledIconWithTooltip>
       <Text>{title}</Text>
     </InlineEntryCard>
@@ -147,8 +153,10 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
         actions={[
           <MenuItem key="remove" onClick={props.onRemove} testId="delete">
             Remove
-          </MenuItem>,
-        ]}
+          </MenuItem>
+        ].map((item, i) => (
+          <Menu key={i}>{item}</Menu>
+        ))}
       />
     );
   }

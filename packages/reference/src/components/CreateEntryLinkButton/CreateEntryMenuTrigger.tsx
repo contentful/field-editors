@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 
 import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
-import { SearchIcon } from '@contentful/f36-icons';
+import { MagnifyingGlassIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import get from 'lodash/get';
@@ -16,35 +16,35 @@ const menuPlacementMap: {
   [key: string]: MenuProps['placement'];
 } = {
   'bottom-left': 'bottom-start',
-  'bottom-right': 'bottom-end',
+  'bottom-right': 'bottom-end'
 };
 
 const styles = {
   wrapper: css({
-    position: 'relative',
+    position: 'relative'
   }),
   inputWrapper: css({
     position: 'relative',
-    padding: `0 ${tokens.spacing2Xs}`,
+    padding: `0 ${tokens.spacing2Xs}`
   }),
   searchInput: css({
     paddingRight: tokens.spacingXl,
-    textOverflow: 'ellipsis',
+    textOverflow: 'ellipsis'
   }),
   searchIcon: css({
     position: 'absolute',
     right: tokens.spacingM,
     top: tokens.spacingS,
     zIndex: Number(tokens.zIndexDefault),
-    fill: tokens.gray600,
+    fill: tokens.gray600
   }),
   separator: css({
     background: tokens.gray200,
-    margin: '10px 0',
+    margin: '10px 0'
   }),
   dropdownList: css({
-    borderColor: tokens.gray200,
-  }),
+    borderColor: tokens.gray200
+  })
 };
 
 type CreateEntryMenuTriggerChildProps = {
@@ -55,7 +55,7 @@ export type CreateEntryMenuTriggerChild = (
   props: CreateEntryMenuTriggerChildProps
 ) => React.ReactElement;
 export type CreateCustomEntryMenuItems = ({
-  closeMenu,
+  closeMenu
 }: {
   closeMenu: Function;
 }) => React.ReactElement;
@@ -83,12 +83,12 @@ export const CreateEntryMenuTrigger = ({
   onSelect,
   testId,
   dropdownSettings = {
-    position: 'bottom-left',
+    position: 'bottom-left'
   },
   customDropdownItems,
   children,
   menuProps,
-  filterExperienceTypes = true,
+  filterExperienceTypes = true
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -200,7 +200,7 @@ export const CreateEntryMenuTrigger = ({
             className={styles.dropdownList}
             style={{
               width: dropdownWidth != undefined ? `${dropdownWidth}px` : undefined,
-              maxHeight: `${maxDropdownHeight}px`,
+              maxHeight: `${maxDropdownHeight}px`
             }}
             ref={menuListRef}
             testId="add-entry-menu"
@@ -222,7 +222,7 @@ export const CreateEntryMenuTrigger = ({
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <SearchIcon className={styles.searchIcon} />
+                  <MagnifyingGlassIcon className={styles.searchIcon} />
                 </div>
                 <Menu.Divider />
               </>
@@ -262,5 +262,5 @@ export const CreateEntryMenuTrigger = ({
 CreateEntryMenuTrigger.defaultProps = {
   testId: 'create-entry-button-menu-trigger',
   contentTypesLabel: 'All Content Types',
-  filterExperienceTypes: true,
+  filterExperienceTypes: true
 };

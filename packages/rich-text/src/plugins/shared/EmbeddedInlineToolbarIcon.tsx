@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { Menu, Flex } from '@contentful/f36-components';
-import { EmbeddedEntryInlineIcon } from '@contentful/f36-icons';
+import { EmbeddedLineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
@@ -59,22 +59,24 @@ export function EmbeddedInlineToolbarIcon({
   }
 
   return (
-    <Menu.Item
-      disabled={isDisabled}
-      className="rich-text__entry-link-block-button"
-      testId={`toolbar-toggle-${nodeType}`}
-      onClick={handleClick}
-    >
-      <Flex alignItems="center" flexDirection="row">
-        <EmbeddedEntryInlineIcon
-          variant="secondary"
-          className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-        />
-        <span>
-          Inline entry
-          {nodeType == INLINES.EMBEDDED_RESOURCE && <ResourceNewBadge />}
-        </span>
-      </Flex>
-    </Menu.Item>
+    <Menu>
+      <Menu.Item
+        disabled={isDisabled}
+        className="rich-text__entry-link-block-button"
+        testId={`toolbar-toggle-${nodeType}`}
+        onClick={handleClick}
+      >
+        <Flex alignItems="center" flexDirection="row">
+          <EmbeddedLineIcon
+            color={tokens.gray900}
+            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
+          />
+          <span>
+            Inline entry
+            {nodeType == INLINES.EMBEDDED_RESOURCE && <ResourceNewBadge />}
+          </span>
+        </Flex>
+      </Menu.Item>
+    </Menu>
   );
 }

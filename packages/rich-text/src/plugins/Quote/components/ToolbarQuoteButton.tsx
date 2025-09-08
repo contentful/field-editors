@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { QuoteIcon } from '@contentful/f36-icons';
+import { QuotesIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
@@ -32,7 +32,7 @@ export function ToolbarQuoteButton(props: ToolbarQuoteButtonProps) {
       isDisabled={props.isDisabled}
       isActive={isBlockSelected(editor, BLOCKS.QUOTE)}
     >
-      <QuoteIcon />
+      <QuotesIcon />
     </ToolbarButton>
   );
 }

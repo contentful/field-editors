@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import { Spinner, TextInput, ValidationMessage } from '@contentful/f36-components';
-import { LinkIcon } from '@contentful/f36-icons';
+import { LinkSimpleIcon } from '@contentful/f36-icons';
 import { t } from '@lingui/core/macro';
 import { useDebounce } from 'use-debounce';
 
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
+
 
 interface SlugEditorFieldProps {
   hasError: boolean;
@@ -78,7 +79,7 @@ export function SlugEditorFieldStatic(
 
   return (
     <div className={styles.inputContainer}>
-      <LinkIcon className={styles.icon} />
+      <LinkSimpleIcon className={styles.icon} />
       <TextInput
         className={styles.input}
         isInvalid={hasError || status === 'duplicate'}
