@@ -14,7 +14,7 @@ import styles from './styles';
 
 import { TextLink } from '@contentful/f36-components';
 
-import { EditIcon } from '@contentful/f36-icons';
+import { PencilSimpleIcon } from '@contentful/f36-icons';
 
 interface AppProps {
   sdk: EditorAppSDK;
@@ -49,7 +49,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
         <div className={styles.widthContainer}>
           <TextLink
             as="button"
-            icon={<EditIcon />}
+            icon={<PencilSimpleIcon />}
             className={styles.editGroupsButton}
             onClick={openDialog}
           >

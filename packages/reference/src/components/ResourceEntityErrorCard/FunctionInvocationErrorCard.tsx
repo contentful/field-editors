@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import { Flex, Text, TextLink } from '@contentful/f36-components';
-import { ErrorCircleOutlineIcon, ExternalLinkIcon } from '@contentful/f36-icons';
+import { WarningOctagonIcon, ArrowSquareOutIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import { t } from '@lingui/core/macro';
 
 import { MissingEntityCard } from '..';
@@ -23,7 +24,7 @@ export function FunctionInvocationErrorCard({
   appDefinitionId,
   isDisabled,
   isSelected,
-  onRemove,
+  onRemove
 }: FunctionInvocationErrorCardProps) {
   const { status, data } = useResourceProvider(organizationId, appDefinitionId);
 
@@ -41,12 +42,12 @@ export function FunctionInvocationErrorCard({
       testId="cf-ui-function-invocation-error-card"
     >
       <Flex justifyContent="left" alignItems="center">
-        <ErrorCircleOutlineIcon variant="negative" />
+        <WarningOctagonIcon color={tokens.colorNegative} />
         <Text fontColor="colorNegative">
           &nbsp;
           {t({
             id: 'FieldEditors.Reference.FunctionInvocationErrorCard.ErrorMessage',
-            message: 'Function invocation error.',
+            message: 'Function invocation error.'
           })}
         </Text>
         {status === 'success' && functionId && (
@@ -54,19 +55,19 @@ export function FunctionInvocationErrorCard({
             &nbsp;
             {t({
               id: 'FieldEditors.Reference.FunctionInvocationErrorCard.LogsInfo',
-              message: 'For more information, go to',
+              message: 'For more information, go to'
             })}
             &nbsp;
             <TextLink
               testId="cf-ui-function-invocation-log-link"
-              icon={<ExternalLinkIcon />}
+              icon={<ArrowSquareOutIcon />}
               target="_blank"
               alignIcon="end"
               href={functionLink}
             >
               {t({
                 id: 'FieldEditors.Reference.FunctionInvocationErrorCard.FunctionLogs',
-                message: 'function logs',
+                message: 'function logs'
               })}
             </TextLink>
           </Text>

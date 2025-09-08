@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { Flex, IconButton, Menu } from '@contentful/f36-components';
-import { MoreHorizontalIcon } from '@contentful/f36-icons';
+import { DotsThreeIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { css } from 'emotion';
@@ -20,12 +20,12 @@ import { ToolbarCodeButton, ToolbarDropdownCodeButton } from '../plugins/Marks/C
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
 import {
   ToolbarDropdownStrikethroughButton,
-  ToolbarStrikethroughButton,
+  ToolbarStrikethroughButton
 } from '../plugins/Marks/Strikethrough';
 import { ToolbarDropdownSubscriptButton, ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
 import {
   ToolbarDropdownSuperscriptButton,
-  ToolbarSuperscriptButton,
+  ToolbarSuperscriptButton
 } from '../plugins/Marks/Superscript';
 import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
 import { ToolbarQuoteButton } from '../plugins/Quote';
@@ -44,26 +44,26 @@ const styles = {
     border: `1px solid ${tokens.gray400}`,
     backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
-    borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`,
+    borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`
   }),
   toolbarBtn: css({
     height: '30px',
     width: '30px',
     marginLeft: tokens.spacing2Xs,
-    marginRight: tokens.spacing2Xs,
+    marginRight: tokens.spacing2Xs
   }),
   divider: css({
     display: 'inline-block',
     height: '21px',
     width: '1px',
     background: tokens.gray300,
-    margin: `0 ${tokens.spacing2Xs}`,
+    margin: `0 ${tokens.spacing2Xs}`
   }),
   embedActionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
     webkitAlignSelf: 'flex-start',
     alignSelf: 'flex-start',
-    msFlexItemAlign: 'start',
+    msFlexItemAlign: 'start'
   }),
   formattingOptionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
@@ -72,8 +72,8 @@ const styles = {
     alignItems: 'center',
     msFlexWrap: 'wrap',
     flexWrap: 'wrap',
-    marginRight: '20px',
-  }),
+    marginRight: '20px'
+  })
 };
 
 const dropdownMarks = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT, MARKS.CODE, MARKS.STRIKETHROUGH];
@@ -90,7 +90,7 @@ const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean 
             size="small"
             className={styles.toolbarBtn}
             variant={isActive ? 'secondary' : 'transparent'}
-            icon={<MoreHorizontalIcon />}
+            icon={<DotsThreeIcon />}
             aria-label="toggle menu"
             isDisabled={isDisabled}
             testId="dropdown-toolbar-button"
@@ -216,7 +216,7 @@ function getValidationInfo(field: FieldAppSDK['field']): {
       INLINES.HYPERLINK,
       INLINES.ASSET_HYPERLINK,
       INLINES.ENTRY_HYPERLINK,
-      INLINES.RESOURCE_HYPERLINK,
+      INLINES.RESOURCE_HYPERLINK
     ],
     isNodeTypeEnabled
   );
@@ -229,7 +229,7 @@ function getValidationInfo(field: FieldAppSDK['field']): {
   return {
     isAnyMarkEnabled,
     isAnyHyperlinkEnabled,
-    isAnyBlockFormattingEnabled,
+    isAnyBlockFormattingEnabled
   };
 }
 

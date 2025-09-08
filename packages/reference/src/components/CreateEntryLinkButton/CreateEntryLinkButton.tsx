@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-import { ChevronDownIcon, PlusIcon } from '@contentful/f36-icons';
+import { CaretDownIcon, PlusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 import get from 'lodash/get';
@@ -11,17 +11,17 @@ import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 const standardStyles = {
   spinnerMargin: css({
-    marginRight: tokens.spacingXs,
+    marginRight: tokens.spacingXs
   }),
-  action: undefined,
+  action: undefined
 };
 const redesignStyles = {
   ...standardStyles,
   action: css({
     textDecoration: 'none',
     fontWeight: 'bold',
-    maxWidth: '300px',
-  }),
+    maxWidth: '300px'
+  })
 };
 
 interface CreateEntryLinkButtonProps {
@@ -50,7 +50,7 @@ export const CreateEntryLinkButton = ({
   useExperimentalStyles,
   suggestedContentTypeId,
   dropdownSettings,
-  disabled = false,
+  disabled = false
 }: CreateEntryLinkButtonProps) => {
   contentTypes = contentTypes.sort((a, b) => a.name.localeCompare(b.name));
   const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
@@ -81,7 +81,7 @@ export const CreateEntryLinkButton = ({
     >
       {({ isSelecting }) => (
         <Button
-          endIcon={hasDropdown ? <ChevronDownIcon /> : undefined}
+          endIcon={hasDropdown ? <CaretDownIcon /> : undefined}
           variant="secondary"
           className={styles.action}
           isDisabled={disabled || isSelecting} // (contentTypes && contentTypes.length === 0)}
