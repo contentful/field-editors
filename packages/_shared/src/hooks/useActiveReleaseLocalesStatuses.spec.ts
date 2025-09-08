@@ -5,18 +5,22 @@ import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from
 import { getPreviousReleaseEntity } from '../utils/getPreviousReleaseEntity';
 import { useActiveReleaseLocalesStatuses } from './useActiveReleaseLocalesStatuses';
 
-const buildEntry = (status: 'draft' | 'published' | 'changed') =>
+const buildEntry = (status: 'draft' | 'published' | 'changed', id: string = 'entry-1') =>
   ({
     sys: {
+      id,
+      type: 'Entry',
       fieldStatus: {
         '*': { 'en-US': status },
       },
     },
   }) as unknown as EntryProps;
 
-const buildAsset = (status: 'draft' | 'published' | 'changed') =>
+const buildAsset = (status: 'draft' | 'published' | 'changed', id: string = 'asset-1') =>
   ({
     sys: {
+      id,
+      type: 'Asset',
       fieldStatus: {
         '*': { 'en-US': status },
       },
@@ -85,6 +89,13 @@ jest.mock('../utils/getPreviousReleaseEntity', () => ({
 
 const ENTITY_TYPES = ['Entry', 'Asset'] as const;
 
+const baseParams = {
+  locales: [{ code: 'en-US' } as LocaleProps],
+  isActiveReleaseLoading: false,
+  releaseVersionMap: new Map(),
+  releases: { items: [] } as unknown as CollectionProp<ReleaseV2Props>,
+};
+
 describe('useActiveReleaseLocalesStatuses', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -92,13 +103,6 @@ describe('useActiveReleaseLocalesStatuses', () => {
 
   ENTITY_TYPES.forEach((entityType) => {
     const entityId = entityType === 'Entry' ? 'entry-1' : 'asset-1';
-    const baseParams = {
-      entityId,
-      locales: [{ code: 'en-US' } as LocaleProps],
-      isActiveReleaseLoading: false,
-      releaseVersionMap: new Map(),
-      releases: { items: [] } as unknown as CollectionProp<ReleaseV2Props>,
-    };
     describe(`${entityType} with entry based publishing`, () => {
       it('returns Will publish status when active release has publish action', () => {
         (getPreviousReleaseEntity as jest.Mock).mockReturnValue({

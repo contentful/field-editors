@@ -111,6 +111,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
   const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
     currentEntityDraft: entry,
     entityId: props.entryId,
+    entityType: 'Entry',
     releaseVersionMap,
     locales,
     activeRelease,

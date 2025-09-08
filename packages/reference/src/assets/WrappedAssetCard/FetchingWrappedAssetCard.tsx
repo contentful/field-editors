@@ -46,6 +46,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
     currentEntityDraft: asset,
     entityId: props.assetId,
+    entityType: 'Asset',
     releaseVersionMap,
     locales,
     activeRelease,

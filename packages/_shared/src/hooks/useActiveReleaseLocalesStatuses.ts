@@ -13,32 +13,36 @@ import { getPreviousReleaseEntity } from '../utils/getPreviousReleaseEntity';
 
 export const useActiveReleaseLocalesStatuses = ({
   currentEntityDraft,
-  entityId,
   releaseVersionMap,
   locales,
   activeRelease,
   releases,
 }: {
   currentEntityDraft: EntryProps | AssetProps;
-  entityId: string;
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   locales: LocaleProps[];
   activeRelease: ReleaseV2Props | undefined;
   releases: CollectionProp<ReleaseV2Props> | undefined;
 }) => {
+  const entityId = currentEntityDraft.sys.id;
+  const entityType = currentEntityDraft.sys.type as 'Entry' | 'Asset';
   const previousReleaseEntity = useMemo(
     () =>
       getPreviousReleaseEntity({
         entityId,
+        entityType,
         releaseVersionMap,
         activeRelease,
         releases,
       }).previousReleaseEntity,
-    [entityId, releaseVersionMap, activeRelease, releases],
+    [entityId, entityType, releaseVersionMap, activeRelease, releases],
   );
   const activeReleaseReleaseEntity = useMemo(
-    () => activeRelease?.entities.items.find((entity) => entity.entity.sys.id === entityId),
-    [activeRelease?.entities.items, entityId],
+    () =>
+      activeRelease?.entities.items.find(
+        (entity) => entity.entity.sys.id === entityId && entity.entity.sys.linkType === entityType,
+      ),
+    [activeRelease?.entities.items, entityId, entityType],
   );
 
   const getLocaleStatus = useCallback(

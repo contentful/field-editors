@@ -10,11 +10,13 @@ import type {
 
 export function getPreviousReleaseEntity({
   entityId,
+  entityType,
   releaseVersionMap,
   activeRelease,
   releases,
 }: {
   entityId: string;
+  entityType: 'Entry' | 'Asset';
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   activeRelease: ReleaseV2Props | undefined;
   releases: CollectionProp<ReleaseV2Props> | undefined;
@@ -39,7 +41,9 @@ export function getPreviousReleaseEntity({
       const action = releaseVersionMap.get(entityId)?.get(release.sys.id);
       if (action !== 'not-in-release') {
         previousRelease = release;
-        previousReleaseEntity = release.entities.items.find((e) => e.entity.sys.id === entityId);
+        previousReleaseEntity = release.entities.items.find(
+          (e) => e.entity.sys.id === entityId && e.entity.sys.linkType === entityType,
+        );
         break;
       }
     }
