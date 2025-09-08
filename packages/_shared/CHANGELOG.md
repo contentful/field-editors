@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.11.2...@contentful/field-editor-shared@2.12.0) (2025-09-08)
+
+### Features
+
+- add asset support for release entity status calculation [TOL-3363] ([#1928](https://github.com/contentful/field-editors/issues/1928)) ([840490f](https://github.com/contentful/field-editors/commit/840490f06853b70f8b7d7784f02a970921761a95))
+
 ## [2.11.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.11.1...@contentful/field-editor-shared@2.11.2) (2025-09-08)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

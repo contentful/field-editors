@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.11.3...@contentful/field-editor-rich-text@4.12.0) (2025-09-08)
+
+### Features
+
+- add asset support for release entity status calculation [TOL-3363] ([#1928](https://github.com/contentful/field-editors/issues/1928)) ([840490f](https://github.com/contentful/field-editors/commit/840490f06853b70f8b7d7784f02a970921761a95))
+
 ## [4.11.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.11.2...@contentful/field-editor-rich-text@4.11.3) (2025-09-08)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

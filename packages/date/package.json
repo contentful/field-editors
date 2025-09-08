@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-date",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -39,7 +39,7 @@
   "dependencies": {
     "@contentful/f36-components": "5.1.1",
     "@contentful/f36-tokens": "5.1.0",
-    "@contentful/field-editor-shared": "^2.11.2",
+    "@contentful/field-editor-shared": "^2.12.0",
     "emotion": "^10.0.17",
     "moment": "^2.20.0"
   },
