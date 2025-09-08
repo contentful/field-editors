@@ -1,21 +1,26 @@
 import { useCallback, useMemo } from 'react';
 
 import type { ReleaseAction, ReleaseLocalesStatusMap } from '@contentful/field-editor-shared';
-import type { CollectionProp, EntryProps, LocaleProps } from 'contentful-management/types';
+import type {
+  AssetProps,
+  CollectionProp,
+  EntryProps,
+  LocaleProps,
+} from 'contentful-management/types';
 
 import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from '../types';
-import { getPreviousReleaseEntryVersion } from '../utils/getPreviousReleaseEntryVersion';
+import { getPreviousReleaseEntity } from '../utils/getPreviousReleaseEntity';
 
 export const useActiveReleaseLocalesStatuses = ({
-  currentEntryDraft,
-  entryId,
+  currentEntityDraft,
+  entityId,
   releaseVersionMap,
   locales,
   activeRelease,
   releases,
 }: {
-  currentEntryDraft: EntryProps;
-  entryId: string;
+  currentEntityDraft: EntryProps | AssetProps;
+  entityId: string;
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   locales: LocaleProps[];
   activeRelease: ReleaseV2Props | undefined;
@@ -23,17 +28,17 @@ export const useActiveReleaseLocalesStatuses = ({
 }) => {
   const previousReleaseEntity = useMemo(
     () =>
-      getPreviousReleaseEntryVersion({
-        entryId,
+      getPreviousReleaseEntity({
+        entityId,
         releaseVersionMap,
         activeRelease,
         releases,
       }).previousReleaseEntity,
-    [entryId, releaseVersionMap, activeRelease, releases],
+    [entityId, releaseVersionMap, activeRelease, releases],
   );
   const activeReleaseReleaseEntity = useMemo(
-    () => activeRelease?.entities.items.find((entity) => entity.entity.sys.id === entryId),
-    [activeRelease?.entities.items, entryId],
+    () => activeRelease?.entities.items.find((entity) => entity.entity.sys.id === entityId),
+    [activeRelease?.entities.items, entityId],
   );
 
   const getLocaleStatus = useCallback(
@@ -72,8 +77,8 @@ export const useActiveReleaseLocalesStatuses = ({
       }
 
       if (getLocaleStatus(locale.code) === 'draft') {
-        if (currentEntryDraft?.sys.fieldStatus) {
-          const previousStatus = currentEntryDraft.sys.fieldStatus['*'][locale.code];
+        if (currentEntityDraft?.sys.fieldStatus) {
+          const previousStatus = currentEntityDraft.sys.fieldStatus['*'][locale.code];
           if (previousStatus === 'published' || previousStatus === 'changed') {
             acc.set(locale.code, {
               status: 'becomesDraft',
@@ -126,7 +131,7 @@ export const useActiveReleaseLocalesStatuses = ({
     locales,
     activeReleaseReleaseEntity,
     getLocaleStatus,
-    currentEntryDraft?.sys.fieldStatus,
+    currentEntityDraft?.sys.fieldStatus,
     previousReleaseEntity,
   ]);
 

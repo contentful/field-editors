@@ -43,5 +43,5 @@ export * from './hooks/useLocalePublishStatus';
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
-export * from './utils/getEntryReleaseStatus';
+export * from './utils/getEntityReleaseStatus';
 export * from './utils/parseReleaseParameters';

@@ -9,7 +9,7 @@ type ReleaseEntityActionBadgeProps = {
   className?: string;
 };
 
-const config: Record<ReleaseAction, { label: string; variant: BadgeVariant }> = {
+const config: Record<ReleaseAction, { label: string; variant: BadgeVariant; schedule?: string }> = {
   publish: {
     label: 'Will publish',
     variant: 'positive' as const,
