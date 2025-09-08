@@ -105,7 +105,7 @@ All field editor packages are open source software [licensed as MIT](./LICENSE).
 
 ## Internationalization
 
-Latest versions of [Forma 36](https://f36.contentful.com/) components used in field editors are internationalized with `@lingui/core` and `@lingui/message-utils` dependencies. We recommend adding these packages to your app and initialize `lingui` like this in your `App.tsx`:
+The latest versions of field editors are internationalized with [lingui](https://lingui.dev/). Any app using the latest field editors needs to include the `@lingui/core` and `@lingui/message-utils` packages and initialize `lingui` like this before rendering field editors:
 
 ```javascript
 import { i18n } from '@lingui/core';
