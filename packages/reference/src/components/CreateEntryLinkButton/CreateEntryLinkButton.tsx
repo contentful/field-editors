@@ -11,17 +11,17 @@ import { CreateEntryMenuTrigger } from './CreateEntryMenuTrigger';
 
 const standardStyles = {
   spinnerMargin: css({
-    marginRight: tokens.spacingXs,
+    marginRight: tokens.spacingXs
   }),
-  action: undefined,
+  action: undefined
 };
 const redesignStyles = {
   ...standardStyles,
   action: css({
     textDecoration: 'none',
     fontWeight: 'bold',
-    maxWidth: '300px',
-  }),
+    maxWidth: '300px'
+  })
 };
 
 interface CreateEntryLinkButtonProps {
@@ -50,7 +50,7 @@ export const CreateEntryLinkButton = ({
   useExperimentalStyles,
   suggestedContentTypeId,
   dropdownSettings,
-  disabled = false,
+  disabled = false
 }: CreateEntryLinkButtonProps) => {
   contentTypes = contentTypes.sort((a, b) => a.name.localeCompare(b.name));
   const suggestedContentType = contentTypes.find((ct) => ct.sys.id === suggestedContentTypeId);
@@ -59,7 +59,7 @@ export const CreateEntryLinkButton = ({
     `Add ${get(
       suggestedContentType || (contentTypes.length === 1 ? contentTypes[0] : {}),
       'name',
-      'entry',
+      'entry'
     )}`;
   const hasDropdown = contentTypes.length > 1 || customDropdownItems;
 

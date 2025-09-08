@@ -12,7 +12,7 @@ import {
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeNavigatorAPI,
-  createFakeSpaceAPI,
+  createFakeSpaceAPI
 } from '@contentful/field-editor-test-utils';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -24,11 +24,9 @@ import { assets, contentTypes, entries, locales, spaces } from '../src/__fixture
 import RichTextEditor from '../src/RichTextEditor';
 import { RichTextPreview } from './RichTextPreview';
 
-
-
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor',
-  component: RichTextEditor,
+  component: RichTextEditor
 };
 
 export default meta;
@@ -45,20 +43,20 @@ declare global {
 const layoutStyle = css({
   display: 'grid',
   gridTemplateColumns: '70% 1fr',
-  gap: '10px',
+  gap: '10px'
 });
 
 const structurePreviewContainerStyle = css({
   position: 'relative',
   height: 'calc(100vh - 35px)',
   maxHeight: 700,
-  overflowY: 'scroll',
+  overflowY: 'scroll'
 });
 
 const structurePreviewCopyButton = css({
   position: 'absolute',
   right: 0,
-  top: 8,
+  top: 8
 });
 
 const DemoRichTextEditor = () => {
@@ -67,7 +65,7 @@ const DemoRichTextEditor = () => {
   const rtPreviewStyle = css({
     backgroundColor: 'whitesmoke',
     padding: '0 0.5em',
-    minHeight: '20px',
+    minHeight: '20px'
   });
 
   const newEntitySelectorDummyDialog = (fnName: string, type: any) => async () => {
@@ -80,15 +78,15 @@ const DemoRichTextEditor = () => {
               sys: {
                 type: 'ResourceLink',
                 linkType: 'Contentful:Entry',
-                urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
-              },
+                urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn'
+              }
             }
           : {
               sys: {
                 id: 'example-entity-id',
                 urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
-                type,
-              },
+                type
+              }
             }
         : null;
     }
@@ -99,15 +97,15 @@ const DemoRichTextEditor = () => {
             sys: {
               type: 'ResourceLink',
               linkType: 'Contentful:Entry',
-              urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
-            },
+              urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn'
+            }
           }
         : {
             sys: {
               id: 'example-entity-id',
               urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
-              type,
-            },
+              type
+            }
           }
       : null; // Simulate cancellation.
   };
@@ -124,12 +122,12 @@ const DemoRichTextEditor = () => {
           ? fieldValidations
           : [
               {
-                enabledMarks: Object.values(MARKS),
-              },
+                enabledMarks: Object.values(MARKS)
+              }
             ];
         return mock;
       }, initialValue),
-    [fieldValidations, initialValue],
+    [fieldValidations, initialValue]
   );
 
   const isDisabled = window.localStorage.getItem('initialDisabled') || false;
@@ -141,24 +139,24 @@ const DemoRichTextEditor = () => {
   const sdk = {
     ids: {
       space: 'space-id',
-      environment: 'environment-id',
+      environment: 'environment-id'
     },
     cmaAdapter: createFakeCMAAdapter({
       ContentType: {
-        get: () => Promise.resolve(contentTypes.published),
+        get: () => Promise.resolve(contentTypes.published)
       },
       Entry: {
-        get: () => Promise.resolve(entries.published),
+        get: () => Promise.resolve(entries.published)
       },
       Asset: {
-        get: () => Promise.resolve(assets.published),
+        get: () => Promise.resolve(assets.published)
       },
       Locale: {
-        getMany: () => Promise.resolve({ items: [locales.englishDefault] }),
+        getMany: () => Promise.resolve({ items: [locales.englishDefault] })
       },
       Space: {
-        get: () => Promise.resolve(spaces.indifferent),
-      },
+        get: () => Promise.resolve(spaces.indifferent)
+      }
     }),
     space: {
       ...space,
@@ -167,11 +165,11 @@ const DemoRichTextEditor = () => {
       },
       getAssets: () => {
         return Promise.resolve({ items: [assets.published] });
-      },
+      }
     },
     entry: {
       ...entries.published,
-      getSys: () => entries.published.sys,
+      getSys: () => entries.published.sys
     },
     field,
     locales: createFakeLocalesAPI(),
@@ -180,15 +178,15 @@ const DemoRichTextEditor = () => {
       onSlideInNavigation: () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- .
         return () => {};
-      },
+      }
     },
     dialogs: {
       selectSingleAsset: newEntitySelectorDummyDialog('selectSingleAsset', 'Asset'),
       selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry'),
       selectSingleResourceEntity: newEntitySelectorDummyDialog(
         'selectSingleResourceEntity',
-        'Contentful:Entry',
-      ),
+        'Contentful:Entry'
+      )
     },
     access: {
       can: (access: any, entityType: any) => {
@@ -201,14 +199,14 @@ const DemoRichTextEditor = () => {
           }
         }
         return Promise.resolve(false);
-      },
+      }
     },
     parameters: {
       instance: {
-        getEntryUrl: () => '#',
-      },
+        getEntryUrl: () => '#'
+      }
     },
-    events: [],
+    events: []
   };
 
   // Validate on change
@@ -303,9 +301,9 @@ const DemoRichTextEditor = () => {
 
 export const Default: Story = {
   parameters: {
-    controls: { hideNoControlsWarning: true },
+    controls: { hideNoControlsWarning: true }
   },
   render: () => {
     return <DemoRichTextEditor />;
-  },
+  }
 };

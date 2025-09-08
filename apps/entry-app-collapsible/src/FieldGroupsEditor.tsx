@@ -10,7 +10,7 @@ import {
   FormControl,
   TextInput,
   Menu,
-  Card,
+  Card
 } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
@@ -55,13 +55,13 @@ const SortableFieldItem = SortableElement(
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
               groupId,
-              fieldKey: field.id,
+              fieldKey: field.id
             })
           }
         />
       </Card>
     );
-  },
+  }
 );
 
 const SortableFieldList = SortableContainer(
@@ -71,7 +71,7 @@ const SortableFieldList = SortableContainer(
         <SortableFieldItem groupId={groupId} key={`item-${field.id}`} index={index} field={field} />
       ))}
     </ul>
-  ),
+  )
 );
 
 export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
@@ -123,7 +123,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId,
+  groupId
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
 
@@ -131,7 +131,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value,
+      name: e.currentTarget.value
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -141,7 +141,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       type: ActionTypes.MOVE_FIELD_IN_GROUP,
       groupId,
       oldIndex,
-      newIndex,
+      newIndex
     });
   };
 
@@ -170,7 +170,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                       type: ActionTypes.ADD_FIELD_TO_GROUP,
                       groupId,
                       fieldKey: id,
-                      fieldName: name,
+                      fieldName: name
                     });
                   }}
                   key={id}

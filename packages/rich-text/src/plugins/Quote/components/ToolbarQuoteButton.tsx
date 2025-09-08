@@ -8,7 +8,6 @@ import { isBlockSelected, focus } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleQuote } from '../toggleQuote';
 
-
 export interface ToolbarQuoteButtonProps {
   isDisabled?: boolean;
 }

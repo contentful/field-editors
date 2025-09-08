@@ -8,10 +8,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SingleMediaEditor } from '../../src';
 import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';
 
-
 const meta: Meta<typeof SingleMediaEditor> = {
   title: 'editors/Single Media',
-  component: SingleMediaEditor,
+  component: SingleMediaEditor
 };
 
 export default meta;
@@ -20,7 +19,7 @@ type Story = StoryObj<typeof SingleMediaEditor>;
 
 export const Default: Story = {
   parameters: {
-    controls: { hideNoControlsWarning: true },
+    controls: { hideNoControlsWarning: true }
   },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
@@ -33,19 +32,19 @@ export const Default: Story = {
           parameters={{
             instance: {
               showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
+              showLinkEntityAction: true
+            }
           }}
         />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-  },
+  }
 };
 
 export const CustomActions: Story = {
   parameters: {
-    controls: { hideNoControlsWarning: true },
+    controls: { hideNoControlsWarning: true }
   },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
@@ -70,19 +69,19 @@ export const CustomActions: Story = {
           parameters={{
             instance: {
               showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
+              showLinkEntityAction: true
+            }
           }}
         />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-  },
+  }
 };
 
 export const CustomCard: Story = {
   parameters: {
-    controls: { hideNoControlsWarning: true },
+    controls: { hideNoControlsWarning: true }
   },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
@@ -95,8 +94,8 @@ export const CustomCard: Story = {
           parameters={{
             instance: {
               showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
+              showLinkEntityAction: true
+            }
           }}
           renderCustomCard={(props) => {
             const title = props.entity.fields.title;
@@ -120,12 +119,12 @@ export const CustomCard: Story = {
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-  },
+  }
 };
 
 export const UnclickableCard: Story = {
   parameters: {
-    controls: { hideNoControlsWarning: true },
+    controls: { hideNoControlsWarning: true }
   },
   render: () => {
     const [sdk, mitt] = newReferenceEditorFakeSdk();
@@ -138,17 +137,17 @@ export const UnclickableCard: Story = {
           parameters={{
             instance: {
               showCreateEntityAction: true,
-              showLinkEntityAction: true,
-            },
+              showLinkEntityAction: true
+            }
           }}
           renderCustomCard={(_, __, renderDefaultCard) => {
             return renderDefaultCard({
-              isClickable: false,
+              isClickable: false
             });
           }}
         />
         <ActionsPlayground mitt={mitt} />
       </div>
     );
-  },
+  }
 };

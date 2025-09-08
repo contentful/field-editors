@@ -34,7 +34,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const [state, dispatch] = useAppState(
     props.sdk.contentType.fields,
     storageId(props.sdk),
-    props.sdk.contentType.sys.updatedAt,
+    props.sdk.contentType.sys.updatedAt
   );
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -98,7 +98,7 @@ function renderAtRoot(element: JSX.Element) {
       <GlobalStyles />
       {element}
     </>,
-    document.getElementById('root'),
+    document.getElementById('root')
   );
 }
 

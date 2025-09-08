@@ -20,12 +20,12 @@ import { ToolbarCodeButton, ToolbarDropdownCodeButton } from '../plugins/Marks/C
 import { ToolbarItalicButton } from '../plugins/Marks/Italic';
 import {
   ToolbarDropdownStrikethroughButton,
-  ToolbarStrikethroughButton,
+  ToolbarStrikethroughButton
 } from '../plugins/Marks/Strikethrough';
 import { ToolbarDropdownSubscriptButton, ToolbarSubscriptButton } from '../plugins/Marks/Subscript';
 import {
   ToolbarDropdownSuperscriptButton,
-  ToolbarSuperscriptButton,
+  ToolbarSuperscriptButton
 } from '../plugins/Marks/Superscript';
 import { ToolbarUnderlineButton } from '../plugins/Marks/Underline';
 import { ToolbarQuoteButton } from '../plugins/Quote';
@@ -34,7 +34,6 @@ import { useSdkContext } from '../SdkProvider';
 import { ButtonRedo } from './components/ButtonRedo';
 import { ButtonUndo } from './components/ButtonUndo';
 import { EmbedEntityWidget } from './components/EmbedEntityWidget';
-
 
 type ToolbarProps = {
   isDisabled?: boolean;
@@ -45,26 +44,26 @@ const styles = {
     border: `1px solid ${tokens.gray400}`,
     backgroundColor: tokens.gray100,
     padding: tokens.spacingXs,
-    borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`,
+    borderRadius: `${tokens.borderRadiusMedium} ${tokens.borderRadiusMedium} 0 0`
   }),
   toolbarBtn: css({
     height: '30px',
     width: '30px',
     marginLeft: tokens.spacing2Xs,
-    marginRight: tokens.spacing2Xs,
+    marginRight: tokens.spacing2Xs
   }),
   divider: css({
     display: 'inline-block',
     height: '21px',
     width: '1px',
     background: tokens.gray300,
-    margin: `0 ${tokens.spacing2Xs}`,
+    margin: `0 ${tokens.spacing2Xs}`
   }),
   embedActionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
     webkitAlignSelf: 'flex-start',
     alignSelf: 'flex-start',
-    msFlexItemAlign: 'start',
+    msFlexItemAlign: 'start'
   }),
   formattingOptionsWrapper: css({
     display: ['-webkit-box', '-ms-flexbox', 'flex'],
@@ -73,8 +72,8 @@ const styles = {
     alignItems: 'center',
     msFlexWrap: 'wrap',
     flexWrap: 'wrap',
-    marginRight: '20px',
-  }),
+    marginRight: '20px'
+  })
 };
 
 const dropdownMarks = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT, MARKS.CODE, MARKS.STRIKETHROUGH];
@@ -217,20 +216,20 @@ function getValidationInfo(field: FieldAppSDK['field']): {
       INLINES.HYPERLINK,
       INLINES.ASSET_HYPERLINK,
       INLINES.ENTRY_HYPERLINK,
-      INLINES.RESOURCE_HYPERLINK,
+      INLINES.RESOURCE_HYPERLINK
     ],
-    isNodeTypeEnabled,
+    isNodeTypeEnabled
   );
 
   const isAnyBlockFormattingEnabled = someWithValidation(
     [BLOCKS.UL_LIST, BLOCKS.OL_LIST, BLOCKS.QUOTE, BLOCKS.HR],
-    isNodeTypeEnabled,
+    isNodeTypeEnabled
   );
 
   return {
     isAnyMarkEnabled,
     isAnyHyperlinkEnabled,
-    isAnyBlockFormattingEnabled,
+    isAnyBlockFormattingEnabled
   };
 }
 

@@ -9,13 +9,12 @@ import type {
   Entry,
   FieldAPI,
   LocalesAPI,
-  SpaceAPI,
+  SpaceAPI
 } from '@contentful/field-editor-shared';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { t } from '@lingui/core/macro';
 
 import * as styles from './styles';
-
 
 type UniquenessErrorProps = {
   error: ValidationError;
@@ -31,7 +30,7 @@ function UniquenessError(props: UniquenessErrorProps) {
     entries: { id: string; title: string; href: string }[];
   }>({
     loading: true,
-    entries: [],
+    entries: []
   });
 
   const contentTypesById = React.useMemo(
@@ -40,11 +39,11 @@ function UniquenessError(props: UniquenessErrorProps) {
       props.space.getCachedContentTypes().reduce(
         (prev, ct) => ({
           ...prev,
-          [ct.sys.id]: ct,
+          [ct.sys.id]: ct
         }),
-        {},
+        {}
       ),
-    [props.space],
+    [props.space]
   );
 
   const getTitle = React.useCallback(
@@ -53,13 +52,13 @@ function UniquenessError(props: UniquenessErrorProps) {
         entry,
         defaultTitle: t({
           id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
-          message: 'Untitled',
+          message: 'Untitled'
         }),
         localeCode: props.localeCode,
         defaultLocaleCode: props.defaultLocaleCode,
-        contentType: contentTypesById[entry.sys.contentType.sys.id],
+        contentType: contentTypesById[entry.sys.contentType.sys.id]
       }),
-    [props.localeCode, props.defaultLocaleCode, contentTypesById],
+    [props.localeCode, props.defaultLocaleCode, contentTypesById]
   );
 
   let conflicting: Link<'Entry', 'Link'>[] = [];
@@ -78,19 +77,19 @@ function UniquenessError(props: UniquenessErrorProps) {
     setState((state) => ({ ...state, loading: true }));
 
     const query = {
-      'sys.id[in]': conflictIds.join(','),
+      'sys.id[in]': conflictIds.join(',')
     };
 
     props.space.getEntries<Entry>(query).then(({ items }) => {
       const entries = items.map((entry) => ({
         id: entry.sys.id,
         title: getTitle(entry),
-        href: props.getEntryURL(entry),
+        href: props.getEntryURL(entry)
       }));
 
       setState({
         loading: false,
-        entries,
+        entries
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate these dependencies
@@ -103,7 +102,7 @@ function UniquenessError(props: UniquenessErrorProps) {
           <div>
             {t({
               id: 'FieldEditors.ValidationErrors.UniquenessError.LoadingMessage',
-              message: 'Loading title for conflicting entry…',
+              message: 'Loading title for conflicting entry…'
             })}
           </div>
         ) : (

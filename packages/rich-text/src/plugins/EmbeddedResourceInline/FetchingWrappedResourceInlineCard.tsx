@@ -23,7 +23,7 @@ interface FetchingWrappedResourceInlineCardProps {
 export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResourceInlineCardProps) {
   const { link, onEntityFetchComplete, sdk } = props;
   const { data, status: requestStatus } = useResource(link.linkType, link.urn, {
-    locale: sdk.field.locale,
+    locale: sdk.field.locale
   });
 
   React.useEffect(() => {
@@ -53,12 +53,12 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
     contentType,
     defaultLocaleCode,
     localeCode: defaultLocaleCode,
-    defaultTitle: 'Untitled',
+    defaultTitle: 'Untitled'
   });
   const truncatedTitle = truncateTitle(title, 40);
   const status = getEntityStatus(
     entry.sys,
-    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined,
+    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined
   );
 
   return (
@@ -70,7 +70,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
       actions={[
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
           Remove
-        </MenuItem>,
+        </MenuItem>
       ].map((item, i) => (
         <Menu key={i}>{item}</Menu>
       ))}
