@@ -4,10 +4,13 @@ import { EntryCard } from '@contentful/f36-components';
 import {
   entityHelpers,
   isValidImage,
-  LocalePublishStatusMap,
-  SpaceAPI,
+  type ReleaseAction,
+  type LocalePublishStatusMap,
+  type ReleaseLocalesStatusMap,
+  type ReleaseV2Props,
+  type SpaceAPI,
 } from '@contentful/field-editor-shared';
-import { LocaleProps } from 'contentful-management';
+import type { LocaleProps } from 'contentful-management';
 
 import { AssetThumbnail, EntityStatusBadge, MissingAssetCard } from '../../components';
 import { Asset, RenderDragFn } from '../../types';
@@ -28,6 +31,10 @@ export interface WrappedAssetLinkProps {
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
   isClickable?: boolean;
+  releaseAction?: ReleaseAction;
+  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
+  isReleasesLoading?: boolean;
+  activeRelease?: ReleaseV2Props;
 }
 
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
@@ -70,6 +77,10 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
           entity={props.asset}
           localesStatusMap={props.localesStatusMap}
           activeLocales={props.activeLocales}
+          releaseAction={props.releaseAction}
+          releaseLocalesStatusMap={props.releaseLocalesStatusMap}
+          isReleasesLoading={props.isReleasesLoading}
+          activeRelease={props.activeRelease}
         />
       }
       thumbnailElement={

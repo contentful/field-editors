@@ -5,7 +5,7 @@ import {
   parseReleaseParams,
   useLocalePublishStatus,
   useActiveReleaseLocalesStatuses,
-  getEntryReleaseStatus,
+  getEntityReleaseStatus,
 } from '@contentful/field-editor-shared';
 import { EntryProps } from 'contentful-management';
 import get from 'lodash/get';
@@ -77,14 +77,15 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
   const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
-    currentEntryDraft: entry,
-    entryId: props.entryId,
+    currentEntityDraft: entry,
+    entityId: props.entryId,
+    entityType: 'Entry',
     releaseVersionMap,
     locales,
     activeRelease,
     releases,
   });
-  const { releaseAction } = getEntryReleaseStatus(props.entryId, locales, activeRelease);
+  const { releaseAction } = getEntityReleaseStatus(props.entryId, locales, activeRelease);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
   const { getEntity } = useEntityLoader();

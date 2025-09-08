@@ -20,14 +20,14 @@ export type ValidationType =
 //@TODO: use Release types from contentful management once they are ready
 export type ReleaseV2Entity = {
   entity: {
-    sys: { type: 'Link'; linkType: 'Entry'; id: string };
+    sys: { type: 'Link'; linkType: 'Entry' | 'Asset'; id: string };
   };
   action: 'publish' | 'unpublish';
 };
 
 export type ReleaseV2EntityWithLocales = {
   entity: {
-    sys: { type: 'Link'; linkType: 'Entry'; id: string };
+    sys: { type: 'Link'; linkType: 'Entry' | 'Asset'; id: string };
   };
   add: {
     fields: {

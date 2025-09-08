@@ -8,13 +8,15 @@ import type {
   ReleaseV2Props,
 } from '../types';
 
-export function getPreviousReleaseEntryVersion({
-  entryId,
+export function getPreviousReleaseEntity({
+  entityId,
+  entityType,
   releaseVersionMap,
   activeRelease,
   releases,
 }: {
-  entryId: string;
+  entityId: string;
+  entityType: 'Entry' | 'Asset';
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   activeRelease: ReleaseV2Props | undefined;
   releases: CollectionProp<ReleaseV2Props> | undefined;
@@ -36,10 +38,12 @@ export function getPreviousReleaseEntryVersion({
   if (indexOfActive && indexOfActive > 0) {
     for (let i = indexOfActive - 1; i >= 0; i--) {
       const release = orderedScheduledReleases![i];
-      const action = releaseVersionMap.get(entryId)?.get(release.sys.id);
+      const action = releaseVersionMap.get(entityId)?.get(release.sys.id);
       if (action !== 'not-in-release') {
         previousRelease = release;
-        previousReleaseEntity = release.entities.items.find((e) => e.entity.sys.id === entryId);
+        previousReleaseEntity = release.entities.items.find(
+          (e) => e.entity.sys.id === entityId && e.entity.sys.linkType === entityType,
+        );
         break;
       }
     }

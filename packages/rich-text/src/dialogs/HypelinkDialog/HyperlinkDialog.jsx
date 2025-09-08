@@ -58,16 +58,6 @@ export class HyperlinkDialog extends React.Component {
   };
 
   static defaultProps = {
-    labels: {
-      title: t({
-        id: 'FieldEditors.RichText.HyperlinkDialog.DefaultTitle',
-        message: 'Insert link',
-      }),
-      confirm: t({
-        id: 'FieldEditors.RichText.HyperlinkDialog.DefaultConfirm',
-        message: 'Insert link',
-      }),
-    },
     value: {},
     hideText: false,
     entitySelectorConfigs: {},
@@ -147,7 +137,16 @@ export class HyperlinkDialog extends React.Component {
   };
 
   render() {
-    const { labels } = this.props;
+    const labels = this.props.labels || {
+      title: t({
+        id: 'FieldEditors.RichText.HyperlinkDialog.DefaultTitle',
+        message: 'Insert link',
+      }),
+      confirm: t({
+        id: 'FieldEditors.RichText.HyperlinkDialog.DefaultConfirm',
+        message: 'Insert link',
+      }),
+    };
     return (
       <EntityProvider sdk={this.props.sdk}>
         <React.Fragment>

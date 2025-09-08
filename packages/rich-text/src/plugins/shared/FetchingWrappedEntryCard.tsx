@@ -15,7 +15,7 @@ import {
   useActiveLocales,
   parseReleaseParams,
   useActiveReleaseLocalesStatuses,
-  getEntryReleaseStatus,
+  getEntityReleaseStatus,
   type ReleaseLocalesStatusMap,
   type ReleaseV2Props,
   type ReleaseAction,
@@ -109,14 +109,15 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
   const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
     parseReleaseParams(props.sdk.parameters.instance.release);
   const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
-    currentEntryDraft: entry,
-    entryId: props.entryId,
+    currentEntityDraft: entry,
+    entityId: props.entryId,
+    entityType: 'Entry',
     releaseVersionMap,
     locales,
     activeRelease,
     releases,
   });
-  const { releaseAction } = getEntryReleaseStatus(props.entryId, locales, activeRelease);
+  const { releaseAction } = getEntityReleaseStatus(props.entryId, locales, activeRelease);
 
   React.useEffect(() => {
     if (status === 'success') {
