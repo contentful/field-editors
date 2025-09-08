@@ -102,3 +102,16 @@ All field editor packages are open source software [licensed as MIT](./LICENSE).
 [prettier]: https://prettier.io/
 [eslint]: https://eslint.org/
 [lingui]: https://lingui.dev/
+
+## Internationalization
+
+Latest versions of [Forma 36](https://f36.contentful.com/) components used in field editors are internationalized with `@lingui/core` and `@lingui/message-utils` dependencies. We recommend adding these packages to your app and initialize `lingui` like this in your `App.tsx`:
+
+```javascript
+i18n.setMessagesCompiler(compileMessage);
+i18n.activate('en-US');  // use desired locale code
+
+const App = () => {
+  ...
+}
+```
