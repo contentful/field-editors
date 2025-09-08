@@ -78,6 +78,8 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
   const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
     currentEntityDraft: entry,
+    entityId: props.entryId,
+    entityType: 'Entry',
     releaseVersionMap,
     locales,
     activeRelease,
