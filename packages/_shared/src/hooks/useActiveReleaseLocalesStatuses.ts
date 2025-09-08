@@ -13,19 +13,21 @@ import { getPreviousReleaseEntity } from '../utils/getPreviousReleaseEntity';
 
 export const useActiveReleaseLocalesStatuses = ({
   currentEntityDraft,
+  entityId,
+  entityType,
   releaseVersionMap,
   locales,
   activeRelease,
   releases,
 }: {
   currentEntityDraft: EntryProps | AssetProps;
+  entityId: string;
+  entityType: 'Entry' | 'Asset';
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
   locales: LocaleProps[];
   activeRelease: ReleaseV2Props | undefined;
   releases: CollectionProp<ReleaseV2Props> | undefined;
 }) => {
-  const entityId = currentEntityDraft.sys.id;
-  const entityType = currentEntityDraft.sys.type as 'Entry' | 'Asset';
   const previousReleaseEntity = useMemo(
     () =>
       getPreviousReleaseEntity({

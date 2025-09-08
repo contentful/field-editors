@@ -89,13 +89,6 @@ jest.mock('../utils/getPreviousReleaseEntity', () => ({
 
 const ENTITY_TYPES = ['Entry', 'Asset'] as const;
 
-const baseParams = {
-  locales: [{ code: 'en-US' } as LocaleProps],
-  isActiveReleaseLoading: false,
-  releaseVersionMap: new Map(),
-  releases: { items: [] } as unknown as CollectionProp<ReleaseV2Props>,
-};
-
 describe('useActiveReleaseLocalesStatuses', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -103,6 +96,14 @@ describe('useActiveReleaseLocalesStatuses', () => {
 
   ENTITY_TYPES.forEach((entityType) => {
     const entityId = entityType === 'Entry' ? 'entry-1' : 'asset-1';
+    const baseParams = {
+      entityId,
+      entityType,
+      locales: [{ code: 'en-US' } as LocaleProps],
+      isActiveReleaseLoading: false,
+      releaseVersionMap: new Map(),
+      releases: { items: [] } as unknown as CollectionProp<ReleaseV2Props>,
+    };
     describe(`${entityType} with entry based publishing`, () => {
       it('returns Will publish status when active release has publish action', () => {
         (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
