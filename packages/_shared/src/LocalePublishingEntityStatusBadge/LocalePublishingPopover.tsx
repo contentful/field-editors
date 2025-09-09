@@ -1,18 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-components';
-import { ArrowDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type {
   LocaleProps,
   EntryProps,
   AssetProps,
-  ScheduledActionProps
+  ScheduledActionProps,
 } from 'contentful-management';
 import { cx, css } from 'emotion';
 
 import { LocalePublishStatusMap } from '../hooks/useLocalePublishStatus';
 import * as entityHelpers from '../utils/entityHelpers';
+import { ArrowDownIcon } from './Icon';
 import { LocalePublishingStatusList } from './LocalePublishingStatusList';
 import { ScheduledBanner } from './ScheduledBanner';
 
@@ -26,7 +26,7 @@ const colors = {
   changed: { default: tokens.blue300, hover: tokens.blue400, icon: tokens.blue400 },
   archived: { default: tokens.gray300, hover: tokens.gray400, icon: tokens.gray400 },
   deleted: { default: tokens.red300, hover: tokens.red400, icon: tokens.red400 },
-  new: { default: tokens.blue600, hover: tokens.blue700, icon: tokens.blue700 }
+  new: { default: tokens.blue600, hover: tokens.blue700, icon: tokens.blue700 },
 };
 
 const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
@@ -39,24 +39,24 @@ const generateDynamicStyles = (status?: Status) => {
     '& svg[data-status="secondary"]': {
       fill: getColor({
         secondary: status?.secondary,
-        isHover: false
-      } as BadgeSVGType)
+        isHover: false,
+      } as BadgeSVGType),
     },
     '& svg[data-status="tertiary"]': {
       fill: getColor({
         tertiary: status?.tertiary,
-        isHover: false
-      } as BadgeSVGType)
+        isHover: false,
+      } as BadgeSVGType),
     },
     '&:hover svg[data-status="secondary"]': {
       fill: getColor({
         secondary: status?.secondary,
-        isHover: true
-      } as BadgeSVGType)
+        isHover: true,
+      } as BadgeSVGType),
     },
     '&:hover svg[data-status="tertiary"]': {
-      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType)
-    }
+      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
+    },
   });
 
   return wrapperClass;
@@ -68,30 +68,30 @@ const styles = {
   badge: css({
     '&:focus': {
       outline: 'none',
-      boxShadow: `inset ${tokens.glowPrimary}` // inset style necessary since wrapper component (SecretiveLink) has overflow hidden
-    }
+      boxShadow: `inset ${tokens.glowPrimary}`, // inset style necessary since wrapper component (SecretiveLink) has overflow hidden
+    },
   }),
   wrapper: css({
     '& svg': {
-      transition: 'fill 0.2s ease-in-out'
+      transition: 'fill 0.2s ease-in-out',
     },
     '& svg[data-status="tertiary"]': {
-      marginLeft: '-1px'
-    }
+      marginLeft: '-1px',
+    },
   }),
   popoverContent: css({
     maxWidth: '336px',
     maxHeight: '368px',
     overflowY: 'auto',
-    padding: `${tokens.spacing2Xs} 0`
-  })
+    padding: `${tokens.spacing2Xs} 0`,
+  }),
 };
 
 type Status = { primary: EntityStatus; secondary?: EntityStatus; tertiary?: EntityStatus };
 
 const determineBadgeStatus = (
   localesStatusMap?: LocalePublishStatusMap,
-  activeLocales?: Pick<LocaleProps, 'code'>[]
+  activeLocales?: Pick<LocaleProps, 'code'>[],
 ): Status | undefined => {
   // Early return for null or undefined locales
   if (!localesStatusMap) return;
@@ -158,7 +158,7 @@ export function LocalePublishingPopover({
   jobs,
   isScheduled,
   localesStatusMap,
-  activeLocales
+  activeLocales,
 }: LocalePublishingPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -179,7 +179,7 @@ export function LocalePublishingPopover({
 
   const entityStatus = entityHelpers.getEntityStatus(
     entity.sys,
-    activeLocales?.map((locale) => locale.code)
+    activeLocales?.map((locale) => locale.code),
   );
 
   if (['archived', 'deleted'].includes(entityStatus)) {

@@ -1,11 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { Badge, Flex, Popover, Skeleton } from '@contentful/f36-components';
-import { ArrowDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
 import { cx, css } from 'emotion';
 
+import { ArrowDownIcon } from '../LocalePublishingEntityStatusBadge';
 import type { ReleaseLocalesStatusMap, ReleaseEntityStatus } from '../types';
 import { RELEASE_BADGES } from './constants';
 import { ReleaseEntityStatusLocalesList } from './ReleaseEntityStatusLocalesList';
