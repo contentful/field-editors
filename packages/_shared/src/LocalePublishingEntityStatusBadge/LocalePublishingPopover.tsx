@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-components';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type {
   LocaleProps,
@@ -12,7 +13,6 @@ import { cx, css } from 'emotion';
 
 import { LocalePublishStatusMap } from '../hooks/useLocalePublishStatus';
 import * as entityHelpers from '../utils/entityHelpers';
-import { ArrowDownIcon } from './Icon';
 import { LocalePublishingStatusList } from './LocalePublishingStatusList';
 import { ScheduledBanner } from './ScheduledBanner';
 
@@ -219,7 +219,7 @@ export function LocalePublishingPopover({
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
             // @ts-expect-error - type is not exported
-            endIcon={<ArrowDownIcon color={getIconColor(entityStatus)} />}
+            endIcon={<CaretDownIcon size="tiny" color={getIconColor(entityStatus)} />}
             onMouseOver={onMouseEnter}
             isScheduled={isScheduled}
             onMouseEnter={onMouseEnter}
