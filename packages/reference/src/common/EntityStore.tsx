@@ -333,6 +333,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
   function useInitServices(props: EntityStoreProps) {
     const currentSpaceId = props.sdk.ids.space;
     const currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
+    const releaseId = props.sdk.ids.release;
+
     const environmentIds = useMemo(
       () => [props.sdk.ids.environmentAlias, props.sdk.ids.environment],
       [props.sdk.ids.environmentAlias, props.sdk.ids.environment],
@@ -413,6 +415,11 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         entityId: string,
         options?: GetEntityOptions,
       ): QueryEntityResult<ScheduledAction[]> {
+        // Inside of the release context, the scheduled actions are not available
+        if (releaseId) {
+          return new Promise<ScheduledAction[]>((resolve) => resolve([]));
+        }
+
         // This is fixed to force the cache to reuse previous results
         const fixedEntityCacheId = 'scheduledActionEntityId';
 
@@ -449,7 +456,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           options,
         ).then((items) => items.filter((action) => action.entity.sys.id === entityId));
       },
-      [fetch, currentSpaceId, currentEnvironmentId],
+      [fetch, currentSpaceId, currentEnvironmentId, releaseId],
     );
 
     const getResource = useCallback(
