@@ -372,6 +372,24 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       [queryClient, queryQueue, cmaClient],
     );
 
+    const isReleaseRequestError = useCallback(
+      function isReleaseRequestError(
+        error: unknown,
+        spaceId?: string,
+        environmentId?: string,
+      ): boolean {
+        return (
+          !!releaseId &&
+          (!spaceId || spaceId === currentSpaceId) &&
+          (!environmentId || environmentId === currentEnvironmentId) &&
+          error instanceof Error &&
+          'status' in error &&
+          error.status === 404
+        );
+      },
+      [releaseId, currentSpaceId, currentEnvironmentId],
+    );
+
     const getEntity = useCallback(
       function getEntity<E extends FetchableEntity>(
         entityType: FetchableEntityType,
@@ -387,11 +405,41 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           // @ts-expect-error
           ({ cmaClient }) => {
             if (entityType === 'Entry') {
-              return cmaClient.entry.get({ entryId: entityId, spaceId, environmentId });
+              try {
+                return cmaClient.entry.get({ entryId: entityId, spaceId, environmentId });
+              } catch (error) {
+                // If the entry is not published yet, it wont be returned on the lte endpoint and therefor we fetch it again without the release information
+                // to be able to show meaningful entity cards
+                if (isReleaseRequestError(error, spaceId, environmentId)) {
+                  return cmaClient.entry.get({
+                    entryId: entityId,
+                    spaceId,
+                    environmentId,
+                    // @ts-expect-error needs a newer version of CMA client
+                    releaseId: undefined,
+                  });
+                }
+                throw error;
+              }
             }
 
             if (entityType === 'Asset') {
-              return cmaClient.asset.get({ assetId: entityId, spaceId, environmentId });
+              try {
+                return cmaClient.asset.get({ assetId: entityId, spaceId, environmentId });
+              } catch (error) {
+                // If the asset is not published yet, it wont be returned on the lte endpoint and therefor we fetch it again without the release information
+                // to be able to show meaningful entity cards
+                if (isReleaseRequestError(error, spaceId, environmentId)) {
+                  return cmaClient.asset.get({
+                    assetId: entityId,
+                    spaceId,
+                    environmentId,
+                    // @ts-expect-error needs a newer version of CMA client
+                    releaseId: undefined,
+                  });
+                }
+                throw error;
+              }
             }
 
             throw new UnsupportedError('Unsupported entity type');
@@ -399,7 +447,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           options,
         );
       },
-      [fetch, currentSpaceId, currentEnvironmentId],
+      [fetch, currentSpaceId, currentEnvironmentId, isReleaseRequestError],
     );
 
     /**
