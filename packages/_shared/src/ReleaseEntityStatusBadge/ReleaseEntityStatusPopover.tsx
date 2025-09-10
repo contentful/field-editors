@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { Badge, Flex, Popover, Skeleton } from '@contentful/f36-components';
-import { ArrowDownIcon } from '@contentful/f36-icons';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
 import { cx, css } from 'emotion';
@@ -204,7 +204,7 @@ export function ReleaseEntityStatusPopover({
             variant={RELEASE_BADGES[status.primary].variant}
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
-            endIcon={<ArrowDownIcon color={RELEASE_BADGES[status.primary].icon} />}
+            endIcon={<CaretDownIcon size="tiny" color={RELEASE_BADGES[status.primary].icon} />}
             onMouseOver={onMouseEnter}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
