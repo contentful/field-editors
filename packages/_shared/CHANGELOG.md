@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.12.0...@contentful/field-editor-shared@2.12.1) (2025-09-10)
+
+### Bug Fixes
+
+- **\_shared:** use the correct icon for the entity status badge [] ([#1929](https://github.com/contentful/field-editors/issues/1929)) ([e95a7b3](https://github.com/contentful/field-editors/commit/e95a7b3fc6d5be6537fd2086e7fffc3dcf52a6af))
+
 # [2.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.11.2...@contentful/field-editor-shared@2.12.0) (2025-09-08)
 
 ### Features
