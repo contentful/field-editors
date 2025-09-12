@@ -12,13 +12,13 @@ export function getPreviousReleaseEntity({
   entityId,
   entityType,
   releaseVersionMap,
-  activeRelease,
+  release,
   releases,
 }: {
   entityId: string;
   entityType: 'Entry' | 'Asset';
   releaseVersionMap: Map<string, Map<string, ReleaseAction>>;
-  activeRelease: ReleaseV2Props | undefined;
+  release: ReleaseV2Props | undefined;
   releases: CollectionProp<ReleaseV2Props> | undefined;
 }): {
   previousReleaseEntity: ReleaseV2Entity | ReleaseV2EntityWithLocales | undefined;
@@ -28,9 +28,7 @@ export function getPreviousReleaseEntity({
     .filter((r) => r.startDate)
     .sort((a, b) => compareAsc(new Date(a.startDate!), new Date(b.startDate!)));
 
-  const indexOfActive = orderedScheduledReleases?.findIndex(
-    (r) => r.sys.id === activeRelease?.sys.id,
-  );
+  const indexOfActive = orderedScheduledReleases?.findIndex((r) => r.sys.id === release?.sys.id);
 
   let previousRelease: ReleaseV2Props | undefined;
   let previousReleaseEntity: ReleaseV2Entity | ReleaseV2EntityWithLocales | undefined;

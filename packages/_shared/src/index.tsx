@@ -38,10 +38,9 @@ export type { FieldConnectorChildProps } from './FieldConnector';
 export * from './types';
 
 export * from './hooks/useActiveLocales';
-export * from './hooks/useActiveReleaseLocalesStatuses';
+export * from './hooks/useReleaseStatus';
 export * from './hooks/useLocalePublishStatus';
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
 export * from './utils/getEntityReleaseStatus';
-export * from './utils/parseReleaseParameters';

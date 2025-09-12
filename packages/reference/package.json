@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-reference",
-  "version": "6.11.0",
+  "version": "6.11.0-alpha.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -54,13 +54,13 @@
     "react-intersection-observer": "9.4.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "^4.41.2",
     "@contentful/field-editor-test-utils": "^1.6.1",
     "@lingui/core": "5.3.0",
     "@testing-library/react-hooks": "^8.0.1"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "^4.41.2",
     "@lingui/core": "^5.3.0",
     "react": ">=16.8.0"
   },
