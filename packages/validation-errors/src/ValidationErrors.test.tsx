@@ -7,7 +7,6 @@ import type { ContentType } from '@contentful/field-editor-shared';
 import * as utils from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, act } from '@testing-library/react';
 
-
 import { ValidationErrors } from './ValidationErrors';
 
 configure({
@@ -57,10 +56,11 @@ describe('ValidationErrors', () => {
     const { container } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
         space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
-      />
+      />,
     );
 
     expect(container).toBeEmptyDOMElement();
@@ -80,10 +80,11 @@ describe('ValidationErrors', () => {
     const { findByText } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
         space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
-      />
+      />,
     );
 
     act(() => {
@@ -97,7 +98,7 @@ describe('ValidationErrors', () => {
         } else {
           return Promise.reject();
         }
-      })
+      }),
     );
   });
 
@@ -125,10 +126,11 @@ describe('ValidationErrors', () => {
     const { findByText, findAllByTestId } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
         space={space}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
-      />
+      />,
     );
 
     act(() => {

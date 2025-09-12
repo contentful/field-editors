@@ -342,7 +342,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     const queryClient = useQueryClient();
     const queryCache = queryClient.getQueryCache();
     const entityChangeUnsubscribers = useRef<Record<string, Function>>({});
-    const cmaClient = props.sdk.cma as PlainClientAPI;
+    const cmaClient = props.sdk.cma as unknown as PlainClientAPI;
     const queryQueue = useMemo(() => {
       if (props.queryConcurrency) {
         return new PQueue({ concurrency: props.queryConcurrency });
@@ -402,22 +402,27 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
         return fetch(
           queryKey,
-          // @ts-expect-error
-          ({ cmaClient }) => {
+          async ({ cmaClient }) => {
             if (entityType === 'Entry') {
               try {
                 return cmaClient.entry.get({ entryId: entityId, spaceId, environmentId });
               } catch (error) {
                 // If the entry is not published yet, it wont be returned on the lte endpoint and therefor we fetch it again without the release information
                 // to be able to show meaningful entity cards
+                console.log('>> error', error)
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
-                  return cmaClient.entry.get({
+                  const currentEntry = await cmaClient.entry.get({
                     entryId: entityId,
                     spaceId,
                     environmentId,
-                    // @ts-expect-error needs a newer version of CMA client
+                    // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
+                    // @ts-expect-error - release is not there yet on the published types
+                  currentEntry.sys.release = {
+                    sys: { type: 'Link', linkType: 'Release', id: releaseId! },
+                  }
+                  return currentEntry
                 }
                 throw error;
               }
@@ -430,13 +435,18 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                 // If the asset is not published yet, it wont be returned on the lte endpoint and therefor we fetch it again without the release information
                 // to be able to show meaningful entity cards
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
-                  return cmaClient.asset.get({
+                  const currentAsset = cmaClient.asset.get({
                     assetId: entityId,
                     spaceId,
                     environmentId,
-                    // @ts-expect-error needs a newer version of CMA client
+                    // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
+                    // @ts-expect-error - release is not there yet on the published types
+                  currentAsset.sys.release = {
+                    sys: { type: 'Link', linkType: 'Release', id: releaseId! },
+                  }
+                  return currentAsset
                 }
                 throw error;
               }
@@ -447,7 +457,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           options,
         );
       },
-      [fetch, currentSpaceId, currentEnvironmentId, isReleaseRequestError],
+      [fetch, currentSpaceId, currentEnvironmentId, isReleaseRequestError, releaseId],
     );
 
     /**

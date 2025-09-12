@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import {
+import type {
   LocalePublishStatusMap,
-  type ReleaseAction,
-  type ReleaseLocalesStatusMap,
-  type ReleaseV2Props,
+  ReleaseAction,
+  ReleaseStatusMap,
+  ReleaseV2Props,
 } from '@contentful/field-editor-shared';
-import { LocaleProps } from 'contentful-management';
+import type { LocaleProps } from 'contentful-management';
 
-import { WrappedAssetCardProps } from '../assets/WrappedAssetCard/WrappedAssetCard';
-import { Asset, ContentType, Entry, RenderDragFn } from '../types';
-import { CustomActionProps } from './ReferenceEditor';
+import type { WrappedAssetCardProps } from '../assets/WrappedAssetCard/WrappedAssetCard';
+import type { Asset, ContentType, Entry, RenderDragFn } from '../types';
+import type { CustomActionProps } from './ReferenceEditor';
 
 export type MissingEntityCardProps = {
   defaultCard: React.ReactElement;
@@ -52,8 +52,7 @@ export type CustomEntityCardProps = {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isReleasesLoading?: boolean;
+  releaseStatusMap?: ReleaseStatusMap;
   releaseAction?: ReleaseAction;
-  activeRelease?: ReleaseV2Props;
+  release?: ReleaseV2Props;
 } & Partial<WrappedAssetCardProps>;

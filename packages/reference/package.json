@@ -54,13 +54,13 @@
     "react-intersection-observer": "9.4.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "^4.42.0",
     "@contentful/field-editor-test-utils": "^1.6.2",
     "@lingui/core": "5.3.0",
     "@testing-library/react-hooks": "^8.0.1"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "^4.41.2",
     "@lingui/core": "^5.3.0",
     "react": ">=16.8.0"
   },

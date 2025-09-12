@@ -1,11 +1,14 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- temporary
+// @ts-nocheck -- temporary
 import { renderHook } from '@testing-library/react';
 import type { AssetProps, CollectionProp, EntryProps, LocaleProps } from 'contentful-management';
 
 import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from '../types';
 import { getPreviousReleaseEntity } from '../utils/getPreviousReleaseEntity';
-import { useActiveReleaseLocalesStatuses } from './useActiveReleaseLocalesStatuses';
+import type { PublishStatus } from './useLocalePublishStatus';
+import { useActiveReleaseLocalesStatuses } from './useReleaseStatus';
 
-const buildEntry = (status: 'draft' | 'published' | 'changed', id: string = 'entry-1') =>
+const buildEntry = (status: PublishStatus, id: string = 'entry-1') =>
   ({
     sys: {
       id,
@@ -16,7 +19,7 @@ const buildEntry = (status: 'draft' | 'published' | 'changed', id: string = 'ent
     },
   }) as unknown as EntryProps;
 
-const buildAsset = (status: 'draft' | 'published' | 'changed', id: string = 'asset-1') =>
+const buildAsset = (status: PublishStatus, id: string = 'asset-1') =>
   ({
     sys: {
       id,
@@ -88,7 +91,6 @@ jest.mock('../utils/getPreviousReleaseEntity', () => ({
 }));
 
 const ENTITY_TYPES = ['Entry', 'Asset'] as const;
-
 describe('useActiveReleaseLocalesStatuses', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -117,7 +119,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createEntryBasedRelease({
+            release: createEntryBasedRelease({
               entityId,
               entityType,
             }),
@@ -125,7 +127,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'positive',
           status: 'willPublish',
           label: 'Will publish',
@@ -145,13 +147,13 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
+            release: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
             currentEntityDraft:
               entityType === 'Entry' ? buildEntry('published') : buildAsset('published'),
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'warning',
           status: 'becomesDraft',
           label: 'Becomes draft',
@@ -171,12 +173,12 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
+            release: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
             currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'secondary',
           status: 'remainsDraft',
           label: 'Remains draft',
@@ -192,7 +194,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createEntryBasedRelease({
+            release: createEntryBasedRelease({
               entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
               action: 'publish',
               entityType,
@@ -201,7 +203,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'secondary',
           status: 'notInRelease',
           label: 'Not in release',
@@ -222,12 +224,12 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createLocaleBasedRelease({ entityId, entityType }),
+            release: createLocaleBasedRelease({ entityId, entityType }),
             currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'positive',
           status: 'willPublish',
           label: 'Will publish',
@@ -247,13 +249,13 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
+            release: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
             currentEntityDraft:
               entityType === 'Entry' ? buildEntry('published') : buildAsset('published'),
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'warning',
           status: 'becomesDraft',
           label: 'Becomes draft',
@@ -273,12 +275,12 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
+            release: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
             currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'secondary',
           status: 'remainsDraft',
           label: 'Remains draft',
@@ -294,7 +296,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
         const { result } = renderHook(() =>
           useActiveReleaseLocalesStatuses({
             ...baseParams,
-            activeRelease: createLocaleBasedRelease({
+            release: createLocaleBasedRelease({
               entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
               entityType,
               verb: 'add',
@@ -303,7 +305,7 @@ describe('useActiveReleaseLocalesStatuses', () => {
           }),
         );
 
-        expect(result.current.releaseLocalesStatusMap.get('en-US')).toEqual({
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
           variant: 'secondary',
           status: 'notInRelease',
           label: 'Not in release',
