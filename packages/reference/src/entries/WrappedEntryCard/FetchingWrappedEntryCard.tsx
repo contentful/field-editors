@@ -93,7 +93,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   const onEdit = async () => {
     const slide = await openEntry(props.sdk, props.entryId, {
-      bulkEditing: props.parameters.instance.bulkEditing,
+      bulkEditing: !activeRelease && props.parameters.instance.bulkEditing,
       index: props.index,
     });
     props.onAction &&
