@@ -36,9 +36,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "5.1.1",
-    "@contentful/f36-icons": "5.1.1",
-    "@contentful/f36-tokens": "5.1.0",
+    "@contentful/f36-components": "^5.1.1",
+    "@contentful/f36-icons": "^5.4.0",
+    "@contentful/f36-tokens": "^5.1.0",
     "@contentful/field-editor-shared": "^2.12.1",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^7.0.0",

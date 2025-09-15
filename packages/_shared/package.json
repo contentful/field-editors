@@ -42,9 +42,9 @@
     "@testing-library/react": "16.3.0"
   },
   "dependencies": {
-    "@contentful/f36-components": "5.1.1",
+    "@contentful/f36-components": "^5.1.1",
     "@contentful/f36-note": "^5.1.0",
-    "@contentful/f36-tokens": "5.1.0",
+    "@contentful/f36-tokens": "^5.1.0",
     "contentful-management": "^11.45.1",
     "emotion": "^10.0.17",
     "fast-deep-equal": "^3.1.3",
