@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.0",
-    "@contentful/f36-components": "5.1.1",
-    "@contentful/f36-tokens": "5.1.0",
+    "@contentful/f36-components": "^5.1.1",
+    "@contentful/f36-tokens": "^5.1.0",
     "@contentful/field-editor-shared": "^2.12.1",
     "@types/react-codemirror": "1.0.11",
     "@uiw/react-codemirror": "^4.11.4",
