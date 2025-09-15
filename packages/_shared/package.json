@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-shared",
-  "version": "2.12.1",
+  "version": "2.12.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.29.0",
-    "@contentful/field-editor-test-utils": "^1.6.1",
+    "@contentful/field-editor-test-utils": "^1.6.2",
     "@lingui/core": "5.3.0",
     "@testing-library/react": "16.3.0"
   },

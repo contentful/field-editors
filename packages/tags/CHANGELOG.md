@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@1.7.4...@contentful/field-editor-tags@1.7.5) (2025-09-15)
+
+**Note:** Version bump only for package @contentful/field-editor-tags
+
 ## [1.7.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-tags@1.7.3...@contentful/field-editor-tags@1.7.4) (2025-09-10)
 
 **Note:** Version bump only for package @contentful/field-editor-tags
