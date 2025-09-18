@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Menu, MenuItem, Text } from '@contentful/f36-components';
+import { MenuItem, Text, MenuSectionTitle } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
@@ -57,7 +57,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
   const image = get(entityFile, 'details.image');
 
   return [
-    <Menu.SectionTitle key="file-section">File info</Menu.SectionTitle>,
+    <MenuSectionTitle key="file-section">File info</MenuSectionTitle>,
     <MenuItem
       key="file-information"
       className={styles.fileInformation.menuItem}
@@ -107,7 +107,7 @@ export function renderActions(props: {
   const { entityFile, isDisabled, onEdit, onRemove } = props;
 
   return [
-    <Menu.SectionTitle key="section-title">Actions</Menu.SectionTitle>,
+    <MenuSectionTitle key="section-title">Actions</MenuSectionTitle>,
     onEdit ? (
       <MenuItem key="edit" onClick={onEdit} testId="card-action-edit">
         Edit
