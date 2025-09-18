@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.11.2...@contentful/field-editor-reference@6.12.0) (2025-09-18)
+
+### Features
+
+- fix wrong menu item component from forma ([#1934](https://github.com/contentful/field-editors/issues/1934)) ([7944cfe](https://github.com/contentful/field-editors/commit/7944cfe63e8b098cb649ccafff22335468f050eb))
+
 ## [6.11.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.11.1...@contentful/field-editor-reference@6.11.2) (2025-09-15)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
