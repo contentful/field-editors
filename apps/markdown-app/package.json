@@ -4,11 +4,11 @@
   "private": true,
   "dependencies": {
     "@contentful/app-sdk": "^4.17.1",
-    "@contentful/f36-components": "^5.1.1",
+    "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
-    "@contentful/field-editor-markdown": "^0.17.1",
-    "@contentful/field-editor-shared": "^0.25.1",
-    "@contentful/field-editor-single-line": "^0.15.6",
+    "@contentful/field-editor-markdown": "lastest",
+    "@contentful/field-editor-shared": "latest",
+    "@contentful/field-editor-single-line": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

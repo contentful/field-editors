@@ -34,7 +34,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^5.1.1",
+    "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
     "@contentful/field-editor-shared": "^2.12.2",
     "@types/google-map-react": "2.1.10",
