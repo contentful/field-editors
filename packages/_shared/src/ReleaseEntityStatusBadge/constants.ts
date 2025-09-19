@@ -8,6 +8,13 @@ export const RELEASE_BADGES = {
     hover: tokens.green400,
     icon: tokens.green400,
   },
+  published: {
+    label: 'Published',
+    variant: 'positive',
+    default: tokens.green300,
+    hover: tokens.green400,
+    icon: tokens.green400,
+  },
   becomesDraft: {
     label: 'Becomes draft',
     variant: 'warning',

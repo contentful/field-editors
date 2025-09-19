@@ -4,17 +4,17 @@ import type { LocalesAPI } from '@contentful/app-sdk';
 import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management/types';
 
 import * as entityHelpers from '../utils/entityHelpers';
+import { sanitizeLocales, type SanitizedLocale } from '../utils/sanitizeLocales';
+
+export type PublishStatus = 'draft' | 'published' | 'changed';
 
 export type LocalePublishStatus = {
-  status: 'draft' | 'published' | 'changed';
-  locale: Pick<LocaleProps, 'code' | 'default' | 'name'>;
+  status: PublishStatus;
+  locale: SanitizedLocale;
 };
 export type LocalePublishStatusMap = Map<string, LocalePublishStatus>;
 
-function getLocalePublishStatusMap(
-  entity: AssetProps | EntryProps,
-  localesApi: Pick<LocalesAPI, 'available' | 'default' | 'names'>
-) {
+function getLocalePublishStatusMap(entity: AssetProps | EntryProps, locales: SanitizedLocale[]) {
   const entityStatus = entityHelpers.getEntityStatus(entity.sys);
 
   if (['archived', 'deleted'].includes(entityStatus)) {
@@ -22,21 +22,17 @@ function getLocalePublishStatusMap(
   }
 
   const statusMap: LocalePublishStatusMap = new Map(
-    localesApi.available.map((localeCode) => [
-      localeCode,
+    locales.map((locale) => [
+      locale.code,
       {
         // save to cast as archived and deleted are already handled before
-        status: entityHelpers.getEntityStatus(entity.sys, localeCode) as
+        status: entityHelpers.getEntityStatus(entity.sys, locale.code) as
           | 'draft'
           | 'published'
           | 'changed',
-        locale: {
-          code: localeCode,
-          default: localeCode === localesApi.default,
-          name: localesApi.names[localeCode],
-        },
+        locale,
       },
-    ])
+    ]),
   );
 
   return statusMap;
@@ -47,30 +43,11 @@ function getLocalePublishStatusMap(
  */
 export function useLocalePublishStatus(
   entity?: AssetProps | EntryProps,
-  locales?: Pick<LocalesAPI, 'available' | 'default' | 'names'> | LocaleProps[] | null
+  locales?: Pick<LocalesAPI, 'available' | 'default' | 'names'> | LocaleProps[] | null,
 ): LocalePublishStatusMap | undefined {
   return useMemo(() => {
     if (entity && locales) {
-      const localesApi = Array.isArray(locales)
-        ? locales.reduce(
-            (api, locale) => {
-              api.available.push(locale.code);
-              api.names[locale.code] = locale.name;
-              if (locale.default) {
-                api.default = locale.code;
-              }
-
-              return api;
-            },
-            {
-              available: [],
-              names: {},
-              default: '',
-            } as Pick<LocalesAPI, 'available' | 'default' | 'names'>
-          )
-        : locales;
-
-      return getLocalePublishStatusMap(entity, localesApi);
+      return getLocalePublishStatusMap(entity, locales ? sanitizeLocales(locales) : []);
     }
 
     return undefined;

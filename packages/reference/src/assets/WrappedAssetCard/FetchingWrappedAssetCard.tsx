@@ -4,9 +4,8 @@ import { AssetCard, EntryCard } from '@contentful/f36-components';
 import {
   useLocalePublishStatus,
   useActiveLocales,
-  useActiveReleaseLocalesStatuses,
-  parseReleaseParams,
-  getEntityReleaseStatus,
+  useReleaseStatus,
+  type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 
 import {
@@ -34,26 +33,21 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
-    parseReleaseParams(props.sdk.parameters.instance.release);
-  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { data: asset, status, currentEntity } = useEntity<Asset>('Asset', props.assetId);
+
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId],
   );
-  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
-  const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
-    currentEntityDraft: asset,
-    entityId: props.assetId,
-    entityType: 'Asset',
-    releaseVersionMap,
-    locales,
-    activeRelease,
-    releases,
-  });
-  const { releaseAction } = getEntityReleaseStatus(props.assetId, locales, activeRelease);
   const activeLocales = useActiveLocales(props.sdk);
+  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
+  const { releaseStatusMap, releaseAction } = useReleaseStatus({
+    entity: asset,
+    previousEntityOnTimeline: currentEntity,
+    release: props.sdk.release,
+    locales: props.sdk.locales,
+  });
 
   React.useEffect(() => {
     if (asset) {
@@ -116,9 +110,8 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
       activeLocales,
-      releaseLocalesStatusMap,
-      isReleasesLoading: isActiveReleaseLoading,
-      activeRelease,
+      releaseStatusMap,
+      release: props.sdk.release as ReleaseV2Props | undefined,
       releaseAction,
     };
 

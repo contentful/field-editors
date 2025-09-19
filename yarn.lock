@@ -2605,12 +2605,19 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@4.29.0", "@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.29.0":
+"@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.29.0":
   version "4.29.0"
   resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.29.0.tgz#ca71dffefc493f07998597799e4c112e7f80e3e5"
   integrity sha512-g1PHiCZGImrJq1+ctdb3leCaRrnLaj1yOSHBaibQSzNncH5M5g6zefW7Isy8LHhav5+g+0/WNjsoucBH27d7gg==
   dependencies:
     contentful-management ">=7.30.0"
+
+"@contentful/app-sdk@^4.42.0":
+  version "4.42.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.42.0.tgz#666941e1df3a6f778845b6225c08cc549b097ea4"
+  integrity sha512-Gn6Os52KeCBOZn8i8ZscS0DG+DuxYiPTjeUJHwXRz1FIRfuAvjdrP0PNxb/R58TbbgGARFFe9lO9CtTE/EONuQ==
+  dependencies:
+    contentful-management "^11.56.0"
 
 "@contentful/browserslist-config@^3.0.0":
   version "3.0.0"
@@ -9006,6 +9013,15 @@ axios@^0.26.0:
   dependencies:
     follow-redirects "^1.14.8"
 
+axios@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.11.0.tgz#c2ec219e35e414c025b2095e8b8280278478fdb6"
+  integrity sha512-1Lx3WLFQWm3ooKDYZD1eXmoGO9fxYQjrycfHFC8P0sCfQVXyROp0p9PFWBehewBOdCwHc+f/b8I0fMto5eSfwA==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.4"
+    proxy-from-env "^1.1.0"
+
 axios@^1.6.0, axios@^1.6.1, axios@^1.6.2:
   version "1.6.8"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.8.tgz#66d294951f5d988a00e87a0ffb955316a619ea66"
@@ -10685,6 +10701,17 @@ contentful-management@>=7.30.0, contentful-management@^11.0.0, contentful-manage
   dependencies:
     "@contentful/rich-text-types" "^16.6.1"
     axios "^1.8.4"
+    contentful-sdk-core "^9.0.1"
+    fast-copy "^3.0.0"
+    globals "^15.15.0"
+
+contentful-management@^11.56.0:
+  version "11.57.1"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-11.57.1.tgz#9638e4d1176833a4cddd94d464621aba6f8798a8"
+  integrity sha512-QMi8kzwbhjhAcJaBs0N2u3oGTS4X4RUyflbEH3uelZgzS4t/mO+hr0LvaBXgXQsxOwDJYf0ZlMJtdiKzx9XJSA==
+  dependencies:
+    "@contentful/rich-text-types" "^16.6.1"
+    axios "^1.11.0"
     contentful-sdk-core "^9.0.1"
     fast-copy "^3.0.0"
     globals "^15.15.0"
@@ -13870,6 +13897,17 @@ form-data@^4.0.0:
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
+form-data@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.4.tgz#784cdcce0669a9d68e94d11ac4eea98088edd2c4"
+  integrity sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    es-set-tostringtag "^2.1.0"
+    hasown "^2.0.2"
     mime-types "^2.1.12"
 
 form-data@~2.3.2:
