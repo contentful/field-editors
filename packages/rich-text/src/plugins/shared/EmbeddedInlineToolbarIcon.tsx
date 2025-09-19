@@ -59,24 +59,22 @@ export function EmbeddedInlineToolbarIcon({
   }
 
   return (
-    <Menu>
-      <Menu.Item
-        disabled={isDisabled}
-        className="rich-text__entry-link-block-button"
-        testId={`toolbar-toggle-${nodeType}`}
-        onClick={handleClick}
-      >
-        <Flex alignItems="center" flexDirection="row">
-          <EmbeddedLineIcon
-            color={tokens.gray900}
-            className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
-          />
-          <span>
-            Inline entry
-            {nodeType == INLINES.EMBEDDED_RESOURCE && <ResourceNewBadge />}
-          </span>
-        </Flex>
-      </Menu.Item>
-    </Menu>
+    <Menu.Item
+      disabled={isDisabled}
+      className="rich-text__entry-link-block-button"
+      testId={`toolbar-toggle-${nodeType}`}
+      onClick={handleClick}
+    >
+      <Flex alignItems="center" flexDirection="row">
+        <EmbeddedLineIcon
+          color={tokens.gray900}
+          className={`rich-text__embedded-entry-list-icon ${styles.icon}`}
+        />
+        <span>
+          Inline entry
+          {nodeType == INLINES.EMBEDDED_RESOURCE && <ResourceNewBadge />}
+        </span>
+      </Flex>
+    </Menu.Item>
   );
 }

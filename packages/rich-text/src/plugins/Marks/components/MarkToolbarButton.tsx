@@ -42,18 +42,16 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
 
     if (!icon) {
       return (
-        <Menu>
-          <Menu.Item
-            onClick={handleClick}
-            disabled={isDisabled}
-            className={cx({
-              [styles.isActive]: isMarkActive(editor, mark),
-            })}
-            testId={`${mark}-toolbar-button`}
-          >
-            {title}
-          </Menu.Item>
-        </Menu>
+        <Menu.Item
+          onClick={handleClick}
+          disabled={isDisabled}
+          className={cx({
+            [styles.isActive]: isMarkActive(editor, mark),
+          })}
+          testId={`${mark}-toolbar-button`}
+        >
+          {title}
+        </Menu.Item>
       );
     }
 
