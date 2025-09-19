@@ -40,14 +40,14 @@ function createReleaseLocaleStatus(
       };
     case 'becomesDraft':
       return {
-        variant: 'negative',
+        variant: 'warning',
         status: 'becomesDraft',
         label: 'Becomes draft',
         locale,
       };
     case 'remainsDraft':
       return {
-        variant: 'negative',
+        variant: 'warning',
         status: 'remainsDraft',
         label: 'Remains draft',
         locale,

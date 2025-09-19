@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import '@testing-library/jest-dom';
 
-import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
@@ -22,6 +21,8 @@ jest.mock('react-intersection-observer', () => ({
   useInView: jest.fn().mockReturnValue({}),
 }));
 
+jest.mock('contentful-management');
+
 // explicit master
 const resolvableEntryUrn = 'crn:contentful:::content:spaces/space-id/entries/linked-entry-urn';
 const resolvableEntryUrnWithExplicitMaster =
@@ -38,9 +39,11 @@ const sdk: any = {
   locales: {
     default: 'en-US',
   },
-  cmaAdapter: createFakeCMAAdapter({
-    ContentType: { get: jest.fn().mockReturnValue(publishedCT) },
-    Entry: {
+  cma: {
+    contentType: {
+      get: jest.fn().mockReturnValue(publishedCT),
+    },
+    entry: {
       get: jest.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
         if (
           spaceId === 'space-id' &&
@@ -59,10 +62,10 @@ const sdk: any = {
         return Promise.reject(new Error());
       }),
     },
-    Locale: {
+    locale: {
       getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
     },
-    Resource: {
+    resource: {
       getMany: jest.fn().mockImplementation(({ spaceId, environmentId, resourceTypeId, query }) => {
         if (
           spaceId === 'space-id' &&
@@ -84,7 +87,7 @@ const sdk: any = {
         return Promise.resolve({ items: [] });
       }),
     },
-    ResourceType: {
+    resourceType: {
       getForEnvironment: jest.fn().mockImplementation(({ spaceId, environmentId }) => {
         if (spaceId === 'space-id' && environmentId === 'environment-id') {
           return Promise.resolve({ items: [resourceType], pages: {} });
@@ -92,16 +95,16 @@ const sdk: any = {
         return Promise.resolve({ items: [] });
       }),
     },
-    ScheduledAction: {
+    scheduledActions: {
       getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
     },
-    Space: { get: jest.fn().mockResolvedValue(space) },
-    ResourceProvider: {
+    space: { get: jest.fn().mockResolvedValue(space) },
+    resourceProvider: {
       get: jest.fn().mockImplementation(() => {
         return Promise.resolve({ function: { sys: { id: 'function-id' } } });
       }),
     },
-  }),
+  },
   space: { onEntityChanged: jest.fn() },
   navigator: {},
   ids: {
@@ -123,7 +126,7 @@ function renderResourceCard({
           sys: { type: 'ResourceLink', linkType: linkType as 'Contentful:Entry', urn: entityUrn },
         }}
       />
-    </EntityProvider>
+    </EntityProvider>,
   );
 }
 
@@ -210,7 +213,7 @@ describe('ResourceCard', () => {
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
     expect(getByText(resource.fields.title)).toBeDefined();
     expect(
-      getByText(`${resourceType.sys.resourceProvider.sys.id} ${resourceType.name}`)
+      getByText(`${resourceType.sys.resourceProvider.sys.id} ${resourceType.name}`),
     ).toBeDefined();
   });
 
