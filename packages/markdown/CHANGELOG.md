@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.11.5...@contentful/field-editor-markdown@1.11.6) (2025-09-19)
+
+### Bug Fixes
+
+- bump forma to ensure the same version [] ([#1937](https://github.com/contentful/field-editors/issues/1937)) ([88d3dde](https://github.com/contentful/field-editors/commit/88d3dde9bcdc948c49f5829d7d90d272425b2461))
+
 ## [1.11.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.11.4...@contentful/field-editor-markdown@1.11.5) (2025-09-15)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
