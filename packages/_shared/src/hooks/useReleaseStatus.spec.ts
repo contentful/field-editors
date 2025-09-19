@@ -1,12 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- temporary
-// @ts-nocheck -- temporary
 import { renderHook } from '@testing-library/react';
-import type { AssetProps, CollectionProp, EntryProps, LocaleProps } from 'contentful-management';
+import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management';
 
 import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from '../types';
-import { getPreviousReleaseEntity } from '../utils/getPreviousReleaseEntity';
 import type { PublishStatus } from './useLocalePublishStatus';
-import { useActiveReleaseLocalesStatuses } from './useReleaseStatus';
+import { useReleaseStatus } from './useReleaseStatus';
 
 const buildEntry = (status: PublishStatus, id: string = 'entry-1') =>
   ({
@@ -16,6 +13,8 @@ const buildEntry = (status: PublishStatus, id: string = 'entry-1') =>
       fieldStatus: {
         '*': { 'en-US': status },
       },
+      version: 3,
+      publishedVersion: status === 'published' ? 2 : undefined,
     },
   }) as unknown as EntryProps;
 
@@ -27,6 +26,8 @@ const buildAsset = (status: PublishStatus, id: string = 'asset-1') =>
       fieldStatus: {
         '*': { 'en-US': status },
       },
+      version: 3,
+      publishedVersion: status === 'published' ? 2 : undefined,
     },
   }) as unknown as AssetProps;
 
@@ -86,12 +87,8 @@ const createLocaleBasedRelease = ({
     entities: { items: [createLocaleBasedReleaseEntity({ entityId, verb, entityType })] },
   }) as ReleaseV2Props;
 
-jest.mock('../utils/getPreviousReleaseEntity', () => ({
-  getPreviousReleaseEntity: jest.fn(),
-}));
-
 const ENTITY_TYPES = ['Entry', 'Asset'] as const;
-describe('useActiveReleaseLocalesStatuses', () => {
+describe('useReleaseStatus', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -99,31 +96,24 @@ describe('useActiveReleaseLocalesStatuses', () => {
   ENTITY_TYPES.forEach((entityType) => {
     const entityId = entityType === 'Entry' ? 'entry-1' : 'asset-1';
     const baseParams = {
-      entityId,
-      entityType,
       locales: [{ code: 'en-US' } as LocaleProps],
-      isActiveReleaseLoading: false,
-      releaseVersionMap: new Map(),
-      releases: { items: [] } as unknown as CollectionProp<ReleaseV2Props>,
     };
+
+    function buildEntity(status: 'published' | 'changed' | 'draft') {
+      return entityType === 'Entry' ? buildEntry(status) : buildAsset(status);
+    }
+
     describe(`${entityType} with entry based publishing`, () => {
       it('returns Will publish status when active release has publish action', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: createEntryBasedReleaseEntity({
-            entityId,
-            action: 'unpublish',
-            entityType,
-          }),
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
+            previousEntityOnTimeline: buildEntity('draft'),
             release: createEntryBasedRelease({
               entityId,
               entityType,
             }),
-            currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
+            entity: buildEntity('published'),
           }),
         );
 
@@ -136,20 +126,12 @@ describe('useActiveReleaseLocalesStatuses', () => {
       });
 
       it('returns Becomes draft status when previous version has published locales and active version has unpublish action', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: createEntryBasedReleaseEntity({
-            entityId,
-            action: 'publish',
-            entityType,
-          }),
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
+            previousEntityOnTimeline: buildEntity('published'),
             release: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
-            currentEntityDraft:
-              entityType === 'Entry' ? buildEntry('published') : buildAsset('published'),
+            entity: buildEntity('draft'),
           }),
         );
 
@@ -162,24 +144,17 @@ describe('useActiveReleaseLocalesStatuses', () => {
       });
 
       it('returns Remains draft status when previous version has draft locales and active version has unpublish action', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: createEntryBasedReleaseEntity({
-            action: 'unpublish',
-            entityType,
-            entityId,
-          }),
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
+            previousEntityOnTimeline: buildEntity('draft'),
             release: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
-            currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
+            entity: buildEntity('draft'),
           }),
         );
 
         expect(result.current.releaseStatusMap.get('en-US')).toEqual({
-          variant: 'secondary',
+          variant: 'warning',
           status: 'remainsDraft',
           label: 'Remains draft',
           locale: { code: 'en-US' },
@@ -187,19 +162,15 @@ describe('useActiveReleaseLocalesStatuses', () => {
       });
 
       it('returns Not in release status when entity is not in the release', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: undefined,
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
             release: createEntryBasedRelease({
               entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
               action: 'publish',
               entityType,
             }),
-            currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
+            entity: buildEntity('draft'),
           }),
         );
 
@@ -210,22 +181,37 @@ describe('useActiveReleaseLocalesStatuses', () => {
           locale: { code: 'en-US' },
         });
       });
+
+      it('returns published when not in release but already published', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            ...baseParams,
+            release: createEntryBasedRelease({
+              entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
+              action: 'publish',
+              entityType,
+            }),
+            entity: buildEntity('published'),
+          }),
+        );
+
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+          variant: 'positive',
+          status: 'published',
+          label: 'Published',
+          locale: { code: 'en-US' },
+        });
+      });
     });
+
     describe(`${entityType} with locale based publishing`, () => {
       it('returns Will publish status when active release has publish action', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: createLocaleBasedReleaseEntity({
-            entityId,
-            verb: 'remove',
-            entityType,
-          }),
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
+            previousEntityOnTimeline: buildEntity('draft'),
             release: createLocaleBasedRelease({ entityId, entityType }),
-            currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
+            entity: buildEntity('published'),
           }),
         );
 
@@ -238,20 +224,12 @@ describe('useActiveReleaseLocalesStatuses', () => {
       });
 
       it('returns Becomes draft status when previous version has published locales and active version has unpublish action', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: createLocaleBasedReleaseEntity({
-            entityId: 'entry-1',
-            verb: 'add',
-            entityType,
-          }),
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
+            previousEntityOnTimeline: buildEntity('published'),
             release: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
-            currentEntityDraft:
-              entityType === 'Entry' ? buildEntry('published') : buildAsset('published'),
+            entity: buildEntity('draft'),
           }),
         );
 
@@ -264,44 +242,33 @@ describe('useActiveReleaseLocalesStatuses', () => {
       });
 
       it('returns Remains draft status when previous version has draft locales and active version has unpublish action', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: createLocaleBasedReleaseEntity({
-            verb: 'remove',
-            entityId,
-            entityType,
-          }),
-        });
-
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
+            previousEntityOnTimeline: buildEntity('draft'),
             release: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
-            currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
+            entity: buildEntity('draft'),
           }),
         );
 
         expect(result.current.releaseStatusMap.get('en-US')).toEqual({
-          variant: 'secondary',
+          variant: 'warning',
           status: 'remainsDraft',
           label: 'Remains draft',
           locale: { code: 'en-US' },
         });
       });
 
-      it('returns Not in release status when entry is not in the release', () => {
-        (getPreviousReleaseEntity as jest.Mock).mockReturnValue({
-          previousReleaseEntity: undefined,
-        });
-
+      it('returns Not in release status when entry is in draft state and not in the release', () => {
         const { result } = renderHook(() =>
-          useActiveReleaseLocalesStatuses({
+          useReleaseStatus({
             ...baseParams,
             release: createLocaleBasedRelease({
               entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
               entityType,
               verb: 'add',
             }),
-            currentEntityDraft: entityType === 'Entry' ? buildEntry('draft') : buildAsset('draft'),
+            entity: buildEntity('draft'),
           }),
         );
 
@@ -309,6 +276,27 @@ describe('useActiveReleaseLocalesStatuses', () => {
           variant: 'secondary',
           status: 'notInRelease',
           label: 'Not in release',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns published status when entry is in published state and not in the release', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            ...baseParams,
+            release: createLocaleBasedRelease({
+              entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
+              entityType,
+              verb: 'add',
+            }),
+            entity: buildEntity('published'),
+          }),
+        );
+
+        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+          variant: 'positive',
+          status: 'published',
+          label: 'Published',
           locale: { code: 'en-US' },
         });
       });

@@ -303,13 +303,17 @@ async function fetchExternalResource({
           }),
       options,
     ),
-    fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
-      fetchAll(
+    fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) => {
+      console.log('>> fetch resource types', { spaceId, environmentId });
+      return fetchAll(
         ({ query }) => cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
         {},
-      ),
-    ),
+      );
+    }),
   ]);
+
+  console.log('>> resource', resource);
+  console.log('>> resourceTypes', resourceTypes);
 
   const resourceTypeEntity = resourceTypes.find((rt) => rt.sys.id === resourceType);
 

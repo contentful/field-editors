@@ -40,14 +40,14 @@ function createReleaseLocaleStatus(
       };
     case 'becomesDraft':
       return {
-        variant: 'negative',
+        variant: 'warning',
         status: 'becomesDraft',
         label: 'Becomes draft',
         locale,
       };
     case 'remainsDraft':
       return {
-        variant: 'negative',
+        variant: 'warning',
         status: 'remainsDraft',
         label: 'Remains draft',
         locale,
@@ -76,7 +76,11 @@ function getReleaseItemLocaleStatus(
     }
 
     if (releaseItem.action === 'unpublish') {
-      return 'becomesDraft';
+      const status = previousEntityOnTimeline
+        ? getEntityStatus(previousEntityOnTimeline.sys)
+        : 'draft';
+
+      return ['published', 'changed'].includes(status) ? 'becomesDraft' : 'remainsDraft';
     }
   }
 
@@ -99,7 +103,7 @@ function getReleaseItemLocaleStatus(
 }
 
 type UseActiveReleaseLocalesStatuses = {
-  entity: EntryProps | AssetProps;
+  entity?: EntryProps | AssetProps;
   locales: LocaleProps[] | LocalesAPI;
   release?: ReleaseProps | ReleaseV2Props;
   previousEntityOnTimeline?: EntryProps | AssetProps;
@@ -115,6 +119,7 @@ export function useReleaseStatus({
 
   const releaseStatusMap = useMemo(() => {
     if (
+      !entity?.sys ||
       !release ||
       !('schemaVersion' in release.sys) ||
       release.sys.schemaVersion !== 'Release.v2'
@@ -147,7 +152,7 @@ export function useReleaseStatus({
         ),
       ]),
     );
-  }, [entity.sys, previousEntityOnTimeline, release, sanitizedLocales]);
+  }, [entity?.sys, previousEntityOnTimeline, release, sanitizedLocales]);
 
   const releaseAction: ReleaseAction | undefined = useMemo(() => {
     if (releaseStatusMap.size === 0) {
