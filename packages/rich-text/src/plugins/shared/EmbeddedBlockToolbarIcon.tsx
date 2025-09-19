@@ -50,7 +50,6 @@ export function EmbeddedBlockToolbarIcon({
   const type = getEntityTypeFromNodeType(nodeType);
   const baseClass = `rich-text__${nodeType}`;
   return (
-    <Menu>
       <Menu.Item
         disabled={isDisabled}
         className={`${baseClass}-list-item`}
@@ -69,7 +68,6 @@ export function EmbeddedBlockToolbarIcon({
           </span>
         </Flex>
       </Menu.Item>
-    </Menu>
   );
 }
 

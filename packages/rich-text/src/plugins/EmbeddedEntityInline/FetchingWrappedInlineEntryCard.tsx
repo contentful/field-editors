@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { InlineEntryCard, Menu, MenuItem, Text } from '@contentful/f36-components';
+import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { ClockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import {
@@ -82,9 +82,7 @@ function InternalFetchingWrappedInlineEntryCard({
         <MenuItem key="remove" onClick={onRemove} disabled={isDisabled} testId="delete">
           Remove
         </MenuItem>
-      ].map((item, i) => (
-        <Menu key={i}>{item}</Menu>
-      ))}
+      ]}
     >
       <ScheduledIconWithTooltip
         getEntityScheduledActions={getEntityScheduledActions}
@@ -154,9 +152,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
           <MenuItem key="remove" onClick={props.onRemove} testId="delete">
             Remove
           </MenuItem>
-        ].map((item, i) => (
-          <Menu key={i}>{item}</Menu>
-        ))}
+        ]}
       />
     );
   }
