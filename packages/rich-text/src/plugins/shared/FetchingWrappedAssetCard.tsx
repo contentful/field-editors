@@ -95,7 +95,7 @@ interface FetchingWrappedAssetCardProps {
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { onEntityFetchComplete } = props;
-  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { data: asset, status, currentEntity } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
@@ -104,6 +104,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
   const { releaseStatusMap, releaseAction } = useReleaseStatus({
     entity: asset,
+    previousEntityOnTimeline: currentEntity,
     locales: props.sdk.locales,
     release: props.sdk.release,
   });

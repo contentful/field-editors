@@ -33,7 +33,8 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { data: asset, status, currentEntity } = useEntity<Asset>('Asset', props.assetId);
+
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
@@ -43,6 +44,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
   const { releaseStatusMap, releaseAction } = useReleaseStatus({
     entity: asset,
+    previousEntityOnTimeline: currentEntity,
     release: props.sdk.release,
     locales: props.sdk.locales,
   });

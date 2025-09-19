@@ -101,7 +101,7 @@ interface FetchingWrappedEntryCardProps {
 
 export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
-  const { data: entry, status } = useEntity<Entry>('Entry', entryId);
+  const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', entryId),
@@ -110,6 +110,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
   const { releaseStatusMap, releaseAction } = useReleaseStatus({
     entity: entry,
+    previousEntityOnTimeline: currentEntity,
     locales: props.sdk.locales,
     release: props.sdk.release,
   });

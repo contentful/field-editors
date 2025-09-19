@@ -7,8 +7,6 @@ import type {
   LocaleProps,
   ReleaseProps,
 } from 'contentful-management/types';
-import { getEntityStatus } from 'utils/entityHelpers';
-import { sanitizeLocales } from 'utils/sanitizeLocales';
 
 import type {
   ReleaseAction,
@@ -18,7 +16,8 @@ import type {
   ReleaseV2EntityWithLocales,
   ReleaseV2Props,
 } from '../types';
-import type { PublishStatus } from './useLocalePublishStatus';
+import { getEntityStatus } from '../utils/entityHelpers';
+import { sanitizeLocales } from '../utils/sanitizeLocales';
 
 function createReleaseLocaleStatus(
   locale: Pick<LocaleProps, 'code' | 'default' | 'name'>,
@@ -68,7 +67,7 @@ function createReleaseLocaleStatus(
 function getReleaseItemLocaleStatus(
   releaseItem: ReleaseV2Entity | ReleaseV2EntityWithLocales,
   locale: Pick<LocaleProps, 'code' | 'default' | 'name'>,
-  previousEntityStatusTimeline?: Map<string, PublishStatus>,
+  previousEntityOnTimeline?: EntryProps | AssetProps,
 ): ReleaseEntityStatus {
   // Entry based
   if ('action' in releaseItem) {
@@ -90,7 +89,9 @@ function getReleaseItemLocaleStatus(
   }
 
   if (removedLocales.includes(locale.code)) {
-    const status = previousEntityStatusTimeline?.get(locale.code) || 'draft';
+    const status = previousEntityOnTimeline
+      ? getEntityStatus(previousEntityOnTimeline.sys, locale.code)
+      : 'draft';
     return ['published', 'changed'].includes(status) ? 'becomesDraft' : 'remainsDraft';
   }
 
@@ -101,14 +102,14 @@ type UseActiveReleaseLocalesStatuses = {
   entity: EntryProps | AssetProps;
   locales: LocaleProps[] | LocalesAPI;
   release?: ReleaseProps | ReleaseV2Props;
-  previousEntityStatusTimeline?: Map<string, PublishStatus>;
+  previousEntityOnTimeline?: EntryProps | AssetProps;
 };
 
 export function useReleaseStatus({
   entity,
   release,
   locales,
-  previousEntityStatusTimeline,
+  previousEntityOnTimeline,
 }: UseActiveReleaseLocalesStatuses) {
   const sanitizedLocales = useMemo(() => sanitizeLocales(locales), [locales]);
 
@@ -142,11 +143,11 @@ export function useReleaseStatus({
         locale.code,
         createReleaseLocaleStatus(
           locale,
-          getReleaseItemLocaleStatus(releaseItem, locale, previousEntityStatusTimeline),
+          getReleaseItemLocaleStatus(releaseItem, locale, previousEntityOnTimeline),
         ),
       ]),
     );
-  }, [entity.sys, previousEntityStatusTimeline, release, sanitizedLocales]);
+  }, [entity.sys, previousEntityOnTimeline, release, sanitizedLocales]);
 
   const releaseAction: ReleaseAction | undefined = useMemo(() => {
     if (releaseStatusMap.size === 0) {

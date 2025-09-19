@@ -54,6 +54,7 @@ type GetOptions = {
 type GetEntityOptions = GetOptions & {
   spaceId?: string;
   environmentId?: string;
+  releaseId?: string;
 };
 
 type UseEntityOptions = GetEntityOptions & { enabled?: boolean };
@@ -68,10 +69,10 @@ type UseResourceOptions = GetResourceOptions & { enabled?: boolean; locale?: str
 
 // all types of the union share the data property to ease destructuring downstream
 type UseEntityResult<E> =
-  | { status: 'idle'; data: never }
-  | { status: 'loading'; data: never }
-  | { status: 'error'; data: never }
-  | { status: 'success'; data: E };
+  | { status: 'idle'; data: never; currentEntity: never }
+  | { status: 'loading'; data: never; currentEntity: never }
+  | { status: 'error'; data: never; currentEntity: never }
+  | { status: 'success'; data: E; currentEntity?: E };
 
 type FetchFunction<TQueryData> = (context: { cmaClient: PlainClientAPI }) => Promise<TQueryData>;
 type FetchServiceOptions<
@@ -90,6 +91,7 @@ type EntityQueryKey = [
   entityId: string,
   spaceId: string,
   environmentId: string,
+  releaseId: string | undefined,
 ];
 
 type ResourceProviderQueryKey = [
@@ -394,22 +396,27 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       function getEntity<E extends FetchableEntity>(
         entityType: FetchableEntityType,
         entityId: string,
+        releaseId?: string,
         options?: GetEntityOptions,
       ): QueryEntityResult<E> {
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
-        const queryKey: EntityQueryKey = [entityType, entityId, spaceId, environmentId];
+        const queryKey: EntityQueryKey = [entityType, entityId, spaceId, environmentId, releaseId];
 
         return fetch(
           queryKey,
           async ({ cmaClient }) => {
             if (entityType === 'Entry') {
               try {
-                return cmaClient.entry.get({ entryId: entityId, spaceId, environmentId });
+                return cmaClient.entry.get({
+                  entryId: entityId,
+                  spaceId,
+                  environmentId,
+                  // @ts-expect-error - releaseId is not there yet in the CMA client
+                  releaseId,
+                });
               } catch (error) {
-                // If the entry is not published yet, it wont be returned on the lte endpoint and therefor we fetch it again without the release information
-                // to be able to show meaningful entity cards
-                console.log('>> error', error)
+                // Fallback if the entity is not part of the release yet
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
                   const currentEntry = await cmaClient.entry.get({
                     entryId: entityId,
@@ -418,11 +425,11 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
-                    // @ts-expect-error - release is not there yet on the published types
+                  // @ts-expect-error - release is not there yet on the published types
                   currentEntry.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
-                  }
-                  return currentEntry
+                  };
+                  return currentEntry;
                 }
                 throw error;
               }
@@ -430,10 +437,15 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
             if (entityType === 'Asset') {
               try {
-                return cmaClient.asset.get({ assetId: entityId, spaceId, environmentId });
+                return cmaClient.asset.get({
+                  assetId: entityId,
+                  spaceId,
+                  environmentId,
+                  // @ts-expect-error - releaseId is not there yet in the CMA client
+                  releaseId,
+                });
               } catch (error) {
-                // If the asset is not published yet, it wont be returned on the lte endpoint and therefor we fetch it again without the release information
-                // to be able to show meaningful entity cards
+                // Fallback if the entity is not part of the release yet
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
                   const currentAsset = cmaClient.asset.get({
                     assetId: entityId,
@@ -442,11 +454,11 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
-                    // @ts-expect-error - release is not there yet on the published types
+                  // @ts-expect-error - release is not there yet on the published types
                   currentAsset.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
-                  }
-                  return currentAsset
+                  };
+                  return currentAsset;
                 }
                 throw error;
               }
@@ -457,7 +469,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           options,
         );
       },
-      [fetch, currentSpaceId, currentEnvironmentId, isReleaseRequestError, releaseId],
+      [fetch, currentSpaceId, currentEnvironmentId, isReleaseRequestError],
     );
 
     /**
@@ -493,6 +505,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           fixedEntityCacheId,
           spaceId,
           environmentId,
+          releaseId,
         ];
 
         // Fetch + Filter by entity ID in the end
@@ -676,26 +689,46 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
   ({ ids }) => ({
     environment: ids.environmentAlias ?? ids.environment,
     space: ids.space,
+    releaseId: ids.release,
   }),
 );
 
 export function useEntity<E extends FetchableEntity>(
   entityType: FetchableEntityType,
   entityId: string,
-  options?: UseEntityOptions,
+  options?: Omit<UseEntityOptions, 'releaseId'>,
 ): UseEntityResult<E> {
-  const { space, environment } = useCurrentIds();
+  const { space, environment, releaseId } = useCurrentIds();
   const { getEntity } = useEntityLoader();
-  const queryKey: EntityQueryKey = [
-    entityType,
-    entityId,
-    options?.spaceId ?? space,
-    options?.environmentId ?? environment,
-  ];
-  const { status, data } = useQuery(queryKey, () => getEntity(entityType, entityId, options), {
-    enabled: options?.enabled,
-  });
-  return { status, data } as UseEntityResult<E>;
+  const { status, data } = useQuery(
+    [
+      entityType,
+      entityId,
+      options?.spaceId ?? space,
+      options?.environmentId ?? environment,
+      releaseId,
+    ],
+    () => getEntity(entityType, entityId, releaseId, options),
+    {
+      enabled: options?.enabled,
+    },
+  );
+
+  const { data: currentEntity } = useQuery(
+    [
+      entityType,
+      entityId,
+      options?.spaceId ?? space,
+      options?.environmentId ?? environment,
+      undefined,
+    ],
+    () => getEntity(entityType, entityId, undefined, options),
+    {
+      enabled: options?.enabled && !!releaseId,
+    },
+  );
+
+  return { status, data, currentEntity } as UseEntityResult<E>;
 }
 
 export function useResource<R extends Resource = Resource>(

@@ -64,7 +64,7 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
+  const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', props.entryId),
@@ -73,6 +73,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
   const { releaseStatusMap, releaseAction } = useReleaseStatus({
     entity: entry,
+    previousEntityOnTimeline: currentEntity,
     release: props.sdk.release,
     locales: props.sdk.locales,
   });
