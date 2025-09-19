@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Entry } from '@contentful/app-sdk';
-import { InlineEntryCard, Menu, MenuItem, Text } from '@contentful/f36-components';
+import { InlineEntryCard, MenuItem, Text } from '@contentful/f36-components';
 import { ResourceLink, ResourceInfo, useResource } from '@contentful/field-editor-reference';
 import { entityHelpers } from '@contentful/field-editor-shared';
 import { FieldAppSDK } from '@contentful/field-editor-shared';
@@ -71,9 +71,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
           Remove
         </MenuItem>
-      ].map((item, i) => (
-        <Menu key={i}>{item}</Menu>
-      ))}
+      ]}
     >
       <Text>{title}</Text>
     </InlineEntryCard>

@@ -59,7 +59,6 @@ export function EmbeddedInlineToolbarIcon({
   }
 
   return (
-    <Menu>
       <Menu.Item
         disabled={isDisabled}
         className="rich-text__entry-link-block-button"
@@ -77,6 +76,5 @@ export function EmbeddedInlineToolbarIcon({
           </span>
         </Flex>
       </Menu.Item>
-    </Menu>
   );
 }

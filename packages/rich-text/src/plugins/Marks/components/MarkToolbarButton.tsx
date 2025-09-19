@@ -42,7 +42,6 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
 
     if (!icon) {
       return (
-        <Menu>
           <Menu.Item
             onClick={handleClick}
             disabled={isDisabled}
@@ -53,7 +52,6 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
           >
             {title}
           </Menu.Item>
-        </Menu>
       );
     }
 
