@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.12.0...@contentful/field-editor-reference@6.12.1) (2025-09-19)
+
+### Bug Fixes
+
+- bump forma to ensure the same version [] ([#1937](https://github.com/contentful/field-editors/issues/1937)) ([88d3dde](https://github.com/contentful/field-editors/commit/88d3dde9bcdc948c49f5829d7d90d272425b2461))
+
 # [6.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.11.2...@contentful/field-editor-reference@6.12.0) (2025-09-18)
 
 ### Features

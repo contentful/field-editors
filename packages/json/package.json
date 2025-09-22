@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-json",
-  "version": "3.5.5",
+  "version": "3.5.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.0",
-    "@contentful/f36-components": "^5.1.1",
+    "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
-    "@contentful/field-editor-shared": "^2.12.2",
+    "@contentful/field-editor-shared": "^2.12.3",
     "@types/react-codemirror": "1.0.11",
     "@uiw/react-codemirror": "^4.11.4",
     "emotion": "^10.0.17",

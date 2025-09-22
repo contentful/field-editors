@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-single-line",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -36,9 +36,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/f36-components": "^5.1.1",
+    "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
-    "@contentful/field-editor-shared": "^2.12.2",
+    "@contentful/field-editor-shared": "^2.12.3",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15"
   },

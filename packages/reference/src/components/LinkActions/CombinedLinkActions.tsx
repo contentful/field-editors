@@ -10,7 +10,7 @@ import * as styles from './redesignStyles';
 
 const testIds = {
   ...sharedTextIds,
-  actionsWrapper: 'link-actions-menu-trigger'
+  actionsWrapper: 'link-actions-menu-trigger',
 };
 
 /**
@@ -48,23 +48,21 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         hasPlusIcon={true}
         useExperimentalStyles={true}
         dropdownSettings={{
-          position: 'bottom-left'
+          position: 'bottom-left',
         }}
         onSelect={(contentTypeId) => {
           return contentTypeId ? props.onCreate(contentTypeId) : Promise.resolve();
         }}
         customDropdownItems={
           props.canLinkEntity ? (
-            <Menu>
-              <Menu.Item
-                testId={testIds.linkExisting}
-                onClick={() => {
-                  props.onLinkExisting();
-                }}
-              >
-                Add existing content
-              </Menu.Item>
-            </Menu>
+            <Menu.Item
+              testId={testIds.linkExisting}
+              onClick={() => {
+                props.onLinkExisting();
+              }}
+            >
+              Add existing content
+            </Menu.Item>
           ) : undefined
         }
       />
