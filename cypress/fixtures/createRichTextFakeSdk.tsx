@@ -18,7 +18,6 @@ import {
 } from '@contentful/f36-components';
 import { ModalDialogLauncher } from '@contentful/field-editor-shared';
 import {
-  createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
@@ -116,8 +115,8 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
   const localSdk = {
     field,
     locales,
-    cmaAdapter: createFakeCMAAdapter({
-      Entry: {
+    cma: {
+      entry: {
         get: async ({ entryId }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
@@ -126,7 +125,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           return store.get('Entry', entryId);
         },
       },
-      Asset: {
+      asset: {
         get: async ({ assetId }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
@@ -135,17 +134,17 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           return store.get('Asset', assetId);
         },
       },
-      Space: {
+      space: {
         get: async ({ spaceId }) => {
           return store.get('Space', spaceId);
         },
       },
-      ContentType: {
+      contentType: {
         get: async ({ contentTypeId }) => {
           return store.get('ContentType', contentTypeId);
         },
       },
-      Locale: {
+      locale: {
         getMany: async () => {
           const items = store.getAll<LocaleProps>('Locale');
           const total = items.length;
@@ -161,7 +160,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           };
         },
       },
-    }),
+    },
     space: {
       ...space,
       getEntries(query?: SearchQuery) {

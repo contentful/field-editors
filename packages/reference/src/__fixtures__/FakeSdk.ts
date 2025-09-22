@@ -1,6 +1,5 @@
 import { ContentType, FieldAPI, FieldAppSDK, Link } from '@contentful/app-sdk';
 import {
-  createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
@@ -65,9 +64,9 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
   const sdk = {
     field,
     locales,
-    cmaAdapter: createFakeCMAAdapter({
-      Entry: {
-        get: async ({ entryId }) => {
+    cma: {
+      entry: {
+        get: async ({ entryId }: { entryId: string }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
           }
@@ -83,8 +82,8 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      Asset: {
-        get: async ({ assetId }) => {
+      asset: {
+        get: async ({ assetId }: { assetId: string }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
           }
@@ -100,7 +99,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      Space: {
+      space: {
         get: async (params: GetSpaceParams) => {
           if (params.spaceId === spaces.indifferent.sys.id) {
             return spaces.indifferent;
@@ -108,8 +107,8 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      ContentType: {
-        get: async ({ contentTypeId }) => {
+      contentType: {
+        get: async ({ contentTypeId }: { contentTypeId: string }) => {
           if (contentTypeId === contentTypes.published.sys.id) {
             return contentTypes.published;
           }
@@ -119,7 +118,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
       Locale: {
         getMany: async () => localesFixtures.list as CollectionProp<LocaleProps>,
       },
-    }),
+    },
     space: {
       ...space,
       getCachedContentTypes() {
@@ -132,7 +131,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
               ...response,
               items: localizeContentTypes(response.items),
             };
-          })
+          }),
         );
       },
       async getEntityScheduledActions() {
