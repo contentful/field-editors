@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.0...@contentful/field-editor-reference@6.13.1) (2025-09-22)
+
+### Bug Fixes
+
+- remove console log [] ([37a4473](https://github.com/contentful/field-editors/commit/37a4473830ec769aee13e66c5c31a2b050d80610))
+
 # [6.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.12.1...@contentful/field-editor-reference@6.13.0) (2025-09-22)
 
 ### Features
