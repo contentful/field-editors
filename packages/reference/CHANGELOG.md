@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.12.1...@contentful/field-editor-reference@6.13.0) (2025-09-22)
+
+### Features
+
+- (F36-V5) remove double nested menu ([#1938](https://github.com/contentful/field-editors/issues/1938)) ([8842c93](https://github.com/contentful/field-editors/commit/8842c93b28efd71c5f144a9cc5401461f862c0f4))
+- support release aware references [TOL-3360] ([#1935](https://github.com/contentful/field-editors/issues/1935)) ([4b2b929](https://github.com/contentful/field-editors/commit/4b2b9291833467b80b895cf6c58c2170b933ca19))
+
 ## [6.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.12.0...@contentful/field-editor-reference@6.12.1) (2025-09-19)
 
 ### Bug Fixes

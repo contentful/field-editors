@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.11.6...@contentful/field-editor-markdown@1.12.0) (2025-09-22)
+
+### Features
+
+- support release aware references [TOL-3360] ([#1935](https://github.com/contentful/field-editors/issues/1935)) ([4b2b929](https://github.com/contentful/field-editors/commit/4b2b9291833467b80b895cf6c58c2170b933ca19))
+
 ## [1.11.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.11.5...@contentful/field-editor-markdown@1.11.6) (2025-09-19)
 
 ### Bug Fixes
