@@ -15,6 +15,7 @@ import type {
   ReleaseV2Entity,
   ReleaseV2EntityWithLocales,
   ReleaseV2Props,
+  ReleaseStatusMap,
 } from '../types';
 import { getEntityStatus } from '../utils/entityHelpers';
 import { sanitizeLocales } from '../utils/sanitizeLocales';
@@ -117,7 +118,7 @@ export function useReleaseStatus({
 }: UseActiveReleaseLocalesStatuses) {
   const sanitizedLocales = useMemo(() => sanitizeLocales(locales), [locales]);
 
-  const releaseStatusMap = useMemo(() => {
+  const releaseStatusMap: ReleaseStatusMap = useMemo(() => {
     if (
       !entity?.sys ||
       !release ||
