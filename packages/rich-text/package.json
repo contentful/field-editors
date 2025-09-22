@@ -35,11 +35,10 @@
     "test": "jest --watch",
     "test:ci": "jest --ci --passWithNoTests",
     "tsc": "tsc -p ./ --noEmit",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-    "prepublishOnly": "yarn build"
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "^4.42.0",
     "@contentful/contentful-slatejs-adapter": "^15.16.5",
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-icons": "^5.4.1",

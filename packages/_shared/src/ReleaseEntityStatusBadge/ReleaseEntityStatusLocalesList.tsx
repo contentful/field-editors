@@ -4,7 +4,7 @@ import { MenuSectionTitle } from '@contentful/f36-components';
 import type { LocaleProps } from 'contentful-management';
 import { sortBy } from 'lodash';
 
-import { ReleaseLocalesStatus, ReleaseLocalesStatusMap } from '../types';
+import { ReleaseLocalesStatus, ReleaseStatusMap } from '../types';
 import { Banner } from './Banner';
 import { ReleaseEntityStatusLocale } from './ReleaseEntityStatusLocale';
 
@@ -50,7 +50,7 @@ function groupAndSortLocales(
 }
 
 type ReleaseEntityStatusLocalesListProps = {
-  statusMap: ReleaseLocalesStatusMap;
+  statusMap: ReleaseStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
 };
 

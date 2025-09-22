@@ -26,7 +26,7 @@ function ResourceCardSkeleton() {
 function ExistingResourceCard(
   props: SetRequired<ResourceCardProps, 'resourceLink'> & {
     inView: boolean;
-  }
+  },
 ) {
   const { resourceLink, inView, index = 0, locale } = props;
   const resourceOptions = {
@@ -38,8 +38,9 @@ function ExistingResourceCard(
   const { data: info, error } = useResource(
     resourceLink.sys.linkType,
     resourceLink.sys.urn,
-    resourceOptions
+    resourceOptions,
   );
+
   if (!info && !error) {
     return <ResourceCardSkeleton />;
   }

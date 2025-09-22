@@ -6,7 +6,7 @@ import {
   entityHelpers,
   type LocalePublishStatusMap,
   type ReleaseAction,
-  type ReleaseLocalesStatusMap,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 // @ts-expect-error mimetype is not typed
@@ -49,9 +49,8 @@ export interface WrappedAssetCardProps {
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
   releaseAction?: ReleaseAction;
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isReleasesLoading?: boolean;
-  activeRelease?: ReleaseV2Props;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
 }
 
 const defaultProps = {
@@ -90,9 +89,8 @@ export const WrappedAssetCard = ({
   getAssetUrl,
   onRemove,
   releaseAction,
-  releaseLocalesStatusMap,
-  isReleasesLoading,
-  activeRelease,
+  releaseStatusMap,
+  release,
 }: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
     asset.sys,
@@ -134,9 +132,8 @@ export const WrappedAssetCard = ({
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
           releaseAction={releaseAction}
-          releaseLocalesStatusMap={releaseLocalesStatusMap}
-          isReleasesLoading={isReleasesLoading}
-          activeRelease={activeRelease}
+          releaseStatusMap={releaseStatusMap}
+          release={release}
         />
       }
       src={

@@ -1,6 +1,5 @@
 import type { ContentType, FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import {
-  createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
@@ -70,8 +69,8 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
   const localSdk = {
     field,
     locales,
-    cmaAdapter: createFakeCMAAdapter({
-      Entry: {
+    cma: {
+      entry: {
         get: async ({ entryId }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
@@ -80,7 +79,7 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
           return store.get('Entry', entryId);
         },
       },
-      Asset: {
+      asset: {
         get: async ({ assetId }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
@@ -89,17 +88,17 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
           return store.get('Asset', assetId);
         },
       },
-      Space: {
+      space: {
         get: async ({ spaceId }) => {
           return store.get('Space', spaceId);
         },
       },
-      ContentType: {
+      contentType: {
         get: async ({ contentTypeId }) => {
           return store.get('ContentType', contentTypeId);
         },
       },
-      Locale: {
+      locale: {
         getMany: async () => {
           const items = store.getAll<LocaleProps>('Locale');
           const total = items.length;
@@ -115,7 +114,7 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
           };
         },
       },
-    }),
+    },
     space: {
       ...space,
       getCachedContentTypes() {
@@ -128,7 +127,7 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
               ...response,
               items: localizeContentTypes(response.items),
             };
-          })
+          }),
         );
       },
       async getEntityScheduledActions() {

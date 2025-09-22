@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { EntityProvider } from '@contentful/field-editor-reference';
-import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
@@ -24,12 +23,12 @@ beforeEach(() => {
         'en-US': 'English (United States)',
       },
     },
-    cmaAdapter: createFakeCMAAdapter({
-      Entry: { get: jest.fn().mockResolvedValue(publishedEntry) },
-      ScheduledAction: {
+    cma: {
+      entry: { get: jest.fn().mockResolvedValue(publishedEntry) },
+      scheduledAction: {
         getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
       },
-    }),
+    },
     space: {
       getEntityScheduledActions: jest.fn().mockResolvedValue([]),
       getCachedContentTypes: jest.fn().mockReturnValue([publishedCT]),
@@ -60,7 +59,7 @@ test('some dropdown actions should be disabled/removed', async () => {
         isDisabled
         isSelected
       />
-    </EntityProvider>
+    </EntityProvider>,
   );
 
   // Assert Asset title

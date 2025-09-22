@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { Badge, Flex, Popover, Skeleton } from '@contentful/f36-components';
+import { Badge, Flex, Popover } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
 import { cx, css } from 'emotion';
 
-import type { ReleaseLocalesStatusMap, ReleaseEntityStatus } from '../types';
+import type { ReleaseStatusMap, ReleaseEntityStatus } from '../types';
 import { RELEASE_BADGES } from './constants';
 import { ReleaseEntityStatusLocalesList } from './ReleaseEntityStatusLocalesList';
 
@@ -86,7 +86,7 @@ const styles = {
 };
 
 const determineBadgeStatus = (
-  localesStatusMap: ReleaseLocalesStatusMap,
+  localesStatusMap: ReleaseStatusMap,
   activeLocales: Pick<LocaleProps, 'code'>[] | undefined,
 ): Status => {
   // If there is only one locale, or only active locale, we would not show the stacking
@@ -143,15 +143,14 @@ const determineBadgeStatus = (
 };
 
 type ReleaseLocalePublishingPopoverProps = {
-  releaseLocalesStatusMap: ReleaseLocalesStatusMap;
+  releaseStatusMap: ReleaseStatusMap;
   activeLocales: Pick<LocaleProps, 'code'>[];
   isLoading?: boolean;
 };
 
 export function ReleaseEntityStatusPopover({
-  releaseLocalesStatusMap,
+  releaseStatusMap,
   activeLocales,
-  isLoading = false,
 }: ReleaseLocalePublishingPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -170,25 +169,13 @@ export function ReleaseEntityStatusPopover({
     }, 300);
   }, []);
 
-  const status = determineBadgeStatus(releaseLocalesStatusMap, activeLocales);
+  const status = determineBadgeStatus(releaseStatusMap, activeLocales);
   const ariaLabel = status.secondary ? 'Multiple statuses' : status.primary;
   const wrapperClass = generateDynamicStyles(status);
 
-  if (isLoading) {
-    return (
-      <Skeleton.Container className={styles.skeletonBadge}>
-        <Skeleton.Image
-          testId={`Release-entity-locale-status-badge-skeleton`}
-          width="65px"
-          height="20px"
-        />
-      </Skeleton.Container>
-    );
-  }
-
   return (
     <Popover
-      isOpen={releaseLocalesStatusMap && isOpen}
+      isOpen={releaseStatusMap && isOpen}
       onClose={() => setIsOpen(false)}
       autoFocus={false}
       placement="bottom-end"
@@ -242,10 +229,10 @@ export function ReleaseEntityStatusPopover({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {!!releaseLocalesStatusMap && (
+        {!!releaseStatusMap && (
           <>
             <ReleaseEntityStatusLocalesList
-              statusMap={releaseLocalesStatusMap}
+              statusMap={releaseStatusMap}
               activeLocales={activeLocales}
             />
           </>

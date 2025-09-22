@@ -7,7 +7,7 @@ import {
   isValidImage,
   LocalePublishStatusMap,
   type ReleaseAction,
-  type ReleaseLocalesStatusMap,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 import { LocaleProps } from 'contentful-management';
@@ -44,9 +44,8 @@ export interface WrappedEntryCardProps {
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
   releaseAction?: ReleaseAction;
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isReleasesLoading?: boolean;
-  activeRelease?: ReleaseV2Props;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
 }
 
 const defaultProps = {
@@ -82,9 +81,8 @@ export function WrappedEntryCard({
   onMoveTop,
   onMoveBottom,
   releaseAction,
-  releaseLocalesStatusMap,
-  isReleasesLoading,
-  activeRelease,
+  releaseStatusMap,
+  release,
 }: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
@@ -160,9 +158,8 @@ export function WrappedEntryCard({
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
           releaseAction={releaseAction}
-          releaseLocalesStatusMap={releaseLocalesStatusMap}
-          isReleasesLoading={isReleasesLoading}
-          activeRelease={activeRelease}
+          releaseStatusMap={releaseStatusMap}
+          release={release}
         />
       }
       icon={
