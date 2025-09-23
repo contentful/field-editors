@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-shared",
-  "version": "2.13.1",
+  "version": "2.13.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",

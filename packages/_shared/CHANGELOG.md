@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.1...@contentful/field-editor-shared@2.13.2) (2025-09-23)
+
+### Bug Fixes
+
+- **shared:** remainsDraft should have warning color [TOL-3393] ([#1939](https://github.com/contentful/field-editors/issues/1939)) ([c4984f4](https://github.com/contentful/field-editors/commit/c4984f43d859afb8ccb5f187ada95b5b8b22365e))
+
 ## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.0...@contentful/field-editor-shared@2.13.1) (2025-09-22)
 
 ### Bug Fixes
