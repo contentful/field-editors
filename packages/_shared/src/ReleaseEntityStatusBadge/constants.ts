@@ -24,10 +24,10 @@ export const RELEASE_BADGES = {
   },
   remainsDraft: {
     label: 'Remains draft',
-    variant: 'secondary',
-    default: tokens.gray300,
-    hover: tokens.gray400,
-    icon: tokens.gray400,
+    variant: 'warning',
+    default: tokens.orange300,
+    hover: tokens.orange400,
+    icon: tokens.orange400,
   },
   notInRelease: {
     label: 'Not in release',
