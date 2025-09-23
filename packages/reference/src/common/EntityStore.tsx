@@ -385,8 +385,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           (!spaceId || spaceId === currentSpaceId) &&
           (!environmentId || environmentId === currentEnvironmentId) &&
           error instanceof Error &&
-          'status' in error &&
-          error.status === 404
+          error.message.includes('The resource could not be found')
         );
       },
       [releaseId, currentSpaceId, currentEnvironmentId],
@@ -408,13 +407,14 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           async ({ cmaClient }) => {
             if (entityType === 'Entry') {
               try {
-                return cmaClient.entry.get({
+                const entity = await cmaClient.entry.get({
                   entryId: entityId,
                   spaceId,
                   environmentId,
                   // @ts-expect-error - releaseId is not there yet in the CMA client
                   releaseId,
                 });
+                return entity;
               } catch (error) {
                 // Fallback if the entity is not part of the release yet
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
@@ -437,17 +437,18 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
             if (entityType === 'Asset') {
               try {
-                return cmaClient.asset.get({
+                const entity = await cmaClient.asset.get({
                   assetId: entityId,
                   spaceId,
                   environmentId,
                   // @ts-expect-error - releaseId is not there yet in the CMA client
                   releaseId,
                 });
+                return entity;
               } catch (error) {
                 // Fallback if the entity is not part of the release yet
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
-                  const currentAsset = cmaClient.asset.get({
+                  const currentAsset = await cmaClient.asset.get({
                     assetId: entityId,
                     spaceId,
                     environmentId,
