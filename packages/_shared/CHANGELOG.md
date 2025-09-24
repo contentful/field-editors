@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.2...@contentful/field-editor-shared@2.13.3) (2025-09-24)
+
+### Bug Fixes
+
+- **shared:** handle remains draft correctly for release action [TOL-3393] ([#1940](https://github.com/contentful/field-editors/issues/1940)) ([73d44b5](https://github.com/contentful/field-editors/commit/73d44b5b286df6859b1b64af7dae32f2de6f3a90))
+
 ## [2.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.1...@contentful/field-editor-shared@2.13.2) (2025-09-23)
 
 ### Bug Fixes
