@@ -42,7 +42,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   );
   const activeLocales = useActiveLocales(props.sdk);
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
-  const { releaseStatusMap, releaseAction } = useReleaseStatus({
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
     entity: asset,
     previousEntityOnTimeline: currentEntity,
     release: props.sdk.release,
@@ -112,7 +112,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       activeLocales,
       releaseStatusMap,
       release: props.sdk.release as ReleaseV2Props | undefined,
-      releaseAction,
+      releaseEntityStatus,
     };
 
     if (status === 'loading') {

@@ -4,7 +4,7 @@ import { EntryCard } from '@contentful/f36-components';
 import {
   entityHelpers,
   isValidImage,
-  type ReleaseAction,
+  type ReleaseEntityStatus,
   type LocalePublishStatusMap,
   type ReleaseStatusMap,
   type ReleaseV2Props,
@@ -31,7 +31,7 @@ export interface WrappedAssetLinkProps {
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
   isClickable?: boolean;
-  releaseAction?: ReleaseAction;
+  releaseEntityStatus?: ReleaseEntityStatus;
   releaseStatusMap?: ReleaseStatusMap;
   release?: ReleaseV2Props;
 }
@@ -76,7 +76,7 @@ export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
           entity={props.asset}
           localesStatusMap={props.localesStatusMap}
           activeLocales={props.activeLocales}
-          releaseAction={props.releaseAction}
+          releaseEntityStatus={props.releaseEntityStatus}
           releaseStatusMap={props.releaseStatusMap}
           release={props.release}
         />
