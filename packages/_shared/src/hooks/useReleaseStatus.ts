@@ -165,7 +165,7 @@ export function useReleaseStatus({
       return 'publish';
     }
 
-    if (releaseArray.find(({ status }) => status === 'becomesDraft')) {
+    if (releaseArray.find(({ status }) => status === 'becomesDraft' || status === 'remainsDraft')) {
       return 'unpublish';
     }
 
