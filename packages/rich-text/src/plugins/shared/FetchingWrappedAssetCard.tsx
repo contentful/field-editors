@@ -14,8 +14,8 @@ import {
   useActiveLocales,
   type ReleaseStatusMap,
   type ReleaseV2Props,
-  type ReleaseAction,
   useReleaseStatus,
+  type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -31,7 +31,7 @@ interface InternalAssetCardProps {
   localesStatusMap?: LocalePublishStatusMap;
   releaseStatusMap?: ReleaseStatusMap;
   release?: ReleaseV2Props;
-  releaseAction?: ReleaseAction;
+  releaseEntityStatus?: ReleaseEntityStatus;
 }
 
 const InternalAssetCard = React.memo(
@@ -47,7 +47,7 @@ const InternalAssetCard = React.memo(
     localesStatusMap,
     release,
     releaseStatusMap,
-    releaseAction,
+    releaseEntityStatus,
   }: InternalAssetCardProps) => {
     const activeLocales = useActiveLocales(sdk);
 
@@ -73,7 +73,7 @@ const InternalAssetCard = React.memo(
         }
         releaseStatusMap={releaseStatusMap}
         release={release}
-        releaseAction={releaseAction}
+        releaseEntityStatus={releaseEntityStatus}
       />
     );
   },
@@ -102,7 +102,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     [getEntityScheduledActions, props.assetId],
   );
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
-  const { releaseStatusMap, releaseAction } = useReleaseStatus({
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
     entity: asset,
     previousEntityOnTimeline: currentEntity,
     locales: props.sdk.locales,
@@ -142,7 +142,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       localesStatusMap={localesStatusMap}
       releaseStatusMap={releaseStatusMap}
       release={props.sdk.release as ReleaseV2Props | undefined}
-      releaseAction={releaseAction}
+      releaseEntityStatus={releaseEntityStatus}
     />
   );
 }

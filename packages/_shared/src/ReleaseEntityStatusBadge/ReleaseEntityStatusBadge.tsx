@@ -2,30 +2,38 @@ import React from 'react';
 
 import { Badge, BadgeVariant } from '@contentful/f36-components';
 
-import type { ReleaseAction } from '../types';
+import type { ReleaseEntityStatus } from '../types';
 
 type ReleaseEntityActionBadgeProps = {
-  action: ReleaseAction;
+  status: ReleaseEntityStatus;
   className?: string;
 };
 
-const config: Record<ReleaseAction, { label: string; variant: BadgeVariant }> = {
-  publish: {
+const config: Record<ReleaseEntityStatus, { label: string; variant: BadgeVariant }> = {
+  willPublish: {
     label: 'Will publish',
     variant: 'positive' as const,
   },
-  unpublish: {
+  becomesDraft: {
     label: 'Becomes draft',
     variant: 'warning' as const,
   },
-  'not-in-release': {
+  remainsDraft: {
+    label: 'Remains draft',
+    variant: 'warning' as const,
+  },
+  notInRelease: {
     label: 'Not in release',
     variant: 'secondary' as const,
   },
+  published: {
+    label: 'Published',
+    variant: 'positive' as const,
+  },
 };
 
-export function ReleaseEntityStatusBadge({ className, action }: ReleaseEntityActionBadgeProps) {
-  const badgeConfig = config[action];
+export function ReleaseEntityStatusBadge({ className, status }: ReleaseEntityActionBadgeProps) {
+  const badgeConfig = config[status];
 
   return (
     <Badge

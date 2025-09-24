@@ -6,9 +6,9 @@ import {
   LocalePublishStatusMap,
   ReleaseEntityStatusPopover,
   ReleaseEntityStatusBadge,
-  type ReleaseAction,
   type ReleaseStatusMap,
   type ReleaseV2Props,
+  type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import { EntryProps, LocaleProps, AssetProps } from 'contentful-management';
 
@@ -25,7 +25,7 @@ type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
   releaseStatusMap?: ReleaseStatusMap;
-  releaseAction?: ReleaseAction;
+  releaseEntityStatus?: ReleaseEntityStatus;
   release?: ReleaseV2Props;
 };
 
@@ -38,7 +38,7 @@ export function EntityStatusBadge({
   activeLocales,
   entity,
   releaseStatusMap,
-  releaseAction,
+  releaseEntityStatus,
   release,
   ...props
 }: EntityStatusBadgeProps) {
@@ -59,8 +59,8 @@ export function EntityStatusBadge({
   }
 
   // release entry + entry based publishing
-  if (release && releaseAction) {
-    return <ReleaseEntityStatusBadge action={releaseAction} />;
+  if (release && releaseEntityStatus) {
+    return <ReleaseEntityStatusBadge status={releaseEntityStatus} />;
   }
 
   // current base entry + locale based publishing

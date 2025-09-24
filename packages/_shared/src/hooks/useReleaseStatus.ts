@@ -9,7 +9,6 @@ import type {
 } from 'contentful-management/types';
 
 import type {
-  ReleaseAction,
   ReleaseEntityStatus,
   ReleaseLocalesStatus,
   ReleaseV2Entity,
@@ -110,12 +109,17 @@ type UseActiveReleaseLocalesStatuses = {
   previousEntityOnTimeline?: EntryProps | AssetProps;
 };
 
+type UseRelaseStatus = {
+  releaseEntityStatus: ReleaseEntityStatus;
+  releaseStatusMap: ReleaseStatusMap;
+};
+
 export function useReleaseStatus({
   entity,
   release,
   locales,
   previousEntityOnTimeline,
-}: UseActiveReleaseLocalesStatuses) {
+}: UseActiveReleaseLocalesStatuses): UseRelaseStatus {
   const sanitizedLocales = useMemo(() => sanitizeLocales(locales), [locales]);
 
   const releaseStatusMap: ReleaseStatusMap = useMemo(() => {
@@ -155,25 +159,25 @@ export function useReleaseStatus({
     );
   }, [entity?.sys, previousEntityOnTimeline, release, sanitizedLocales]);
 
-  const releaseAction: ReleaseAction | undefined = useMemo(() => {
-    if (releaseStatusMap.size === 0) {
-      return undefined;
-    }
-
+  const releaseEntityStatus: ReleaseEntityStatus = useMemo(() => {
     const releaseArray = Array.from(releaseStatusMap.values());
     if (releaseArray.find(({ status }) => status === 'willPublish')) {
-      return 'publish';
+      return 'willPublish';
     }
 
-    if (releaseArray.find(({ status }) => status === 'becomesDraft' || status === 'remainsDraft')) {
-      return 'unpublish';
+    if (releaseArray.find(({ status }) => status === 'becomesDraft')) {
+      return 'becomesDraft';
     }
 
-    return 'not-in-release';
+    if (releaseArray.find(({ status }) => status === 'remainsDraft')) {
+      return 'remainsDraft';
+    }
+
+    return 'notInRelease';
   }, [releaseStatusMap]);
 
   return {
     releaseStatusMap,
-    releaseAction,
+    releaseEntityStatus,
   };
 }

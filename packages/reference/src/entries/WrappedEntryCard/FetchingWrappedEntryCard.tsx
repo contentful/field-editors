@@ -71,7 +71,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     [getEntityScheduledActions, props.entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
-  const { releaseStatusMap, releaseAction } = useReleaseStatus({
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
     entity: entry,
     previousEntityOnTimeline: currentEntity,
     release: props.sdk.release,
@@ -161,7 +161,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       activeLocales: props.activeLocales,
       releaseStatusMap,
       release: props.sdk.release as ReleaseV2Props | undefined,
-      releaseAction,
+      releaseEntityStatus,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

@@ -5,7 +5,7 @@ import { AssetCard } from '@contentful/f36-components';
 import {
   entityHelpers,
   type LocalePublishStatusMap,
-  type ReleaseAction,
+  type ReleaseEntityStatus,
   type ReleaseStatusMap,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
@@ -48,7 +48,7 @@ export interface WrappedAssetCardProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-  releaseAction?: ReleaseAction;
+  releaseEntityStatus?: ReleaseEntityStatus;
   releaseStatusMap?: ReleaseStatusMap;
   release?: ReleaseV2Props;
 }
@@ -88,7 +88,7 @@ export const WrappedAssetCard = ({
   onEdit,
   getAssetUrl,
   onRemove,
-  releaseAction,
+  releaseEntityStatus,
   releaseStatusMap,
   release,
 }: WrappedAssetCardProps) => {
@@ -131,7 +131,7 @@ export const WrappedAssetCard = ({
           entity={asset}
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
-          releaseAction={releaseAction}
+          releaseEntityStatus={releaseEntityStatus}
           releaseStatusMap={releaseStatusMap}
           release={release}
         />
