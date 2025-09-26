@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Badge, Flex, Popover } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
+import { t } from '@lingui/core/macro';
 import type { LocaleProps } from 'contentful-management';
 import { cx, css } from 'emotion';
 
@@ -172,6 +173,7 @@ export function ReleaseEntityStatusPopover({
   const status = determineBadgeStatus(releaseStatusMap, activeLocales);
   const ariaLabel = status.secondary ? 'Multiple statuses' : status.primary;
   const wrapperClass = generateDynamicStyles(status);
+  const statusLabel = RELEASE_BADGES[status.primary].label;
 
   return (
     <Popover
@@ -196,7 +198,11 @@ export function ReleaseEntityStatusPopover({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            {RELEASE_BADGES[status.primary].label}
+            {t({
+              id: 'FieldEditors.Shared.ReleaseEntityStatusPopover.Label',
+              // eslint-disable-next-line lingui/no-single-variables-to-translate -- status label is dynamic and comes from a config object
+              message: `${statusLabel}`,
+            })}
           </Badge>
           {status.secondary && (
             <svg

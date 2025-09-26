@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Badge, BadgeVariant } from '@contentful/f36-components';
+import { t } from '@lingui/core/macro';
 
 import type { ReleaseEntityStatus } from '../types';
 
@@ -34,6 +35,7 @@ const config: Record<ReleaseEntityStatus, { label: string; variant: BadgeVariant
 
 export function ReleaseEntityStatusBadge({ className, status }: ReleaseEntityActionBadgeProps) {
   const badgeConfig = config[status];
+  const statusLabel = badgeConfig.label;
 
   return (
     <Badge
@@ -41,7 +43,11 @@ export function ReleaseEntityStatusBadge({ className, status }: ReleaseEntityAct
       className={className}
       variant={badgeConfig.variant}
     >
-      {badgeConfig.label}
+      {t({
+        id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.Label',
+        // eslint-disable-next-line lingui/no-single-variables-to-translate -- status label is dynamic and comes from a config object
+        message: `${statusLabel}`,
+      })}
     </Badge>
   );
 }
