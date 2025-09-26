@@ -10,44 +10,57 @@ type ReleaseEntityActionBadgeProps = {
   className?: string;
 };
 
-const config: Record<ReleaseEntityStatus, { label: string; variant: BadgeVariant }> = {
-  willPublish: {
-    label: 'Will publish',
-    variant: 'positive' as const,
-  },
-  becomesDraft: {
-    label: 'Becomes draft',
-    variant: 'warning' as const,
-  },
-  remainsDraft: {
-    label: 'Remains draft',
-    variant: 'warning' as const,
-  },
-  notInRelease: {
-    label: 'Not in release',
-    variant: 'secondary' as const,
-  },
-  published: {
-    label: 'Published',
-    variant: 'positive' as const,
-  },
-};
+function getConfig(status: ReleaseEntityStatus): { label: string; variant: BadgeVariant } {
+  switch (status) {
+    case 'willPublish':
+      return {
+        label: t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.WillPublish',
+          message: 'Will publish',
+        }),
+        variant: 'positive' as const,
+      };
+    case 'becomesDraft':
+      return {
+        label: t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.BecomesDraft',
+          message: 'Becomes draft',
+        }),
+        variant: 'warning' as const,
+      };
+    case 'remainsDraft':
+      return {
+        label: t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.RemainsDraft',
+          message: 'Remains draft',
+        }),
+        variant: 'warning' as const,
+      };
+    case 'notInRelease':
+      return {
+        label: t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.NotInRelease',
+          message: 'Not in release',
+        }),
+        variant: 'secondary' as const,
+      };
+    case 'published':
+      return {
+        label: t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.Published',
+          message: 'Published',
+        }),
+        variant: 'positive' as const,
+      };
+  }
+}
 
 export function ReleaseEntityStatusBadge({ className, status }: ReleaseEntityActionBadgeProps) {
-  const badgeConfig = config[status];
-  const statusLabel = badgeConfig.label;
+  const { label, variant } = getConfig(status);
 
   return (
-    <Badge
-      testId="release-entity-action-status"
-      className={className}
-      variant={badgeConfig.variant}
-    >
-      {t({
-        id: 'FieldEditors.Shared.ReleaseEntityStatusBadge.Label',
-        // eslint-disable-next-line lingui/no-single-variables-to-translate -- status label is dynamic and comes from a config object
-        message: `${statusLabel}`,
-      })}
+    <Badge testId="release-entity-action-status" className={className} variant={variant}>
+      {label}
     </Badge>
   );
 }
