@@ -5,9 +5,9 @@ import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
 import { css, cx } from 'emotion';
-import { getReleaseStatusBadgeConfig } from 'utils/getReleaseStatusBadgeConfig';
 
 import type { ReleaseEntityStatus, ReleaseStatusMap } from '../types';
+import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { ReleaseEntityStatusLocalesList } from './ReleaseEntityStatusLocalesList';
 
 type BadgeSVGType = {

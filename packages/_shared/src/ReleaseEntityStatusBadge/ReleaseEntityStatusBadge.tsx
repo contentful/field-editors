@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Badge } from '@contentful/f36-components';
-import { getReleaseStatusBadgeConfig } from 'utils/getReleaseStatusBadgeConfig';
 
 import type { ReleaseEntityStatus } from '../types';
+import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 
 type ReleaseEntityActionBadgeProps = {
   status: ReleaseEntityStatus;
