@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Badge, BadgeVariant, Text } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
+import { t } from '@lingui/core/macro';
 import type { LocaleProps } from 'contentful-management';
 import { css } from 'emotion';
 
@@ -33,12 +34,18 @@ export function ReleaseEntityStatusLocale({
   label,
   variant,
 }: ReleaseEntityStatusLocaleProps) {
+  const localeCode = locale.code;
+  const isDefaultLocale = `${locale.default ? ', Default' : ''}`;
+
   return (
     <div className={styles.localePublishStatus} data-test-id="locale-publishing-status">
       <Text className={styles.locale} fontColor="gray700">
         {locale.name}{' '}
         <Text fontColor="gray500">
-          ({locale.code}){locale.default && ', Default'}
+          {t({
+            id: 'FieldEditors.Shared.ReleaseEntityStatusLocale.LocaleCode',
+            message: `(${localeCode}) ${isDefaultLocale}`,
+          })}
         </Text>
       </Text>
       <Badge className={styles.status} variant={variant}>
