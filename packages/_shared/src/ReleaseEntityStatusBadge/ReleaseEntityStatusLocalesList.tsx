@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { MenuSectionTitle } from '@contentful/f36-components';
+import { t } from '@lingui/core/macro';
 import type { LocaleProps } from 'contentful-management';
 import { sortBy } from 'lodash';
 
@@ -59,7 +60,7 @@ export function ReleaseEntityStatusLocalesList({
   activeLocales,
 }: ReleaseEntityStatusLocalesListProps) {
   const entries = [...statusMap.entries()];
-  const counters = entries.reduce(
+  const { willPublish, becomesDraft, remainsDraft } = entries.reduce(
     (prev, [, { status }]) => ({
       becomesDraft: prev.becomesDraft + (status === 'becomesDraft' ? 1 : 0),
       willPublish: prev.willPublish + (status === 'willPublish' ? 1 : 0),
@@ -72,12 +73,23 @@ export function ReleaseEntityStatusLocalesList({
   return (
     <>
       <Banner
-        content="The statuses of the locales for this content:"
-        highlight={`${counters.becomesDraft} becomes draft, ${counters.willPublish} will publish, ${counters.remainsDraft} remains draft`}
+        content={t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusLocalesList.BannerContent',
+          message: 'The statuses of the locales for this content:',
+        })}
+        highlight={t({
+          id: 'FieldEditors.Shared.ReleaseEntityStatusLocalesList.BannerHighlight',
+          message: `${becomesDraft} becomes draft, ${willPublish} will publish, ${remainsDraft} remains draft`,
+        })}
       />
 
       <div data-test-id="locale-publishing-selected">
-        <MenuSectionTitle>Locales in the entry editor:</MenuSectionTitle>
+        <MenuSectionTitle>
+          {t({
+            id: 'FieldEditors.Shared.ReleaseEntityStatusLocalesList.SelectedLocalesTitle',
+            message: 'Locales in the entry editor:',
+          })}
+        </MenuSectionTitle>
         {selected.map(({ locale, label, variant }) => (
           <ReleaseEntityStatusLocale
             key={`selected-${locale.code}`}
@@ -90,7 +102,12 @@ export function ReleaseEntityStatusLocalesList({
 
       {nonSelected.length > 0 && (
         <div data-test-id="locale-publishing-others">
-          <MenuSectionTitle>Other locales:</MenuSectionTitle>
+          <MenuSectionTitle>
+            {t({
+              id: 'FieldEditors.Shared.ReleaseEntityStatusLocalesList.OtherLocalesTitle',
+              message: 'Other locales:',
+            })}
+          </MenuSectionTitle>
           {nonSelected.map(({ locale, label, variant }) => (
             <ReleaseEntityStatusLocale
               key={`others-${locale.code}`}

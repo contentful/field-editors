@@ -4,10 +4,10 @@ import { Badge, Flex, Popover } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
-import { cx, css } from 'emotion';
+import { css, cx } from 'emotion';
 
-import type { ReleaseStatusMap, ReleaseEntityStatus } from '../types';
-import { RELEASE_BADGES } from './constants';
+import type { ReleaseEntityStatus, ReleaseStatusMap } from '../types';
+import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { ReleaseEntityStatusLocalesList } from './ReleaseEntityStatusLocalesList';
 
 type BadgeSVGType = {
@@ -25,7 +25,8 @@ type Status = {
 
 const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
   const status = secondary || tertiary;
-  return isHover ? RELEASE_BADGES[status]?.hover : RELEASE_BADGES[status]?.default;
+  const config = getReleaseStatusBadgeConfig(status);
+  return isHover ? config?.hover : config?.default;
 };
 
 const generateDynamicStyles = (status?: Status) => {
@@ -172,7 +173,7 @@ export function ReleaseEntityStatusPopover({
   const status = determineBadgeStatus(releaseStatusMap, activeLocales);
   const ariaLabel = status.secondary ? 'Multiple statuses' : status.primary;
   const wrapperClass = generateDynamicStyles(status);
-
+  const { label, icon, variant } = getReleaseStatusBadgeConfig(status.primary);
   return (
     <Popover
       isOpen={releaseStatusMap && isOpen}
@@ -188,15 +189,15 @@ export function ReleaseEntityStatusPopover({
         >
           <Badge
             tabIndex={0}
-            variant={RELEASE_BADGES[status.primary].variant}
+            variant={variant}
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
-            endIcon={<CaretDownIcon size="tiny" color={RELEASE_BADGES[status.primary].icon} />}
+            endIcon={<CaretDownIcon size="tiny" color={icon} />}
             onMouseOver={onMouseEnter}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            {RELEASE_BADGES[status.primary].label}
+            {label}
           </Badge>
           {status.secondary && (
             <svg
