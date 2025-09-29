@@ -707,7 +707,7 @@ export function useEntity<E extends FetchableEntity>(
       entityId,
       options?.spaceId ?? space,
       options?.environmentId ?? environment,
-      releaseId,
+      ...(releaseId ? [releaseId] : []),
     ],
     () => getEntity(entityType, entityId, releaseId, options),
     {
