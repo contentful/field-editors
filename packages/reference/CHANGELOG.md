@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.5...@contentful/field-editor-reference@6.13.6) (2025-09-29)
+
+### Bug Fixes
+
+- references not updating status in field [ZEND-6971] ([#1944](https://github.com/contentful/field-editors/issues/1944)) ([fd50851](https://github.com/contentful/field-editors/commit/fd508517bfab8d7a6205c9cf9888801695bdb468))
+
 ## [6.13.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.4...@contentful/field-editor-reference@6.13.5) (2025-09-29)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
