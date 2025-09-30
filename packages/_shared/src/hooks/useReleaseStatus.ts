@@ -11,57 +11,26 @@ import type {
 import type {
   ReleaseEntityStatus,
   ReleaseLocalesStatus,
+  ReleaseStatusMap,
   ReleaseV2Entity,
   ReleaseV2EntityWithLocales,
   ReleaseV2Props,
-  ReleaseStatusMap,
 } from '../types';
 import { getEntityStatus } from '../utils/entityHelpers';
+import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { sanitizeLocales } from '../utils/sanitizeLocales';
 
 function createReleaseLocaleStatus(
   locale: Pick<LocaleProps, 'code' | 'default' | 'name'>,
   status: ReleaseEntityStatus,
 ): ReleaseLocalesStatus {
-  switch (status) {
-    case 'published':
-      return {
-        variant: 'positive',
-        status,
-        label: 'Published',
-        locale,
-      };
-    case 'willPublish':
-      return {
-        variant: 'positive',
-        status: 'willPublish',
-        label: 'Will publish',
-        locale,
-      };
-    case 'becomesDraft':
-      return {
-        variant: 'warning',
-        status: 'becomesDraft',
-        label: 'Becomes draft',
-        locale,
-      };
-    case 'remainsDraft':
-      return {
-        variant: 'warning',
-        status: 'remainsDraft',
-        label: 'Remains draft',
-        locale,
-      };
-    case 'notInRelease':
-      return {
-        variant: 'secondary',
-        status: 'notInRelease',
-        label: 'Not in release',
-        locale,
-      };
-    default:
-      throw new Error(`Unknown release entity status: ${status}`);
-  }
+  const { label, variant } = getReleaseStatusBadgeConfig(status);
+  return {
+    variant,
+    status,
+    label,
+    locale,
+  };
 }
 
 function getReleaseItemLocaleStatus(
