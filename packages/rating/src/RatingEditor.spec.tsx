@@ -58,7 +58,7 @@ describe('RatingEditor', () => {
     expect(container.querySelectorAll('[data-selected="true"]')).toHaveLength(1);
     expect(container.querySelectorAll('[data-selected="false"]')).toHaveLength(4);
 
-    fireEvent.mouseDown(getByTestId('rating-editor-clear'));
+    fireEvent.click(getByTestId('rating-editor-clear'));
     expect(field.removeValue).toHaveBeenCalled();
   });
 
