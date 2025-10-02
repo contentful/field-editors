@@ -25,8 +25,12 @@ type Status = {
 
 const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
   const status = secondary || tertiary;
-  const config = getReleaseStatusBadgeConfig(status);
-  return isHover ? config?.hover : config?.default;
+  if (!status) {
+    return;
+  }
+  return isHover
+    ? getReleaseStatusBadgeConfig(status).hover
+    : getReleaseStatusBadgeConfig(status).default;
 };
 
 const generateDynamicStyles = (status?: Status) => {
