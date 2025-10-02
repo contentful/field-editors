@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.13.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.7...@contentful/field-editor-reference@6.13.8) (2025-10-02)
+
+### Bug Fixes
+
+- use entry and asset functions from cma instead of sdk.space [TOL-1684] ([#1947](https://github.com/contentful/field-editors/issues/1947)) ([38275fe](https://github.com/contentful/field-editors/commit/38275fe2ff340f4b258ef47a19a987294d9ec853))
+
 ## [6.13.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.6...@contentful/field-editor-reference@6.13.7) (2025-09-30)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
