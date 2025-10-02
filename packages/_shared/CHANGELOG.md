@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.5...@contentful/field-editor-shared@2.13.6) (2025-09-30)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.13.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.4...@contentful/field-editor-shared@2.13.5) (2025-09-29)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.13.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.3...@contentful/field-editor-shared@2.13.4) (2025-09-24)
+
+### Bug Fixes
+
+- **ReleaseEntityStatusBadge:** handle remainsDraft correctly [TOL-3393] ([#1941](https://github.com/contentful/field-editors/issues/1941)) ([0daab44](https://github.com/contentful/field-editors/commit/0daab441993b7718d86104b8fb7f82a4d98ca953))
+
 ## [2.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.2...@contentful/field-editor-shared@2.13.3) (2025-09-24)
 
 ### Bug Fixes

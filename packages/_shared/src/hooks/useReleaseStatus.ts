@@ -9,60 +9,28 @@ import type {
 } from 'contentful-management/types';
 
 import type {
-  ReleaseAction,
   ReleaseEntityStatus,
   ReleaseLocalesStatus,
+  ReleaseStatusMap,
   ReleaseV2Entity,
   ReleaseV2EntityWithLocales,
   ReleaseV2Props,
-  ReleaseStatusMap,
 } from '../types';
 import { getEntityStatus } from '../utils/entityHelpers';
+import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { sanitizeLocales } from '../utils/sanitizeLocales';
 
 function createReleaseLocaleStatus(
   locale: Pick<LocaleProps, 'code' | 'default' | 'name'>,
   status: ReleaseEntityStatus,
 ): ReleaseLocalesStatus {
-  switch (status) {
-    case 'published':
-      return {
-        variant: 'positive',
-        status,
-        label: 'Published',
-        locale,
-      };
-    case 'willPublish':
-      return {
-        variant: 'positive',
-        status: 'willPublish',
-        label: 'Will publish',
-        locale,
-      };
-    case 'becomesDraft':
-      return {
-        variant: 'warning',
-        status: 'becomesDraft',
-        label: 'Becomes draft',
-        locale,
-      };
-    case 'remainsDraft':
-      return {
-        variant: 'warning',
-        status: 'remainsDraft',
-        label: 'Remains draft',
-        locale,
-      };
-    case 'notInRelease':
-      return {
-        variant: 'secondary',
-        status: 'notInRelease',
-        label: 'Not in release',
-        locale,
-      };
-    default:
-      throw new Error(`Unknown release entity status: ${status}`);
-  }
+  const { label, variant } = getReleaseStatusBadgeConfig(status);
+  return {
+    variant,
+    status,
+    label,
+    locale,
+  };
 }
 
 function getReleaseItemLocaleStatus(
@@ -110,12 +78,17 @@ type UseActiveReleaseLocalesStatuses = {
   previousEntityOnTimeline?: EntryProps | AssetProps;
 };
 
+type UseRelaseStatus = {
+  releaseEntityStatus: ReleaseEntityStatus;
+  releaseStatusMap: ReleaseStatusMap;
+};
+
 export function useReleaseStatus({
   entity,
   release,
   locales,
   previousEntityOnTimeline,
-}: UseActiveReleaseLocalesStatuses) {
+}: UseActiveReleaseLocalesStatuses): UseRelaseStatus {
   const sanitizedLocales = useMemo(() => sanitizeLocales(locales), [locales]);
 
   const releaseStatusMap: ReleaseStatusMap = useMemo(() => {
@@ -155,25 +128,25 @@ export function useReleaseStatus({
     );
   }, [entity?.sys, previousEntityOnTimeline, release, sanitizedLocales]);
 
-  const releaseAction: ReleaseAction | undefined = useMemo(() => {
-    if (releaseStatusMap.size === 0) {
-      return undefined;
-    }
-
+  const releaseEntityStatus: ReleaseEntityStatus = useMemo(() => {
     const releaseArray = Array.from(releaseStatusMap.values());
     if (releaseArray.find(({ status }) => status === 'willPublish')) {
-      return 'publish';
+      return 'willPublish';
     }
 
-    if (releaseArray.find(({ status }) => status === 'becomesDraft' || status === 'remainsDraft')) {
-      return 'unpublish';
+    if (releaseArray.find(({ status }) => status === 'becomesDraft')) {
+      return 'becomesDraft';
     }
 
-    return 'not-in-release';
+    if (releaseArray.find(({ status }) => status === 'remainsDraft')) {
+      return 'remainsDraft';
+    }
+
+    return 'notInRelease';
   }, [releaseStatusMap]);
 
   return {
     releaseStatusMap,
-    releaseAction,
+    releaseEntityStatus,
   };
 }

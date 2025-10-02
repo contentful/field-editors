@@ -16,7 +16,7 @@ import {
   useReleaseStatus,
   type ReleaseStatusMap,
   type ReleaseV2Props,
-  type ReleaseAction,
+  type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -32,7 +32,7 @@ interface InternalEntryCard {
   localesStatusMap?: LocalePublishStatusMap;
   releaseStatusMap?: ReleaseStatusMap;
   release?: ReleaseV2Props;
-  releaseAction?: ReleaseAction;
+  releaseEntityStatus?: ReleaseEntityStatus;
 }
 
 const InternalEntryCard = React.memo(
@@ -42,7 +42,7 @@ const InternalEntryCard = React.memo(
     loadEntityScheduledActions,
     releaseStatusMap,
     release,
-    releaseAction,
+    releaseEntityStatus,
     isSelected,
     isDisabled,
     locale,
@@ -79,7 +79,7 @@ const InternalEntryCard = React.memo(
         }
         releaseStatusMap={releaseStatusMap}
         release={release}
-        releaseAction={releaseAction}
+        releaseEntityStatus={releaseEntityStatus}
       />
     );
   },
@@ -108,7 +108,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     [getEntityScheduledActions, entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
-  const { releaseStatusMap, releaseAction } = useReleaseStatus({
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
     entity: entry,
     previousEntityOnTimeline: currentEntity,
     locales: props.sdk.locales,
@@ -148,7 +148,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       localesStatusMap={localesStatusMap}
       releaseStatusMap={releaseStatusMap}
       release={props.sdk.release as ReleaseV2Props | undefined}
-      releaseAction={releaseAction}
+      releaseEntityStatus={releaseEntityStatus}
     />
   );
 };
