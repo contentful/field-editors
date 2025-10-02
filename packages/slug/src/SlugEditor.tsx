@@ -125,6 +125,8 @@ export function SlugEditor(props: SlugEditorProps) {
             'sys.publishedAt[exists]': true,
             limit: 0,
           },
+          // opt-out from timeline, to compare with current only for now
+          releaseId: undefined,
         })
         .then((res) => {
           return res.total === 0;

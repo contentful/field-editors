@@ -163,11 +163,14 @@ describe('SlugEditor', () => {
       await waitFor(() => {
         expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
         expect(sdk.cma.entry.getMany).toHaveBeenLastCalledWith({
-          content_type: 'content-type-id',
-          'fields.slug-id.en-US': 'slug-value',
-          limit: 0,
-          'sys.id[ne]': 'entry-id',
-          'sys.publishedAt[exists]': true,
+          query: {
+            content_type: 'content-type-id',
+            'fields.slug-id.en-US': 'slug-value',
+            limit: 0,
+            'sys.id[ne]': 'entry-id',
+            'sys.publishedAt[exists]': true,
+          },
+          releaseid: undefined,
         });
         expect(sdk.cma.entry.getMany).toHaveBeenCalledTimes(1);
         expect(queryByTestId('slug-editor-spinner')).not.toBeInTheDocument();
@@ -202,11 +205,14 @@ describe('SlugEditor', () => {
       await waitFor(() => {
         expect(titleField.onValueChanged).toHaveBeenCalledWith('en-US', expect.any(Function));
         expect(sdk.cma.entry.getMany).toHaveBeenLastCalledWith({
-          content_type: 'content-type-id',
-          'fields.slug-id.en-US': 'slug-value',
-          limit: 0,
-          'sys.id[ne]': 'entry-id',
-          'sys.publishedAt[exists]': true,
+          query: {
+            content_type: 'content-type-id',
+            'fields.slug-id.en-US': 'slug-value',
+            limit: 0,
+            'sys.id[ne]': 'entry-id',
+            'sys.publishedAt[exists]': true,
+          },
+          releaseid: undefined,
         });
         expect(sdk.cma.entry.getMany).toHaveBeenCalledTimes(1);
 
@@ -227,11 +233,14 @@ describe('SlugEditor', () => {
         expect(field.setValue).toHaveBeenCalledWith('123');
         expect(sdk.cma.entry.getMany).toHaveBeenCalledTimes(2);
         expect(sdk.cma.entry.getMany).toHaveBeenLastCalledWith({
-          content_type: 'content-type-id',
-          'fields.slug-id.en-US': '123',
-          limit: 0,
-          'sys.id[ne]': 'entry-id',
-          'sys.publishedAt[exists]': true,
+          query: {
+            content_type: 'content-type-id',
+            'fields.slug-id.en-US': '123',
+            limit: 0,
+            'sys.id[ne]': 'entry-id',
+            'sys.publishedAt[exists]': true,
+          },
+          releaseid: undefined,
         });
 
         expect(
