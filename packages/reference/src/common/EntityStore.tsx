@@ -603,6 +603,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       }
 
       const subscribeQuery = ({ queryKey, queryHash }: Query) => {
+        // FIXME releaseId - check before setQueryData
         const [entityType, entityId] = queryKey;
         entityChangeUnsubscribers.current[queryHash] = onEntityChanged(
           entityType,

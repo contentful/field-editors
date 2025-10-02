@@ -1,24 +1,24 @@
-import { FieldAppSDK } from '@contentful/app-sdk';
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import { ContentTypeProps } from 'contentful-management/types';
+import type { ContentTypeProps } from 'contentful-management/types';
 
 export async function fetchEntries(sdk: FieldAppSDK, contentType: ContentTypeProps, query: string) {
-  const entries = await sdk.space.getEntries({
-    content_type: contentType.sys.id,
-    query,
+  const entries = await sdk.cma.entry.getMany({
+    query: {
+      query,
+      content_type: contentType.sys.id,
+    },
   });
 
   return entries.items.map((entry) => {
     const description = entityHelpers.getEntityDescription({
       contentType,
-      // @ts-expect-error inconsistent in typing between app-sdk & field-editors-shared
       entity: entry,
       localeCode: sdk.field.locale,
       defaultLocaleCode: sdk.locales.default,
     });
 
     const displayTitle = entityHelpers.getEntryTitle({
-      // @ts-expect-error inconsistent in typing between app-sdk & field-editors-shared
       entry,
       contentType,
       localeCode: sdk.field.locale,
