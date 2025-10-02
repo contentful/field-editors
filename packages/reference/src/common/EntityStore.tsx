@@ -4,6 +4,7 @@ import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
 import { PlainClientAPI, ResourceProvider, fetchAll } from 'contentful-management';
+import { get } from 'lodash';
 import PQueue from 'p-queue';
 
 import {
@@ -603,13 +604,14 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       }
 
       const subscribeQuery = ({ queryKey, queryHash }: Query) => {
-        // FIXME releaseId - check before setQueryData
-        const [entityType, entityId] = queryKey;
+        const [entityType, entityId, , , releaseId] = queryKey;
         entityChangeUnsubscribers.current[queryHash] = onEntityChanged(
           entityType,
           entityId,
           (data: unknown) => {
-            queryClient.setQueryData(queryKey, data);
+            if (get(data, 'sys.release.id') === releaseId) {
+              queryClient.setQueryData(queryKey, data);
+            }
           },
         );
       };
