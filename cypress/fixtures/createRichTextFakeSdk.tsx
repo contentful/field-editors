@@ -1,14 +1,7 @@
 import React from 'react';
 import type { ReactElement } from 'react-markdown/lib/react-markdown';
 
-import type {
-  ContentType,
-  FieldAPI,
-  FieldAppSDK,
-  SearchQuery,
-  Entry,
-  Asset,
-} from '@contentful/app-sdk';
+import type { ContentType, FieldAPI, FieldAppSDK, Entry, Asset } from '@contentful/app-sdk';
 import {
   AssetCard,
   Button,
@@ -124,6 +117,20 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
 
           return store.get('Entry', entryId);
         },
+        getMany: async ({ query }) => {
+          const items: Entry[] =
+            !query || query.content_type === 'exampleCT'
+              ? [entries.published, entries.changed, entries.empty]
+              : [];
+
+          return Promise.resolve({
+            items,
+            total: items.length,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
       },
       asset: {
         get: async ({ assetId }) => {
@@ -132,6 +139,18 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           }
 
           return store.get('Asset', assetId);
+        },
+        getMany: async ({ query }) => {
+          const items: Asset[] = query
+            ? [assets.published as unknown as Asset, assets.changed as unknown as Asset]
+            : [];
+          return Promise.resolve({
+            items: query ? items : [],
+            total: items.length,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
         },
       },
       space: {
@@ -163,29 +182,6 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
     },
     space: {
       ...space,
-      getEntries(query?: SearchQuery) {
-        const items: Entry[] = [entries.published, entries.changed, entries.empty];
-        return Promise.resolve({
-          items: !query || query.content_type === 'exampleCT' ? items : [],
-          total: items.length,
-          skip: 0,
-          limit: 100,
-          sys: { type: 'Array' },
-        });
-      },
-      getAssets(query?: SearchQuery) {
-        const items: Asset[] = [
-          assets.published as unknown as Asset,
-          assets.changed as unknown as Asset,
-        ];
-        return Promise.resolve({
-          items: query ? items : [],
-          total: items.length,
-          skip: 0,
-          limit: 100,
-          sys: { type: 'Array' },
-        });
-      },
       getCachedContentTypes() {
         return localizeContentTypes(space.getCachedContentTypes());
       },

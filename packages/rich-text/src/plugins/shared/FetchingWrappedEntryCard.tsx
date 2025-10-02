@@ -58,7 +58,7 @@ const InternalEntryCard = React.memo(
     return (
       <WrappedEntryCard
         size="default"
-        getAsset={sdk.space.getAsset}
+        getAsset={(assetId) => sdk.cma.asset.get({ assetId })}
         getEntityScheduledActions={loadEntityScheduledActions}
         isSelected={isSelected}
         isDisabled={isDisabled}

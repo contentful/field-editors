@@ -2,7 +2,7 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
 
 export async function fetchAssets(sdk: FieldAppSDK, query: string) {
-  const assets = await sdk.space.getAssets({ query });
+  const assets = await sdk.cma.asset.getMany({ query: { query } });
 
   return assets.items.map((asset) => {
     const displayTitle = entityHelpers.getAssetTitle({
