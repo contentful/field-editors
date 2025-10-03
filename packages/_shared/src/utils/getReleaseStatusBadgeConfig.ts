@@ -66,5 +66,7 @@ export function getReleaseStatusBadgeConfig(status: ReleaseEntityStatus): {
         hover: tokens.green400,
         icon: tokens.green400,
       };
+    default:
+      throw new Error(`Unknown release entity status: ${status}`);
   }
 }
