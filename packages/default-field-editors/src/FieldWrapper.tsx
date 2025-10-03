@@ -71,6 +71,8 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       <ValidationErrors
         field={field}
         space={sdk.space}
+        // @ts-expect-error - needs to be shipped first before the typing is updated
+        cma={sdk.cma}
         locales={sdk.locales}
         getEntryURL={getEntryURL || defaultGetEntryUrl}
       />
