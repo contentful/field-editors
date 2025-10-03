@@ -25,8 +25,12 @@ type Status = {
 
 const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
   const status = secondary || tertiary;
-  const config = getReleaseStatusBadgeConfig(status);
-  return isHover ? config?.hover : config?.default;
+  if (!status) {
+    return;
+  }
+  return isHover
+    ? getReleaseStatusBadgeConfig(status).hover
+    : getReleaseStatusBadgeConfig(status).default;
 };
 
 const generateDynamicStyles = (status?: Status) => {
@@ -37,21 +41,23 @@ const generateDynamicStyles = (status?: Status) => {
         isHover: false,
       } as BadgeSVGType),
     },
-    '& svg[data-status="tertiary"]': {
-      fill: getColor({
-        tertiary: status?.tertiary,
-        isHover: false,
-      } as BadgeSVGType),
-    },
     '&:hover svg[data-status="secondary"]': {
       fill: getColor({
         secondary: status?.secondary,
         isHover: true,
       } as BadgeSVGType),
     },
-    '&:hover svg[data-status="tertiary"]': {
-      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
-    },
+    ...(status?.tertiary && {
+      '& svg[data-status="tertiary"]': {
+        fill: getColor({
+          tertiary: status?.tertiary,
+          isHover: false,
+        } as BadgeSVGType),
+      },
+      '&:hover svg[data-status="tertiary"]': {
+        fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
+      },
+    }),
   });
 
   return wrapperClass;
