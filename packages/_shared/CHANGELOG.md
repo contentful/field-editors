@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.6...@contentful/field-editor-shared@2.13.7) (2025-10-03)
+
+### Bug Fixes
+
+- [TOL-3475] Handle no tertiary status ([#1948](https://github.com/contentful/field-editors/issues/1948)) ([4d90674](https://github.com/contentful/field-editors/commit/4d90674d8df2477e44cccd88f3a8add38182e131))
+
 ## [2.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.5...@contentful/field-editor-shared@2.13.6) (2025-09-30)
 
 **Note:** Version bump only for package @contentful/field-editor-shared
