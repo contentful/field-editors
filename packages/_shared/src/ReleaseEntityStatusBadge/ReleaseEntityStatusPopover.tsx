@@ -35,18 +35,20 @@ const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
 
 const generateDynamicStyles = (status?: Status) => {
   const wrapperClass = css({
-    '& svg[data-status="secondary"]': {
-      fill: getColor({
-        secondary: status?.secondary,
-        isHover: false,
-      } as BadgeSVGType),
-    },
-    '&:hover svg[data-status="secondary"]': {
-      fill: getColor({
-        secondary: status?.secondary,
-        isHover: true,
-      } as BadgeSVGType),
-    },
+    ...(status?.secondary && {
+      '& svg[data-status="secondary"]': {
+        fill: getColor({
+          secondary: status?.secondary,
+          isHover: false,
+        } as BadgeSVGType),
+      },
+      '&:hover svg[data-status="secondary"]': {
+        fill: getColor({
+          secondary: status?.secondary,
+          isHover: true,
+        } as BadgeSVGType),
+      },
+    }),
     ...(status?.tertiary && {
       '& svg[data-status="tertiary"]': {
         fill: getColor({
