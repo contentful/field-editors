@@ -3,6 +3,7 @@ import * as React from 'react';
 import { FormControl } from '@contentful/f36-components';
 import type { FieldAppSDK, Entry } from '@contentful/field-editor-shared';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
+import type { PlainClientAPI } from 'contentful-management';
 import { cx } from 'emotion';
 
 import { styles } from './FieldWrapper.styles';
@@ -71,6 +72,8 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
       <ValidationErrors
         field={field}
         space={sdk.space}
+        // @ts-expect-error - outdated types
+        cma={sdk.cma as PlainClientAPI}
         locales={sdk.locales}
         getEntryURL={getEntryURL || defaultGetEntryUrl}
       />

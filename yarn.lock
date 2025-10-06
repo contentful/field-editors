@@ -2619,6 +2619,13 @@
   dependencies:
     contentful-management "^11.56.0"
 
+"@contentful/app-sdk@^4.45.0":
+  version "4.45.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.45.0.tgz#90424432ed3cd0e7a8886d1b2aef139b622077d4"
+  integrity sha512-3NCLi7B/VL17k3iMA+0hsycFn6mrDyKIE3LZPRfJjFtcFO7OVZwQ4Aysp0e2Hbatrppin3QIc8feTdg59JMNkQ==
+  dependencies:
+    contentful-management "^11.57.1"
+
 "@contentful/browserslist-config@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@contentful/browserslist-config/-/browserslist-config-3.0.0.tgz#e1cc8bc1cecaec9406633ffaf600fb489a204273"
@@ -9022,6 +9029,15 @@ axios@^1.11.0:
     form-data "^4.0.4"
     proxy-from-env "^1.1.0"
 
+axios@^1.12.2:
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.12.2.tgz#6c307390136cf7a2278d09cec63b136dfc6e6da7"
+  integrity sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.4"
+    proxy-from-env "^1.1.0"
+
 axios@^1.6.0, axios@^1.6.1, axios@^1.6.2:
   version "1.6.8"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.8.tgz#66d294951f5d988a00e87a0ffb955316a619ea66"
@@ -10694,7 +10710,18 @@ contentful-import@^9.0.0:
     p-queue "^6.6.2"
     yargs "^17.7.2"
 
-contentful-management@>=7.30.0, contentful-management@^11.0.0, contentful-management@^11.0.1, contentful-management@^11.15.0, contentful-management@^11.35.1, contentful-management@^11.45.1, contentful-management@^11.52.2:
+contentful-management@11.60.4, contentful-management@^11.57.1:
+  version "11.60.4"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-11.60.4.tgz#16471806ffcad5cbb847d1a69b2c0d147f6350eb"
+  integrity sha512-sfdth9Tg6v/yH6o2NwctTXilyn6dN5ITGm4REk2FIiYgK06BqcUYvqT9KljPoL+aHjB6mE9qzarzxZHISnOXaA==
+  dependencies:
+    "@contentful/rich-text-types" "^16.6.1"
+    axios "^1.12.2"
+    contentful-sdk-core "^9.0.1"
+    fast-copy "^3.0.0"
+    globals "^15.15.0"
+
+contentful-management@>=7.30.0, contentful-management@^11.0.0, contentful-management@^11.0.1, contentful-management@^11.15.0, contentful-management@^11.35.1, contentful-management@^11.45.1:
   version "11.52.2"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-11.52.2.tgz#1392830ea0d2bef9099377dc3e3614eba26339e2"
   integrity sha512-d/7ydc4HOVKNqT789T9hL0fu4i1U1AthjQV+PfJevwZo4JyzNvh2I5wpaJUqV859bJHSNsTfV6gdtLHg9bx0bA==

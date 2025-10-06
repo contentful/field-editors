@@ -47,6 +47,12 @@ const createEntry = (id: string) => ({
   },
 });
 
+const cma = {
+  entry: {
+    getMany: jest.fn().mockReturnValue({ items: [] }),
+  },
+};
+
 describe('ValidationErrors', () => {
   afterEach(cleanup);
 
@@ -56,6 +62,8 @@ describe('ValidationErrors', () => {
     const { container } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
+        cma={cma}
         // @ts-expect-error - partial mock
         space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
@@ -80,6 +88,8 @@ describe('ValidationErrors', () => {
     const { findByText } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
+        cma={cma}
         // @ts-expect-error - partial mock
         space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
@@ -118,14 +128,15 @@ describe('ValidationErrors', () => {
     const space = utils.createFakeSpaceAPI((api) => ({
       ...api,
       getCachedContentTypes,
-      getEntries: jest.fn().mockResolvedValue({
-        items: ids.map(createEntry),
-      }),
     }));
+
+    cma.entry.getMany.mockResolvedValue({ items: ids.map(createEntry) });
 
     const { findByText, findAllByTestId } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
+        cma={cma}
         // @ts-expect-error - partial mock
         space={space}
         locales={utils.createFakeLocalesAPI()}
