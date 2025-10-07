@@ -130,6 +130,10 @@ export function useReleaseStatus({
 
   const releaseEntityStatus: ReleaseEntityStatus = useMemo(() => {
     const releaseArray = Array.from(releaseStatusMap.values());
+    if (releaseArray.find(({ status }) => status === 'published')) {
+      return 'published';
+    }
+
     if (releaseArray.find(({ status }) => status === 'willPublish')) {
       return 'willPublish';
     }
