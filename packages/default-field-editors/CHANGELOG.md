@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.8.19...@contentful/default-field-editors@2.0.0) (2025-10-07)
+
+### Features
+
+- migrate remaining space.getEntries [TOL-1684][TOL-3476] ([#1949](https://github.com/contentful/field-editors/issues/1949)) ([d48f8c8](https://github.com/contentful/field-editors/commit/d48f8c84457378003e103da8c608e0c3c4c63413))
+
+### BREAKING CHANGES
+
+- Validation errors are depending the `sdk.cma` as a property now
+
 ## [1.8.19](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@1.8.18...@contentful/default-field-editors@1.8.19) (2025-10-03)
 
 **Note:** Version bump only for package @contentful/default-field-editors

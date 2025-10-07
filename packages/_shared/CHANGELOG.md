@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.7...@contentful/field-editor-shared@2.13.8) (2025-10-07)
+
+### Bug Fixes
+
+- **ReleaseEntityStatusPopover:** [TOL-3475]: Check secondary status before applying styles ([#1950](https://github.com/contentful/field-editors/issues/1950)) ([5f8737e](https://github.com/contentful/field-editors/commit/5f8737e070c6703e18fefadaa75a50046dcee3fa))
+
 ## [2.13.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.6...@contentful/field-editor-shared@2.13.7) (2025-10-03)
 
 ### Bug Fixes
