@@ -201,6 +201,7 @@ describe('useReleaseStatus', () => {
           label: 'Published',
           locale: { code: 'en-US' },
         });
+        expect(result.current.releaseEntityStatus).toBe('published');
       });
     });
 
@@ -299,6 +300,7 @@ describe('useReleaseStatus', () => {
           label: 'Published',
           locale: { code: 'en-US' },
         });
+        expect(result.current.releaseEntityStatus).toBe('published');
       });
     });
   });
