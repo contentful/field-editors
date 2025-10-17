@@ -164,6 +164,7 @@ const RichTextEditor = (props: RichTextProps) => {
           isDisabled={disabled}
           onChange={setValue}
           restrictedMarks={restrictedMarks}
+          withCharValidation={props.withCharValidation ?? true}
         />
       )}
     </FieldConnector>

@@ -39,10 +39,6 @@ export const withCharCounter = (editor: PlateEditor) => {
       case 'remove_node':
         updateCount(-Node.string(op.node).length);
         break;
-
-      default:
-        console.log({ op });
-        break;
     }
 
     apply(op);
