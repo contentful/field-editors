@@ -9,6 +9,7 @@ import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 
+import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
 import { toSlateValue } from './helpers/toSlateValue';
@@ -37,6 +38,7 @@ type RichTextProps = {
    * @deprecated Use `sdk.field.onValueChanged` instead
    */
   onChange?: (doc: Contentful.Document) => unknown;
+  withCharValidation?: boolean;
 };
 
 type ConnectedRichTextProps = {
@@ -51,6 +53,7 @@ type ConnectedRichTextProps = {
   isToolbarHidden?: boolean;
   actionsDisabled?: boolean;
   stickyToolbarOffset?: number;
+  withCharValidation?: boolean;
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
@@ -112,6 +115,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
                   defaultScrollSelectionIntoView as PlateContentProps['scrollSelectionIntoView']
                 }
               />
+              {props.withCharValidation && <CharConstraints />}
             </Plate>
           </div>
         </ContentfulEditorIdProvider>
