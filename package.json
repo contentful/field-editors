@@ -174,7 +174,7 @@
     ]
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=22",
     "yarn": ">=1.21.1"
   },
   "config": {
@@ -183,7 +183,7 @@
     }
   },
   "volta": {
-    "node": "20",
+    "node": "22",
     "yarn": "1.21.1"
   },
   "publishConfig": {
