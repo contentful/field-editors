@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-radio",
-  "version": "1.7.16",
+  "version": "1.7.17",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -38,8 +38,8 @@
   "dependencies": {
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
-    "@contentful/field-editor-dropdown": "^1.8.16",
-    "@contentful/field-editor-shared": "^2.13.9",
+    "@contentful/field-editor-dropdown": "^1.8.17",
+    "@contentful/field-editor-shared": "^2.13.10",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "nanoid": "^3.1.3"

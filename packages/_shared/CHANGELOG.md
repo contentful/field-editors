@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.9...@contentful/field-editor-shared@2.13.10) (2025-10-21)
+
+### Bug Fixes
+
+- deploy playground to vercel [TOL-3428] ([#1956](https://github.com/contentful/field-editors/issues/1956)) ([5bd6193](https://github.com/contentful/field-editors/commit/5bd6193409cf70518ad336ed5224652d15dc36a9))
+
 ## [2.13.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.8...@contentful/field-editor-shared@2.13.9) (2025-10-07)
 
 ### Bug Fixes
