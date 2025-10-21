@@ -6,7 +6,7 @@ Please take a moment to review this document in order to make the contribution p
 
 ### Requirements
 
-- Node.js: `>=22.20.0`
+- Node.js: `>=16.18.0`
 - Yarn: `>=1.21.1`
 
 To install all dependencies and build all packages run the following commands from the root of the project.
