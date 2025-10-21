@@ -4,19 +4,15 @@ orbs:
   vault: contentful/vault@1
 
 executors:
-  linux-node:
-    resource_class: xlarge
-    docker:
-      - image: cimg/node:22.20.0
-    environment:
-      CYPRESS_INSTALL_BINARY: 0
-  linux-cypress:
-    resource_class: xlarge
+  cypress-base:
     docker:
       - image: cypress/browsers:node-22.20.0-chrome-141.0.7390.107-1-ff-144.0-edge-141.0.3537.85-1
     environment:
-      TZ: UTC
-      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+      NODE_ENV: test
+      UI_CONFIG: localhost
+  node-base:
+    docker:
+      - image: cimg/node:22.20.0
 
 #  macos:
 #    macos:
@@ -63,7 +59,7 @@ jobs:
 
   component-tests:
     parallelism: 3
-    executor: linux-cypress
+    executor: cypress-base
     steps:
       - checkout
       - yarn_install
@@ -77,8 +73,6 @@ jobs:
               --reporter junit \
               --reporter-options "mochaFile=./cypress/reports/component/test-results.[hash].xml" \
               --browser chrome
-      - vault/get-secrets:
-          template-preset: packages-read
       - run: |
           echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
           echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
