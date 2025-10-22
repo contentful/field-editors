@@ -2646,6 +2646,35 @@
   dependencies:
     "@contentful/rich-text-types" "^16.3.5"
 
+"@contentful/default-field-editors@^1.7.17":
+  version "1.8.19"
+  resolved "https://registry.yarnpkg.com/@contentful/default-field-editors/-/default-field-editors-1.8.19.tgz#fb5c95be7f4f9e31c509390c4b5b12df070ea57f"
+  integrity sha512-Qoo4xyLMRx9CnnEOSCHpk44kNF13LmNQEOvm5ot00TmBA4tg4ZoIOvo4tbFuCrTtvErFnBIAvr6qEehVqCs+CQ==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/field-editor-boolean" "^1.7.14"
+    "@contentful/field-editor-checkbox" "^1.6.14"
+    "@contentful/field-editor-date" "^1.9.14"
+    "@contentful/field-editor-dropdown" "^1.8.14"
+    "@contentful/field-editor-json" "^3.5.14"
+    "@contentful/field-editor-list" "^1.6.14"
+    "@contentful/field-editor-location" "^1.5.14"
+    "@contentful/field-editor-markdown" "^1.12.7"
+    "@contentful/field-editor-multiple-line" "^1.6.14"
+    "@contentful/field-editor-number" "^1.5.14"
+    "@contentful/field-editor-radio" "^1.7.14"
+    "@contentful/field-editor-rating" "^1.6.15"
+    "@contentful/field-editor-reference" "^6.13.9"
+    "@contentful/field-editor-rich-text" "^4.13.9"
+    "@contentful/field-editor-shared" "^2.13.7"
+    "@contentful/field-editor-single-line" "^1.8.14"
+    "@contentful/field-editor-slug" "^1.8.14"
+    "@contentful/field-editor-tags" "^1.7.14"
+    "@contentful/field-editor-url" "^1.5.14"
+    "@contentful/field-editor-validation-errors" "^1.7.7"
+    contentful-management "^11.0.0"
+    emotion "^10.0.27"
+
 "@contentful/f36-accordion@^5.4.1":
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/@contentful/f36-accordion/-/f36-accordion-5.4.1.tgz#7fe72652ff2639acbacb8803943837b9e40bdc9a"
@@ -3416,6 +3445,21 @@
     emotion "^10.0.17"
     lodash "^4.17.15"
 
+"@contentful/field-editor-slug@^1.8.14":
+  version "1.8.14"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-slug/-/field-editor-slug-1.8.14.tgz#b779c5e5dfad1943988d475cc6966ada3a7f3b20"
+  integrity sha512-RNDf39f0fTFV51CnVGUH5LnQe4O+qCDSi8EOotVrqjMP2s9jw0wBqm5HseNO4UX5xPanXW3x2P9h0cldOA/WGA==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^2.13.7"
+    "@types/speakingurl" "^13.0.2"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    speakingurl "^14.0.1"
+    use-debounce "^10.0.0"
+
 "@contentful/field-editor-test-utils@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-test-utils/-/field-editor-test-utils-0.14.0.tgz#8fcd2a41b9a0203dc00718b3aa4f5602b2d25cc5"
@@ -3427,6 +3471,17 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
     mitt "2.1.0"
+
+"@contentful/field-editor-validation-errors@^1.7.7":
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/@contentful/field-editor-validation-errors/-/field-editor-validation-errors-1.7.7.tgz#e3037948a517ea9a59ea1b399ba562a1d30edb11"
+  integrity sha512-nqSowCCkVBqrKLrv36Vu4101vJEDkALvv6ojh283v0TysSJr+HwPc18CY4lielq874E1XEEjs0X5dhrh+3+Nqg==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^2.13.7"
+    emotion "^10.0.17"
 
 "@contentful/forma-36-fcss@^0.3.5":
   version "0.3.5"
@@ -20133,6 +20188,11 @@ p-cancelable@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-3.0.0.tgz#63826694b54d61ca1c20ebcb6d3ecf5e14cd8050"
   integrity sha512-mlVgR3PGuzlo0MmTdk4cXqXWlwQDLnONTAg6sm62XkMJEiRxN3GL3SffkYvqwonbkJBcrI7Uvv5Zh9yjvn2iUw==
+
+p-debounce@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/p-debounce/-/p-debounce-2.1.0.tgz#e79f70c6e325cbb9bddbcbec0b81025084671ad3"
+  integrity sha512-M9bMt62TTnozdZhqFgs+V7XD2MnuKCaz+7fZdlu2/T7xruI3uIE5CicQ0vx1hV7HIUYF0jF+4/R1AgfOkl74Qw==
 
 p-finally@^1.0.0:
   version "1.0.0"
