@@ -69,7 +69,8 @@
     "slate": "0.94.1",
     "slate-history": "0.100.0",
     "slate-hyperscript": "0.77.0",
-    "slate-react": "0.102.0"
+    "slate-react": "0.102.0",
+    "p-debounce": "^2.1.0"
   },
   "peerDependencies": {
     "@lingui/core": "^5.3.0",

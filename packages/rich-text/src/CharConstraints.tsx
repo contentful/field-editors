@@ -35,8 +35,7 @@ function CharCounter({ checkConstraints }: CharCounterProps) {
       data-status-code={valid ? null : 'invalid-size'}
       className={cx({
         [styles.counterInvalid]: !valid,
-      })}
-    >
+      })}>
       {count} characters
     </span>
   );
