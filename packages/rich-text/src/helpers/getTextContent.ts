@@ -1,6 +1,7 @@
-import type { Node, PlateEditor } from '../../internal/types';
-import { isText } from '../../internal';
 import { BLOCKS } from '@contentful/rich-text-types';
+
+import { isText } from '../internal';
+import type { Node, PlateEditor } from '../internal/types';
 
 const blocks = new Set(Object.values(BLOCKS) as string[]);
 

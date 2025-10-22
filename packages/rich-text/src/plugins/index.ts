@@ -3,7 +3,6 @@ import { PlateProps } from '@udecode/plate-common';
 
 import { PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
-import { createCharCounterPlugin } from './CharCounter';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
 import { createDeserializeDocxPlugin } from './DeserializeDocx';
@@ -75,8 +74,6 @@ export const getPlugins = (
 
   // Pasting content from other sources
   createPasteHTMLPlugin(),
-
-  createCharCounterPlugin(),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.

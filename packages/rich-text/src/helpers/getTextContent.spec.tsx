@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '../../test-utils';
-import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import { getTextContent } from './utils';
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+
+import { jsx } from '../test-utils';
+import { getTextContent } from './getTextContent';
+
 
 describe('getTextContent', () => {
   const cases = [

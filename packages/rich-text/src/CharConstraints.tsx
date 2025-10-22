@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { CharValidation, ConstraintsUtils } from '@contentful/field-editor-shared';
 import { css, cx } from 'emotion';
+import debounce from 'p-debounce';
 
+import { getContentfulEditorId } from './ContentfulEditorProvider';
+import { getTextContent } from './helpers/getTextContent';
 import { usePlateEditorState } from './internal/hooks';
+import type { PlateEditor } from './internal/types';
 import { useSdkContext } from './SdkProvider';
 
 const styles = {
@@ -24,11 +28,20 @@ interface CharCounterProps {
   checkConstraints: (value: number) => boolean;
 }
 
-function CharCounter({ checkConstraints }: CharCounterProps) {
-  const editor = usePlateEditorState();
+const getCharacterCount = debounce((editor: PlateEditor) => {
+  return getTextContent(editor).length;
+}, 300);
 
-  const count = editor.getCharacterCount();
+function CharCounter({ checkConstraints }: CharCounterProps) {
+  const sdk = useSdkContext();
+  const editor = usePlateEditorState(getContentfulEditorId(sdk));
+
+  const [count, setCount] = useState(0);
   const valid = checkConstraints(count);
+
+  useEffect(() => {
+    getCharacterCount(editor).then(setCount);
+  }, [editor]);
 
   return (
     <span
