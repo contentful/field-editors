@@ -3,6 +3,8 @@ import debounce from 'p-debounce';
 import { PlateEditor } from '../../internal';
 import { getTextContent } from './utils';
 
+const CHARACTER_COUNT_DEBOUNCE_TIME = 300;
+
 export const withCharCounter = (editor: PlateEditor) => {
   const { apply } = editor;
 
@@ -18,7 +20,7 @@ export const withCharCounter = (editor: PlateEditor) => {
 
   const recount = debounce(async () => {
     count = getTextContent(editor).length;
-  }, 300);
+  }, CHARACTER_COUNT_DEBOUNCE_TIME);
 
   editor.apply = (op) => {
     apply(op);
