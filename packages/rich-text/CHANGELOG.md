@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.13...@contentful/field-editor-rich-text@4.14.0) (2025-10-22)
+
+### Features
+
+- **rich-text:** add character validation ([#1955](https://github.com/contentful/field-editors/issues/1955)) ([cce2a9d](https://github.com/contentful/field-editors/commit/cce2a9df032aee03d84f08ddf513f1693fdae661))
+
 ## [4.13.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.12...@contentful/field-editor-rich-text@4.13.13) (2025-10-22)
 
 ### Bug Fixes

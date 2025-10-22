@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.10...@contentful/field-editor-shared@2.14.0) (2025-10-22)
+
+### Features
+
+- **rich-text:** add character validation ([#1955](https://github.com/contentful/field-editors/issues/1955)) ([cce2a9d](https://github.com/contentful/field-editors/commit/cce2a9df032aee03d84f08ddf513f1693fdae661))
+
 ## [2.13.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.9...@contentful/field-editor-shared@2.13.10) (2025-10-21)
 
 ### Bug Fixes
