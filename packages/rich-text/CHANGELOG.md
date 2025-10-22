@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.14.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.14.0...@contentful/field-editor-rich-text@4.14.1) (2025-10-22)
+
+### Bug Fixes
+
+- **rich-text:** compute count for initial value ([#1959](https://github.com/contentful/field-editors/issues/1959)) ([2bcadbf](https://github.com/contentful/field-editors/commit/2bcadbf1c209e534718c4f348f1901a4f478bded))
+
 # [4.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.13...@contentful/field-editor-rich-text@4.14.0) (2025-10-22)
 
 ### Features
