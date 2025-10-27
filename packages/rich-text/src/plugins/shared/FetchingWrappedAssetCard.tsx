@@ -98,7 +98,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { data: asset, status, currentEntity } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Asset', props.assetId),
+    () => getEntityScheduledActions(props.assetId),
     [getEntityScheduledActions, props.assetId],
   );
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);

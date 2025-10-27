@@ -37,7 +37,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Asset', props.assetId),
+    () => getEntityScheduledActions(props.assetId),
     [getEntityScheduledActions, props.assetId],
   );
   const activeLocales = useActiveLocales(props.sdk);

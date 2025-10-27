@@ -101,7 +101,12 @@ type ResourceProviderQueryKey = [
   appDefinitionId: string,
 ];
 
-type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
+type ScheduledActionsQueryKey = [
+  'spaces',
+  string,
+  'scheduled_actions',
+  { query: Record<string, unknown> },
+];
 
 export type FunctionInvocationErrorResponse = {
   status: number;
@@ -483,7 +488,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
      */
     const getEntityScheduledActions = useCallback(
       function getEntityScheduledActions(
-        entityType: FetchableEntityType,
         entityId: string,
         options?: GetEntityOptions,
       ): QueryEntityResult<ScheduledAction[]> {
@@ -492,38 +496,31 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           return new Promise<ScheduledAction[]>((resolve) => resolve([]));
         }
 
-        // This is fixed to force the cache to reuse previous results
-        const fixedEntityCacheId = 'scheduledActionEntityId';
-
-        // A space+environment combo can only have up to 500 scheduled actions
+        // A space+environment combo can only have up to 500 scheduled actions (1000 soon, see: https://github.com/contentful/user_interface/pull/28351)
         // With this request we fetch all schedules and can reuse the results.
         // See https://www.contentful.com/developers/docs/references/content-management-api/#/reference/scheduled-actions/limitations
-        const maxScheduledActions = 500;
+        const maxScheduledActions = 1000;
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
+        const query = {
+          'environment.sys.id': environmentId,
+          'sys.status': 'scheduled',
+          'entity.sys.linkType[in]': 'Entry,Asset',
+          order: '-scheduledFor.datetime',
+          limit: maxScheduledActions,
+        };
         const queryKey: ScheduledActionsQueryKey = [
-          'scheduled-actions',
-          entityType,
-          fixedEntityCacheId,
+          'spaces',
           spaceId,
-          environmentId,
-          releaseId,
+          'scheduled_actions',
+          { query },
         ];
 
         // Fetch + Filter by entity ID in the end
         return fetch(
           queryKey,
           async ({ cmaClient }) => {
-            const response = await cmaClient.scheduledActions.getMany({
-              spaceId,
-              query: {
-                'environment.sys.id': environmentId,
-                'sys.status[in]': 'scheduled',
-                order: 'scheduledFor.datetime',
-                limit: maxScheduledActions,
-              },
-            });
-
+            const response = await cmaClient.scheduledActions.getMany({ spaceId, query });
             return response.items;
           },
           options,

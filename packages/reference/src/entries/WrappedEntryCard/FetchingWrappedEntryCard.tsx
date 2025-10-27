@@ -67,7 +67,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
-    () => getEntityScheduledActions('Entry', props.entryId),
+    () => getEntityScheduledActions(props.entryId),
     [getEntityScheduledActions, props.entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
