@@ -76,6 +76,7 @@ type UseActiveReleaseLocalesStatuses = {
   locales: LocaleProps[] | LocalesAPI;
   release?: ReleaseProps | ReleaseV2Props;
   previousEntityOnTimeline?: EntryProps | AssetProps;
+  isReference?: boolean;
 };
 
 type UseRelaseStatus = {
@@ -88,6 +89,7 @@ export function useReleaseStatus({
   release,
   locales,
   previousEntityOnTimeline,
+  isReference = false,
 }: UseActiveReleaseLocalesStatuses): UseRelaseStatus {
   const sanitizedLocales = useMemo(() => sanitizeLocales(locales), [locales]);
 
@@ -108,7 +110,10 @@ export function useReleaseStatus({
     if (!releaseItem) {
       return new Map(
         sanitizedLocales.map((locale) => {
-          if (['published', 'changed'].includes(getEntityStatus(entity.sys, locale.code))) {
+          if (
+            isReference &&
+            ['published', 'changed'].includes(getEntityStatus(entity.sys, locale.code))
+          ) {
             return [locale.code, createReleaseLocaleStatus(locale, 'published')];
           }
 
@@ -126,7 +131,7 @@ export function useReleaseStatus({
         ),
       ]),
     );
-  }, [entity?.sys, previousEntityOnTimeline, release, sanitizedLocales]);
+  }, [entity.sys, isReference, previousEntityOnTimeline, release, sanitizedLocales]);
 
   const releaseEntityStatus: ReleaseEntityStatus = useMemo(() => {
     const releaseArray = Array.from(releaseStatusMap.values());
