@@ -3,16 +3,17 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@contentful/app-sdk": "^4.17.1",
+    "@contentful/app-sdk": "^4.42.0",
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
-    "@contentful/field-editor-rich-text": "^4.12.2",
+    "@contentful/field-editor-rich-text": "^4.12.1",
     "@contentful/field-editor-single-line": "^1.8.5",
+    "@contentful/react-apps-toolkit": "1.2.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "scripts": {
-    "start": "cross-env SKIP_PREFLIGHT_CHECK=true BROWSER=none react-scripts start",
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true BROWSER=none PORT=3001 react-scripts start",
     "build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
