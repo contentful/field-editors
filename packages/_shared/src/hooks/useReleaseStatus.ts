@@ -131,7 +131,7 @@ export function useReleaseStatus({
         ),
       ]),
     );
-  }, [entity.sys, isReference, previousEntityOnTimeline, release, sanitizedLocales]);
+  }, [entity?.sys, isReference, previousEntityOnTimeline, release, sanitizedLocales]);
 
   const releaseEntityStatus: ReleaseEntityStatus = useMemo(() => {
     const releaseArray = Array.from(releaseStatusMap.values());
