@@ -488,6 +488,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
      */
     const getEntityScheduledActions = useCallback(
       function getEntityScheduledActions(
+        _: FetchableEntityType,
         entityId: string,
         options?: GetEntityOptions,
       ): QueryEntityResult<ScheduledAction[]> {

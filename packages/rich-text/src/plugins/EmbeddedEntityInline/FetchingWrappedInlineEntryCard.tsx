@@ -160,7 +160,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
   return (
     <InternalFetchingWrappedInlineEntryCard
       allContentTypes={props.sdk.space.getCachedContentTypes()}
-      getEntityScheduledActions={() => getEntityScheduledActions(props.entryId)}
+      getEntityScheduledActions={() => getEntityScheduledActions('Entry', props.entryId)}
       locale={props.sdk.field.locale}
       defaultLocale={props.sdk.locales.default}
       entry={entry}
