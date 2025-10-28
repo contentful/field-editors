@@ -1,45 +1,58 @@
 import { renderHook } from '@testing-library/react';
 import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management';
 
-import type { ReleaseV2Entity, ReleaseV2EntityWithLocales, ReleaseV2Props } from '../types';
+import type {
+  ReleaseEntityStatus,
+  ReleaseV2Entity,
+  ReleaseV2EntityWithLocales,
+  ReleaseV2Props,
+} from '../types';
 import type { PublishStatus } from './useLocalePublishStatus';
 import { useReleaseStatus } from './useReleaseStatus';
 
-const buildEntry = (status: PublishStatus, id: string = 'entry-1') =>
-  ({
-    sys: {
-      id,
-      type: 'Entry',
-      fieldStatus: {
-        '*': { 'en-US': status },
-      },
-      version: 3,
-      publishedVersion: status === 'published' ? 2 : undefined,
-    },
-  }) as unknown as EntryProps;
+type EntityType = 'Entry' | 'Asset';
 
-const buildAsset = (status: PublishStatus, id: string = 'asset-1') =>
-  ({
-    sys: {
-      id,
-      type: 'Asset',
-      fieldStatus: {
-        '*': { 'en-US': status },
-      },
-      version: 3,
-      publishedVersion: status === 'published' ? 2 : undefined,
+interface EntityBuilder {
+  withStatus: (status: PublishStatus) => EntryProps | AssetProps;
+  withId: (id: string) => EntityBuilder;
+}
+
+const createEntityBuilder = (entityType: EntityType, defaultId: string): EntityBuilder => {
+  let currentId = defaultId;
+
+  return {
+    withId(id: string) {
+      currentId = id;
+      return this;
     },
-  }) as unknown as AssetProps;
+    withStatus(status: PublishStatus) {
+      return {
+        sys: {
+          id: currentId,
+          type: entityType,
+          fieldStatus: {
+            '*': { 'en-US': status },
+          },
+          version: 3,
+          publishedVersion: status === 'published' ? 2 : undefined,
+        },
+      } as unknown as EntryProps | AssetProps;
+    },
+  };
+};
+
+const entryBuilder = () => createEntityBuilder('Entry', 'entry-1');
+const assetBuilder = () => createEntityBuilder('Asset', 'asset-1');
 
 const createEntryBasedReleaseEntity = ({
-  entityId = 'entry-1',
+  entityId,
   action = 'publish',
-  entityType = 'Entry',
+  entityType,
 }: {
-  entityId?: string;
+  entityId: string;
   action?: 'publish' | 'unpublish';
-  entityType?: 'Entry' | 'Asset';
-}) =>
+  entityType: EntityType;
+}): ReleaseV2Entity =>
   ({
     entity: {
       sys: { type: 'Link', linkType: entityType, id: entityId },
@@ -50,8 +63,12 @@ const createEntryBasedReleaseEntity = ({
 const createEntryBasedRelease = ({
   entityId,
   action,
-  entityType = 'Entry',
-}: { entityId?: string; action?: 'publish' | 'unpublish'; entityType?: 'Entry' | 'Asset' } = {}) =>
+  entityType,
+}: {
+  entityId: string;
+  action?: 'publish' | 'unpublish';
+  entityType: EntityType;
+}): ReleaseV2Props =>
   ({
     title: 'Release 1',
     sys: { id: 'release-1', type: 'Release', schemaVersion: 'Release.v2' },
@@ -59,14 +76,14 @@ const createEntryBasedRelease = ({
   }) as ReleaseV2Props;
 
 const createLocaleBasedReleaseEntity = ({
-  entityId = 'entry-1',
+  entityId,
   verb = 'add',
-  entityType = 'Entry',
+  entityType,
 }: {
-  entityId?: string;
+  entityId: string;
   verb?: 'add' | 'remove';
-  entityType?: 'Entry' | 'Asset';
-}) =>
+  entityType: EntityType;
+}): ReleaseV2EntityWithLocales =>
   ({
     entity: {
       sys: { type: 'Link', linkType: entityType, id: entityId },
@@ -79,45 +96,68 @@ const createLocaleBasedReleaseEntity = ({
 const createLocaleBasedRelease = ({
   entityId,
   verb,
-  entityType = 'Entry',
-}: { entityId?: string; verb?: 'add' | 'remove'; entityType?: 'Entry' | 'Asset' } = {}) =>
+  entityType,
+}: {
+  entityId: string;
+  verb?: 'add' | 'remove';
+  entityType: EntityType;
+}): ReleaseV2Props =>
   ({
     title: 'Release 1',
     sys: { id: 'release-1', type: 'Release', schemaVersion: 'Release.v2' },
     entities: { items: [createLocaleBasedReleaseEntity({ entityId, verb, entityType })] },
   }) as ReleaseV2Props;
 
-const ENTITY_TYPES = ['Entry', 'Asset'] as const;
-describe('useReleaseStatus', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+const createDefaultLocales = (): LocaleProps[] => [{ code: 'en-US' } as LocaleProps];
 
+interface ExpectedStatus {
+  variant: 'positive' | 'warning' | 'secondary';
+  status: ReleaseEntityStatus;
+  label: string;
+  locale: { code: string };
+}
+
+const expectLocaleStatus = (
+  result: ReturnType<typeof useReleaseStatus>,
+  localeCode: string,
+  expected: ExpectedStatus,
+) => {
+  expect(result.releaseStatusMap.get(localeCode)).toEqual(expected);
+};
+
+const expectEntityStatus = (
+  result: ReturnType<typeof useReleaseStatus>,
+  expectedStatus: ReleaseEntityStatus,
+) => {
+  expect(result.releaseEntityStatus).toBe(expectedStatus);
+};
+
+const ENTITY_TYPES: EntityType[] = ['Entry', 'Asset'];
+
+describe('useReleaseStatus', () => {
   ENTITY_TYPES.forEach((entityType) => {
-    const entityId = entityType === 'Entry' ? 'entry-1' : 'asset-1';
-    const baseParams = {
-      locales: [{ code: 'en-US' } as LocaleProps],
+    const defaultEntityId = entityType === 'Entry' ? 'entry-1' : 'asset-1';
+    const differentEntityId = entityType === 'Entry' ? 'entry-2' : 'asset-2';
+    const locales = createDefaultLocales();
+
+    const buildEntity = (status: PublishStatus): EntryProps | AssetProps => {
+      const builder = entityType === 'Entry' ? entryBuilder() : assetBuilder();
+      return builder.withStatus(status);
     };
 
-    function buildEntity(status: 'published' | 'changed' | 'draft') {
-      return entityType === 'Entry' ? buildEntry(status) : buildAsset(status);
-    }
-
-    describe(`${entityType} with entry based publishing`, () => {
-      it('returns Will publish status when active release has publish action', () => {
+    describe(`${entityType} as reference with entry-based publishing`, () => {
+      it('returns "Will publish" status when entity is in release with publish action', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             previousEntityOnTimeline: buildEntity('draft'),
-            release: createEntryBasedRelease({
-              entityId,
-              entityType,
-            }),
+            release: createEntryBasedRelease({ entityId: defaultEntityId, entityType }),
             entity: buildEntity('published'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'positive',
           status: 'willPublish',
           label: 'Will publish',
@@ -125,17 +165,22 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns Becomes draft status when previous version has published locales and active version has unpublish action', () => {
+      it('returns "Becomes draft" status when previously published entity has unpublish action', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             previousEntityOnTimeline: buildEntity('published'),
-            release: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
+            release: createEntryBasedRelease({
+              action: 'unpublish',
+              entityId: defaultEntityId,
+              entityType,
+            }),
             entity: buildEntity('draft'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'warning',
           status: 'becomesDraft',
           label: 'Becomes draft',
@@ -143,17 +188,22 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns Remains draft status when previous version has draft locales and active version has unpublish action', () => {
+      it('returns "Remains draft" status when previously draft entity has unpublish action', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             previousEntityOnTimeline: buildEntity('draft'),
-            release: createEntryBasedRelease({ action: 'unpublish', entityId, entityType }),
+            release: createEntryBasedRelease({
+              action: 'unpublish',
+              entityId: defaultEntityId,
+              entityType,
+            }),
             entity: buildEntity('draft'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'warning',
           status: 'remainsDraft',
           label: 'Remains draft',
@@ -161,20 +211,21 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns Not in release status when entity is not in the release', () => {
+      it('returns "Not in release" status when entity is draft and not in release', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             release: createEntryBasedRelease({
-              entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
+              entityId: differentEntityId,
               action: 'publish',
               entityType,
             }),
             entity: buildEntity('draft'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'secondary',
           status: 'notInRelease',
           label: 'Not in release',
@@ -182,41 +233,43 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns published when not in release but already published', () => {
+      it('returns "Published" status when entity is published and not in release', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             release: createEntryBasedRelease({
-              entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
+              entityId: differentEntityId,
               action: 'publish',
               entityType,
             }),
             entity: buildEntity('published'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'positive',
           status: 'published',
           label: 'Published',
           locale: { code: 'en-US' },
         });
-        expect(result.current.releaseEntityStatus).toBe('published');
+        expectEntityStatus(result.current, 'published');
       });
     });
 
-    describe(`${entityType} with locale based publishing`, () => {
-      it('returns Will publish status when active release has publish action', () => {
+    describe(`${entityType} as reference with locale-based publishing`, () => {
+      it('returns "Will publish" status when entity is in release with add action', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             previousEntityOnTimeline: buildEntity('draft'),
-            release: createLocaleBasedRelease({ entityId, entityType }),
+            release: createLocaleBasedRelease({ entityId: defaultEntityId, entityType }),
             entity: buildEntity('published'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'positive',
           status: 'willPublish',
           label: 'Will publish',
@@ -224,17 +277,22 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns Becomes draft status when previous version has published locales and active version has unpublish action', () => {
+      it('returns "Becomes draft" status when previously published entity has remove action', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             previousEntityOnTimeline: buildEntity('published'),
-            release: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
+            release: createLocaleBasedRelease({
+              verb: 'remove',
+              entityId: defaultEntityId,
+              entityType,
+            }),
             entity: buildEntity('draft'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'warning',
           status: 'becomesDraft',
           label: 'Becomes draft',
@@ -242,17 +300,22 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns Remains draft status when previous version has draft locales and active version has unpublish action', () => {
+      it('returns "Remains draft" status when previously draft entity has remove action', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             previousEntityOnTimeline: buildEntity('draft'),
-            release: createLocaleBasedRelease({ verb: 'remove', entityId, entityType }),
+            release: createLocaleBasedRelease({
+              verb: 'remove',
+              entityId: defaultEntityId,
+              entityType,
+            }),
             entity: buildEntity('draft'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'warning',
           status: 'remainsDraft',
           label: 'Remains draft',
@@ -260,20 +323,21 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns Not in release status when entry is in draft state and not in the release', () => {
+      it('returns "Not in release" status when draft entity is not in release', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             release: createLocaleBasedRelease({
-              entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
+              entityId: differentEntityId,
               entityType,
               verb: 'add',
             }),
             entity: buildEntity('draft'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'secondary',
           status: 'notInRelease',
           label: 'Not in release',
@@ -281,26 +345,251 @@ describe('useReleaseStatus', () => {
         });
       });
 
-      it('returns published status when entry is in published state and not in the release', () => {
+      it('returns "Published" status when published entity is not in release', () => {
         const { result } = renderHook(() =>
           useReleaseStatus({
-            ...baseParams,
+            locales,
             release: createLocaleBasedRelease({
-              entityId: entityType === 'Entry' ? 'entry-2' : 'asset-2',
+              entityId: differentEntityId,
               entityType,
               verb: 'add',
             }),
             entity: buildEntity('published'),
+            isReference: true,
           }),
         );
 
-        expect(result.current.releaseStatusMap.get('en-US')).toEqual({
+        expectLocaleStatus(result.current, 'en-US', {
           variant: 'positive',
           status: 'published',
           label: 'Published',
           locale: { code: 'en-US' },
         });
-        expect(result.current.releaseEntityStatus).toBe('published');
+        expectEntityStatus(result.current, 'published');
+      });
+    });
+
+    describe(`${entityType} NOT as reference with entry-based publishing`, () => {
+      it('returns "Will publish" status when entity is in release with publish action', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            previousEntityOnTimeline: buildEntity('draft'),
+            release: createEntryBasedRelease({ entityId: defaultEntityId, entityType }),
+            entity: buildEntity('published'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'positive',
+          status: 'willPublish',
+          label: 'Will publish',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Becomes draft" status when previously published entity has unpublish action', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            previousEntityOnTimeline: buildEntity('published'),
+            release: createEntryBasedRelease({
+              action: 'unpublish',
+              entityId: defaultEntityId,
+              entityType,
+            }),
+            entity: buildEntity('draft'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'warning',
+          status: 'becomesDraft',
+          label: 'Becomes draft',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Remains draft" status when previously draft entity has unpublish action', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            previousEntityOnTimeline: buildEntity('draft'),
+            release: createEntryBasedRelease({
+              action: 'unpublish',
+              entityId: defaultEntityId,
+              entityType,
+            }),
+            entity: buildEntity('draft'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'warning',
+          status: 'remainsDraft',
+          label: 'Remains draft',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Not in release" status when entity is draft and not in release', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            release: createEntryBasedRelease({
+              entityId: differentEntityId,
+              action: 'publish',
+              entityType,
+            }),
+            entity: buildEntity('draft'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'secondary',
+          status: 'notInRelease',
+          label: 'Not in release',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Not in release" status when entity is published and not in release', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            release: createEntryBasedRelease({
+              entityId: differentEntityId,
+              action: 'publish',
+              entityType,
+            }),
+            entity: buildEntity('published'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'secondary',
+          status: 'notInRelease',
+          label: 'Not in release',
+          locale: { code: 'en-US' },
+        });
+        expectEntityStatus(result.current, 'notInRelease');
+      });
+    });
+
+    describe(`${entityType} NOT as reference with locale-based publishing`, () => {
+      it('returns "Will publish" status when entity is in release with add action', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            previousEntityOnTimeline: buildEntity('draft'),
+            release: createLocaleBasedRelease({ entityId: defaultEntityId, entityType }),
+            entity: buildEntity('published'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'positive',
+          status: 'willPublish',
+          label: 'Will publish',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Becomes draft" status when previously published entity has remove action', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            previousEntityOnTimeline: buildEntity('published'),
+            release: createLocaleBasedRelease({
+              verb: 'remove',
+              entityId: defaultEntityId,
+              entityType,
+            }),
+            entity: buildEntity('draft'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'warning',
+          status: 'becomesDraft',
+          label: 'Becomes draft',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Remains draft" status when previously draft entity has remove action', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            previousEntityOnTimeline: buildEntity('draft'),
+            release: createLocaleBasedRelease({
+              verb: 'remove',
+              entityId: defaultEntityId,
+              entityType,
+            }),
+            entity: buildEntity('draft'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'warning',
+          status: 'remainsDraft',
+          label: 'Remains draft',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Not in release" status when draft entity is not in release', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            release: createLocaleBasedRelease({
+              entityId: differentEntityId,
+              entityType,
+              verb: 'add',
+            }),
+            entity: buildEntity('draft'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'secondary',
+          status: 'notInRelease',
+          label: 'Not in release',
+          locale: { code: 'en-US' },
+        });
+      });
+
+      it('returns "Not in release" status when published entity is not in release', () => {
+        const { result } = renderHook(() =>
+          useReleaseStatus({
+            locales,
+            release: createLocaleBasedRelease({
+              entityId: differentEntityId,
+              entityType,
+              verb: 'add',
+            }),
+            entity: buildEntity('published'),
+            isReference: false,
+          }),
+        );
+
+        expectLocaleStatus(result.current, 'en-US', {
+          variant: 'secondary',
+          status: 'notInRelease',
+          label: 'Not in release',
+          locale: { code: 'en-US' },
+        });
+        expectEntityStatus(result.current, 'notInRelease');
       });
     });
   });
