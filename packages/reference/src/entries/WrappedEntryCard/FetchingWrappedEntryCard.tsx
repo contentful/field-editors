@@ -76,6 +76,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     previousEntityOnTimeline: currentEntity,
     release: props.sdk.release,
     locales: props.sdk.locales,
+    isReference: true,
   });
 
   const size = props.viewType === 'link' ? 'small' : 'default';

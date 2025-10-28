@@ -107,6 +107,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     previousEntityOnTimeline: currentEntity,
     locales: props.sdk.locales,
     release: props.sdk.release,
+    isReference: true,
   });
 
   React.useEffect(() => {

@@ -113,6 +113,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     previousEntityOnTimeline: currentEntity,
     locales: props.sdk.locales,
     release: props.sdk.release,
+    isReference: true,
   });
 
   React.useEffect(() => {
