@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.14.0...@contentful/field-editor-shared@2.15.0) (2025-10-28)
+
+### Features
+
+- [TOL-3522] Add flag for handling status for references ([#1962](https://github.com/contentful/field-editors/issues/1962)) ([c2cf456](https://github.com/contentful/field-editors/commit/c2cf456344865ec22ecebb9a0db0dd1e0cacf0cb))
+
 # [2.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.10...@contentful/field-editor-shared@2.14.0) (2025-10-22)
 
 ### Features

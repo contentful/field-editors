@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.14...@contentful/field-editor-reference@6.14.0) (2025-10-28)
+
+### Features
+
+- [TOL-3522] Add flag for handling status for references ([#1962](https://github.com/contentful/field-editors/issues/1962)) ([c2cf456](https://github.com/contentful/field-editors/commit/c2cf456344865ec22ecebb9a0db0dd1e0cacf0cb))
+
 ## [6.13.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.13...@contentful/field-editor-reference@6.13.14) (2025-10-28)
 
 ### Bug Fixes
