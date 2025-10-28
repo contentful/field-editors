@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.13.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.13...@contentful/field-editor-reference@6.13.14) (2025-10-28)
+
+### Bug Fixes
+
+- **reference:** share scheduled actions key [TOL-3575] ([#1961](https://github.com/contentful/field-editors/issues/1961)) ([aa71072](https://github.com/contentful/field-editors/commit/aa710720c3d381bc74ec3b74eef9d6d13cb3198f))
+
 ## [6.13.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.13.12...@contentful/field-editor-reference@6.13.13) (2025-10-22)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
