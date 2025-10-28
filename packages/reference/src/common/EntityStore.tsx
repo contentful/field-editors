@@ -497,7 +497,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           return new Promise<ScheduledAction[]>((resolve) => resolve([]));
         }
 
-        // A space+environment combo can only have up to 500 scheduled actions (1000 soon, see: https://github.com/contentful/user_interface/pull/28351)
+        // A space+environment combo can only have up to 1000 scheduled actions
         // With this request we fetch all schedules and can reuse the results.
         // See https://www.contentful.com/developers/docs/references/content-management-api/#/reference/scheduled-actions/limitations
         const maxScheduledActions = 1000;
