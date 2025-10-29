@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.15.0...@contentful/field-editor-rich-text@4.16.0) (2025-10-29)
+
+### Features
+
+- **core:** dependency cleanup ([#1964](https://github.com/contentful/field-editors/issues/1964)) ([67f1132](https://github.com/contentful/field-editors/commit/67f1132a530fb868bdf802d41eb10d91487e50ee))
+
 # [4.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.14.2...@contentful/field-editor-rich-text@4.15.0) (2025-10-28)
 
 ### Features

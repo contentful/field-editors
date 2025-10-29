@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.6.2...@contentful/field-editor-test-utils@1.7.0) (2025-10-29)
+
+### Features
+
+- **core:** dependency cleanup ([#1964](https://github.com/contentful/field-editors/issues/1964)) ([67f1132](https://github.com/contentful/field-editors/commit/67f1132a530fb868bdf802d41eb10d91487e50ee))
+
 ## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.6.1...@contentful/field-editor-test-utils@1.6.2) (2025-09-15)
 
 **Note:** Version bump only for package @contentful/field-editor-test-utils

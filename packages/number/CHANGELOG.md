@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.5.19...@contentful/field-editor-number@1.6.0) (2025-10-29)
+
+### Features
+
+- **core:** dependency cleanup ([#1964](https://github.com/contentful/field-editors/issues/1964)) ([67f1132](https://github.com/contentful/field-editors/commit/67f1132a530fb868bdf802d41eb10d91487e50ee))
+
 ## [1.5.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-number@1.5.18...@contentful/field-editor-number@1.5.19) (2025-10-28)
 
 **Note:** Version bump only for package @contentful/field-editor-number
