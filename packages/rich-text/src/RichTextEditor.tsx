@@ -39,6 +39,7 @@ type RichTextProps = {
    */
   onChange?: (doc: Contentful.Document) => unknown;
   withCharValidation?: boolean;
+  stickyToolbarOffset?: number;
 };
 
 type ConnectedRichTextProps = {
@@ -132,6 +133,7 @@ const RichTextEditor = (props: RichTextProps) => {
     restrictedMarks,
     onChange,
     isDisabled,
+    stickyToolbarOffset,
     ...otherProps
   } = props;
   const isEmptyValue = React.useCallback(
@@ -164,6 +166,7 @@ const RichTextEditor = (props: RichTextProps) => {
           isDisabled={disabled}
           onChange={setValue}
           restrictedMarks={restrictedMarks}
+          stickyToolbarOffset={stickyToolbarOffset}
           withCharValidation={props.withCharValidation ?? true}
         />
       )}
