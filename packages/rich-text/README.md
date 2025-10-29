@@ -14,6 +14,7 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ## ⚠️ Important: Package Configuration
 
 Due to peer dependency resolution in npm, you must add the following to your `package.json` to ensure compatible versions are installed:
+This is a temporary workaround until we have upgraded the underlying rich text packages.
 
 **For npm:**
 
@@ -35,13 +36,6 @@ Due to peer dependency resolution in npm, you must add the following to your `pa
     "slate-react": "0.102.0"
   }
 }
-```
-
-After adding the overrides/resolutions, reinstall dependencies:
-
-```bash
-rm -rf node_modules package-lock.json  # or yarn.lock for Yarn
-npm install  # or yarn install
 ```
 
 ## Migrating to v2
