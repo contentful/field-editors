@@ -42,7 +42,6 @@
     "@contentful/field-editor-shared": "^2.15.0",
     "@types/speakingurl": "^13.0.2",
     "emotion": "^10.0.17",
-    "lodash": "^4.17.15",
     "speakingurl": "^14.0.1",
     "use-debounce": "^10.0.0"
   },

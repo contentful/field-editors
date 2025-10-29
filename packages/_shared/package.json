@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@contentful/f36-components": "^5.4.1",
+    "@contentful/f36-icons": "^5.4.1",
     "@contentful/f36-note": "^5.1.0",
     "@contentful/f36-tokens": "^5.1.0",
     "contentful-management": "^11.60.4",
@@ -53,7 +54,8 @@
   "peerDependencies": {
     "@contentful/app-sdk": "^4.29.0",
     "@lingui/core": "^5.3.0",
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"

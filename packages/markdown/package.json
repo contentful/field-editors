@@ -42,7 +42,6 @@
     "@contentful/field-editor-shared": "^2.15.0",
     "@types/codemirror": "0.0.109",
     "codemirror": "^5.65.11",
-    "constate": "^3.3.2",
     "emotion": "^10.0.17",
     "lodash": "^4.17.15",
     "react-markdown": "^9.0.1",
