@@ -34,7 +34,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
+    "@codemirror/language": "^6.0.0",
     "@codemirror/lang-json": "^6.0.0",
+    "@codemirror/view": "^6.0.0",
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
     "@contentful/field-editor-shared": "^2.15.0",
