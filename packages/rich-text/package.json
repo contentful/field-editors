@@ -69,10 +69,11 @@
     "p-debounce": "^2.1.0",
     "react-popper": "^2.3.0",
     "scroll-into-view-if-needed": "^3.1.0",
-    "slate": "0.94.1",
+    "slate": "0.118.1",
     "slate-history": "0.100.0",
     "slate-hyperscript": "0.77.0",
-    "slate-react": "0.102.0"
+    "slate-react": "0.118.2",
+    "slate-dom": "0.118.1"
   },
   "peerDependencies": {
     "@lingui/core": "^5.3.0",
