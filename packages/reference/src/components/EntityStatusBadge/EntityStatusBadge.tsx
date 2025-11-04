@@ -6,9 +6,9 @@ import {
   LocalePublishStatusMap,
   ReleaseEntityStatusPopover,
   ReleaseEntityStatusBadge,
-  type ReleaseAction,
-  type ReleaseLocalesStatusMap,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
+  type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import { EntryProps, LocaleProps, AssetProps } from 'contentful-management';
 
@@ -24,10 +24,9 @@ type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isReleasesLoading?: boolean;
-  releaseAction?: ReleaseAction;
-  activeRelease?: ReleaseV2Props;
+  releaseStatusMap?: ReleaseStatusMap;
+  releaseEntityStatus?: ReleaseEntityStatus;
+  release?: ReleaseV2Props;
 };
 
 export function EntityStatusBadge({
@@ -38,10 +37,9 @@ export function EntityStatusBadge({
   localesStatusMap,
   activeLocales,
   entity,
-  releaseLocalesStatusMap,
-  isReleasesLoading,
-  releaseAction,
-  activeRelease,
+  releaseStatusMap,
+  releaseEntityStatus,
+  release,
   ...props
 }: EntityStatusBadgeProps) {
   const { isError, isLoading, jobs } = useScheduledActions({
@@ -51,19 +49,18 @@ export function EntityStatusBadge({
   });
 
   // release entry + locale based publishing
-  if (activeRelease && releaseLocalesStatusMap && useLocalizedEntityStatus && activeLocales) {
+  if (release && releaseStatusMap && useLocalizedEntityStatus && activeLocales) {
     return (
       <ReleaseEntityStatusPopover
-        releaseLocalesStatusMap={releaseLocalesStatusMap}
+        releaseStatusMap={releaseStatusMap}
         activeLocales={activeLocales}
-        isLoading={isReleasesLoading}
       />
     );
   }
 
   // release entry + entry based publishing
-  if (activeRelease && releaseAction) {
-    return <ReleaseEntityStatusBadge action={releaseAction} />;
+  if (release && releaseEntityStatus) {
+    return <ReleaseEntityStatusBadge status={releaseEntityStatus} />;
   }
 
   // current base entry + locale based publishing

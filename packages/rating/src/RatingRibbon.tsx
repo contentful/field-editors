@@ -68,8 +68,10 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
             testId="rating-editor-star"
             isDisabled={this.props.disabled}
             key={num}
-            onClick={() => {
-              this.props.onSelect(num);
+            onMouseDown={(e: React.MouseEvent) => {
+              if (e.button === 0) {
+                this.props.onSelect(num);
+              }
             }}
             onKeyDown={(e: React.KeyboardEvent) => {
               if (e.keyCode === 13) {

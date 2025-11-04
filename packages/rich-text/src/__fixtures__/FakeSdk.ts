@@ -1,6 +1,5 @@
 import { ContentType, FieldAPI, FieldAppSDK, Link } from '@contentful/app-sdk';
 import {
-  createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeSpaceAPI,
@@ -65,8 +64,8 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
   const sdk = {
     field,
     locales,
-    cmaAdapter: createFakeCMAAdapter({
-      Entry: {
+    cma: {
+      entry: {
         get: async ({ entryId }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
@@ -83,7 +82,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      Asset: {
+      asset: {
         get: async ({ assetId }) => {
           if (props?.fetchDelay) {
             await delay(props.fetchDelay);
@@ -100,7 +99,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      Space: {
+      space: {
         get: async (params: GetSpaceParams) => {
           if (params.spaceId === spaces.indifferent.sys.id) {
             return spaces.indifferent;
@@ -108,7 +107,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      ContentType: {
+      contentType: {
         get: async ({ contentTypeId }) => {
           if (contentTypeId === contentTypes.published.sys.id) {
             return contentTypes.published;
@@ -116,10 +115,10 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           return Promise.reject({});
         },
       },
-      Locale: {
+      locale: {
         getMany: async () => localesFixtures.list as CollectionProp<LocaleProps>,
       },
-    }),
+    },
     space: {
       ...space,
       getCachedContentTypes() {
@@ -132,7 +131,7 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
               ...response,
               items: localizeContentTypes(response.items),
             };
-          })
+          }),
         );
       },
       async getEntityScheduledActions() {

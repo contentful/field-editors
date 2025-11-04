@@ -36,8 +36,9 @@ async function fetchAllData({
 }): Promise<FetchedEntityData> {
   let contentType;
 
-  const getEntity = entityType === 'Entry' ? sdk.space.getEntry : sdk.space.getAsset;
-  const entity = await getEntity(entityId);
+  const entity = await (entityType === 'Entry'
+    ? sdk.cma.entry.get({ entryId: entityId })
+    : sdk.cma.asset.get({ assetId: entityId }));
   if (entity.sys.contentType) {
     const contentTypeId = entity.sys.contentType.sys.id;
     contentType = sdk.space.getCachedContentTypes().find((ct) => ct.sys.id === contentTypeId);
@@ -72,7 +73,7 @@ async function fetchAllData({
 
   const entityStatus = entityHelpers.getEntityStatus(
     entity.sys,
-    sdk.parameters.instance.useLocalizedEntityStatus ? sdk.field.locale : undefined
+    sdk.parameters.instance.useLocalizedEntityStatus ? sdk.field.locale : undefined,
   );
 
   return {

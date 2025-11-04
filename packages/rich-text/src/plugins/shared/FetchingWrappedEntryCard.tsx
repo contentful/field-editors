@@ -10,15 +10,13 @@ import {
   useEntityLoader,
 } from '@contentful/field-editor-reference';
 import {
-  LocalePublishStatusMap,
+  type LocalePublishStatusMap,
   useLocalePublishStatus,
   useActiveLocales,
-  parseReleaseParams,
-  useActiveReleaseLocalesStatuses,
-  getEntityReleaseStatus,
-  type ReleaseLocalesStatusMap,
+  useReleaseStatus,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
-  type ReleaseAction,
+  type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -32,57 +30,61 @@ interface InternalEntryCard {
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
   localesStatusMap?: LocalePublishStatusMap;
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isActiveReleaseLoading?: boolean;
-  activeRelease?: ReleaseV2Props;
-  releaseAction?: ReleaseAction;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
+  releaseEntityStatus?: ReleaseEntityStatus;
 }
 
-const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  const {
+const InternalEntryCard = React.memo(
+  ({
     entry,
     sdk,
     loadEntityScheduledActions,
-    releaseLocalesStatusMap,
-    isActiveReleaseLoading,
-    activeRelease,
-    releaseAction,
-  } = props;
+    releaseStatusMap,
+    release,
+    releaseEntityStatus,
+    isSelected,
+    isDisabled,
+    locale,
+    onEdit,
+    onRemove,
+    localesStatusMap,
+  }: InternalEntryCard) => {
+    const contentType = sdk.space
+      .getCachedContentTypes()
+      .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
+    const activeLocales = useActiveLocales(sdk);
 
-  const contentType = sdk.space
-    .getCachedContentTypes()
-    .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
-  const activeLocales = useActiveLocales(props.sdk);
-
-  return (
-    <WrappedEntryCard
-      size="default"
-      getAsset={props.sdk.space.getAsset}
-      getEntityScheduledActions={loadEntityScheduledActions}
-      isSelected={props.isSelected}
-      isDisabled={props.isDisabled}
-      localeCode={props.locale}
-      defaultLocaleCode={props.sdk.locales.default}
-      contentType={contentType}
-      entry={entry}
-      onEdit={props.onEdit}
-      onRemove={props.isDisabled ? undefined : props.onRemove}
-      isClickable={false}
-      useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
-      localesStatusMap={props.localesStatusMap}
-      activeLocales={activeLocales}
-      renderDragHandle={
-        !props.isDisabled
-          ? (dragHandleProps) => <DragHandle label="drag embedded entry" {...dragHandleProps} />
-          : undefined
-      }
-      releaseLocalesStatusMap={releaseLocalesStatusMap}
-      isReleasesLoading={isActiveReleaseLoading}
-      activeRelease={activeRelease}
-      releaseAction={releaseAction}
-    />
-  );
-}, areEqual);
+    return (
+      <WrappedEntryCard
+        size="default"
+        getAsset={(assetId) => sdk.cma.asset.get({ assetId })}
+        getEntityScheduledActions={loadEntityScheduledActions}
+        isSelected={isSelected}
+        isDisabled={isDisabled}
+        localeCode={locale}
+        defaultLocaleCode={sdk.locales.default}
+        contentType={contentType}
+        entry={entry}
+        onEdit={onEdit}
+        onRemove={isDisabled ? undefined : onRemove}
+        isClickable={false}
+        useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
+        localesStatusMap={localesStatusMap}
+        activeLocales={activeLocales}
+        renderDragHandle={
+          !isDisabled
+            ? (dragHandleProps) => <DragHandle label="drag embedded entry" {...dragHandleProps} />
+            : undefined
+        }
+        releaseStatusMap={releaseStatusMap}
+        release={release}
+        releaseEntityStatus={releaseEntityStatus}
+      />
+    );
+  },
+  areEqual,
+);
 
 InternalEntryCard.displayName = 'ReferenceCard';
 
@@ -99,25 +101,20 @@ interface FetchingWrappedEntryCardProps {
 
 export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
-  const { data: entry, status } = useEntity<Entry>('Entry', entryId);
+  const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', entryId),
     [getEntityScheduledActions, entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
-  const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
-    parseReleaseParams(props.sdk.parameters.instance.release);
-  const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
-    currentEntityDraft: entry,
-    entityId: props.entryId,
-    entityType: 'Entry',
-    releaseVersionMap,
-    locales,
-    activeRelease,
-    releases,
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
+    entity: entry,
+    previousEntityOnTimeline: currentEntity,
+    locales: props.sdk.locales,
+    release: props.sdk.release,
+    isReference: true,
   });
-  const { releaseAction } = getEntityReleaseStatus(props.entryId, locales, activeRelease);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -150,10 +147,9 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       onRemove={props.onRemove}
       loadEntityScheduledActions={loadEntityScheduledActions}
       localesStatusMap={localesStatusMap}
-      releaseLocalesStatusMap={releaseLocalesStatusMap}
-      isActiveReleaseLoading={isActiveReleaseLoading}
-      activeRelease={activeRelease}
-      releaseAction={releaseAction}
+      releaseStatusMap={releaseStatusMap}
+      release={props.sdk.release as ReleaseV2Props | undefined}
+      releaseEntityStatus={releaseEntityStatus}
     />
   );
 };

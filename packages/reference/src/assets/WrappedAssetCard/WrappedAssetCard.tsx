@@ -5,8 +5,8 @@ import { AssetCard } from '@contentful/f36-components';
 import {
   entityHelpers,
   type LocalePublishStatusMap,
-  type ReleaseAction,
-  type ReleaseLocalesStatusMap,
+  type ReleaseEntityStatus,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 // @ts-expect-error mimetype is not typed
@@ -48,10 +48,9 @@ export interface WrappedAssetCardProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-  releaseAction?: ReleaseAction;
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isReleasesLoading?: boolean;
-  activeRelease?: ReleaseV2Props;
+  releaseEntityStatus?: ReleaseEntityStatus;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
 }
 
 const defaultProps = {
@@ -89,10 +88,9 @@ export const WrappedAssetCard = ({
   onEdit,
   getAssetUrl,
   onRemove,
-  releaseAction,
-  releaseLocalesStatusMap,
-  isReleasesLoading,
-  activeRelease,
+  releaseEntityStatus,
+  releaseStatusMap,
+  release,
 }: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
     asset.sys,
@@ -133,10 +131,9 @@ export const WrappedAssetCard = ({
           entity={asset}
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
-          releaseAction={releaseAction}
-          releaseLocalesStatusMap={releaseLocalesStatusMap}
-          isReleasesLoading={isReleasesLoading}
-          activeRelease={activeRelease}
+          releaseEntityStatus={releaseEntityStatus}
+          releaseStatusMap={releaseStatusMap}
+          release={release}
         />
       }
       src={

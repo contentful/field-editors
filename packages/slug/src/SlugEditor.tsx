@@ -70,7 +70,7 @@ function FieldConnectorCallback({
         // do nothing
       }
     },
-    [setValue]
+    [setValue],
   );
 
   return (
@@ -93,7 +93,7 @@ function FieldConnectorCallback({
 
 export function SlugEditor(props: SlugEditorProps) {
   const { field, parameters, id } = props;
-  const { locales, entry, space } = props.baseSdk;
+  const { locales, entry, cma } = props.baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
@@ -111,23 +111,28 @@ export function SlugEditor(props: SlugEditorProps) {
   // one or the title field is also localized with a custom value.
   const isOptionalFieldLocale = Boolean(!field.required || isLocaleOptional);
   const isOptionalLocaleWithFallback = Boolean(
-    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode)
+    isOptionalFieldLocale && localeFallbackCode && locales.available.includes(localeFallbackCode),
   );
 
   const performUniqueCheck = React.useCallback(
     (value: string) => {
-      const searchQuery = {
-        content_type: entrySys?.contentType?.sys?.id,
-        [`fields.${field.id}.${field.locale}`]: value,
-        'sys.id[ne]': entrySys.id,
-        'sys.publishedAt[exists]': true,
-        limit: 0,
-      };
-      return space.getEntries(searchQuery).then((res) => {
-        return res.total === 0;
-      });
+      return cma.entry
+        .getMany({
+          query: {
+            content_type: entrySys?.contentType?.sys?.id,
+            [`fields.${field.id}.${field.locale}`]: value,
+            'sys.id[ne]': entrySys.id,
+            'sys.publishedAt[exists]': true,
+            limit: 0,
+          },
+          // opt-out from timeline, to compare with current only for now
+          releaseId: undefined,
+        })
+        .then((res) => {
+          return res.total === 0;
+        });
     },
-    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, space]
+    [entrySys?.contentType?.sys?.id, field.id, field.locale, entrySys.id, cma.entry],
   );
 
   return (

@@ -1,6 +1,6 @@
-import * as ModalDialogLauncher from './ModalDialogLauncher';
-import * as ConstraintsUtils from './utils/constraints';
-import * as entityHelpers from './utils/entityHelpers';
+export * as ModalDialogLauncher from './ModalDialogLauncher';
+export * as ConstraintsUtils from './utils/constraints';
+export * as entityHelpers from './utils/entityHelpers';
 
 export {
   AccessAPI,
@@ -25,10 +25,7 @@ export {
 
 export { CharCounter } from './CharCounter';
 export { CharValidation } from './CharValidation';
-export { ConstraintsUtils };
-export { entityHelpers };
 export { FieldConnector } from './FieldConnector';
-export { ModalDialogLauncher };
 export { PredefinedValuesError } from './PredefinedValuesError';
 export type { Asset, Entry, File } from './typesEntity';
 export { isValidImage } from './utils/isValidImage';
@@ -38,10 +35,10 @@ export type { FieldConnectorChildProps } from './FieldConnector';
 export * from './types';
 
 export * from './hooks/useActiveLocales';
-export * from './hooks/useActiveReleaseLocalesStatuses';
+export * from './hooks/useReleaseStatus';
 export * from './hooks/useLocalePublishStatus';
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
 export * from './utils/getEntityReleaseStatus';
-export * from './utils/parseReleaseParameters';
+export * from './utils/getReleaseStatusBadgeConfig';

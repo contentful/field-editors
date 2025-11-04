@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { FieldAppSDK } from '@contentful/app-sdk';
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
@@ -95,12 +95,12 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
   const contentTypes = sdk.space.getCachedContentTypes();
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
   const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
-    sdk.field.validations
+    sdk.field.validations,
   );
 
   const filterContentTypesByValidation = (type) =>
     contentTypes.filter(
-      (contentType) => allowedContentTypesFromValidation[type]?.[contentType.sys.id]
+      (contentType) => allowedContentTypesFromValidation[type]?.[contentType.sys.id],
     );
 
   const filteredBlockContentTypes = filterContentTypesByValidation(BLOCKS.EMBEDDED_ENTRY);
@@ -112,16 +112,16 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
   const blockContentTypesToUse = getContentTypeToUse(
     entriesAllowed,
     filteredBlockContentTypes.length > 0,
-    filteredBlockContentTypes
+    filteredBlockContentTypes,
   );
   const inlineContentTypesToUse = getContentTypeToUse(
     inlineAllowed,
     filteredInlineContentTypes.length > 0,
-    filteredInlineContentTypes
+    filteredInlineContentTypes,
   );
 
   const relevantContentTypes = contentTypes.filter(
-    (ct) => blockContentTypesToUse.includes(ct) || inlineContentTypesToUse.includes(ct)
+    (ct) => blockContentTypesToUse.includes(ct) || inlineContentTypesToUse.includes(ct),
   );
 
   const [commands, setCommands] = useState((): CommandList => {
@@ -158,7 +158,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                       }
                     },
                   };
-                })
+                }),
               );
             }
           });
@@ -196,7 +196,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                       });
                     },
                   };
-                })
+                }),
               );
             }
           });
@@ -208,10 +208,10 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
       entriesAllowed || inlineAllowed
         ? relevantContentTypes.map((contentType) => {
             const blockEmbedAllowed = blockContentTypesToUse.some(
-              (ct) => ct.sys.id === contentType.sys.id
+              (ct) => ct.sys.id === contentType.sys.id,
             );
             const inlineEmbedAllowed = inlineContentTypesToUse.some(
-              (ct) => ct.sys.id === contentType.sys.id
+              (ct) => ct.sys.id === contentType.sys.id,
             );
 
             const commands: Command[] = [];
@@ -267,7 +267,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                           }
                         },
                       };
-                    })
+                    }),
                   );
                 }
               });

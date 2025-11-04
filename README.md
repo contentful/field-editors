@@ -10,7 +10,7 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 
 ## Available field editors
 
-Playground with all components: [https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
+Playground with all components: [http://contentful-field-editors.colorfuldemo.com/](http://contentful-field-editors.colorfuldemo.com/)
 
 This repository has all editorial components that you can find in the Contentful Web application.
 You can run each of these component as a custom field app or compose them into a custom entry app.

@@ -12,12 +12,10 @@ import {
   type LocalePublishStatusMap,
   useLocalePublishStatus,
   useActiveLocales,
-  type ReleaseLocalesStatusMap,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
-  type ReleaseAction,
-  parseReleaseParams,
-  useActiveReleaseLocalesStatuses,
-  getEntityReleaseStatus,
+  useReleaseStatus,
+  type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -31,43 +29,56 @@ interface InternalAssetCardProps {
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
   localesStatusMap?: LocalePublishStatusMap;
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isActiveReleaseLoading?: boolean;
-  activeRelease?: ReleaseV2Props;
-  releaseAction?: ReleaseAction;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
+  releaseEntityStatus?: ReleaseEntityStatus;
 }
 
-const InternalAssetCard = React.memo((props: InternalAssetCardProps) => {
-  const { releaseLocalesStatusMap, isActiveReleaseLoading, activeRelease, releaseAction } = props;
-  const activeLocales = useActiveLocales(props.sdk);
+const InternalAssetCard = React.memo(
+  ({
+    asset,
+    sdk,
+    isDisabled,
+    isSelected,
+    locale,
+    onEdit,
+    onRemove,
+    loadEntityScheduledActions,
+    localesStatusMap,
+    release,
+    releaseStatusMap,
+    releaseEntityStatus,
+  }: InternalAssetCardProps) => {
+    const activeLocales = useActiveLocales(sdk);
 
-  return (
-    <WrappedAssetCard
-      getEntityScheduledActions={props.loadEntityScheduledActions}
-      size="small"
-      isSelected={props.isSelected}
-      isDisabled={props.isDisabled}
-      localeCode={props.locale}
-      defaultLocaleCode={props.sdk.locales.default}
-      asset={props.asset}
-      onEdit={props.onEdit}
-      onRemove={props.isDisabled ? undefined : props.onRemove}
-      isClickable={false}
-      useLocalizedEntityStatus={props.sdk.parameters.instance.useLocalizedEntityStatus}
-      localesStatusMap={props.localesStatusMap}
-      activeLocales={activeLocales}
-      renderDragHandle={
-        !props.isDisabled
-          ? (dragHandleProps) => <DragHandle label="drag embedded asset" {...dragHandleProps} />
-          : undefined
-      }
-      releaseLocalesStatusMap={releaseLocalesStatusMap}
-      isReleasesLoading={isActiveReleaseLoading}
-      activeRelease={activeRelease}
-      releaseAction={releaseAction}
-    />
-  );
-}, areEqual);
+    return (
+      <WrappedAssetCard
+        getEntityScheduledActions={loadEntityScheduledActions}
+        size="small"
+        isSelected={isSelected}
+        isDisabled={isDisabled}
+        localeCode={locale}
+        defaultLocaleCode={sdk.locales.default}
+        asset={asset}
+        onEdit={onEdit}
+        onRemove={isDisabled ? undefined : onRemove}
+        isClickable={false}
+        useLocalizedEntityStatus={sdk.parameters.instance.useLocalizedEntityStatus}
+        localesStatusMap={localesStatusMap}
+        activeLocales={activeLocales}
+        renderDragHandle={
+          !isDisabled
+            ? (dragHandleProps) => <DragHandle label="drag embedded asset" {...dragHandleProps} />
+            : undefined
+        }
+        releaseStatusMap={releaseStatusMap}
+        release={release}
+        releaseEntityStatus={releaseEntityStatus}
+      />
+    );
+  },
+  areEqual,
+);
 
 InternalAssetCard.displayName = 'InternalAssetCard';
 
@@ -84,25 +95,20 @@ interface FetchingWrappedAssetCardProps {
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   const { onEntityFetchComplete } = props;
-  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { data: asset, status, currentEntity } = useEntity<Asset>('Asset', props.assetId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId],
   );
   const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
-  const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
-    parseReleaseParams(props.sdk.parameters.instance.release);
-  const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
-    currentEntityDraft: asset,
-    entityId: props.assetId,
-    entityType: 'Asset',
-    releaseVersionMap,
-    locales,
-    activeRelease,
-    releases,
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
+    entity: asset,
+    previousEntityOnTimeline: currentEntity,
+    locales: props.sdk.locales,
+    release: props.sdk.release,
+    isReference: true,
   });
-  const { releaseAction } = getEntityReleaseStatus(props.assetId, locales, activeRelease);
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -135,10 +141,9 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onEdit={props.onEdit}
       onRemove={props.onRemove}
       localesStatusMap={localesStatusMap}
-      releaseLocalesStatusMap={releaseLocalesStatusMap}
-      isActiveReleaseLoading={isActiveReleaseLoading}
-      activeRelease={activeRelease}
-      releaseAction={releaseAction}
+      releaseStatusMap={releaseStatusMap}
+      release={props.sdk.release as ReleaseV2Props | undefined}
+      releaseEntityStatus={releaseEntityStatus}
     />
   );
 }

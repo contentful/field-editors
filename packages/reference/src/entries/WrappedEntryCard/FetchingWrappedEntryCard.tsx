@@ -2,13 +2,11 @@ import * as React from 'react';
 
 import { EntryCard } from '@contentful/f36-components';
 import {
-  parseReleaseParams,
   useLocalePublishStatus,
-  useActiveReleaseLocalesStatuses,
-  getEntityReleaseStatus,
+  useReleaseStatus,
+  type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 import { EntryProps } from 'contentful-management';
-import get from 'lodash/get';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
 import { useEntity, useEntityLoader } from '../../common/EntityStore';
@@ -66,26 +64,20 @@ async function openEntry(
 }
 
 export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
-  const { releaseVersionMap, locales, activeRelease, releases, isActiveReleaseLoading } =
-    parseReleaseParams(props.sdk.parameters.instance.release);
-
-  const { data: entry, status } = useEntity<Entry>('Entry', props.entryId);
+  const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Entry', props.entryId),
     [getEntityScheduledActions, props.entryId],
   );
   const localesStatusMap = useLocalePublishStatus(entry, props.sdk.locales);
-  const { releaseLocalesStatusMap } = useActiveReleaseLocalesStatuses({
-    currentEntityDraft: entry,
-    entityId: props.entryId,
-    entityType: 'Entry',
-    releaseVersionMap,
-    locales,
-    activeRelease,
-    releases,
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
+    entity: entry,
+    previousEntityOnTimeline: currentEntity,
+    release: props.sdk.release,
+    locales: props.sdk.locales,
+    isReference: true,
   });
-  const { releaseAction } = getEntityReleaseStatus(props.entryId, locales, activeRelease);
 
   const size = props.viewType === 'link' ? 'small' : 'default';
   const { getEntity } = useEntityLoader();
@@ -101,7 +93,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         entity: 'Entry',
         type: 'edit',
         id: props.entryId,
-        contentTypeId: get(entry, 'sys.contentType.sys.id'),
+        contentTypeId: entry.sys.contentType.sys.id,
         slide,
       });
   };
@@ -113,7 +105,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
         entity: 'Entry',
         type: 'delete',
         id: props.entryId,
-        contentTypeId: get(entry, 'sys.contentType.sys.id'),
+        contentTypeId: entry.sys.contentType.sys.id,
       });
   };
 
@@ -168,10 +160,9 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
       activeLocales: props.activeLocales,
-      releaseLocalesStatusMap,
-      isReleasesLoading: isActiveReleaseLoading,
-      activeRelease,
-      releaseAction,
+      releaseStatusMap,
+      release: props.sdk.release as ReleaseV2Props | undefined,
+      releaseEntityStatus,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

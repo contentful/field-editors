@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { QueryClient, useQuery as useRQ } from '@tanstack/react-query';
+import {
+  QueryClient,
+  useQuery as useRQ,
+  useQueryClient as useHostQueryClient,
+} from '@tanstack/react-query';
 
 /**
  * A custom client context ensures zero conflict with host apps also using
@@ -8,13 +12,24 @@ import { QueryClient, useQuery as useRQ } from '@tanstack/react-query';
  */
 const clientContext = React.createContext<QueryClient | undefined>(undefined);
 
+function useMaybeHostQueryClient(): QueryClient | undefined {
+  try {
+    return useHostQueryClient();
+  } catch {
+    return undefined;
+  }
+}
+
 export function useQueryClient(): QueryClient {
   const client = React.useContext(clientContext);
+  const hostClient = useMaybeHostQueryClient();
 
   return React.useMemo(() => {
     if (client) {
       return client;
     }
+
+    if (hostClient) return hostClient;
 
     return new QueryClient({
       defaultOptions: {
@@ -28,7 +43,7 @@ export function useQueryClient(): QueryClient {
         },
       },
     });
-  }, [client]);
+  }, [client, hostClient]);
 }
 
 // @ts-expect-error

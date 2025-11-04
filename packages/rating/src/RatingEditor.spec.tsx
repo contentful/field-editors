@@ -26,12 +26,12 @@ describe('RatingEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         parameters={{ installation: {}, instance: { stars: 20 }, invocation: {} }}
-      />
+      />,
     );
     expect(getAllByTestId('rating-editor-star')).toHaveLength(20);
   });
 
-  it('should should setValue by clicking on a item and removeValue by clicking on clear', () => {
+  it('should setValue by clicking on a item and removeValue by clicking on clear', () => {
     const [field] = createFakeFieldAPI((field) => {
       jest.spyOn(field, 'setValue');
       jest.spyOn(field, 'removeValue');
@@ -40,7 +40,7 @@ describe('RatingEditor', () => {
       };
     });
     const { container, getAllByTestId, getByTestId, queryByTestId } = render(
-      <RatingEditor field={field} isInitiallyDisabled={false} />
+      <RatingEditor field={field} isInitiallyDisabled={false} />,
     );
 
     const $stars = getAllByTestId('rating-editor-star');
@@ -48,12 +48,12 @@ describe('RatingEditor', () => {
     expect(container.querySelectorAll('[data-selected="true"]')).toHaveLength(0);
     expect(container.querySelectorAll('[data-selected="false"]')).toHaveLength(5);
 
-    fireEvent.click($stars[4]);
+    fireEvent.mouseDown($stars[4]);
     expect(field.setValue).toHaveBeenCalledWith(5);
     expect(container.querySelectorAll('[data-selected="true"]')).toHaveLength(5);
     expect(container.querySelectorAll('[data-selected="false"]')).toHaveLength(0);
 
-    fireEvent.click($stars[0]);
+    fireEvent.mouseDown($stars[0]);
     expect(field.setValue).toHaveBeenCalledWith(1);
     expect(container.querySelectorAll('[data-selected="true"]')).toHaveLength(1);
     expect(container.querySelectorAll('[data-selected="false"]')).toHaveLength(4);
@@ -71,7 +71,7 @@ describe('RatingEditor', () => {
       };
     });
     const { container, getAllByTestId, queryByTestId } = render(
-      <RatingEditor field={field} isInitiallyDisabled={false} />
+      <RatingEditor field={field} isInitiallyDisabled={false} />,
     );
 
     const $stars = getAllByTestId('rating-editor-star');
