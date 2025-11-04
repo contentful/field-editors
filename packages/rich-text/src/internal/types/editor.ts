@@ -34,8 +34,8 @@ export interface Element extends p.TElement {
 export type Value = Element[];
 export type ReactEditor = p.PlateEditor<Value>;
 export interface PlateEditor extends p.PlateEditor<Value> {
+  getCharacterCount: () => number;
   tracking: TrackingPluginActions;
-  f;
   undo: {
     (): void;
     (source: 'toolbar' | 'shortcut'): void;

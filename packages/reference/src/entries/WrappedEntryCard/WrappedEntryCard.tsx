@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
-import { EntryCard, MenuItem, MenuDivider } from '@contentful/f36-components';
+import { EntryCard, MenuDivider, MenuItem } from '@contentful/f36-components';
 import {
   entityHelpers,
   isValidImage,
   LocalePublishStatusMap,
-  type ReleaseAction,
-  type ReleaseLocalesStatusMap,
+  type ReleaseEntityStatus,
+  type ReleaseStatusMap,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
 import { LocaleProps } from 'contentful-management';
@@ -43,10 +43,9 @@ export interface WrappedEntryCardProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
-  releaseAction?: ReleaseAction;
-  releaseLocalesStatusMap?: ReleaseLocalesStatusMap;
-  isReleasesLoading?: boolean;
-  activeRelease?: ReleaseV2Props;
+  releaseEntityStatus?: ReleaseEntityStatus;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
 }
 
 const defaultProps = {
@@ -81,10 +80,9 @@ export function WrappedEntryCard({
   onRemove,
   onMoveTop,
   onMoveBottom,
-  releaseAction,
-  releaseLocalesStatusMap,
-  isReleasesLoading,
-  activeRelease,
+  releaseEntityStatus,
+  releaseStatusMap,
+  release,
 }: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
@@ -159,10 +157,9 @@ export function WrappedEntryCard({
           entity={entry}
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
-          releaseAction={releaseAction}
-          releaseLocalesStatusMap={releaseLocalesStatusMap}
-          isReleasesLoading={isReleasesLoading}
-          activeRelease={activeRelease}
+          releaseEntityStatus={releaseEntityStatus}
+          releaseStatusMap={releaseStatusMap}
+          release={release}
         />
       }
       icon={

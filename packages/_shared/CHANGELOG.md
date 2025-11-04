@@ -3,6 +3,124 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.15.0...@contentful/field-editor-shared@2.16.0) (2025-10-29)
+
+### Features
+
+- **core:** dependency cleanup ([#1964](https://github.com/contentful/field-editors/issues/1964)) ([67f1132](https://github.com/contentful/field-editors/commit/67f1132a530fb868bdf802d41eb10d91487e50ee))
+
+# [2.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.14.0...@contentful/field-editor-shared@2.15.0) (2025-10-28)
+
+### Features
+
+- [TOL-3522] Add flag for handling status for references ([#1962](https://github.com/contentful/field-editors/issues/1962)) ([c2cf456](https://github.com/contentful/field-editors/commit/c2cf456344865ec22ecebb9a0db0dd1e0cacf0cb))
+
+# [2.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.10...@contentful/field-editor-shared@2.14.0) (2025-10-22)
+
+### Features
+
+- **rich-text:** add character validation ([#1955](https://github.com/contentful/field-editors/issues/1955)) ([cce2a9d](https://github.com/contentful/field-editors/commit/cce2a9df032aee03d84f08ddf513f1693fdae661))
+
+## [2.13.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.9...@contentful/field-editor-shared@2.13.10) (2025-10-21)
+
+### Bug Fixes
+
+- deploy playground to vercel [TOL-3428] ([#1956](https://github.com/contentful/field-editors/issues/1956)) ([5bd6193](https://github.com/contentful/field-editors/commit/5bd6193409cf70518ad336ed5224652d15dc36a9))
+
+## [2.13.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.8...@contentful/field-editor-shared@2.13.9) (2025-10-07)
+
+### Bug Fixes
+
+- useReleaseStatus respects Published status ([#1952](https://github.com/contentful/field-editors/issues/1952)) ([e628291](https://github.com/contentful/field-editors/commit/e6282916307b9663f3435a15af5981201a2bf208))
+
+## [2.13.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.7...@contentful/field-editor-shared@2.13.8) (2025-10-07)
+
+### Bug Fixes
+
+- **ReleaseEntityStatusPopover:** [TOL-3475]: Check secondary status before applying styles ([#1950](https://github.com/contentful/field-editors/issues/1950)) ([5f8737e](https://github.com/contentful/field-editors/commit/5f8737e070c6703e18fefadaa75a50046dcee3fa))
+
+## [2.13.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.6...@contentful/field-editor-shared@2.13.7) (2025-10-03)
+
+### Bug Fixes
+
+- [TOL-3475] Handle no tertiary status ([#1948](https://github.com/contentful/field-editors/issues/1948)) ([4d90674](https://github.com/contentful/field-editors/commit/4d90674d8df2477e44cccd88f3a8add38182e131))
+
+## [2.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.5...@contentful/field-editor-shared@2.13.6) (2025-09-30)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.13.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.4...@contentful/field-editor-shared@2.13.5) (2025-09-29)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.13.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.3...@contentful/field-editor-shared@2.13.4) (2025-09-24)
+
+### Bug Fixes
+
+- **ReleaseEntityStatusBadge:** handle remainsDraft correctly [TOL-3393] ([#1941](https://github.com/contentful/field-editors/issues/1941)) ([0daab44](https://github.com/contentful/field-editors/commit/0daab441993b7718d86104b8fb7f82a4d98ca953))
+
+## [2.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.2...@contentful/field-editor-shared@2.13.3) (2025-09-24)
+
+### Bug Fixes
+
+- **shared:** handle remains draft correctly for release action [TOL-3393] ([#1940](https://github.com/contentful/field-editors/issues/1940)) ([73d44b5](https://github.com/contentful/field-editors/commit/73d44b5b286df6859b1b64af7dae32f2de6f3a90))
+
+## [2.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.1...@contentful/field-editor-shared@2.13.2) (2025-09-23)
+
+### Bug Fixes
+
+- **shared:** remainsDraft should have warning color [TOL-3393] ([#1939](https://github.com/contentful/field-editors/issues/1939)) ([c4984f4](https://github.com/contentful/field-editors/commit/c4984f43d859afb8ccb5f187ada95b5b8b22365e))
+
+## [2.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.13.0...@contentful/field-editor-shared@2.13.1) (2025-09-22)
+
+### Bug Fixes
+
+- remove console log [] ([37a4473](https://github.com/contentful/field-editors/commit/37a4473830ec769aee13e66c5c31a2b050d80610))
+
+# [2.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.12.3...@contentful/field-editor-shared@2.13.0) (2025-09-22)
+
+### Features
+
+- support release aware references [TOL-3360] ([#1935](https://github.com/contentful/field-editors/issues/1935)) ([4b2b929](https://github.com/contentful/field-editors/commit/4b2b9291833467b80b895cf6c58c2170b933ca19))
+
+## [2.12.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.12.2...@contentful/field-editor-shared@2.12.3) (2025-09-19)
+
+### Bug Fixes
+
+- bump forma to ensure the same version [] ([#1937](https://github.com/contentful/field-editors/issues/1937)) ([88d3dde](https://github.com/contentful/field-editors/commit/88d3dde9bcdc948c49f5829d7d90d272425b2461))
+
+## [2.12.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.12.1...@contentful/field-editor-shared@2.12.2) (2025-09-15)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.12.0...@contentful/field-editor-shared@2.12.1) (2025-09-10)
+
+### Bug Fixes
+
+- **\_shared:** use the correct icon for the entity status badge [] ([#1929](https://github.com/contentful/field-editors/issues/1929)) ([e95a7b3](https://github.com/contentful/field-editors/commit/e95a7b3fc6d5be6537fd2086e7fffc3dcf52a6af))
+
+# [2.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.11.2...@contentful/field-editor-shared@2.12.0) (2025-09-08)
+
+### Features
+
+- add asset support for release entity status calculation [TOL-3363] ([#1928](https://github.com/contentful/field-editors/issues/1928)) ([840490f](https://github.com/contentful/field-editors/commit/840490f06853b70f8b7d7784f02a970921761a95))
+
+## [2.11.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.11.1...@contentful/field-editor-shared@2.11.2) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [2.11.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.11.0...@contentful/field-editor-shared@2.11.1) (2025-09-05)
+
+### Bug Fixes
+
+- [] File type import ([#1925](https://github.com/contentful/field-editors/issues/1925)) ([edd448d](https://github.com/contentful/field-editors/commit/edd448d686941f6260b6f029ba4840b71a0c43cd))
+
+# [2.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.10.0...@contentful/field-editor-shared@2.11.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
 # [2.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.9.1...@contentful/field-editor-shared@2.10.0) (2025-08-27)
 
 ### Features

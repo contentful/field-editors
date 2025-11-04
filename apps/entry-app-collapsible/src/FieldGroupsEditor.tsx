@@ -10,7 +10,7 @@ import {
   FormControl,
   TextInput,
   Menu,
-  Card,
+  Card
 } from '@contentful/f36-components';
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
 import { FieldType, FieldGroupType } from './types';
@@ -18,7 +18,9 @@ import { ActionTypes } from './types';
 import styles from './styles';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
-import { CloseIcon, ChevronDownIcon, ChevronUpIcon } from '@contentful/f36-icons';
+import { CaretDownIcon, CaretUpIcon, XIcon } from '@contentful/f36-icons';
+
+import tokens from '@contentful/f36-tokens';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -47,13 +49,13 @@ const SortableFieldItem = SortableElement(
         </div>
         <IconButton
           variant="transparent"
-          icon={<CloseIcon variant="negative" />}
+          icon={<XIcon color={tokens.colorNegative} />}
           aria-label="Remove field"
           onClick={() =>
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
               groupId,
-              fieldKey: field.id,
+              fieldKey: field.id
             })
           }
         />
@@ -121,7 +123,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId,
+  groupId
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
 
@@ -129,7 +131,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value,
+      name: e.currentTarget.value
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -139,7 +141,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       type: ActionTypes.MOVE_FIELD_IN_GROUP,
       groupId,
       oldIndex,
-      newIndex,
+      newIndex
     });
   };
 
@@ -156,7 +158,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
         {unassignedFields.length > 0 ? (
           <Menu>
             <Menu.Trigger>
-              <Button endIcon={<ChevronDownIcon />} size="small" variant="secondary">
+              <Button endIcon={<CaretDownIcon />} size="small" variant="secondary">
                 Select a field to add
               </Button>
             </Menu.Trigger>
@@ -168,10 +170,11 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                       type: ActionTypes.ADD_FIELD_TO_GROUP,
                       groupId,
                       fieldKey: id,
-                      fieldName: name,
+                      fieldName: name
                     });
                   }}
-                  key={id}>
+                  key={id}
+                >
                   {name}
                 </Menu.Item>
               ))}
@@ -192,16 +195,18 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           as="button"
           className={styles.fieldGroupConfigurationTextLink}
           variant="negative"
-          icon={<CloseIcon />}
-          onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
+          icon={<XIcon />}
+          onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}
+        >
           Remove
         </TextLink>
         {!last ? (
           <TextLink
             as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon={<ChevronDownIcon />}
-            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
+            icon={<CaretDownIcon />}
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}
+          >
             Move down
           </TextLink>
         ) : null}
@@ -209,8 +214,9 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           <TextLink
             as="button"
             className={styles.fieldGroupConfigurationTextLink}
-            icon={<ChevronUpIcon />}
-            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
+            icon={<CaretUpIcon />}
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}
+          >
             Move up
           </TextLink>
         ) : null}

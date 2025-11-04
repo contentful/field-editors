@@ -40,17 +40,11 @@ function getStarCount(count?: number | string): number {
   }
 }
 
-export function RatingEditor(props: RatingEditorProps) {
-  const { field } = props;
-
-  const starsCount = getStarCount(get(props.parameters, ['instance', 'stars']));
+export function RatingEditor({ field, parameters, isInitiallyDisabled = true }: RatingEditorProps) {
+  const starsCount = getStarCount(get(parameters, ['instance', 'stars']));
 
   return (
-    <FieldConnector<number>
-      debounce={0}
-      field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-    >
+    <FieldConnector<number> debounce={0} field={field} isInitiallyDisabled={isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const clearOption = () => {
           setValue(null);
@@ -79,7 +73,3 @@ export function RatingEditor(props: RatingEditorProps) {
     </FieldConnector>
   );
 }
-
-RatingEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};

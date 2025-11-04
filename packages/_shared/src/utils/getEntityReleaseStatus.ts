@@ -8,7 +8,7 @@ import type {
 } from '../types';
 import { determineReleaseAction } from './determineReleaseAction';
 
-type GetEntryReleaseStatusResult = {
+type GetEntityReleaseStatusResult = {
   releaseAction: ReleaseAction;
   localesCount?: number;
   entityItem?: ReleaseV2Entity | ReleaseV2EntityWithLocales;
@@ -16,13 +16,13 @@ type GetEntryReleaseStatusResult = {
   removeLocales?: string[];
 };
 
-export function getEntryReleaseStatus(
-  entryId: string,
+export function getEntityReleaseStatus(
+  entityId: string,
   locales: LocaleProps[],
   release?: ReleaseV2Props,
-): GetEntryReleaseStatusResult {
+): GetEntityReleaseStatusResult {
   const { releaseAction, entityItem, addLocales, removeLocales } = determineReleaseAction(
-    entryId,
+    entityId,
     release,
   );
 

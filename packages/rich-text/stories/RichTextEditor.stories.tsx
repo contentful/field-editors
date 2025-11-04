@@ -4,10 +4,10 @@ import { useMemo } from 'react';
 
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { IconButton } from '@contentful/f36-components';
-import { CopyIcon } from '@contentful/f36-icons';
+import { CopySimpleIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 import {
   ActionsPlayground,
-  createFakeCMAAdapter,
   createFakeFieldAPI,
   createFakeLocalesAPI,
   createFakeNavigatorAPI,
@@ -126,7 +126,7 @@ const DemoRichTextEditor = () => {
             ];
         return mock;
       }, initialValue),
-    [fieldValidations, initialValue]
+    [fieldValidations, initialValue],
   );
 
   const isDisabled = window.localStorage.getItem('initialDisabled') || false;
@@ -140,23 +140,23 @@ const DemoRichTextEditor = () => {
       space: 'space-id',
       environment: 'environment-id',
     },
-    cmaAdapter: createFakeCMAAdapter({
-      ContentType: {
+    cma: {
+      contentType: {
         get: () => Promise.resolve(contentTypes.published),
       },
-      Entry: {
+      entry: {
         get: () => Promise.resolve(entries.published),
       },
-      Asset: {
+      asset: {
         get: () => Promise.resolve(assets.published),
       },
-      Locale: {
+      locale: {
         getMany: () => Promise.resolve({ items: [locales.englishDefault] }),
       },
-      Space: {
+      space: {
         get: () => Promise.resolve(spaces.indifferent),
       },
-    }),
+    },
     space: {
       ...space,
       getEntityScheduledActions: () => {
@@ -184,7 +184,7 @@ const DemoRichTextEditor = () => {
       selectSingleEntry: newEntitySelectorDummyDialog('selectSingleEntry', 'Entry'),
       selectSingleResourceEntity: newEntitySelectorDummyDialog(
         'selectSingleResourceEntity',
-        'Contentful:Entry'
+        'Contentful:Entry',
       ),
     },
     access: {
@@ -258,7 +258,7 @@ const DemoRichTextEditor = () => {
         <IconButton
           variant="transparent"
           aria-label="Copy"
-          icon={<CopyIcon size="tiny" variant="positive" />}
+          icon={<CopySimpleIcon size="tiny" color={tokens.colorPositive} />}
           className={structurePreviewCopyButton}
           onClick={async () => {
             // https://stackoverflow.com/a/65996386

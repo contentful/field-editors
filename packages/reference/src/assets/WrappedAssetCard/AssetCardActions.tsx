@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Menu, Text } from '@contentful/f36-components';
+import { MenuItem, Text, MenuSectionTitle } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
@@ -57,8 +57,8 @@ export function renderAssetInfo(props: { entityFile: File }) {
   const image = get(entityFile, 'details.image');
 
   return [
-    <Menu.SectionTitle key="file-section">File info</Menu.SectionTitle>,
-    <Menu.Item
+    <MenuSectionTitle key="file-section">File info</MenuSectionTitle>,
+    <MenuItem
       key="file-information"
       className={styles.fileInformation.menuItem}
       isDisabled
@@ -94,7 +94,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
           </>
         )}
       </dl>
-    </Menu.Item>,
+    </MenuItem>,
   ];
 }
 
@@ -107,14 +107,14 @@ export function renderActions(props: {
   const { entityFile, isDisabled, onEdit, onRemove } = props;
 
   return [
-    <Menu.SectionTitle key="section-title">Actions</Menu.SectionTitle>,
+    <MenuSectionTitle key="section-title">Actions</MenuSectionTitle>,
     onEdit ? (
-      <Menu.Item key="edit" onClick={onEdit} testId="card-action-edit">
+      <MenuItem key="edit" onClick={onEdit} testId="card-action-edit">
         Edit
-      </Menu.Item>
+      </MenuItem>
     ) : null,
     entityFile ? (
-      <Menu.Item
+      <MenuItem
         key="download"
         onClick={() => {
           if (typeof entityFile.url === 'string') {
@@ -124,12 +124,12 @@ export function renderActions(props: {
         testId="card-action-download"
       >
         Download
-      </Menu.Item>
+      </MenuItem>
     ) : null,
     onRemove && !isDisabled ? (
-      <Menu.Item key="remove" onClick={onRemove} testId="card-action-remove">
+      <MenuItem key="remove" onClick={onRemove} testId="card-action-remove">
         Remove
-      </Menu.Item>
+      </MenuItem>
     ) : null,
   ].filter((item) => item);
 }

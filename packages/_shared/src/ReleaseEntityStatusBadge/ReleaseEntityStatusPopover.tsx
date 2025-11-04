@@ -1,12 +1,13 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { Badge, Flex, generateIcon, Popover, Skeleton } from '@contentful/f36-components';
+import { Badge, Flex, Popover } from '@contentful/f36-components';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { LocaleProps } from 'contentful-management';
-import { cx, css } from 'emotion';
+import { css, cx } from 'emotion';
 
-import type { ReleaseLocalesStatusMap, ReleaseEntityStatus } from '../types';
-import { RELEASE_BADGES } from './constants';
+import type { ReleaseEntityStatus, ReleaseStatusMap } from '../types';
+import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { ReleaseEntityStatusLocalesList } from './ReleaseEntityStatusLocalesList';
 
 type BadgeSVGType = {
@@ -24,32 +25,41 @@ type Status = {
 
 const getColor = ({ secondary, tertiary, isHover }: BadgeSVGType) => {
   const status = secondary || tertiary;
-  return isHover ? RELEASE_BADGES[status]?.hover : RELEASE_BADGES[status]?.default;
+  if (!status) {
+    return;
+  }
+  return isHover
+    ? getReleaseStatusBadgeConfig(status).hover
+    : getReleaseStatusBadgeConfig(status).default;
 };
 
 const generateDynamicStyles = (status?: Status) => {
   const wrapperClass = css({
-    '& svg[data-status="secondary"]': {
-      fill: getColor({
-        secondary: status?.secondary,
-        isHover: false,
-      } as BadgeSVGType),
-    },
-    '& svg[data-status="tertiary"]': {
-      fill: getColor({
-        tertiary: status?.tertiary,
-        isHover: false,
-      } as BadgeSVGType),
-    },
-    '&:hover svg[data-status="secondary"]': {
-      fill: getColor({
-        secondary: status?.secondary,
-        isHover: true,
-      } as BadgeSVGType),
-    },
-    '&:hover svg[data-status="tertiary"]': {
-      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
-    },
+    ...(status?.secondary && {
+      '& svg[data-status="secondary"]': {
+        fill: getColor({
+          secondary: status?.secondary,
+          isHover: false,
+        } as BadgeSVGType),
+      },
+      '&:hover svg[data-status="secondary"]': {
+        fill: getColor({
+          secondary: status?.secondary,
+          isHover: true,
+        } as BadgeSVGType),
+      },
+    }),
+    ...(status?.tertiary && {
+      '& svg[data-status="tertiary"]': {
+        fill: getColor({
+          tertiary: status?.tertiary,
+          isHover: false,
+        } as BadgeSVGType),
+      },
+      '&:hover svg[data-status="tertiary"]': {
+        fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
+      },
+    }),
   });
 
   return wrapperClass;
@@ -85,7 +95,7 @@ const styles = {
 };
 
 const determineBadgeStatus = (
-  localesStatusMap: ReleaseLocalesStatusMap,
+  localesStatusMap: ReleaseStatusMap,
   activeLocales: Pick<LocaleProps, 'code'>[] | undefined,
 ): Status => {
   // If there is only one locale, or only active locale, we would not show the stacking
@@ -142,15 +152,14 @@ const determineBadgeStatus = (
 };
 
 type ReleaseLocalePublishingPopoverProps = {
-  releaseLocalesStatusMap: ReleaseLocalesStatusMap;
+  releaseStatusMap: ReleaseStatusMap;
   activeLocales: Pick<LocaleProps, 'code'>[];
   isLoading?: boolean;
 };
 
 export function ReleaseEntityStatusPopover({
-  releaseLocalesStatusMap,
+  releaseStatusMap,
   activeLocales,
-  isLoading = false,
 }: ReleaseLocalePublishingPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -169,37 +178,13 @@ export function ReleaseEntityStatusPopover({
     }, 300);
   }, []);
 
-  const status = determineBadgeStatus(releaseLocalesStatusMap, activeLocales);
+  const status = determineBadgeStatus(releaseStatusMap, activeLocales);
   const ariaLabel = status.secondary ? 'Multiple statuses' : status.primary;
   const wrapperClass = generateDynamicStyles(status);
-
-  // TODO: use from forma icons, once it's changed there (currently a custom one here: https://github.com/contentful/forma-36/blob/main/packages/components/navbar/src/icons/ArrowDownIcon.tsx)
-  const ArrowDownIcon = generateIcon({
-    name: 'ArrowDownIcon',
-    viewBox: '0 0 12 20',
-    path: (
-      <path
-        d="M3.03076 8C2.20109 8 1.73228 8.95209 2.23814 9.60971L5.20727 13.4696C5.60757 13.99 6.39223 13.99 6.79252 13.4696L9.76166 9.60971C10.2675 8.95209 9.79871 8 8.96904 8L3.03076 8Z"
-        fill="currentColor"
-      />
-    ),
-  });
-
-  if (isLoading) {
-    return (
-      <Skeleton.Container className={styles.skeletonBadge}>
-        <Skeleton.Image
-          testId={`Release-entity-locale-status-badge-skeleton`}
-          width="65px"
-          height="20px"
-        />
-      </Skeleton.Container>
-    );
-  }
-
+  const { label, icon, variant } = getReleaseStatusBadgeConfig(status.primary);
   return (
     <Popover
-      isOpen={releaseLocalesStatusMap && isOpen}
+      isOpen={releaseStatusMap && isOpen}
       onClose={() => setIsOpen(false)}
       autoFocus={false}
       placement="bottom-end"
@@ -212,15 +197,15 @@ export function ReleaseEntityStatusPopover({
         >
           <Badge
             tabIndex={0}
-            variant={RELEASE_BADGES[status.primary].variant}
+            variant={variant}
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
-            endIcon={<ArrowDownIcon color={RELEASE_BADGES[status.primary].icon} />}
+            endIcon={<CaretDownIcon size="tiny" color={icon} />}
             onMouseOver={onMouseEnter}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            {RELEASE_BADGES[status.primary].label}
+            {label}
           </Badge>
           {status.secondary && (
             <svg
@@ -253,10 +238,10 @@ export function ReleaseEntityStatusPopover({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {!!releaseLocalesStatusMap && (
+        {!!releaseStatusMap && (
           <>
             <ReleaseEntityStatusLocalesList
-              statusMap={releaseLocalesStatusMap}
+              statusMap={releaseStatusMap}
               activeLocales={activeLocales}
             />
           </>

@@ -3,6 +3,102 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.4...@contentful/field-editor-validation-errors@2.0.5) (2025-10-29)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [2.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.3...@contentful/field-editor-validation-errors@2.0.4) (2025-10-28)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [2.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.2...@contentful/field-editor-validation-errors@2.0.3) (2025-10-22)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [2.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.1...@contentful/field-editor-validation-errors@2.0.2) (2025-10-21)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [2.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.0...@contentful/field-editor-validation-errors@2.0.1) (2025-10-07)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+# [2.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.7...@contentful/field-editor-validation-errors@2.0.0) (2025-10-07)
+
+### Features
+
+- migrate remaining space.getEntries [TOL-1684][TOL-3476] ([#1949](https://github.com/contentful/field-editors/issues/1949)) ([d48f8c8](https://github.com/contentful/field-editors/commit/d48f8c84457378003e103da8c608e0c3c4c63413))
+
+### BREAKING CHANGES
+
+- Validation errors are depending the `sdk.cma` as a property now
+
+## [1.7.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.6...@contentful/field-editor-validation-errors@1.7.7) (2025-10-03)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.7.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.5...@contentful/field-editor-validation-errors@1.7.6) (2025-09-30)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.7.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.4...@contentful/field-editor-validation-errors@1.7.5) (2025-09-29)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.7.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.3...@contentful/field-editor-validation-errors@1.7.4) (2025-09-24)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.7.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.2...@contentful/field-editor-validation-errors@1.7.3) (2025-09-24)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.7.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.1...@contentful/field-editor-validation-errors@1.7.2) (2025-09-23)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.7.0...@contentful/field-editor-validation-errors@1.7.1) (2025-09-22)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.6...@contentful/field-editor-validation-errors@1.7.0) (2025-09-22)
+
+### Features
+
+- support release aware references [TOL-3360] ([#1935](https://github.com/contentful/field-editors/issues/1935)) ([4b2b929](https://github.com/contentful/field-editors/commit/4b2b9291833467b80b895cf6c58c2170b933ca19))
+
+## [1.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.5...@contentful/field-editor-validation-errors@1.6.6) (2025-09-19)
+
+### Bug Fixes
+
+- bump forma to ensure the same version [] ([#1937](https://github.com/contentful/field-editors/issues/1937)) ([88d3dde](https://github.com/contentful/field-editors/commit/88d3dde9bcdc948c49f5829d7d90d272425b2461))
+
+## [1.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.4...@contentful/field-editor-validation-errors@1.6.5) (2025-09-15)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.3...@contentful/field-editor-validation-errors@1.6.4) (2025-09-10)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.2...@contentful/field-editor-validation-errors@1.6.3) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.1...@contentful/field-editor-validation-errors@1.6.2) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.6.0...@contentful/field-editor-validation-errors@1.6.1) (2025-09-05)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.5.3...@contentful/field-editor-validation-errors@1.6.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
 ## [1.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@1.5.2...@contentful/field-editor-validation-errors@1.5.3) (2025-08-27)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

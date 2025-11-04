@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { EntityProvider } from '@contentful/field-editor-reference';
-import { createFakeCMAAdapter } from '@contentful/field-editor-test-utils';
 import { configure, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../__fixtures__/published_content_type.json';
@@ -28,9 +27,9 @@ beforeEach(() => {
         'en-US': 'English (United States)',
       },
     },
-    cmaAdapter: createFakeCMAAdapter({
-      ContentType: { get: jest.fn().mockReturnValue(publishedCT) },
-      Entry: {
+    cma: {
+      contentType: { get: jest.fn().mockReturnValue(publishedCT) },
+      entry: {
         get: jest.fn().mockImplementation(({ entryId }) => {
           if (entryId === 'linked-entry-urn') {
             return Promise.resolve(publishedEntry);
@@ -38,14 +37,14 @@ beforeEach(() => {
           return Promise.reject(new Error());
         }),
       },
-      Locale: {
+      locale: {
         getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
       },
-      ScheduledAction: {
+      scheduledAction: {
         getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
       },
-      Space: { get: jest.fn().mockResolvedValue(space) },
-    }),
+      space: { get: jest.fn().mockResolvedValue(space) },
+    },
     space: { onEntityChanged: jest.fn() },
     navigator: {},
     ids: {
@@ -70,7 +69,7 @@ function renderResourceCard({ linkType = 'Contentful:Entry', entryUrn = resolvab
           urn: entryUrn,
         }}
       />
-    </EntityProvider>
+    </EntityProvider>,
   );
 }
 

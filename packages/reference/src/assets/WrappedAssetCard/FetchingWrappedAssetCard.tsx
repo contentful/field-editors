@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import { AssetCard, EntryCard } from '@contentful/f36-components';
-import { useLocalePublishStatus, useActiveLocales } from '@contentful/field-editor-shared';
+import {
+  useLocalePublishStatus,
+  useActiveLocales,
+  useReleaseStatus,
+  type ReleaseV2Props,
+} from '@contentful/field-editor-shared';
 
 import {
   CustomEntityCardProps,
@@ -28,14 +33,22 @@ type FetchingWrappedAssetCardProps = {
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
-  const { data: asset, status } = useEntity<Asset>('Asset', props.assetId);
+  const { data: asset, status, currentEntity } = useEntity<Asset>('Asset', props.assetId);
+
   const { getEntityScheduledActions } = useEntityLoader();
   const loadEntityScheduledActions = React.useCallback(
     () => getEntityScheduledActions('Asset', props.assetId),
     [getEntityScheduledActions, props.assetId],
   );
-  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
   const activeLocales = useActiveLocales(props.sdk);
+  const localesStatusMap = useLocalePublishStatus(asset, props.sdk.locales);
+  const { releaseStatusMap, releaseEntityStatus } = useReleaseStatus({
+    entity: asset,
+    previousEntityOnTimeline: currentEntity,
+    release: props.sdk.release,
+    locales: props.sdk.locales,
+    isReference: true,
+  });
 
   React.useEffect(() => {
     if (asset) {
@@ -98,6 +111,9 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       useLocalizedEntityStatus: props.sdk.parameters.instance.useLocalizedEntityStatus,
       localesStatusMap,
       activeLocales,
+      releaseStatusMap,
+      release: props.sdk.release as ReleaseV2Props | undefined,
+      releaseEntityStatus,
     };
 
     if (status === 'loading') {

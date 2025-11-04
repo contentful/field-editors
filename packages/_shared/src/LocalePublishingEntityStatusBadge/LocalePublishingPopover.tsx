@@ -1,12 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import {
-  EntityStatus,
-  EntityStatusBadge,
-  Flex,
-  Popover,
-  generateIcon,
-} from '@contentful/f36-components';
+import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-components';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type {
   LocaleProps,
@@ -47,21 +42,23 @@ const generateDynamicStyles = (status?: Status) => {
         isHover: false,
       } as BadgeSVGType),
     },
-    '& svg[data-status="tertiary"]': {
-      fill: getColor({
-        tertiary: status?.tertiary,
-        isHover: false,
-      } as BadgeSVGType),
-    },
     '&:hover svg[data-status="secondary"]': {
       fill: getColor({
         secondary: status?.secondary,
         isHover: true,
       } as BadgeSVGType),
     },
-    '&:hover svg[data-status="tertiary"]': {
-      fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
-    },
+    ...(status?.tertiary && {
+      '& svg[data-status="tertiary"]': {
+        fill: getColor({
+          tertiary: status?.tertiary,
+          isHover: false,
+        } as BadgeSVGType),
+      },
+      '&:hover svg[data-status="tertiary"]': {
+        fill: getColor({ tertiary: status?.tertiary, isHover: true } as BadgeSVGType),
+      },
+    }),
   });
 
   return wrapperClass;
@@ -92,23 +89,11 @@ const styles = {
   }),
 };
 
-// TODO: use from forma icons, once it's changed there (currently a custom one here: https://github.com/contentful/forma-36/blob/main/packages/components/navbar/src/icons/ArrowDownIcon.tsx)
-const ArrowDownIcon = generateIcon({
-  name: 'ArrowDownIcon',
-  viewBox: '0 0 12 20',
-  path: (
-    <path
-      d="M3.03076 8C2.20109 8 1.73228 8.95209 2.23814 9.60971L5.20727 13.4696C5.60757 13.99 6.39223 13.99 6.79252 13.4696L9.76166 9.60971C10.2675 8.95209 9.79871 8 8.96904 8L3.03076 8Z"
-      fill="currentColor"
-    />
-  ),
-});
-
 type Status = { primary: EntityStatus; secondary?: EntityStatus; tertiary?: EntityStatus };
 
 const determineBadgeStatus = (
   localesStatusMap?: LocalePublishStatusMap,
-  activeLocales?: Pick<LocaleProps, 'code'>[]
+  activeLocales?: Pick<LocaleProps, 'code'>[],
 ): Status | undefined => {
   // Early return for null or undefined locales
   if (!localesStatusMap) return;
@@ -196,7 +181,7 @@ export function LocalePublishingPopover({
 
   const entityStatus = entityHelpers.getEntityStatus(
     entity.sys,
-    activeLocales?.map((locale) => locale.code)
+    activeLocales?.map((locale) => locale.code),
   );
 
   if (['archived', 'deleted'].includes(entityStatus)) {
@@ -236,7 +221,7 @@ export function LocalePublishingPopover({
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
             // @ts-expect-error - type is not exported
-            endIcon={<ArrowDownIcon color={getIconColor(entityStatus)} />}
+            endIcon={<CaretDownIcon size="tiny" color={getIconColor(entityStatus)} />}
             onMouseOver={onMouseEnter}
             isScheduled={isScheduled}
             onMouseEnter={onMouseEnter}

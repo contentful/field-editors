@@ -10,7 +10,7 @@ It uses [Typescript][typescript], [React][react], [Forma36][forma36] (a design s
 
 ## Available field editors
 
-Playground with all components: [https://contentful-field-editors.netlify.app/](https://contentful-field-editors.netlify.app/)
+Playground with all components: [http://contentful-field-editors.colorfuldemo.com/](http://contentful-field-editors.colorfuldemo.com/)
 
 This repository has all editorial components that you can find in the Contentful Web application.
 You can run each of these component as a custom field app or compose them into a custom entry app.
@@ -102,3 +102,21 @@ All field editor packages are open source software [licensed as MIT](./LICENSE).
 [prettier]: https://prettier.io/
 [eslint]: https://eslint.org/
 [lingui]: https://lingui.dev/
+
+## Internationalization
+
+The latest versions of field editors are internationalized with [lingui](https://lingui.dev/). Any app using the latest field editors needs to include the `@lingui/core` and `@lingui/message-utils` packages and initialize `lingui` like this before rendering field editors:
+
+```javascript
+import { i18n } from '@lingui/core';
+import { compileMessage } from '@lingui/message-utils/compileMessage';
+
+...
+
+i18n.setMessagesCompiler(compileMessage);
+i18n.activate('en-US');  // use desired locale code
+
+const App = () => {
+  ...
+};
+```

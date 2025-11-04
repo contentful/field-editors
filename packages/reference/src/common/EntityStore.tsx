@@ -3,7 +3,8 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, ResourceProvider, createClient, fetchAll } from 'contentful-management';
+import { PlainClientAPI, ResourceProvider, fetchAll } from 'contentful-management';
+import { get } from 'lodash';
 import PQueue from 'p-queue';
 
 import {
@@ -54,6 +55,7 @@ type GetOptions = {
 type GetEntityOptions = GetOptions & {
   spaceId?: string;
   environmentId?: string;
+  releaseId?: string;
 };
 
 type UseEntityOptions = GetEntityOptions & { enabled?: boolean };
@@ -68,17 +70,17 @@ type UseResourceOptions = GetResourceOptions & { enabled?: boolean; locale?: str
 
 // all types of the union share the data property to ease destructuring downstream
 type UseEntityResult<E> =
-  | { status: 'idle'; data: never }
-  | { status: 'loading'; data: never }
-  | { status: 'error'; data: never }
-  | { status: 'success'; data: E };
+  | { status: 'idle'; data: never; currentEntity: never }
+  | { status: 'loading'; data: never; currentEntity: never }
+  | { status: 'error'; data: never; currentEntity: never }
+  | { status: 'success'; data: E; currentEntity?: E };
 
 type FetchFunction<TQueryData> = (context: { cmaClient: PlainClientAPI }) => Promise<TQueryData>;
 type FetchServiceOptions<
   TQueryFnData = unknown,
   TError = unknown,
   TData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey
+  TQueryKey extends QueryKey = QueryKey,
 > = FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey> & GetOptions;
 type FetchParams = { fetch: FetchService; urn: string; options?: GetOptions };
 
@@ -89,16 +91,22 @@ type EntityQueryKey = [
   entityType: FetchableEntityType,
   entityId: string,
   spaceId: string,
-  environmentId: string
+  environmentId: string,
+  releaseId: string | undefined,
 ];
 
 type ResourceProviderQueryKey = [
   ident: 'ResourceProvider',
   organizationId: string,
-  appDefinitionId: string
+  appDefinitionId: string,
 ];
 
-type ScheduledActionsQueryKey = ['scheduled-actions', ...EntityQueryKey];
+type ScheduledActionsQueryKey = [
+  'spaces',
+  string,
+  'scheduled_actions',
+  { query: Record<string, unknown> },
+];
 
 export type FunctionInvocationErrorResponse = {
   status: number;
@@ -114,7 +122,7 @@ export type FunctionInvocationErrorResponse = {
 };
 
 function isFunctionInvocationErrorResponse(
-  response: unknown
+  response: unknown,
 ): response is FunctionInvocationErrorResponse {
   const functionInvocationErrorMessages = [
     'An error occurred while executing the Contentful Function code',
@@ -164,7 +172,7 @@ export function isFunctionInvocationError(value: unknown): value is FunctionInvo
 
 function handleResourceFetchError(
   resourceFetchError: Error,
-  resourceTypeEntity: ResourceType
+  resourceTypeEntity: ResourceType,
 ): void {
   const parsedError = JSON.parse(resourceFetchError.message);
   if (isFunctionInvocationErrorResponse(parsedError)) {
@@ -192,7 +200,7 @@ type ResourceQueryKey = [
   ident: 'Resource',
   resourceType: string,
   urn: string,
-  locale: string | undefined
+  locale: string | undefined,
 ];
 
 async function fetchContentfulEntry({
@@ -222,7 +230,7 @@ async function fetchContentfulEntry({
           environmentId,
           entryId,
         }),
-      options
+      options,
     ),
   ]);
   const contentTypeId = entry.sys.contentType.sys.id;
@@ -235,7 +243,7 @@ async function fetchContentfulEntry({
           spaceId,
           environmentId,
         }),
-      options
+      options,
     ),
     fetch(
       ['defaultLocale', spaceId, environmentId],
@@ -248,7 +256,7 @@ async function fetchContentfulEntry({
         const defaultLocaleCode = locales.items.find((locale) => locale.default)?.code as string;
         return defaultLocaleCode;
       },
-      options
+      options,
     ),
   ]);
 
@@ -294,19 +302,19 @@ async function fetchExternalResource({
             We're storing the error in this variable
             so we can use the data returned by the
             resourceType CMA client call in our
-            error handling logic later. 
+            error handling logic later.
             */
             resourceFetchError = e;
             return null;
           }),
-      options
+      options,
     ),
-    fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) =>
-      fetchAll(
+    fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) => {
+      return fetchAll(
         ({ query }) => cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
-        {}
-      )
-    ),
+        {},
+      );
+    }),
   ]);
 
   const resourceTypeEntity = resourceTypes.find((rt) => rt.sys.id === resourceType);
@@ -333,17 +341,16 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
   function useInitServices(props: EntityStoreProps) {
     const currentSpaceId = props.sdk.ids.space;
     const currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
+    const releaseId = props.sdk.ids.release;
+
     const environmentIds = useMemo(
       () => [props.sdk.ids.environmentAlias, props.sdk.ids.environment],
-      [props.sdk.ids.environmentAlias, props.sdk.ids.environment]
+      [props.sdk.ids.environmentAlias, props.sdk.ids.environment],
     );
     const queryClient = useQueryClient();
     const queryCache = queryClient.getQueryCache();
     const entityChangeUnsubscribers = useRef<Record<string, Function>>({});
-    const cmaClient = useMemo(
-      () => createClient({ apiAdapter: props.sdk.cmaAdapter }, { type: 'plain' }),
-      [props.sdk.cmaAdapter]
-    );
+    const cmaClient = props.sdk.cma as unknown as PlainClientAPI;
     const queryQueue = useMemo(() => {
       if (props.queryConcurrency) {
         return new PQueue({ concurrency: props.queryConcurrency });
@@ -357,50 +364,119 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         TQueryFnData = unknown,
         TError = unknown,
         TData = TQueryFnData,
-        TQueryKey extends QueryKey = QueryKey
+        TQueryKey extends QueryKey = QueryKey,
       >(
         queryKey: TQueryKey,
         fn: FetchFunction<TQueryFnData>,
-        options: FetchServiceOptions<TQueryFnData, TError, TData, TQueryKey> = {}
+        options: FetchServiceOptions<TQueryFnData, TError, TData, TQueryKey> = {},
       ) {
         const { priority, ...queryOptions } = options;
         return queryClient.fetchQuery(
           queryKey,
           () => queryQueue.add(() => fn({ cmaClient }), { priority }),
-          queryOptions
+          queryOptions,
         );
       },
-      [queryClient, queryQueue, cmaClient]
+      [queryClient, queryQueue, cmaClient],
+    );
+
+    const isReleaseRequestError = useCallback(
+      function isReleaseRequestError(
+        error: unknown,
+        spaceId?: string,
+        environmentId?: string,
+      ): boolean {
+        return (
+          !!releaseId &&
+          (!spaceId || spaceId === currentSpaceId) &&
+          (!environmentId || environmentId === currentEnvironmentId) &&
+          error instanceof Error &&
+          error.message.includes('The resource could not be found')
+        );
+      },
+      [releaseId, currentSpaceId, currentEnvironmentId],
     );
 
     const getEntity = useCallback(
       function getEntity<E extends FetchableEntity>(
         entityType: FetchableEntityType,
         entityId: string,
-        options?: GetEntityOptions
+        releaseId?: string,
+        options?: GetEntityOptions,
       ): QueryEntityResult<E> {
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
-        const queryKey: EntityQueryKey = [entityType, entityId, spaceId, environmentId];
+        const queryKey: EntityQueryKey = [entityType, entityId, spaceId, environmentId, releaseId];
 
         return fetch(
           queryKey,
-          // @ts-expect-error
-          ({ cmaClient }) => {
+          async ({ cmaClient }) => {
             if (entityType === 'Entry') {
-              return cmaClient.entry.get({ entryId: entityId, spaceId, environmentId });
+              try {
+                const entity = await cmaClient.entry.get({
+                  entryId: entityId,
+                  spaceId,
+                  environmentId,
+                  // @ts-expect-error - releaseId is not there yet in the CMA client
+                  releaseId,
+                });
+                return entity;
+              } catch (error) {
+                // Fallback if the entity is not part of the release yet
+                if (isReleaseRequestError(error, spaceId, environmentId)) {
+                  const currentEntry = await cmaClient.entry.get({
+                    entryId: entityId,
+                    spaceId,
+                    environmentId,
+                    // @ts-expect-error - releaseId is not there yet in the CMA client
+                    releaseId: undefined,
+                  });
+                  // @ts-expect-error - release is not there yet on the published types
+                  currentEntry.sys.release = {
+                    sys: { type: 'Link', linkType: 'Release', id: releaseId! },
+                  };
+                  return currentEntry;
+                }
+                throw error;
+              }
             }
 
             if (entityType === 'Asset') {
-              return cmaClient.asset.get({ assetId: entityId, spaceId, environmentId });
+              try {
+                const entity = await cmaClient.asset.get({
+                  assetId: entityId,
+                  spaceId,
+                  environmentId,
+                  // @ts-expect-error - releaseId is not there yet in the CMA client
+                  releaseId,
+                });
+                return entity;
+              } catch (error) {
+                // Fallback if the entity is not part of the release yet
+                if (isReleaseRequestError(error, spaceId, environmentId)) {
+                  const currentAsset = await cmaClient.asset.get({
+                    assetId: entityId,
+                    spaceId,
+                    environmentId,
+                    // @ts-expect-error - releaseId is not there yet in the CMA client
+                    releaseId: undefined,
+                  });
+                  // @ts-expect-error - release is not there yet on the published types
+                  currentAsset.sys.release = {
+                    sys: { type: 'Link', linkType: 'Release', id: releaseId! },
+                  };
+                  return currentAsset;
+                }
+                throw error;
+              }
             }
 
             throw new UnsupportedError('Unsupported entity type');
           },
-          options
+          options,
         );
       },
-      [fetch, currentSpaceId, currentEnvironmentId]
+      [fetch, currentSpaceId, currentEnvironmentId, isReleaseRequestError],
     );
 
     /**
@@ -412,54 +488,53 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
      */
     const getEntityScheduledActions = useCallback(
       function getEntityScheduledActions(
-        entityType: FetchableEntityType,
+        _: FetchableEntityType,
         entityId: string,
-        options?: GetEntityOptions
+        options?: GetEntityOptions,
       ): QueryEntityResult<ScheduledAction[]> {
-        // This is fixed to force the cache to reuse previous results
-        const fixedEntityCacheId = 'scheduledActionEntityId';
+        // Inside of the release context, the scheduled actions are not available
+        if (releaseId) {
+          return new Promise<ScheduledAction[]>((resolve) => resolve([]));
+        }
 
-        // A space+environment combo can only have up to 500 scheduled actions
+        // A space+environment combo can only have up to 1000 scheduled actions
         // With this request we fetch all schedules and can reuse the results.
         // See https://www.contentful.com/developers/docs/references/content-management-api/#/reference/scheduled-actions/limitations
-        const maxScheduledActions = 500;
+        const maxScheduledActions = 1000;
         const spaceId = options?.spaceId ?? currentSpaceId;
         const environmentId = options?.environmentId ?? currentEnvironmentId;
+        const query = {
+          'environment.sys.id': environmentId,
+          'sys.status': 'scheduled',
+          'entity.sys.linkType[in]': 'Entry,Asset',
+          order: '-scheduledFor.datetime',
+          limit: maxScheduledActions,
+        };
         const queryKey: ScheduledActionsQueryKey = [
-          'scheduled-actions',
-          entityType,
-          fixedEntityCacheId,
+          'spaces',
           spaceId,
-          environmentId,
+          'scheduled_actions',
+          { query },
         ];
 
         // Fetch + Filter by entity ID in the end
         return fetch(
           queryKey,
           async ({ cmaClient }) => {
-            const response = await cmaClient.scheduledActions.getMany({
-              spaceId,
-              query: {
-                'environment.sys.id': environmentId,
-                'sys.status[in]': 'scheduled',
-                order: 'scheduledFor.datetime',
-                limit: maxScheduledActions,
-              },
-            });
-
+            const response = await cmaClient.scheduledActions.getMany({ spaceId, query });
             return response.items;
           },
-          options
+          options,
         ).then((items) => items.filter((action) => action.entity.sys.id === entityId));
       },
-      [fetch, currentSpaceId, currentEnvironmentId]
+      [fetch, currentSpaceId, currentEnvironmentId, releaseId],
     );
 
     const getResource = useCallback(
       function getResource<R extends Resource = Resource>(
         resourceType: string,
         urn: string,
-        options?: GetResourceOptions
+        options?: GetResourceOptions,
       ): QueryResourceResult<R> {
         const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, options?.locale];
         return fetch(
@@ -487,10 +562,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
               environmentId: currentEnvironmentId,
             });
           },
-          options
+          options,
         );
       },
-      [currentEnvironmentId, currentSpaceId, fetch]
+      [currentEnvironmentId, currentSpaceId, fetch],
     );
 
     const isSameSpaceEntityQueryKey = useCallback(
@@ -501,7 +576,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
 
         return isSameSpaceEntityKey;
       },
-      [currentSpaceId, environmentIds]
+      [currentSpaceId, environmentIds],
     );
     // @ts-expect-error ...
     const onEntityChanged = props.sdk.space.onEntityChanged;
@@ -527,13 +602,15 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       }
 
       const subscribeQuery = ({ queryKey, queryHash }: Query) => {
-        const [entityType, entityId] = queryKey;
+        const [entityType, entityId, , , releaseId] = queryKey;
         entityChangeUnsubscribers.current[queryHash] = onEntityChanged(
           entityType,
           entityId,
           (data: unknown) => {
-            queryClient.setQueryData(queryKey, data);
-          }
+            if (get(data, 'sys.release.id') === releaseId) {
+              queryClient.setQueryData(queryKey, data);
+            }
+          },
         );
       };
       findSameSpaceQueries().forEach(subscribeQuery);
@@ -577,7 +654,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     const getResourceProvider = useCallback(
       function getResourceProvider(
         organizationId: string,
-        appDefinitionId: string
+        appDefinitionId: string,
       ): QueryEntityResult<ResourceProvider> {
         const queryKey: ResourceProviderQueryKey = [
           'ResourceProvider',
@@ -591,7 +668,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           });
         });
       },
-      [fetch]
+      [fetch],
     );
 
     return {
@@ -614,32 +691,52 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
   ({ ids }) => ({
     environment: ids.environmentAlias ?? ids.environment,
     space: ids.space,
-  })
+    releaseId: ids.release,
+  }),
 );
 
 export function useEntity<E extends FetchableEntity>(
   entityType: FetchableEntityType,
   entityId: string,
-  options?: UseEntityOptions
+  options?: Omit<UseEntityOptions, 'releaseId'>,
 ): UseEntityResult<E> {
-  const { space, environment } = useCurrentIds();
+  const { space, environment, releaseId } = useCurrentIds();
   const { getEntity } = useEntityLoader();
-  const queryKey: EntityQueryKey = [
-    entityType,
-    entityId,
-    options?.spaceId ?? space,
-    options?.environmentId ?? environment,
-  ];
-  const { status, data } = useQuery(queryKey, () => getEntity(entityType, entityId, options), {
-    enabled: options?.enabled,
-  });
-  return { status, data } as UseEntityResult<E>;
+  const { status, data } = useQuery(
+    [
+      entityType,
+      entityId,
+      options?.spaceId ?? space,
+      options?.environmentId ?? environment,
+      ...(releaseId ? [releaseId] : []),
+    ],
+    () => getEntity(entityType, entityId, releaseId, options),
+    {
+      enabled: options?.enabled,
+    },
+  );
+
+  const { data: currentEntity } = useQuery(
+    [
+      entityType,
+      entityId,
+      options?.spaceId ?? space,
+      options?.environmentId ?? environment,
+      undefined,
+    ],
+    () => getEntity(entityType, entityId, undefined, options),
+    {
+      enabled: options?.enabled && !!releaseId,
+    },
+  );
+
+  return { status, data, currentEntity } as UseEntityResult<E>;
 }
 
 export function useResource<R extends Resource = Resource>(
   resourceType: string,
   urn: string,
-  { locale, ...options }: UseResourceOptions = {}
+  { locale, ...options }: UseResourceOptions = {},
 ) {
   if (resourceType.startsWith('Contentful:')) {
     locale = undefined;
@@ -651,7 +748,7 @@ export function useResource<R extends Resource = Resource>(
     () => getResource<R>(resourceType, urn, { ...options, locale }),
     {
       enabled: options?.enabled,
-    }
+    },
   );
 
   return { status, data, error };
@@ -663,7 +760,7 @@ export function useResourceProvider(organizationId: string, appDefinitionId: str
   const { status, data, error } = useQuery(
     queryKey,
     () => getResourceProvider(organizationId, appDefinitionId),
-    {}
+    {},
   );
 
   return { status, data, error };

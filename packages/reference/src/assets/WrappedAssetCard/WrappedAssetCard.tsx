@@ -2,7 +2,13 @@ import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
 import { AssetCard } from '@contentful/f36-components';
-import { entityHelpers, LocalePublishStatusMap } from '@contentful/field-editor-shared';
+import {
+  entityHelpers,
+  type LocalePublishStatusMap,
+  type ReleaseEntityStatus,
+  type ReleaseStatusMap,
+  type ReleaseV2Props,
+} from '@contentful/field-editor-shared';
 // @ts-expect-error mimetype is not typed
 import mimetype from '@contentful/mimetype';
 import { LocaleProps } from 'contentful-management';
@@ -42,6 +48,9 @@ export interface WrappedAssetCardProps {
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
+  releaseEntityStatus?: ReleaseEntityStatus;
+  releaseStatusMap?: ReleaseStatusMap;
+  release?: ReleaseV2Props;
 }
 
 const defaultProps = {
@@ -79,6 +88,9 @@ export const WrappedAssetCard = ({
   onEdit,
   getAssetUrl,
   onRemove,
+  releaseEntityStatus,
+  releaseStatusMap,
+  release,
 }: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
     asset.sys,
@@ -119,6 +131,9 @@ export const WrappedAssetCard = ({
           entity={asset}
           localesStatusMap={localesStatusMap}
           activeLocales={activeLocales}
+          releaseEntityStatus={releaseEntityStatus}
+          releaseStatusMap={releaseStatusMap}
+          release={release}
         />
       }
       src={

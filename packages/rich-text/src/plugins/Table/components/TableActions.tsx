@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { IconButton, Menu } from '@contentful/f36-components';
-import { ChevronDownIcon } from '@contentful/f36-icons';
+import { CaretDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 import { css } from 'emotion';
@@ -16,6 +16,7 @@ import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
 
+
 export const styles = {
   topRight: css({
     position: 'absolute',
@@ -25,7 +26,7 @@ export const styles = {
 };
 
 const getCurrentTableSize = (
-  editor: PlateEditor
+  editor: PlateEditor,
 ): Record<'numRows' | 'numColumns', number> | null => {
   const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   return table ? getTableSize(table) : null;
@@ -89,7 +90,7 @@ export const TableActions = () => {
       const actionName = `${type}Table${element === 'Table' ? '' : element}`;
       editor.tracking.onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
     },
-    [editor, isHeaderEnabled, close]
+    [editor, isHeaderEnabled, close],
   );
 
   if (isDisabled) {
@@ -111,7 +112,7 @@ export const TableActions = () => {
           variant="transparent"
           tabIndex={-1}
           className={styles.topRight}
-          icon={<ChevronDownIcon />}
+          icon={<CaretDownIcon />}
           aria-label="Open table menu"
           testId="cf-table-actions-button"
         />

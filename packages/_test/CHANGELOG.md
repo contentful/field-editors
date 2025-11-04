@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.6.2...@contentful/field-editor-test-utils@1.7.0) (2025-10-29)
+
+### Features
+
+- **core:** dependency cleanup ([#1964](https://github.com/contentful/field-editors/issues/1964)) ([67f1132](https://github.com/contentful/field-editors/commit/67f1132a530fb868bdf802d41eb10d91487e50ee))
+
+## [1.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.6.1...@contentful/field-editor-test-utils@1.6.2) (2025-09-15)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+## [1.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.6.0...@contentful/field-editor-test-utils@1.6.1) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-test-utils
+
+# [1.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.5.2...@contentful/field-editor-test-utils@1.6.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
 ## [1.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.5.1...@contentful/field-editor-test-utils@1.5.2) (2024-10-04)
 
 **Note:** Version bump only for package @contentful/field-editor-test-utils

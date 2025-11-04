@@ -3,6 +3,145 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.15.0...@contentful/field-editor-rich-text@4.16.0) (2025-10-29)
+
+### Features
+
+- **core:** dependency cleanup ([#1964](https://github.com/contentful/field-editors/issues/1964)) ([67f1132](https://github.com/contentful/field-editors/commit/67f1132a530fb868bdf802d41eb10d91487e50ee))
+
+# [4.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.14.2...@contentful/field-editor-rich-text@4.15.0) (2025-10-28)
+
+### Features
+
+- [TOL-3522] Add flag for handling status for references ([#1962](https://github.com/contentful/field-editors/issues/1962)) ([c2cf456](https://github.com/contentful/field-editors/commit/c2cf456344865ec22ecebb9a0db0dd1e0cacf0cb))
+
+## [4.14.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.14.1...@contentful/field-editor-rich-text@4.14.2) (2025-10-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.14.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.14.0...@contentful/field-editor-rich-text@4.14.1) (2025-10-22)
+
+### Bug Fixes
+
+- **rich-text:** compute count for initial value ([#1959](https://github.com/contentful/field-editors/issues/1959)) ([2bcadbf](https://github.com/contentful/field-editors/commit/2bcadbf1c209e534718c4f348f1901a4f478bded))
+
+# [4.14.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.13...@contentful/field-editor-rich-text@4.14.0) (2025-10-22)
+
+### Features
+
+- **rich-text:** add character validation ([#1955](https://github.com/contentful/field-editors/issues/1955)) ([cce2a9d](https://github.com/contentful/field-editors/commit/cce2a9df032aee03d84f08ddf513f1693fdae661))
+
+## [4.13.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.12...@contentful/field-editor-rich-text@4.13.13) (2025-10-22)
+
+### Bug Fixes
+
+- **richText:** new icons [TOL-3523] ([#1958](https://github.com/contentful/field-editors/issues/1958)) ([904c261](https://github.com/contentful/field-editors/commit/904c2619c01c028116a6f202a2c4b8d6c6558bbd))
+
+## [4.13.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.11...@contentful/field-editor-rich-text@4.13.12) (2025-10-21)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.10...@contentful/field-editor-rich-text@4.13.11) (2025-10-07)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.9...@contentful/field-editor-rich-text@4.13.10) (2025-10-07)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.8...@contentful/field-editor-rich-text@4.13.9) (2025-10-03)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.7...@contentful/field-editor-rich-text@4.13.8) (2025-10-02)
+
+### Bug Fixes
+
+- use entry and asset functions from cma instead of sdk.space [TOL-1684] ([#1947](https://github.com/contentful/field-editors/issues/1947)) ([38275fe](https://github.com/contentful/field-editors/commit/38275fe2ff340f4b258ef47a19a987294d9ec853))
+
+## [4.13.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.6...@contentful/field-editor-rich-text@4.13.7) (2025-09-30)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.5...@contentful/field-editor-rich-text@4.13.6) (2025-09-29)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.4...@contentful/field-editor-rich-text@4.13.5) (2025-09-29)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.3...@contentful/field-editor-rich-text@4.13.4) (2025-09-24)
+
+### Bug Fixes
+
+- **ReleaseEntityStatusBadge:** handle remainsDraft correctly [TOL-3393] ([#1941](https://github.com/contentful/field-editors/issues/1941)) ([0daab44](https://github.com/contentful/field-editors/commit/0daab441993b7718d86104b8fb7f82a4d98ca953))
+
+## [4.13.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.2...@contentful/field-editor-rich-text@4.13.3) (2025-09-24)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.1...@contentful/field-editor-rich-text@4.13.2) (2025-09-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.13.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.13.0...@contentful/field-editor-rich-text@4.13.1) (2025-09-22)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [4.13.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.12.4...@contentful/field-editor-rich-text@4.13.0) (2025-09-22)
+
+### Features
+
+- (F36-V5) remove double nested menu ([#1938](https://github.com/contentful/field-editors/issues/1938)) ([8842c93](https://github.com/contentful/field-editors/commit/8842c93b28efd71c5f144a9cc5401461f862c0f4))
+- support release aware references [TOL-3360] ([#1935](https://github.com/contentful/field-editors/issues/1935)) ([4b2b929](https://github.com/contentful/field-editors/commit/4b2b9291833467b80b895cf6c58c2170b933ca19))
+
+## [4.12.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.12.3...@contentful/field-editor-rich-text@4.12.4) (2025-09-19)
+
+### Bug Fixes
+
+- bump forma to ensure the same version [] ([#1937](https://github.com/contentful/field-editors/issues/1937)) ([88d3dde](https://github.com/contentful/field-editors/commit/88d3dde9bcdc948c49f5829d7d90d272425b2461))
+
+## [4.12.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.12.2...@contentful/field-editor-rich-text@4.12.3) (2025-09-18)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.12.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.12.1...@contentful/field-editor-rich-text@4.12.2) (2025-09-15)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.12.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.12.0...@contentful/field-editor-rich-text@4.12.1) (2025-09-10)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [4.12.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.11.3...@contentful/field-editor-rich-text@4.12.0) (2025-09-08)
+
+### Features
+
+- add asset support for release entity status calculation [TOL-3363] ([#1928](https://github.com/contentful/field-editors/issues/1928)) ([840490f](https://github.com/contentful/field-editors/commit/840490f06853b70f8b7d7784f02a970921761a95))
+
+## [4.11.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.11.2...@contentful/field-editor-rich-text@4.11.3) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.11.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.11.1...@contentful/field-editor-rich-text@4.11.2) (2025-09-05)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.11.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.11.0...@contentful/field-editor-rich-text@4.11.1) (2025-09-05)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [4.11.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.10.3...@contentful/field-editor-rich-text@4.11.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
+## [4.10.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.10.2...@contentful/field-editor-rich-text@4.10.3) (2025-09-05)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [4.10.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.10.1...@contentful/field-editor-rich-text@4.10.2) (2025-08-27)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

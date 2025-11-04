@@ -58,7 +58,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
   const truncatedTitle = truncateTitle(title, 40);
   const status = getEntityStatus(
     entry.sys,
-    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined
+    props.sdk.parameters.instance.useLocalizedEntityStatus ? props.sdk.field.locale : undefined,
   );
 
   return (

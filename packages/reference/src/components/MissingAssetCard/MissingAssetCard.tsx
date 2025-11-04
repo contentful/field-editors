@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import { Card, Flex, IconButton, SectionHeading } from '@contentful/f36-components';
-import { CloseIcon } from '@contentful/f36-icons';
+import { XIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
 
 import * as styles from './styles';
 
@@ -20,7 +21,7 @@ export function MissingAssetCard(props: {
         {!props.isDisabled && props.onRemove && (
           <IconButton
             variant="transparent"
-            icon={<CloseIcon variant="muted" />}
+            icon={<XIcon color={tokens.gray600} />}
             aria-label="Delete"
             onClick={() => {
               props.onRemove && props.onRemove();

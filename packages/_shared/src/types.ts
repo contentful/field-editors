@@ -20,14 +20,14 @@ export type ValidationType =
 //@TODO: use Release types from contentful management once they are ready
 export type ReleaseV2Entity = {
   entity: {
-    sys: { type: 'Link'; linkType: 'Entry'; id: string };
+    sys: { type: 'Link'; linkType: 'Entry' | 'Asset'; id: string };
   };
   action: 'publish' | 'unpublish';
 };
 
 export type ReleaseV2EntityWithLocales = {
   entity: {
-    sys: { type: 'Link'; linkType: 'Entry'; id: string };
+    sys: { type: 'Link'; linkType: 'Entry' | 'Asset'; id: string };
   };
   add: {
     fields: {
@@ -64,12 +64,17 @@ export type ReleaseV2Props = Omit<ReleaseProps, 'entities' | 'sys'> & {
 
 export type ReleaseAction = 'publish' | 'unpublish' | 'not-in-release';
 
-export type ReleaseEntityStatus = 'willPublish' | 'becomesDraft' | 'remainsDraft' | 'notInRelease';
+export type ReleaseEntityStatus =
+  | 'willPublish'
+  | 'becomesDraft'
+  | 'remainsDraft'
+  | 'notInRelease'
+  | 'published';
 
 export type ReleaseLocalesStatus = {
   status: ReleaseEntityStatus;
   variant: BadgeVariant;
   label: string;
-  locale: LocaleProps;
+  locale: Pick<LocaleProps, 'code' | 'default' | 'name'>;
 };
-export type ReleaseLocalesStatusMap = Map<string, ReleaseLocalesStatus>;
+export type ReleaseStatusMap = Map<string, ReleaseLocalesStatus>;

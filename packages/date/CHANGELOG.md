@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.20](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.19...@contentful/field-editor-date@1.9.20) (2025-10-29)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.19](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.18...@contentful/field-editor-date@1.9.19) (2025-10-28)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.18](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.17...@contentful/field-editor-date@1.9.18) (2025-10-22)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.16...@contentful/field-editor-date@1.9.17) (2025-10-21)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.15...@contentful/field-editor-date@1.9.16) (2025-10-07)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.14...@contentful/field-editor-date@1.9.15) (2025-10-07)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.13...@contentful/field-editor-date@1.9.14) (2025-10-03)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.12...@contentful/field-editor-date@1.9.13) (2025-09-30)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.11...@contentful/field-editor-date@1.9.12) (2025-09-29)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.10...@contentful/field-editor-date@1.9.11) (2025-09-24)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.9...@contentful/field-editor-date@1.9.10) (2025-09-24)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.8...@contentful/field-editor-date@1.9.9) (2025-09-23)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.7...@contentful/field-editor-date@1.9.8) (2025-09-22)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.6...@contentful/field-editor-date@1.9.7) (2025-09-22)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.5...@contentful/field-editor-date@1.9.6) (2025-09-19)
+
+### Bug Fixes
+
+- bump forma to ensure the same version [] ([#1937](https://github.com/contentful/field-editors/issues/1937)) ([88d3dde](https://github.com/contentful/field-editors/commit/88d3dde9bcdc948c49f5829d7d90d272425b2461))
+
+## [1.9.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.4...@contentful/field-editor-date@1.9.5) (2025-09-15)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.3...@contentful/field-editor-date@1.9.4) (2025-09-10)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.2...@contentful/field-editor-date@1.9.3) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.1...@contentful/field-editor-date@1.9.2) (2025-09-08)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+## [1.9.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.9.0...@contentful/field-editor-date@1.9.1) (2025-09-05)
+
+**Note:** Version bump only for package @contentful/field-editor-date
+
+# [1.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.8.3...@contentful/field-editor-date@1.9.0) (2025-09-05)
+
+### Features
+
+- [TOL-3355] Add esm modules export ([#1924](https://github.com/contentful/field-editors/issues/1924)) ([73b826c](https://github.com/contentful/field-editors/commit/73b826c56d2a7a3c7bd0b90e6b9780934ad40948))
+
 ## [1.8.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@1.8.2...@contentful/field-editor-date@1.8.3) (2025-08-27)
 
 **Note:** Version bump only for package @contentful/field-editor-date

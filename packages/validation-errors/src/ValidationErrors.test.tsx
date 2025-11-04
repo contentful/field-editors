@@ -7,7 +7,6 @@ import type { ContentType } from '@contentful/field-editor-shared';
 import * as utils from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, act } from '@testing-library/react';
 
-
 import { ValidationErrors } from './ValidationErrors';
 
 configure({
@@ -48,6 +47,12 @@ const createEntry = (id: string) => ({
   },
 });
 
+const cma = {
+  entry: {
+    getMany: jest.fn().mockReturnValue({ items: [] }),
+  },
+};
+
 describe('ValidationErrors', () => {
   afterEach(cleanup);
 
@@ -57,10 +62,13 @@ describe('ValidationErrors', () => {
     const { container } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
+        cma={cma}
+        // @ts-expect-error - partial mock
         space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
-      />
+      />,
     );
 
     expect(container).toBeEmptyDOMElement();
@@ -80,10 +88,13 @@ describe('ValidationErrors', () => {
     const { findByText } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
+        cma={cma}
+        // @ts-expect-error - partial mock
         space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
-      />
+      />,
     );
 
     act(() => {
@@ -97,7 +108,7 @@ describe('ValidationErrors', () => {
         } else {
           return Promise.reject();
         }
-      })
+      }),
     );
   });
 
@@ -117,18 +128,20 @@ describe('ValidationErrors', () => {
     const space = utils.createFakeSpaceAPI((api) => ({
       ...api,
       getCachedContentTypes,
-      getEntries: jest.fn().mockResolvedValue({
-        items: ids.map(createEntry),
-      }),
     }));
+
+    cma.entry.getMany.mockResolvedValue({ items: ids.map(createEntry) });
 
     const { findByText, findAllByTestId } = render(
       <ValidationErrors
         field={field}
+        // @ts-expect-error - partial mock
+        cma={cma}
+        // @ts-expect-error - partial mock
         space={space}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
-      />
+      />,
     );
 
     act(() => {

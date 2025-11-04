@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button, Menu } from '@contentful/f36-components';
-import { AssetIcon, ChevronDownIcon } from '@contentful/f36-icons';
+import { ImageSquareIcon, CaretDownIcon } from '@contentful/f36-icons';
 
 interface InsertLinkSelectorProps {
   onSelectExisting: Function;
@@ -17,7 +17,7 @@ export const InsertLinkSelector = (props: InsertLinkSelectorProps) => {
     return (
       <Button
         isDisabled={props.disabled}
-        startIcon={<AssetIcon />}
+        startIcon={<ImageSquareIcon />}
         testId="markdownEditor.linkExistingAssets"
         size="small"
         variant="secondary"
@@ -36,9 +36,9 @@ const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
     <Menu placement="bottom-end">
       <Menu.Trigger>
         <Button
-          endIcon={<ChevronDownIcon />}
+          endIcon={<CaretDownIcon />}
           isDisabled={props.disabled}
-          startIcon={<AssetIcon />}
+          startIcon={<ImageSquareIcon />}
           testId="markdownEditor.insertMediaDropdownTrigger"
           size="small"
           variant="secondary"
