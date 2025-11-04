@@ -21,6 +21,10 @@ function getConfig(packageName) {
       '^.+\\.(t|j)sx?$': '@swc/jest',
     },
     transformIgnorePatterns: [`/node_modules/(?!nanoid)`],
+    moduleNameMapper: {
+      '^@contentful/field-editor-shared$': '<rootDir>/../../packages/_shared/src',
+      '^@contentful/field-editor-test-utils$': '<rootDir>/../../packages/_test/src',
+    },
   };
 }
 
