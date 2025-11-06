@@ -8,6 +8,7 @@ import { PlateContent, Plate, PlatePlugin } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
+import { defaultScrollSelectionIntoView } from 'slate-react';
 
 import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
@@ -106,7 +107,12 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
                 </StickyToolbarWrapper>
               )}
               <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-              <PlateContent id={id} className={classNames} readOnly={props.isDisabled} />
+              <PlateContent
+                id={id}
+                className={classNames}
+                readOnly={props.isDisabled}
+                scrollSelectionIntoView={defaultScrollSelectionIntoView}
+              />
               {props.withCharValidation && <CharConstraints />}
             </Plate>
           </div>
