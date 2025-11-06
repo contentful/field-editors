@@ -90,6 +90,90 @@ jobs:
       - store_artifacts:
           path: cypress/videos
 
+  prerelease:
+    executor: linux-node
+    steps:
+      - checkout
+      - yarn_install
+      - vault/get-secrets:
+          template-preset: semantic-release
+      - vault/configure-lerna
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - run: yarn build
+      - run:
+          name: Create pre-release version
+          command: |
+            # Get PR number from Circle CI environment
+            PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | grep -oE '[0-9]+$')
+            SANITIZED_BRANCH=$(echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9-]/-/g' | tr '[:upper:]' '[:lower:]')
+            COMMIT_HASH=$(git rev-parse --short HEAD)
+            PREID="pr-${PR_NUMBER}.${SANITIZED_BRANCH}.${COMMIT_HASH}"
+
+            # Create pre-release versions
+            yarn lerna version prerelease \
+              --preid ${PREID} \
+              --no-git-tag-version \
+              --no-push \
+              --yes
+
+            # Save PR number for later steps
+            echo "export PR_NUMBER=${PR_NUMBER}" >> $BASH_ENV
+      - run:
+          name: Publish pre-release
+          command: |
+            source $BASH_ENV
+            yarn lerna publish from-package \
+              --no-git-tag-version \
+              --no-push \
+              --yes \
+              --dist-tag pr-${PR_NUMBER}
+      - run:
+          name: Comment on PR
+          command: |
+            source $BASH_ENV
+
+            # Get list of published packages
+            PACKAGES=$(node -e "
+              const fs = require('fs');
+              const glob = require('glob');
+              const packageJsons = glob.sync('packages/*/package.json');
+              const packages = packageJsons.map(file => {
+                const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+                return { name: pkg.name, version: pkg.version };
+              }).filter(pkg => pkg.version.includes('pr-${PR_NUMBER}'));
+              console.log(JSON.stringify(packages));
+            ")
+
+            # Format as markdown table
+            TABLE=$(node -e "
+              const packages = ${PACKAGES};
+              let output = '| Package | Version |\n|---------|----------|\n';
+              packages.forEach(pkg => {
+                output += \`| \\\`\${pkg.name}\\\` | \\\`\${pkg.version}\\\` |\n\`;
+              });
+              console.log(output);
+            ")
+
+            # Create comment body
+            COMMENT="## 🚀 Pre-release Published\n\n${TABLE}\n\n**Install:**\n\`\`\`bash\n"
+
+            # Add example install command
+            EXAMPLE_PKG=$(echo "${PACKAGES}" | node -e "
+              const packages = JSON.parse(require('fs').readFileSync(0, 'utf-8'));
+              if (packages.length > 0) console.log(packages[0].name);
+            ")
+
+            COMMENT="${COMMENT}yarn add ${EXAMPLE_PKG}@pr-${PR_NUMBER}\n\`\`\`"
+
+            # Post comment using GitHub API
+            curl -X POST \
+              -H "Authorization: token ${GITHUB_TOKEN}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR_NUMBER}/comments" \
+              -d "{\"body\":\"${COMMENT}\"}"
+
   release:
     executor: linux-node
     steps:
@@ -124,3 +208,14 @@ workflows:
           requires:
             - lint
             - unit-tests
+
+  # run when pre-release label is added to PR
+  prerelease-workflow:
+    when:
+      and:
+        - equal: [ webhook, << pipeline.trigger_source >> ]
+        - equal: [ labeled, << pipeline.trigger_parameters.github.event.action >> ]
+        - equal: [ pre-release, << pipeline.trigger_parameters.github.event.label.name >> ]
+    jobs:
+      - prerelease:
+          context: vault

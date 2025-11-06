@@ -1,0 +1,7 @@
+# CircleCI GitHub Webhook Configuration
+# This enables CircleCI to trigger on GitHub label events
+
+webhooks:
+  github:
+    events:
+      - pull_request.labeled
