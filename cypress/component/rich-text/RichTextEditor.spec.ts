@@ -51,16 +51,16 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             BLOCKS.TABLE_ROW,
             {},
             block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 1')),
-            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2'))
+            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2')),
           ),
           block(
             BLOCKS.TABLE_ROW,
             {},
             block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 1')),
-            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2'))
-          )
+            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2')),
+          ),
         ),
-        emptyParagraph()
+        emptyParagraph(),
       ),
     });
     mountRichTextEditor({ sdk, isInitiallyDisabled: true });
@@ -147,18 +147,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         .parent()
         .parent()
         .dragTo(() => richText.editor.findByText('some text.'));
-      if (Cypress.browser.name === 'firefox') {
-        richText.expectValue(doc(entryBlock(), paragraph, emptyParagraph()));
-      } else {
-        richText.expectValue(
-          doc(
-            block(BLOCKS.PARAGRAPH, {}, text('some')),
-            entryBlock(),
-            block(BLOCKS.PARAGRAPH, {}, text(' text.')),
-            emptyParagraph()
-          )
-        );
-      }
+
+      richText.expectValue(doc(entryBlock(), paragraph, emptyParagraph()));
 
       // undo
       // Ensures that drag&drop was recorded in a separate history batch,
@@ -180,7 +170,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         .type('some text 3');
 
       const expectedValue = doc(
-        block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3'))
+        block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3')),
       );
 
       richText.expectValue(expectedValue);
@@ -200,7 +190,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
       const expectedValue = doc(
         block(BLOCKS.HEADING_1, {}, text('some text 1\nsome text 2\nsome text 3')),
-        emptyParagraph()
+        emptyParagraph(),
       );
 
       richText.expectValue(expectedValue);
@@ -226,10 +216,10 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             block(
               BLOCKS.LIST_ITEM,
               {},
-              block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', []))
-            )
+              block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', [])),
+            ),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -439,7 +429,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             },
           },
         }),
-        block(BLOCKS.PARAGRAPH, {}, text('', []))
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
       );
 
       cy.getRichTextField().then((field) => {

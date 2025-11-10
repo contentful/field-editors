@@ -11,33 +11,6 @@ import 'codemirror/lib/codemirror.css';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```
 
-## ⚠️ Important: Package Configuration
-
-Due to peer dependency resolution in npm, you must add the following to your `package.json` to ensure compatible versions are installed:
-This is a temporary workaround until we have upgraded the underlying rich text packages.
-
-**For npm:**
-
-```json
-{
-  "overrides": {
-    "slate": "0.94.1",
-    "slate-react": "0.102.0"
-  }
-}
-```
-
-**For yarn:**
-
-```json
-{
-  "resolutions": {
-    "slate": "0.94.1",
-    "slate-react": "0.102.0"
-  }
-}
-```
-
 ## Migrating to v2
 
 To bring support for Rich Text Tables we rewrote most of the internals of this package to adapt the latest version of [Slate][slate]. We are releasing this change as v2.0.0.
