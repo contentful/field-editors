@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "4.16.1",
+  "version": "4.16.2",
   "source": "./src/index.tsx",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -69,10 +69,10 @@
     "p-debounce": "^2.1.0",
     "react-popper": "^2.3.0",
     "slate": "0.118.1",
+    "slate-dom": "0.118.1",
     "slate-history": "0.100.0",
     "slate-hyperscript": "0.77.0",
-    "slate-react": "0.118.2",
-    "slate-dom": "0.118.1"
+    "slate-react": "0.118.2"
   },
   "peerDependencies": {
     "@lingui/core": "^5.3.0",
