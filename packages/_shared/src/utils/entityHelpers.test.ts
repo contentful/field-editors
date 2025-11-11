@@ -1,11 +1,11 @@
-import { getEntityStatus, type EntitySys } from './entityHelpers';
+import { getEntityStatus, getResolvedImageUrl, type EntitySys } from './entityHelpers';
 
 describe('getEntityStatus', () => {
   function createEntity(
     props: Pick<
       EntitySys,
       'archivedVersion' | 'type' | 'deletedVersion' | 'publishedVersion' | 'fieldStatus' | 'version'
-    >
+    >,
   ) {
     return props as EntitySys;
   }
@@ -18,7 +18,7 @@ describe('getEntityStatus', () => {
             archivedVersion: 1,
             type,
             version: 1,
-          })
+          }),
         );
 
         expect(result).toEqual('archived');
@@ -32,7 +32,7 @@ describe('getEntityStatus', () => {
             deletedVersion: 1,
             type,
             version: 1,
-          })
+          }),
         );
 
         expect(result).toEqual('deleted');
@@ -54,7 +54,7 @@ describe('getEntityStatus', () => {
               type,
               version: 1,
             }),
-            ['en-US', 'de-DE', 'fr-FR']
+            ['en-US', 'de-DE', 'fr-FR'],
           );
 
           expect(result).toEqual('changed');
@@ -73,7 +73,7 @@ describe('getEntityStatus', () => {
               type,
               version: 1,
             }),
-            ['en-US', 'de-DE', 'fr-FR']
+            ['en-US', 'de-DE', 'fr-FR'],
           );
 
           expect(result).toEqual('published');
@@ -92,7 +92,7 @@ describe('getEntityStatus', () => {
               type,
               version: 1,
             }),
-            ['de-DE', 'fr-FR']
+            ['de-DE', 'fr-FR'],
           );
 
           expect(result).toEqual('published');
@@ -111,7 +111,7 @@ describe('getEntityStatus', () => {
               type,
               version: 1,
             }),
-            ['en-US', 'de-DE', 'fr-FR']
+            ['en-US', 'de-DE', 'fr-FR'],
           );
 
           expect(result).toEqual('draft');
@@ -130,7 +130,7 @@ describe('getEntityStatus', () => {
               type,
               version: 1,
             }),
-            ['fr-FR']
+            ['fr-FR'],
           );
 
           expect(result).toEqual('draft');
@@ -144,7 +144,7 @@ describe('getEntityStatus', () => {
               publishedVersion: 1,
               type,
               version: 3,
-            })
+            }),
           );
 
           expect(result).toEqual('changed');
@@ -156,7 +156,7 @@ describe('getEntityStatus', () => {
               publishedVersion: 1,
               type,
               version: 2,
-            })
+            }),
           );
 
           expect(result).toEqual('published');
@@ -167,12 +167,150 @@ describe('getEntityStatus', () => {
             createEntity({
               type,
               version: 2,
-            })
+            }),
           );
 
           expect(result).toEqual('draft');
         });
       });
+    });
+  });
+});
+
+describe('getResolvedImageUrl', () => {
+  describe('URL parsing and domain replacement', () => {
+    test('replaces downloads.ctfassets.net with images.ctfassets.net', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg');
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+    });
+
+    test('handles protocol-relative URLs', () => {
+      const result = getResolvedImageUrl('//downloads.ctfassets.net/space/asset.jpg');
+      expect(result).toBe('//images.ctfassets.net/space/asset.jpg');
+    });
+
+    test('does not modify URLs that are not from downloads.ctfassets.net', () => {
+      const result = getResolvedImageUrl('https://example.com/image.jpg');
+      expect(result).toBe('https://example.com/image.jpg');
+    });
+
+    test('does not modify images.ctfassets.net URLs', () => {
+      const result = getResolvedImageUrl('https://images.ctfassets.net/space/asset.jpg');
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+    });
+  });
+
+  describe('query parameters', () => {
+    test('adds width parameter', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+        width: 100,
+      });
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?width=100');
+    });
+
+    test('adds height parameter', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+        height: 200,
+      });
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?height=200');
+    });
+
+    test('adds fit parameter', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+        fit: 'thumb',
+      });
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?fit=thumb');
+    });
+
+    test('adds multiple parameters', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+        width: 100,
+        height: 200,
+        fit: 'thumb',
+      });
+      expect(result).toContain('width=100');
+      expect(result).toContain('height=200');
+      expect(result).toContain('fit=thumb');
+      expect(result).toContain('images.ctfassets.net');
+    });
+
+    test('skips undefined parameters', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+        width: 100,
+        height: undefined,
+        fit: 'thumb',
+      });
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?width=100&fit=thumb');
+    });
+
+    test('returns URL without query string when no params provided', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg');
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+    });
+
+    test('returns URL without query string when all params are undefined', () => {
+      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+        width: undefined,
+        height: undefined,
+        fit: undefined,
+      });
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+    });
+  });
+
+  describe('relative URL fallback', () => {
+    test('returns relative URL unchanged when no params provided', () => {
+      const result = getResolvedImageUrl('/assets/image.jpg');
+      expect(result).toBe('/assets/image.jpg');
+    });
+
+    test('appends query params to relative URLs', () => {
+      const result = getResolvedImageUrl('/assets/image.jpg', {
+        width: 100,
+        height: 200,
+      });
+      expect(result).toBe('/assets/image.jpg?width=100&height=200');
+    });
+
+    test('handles relative URLs with undefined params', () => {
+      const result = getResolvedImageUrl('/assets/image.jpg', {
+        width: 100,
+        height: undefined,
+      });
+      expect(result).toBe('/assets/image.jpg?width=100');
+    });
+
+    test('returns relative URL unchanged when all params are undefined', () => {
+      const result = getResolvedImageUrl('/assets/image.jpg', {
+        width: undefined,
+        height: undefined,
+      });
+      expect(result).toBe('/assets/image.jpg');
+    });
+  });
+
+  describe('edge cases', () => {
+    test('preserves existing query parameters', () => {
+      const result = getResolvedImageUrl(
+        'https://downloads.ctfassets.net/space/asset.jpg?foo=bar',
+        {
+          width: 100,
+        },
+      );
+      expect(result).toContain('foo=bar');
+      expect(result).toContain('width=100');
+    });
+
+    test('handles URLs with fragments', () => {
+      const result = getResolvedImageUrl(
+        'https://downloads.ctfassets.net/space/asset.jpg#section',
+        {
+          width: 100,
+        },
+      );
+      expect(result).toContain('images.ctfassets.net');
+      expect(result).toContain('width=100');
+      expect(result).toContain('#section');
     });
   });
 });

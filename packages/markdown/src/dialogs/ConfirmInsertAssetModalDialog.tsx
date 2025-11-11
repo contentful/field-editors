@@ -8,6 +8,7 @@ import {
   ModalControls,
   Paragraph,
 } from '@contentful/f36-components';
+import { entityHelpers } from '@contentful/field-editor-shared';
 
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 
@@ -43,15 +44,23 @@ export const ConfirmInsertAssetModalDialog = ({
             : 'Do you want to link to the files in their fallback locales?'}
         </Paragraph>
         <EntityList>
-          {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => (
-            <EntityList.Item
-              key={thumbnailUrl}
-              title={title}
-              thumbnailUrl={`${thumbnailUrl}?w=46&h=46&fit=thumb`}
-              thumbnailAltText={thumbnailAltText}
-              description={description}
-            />
-          ))}
+          {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => {
+            const resolvedThumbnailUrl = entityHelpers.getResolvedImageUrl(thumbnailUrl, {
+              width: 46,
+              height: 46,
+              fit: 'thumb',
+            });
+
+            return (
+              <EntityList.Item
+                key={thumbnailUrl}
+                title={title}
+                thumbnailUrl={resolvedThumbnailUrl}
+                thumbnailAltText={thumbnailAltText}
+                description={description}
+              />
+            );
+          })}
         </EntityList>
       </ModalContent>
       <ModalControls>
@@ -81,7 +90,7 @@ export const openConfirmInsertAsset = (
       thumbnailUrl: string;
       thumbnailAltText: string;
     }>;
-  }
+  },
 ): Promise<boolean> => {
   return dialogs.openCurrent({
     title: 'Confirm using fallback assets',

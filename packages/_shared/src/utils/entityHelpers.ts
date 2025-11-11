@@ -116,7 +116,7 @@ export function getEntityDescription({
   }
 
   const descriptionField = contentType.fields.find((field) =>
-    isDescriptionField({ field, contentType })
+    isDescriptionField({ field, contentType }),
   );
 
   if (!descriptionField) {
@@ -278,7 +278,7 @@ export const getEntryImage = async (
     localeCode: string;
     defaultLocaleCode: string;
   },
-  getAsset: (assetId: string) => Promise<unknown>
+  getAsset: (assetId: string) => Promise<unknown>,
 ): Promise<null | File> => {
   if (!contentType) {
     return null;
@@ -303,5 +303,44 @@ export const getEntryImage = async (
     return isImage ? file : null;
   } catch (e) {
     return null;
+  }
+};
+
+const DOWNLOADS_ENDPOINT = 'downloads.ctfassets.net';
+const TRANSFORMATIONS_ENDPOINT = 'images.ctfassets.net';
+
+export const getResolvedImageUrl = (
+  url: string,
+  params?: { width?: number; height?: number; fit?: string },
+): string => {
+  try {
+    const parsedUrl = new URL(url);
+
+    if (parsedUrl.hostname === DOWNLOADS_ENDPOINT) {
+      parsedUrl.hostname = TRANSFORMATIONS_ENDPOINT;
+    }
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) {
+          parsedUrl.searchParams.set(key, value.toString());
+        }
+      });
+    }
+
+    return parsedUrl.toString();
+  } catch {
+    // fallback to previous behaviour for relative URLs
+    if (!params) return url;
+
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined) {
+        searchParams.set(key, value.toString());
+      }
+    });
+
+    const queryString = searchParams.toString();
+    return queryString ? `${url}?${queryString}` : url;
   }
 };

@@ -114,6 +114,20 @@ export const WrappedAssetCard = ({
 
   const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
 
+  const getImageUrl = () => {
+    if (!entityFile?.url) return '';
+
+    if (size === 'small') {
+      return entityHelpers.getResolvedImageUrl(entityFile.url, {
+        width: 150,
+        height: 150,
+        fit: 'thumb',
+      });
+    }
+
+    return entityHelpers.getResolvedImageUrl(entityFile.url, { height: 300 });
+  };
+
   return (
     <AssetCard
       as={isClickable && href ? 'a' : 'article'}
@@ -136,13 +150,7 @@ export const WrappedAssetCard = ({
           release={release}
         />
       }
-      src={
-        entityFile && entityFile.url
-          ? size === 'small'
-            ? `${entityFile.url}?w=150&h=150&fit=thumb`
-            : `${entityFile.url}?h=300`
-          : ''
-      }
+      src={getImageUrl()}
       onClick={
         // Providing an onClick handler messes up with some rich text
         // features e.g. pressing ENTER on a card to add a new paragraph
