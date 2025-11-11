@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { TableCell } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { useSelected } from 'slate-react';
+import { useSelected, useFocused } from 'slate-react';
 
 import { RenderElementProps } from '../../../internal/types';
 import { TableActions } from './TableActions';
@@ -23,6 +23,7 @@ const style = css`
 
 export const Cell = (props: RenderElementProps) => {
   const isSelected = useSelected();
+  const isFocused = useFocused();
   return (
     <td
       {...props.attributes}
@@ -32,7 +33,7 @@ export const Cell = (props: RenderElementProps) => {
       {...(props.element.data as TableCell['data'])}
       className={style}
     >
-      {isSelected && <TableActions />}
+      {isSelected && isFocused && <TableActions />}
       {props.children}
     </td>
   );
