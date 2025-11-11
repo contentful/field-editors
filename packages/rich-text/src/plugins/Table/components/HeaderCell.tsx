@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { TableHeaderCell } from '@contentful/rich-text-types';
 import { css } from 'emotion';
-import { useSelected, useFocused } from 'slate-react';
+import { useSelected } from 'slate-react';
 
 import { RenderElementProps } from '../../../internal/types';
 import { TableActions } from './TableActions';
@@ -26,7 +26,6 @@ const style = css`
 
 export const HeaderCell = (props: RenderElementProps) => {
   const isSelected = useSelected();
-  const isFocused = useFocused();
 
   return (
     <th
@@ -37,7 +36,7 @@ export const HeaderCell = (props: RenderElementProps) => {
       {...(props.element.data as TableHeaderCell['data'])}
       className={style}
     >
-      {isSelected && isFocused && <TableActions />}
+      {isSelected && <TableActions />}
       {props.children}
     </th>
   );
