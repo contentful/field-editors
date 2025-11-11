@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.15.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.15.0...@contentful/field-editor-reference@6.15.1) (2025-11-10)
+
+### Bug Fixes
+
+- **reference:** handle missing content type on failed request [TOL-3592] ([#1972](https://github.com/contentful/field-editors/issues/1972)) ([2ec1dfb](https://github.com/contentful/field-editors/commit/2ec1dfb318d218915d76729adb20bf1dfe1b1410))
+
 # [6.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.14.0...@contentful/field-editor-reference@6.15.0) (2025-10-29)
 
 ### Features

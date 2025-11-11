@@ -4,14 +4,14 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
-import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/plate-common';
+import { PlateContent, Plate, PlatePlugin } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
+import { defaultScrollSelectionIntoView } from 'slate-react';
 
 import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
-import { defaultScrollSelectionIntoView } from './editor-overrides';
 import { toSlateValue } from './helpers/toSlateValue';
 import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
@@ -111,9 +111,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
                 id={id}
                 className={classNames}
                 readOnly={props.isDisabled}
-                scrollSelectionIntoView={
-                  defaultScrollSelectionIntoView as PlateContentProps['scrollSelectionIntoView']
-                }
+                scrollSelectionIntoView={defaultScrollSelectionIntoView}
               />
               {props.withCharValidation && <CharConstraints />}
             </Plate>

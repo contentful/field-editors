@@ -88,30 +88,29 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       bulkEditing: props.parameters.instance.bulkEditing,
       index: props.index,
     });
-    props.onAction &&
-      props.onAction({
-        entity: 'Entry',
-        type: 'edit',
-        id: props.entryId,
-        contentTypeId: entry.sys.contentType.sys.id,
-        slide,
-      });
+    props.onAction?.({
+      entity: 'Entry',
+      type: 'edit',
+      id: props.entryId,
+      contentTypeId: entry.sys.contentType.sys.id,
+      slide,
+    });
   };
 
   const onRemoveEntry = () => {
     props.onRemove();
-    props.onAction &&
-      props.onAction({
-        entity: 'Entry',
-        type: 'delete',
-        id: props.entryId,
-        contentTypeId: entry.sys.contentType.sys.id,
-      });
+    props.onAction?.({
+      entity: 'Entry',
+      type: 'delete',
+      id: props.entryId,
+      // Can be undefined if the entry failed to load
+      contentTypeId: entry?.sys?.contentType?.sys?.id ?? '',
+    });
   };
 
   React.useEffect(() => {
     if (entry) {
-      props.onAction && props.onAction({ type: 'rendered', entity: 'Entry' });
+      props.onAction?.({ type: 'rendered', entity: 'Entry' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, [entry]);
