@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.16.2...@contentful/field-editor-rich-text@4.17.0) (2025-11-11)
+
+### Features
+
+- add new versions of slate, slate-dom and slate-react as peerDependencies of rich-text package [TOL-3578] ([#1976](https://github.com/contentful/field-editors/issues/1976)) ([8b31cd2](https://github.com/contentful/field-editors/commit/8b31cd2b0b9387e2ecf8203630f087726b9bc3b3))
+
 ## [4.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.16.1...@contentful/field-editor-rich-text@4.16.2) (2025-11-10)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
