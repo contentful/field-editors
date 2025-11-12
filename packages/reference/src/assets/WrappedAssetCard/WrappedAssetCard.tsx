@@ -97,6 +97,24 @@ export const WrappedAssetCard = ({
     useLocalizedEntityStatus ? localeCode : undefined,
   );
 
+  const entityFile = asset.fields.file
+    ? asset.fields.file[localeCode] || asset.fields.file[defaultLocaleCode]
+    : undefined;
+
+  const imageUrl = React.useMemo(() => {
+    if (!entityFile?.url) return '';
+
+    if (size === 'small') {
+      return entityHelpers.getResolvedImageUrl(entityFile.url, {
+        width: 150,
+        height: 150,
+        fit: 'thumb',
+      });
+    }
+
+    return entityHelpers.getResolvedImageUrl(entityFile.url, { height: 300 });
+  }, [entityFile?.url, size]);
+
   if (status === 'deleted') {
     return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;
   }
@@ -107,10 +125,6 @@ export const WrappedAssetCard = ({
     defaultLocaleCode: defaultLocaleCode,
     defaultTitle: 'Untitled',
   });
-
-  const entityFile = asset.fields.file
-    ? asset.fields.file[localeCode] || asset.fields.file[defaultLocaleCode]
-    : undefined;
 
   const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
 
@@ -136,13 +150,7 @@ export const WrappedAssetCard = ({
           release={release}
         />
       }
-      src={
-        entityFile && entityFile.url
-          ? size === 'small'
-            ? `${entityFile.url}?w=150&h=150&fit=thumb`
-            : `${entityFile.url}?h=300`
-          : ''
-      }
+      src={imageUrl}
       onClick={
         // Providing an onClick handler messes up with some rich text
         // features e.g. pressing ENTER on a card to add a new paragraph
