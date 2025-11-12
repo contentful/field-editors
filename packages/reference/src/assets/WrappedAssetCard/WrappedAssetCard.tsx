@@ -97,24 +97,11 @@ export const WrappedAssetCard = ({
     useLocalizedEntityStatus ? localeCode : undefined,
   );
 
-  if (status === 'deleted') {
-    return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;
-  }
-
-  const entityTitle = entityHelpers.getAssetTitle({
-    asset: asset,
-    localeCode: localeCode,
-    defaultLocaleCode: defaultLocaleCode,
-    defaultTitle: 'Untitled',
-  });
-
   const entityFile = asset.fields.file
     ? asset.fields.file[localeCode] || asset.fields.file[defaultLocaleCode]
     : undefined;
 
-  const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
-
-  const getImageUrl = () => {
+  const imageUrl = React.useMemo(() => {
     if (!entityFile?.url) return '';
 
     if (size === 'small') {
@@ -126,7 +113,20 @@ export const WrappedAssetCard = ({
     }
 
     return entityHelpers.getResolvedImageUrl(entityFile.url, { height: 300 });
-  };
+  }, [entityFile?.url, size]);
+
+  if (status === 'deleted') {
+    return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;
+  }
+
+  const entityTitle = entityHelpers.getAssetTitle({
+    asset: asset,
+    localeCode: localeCode,
+    defaultLocaleCode: defaultLocaleCode,
+    defaultTitle: 'Untitled',
+  });
+
+  const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
 
   return (
     <AssetCard
@@ -150,7 +150,7 @@ export const WrappedAssetCard = ({
           release={release}
         />
       }
-      src={getImageUrl()}
+      src={imageUrl}
       onClick={
         // Providing an onClick handler messes up with some rich text
         // features e.g. pressing ENTER on a card to add a new paragraph
