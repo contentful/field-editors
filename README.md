@@ -75,6 +75,29 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get starte
 
 We'd love to have your helping hand on `@contentful/field-editors`!
 
+## Creating a canary release
+
+Canary releases allow you to test changes before they are merged to the main branch.
+
+### Steps
+
+1. Create a pull request targeting the `canary` branch (instead of `master`)
+2. Once the PR is merged to `canary`, CircleCI will automatically:
+   - Build all packages
+   - Run tests
+   - Create a canary version (e.g., `1.2.3-canary.123.abc1234`)
+   - Publish to npm with the `canary` tag
+3. You can install the canary version in your project:
+   ```bash
+   yarn add @contentful/field-editor-reference@canaryversion
+   ```
+
+### Notes
+
+- Canary releases are temporary and intended for testing only
+- Each merge to the `canary` branch will create a new canary version
+- Canary versions follow the format: `{version}-canary.{prNumber}.{shortSha}`
+
 ## Links & related repositories
 
 - [App SDK][app-sdk]

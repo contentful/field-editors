@@ -105,6 +105,21 @@ jobs:
       - run: yarn lerna version --no-private --conventional-commits --create-release github --yes
       - run: yarn lerna publish from-git --yes
 
+  prerelease:
+    executor: linux-node
+    steps:
+      - checkout
+      - vault/get-secrets:
+          template-preset: 'semantic-release'
+      - yarn_install
+      - vault/configure-lerna
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - run: yarn build
+      - run: lerna version --no-private --conventional-commits --create-release github --yes --exact --conventional-prerelease
+      - run: lerna publish from-git --yes --canary
+
 workflows:
   version: 2
   # run on every commit
@@ -126,6 +141,14 @@ workflows:
                 - canary
       - component-tests:
           context: vault
+      - prerelease:
+          context: vault
+          filters:
+            branches:
+              only: canary
+          requires:
+            - lint
+            - unit-tests
       - release:
           context: vault
           filters:
