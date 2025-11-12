@@ -127,8 +127,18 @@ workflows:
     jobs:
       - lint:
           context: vault
+          filters:
+            branches:
+              only:
+                - master
+                - canary
       - unit-tests:
           context: vault
+          filters:
+            branches:
+              only:
+                - master
+                - canary
       - component-tests:
           context: vault
       - prerelease:
