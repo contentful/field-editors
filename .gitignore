@@ -21,3 +21,7 @@ reports/
 snapshots.js
 .nx
 .swc
+
+# Ignore all dist directories except rich-text
+packages/*/dist/
+!packages/rich-text/dist/
