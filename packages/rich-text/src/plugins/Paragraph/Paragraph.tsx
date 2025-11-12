@@ -15,8 +15,11 @@ const styles = {
 };
 
 export function Paragraph(props: RenderElementProps) {
+  const align = (props.element as any).data?.align as 'left' | 'center' | 'right' | undefined;
+  const style = align ? { textAlign: align as React.CSSProperties['textAlign'] } : undefined;
+
   return (
-    <div {...props.attributes} className={styles[BLOCKS.PARAGRAPH]}>
+    <div {...props.attributes} className={styles[BLOCKS.PARAGRAPH]} style={style}>
       {props.children}
     </div>
   );

@@ -26,7 +26,10 @@ import { unwrapList } from './unwrapList';
 
 const listTypes = [BLOCKS.UL_LIST, BLOCKS.OL_LIST] as string[];
 
-export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
+export const toggleList = (
+  editor: PlateEditor,
+  { type, listStyle }: { type: string; listStyle?: string },
+) =>
   withoutNormalizing(editor, () => {
     if (!editor.selection) {
       return;
@@ -38,21 +41,22 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
 
       if (res) {
         const { list } = res;
-        if (list[0].type !== type) {
-          setNodes(
-            editor,
-            { type },
-            {
-              at: editor.selection,
-              match: (n) => listTypes.includes(n.type as string),
-              mode: 'lowest',
-            }
-          );
+        const currentListStyle = (list[0] as any).data?.listStyle;
+        const targetListStyle = listStyle || undefined;
+
+        if (list[0].type !== type || currentListStyle !== targetListStyle) {
+          const data = listStyle ? { listStyle } : {};
+          setNodes(editor, { type, data } as any, {
+            at: editor.selection,
+            match: (n) => listTypes.includes(n.type as string),
+            mode: 'lowest',
+          });
         } else {
           unwrapList(editor);
         }
       } else {
-        const list = { type, children: [], data: {} };
+        const data = listStyle ? { listStyle } : {};
+        const list = { type, children: [], data };
         wrapNodes(editor, list);
 
         const nodes = [
@@ -88,7 +92,10 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
           listType = (getParentNode(editor, commonEntry[1] as Location)?.[0] as Element | undefined)
             ?.type;
         }
-        if (listType !== type) {
+        const currentListStyle = (commonEntry[0] as any).data?.listStyle;
+        const targetListStyle = listStyle || undefined;
+
+        if (listType !== type || currentListStyle !== targetListStyle) {
           const startList = findNode(editor, {
             at: getRangeStart(editor.selection),
             match: { type: listTypes },
@@ -106,16 +113,12 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
           }
 
           const rangeLength = Math.min(startList[1].length, endList[1].length);
-          setNodes(
-            editor,
-            { type },
-            {
-              at: editor.selection,
-              match: (n, path) =>
-                listTypes.includes(n.type as string) && path.length >= rangeLength,
-              mode: 'all',
-            }
-          );
+          const data = listStyle ? { listStyle } : {};
+          setNodes(editor, { type, data } as any, {
+            at: editor.selection,
+            match: (n, path) => listTypes.includes(n.type as string) && path.length >= rangeLength,
+            mode: 'all',
+          });
         } else {
           unwrapList(editor);
         }
@@ -125,7 +128,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
           Array.from(
             getNodeEntries(editor, {
               mode: 'all',
-            })
+            }),
           ) as NodeEntry[]
         )
           .filter(([, path]) => path.length === rootPathLength + 1)
@@ -133,7 +136,8 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
 
         nodes.forEach((n) => {
           if (listTypes.includes(n[0].type as string)) {
-            setNodes(editor, { type }, { at: n[1] });
+            const data = listStyle ? { listStyle } : {};
+            setNodes(editor, { type, data } as any, { at: n[1] });
           } else {
             setNodes(editor, { type: getPluginType(editor, ELEMENT_LIC) }, { at: n[1] });
 
@@ -147,7 +151,8 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
               at: n[1],
             });
 
-            const list = { type, children: [], data: {} };
+            const data = listStyle ? { listStyle } : {};
+            const list = { type, children: [], data };
             wrapNodes(editor, list, { at: n[1] });
           }
         });

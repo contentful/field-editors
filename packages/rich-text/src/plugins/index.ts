@@ -2,6 +2,7 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { PlateProps } from '@udecode/plate-common';
 
 import { PlatePlugin } from '../internal/types';
+import { createAlignmentPlugin } from './Alignment';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
 import { createCharCounterPlugin } from './CharCounter';
 import { createCommandPalettePlugin } from './CommandPalette';
@@ -66,6 +67,9 @@ export const getPlugins = (
 
   // Marks
   createMarksPlugin(),
+
+  // Alignment
+  createAlignmentPlugin(),
 
   // Other
   createTrailingParagraphPlugin(),

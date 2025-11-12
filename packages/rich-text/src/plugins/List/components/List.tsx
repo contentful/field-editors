@@ -16,6 +16,26 @@ const baseStyle = css`
   }
 `;
 
+const checkmarkListStyle = css`
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.75rem;
+
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: ${tokens.green600};
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  }
+`;
+
 const styles = {
   [BLOCKS.UL_LIST]: css`
     list-style-type: disc;
@@ -42,8 +62,19 @@ const styles = {
 
 function createList(Tag, block: BLOCKS) {
   return function List(props: Slate.RenderElementProps) {
+    const listStyle = (props.element as any).data?.listStyle as string | undefined;
+    const isCheckmarkList = listStyle === 'none';
+    const inlineStyle =
+      listStyle && !isCheckmarkList
+        ? { listStyleType: listStyle as React.CSSProperties['listStyleType'] }
+        : undefined;
+
     return (
-      <Tag {...props.attributes} className={cx(baseStyle, styles[block])}>
+      <Tag
+        {...props.attributes}
+        className={cx(baseStyle, isCheckmarkList ? checkmarkListStyle : styles[block])}
+        style={inlineStyle}
+      >
         {props.children}
       </Tag>
     );

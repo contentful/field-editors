@@ -63,8 +63,15 @@ const styles = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
 function createHeading(Tag: any, block: BLOCKS) {
   return function Heading(props: Slate.RenderElementProps) {
+    const align = (props.element as any).data?.align as 'left' | 'center' | 'right' | undefined;
+    const style = align ? { textAlign: align as React.CSSProperties['textAlign'] } : undefined;
+
     return (
-      <Tag {...props.attributes} className={cx(styles.headings.root, styles.headings[block])}>
+      <Tag
+        {...props.attributes}
+        className={cx(styles.headings.root, styles.headings[block])}
+        style={style}
+      >
         {props.children}
       </Tag>
     );

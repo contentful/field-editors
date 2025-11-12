@@ -17,8 +17,11 @@ const style = css`
 `;
 
 export function ListItem(props: Slate.RenderElementProps) {
+  const align = (props.element as any).data?.align as 'left' | 'center' | 'right' | undefined;
+  const inlineStyle = align ? { textAlign: align as React.CSSProperties['textAlign'] } : undefined;
+
   return (
-    <li {...props.attributes} className={style}>
+    <li {...props.attributes} className={style} style={inlineStyle}>
       {props.children}
     </li>
   );

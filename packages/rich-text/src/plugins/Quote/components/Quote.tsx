@@ -13,8 +13,11 @@ const style = css({
 });
 
 export function Quote(props: RenderElementProps) {
+  const align = (props.element as any).data?.align as 'left' | 'center' | 'right' | undefined;
+  const inlineStyle = align ? { textAlign: align as React.CSSProperties['textAlign'] } : undefined;
+
   return (
-    <blockquote {...props.attributes} className={style}>
+    <blockquote {...props.attributes} className={style} style={inlineStyle}>
       {props.children}
     </blockquote>
   );
