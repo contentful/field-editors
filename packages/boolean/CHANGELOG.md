@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.1-alpha.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.8.0...@contentful/field-editor-boolean@1.8.1-alpha.0) (2025-11-12)
+
+**Note:** Version bump only for package @contentful/field-editor-boolean
+
 # [1.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.7.19...@contentful/field-editor-boolean@1.8.0) (2025-10-29)
 
 ### Features
