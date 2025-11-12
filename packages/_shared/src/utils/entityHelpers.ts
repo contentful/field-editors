@@ -314,7 +314,9 @@ export const getResolvedImageUrl = (
   params?: { width?: number; height?: number; fit?: string },
 ): string => {
   try {
-    const parsedUrl = new URL(url);
+    // Handle protocol-relative URLs by adding https: temporarily
+    const urlToParse = url.startsWith('//') ? `https:${url}` : url;
+    const parsedUrl = new URL(urlToParse);
 
     if (parsedUrl.hostname === DOWNLOADS_ENDPOINT) {
       parsedUrl.hostname = TRANSFORMATIONS_ENDPOINT;
@@ -328,7 +330,9 @@ export const getResolvedImageUrl = (
       });
     }
 
-    return parsedUrl.toString();
+    const result = parsedUrl.toString();
+    // If original URL was protocol-relative, restore it
+    return url.startsWith('//') ? result.replace(/^https:/, '') : result;
   } catch {
     // fallback to previous behaviour for relative URLs
     if (!params) return url;
