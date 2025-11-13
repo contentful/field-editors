@@ -35,6 +35,7 @@ export const getPlugins = (
   sdk: FieldAppSDK,
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[],
+  withCharValidation?: boolean,
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -76,7 +77,7 @@ export const getPlugins = (
   // Pasting content from other sources
   createPasteHTMLPlugin(),
 
-  createCharCounterPlugin(),
+  ...(withCharValidation ? [createCharCounterPlugin()] : []),
 
   // These plugins drive their configurations from the list of plugins
   // above. They MUST come last.
