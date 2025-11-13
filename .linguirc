@@ -1,0 +1,20 @@
+{
+  "sourceLocale": "en-US",
+  "locales": ["en-US"],
+  "catalogs": [
+    {
+      "path": "tools/extract-new-translation-keys/{locale}",
+      "include": ["packages/*/src"],
+      "exclude": [
+        "**/node_modules/**",
+        "**/_test/**",
+        "**/__test__/**",
+        "**/__tests__/**",
+        "**/__mocks__/**",
+        "**/cypress/**",
+        "**/?(*.)(cy|spec|test).[jt]s?(x)"
+      ]
+    }
+  ],
+  "orderBy": "messageId"
+}

@@ -5,10 +5,10 @@ const { RuleTester } = require('eslint');
 const rule = require('./enforce-translation-call-format');
 
 const ruleTester = new RuleTester({
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    ecmaFeatures: { jsx: true },
+  languageOptions: {
+    parserOptions: {
+      ecmaFeatures: { jsx: true },
+    },
   },
 });
 
@@ -28,12 +28,20 @@ ruleTester.run('translation-call-format', rule, {
     {
       code: `import { Trans } from '@lingui/react'; <Trans id="" message="" />;`,
     },
+    // Valid Trans from macro uses children
+    {
+      code: `import { Trans } from '@lingui/react/macro'; <Trans id="">This is a message</Trans>;`,
+    },
     // Valid Plural usages
     {
       code: `import { Plural } from '@lingui/react/macro'; <Plural id="" other="" />;`,
     },
     {
       code: `import { Plural } from '@lingui/react/macro'; <Plural id="" other={\`\`} />;`,
+    },
+    // Valid Plural usage
+    {
+      code: `import { Plural, Trans } from '@lingui/react/macro'; <Plural id="UI.Dashboard.Widget.Header" other={<Trans>test</Trans>} />;`,
     },
   ],
 
@@ -90,7 +98,12 @@ ruleTester.run('translation-call-format', rule, {
     // plural macro’s 0 parameter passed as variable
     {
       code: `import { plural, t } from '@lingui/core/macro'; const message = ''; t({ id: '', message: plural(count, { [0]: message }) });`,
-      errors: [{ messageId: 'pluralMacroArgumentMustBeString' }],
+      errors: [{ messageId: 'pluralMacroZeroNotAllowed' }],
+    },
+    // plural macro’s 0 parameter as literal key should also be disallowed
+    {
+      code: `import { plural, t } from '@lingui/core/macro'; t({ id: '', message: plural(count, { 0: '' }) });`,
+      errors: [{ messageId: 'pluralMacroZeroNotAllowed' }],
     },
 
     // Trans component’s message prop missing
@@ -112,10 +125,15 @@ ruleTester.run('translation-call-format', rule, {
       code: `import { Trans } from '@lingui/react'; <Trans id="" message={\`\`} />;`,
       errors: [{ messageId: 'transComponentMessageMustBeString' }],
     },
-    // Trans component’s message prop passed as plural macro
+    // Disallow using core/macro t inside Trans children (macro)
     {
-      code: `import { Trans } from '@lingui/react'; const count = 1; <Trans id="" message={plural(count, {other: ''})} />;`,
-      errors: [{ messageId: 'transComponentMessageMustBeString' }],
+      code: `import { Trans } from '@lingui/react/macro'; import { t } from '@lingui/core/macro'; <Trans id="">{t({ id: '', message: '' })}</Trans>;`,
+      errors: [{ messageId: 'noCoreMacroInsideTrans' }],
+    },
+    // Disallow using core/macro plural inside Trans children (macro)
+    {
+      code: `import { Trans } from '@lingui/react/macro'; import { plural } from '@lingui/core/macro'; <Trans id="">{plural(count, { other: '' })}</Trans>;`,
+      errors: [{ messageId: 'noCoreMacroInsideTrans' }],
     },
 
     // Plural component’s other prop passed as variable
@@ -128,6 +146,11 @@ ruleTester.run('translation-call-format', rule, {
       code: `import { Plural } from '@lingui/react/macro'; const count = 1; <Plural id="" other={plural(count, {other: ''})} />;`,
       errors: [{ messageId: 'pluralComponentPropMustBeString' }],
     },
+    // Plural component’s other prop passed as Trans component
+    {
+      code: `import { Plural } from '@lingui/react/macro'; import { Trans } from '@lingui/react'; <Plural id="UI.Dashboard.Widget.Header" other={<Trans message="test" />} />;`,
+      errors: [{ messageId: 'pluralComponentPropMustBeString' }],
+    },
     // Plural component’s one prop passed as variable
     {
       code: `import { Plural } from '@lingui/react/macro'; const message = ''; <Plural id="" one={message} />;`,
@@ -138,6 +161,11 @@ ruleTester.run('translation-call-format', rule, {
       code: `import { Plural } from '@lingui/react/macro'; const count = 1; <Plural id="" one={plural(count, {other: ''})} />;`,
       errors: [{ messageId: 'pluralComponentPropMustBeString' }],
     },
+    // Plural component’s one prop passed as Trans component
+    {
+      code: `import { Plural } from '@lingui/react/macro'; import { Trans } from '@lingui/react'; <Plural id="UI.Dashboard.Widget.Header" one={<Trans message="test" />} />;`,
+      errors: [{ messageId: 'pluralComponentPropMustBeString' }],
+    },
     // Plural component’s _0 prop passed as variable
     {
       code: `import { Plural } from '@lingui/react/macro'; const message = ''; <Plural id="" _0={message} />;`,
@@ -146,6 +174,11 @@ ruleTester.run('translation-call-format', rule, {
     // Plural component’s _0 prop passed as plural macro
     {
       code: `import { Plural } from '@lingui/react/macro'; const count = 1; <Plural id="" _0={plural(count, {other: ''})} />;`,
+      errors: [{ messageId: 'pluralComponentPropMustBeString' }],
+    },
+    // Plural component’s _0 prop passed as Trans component
+    {
+      code: `import { Plural } from '@lingui/react/macro'; import { Trans } from '@lingui/react'; <Plural id="UI.Dashboard.Widget.Header" _0={<Trans message="test" />} />;`,
       errors: [{ messageId: 'pluralComponentPropMustBeString' }],
     },
   ],
