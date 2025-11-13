@@ -57,12 +57,12 @@ type ConnectedRichTextProps = {
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
-  const { sdk, onAction, restrictedMarks } = props;
+  const { sdk, onAction, restrictedMarks, withCharValidation } = props;
 
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
-    () => getPlugins(sdk, onAction ?? noop, restrictedMarks),
-    [sdk, onAction, restrictedMarks],
+    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation),
+    [sdk, onAction, restrictedMarks, withCharValidation],
   );
 
   const initialValue = React.useMemo(() => {
