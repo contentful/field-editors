@@ -68,11 +68,8 @@
     "moment": "^2.20.0",
     "p-debounce": "^2.1.0",
     "react-popper": "^2.3.0",
-    "slate": "0.118.1",
-    "slate-dom": "0.118.1",
     "slate-history": "0.100.0",
-    "slate-hyperscript": "0.77.0",
-    "slate-react": "0.118.2"
+    "slate-hyperscript": "0.77.0"
   },
   "peerDependencies": {
     "@lingui/core": "^5.3.0",
@@ -89,7 +86,10 @@
     "@types/is-hotkey": "^0.1.6",
     "@udecode/plate-test-utils": "^3.2.0",
     "prism-react-renderer": "2.4.1",
-    "react": "18.3.1"
+    "react": "18.3.1",
+    "slate": "0.118.1",
+    "slate-dom": "0.118.1",
+    "slate-react": "0.118.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
