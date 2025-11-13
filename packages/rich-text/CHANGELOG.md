@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.17.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.1...@contentful/field-editor-rich-text@4.17.2) (2025-11-13)
+
+### Bug Fixes
+
+- remove unnecessary declaration of slate-\* as peerDependencies [TOL-3613] ([#1984](https://github.com/contentful/field-editors/issues/1984)) ([5fe19cf](https://github.com/contentful/field-editors/commit/5fe19cff76a5ec651c11105642dc1520c5b242ab))
+- **rich-text:** skip counter plugin when withCharValidation is off ([#1985](https://github.com/contentful/field-editors/issues/1985)) ([56fe1e0](https://github.com/contentful/field-editors/commit/56fe1e02eefd20ff321ab065a7e9b3b0b40a42aa))
+
 ## [4.17.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.0...@contentful/field-editor-rich-text@4.17.1) (2025-11-13)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
