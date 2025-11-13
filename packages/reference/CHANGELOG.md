@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.15.1...@contentful/field-editor-reference@6.16.0) (2025-11-13)
+
+### Features
+
+- resolve transformed image urls [TOL-3598] ([#1983](https://github.com/contentful/field-editors/issues/1983)) ([c229938](https://github.com/contentful/field-editors/commit/c22993862bf16edc502431be388680324825bbbd))
+
 ## [6.15.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.15.0...@contentful/field-editor-reference@6.15.1) (2025-11-10)
 
 ### Bug Fixes
