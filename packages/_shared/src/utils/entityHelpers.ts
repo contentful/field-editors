@@ -116,7 +116,7 @@ export function getEntityDescription({
   }
 
   const descriptionField = contentType.fields.find((field) =>
-    isDescriptionField({ field, contentType })
+    isDescriptionField({ field, contentType }),
   );
 
   if (!descriptionField) {
@@ -278,7 +278,7 @@ export const getEntryImage = async (
     localeCode: string;
     defaultLocaleCode: string;
   },
-  getAsset: (assetId: string) => Promise<unknown>
+  getAsset: (assetId: string) => Promise<unknown>,
 ): Promise<null | File> => {
   if (!contentType) {
     return null;
@@ -303,5 +303,46 @@ export const getEntryImage = async (
     return isImage ? file : null;
   } catch (e) {
     return null;
+  }
+};
+
+export const getResolvedImageUrl = (
+  url: string,
+  params?: { w?: number; h?: number; fit?: string },
+): string => {
+  try {
+    // Handle protocol-relative URLs by adding https: temporarily
+    const urlToParse = url.startsWith('//') ? `https:${url}` : url;
+    const parsedUrl = new URL(urlToParse);
+
+    // Replace downloads.* domain with images.* domain
+    if (parsedUrl.hostname.startsWith('downloads.')) {
+      parsedUrl.hostname = parsedUrl.hostname.replace(/^downloads\./, 'images.');
+    }
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) {
+          parsedUrl.searchParams.set(key, value.toString());
+        }
+      });
+    }
+
+    const result = parsedUrl.toString();
+    // If original URL was protocol-relative, restore it
+    return url.startsWith('//') ? result.replace(/^https:/, '') : result;
+  } catch {
+    // fallback to previous behaviour for relative URLs
+    if (!params) return url;
+
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined) {
+        searchParams.set(key, value.toString());
+      }
+    });
+
+    const queryString = searchParams.toString();
+    return queryString ? `${url}?${queryString}` : url;
   }
 };
