@@ -71,6 +71,8 @@ function getFileType(file?: File): any {
   return groupToIconMap[groupName] || 'archive';
 }
 
+const THUMBNAIL_SIZE = 150;
+
 export const WrappedAssetCard = ({
   asset,
   className,
@@ -106,8 +108,8 @@ export const WrappedAssetCard = ({
 
     if (size === 'small') {
       return entityHelpers.getResolvedImageUrl(entityFile.url, {
-        w: 150,
-        h: 150,
+        w: THUMBNAIL_SIZE,
+        h: THUMBNAIL_SIZE,
         fit: 'thumb',
       });
     }

@@ -23,6 +23,8 @@ interface ConfirmInsertAssetModalDialogProps {
   locale: string;
 }
 
+const THUMBNAIL_SIZE = 46;
+
 export const ConfirmInsertAssetModalDialog = ({
   onClose,
   assets,
@@ -46,8 +48,8 @@ export const ConfirmInsertAssetModalDialog = ({
         <EntityList>
           {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => {
             const resolvedThumbnailUrl = entityHelpers.getResolvedImageUrl(thumbnailUrl, {
-              w: 46,
-              h: 46,
+              w: THUMBNAIL_SIZE,
+              h: THUMBNAIL_SIZE,
               fit: 'thumb',
             });
 

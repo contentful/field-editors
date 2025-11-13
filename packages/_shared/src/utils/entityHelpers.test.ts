@@ -179,51 +179,51 @@ describe('getEntityStatus', () => {
 
 describe('getResolvedImageUrl', () => {
   describe('URL parsing and domain replacement', () => {
-    test('replaces downloads.ctfassets.net with images.ctfassets.net', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg');
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+    test('replaces downloads.* with images.*', () => {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg');
+      expect(result).toBe('https://images.example.com/space/asset.jpg');
     });
 
     test('handles protocol-relative URLs', () => {
-      const result = getResolvedImageUrl('//downloads.ctfassets.net/space/asset.jpg');
-      expect(result).toBe('//images.ctfassets.net/space/asset.jpg');
+      const result = getResolvedImageUrl('//downloads.example.com/space/asset.jpg');
+      expect(result).toBe('//images.example.com/space/asset.jpg');
     });
 
-    test('does not modify URLs that are not from downloads.ctfassets.net', () => {
+    test('does not modify URLs that do not start with downloads.', () => {
       const result = getResolvedImageUrl('https://example.com/image.jpg');
       expect(result).toBe('https://example.com/image.jpg');
     });
 
-    test('does not modify images.ctfassets.net URLs', () => {
-      const result = getResolvedImageUrl('https://images.ctfassets.net/space/asset.jpg');
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+    test('does not modify images.* URLs', () => {
+      const result = getResolvedImageUrl('https://images.example.com/space/asset.jpg');
+      expect(result).toBe('https://images.example.com/space/asset.jpg');
     });
   });
 
   describe('query parameters', () => {
     test('adds width parameter', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg', {
         w: 100,
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?w=100');
+      expect(result).toBe('https://images.example.com/space/asset.jpg?w=100');
     });
 
     test('adds height parameter', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg', {
         h: 200,
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?h=200');
+      expect(result).toBe('https://images.example.com/space/asset.jpg?h=200');
     });
 
     test('adds fit parameter', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg', {
         fit: 'thumb',
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?fit=thumb');
+      expect(result).toBe('https://images.example.com/space/asset.jpg?fit=thumb');
     });
 
     test('adds multiple parameters', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg', {
         w: 100,
         h: 200,
         fit: 'thumb',
@@ -231,30 +231,30 @@ describe('getResolvedImageUrl', () => {
       expect(result).toContain('w=100');
       expect(result).toContain('h=200');
       expect(result).toContain('fit=thumb');
-      expect(result).toContain('images.ctfassets.net');
+      expect(result).toContain('images.example.com');
     });
 
     test('skips undefined parameters', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg', {
         w: 100,
         h: undefined,
         fit: 'thumb',
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?w=100&fit=thumb');
+      expect(result).toBe('https://images.example.com/space/asset.jpg?w=100&fit=thumb');
     });
 
     test('returns URL without query string when no params provided', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg');
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg');
+      expect(result).toBe('https://images.example.com/space/asset.jpg');
     });
 
     test('returns URL without query string when all params are undefined', () => {
-      const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg', {
         w: undefined,
         h: undefined,
         fit: undefined,
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
+      expect(result).toBe('https://images.example.com/space/asset.jpg');
     });
   });
 
@@ -291,47 +291,41 @@ describe('getResolvedImageUrl', () => {
 
   describe('edge cases', () => {
     test('preserves existing query parameters', () => {
-      const result = getResolvedImageUrl(
-        'https://downloads.ctfassets.net/space/asset.jpg?foo=bar',
-        {
-          w: 100,
-        },
-      );
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg?foo=bar', {
+        w: 100,
+      });
       expect(result).toContain('foo=bar');
       expect(result).toContain('w=100');
     });
 
     test('handles URLs with fragments', () => {
-      const result = getResolvedImageUrl(
-        'https://downloads.ctfassets.net/space/asset.jpg#section',
-        {
-          w: 100,
-        },
-      );
-      expect(result).toContain('images.ctfassets.net');
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg#section', {
+        w: 100,
+      });
+      expect(result).toContain('images.example.com');
       expect(result).toContain('w=100');
       expect(result).toContain('#section');
     });
   });
 
-  describe('Flinkly domain support', () => {
-    test('replaces downloads.flinkly.com with images.flinkly.com', () => {
-      const result = getResolvedImageUrl('https://downloads.flinkly.com/space/asset.jpg');
-      expect(result).toBe('https://images.flinkly.com/space/asset.jpg');
+  describe('pattern-based domain replacement', () => {
+    test('replaces any downloads.* domain with images.*', () => {
+      const result = getResolvedImageUrl('https://downloads.example.com/space/asset.jpg');
+      expect(result).toBe('https://images.example.com/space/asset.jpg');
     });
 
-    test('handles protocol-relative Flinkly URLs', () => {
-      const result = getResolvedImageUrl('//downloads.flinkly.com/space/asset.jpg');
-      expect(result).toBe('//images.flinkly.com/space/asset.jpg');
+    test('handles protocol-relative downloads URLs', () => {
+      const result = getResolvedImageUrl('//downloads.example.com/space/asset.jpg');
+      expect(result).toBe('//images.example.com/space/asset.jpg');
     });
 
-    test('adds query params to Flinkly URLs', () => {
-      const result = getResolvedImageUrl('https://downloads.flinkly.com/space/asset.jpg', {
+    test('adds query params to any downloads.* domain', () => {
+      const result = getResolvedImageUrl('https://downloads.another-example.com/space/asset.jpg', {
         w: 150,
         h: 150,
         fit: 'thumb',
       });
-      expect(result).toContain('images.flinkly.com');
+      expect(result).toContain('images.another-example.com');
       expect(result).toContain('w=150');
       expect(result).toContain('h=150');
       expect(result).toContain('fit=thumb');
