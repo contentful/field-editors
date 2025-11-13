@@ -77,10 +77,7 @@
   "peerDependencies": {
     "@lingui/core": "^5.3.0",
     "react": ">=16.14.0",
-    "react-dom": ">=16.14.0",
-    "slate": "0.118.1",
-    "slate-dom": "0.118.1",
-    "slate-react": "0.118.2"
+    "react-dom": ">=16.14.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^1.7.0",
