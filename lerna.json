@@ -3,7 +3,7 @@
   "version": "independent",
   "command": {
     "version": {
-      "allowBranch": "master",
+      "allowBranch": ["master", "canary"],
       "conventionalCommits": true,
       "message": "chore(release): updated release notes and package versions [ci skip]",
       "ignoreChanges": [
