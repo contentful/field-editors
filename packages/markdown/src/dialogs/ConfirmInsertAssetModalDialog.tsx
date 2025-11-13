@@ -46,8 +46,8 @@ export const ConfirmInsertAssetModalDialog = ({
         <EntityList>
           {assets.map(({ title, description, thumbnailUrl, thumbnailAltText }) => {
             const resolvedThumbnailUrl = entityHelpers.getResolvedImageUrl(thumbnailUrl, {
-              width: 46,
-              height: 46,
+              w: 46,
+              h: 46,
               fit: 'thumb',
             });
 

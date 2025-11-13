@@ -106,13 +106,13 @@ export const WrappedAssetCard = ({
 
     if (size === 'small') {
       return entityHelpers.getResolvedImageUrl(entityFile.url, {
-        width: 150,
-        height: 150,
+        w: 150,
+        h: 150,
         fit: 'thumb',
       });
     }
 
-    return entityHelpers.getResolvedImageUrl(entityFile.url, { height: 300 });
+    return entityHelpers.getResolvedImageUrl(entityFile.url, { h: 300 });
   }, [entityFile?.url, size]);
 
   if (status === 'deleted') {

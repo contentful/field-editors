@@ -203,16 +203,16 @@ describe('getResolvedImageUrl', () => {
   describe('query parameters', () => {
     test('adds width parameter', () => {
       const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
-        width: 100,
+        w: 100,
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?width=100');
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?w=100');
     });
 
     test('adds height parameter', () => {
       const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
-        height: 200,
+        h: 200,
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?height=200');
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?h=200');
     });
 
     test('adds fit parameter', () => {
@@ -224,23 +224,23 @@ describe('getResolvedImageUrl', () => {
 
     test('adds multiple parameters', () => {
       const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
-        width: 100,
-        height: 200,
+        w: 100,
+        h: 200,
         fit: 'thumb',
       });
-      expect(result).toContain('width=100');
-      expect(result).toContain('height=200');
+      expect(result).toContain('w=100');
+      expect(result).toContain('h=200');
       expect(result).toContain('fit=thumb');
       expect(result).toContain('images.ctfassets.net');
     });
 
     test('skips undefined parameters', () => {
       const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
-        width: 100,
-        height: undefined,
+        w: 100,
+        h: undefined,
         fit: 'thumb',
       });
-      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?width=100&fit=thumb');
+      expect(result).toBe('https://images.ctfassets.net/space/asset.jpg?w=100&fit=thumb');
     });
 
     test('returns URL without query string when no params provided', () => {
@@ -250,8 +250,8 @@ describe('getResolvedImageUrl', () => {
 
     test('returns URL without query string when all params are undefined', () => {
       const result = getResolvedImageUrl('https://downloads.ctfassets.net/space/asset.jpg', {
-        width: undefined,
-        height: undefined,
+        w: undefined,
+        h: undefined,
         fit: undefined,
       });
       expect(result).toBe('https://images.ctfassets.net/space/asset.jpg');
@@ -266,24 +266,24 @@ describe('getResolvedImageUrl', () => {
 
     test('appends query params to relative URLs', () => {
       const result = getResolvedImageUrl('/assets/image.jpg', {
-        width: 100,
-        height: 200,
+        w: 100,
+        h: 200,
       });
-      expect(result).toBe('/assets/image.jpg?width=100&height=200');
+      expect(result).toBe('/assets/image.jpg?w=100&h=200');
     });
 
     test('handles relative URLs with undefined params', () => {
       const result = getResolvedImageUrl('/assets/image.jpg', {
-        width: 100,
-        height: undefined,
+        w: 100,
+        h: undefined,
       });
-      expect(result).toBe('/assets/image.jpg?width=100');
+      expect(result).toBe('/assets/image.jpg?w=100');
     });
 
     test('returns relative URL unchanged when all params are undefined', () => {
       const result = getResolvedImageUrl('/assets/image.jpg', {
-        width: undefined,
-        height: undefined,
+        w: undefined,
+        h: undefined,
       });
       expect(result).toBe('/assets/image.jpg');
     });
@@ -294,23 +294,47 @@ describe('getResolvedImageUrl', () => {
       const result = getResolvedImageUrl(
         'https://downloads.ctfassets.net/space/asset.jpg?foo=bar',
         {
-          width: 100,
+          w: 100,
         },
       );
       expect(result).toContain('foo=bar');
-      expect(result).toContain('width=100');
+      expect(result).toContain('w=100');
     });
 
     test('handles URLs with fragments', () => {
       const result = getResolvedImageUrl(
         'https://downloads.ctfassets.net/space/asset.jpg#section',
         {
-          width: 100,
+          w: 100,
         },
       );
       expect(result).toContain('images.ctfassets.net');
-      expect(result).toContain('width=100');
+      expect(result).toContain('w=100');
       expect(result).toContain('#section');
+    });
+  });
+
+  describe('Flinkly domain support', () => {
+    test('replaces downloads.flinkly.com with images.flinkly.com', () => {
+      const result = getResolvedImageUrl('https://downloads.flinkly.com/space/asset.jpg');
+      expect(result).toBe('https://images.flinkly.com/space/asset.jpg');
+    });
+
+    test('handles protocol-relative Flinkly URLs', () => {
+      const result = getResolvedImageUrl('//downloads.flinkly.com/space/asset.jpg');
+      expect(result).toBe('//images.flinkly.com/space/asset.jpg');
+    });
+
+    test('adds query params to Flinkly URLs', () => {
+      const result = getResolvedImageUrl('https://downloads.flinkly.com/space/asset.jpg', {
+        w: 150,
+        h: 150,
+        fit: 'thumb',
+      });
+      expect(result).toContain('images.flinkly.com');
+      expect(result).toContain('w=150');
+      expect(result).toContain('h=150');
+      expect(result).toContain('fit=thumb');
     });
   });
 });

@@ -306,20 +306,28 @@ export const getEntryImage = async (
   }
 };
 
-const DOWNLOADS_ENDPOINT = 'downloads.ctfassets.net';
-const TRANSFORMATIONS_ENDPOINT = 'images.ctfassets.net';
+const TRANSFORMATIONS_ENDPOINTS = {
+  'downloads.ctfassets.net': 'images.ctfassets.net',
+  'downloads.flinkly.com': 'images.flinkly.com',
+};
+
+const DOWNLOADS_ENDPOINTS = Object.keys(TRANSFORMATIONS_ENDPOINTS);
+
+type TransformationEndpointKey = keyof typeof TRANSFORMATIONS_ENDPOINTS;
 
 export const getResolvedImageUrl = (
   url: string,
-  params?: { width?: number; height?: number; fit?: string },
+  params?: { w?: number; h?: number; fit?: string },
 ): string => {
   try {
     // Handle protocol-relative URLs by adding https: temporarily
     const urlToParse = url.startsWith('//') ? `https:${url}` : url;
     const parsedUrl = new URL(urlToParse);
 
-    if (parsedUrl.hostname === DOWNLOADS_ENDPOINT) {
-      parsedUrl.hostname = TRANSFORMATIONS_ENDPOINT;
+    // Replace downloads domain with images domain if it matches
+    if (DOWNLOADS_ENDPOINTS.includes(parsedUrl.hostname)) {
+      parsedUrl.hostname =
+        TRANSFORMATIONS_ENDPOINTS[parsedUrl.hostname as TransformationEndpointKey];
     }
 
     if (params) {

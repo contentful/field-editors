@@ -8,17 +8,12 @@ interface AssetThumbnailProps {
   file: File;
 }
 
-const dimensions = { width: 70, height: 70 };
+const dimensions = { w: 70, h: 70 };
 
 export function AssetThumbnail(props: AssetThumbnailProps) {
   const thumbnailUrl = entityHelpers.getResolvedImageUrl(props.file.url as string, dimensions);
 
   return (
-    <img
-      alt={props.file.fileName}
-      src={thumbnailUrl}
-      height={dimensions.height}
-      width={dimensions.width}
-    />
+    <img alt={props.file.fileName} src={thumbnailUrl} height={dimensions.h} width={dimensions.w} />
   );
 }
