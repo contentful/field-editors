@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.17.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.2...@contentful/field-editor-rich-text@4.17.3) (2025-11-14)
+
+### Bug Fixes
+
+- [INC-829] Check getCharacterCount existence ([#1986](https://github.com/contentful/field-editors/issues/1986)) ([8c78c6e](https://github.com/contentful/field-editors/commit/8c78c6e2c7337c7c27e1a1c41d59dc33c554a7e6))
+
 ## [4.17.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.1...@contentful/field-editor-rich-text@4.17.2) (2025-11-13)
 
 ### Bug Fixes
