@@ -27,6 +27,10 @@ interface CharCounterProps {
 function CharCounter({ checkConstraints }: CharCounterProps) {
   const editor = usePlateEditorState();
 
+  if (!editor.getCharacterCount) {
+    return null;
+  }
+
   const count = editor.getCharacterCount();
   const valid = checkConstraints(count);
 
