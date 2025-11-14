@@ -26,12 +26,20 @@ interface CharCounterProps {
 
 function CharCounter({ checkConstraints }: CharCounterProps) {
   const editor = usePlateEditorState();
+  const [count, setCount] = React.useState<number | undefined>(undefined);
 
-  if (!editor.getCharacterCount) {
+  React.useEffect(() => {
+    if (!editor.getCharacterCount) {
+      return;
+    }
+
+    setCount(editor.getCharacterCount());
+  }, [editor]);
+
+  if (typeof count === 'undefined') {
     return null;
   }
 
-  const count = editor.getCharacterCount();
   const valid = checkConstraints(count);
 
   return (
