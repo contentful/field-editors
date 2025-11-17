@@ -60,6 +60,7 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
             size="small"
             icon={
               <StarIcon
+                isActive={this.isSelected(num)}
                 color={this.isSelected(num) ? tokens.colorPrimary : tokens.gray600}
                 className={css({ width: '22px', height: '22px' })}
               />
