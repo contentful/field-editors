@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.7.1...@contentful/field-editor-rating@1.7.2) (2025-11-17)
+
+### Bug Fixes
+
+- [ZEND-7212] Rating star coloring ([#1988](https://github.com/contentful/field-editors/issues/1988)) ([d45b158](https://github.com/contentful/field-editors/commit/d45b1587d5458d99c49c5760903de6463145ec92))
+
 ## [1.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rating@1.7.0...@contentful/field-editor-rating@1.7.1) (2025-11-13)
 
 **Note:** Version bump only for package @contentful/field-editor-rating
