@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.16.1...@contentful/field-editor-reference@6.16.2) (2025-11-20)
+
+### Bug Fixes
+
+- entry menu trigger search bar design [TOL-3573] ([#1989](https://github.com/contentful/field-editors/issues/1989)) ([c13e3db](https://github.com/contentful/field-editors/commit/c13e3dbe2b86ca2c37505f91615afa36053b77eb))
+
 ## [6.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.16.0...@contentful/field-editor-reference@6.16.1) (2025-11-20)
 
 ### Bug Fixes
