@@ -50,6 +50,7 @@ const styles = {
     margin: '10px 0',
   }),
   dropdownList: css({
+    minWidth: '230px',
     borderColor: tokens.gray200,
   }),
 };
