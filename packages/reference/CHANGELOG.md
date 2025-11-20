@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.16.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.16.0...@contentful/field-editor-reference@6.16.1) (2025-11-20)
+
+### Bug Fixes
+
+- [] Bump Forma components for reference fields ([#1990](https://github.com/contentful/field-editors/issues/1990)) ([5742357](https://github.com/contentful/field-editors/commit/5742357f8097c6e3261f4be2cc155677d824238f))
+
 # [6.16.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.15.1...@contentful/field-editor-reference@6.16.0) (2025-11-13)
 
 ### Features
