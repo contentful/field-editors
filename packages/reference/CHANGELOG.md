@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.16.2...@contentful/field-editor-reference@6.17.0) (2025-11-20)
+
+### Features
+
+- set min width on entry menu trigger ([6699c5a](https://github.com/contentful/field-editors/commit/6699c5a78108d89a52135dc66a4ff4713f76db55))
+
 ## [6.16.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.16.1...@contentful/field-editor-reference@6.16.2) (2025-11-20)
 
 ### Bug Fixes
