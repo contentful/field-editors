@@ -16,35 +16,42 @@ const menuPlacementMap: {
   [key: string]: MenuProps['placement'];
 } = {
   'bottom-left': 'bottom-start',
-  'bottom-right': 'bottom-end'
+  'bottom-right': 'bottom-end',
 };
 
 const styles = {
   wrapper: css({
-    position: 'relative'
+    position: 'relative',
   }),
   inputWrapper: css({
     position: 'relative',
-    padding: `0 ${tokens.spacing2Xs}`
+    padding: `${tokens.spacing2Xs} ${tokens.spacingXs}`,
+  }),
+  title: css({
+    paddingTop: tokens.spacing2Xs,
+    fontWeight: tokens.fontWeightMedium,
   }),
   searchInput: css({
     paddingRight: tokens.spacingXl,
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    minHeight: '32px',
+    maxHeight: '32px',
   }),
   searchIcon: css({
     position: 'absolute',
     right: tokens.spacingM,
-    top: tokens.spacingS,
+    top: '50%',
+    transform: 'translateY(-50%)',
     zIndex: Number(tokens.zIndexDefault),
-    fill: tokens.gray600
+    fill: tokens.gray600,
   }),
   separator: css({
     background: tokens.gray200,
-    margin: '10px 0'
+    margin: '10px 0',
   }),
   dropdownList: css({
-    borderColor: tokens.gray200
-  })
+    borderColor: tokens.gray200,
+  }),
 };
 
 type CreateEntryMenuTriggerChildProps = {
@@ -52,10 +59,10 @@ type CreateEntryMenuTriggerChildProps = {
   isSelecting: boolean;
 };
 export type CreateEntryMenuTriggerChild = (
-  props: CreateEntryMenuTriggerChildProps
+  props: CreateEntryMenuTriggerChildProps,
 ) => React.ReactElement;
 export type CreateCustomEntryMenuItems = ({
-  closeMenu
+  closeMenu,
 }: {
   closeMenu: Function;
 }) => React.ReactElement;
@@ -64,6 +71,7 @@ interface CreateEntryMenuTrigger {
   contentTypes: ContentType[];
   suggestedContentTypeId?: string;
   contentTypesLabel?: string;
+  title?: string;
   onSelect: (contentTypeId: string) => Promise<unknown>;
   testId?: string;
   dropdownSettings?: {
@@ -80,15 +88,16 @@ export const CreateEntryMenuTrigger = ({
   contentTypes,
   suggestedContentTypeId,
   contentTypesLabel,
+  title,
   onSelect,
   testId,
   dropdownSettings = {
-    position: 'bottom-left'
+    position: 'bottom-left',
   },
   customDropdownItems,
   children,
   menuProps,
-  filterExperienceTypes = true
+  filterExperienceTypes = true,
 }: CreateEntryMenuTrigger) => {
   const [isOpen, setOpen] = useState(false);
   const [isSelecting, setSelecting] = useState(false);
@@ -113,11 +122,11 @@ export const CreateEntryMenuTrigger = ({
         ? contentTypes.filter((contentType) => {
             const annotations = get(contentType, 'metadata.annotations.ContentType', []);
             return !annotations.some(
-              (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType'
+              (annotation) => get(annotation, 'sys.id') === 'Contentful:ExperienceType',
             );
           })
         : contentTypes,
-    [contentTypes, filterExperienceTypes]
+    [contentTypes, filterExperienceTypes],
   );
 
   const hasDropdown = contentTypes.length > 1 || !!customDropdownItems;
@@ -147,7 +156,7 @@ export const CreateEntryMenuTrigger = ({
       setSelecting(true);
       res.then(
         () => setSelecting(false),
-        () => setSelecting(false)
+        () => setSelecting(false),
       );
     }
   };
@@ -176,11 +185,11 @@ export const CreateEntryMenuTrigger = ({
   const isSearchable = filteredContentTypes.length > MAX_ITEMS_WITHOUT_SEARCH;
   const maxDropdownHeight = suggestedContentTypeId ? 300 : 250;
   const suggestedContentType = filteredContentTypes.find(
-    (ct) => ct.sys.id === suggestedContentTypeId
+    (ct) => ct.sys.id === suggestedContentTypeId,
   );
   const searchFilteredContentTypes = filteredContentTypes.filter(
     (ct) =>
-      !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase())
+      !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase()),
   );
 
   return (
@@ -200,7 +209,7 @@ export const CreateEntryMenuTrigger = ({
             className={styles.dropdownList}
             style={{
               width: dropdownWidth != undefined ? `${dropdownWidth}px` : undefined,
-              maxHeight: `${maxDropdownHeight}px`
+              maxHeight: `${maxDropdownHeight}px`,
             }}
             ref={menuListRef}
             testId="add-entry-menu"
@@ -212,23 +221,25 @@ export const CreateEntryMenuTrigger = ({
               </>
             )}
 
+            {title && <Menu.SectionTitle className={styles.title}>{title}</Menu.SectionTitle>}
+
             {isSearchable && (
               <>
                 <div ref={textField} className={styles.inputWrapper}>
                   <TextInput
                     className={styles.searchInput}
-                    placeholder="Search all content types"
+                    placeholder="Search content type"
                     testId="add-entry-menu-search"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                   />
-                  <MagnifyingGlassIcon className={styles.searchIcon} />
+                  <MagnifyingGlassIcon size="small" className={styles.searchIcon} />
                 </div>
-                <Menu.Divider />
               </>
             )}
 
             {searchInput && renderSearchResultsCount(searchFilteredContentTypes.length)}
+
             {suggestedContentType && !searchInput && (
               <>
                 <Menu.SectionTitle>Suggested Content Type</Menu.SectionTitle>
@@ -238,7 +249,9 @@ export const CreateEntryMenuTrigger = ({
                 <Menu.Divider />
               </>
             )}
+
             {!searchInput && <Menu.SectionTitle>{contentTypesLabel}</Menu.SectionTitle>}
+
             {searchFilteredContentTypes.length ? (
               searchFilteredContentTypes.map((contentType, i) => (
                 <Menu.Item
@@ -262,5 +275,5 @@ export const CreateEntryMenuTrigger = ({
 CreateEntryMenuTrigger.defaultProps = {
   testId: 'create-entry-button-menu-trigger',
   contentTypesLabel: 'All Content Types',
-  filterExperienceTypes: true
+  filterExperienceTypes: true,
 };
