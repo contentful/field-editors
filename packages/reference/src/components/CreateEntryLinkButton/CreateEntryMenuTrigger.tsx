@@ -184,7 +184,7 @@ export const CreateEntryMenuTrigger = ({
     resultsLength ? (
       <Menu.SectionTitle testId="add-entry-menu-search-results">
         {t({
-          id: 'FieldEditors.Reference.CreateEntryMenuTrigger.SearchResultsLabel',
+          id: 'FieldEditors.Reference.CreateEntryMenuTrigger.SearchContentTypeResultsLabel',
           message: plural(resultsLength, {
             one: '# result',
             other: '# results',
@@ -200,7 +200,17 @@ export const CreateEntryMenuTrigger = ({
   );
   const searchFilteredContentTypes = filteredContentTypes.filter(
     (ct) =>
-      !searchInput || get(ct, 'name', 'Untitled').toLowerCase().includes(searchInput.toLowerCase()),
+      !searchInput ||
+      get(
+        ct,
+        'name',
+        t({
+          id: 'FieldEditors.Reference.CreateEntryMenuTrigger.SearchContentTypeFallbackLabel',
+          message: 'Untitled',
+        }),
+      )
+        .toLowerCase()
+        .includes(searchInput.toLowerCase()),
   );
 
   return (
