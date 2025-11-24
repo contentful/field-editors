@@ -264,7 +264,12 @@ export const CreateEntryMenuTrigger = ({
 
             {suggestedContentType && !searchInput && (
               <>
-                <Menu.SectionTitle>Suggested Content Type</Menu.SectionTitle>
+                <Menu.SectionTitle>
+                  {t({
+                    id: 'FieldEditors.Reference.CreateEntryMenuTrigger.SuggestedContentTypeLabel',
+                    message: 'Suggested Content Type',
+                  })}
+                </Menu.SectionTitle>
                 <Menu.Item testId="suggested" onClick={() => handleSelect(suggestedContentType)}>
                   {get(suggestedContentType, 'name')}
                 </Menu.Item>
