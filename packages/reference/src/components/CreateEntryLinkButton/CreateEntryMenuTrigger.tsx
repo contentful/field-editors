@@ -2,13 +2,14 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 
-import { TextInput, Menu, MenuProps } from '@contentful/f36-components';
+import { TextInput, Menu, type MenuProps } from '@contentful/f36-components';
 import { MagnifyingGlassIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
+import { plural, t } from '@lingui/core/macro';
 import { css } from 'emotion';
 import get from 'lodash/get';
 
-import { ContentType } from '../../types';
+import type { ContentType } from '../../types';
 
 const MAX_ITEMS_WITHOUT_SEARCH = 5;
 
@@ -65,7 +66,7 @@ export type CreateEntryMenuTriggerChild = (
 export type CreateCustomEntryMenuItems = ({
   closeMenu,
 }: {
-  closeMenu: Function;
+  closeMenu: () => void;
 }) => React.ReactElement;
 
 interface CreateEntryMenuTrigger {
@@ -88,10 +89,13 @@ interface CreateEntryMenuTrigger {
 export const CreateEntryMenuTrigger = ({
   contentTypes,
   suggestedContentTypeId,
-  contentTypesLabel,
+  contentTypesLabel = t({
+    id: 'FieldEditors.Reference.CreateEntryMenuTrigger.AllContentTypesLabel',
+    message: 'All Content Types',
+  }),
   title,
   onSelect,
-  testId,
+  testId = 'create-entry-button-menu-trigger',
   dropdownSettings = {
     position: 'bottom-left',
   },
@@ -178,8 +182,14 @@ export const CreateEntryMenuTrigger = ({
 
   const renderSearchResultsCount = (resultsLength: number) =>
     resultsLength ? (
-      <Menu.SectionTitle testId="add-entru-menu-search-results">
-        {resultsLength} result{resultsLength > 1 ? 's' : ''}
+      <Menu.SectionTitle testId="add-entry-menu-search-results">
+        {t({
+          id: 'FieldEditors.Reference.CreateEntryMenuTrigger.SearchResultsLabel',
+          message: plural(resultsLength, {
+            one: '# result',
+            other: '# results',
+          }),
+        })}
       </Menu.SectionTitle>
     ) : null;
 
@@ -209,7 +219,7 @@ export const CreateEntryMenuTrigger = ({
           <Menu.List
             className={styles.dropdownList}
             style={{
-              width: dropdownWidth != undefined ? `${dropdownWidth}px` : undefined,
+              width: dropdownWidth !== undefined ? `${dropdownWidth}px` : undefined,
               maxHeight: `${maxDropdownHeight}px`,
             }}
             ref={menuListRef}
@@ -225,18 +235,19 @@ export const CreateEntryMenuTrigger = ({
             {title && <Menu.SectionTitle className={styles.title}>{title}</Menu.SectionTitle>}
 
             {isSearchable && (
-              <>
-                <div ref={textField} className={styles.inputWrapper}>
-                  <TextInput
-                    className={styles.searchInput}
-                    placeholder="Search content type"
-                    testId="add-entry-menu-search"
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
-                  <MagnifyingGlassIcon size="small" className={styles.searchIcon} />
-                </div>
-              </>
+              <div ref={textField} className={styles.inputWrapper}>
+                <TextInput
+                  className={styles.searchInput}
+                  placeholder={t({
+                    id: 'FieldEditors.Reference.CreateEntryMenuTrigger.SearchContentTypePlaceholder',
+                    message: 'Search content type',
+                  })}
+                  testId="add-entry-menu-search"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+                <MagnifyingGlassIcon size="small" className={styles.searchIcon} />
+              </div>
             )}
 
             {searchInput && renderSearchResultsCount(searchFilteredContentTypes.length)}
@@ -260,21 +271,27 @@ export const CreateEntryMenuTrigger = ({
                   key={`${get(contentType, 'name')}-${i}`}
                   onClick={() => handleSelect(contentType)}
                 >
-                  {get(contentType, 'name', 'Untitled')}
+                  {get(
+                    contentType,
+                    'name',
+                    t({
+                      id: 'FieldEditors.Reference.CreateEntryMenuTrigger.ContentTypeFallbackLabel',
+                      message: 'Untitled',
+                    }),
+                  )}
                 </Menu.Item>
               ))
             ) : (
-              <Menu.Item testId="add-entru-menu-search-results">No results found</Menu.Item>
+              <Menu.Item testId="add-entry-menu-search-results">
+                {t({
+                  id: 'FieldEditors.Reference.CreateEntryMenuTrigger.NoResultsLabel',
+                  message: 'No results found',
+                })}
+              </Menu.Item>
             )}
           </Menu.List>
         )}
       </Menu>
     </span>
   );
-};
-
-CreateEntryMenuTrigger.defaultProps = {
-  testId: 'create-entry-button-menu-trigger',
-  contentTypesLabel: 'All Content Types',
-  filterExperienceTypes: true,
 };
