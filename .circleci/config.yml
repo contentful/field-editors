@@ -23,7 +23,7 @@ executors:
 #      xcode: 11.4
 
 cache-key: &cache-key
-  key: dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
+  key: v2-dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
 commands:
   yarn_install:
