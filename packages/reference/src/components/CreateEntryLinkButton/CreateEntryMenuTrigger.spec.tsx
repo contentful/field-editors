@@ -65,7 +65,7 @@ describe('CreateEntryMenuTrigger general', () => {
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
         {stub}
-      </CreateEntryMenuTrigger>
+      </CreateEntryMenuTrigger>,
     );
 
     act(() => {
@@ -83,7 +83,7 @@ describe('CreateEntryMenuTrigger general', () => {
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
         {stub}
-      </CreateEntryMenuTrigger>
+      </CreateEntryMenuTrigger>,
     );
 
     act(() => {
@@ -103,7 +103,7 @@ describe('CreateEntryMenuTrigger general', () => {
         contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}
       >
         {stub}
-      </CreateEntryMenuTrigger>
+      </CreateEntryMenuTrigger>,
     );
 
     act(() => {
@@ -116,13 +116,13 @@ describe('CreateEntryMenuTrigger general', () => {
     const contentTypes = fill(
       fill(fill(Array(21), CONTENT_TYPE_1, 0, 10), CONTENT_TYPE_2, 10, 20),
       CONTENT_TYPE_3,
-      20
+      20,
     );
 
     const { getByTestId, getAllByTestId } = render(
       <CreateEntryMenuTrigger {...props} contentTypes={contentTypes}>
         {stub}
-      </CreateEntryMenuTrigger>
+      </CreateEntryMenuTrigger>,
     );
 
     act(() => {
@@ -132,21 +132,21 @@ describe('CreateEntryMenuTrigger general', () => {
     const input = getByTestId('add-entry-menu-search');
     fireEvent.change(input, { target: { value: '1' }, preventDefault: noop });
     expect(getAllByTestId('contentType')).toHaveLength(10);
-    expect(getByTestId('add-entru-menu-search-results').textContent).toBe('10 results');
+    expect(getByTestId('add-entry-menu-search-results').textContent).toBe('10 results');
 
     fireEvent.change(input, { target: { value: '3' }, preventDefault: noop });
     expect(getAllByTestId('contentType')).toHaveLength(1);
-    expect(getByTestId('add-entru-menu-search-results').textContent).toBe('1 result');
+    expect(getByTestId('add-entry-menu-search-results').textContent).toBe('1 result');
 
     fireEvent.change(input, { target: { value: '4' }, preventDefault: noop });
-    expect(getByTestId('add-entru-menu-search-results').textContent).toBe('No results found');
+    expect(getByTestId('add-entry-menu-search-results').textContent).toBe('No results found');
   });
 
   it('shows suggestedContentType in the list', () => {
     const { getByTestId } = render(
       <CreateEntryMenuTrigger {...props} suggestedContentTypeId={props.contentTypes[0].sys.id}>
         {stub}
-      </CreateEntryMenuTrigger>
+      </CreateEntryMenuTrigger>,
     );
 
     act(() => {
@@ -169,7 +169,7 @@ describe('CreateEntryMenuTrigger general', () => {
     const { getByTestId, getAllByTestId } = render(
       <CreateEntryMenuTrigger {...props} contentTypes={contentTypesWithExperience}>
         {stub}
-      </CreateEntryMenuTrigger>
+      </CreateEntryMenuTrigger>,
     );
 
     act(() => {
@@ -184,7 +184,7 @@ describe('CreateEntryMenuTrigger general', () => {
 
     // Ensure the experience type is not rendered
     const experienceTypeItem = contentTypeItems.find(
-      (item) => item.textContent === 'experience-type'
+      (item) => item.textContent === 'experience-type',
     );
     expect(experienceTypeItem).toBeUndefined();
   });
