@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.17.0...@contentful/field-editor-reference@6.18.0) (2025-12-02)
+
+### Features
+
+- **CreateEntryMenuTrigger:** add translation keys [UFO-2068] ([#1992](https://github.com/contentful/field-editors/issues/1992)) ([43199ed](https://github.com/contentful/field-editors/commit/43199ed52d493b9a316bcd9125e8e7bf6eaecd26))
+
 # [6.17.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.16.2...@contentful/field-editor-reference@6.17.0) (2025-11-20)
 
 ### Features
