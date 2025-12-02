@@ -5,7 +5,7 @@ export default defineConfig({
   locales: ['en-US'],
   catalogs: [
     {
-      path: './{locale}',
+      path: 'tools/extract-new-translation-keys/{locale}',
       include: [
         '<rootDir>/packages/_shared/src',
         '<rootDir>/packages/boolean/src',
