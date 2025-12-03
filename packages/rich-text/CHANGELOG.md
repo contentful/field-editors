@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.17.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.7...@contentful/field-editor-rich-text@4.17.8) (2025-12-03)
+
+### Bug Fixes
+
+- **rich-text:** revert upgrade slate, slate-react and add slate-dom ([#2010](https://github.com/contentful/field-editors/issues/2010)) ([fa8b69f](https://github.com/contentful/field-editors/commit/fa8b69fb659d842d0618335140fb2099844adf1f))
+
 ## [4.17.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.6...@contentful/field-editor-rich-text@4.17.7) (2025-12-02)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
