@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.17.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.8...@contentful/field-editor-rich-text@4.17.9) (2025-12-08)
+
+### Bug Fixes
+
+- **rich-text:** bump rich-text-types to show error messages again [TOL-3663] ([#1993](https://github.com/contentful/field-editors/issues/1993)) ([5a44d5c](https://github.com/contentful/field-editors/commit/5a44d5c0fb7b40ff2bb762a66b875e8428eeff71))
+
 ## [4.17.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.7...@contentful/field-editor-rich-text@4.17.8) (2025-12-03)
 
 ### Bug Fixes
