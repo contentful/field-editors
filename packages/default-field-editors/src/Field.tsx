@@ -1,29 +1,6 @@
-import * as React from 'react';
+import React, { Suspense, lazy, type FC, type ComponentType } from 'react';
 
-import { BooleanEditor } from '@contentful/field-editor-boolean';
-import { CheckboxEditor } from '@contentful/field-editor-checkbox';
-import { DateEditor } from '@contentful/field-editor-date';
-import { DropdownEditor } from '@contentful/field-editor-dropdown';
-import { JsonEditor } from '@contentful/field-editor-json';
-import { ListEditor } from '@contentful/field-editor-list';
-import { LocationEditor } from '@contentful/field-editor-location';
-import { MarkdownEditor } from '@contentful/field-editor-markdown';
-import { MultipleLineEditor } from '@contentful/field-editor-multiple-line';
-import { NumberEditor } from '@contentful/field-editor-number';
-import { RadioEditor } from '@contentful/field-editor-radio';
-import { RatingEditor } from '@contentful/field-editor-rating';
-import {
-  MultipleEntryReferenceEditor,
-  MultipleMediaEditor,
-  SingleEntryReferenceEditor,
-  SingleMediaEditor,
-} from '@contentful/field-editor-reference';
-import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
-import { SingleLineEditor } from '@contentful/field-editor-single-line';
-import { SlugEditor } from '@contentful/field-editor-slug';
-import { TagsEditor } from '@contentful/field-editor-tags';
-import { UrlEditor } from '@contentful/field-editor-url';
 
 import { getDefaultWidgetId } from './getDefaultWidgetId';
 import type { EditorOptions, WidgetType } from './types';
@@ -35,39 +12,189 @@ type FieldProps = {
   renderFieldEditor?: (
     widgetId: WidgetType,
     sdk: FieldAppSDK,
-    isInitiallyDisabled: boolean
+    isInitiallyDisabled: boolean,
   ) => JSX.Element | false;
   getOptions?: (widgetId: WidgetType, sdk: FieldAppSDK) => EditorOptions;
 };
-
-const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
-  multipleLine: [MultipleLineEditor],
-  boolean: [BooleanEditor],
-  objectEditor: [JsonEditor],
-  datePicker: [DateEditor],
-  locationEditor: [LocationEditor],
-  checkbox: [CheckboxEditor],
-  listInput: [ListEditor],
-  rating: [RatingEditor],
-  radio: [RadioEditor],
-  tagEditor: [TagsEditor],
-  numberEditor: [NumberEditor],
-  urlEditor: [UrlEditor],
-  slugEditor: [SlugEditor],
-  singleLine: [SingleLineEditor],
-  dropdown: [DropdownEditor],
-  entryLinkEditor: [SingleEntryReferenceEditor, { viewType: 'link', hasCardEditActions: true }],
-  entryCardEditor: [SingleEntryReferenceEditor, { viewType: 'card', hasCardEditActions: true }],
-  entryLinksEditor: [MultipleEntryReferenceEditor, { viewType: 'link', hasCardEditActions: true }],
-  entryCardsEditor: [MultipleEntryReferenceEditor, { viewType: 'card', hasCardEditActions: true }],
-  assetLinkEditor: [SingleMediaEditor, { viewType: 'link' }],
-  assetLinksEditor: [MultipleMediaEditor, { viewType: 'link' }],
-  assetGalleryEditor: [MultipleMediaEditor, { viewType: 'card' }],
-  richTextEditor: [RichTextEditor],
-  markdown: [MarkdownEditor],
+const widgetComponents: Record<string, [ComponentType<any>, any?]> = {
+  multipleLine: [
+    lazy(() =>
+      import('@contentful/field-editor-multiple-line').then((mod) => ({
+        default: mod.MultipleLineEditor,
+      })),
+    ),
+  ],
+  boolean: [
+    lazy(() =>
+      import('@contentful/field-editor-boolean').then((mod) => ({
+        default: mod.BooleanEditor,
+      })),
+    ),
+  ],
+  objectEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-json').then((mod) => ({
+        default: mod.JsonEditor,
+      })),
+    ),
+  ],
+  datePicker: [
+    lazy(() =>
+      import('@contentful/field-editor-date').then((mod) => ({
+        default: mod.DateEditor,
+      })),
+    ),
+  ],
+  locationEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-location').then((mod) => ({
+        default: mod.LocationEditor,
+      })),
+    ),
+  ],
+  checkbox: [
+    lazy(() =>
+      import('@contentful/field-editor-checkbox').then((mod) => ({
+        default: mod.CheckboxEditor,
+      })),
+    ),
+  ],
+  listInput: [
+    lazy(() =>
+      import('@contentful/field-editor-list').then((mod) => ({
+        default: mod.ListEditor,
+      })),
+    ),
+  ],
+  rating: [
+    lazy(() =>
+      import('@contentful/field-editor-rating').then((mod) => ({
+        default: mod.RatingEditor,
+      })),
+    ),
+  ],
+  radio: [
+    lazy(() =>
+      import('@contentful/field-editor-radio').then((mod) => ({
+        default: mod.RadioEditor,
+      })),
+    ),
+  ],
+  tagEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-tags').then((mod) => ({
+        default: mod.TagsEditor,
+      })),
+    ),
+  ],
+  numberEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-number').then((mod) => ({
+        default: mod.NumberEditor,
+      })),
+    ),
+  ],
+  urlEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-url').then((mod) => ({
+        default: mod.UrlEditor,
+      })),
+    ),
+  ],
+  slugEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-slug').then((mod) => ({
+        default: mod.SlugEditor,
+      })),
+    ),
+  ],
+  singleLineEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-single-line').then((mod) => ({
+        default: mod.SingleLineEditor,
+      })),
+    ),
+  ],
+  dropdown: [
+    lazy(() =>
+      import('@contentful/field-editor-dropdown').then((mod) => ({
+        default: mod.DropdownEditor,
+      })),
+    ),
+  ],
+  entryLinkEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.SingleEntryReferenceEditor,
+      })),
+    ),
+    { viewType: 'link', hasCardEditActions: true },
+  ],
+  entryCardEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.SingleEntryReferenceEditor,
+      })),
+    ),
+    { viewType: 'card', hasCardEditActions: true },
+  ],
+  entryLinksEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.MultipleEntryReferenceEditor,
+      })),
+    ),
+    { viewType: 'link', hasCardEditActions: true },
+  ],
+  entryCardsEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.MultipleEntryReferenceEditor,
+      })),
+    ),
+    { viewType: 'card', hasCardEditActions: true },
+  ],
+  assetLinkEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.SingleMediaEditor,
+      })),
+    ),
+    { viewType: 'link' },
+  ],
+  assetLinksEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.MultipleMediaEditor,
+      })),
+    ),
+    { viewType: 'link' },
+  ],
+  assetGalleryEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-reference').then((mod) => ({
+        default: mod.MultipleMediaEditor,
+      })),
+    ),
+    { viewType: 'card' },
+  ],
+  richTextEditor: [
+    lazy(() =>
+      import('@contentful/field-editor-rich-text').then((mod) => ({
+        default: mod.RichTextEditor,
+      })),
+    ),
+  ],
+  markdown: [
+    lazy(() =>
+      import('@contentful/field-editor-markdown').then((mod) => ({
+        default: mod.MarkdownEditor,
+      })),
+    ),
+  ],
 };
 
-export const Field: React.FC<FieldProps> = (props: FieldProps) => {
+export const Field: FC<FieldProps> = (props: FieldProps) => {
   const {
     sdk,
     widgetId: possiblyUndefinedWidgetId,
@@ -115,5 +242,9 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
 
   const baseSdk = widgetId === 'slugEditor' ? sdk : undefined;
 
-  return <WidgetComponent key={sdk.field.locale} {...widgetComponentProps} baseSdk={baseSdk} />;
+  return (
+    <Suspense fallback={null}>
+      <WidgetComponent key={sdk.field.locale} {...widgetComponentProps} baseSdk={baseSdk} />;
+    </Suspense>
+  );
 };
