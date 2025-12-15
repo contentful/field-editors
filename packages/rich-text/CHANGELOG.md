@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.9...@contentful/field-editor-rich-text@4.18.0) (2025-12-15)
+
+### Features
+
+- pass referencingEntryId to resource methods on cmaClient [ARC-710] ([#2012](https://github.com/contentful/field-editors/issues/2012)) ([3a4d5ca](https://github.com/contentful/field-editors/commit/3a4d5cab3ee4cee5814da2c368e45360a9d085e2))
+
 ## [4.17.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.8...@contentful/field-editor-rich-text@4.17.9) (2025-12-08)
 
 ### Bug Fixes
