@@ -40,21 +40,21 @@ export function useResourceLinkActions({
 
   const multiple = field.type === 'Array';
   const referencingEntryId = sdk.ids.entry;
+  // @ts-expect-error wait for update of app-sdk version
+  const allowedResources = field.allowedResources;
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
       ? async (): Promise<ResourceLink<'Contentful:Entry'>[]> =>
           // @ts-expect-error wait for update of app-sdk version
           await dialogs.selectMultipleResourceEntities({
-            // @ts-expect-error wait for update of app-sdk version
-            allowedResources: field.allowedResources,
+            allowedResources,
             locale: field.locale,
             referencingEntryId,
           })
       : async (): Promise<[ResourceLink<'Contentful:Entry'> | null]> => [
           // @ts-expect-error wait for update of app-sdk version
           await dialogs.selectSingleResourceEntity({
-            // @ts-expect-error wait for update of app-sdk version
-            allowedResources: field.allowedResources,
+            allowedResources,
             locale: field.locale,
             referencingEntryId,
           }),
@@ -63,15 +63,7 @@ export function useResourceLinkActions({
     return async () => {
       onLinkedExisting(await promptSelection());
     };
-    // @ts-expect-error wait for update of app-sdk version
-  }, [
-    dialogs,
-    field.allowedResources,
-    field.locale,
-    referencingEntryId,
-    multiple,
-    onLinkedExisting,
-  ]);
+  }, [dialogs, allowedResources, field.locale, referencingEntryId, multiple, onLinkedExisting]);
 
   const { canLinkEntity } = useEditorPermissions({
     entityType: 'Entry',

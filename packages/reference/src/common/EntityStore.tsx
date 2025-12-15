@@ -3,7 +3,12 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, ResourceProvider, fetchAll } from 'contentful-management';
+import {
+  BasicCursorPaginationOptions,
+  PlainClientAPI,
+  ResourceProvider,
+  fetchAll,
+} from 'contentful-management';
 import { get } from 'lodash';
 import PQueue from 'p-queue';
 
@@ -318,7 +323,8 @@ async function fetchExternalResource({
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) => {
       return fetchAll(
-        ({ query }) => cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
+        ({ query }: { query?: BasicCursorPaginationOptions }) =>
+          cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
         {},
       );
     }),
@@ -424,7 +430,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                   entryId: entityId,
                   spaceId,
                   environmentId,
-                  // @ts-expect-error - releaseId is not there yet in the CMA client
                   releaseId,
                 });
                 return entity;
@@ -435,10 +440,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     entryId: entityId,
                     spaceId,
                     environmentId,
-                    // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
-                  // @ts-expect-error - release is not there yet on the published types
                   currentEntry.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
                   };
@@ -454,7 +457,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                   assetId: entityId,
                   spaceId,
                   environmentId,
-                  // @ts-expect-error - releaseId is not there yet in the CMA client
                   releaseId,
                 });
                 return entity;
@@ -465,10 +467,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     assetId: entityId,
                     spaceId,
                     environmentId,
-                    // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
-                  // @ts-expect-error - release is not there yet on the published types
                   currentAsset.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
                   };
