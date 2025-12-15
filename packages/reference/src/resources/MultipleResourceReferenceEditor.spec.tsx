@@ -73,7 +73,7 @@ describe('Multiple resource editor', () => {
         viewType="card"
         // @ts-expect-error unused...
         parameters={{}}
-      />
+      />,
     );
 
     const button = await screen.findByText('Add existing content');
@@ -87,6 +87,7 @@ describe('Multiple resource editor', () => {
     expect(options).toEqual({
       allowedResources: fieldDefinition.allowedResources,
       locale: 'en',
+      referencingEntryId: 'testEntry',
     });
   });
 
@@ -103,7 +104,7 @@ describe('Multiple resource editor', () => {
         viewType="card"
         // @ts-expect-error unused...
         parameters={{}}
-      />
+      />,
     );
 
     const noPermission = await screen.findByText(/You don't have permission to view this content/);
@@ -121,7 +122,7 @@ describe('Multiple resource editor', () => {
         // @ts-expect-error unused...
         parameters={{}}
         renderCustomActions={() => <div data-testid="custom-actions" />}
-      />
+      />,
     );
 
     const customActions = await screen.findByTestId('custom-actions');
@@ -147,7 +148,7 @@ describe('Multiple resource editor', () => {
           getEntryRouteHref={() => ''}
           // @ts-expect-error unused...
           parameters={{}}
-        />
+        />,
       );
 
       expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
@@ -182,7 +183,7 @@ describe('Multiple resource editor', () => {
             getEntryRouteHref={() => ''}
             // @ts-expect-error unused...
             parameters={{}}
-          />
+          />,
         );
 
         // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
@@ -221,7 +222,7 @@ describe('Multiple resource editor', () => {
             getEntryRouteHref={() => ''}
             // @ts-expect-error unused...
             parameters={{}}
-          />
+          />,
         );
 
         // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
@@ -259,7 +260,7 @@ describe('Multiple resource editor', () => {
             getEntryRouteHref={() => ''}
             // @ts-expect-error unused...
             parameters={{}}
-          />
+          />,
         );
 
         // expect(useResource).toHaveBeenCalledTimes(Object.values(entryInfos).length);
@@ -297,7 +298,7 @@ async function expectToNotHaveMoveButton(info: any, buttonString: string) {
   expect(
     screen.queryByText(buttonString, {
       selector: '[role="menuitem"]',
-    })
+    }),
   ).toBeNull();
 }
 
@@ -354,6 +355,6 @@ function generateMultipleTestResources(): MultipleTestResource {
       });
       return acc;
     },
-    { entryLinks: {}, entryInfos: {} }
+    { entryLinks: {}, entryInfos: {} },
   );
 }

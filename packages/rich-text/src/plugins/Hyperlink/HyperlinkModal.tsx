@@ -146,6 +146,7 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
     const options = {
       allowedResources: getAllowedResourcesForNodeType(props.sdk.field, INLINES.RESOURCE_HYPERLINK),
       locale: props.sdk.field.locale,
+      referencingEntryId: props.sdk.ids.entry,
     };
     // @ts-expect-error wait for update of app-sdk version
     const entityLink = await props.sdk.dialogs.selectSingleResourceEntity(options);

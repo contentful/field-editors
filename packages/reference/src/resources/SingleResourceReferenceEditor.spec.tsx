@@ -69,7 +69,7 @@ describe('Single resource editor', () => {
         viewType="card"
         // @ts-expect-error unused...
         parameters={{}}
-      />
+      />,
     );
 
     const button = await screen.findByText('Add existing content');
@@ -83,6 +83,7 @@ describe('Single resource editor', () => {
     expect(options).toEqual({
       allowedResources: fieldDefinition.allowedResources,
       locale: 'en',
+      referencingEntryId: 'testEntry',
     });
   });
 
@@ -98,7 +99,7 @@ describe('Single resource editor', () => {
         viewType="card"
         // @ts-expect-error unused...
         parameters={{}}
-      />
+      />,
     );
 
     const noPermission = await screen.findByText(/You don't have permission to view this content/);
@@ -116,7 +117,7 @@ describe('Single resource editor', () => {
         // @ts-expect-error unused...
         parameters={{}}
         renderCustomActions={() => <div data-testid="custom-actions" />}
-      />
+      />,
     );
 
     const customActions = await screen.findByTestId('custom-actions');
@@ -153,7 +154,7 @@ describe('Single resource editor', () => {
         getEntryRouteHref={jest.fn()}
         // @ts-expect-error unused...
         parameters={{}}
-      />
+      />,
     );
 
     expect(useResource).toHaveBeenCalled();

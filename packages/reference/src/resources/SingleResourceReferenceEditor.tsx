@@ -14,7 +14,7 @@ export function SingleResourceReferenceEditor(
   props: ReferenceEditorProps & {
     getEntryRouteHref: (entryRoute: EntryRoute) => string;
     apiUrl: string;
-  }
+  },
 ) {
   const linkActionsProps = useResourceLinkActions({
     sdk: props.sdk,
@@ -34,6 +34,7 @@ export function SingleResourceReferenceEditor(
               onRemove={() => props.sdk.field.removeValue()}
               resourceLink={value}
               locale={props.sdk.field.locale}
+              referencingEntryId={props.sdk.ids.entry}
               isDisabled={disabled}
               getEntryRouteHref={props.getEntryRouteHref}
             />
