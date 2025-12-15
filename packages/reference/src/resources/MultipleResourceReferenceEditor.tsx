@@ -159,6 +159,7 @@ export function MultipleResourceReferenceEditor(
                           index={index}
                           resourceLink={item}
                           locale={props.sdk.field.locale}
+                          referencingEntryId={props.sdk.ids.entry}
                           isDisabled={isDisabled}
                           renderDragHandle={DragHandle}
                           onMoveTop={onMoveTop}

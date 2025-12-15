@@ -14,6 +14,7 @@ type ResourceCardProps = {
   index?: number;
   resourceLink?: ResourceLink<string>;
   locale?: string;
+  referencingEntryId?: string;
   isDisabled: boolean;
   renderDragHandle?: RenderDragFn;
   getEntryRouteHref: (entryRoute: EntryRoute) => string;
@@ -28,9 +29,10 @@ function ExistingResourceCard(
     inView: boolean;
   },
 ) {
-  const { resourceLink, inView, index = 0, locale } = props;
+  const { resourceLink, inView, index = 0, locale, referencingEntryId } = props;
   const resourceOptions = {
     locale,
+    referencingEntryId,
     priority: index * -1,
     enabled: inView,
     allowExternal: true,

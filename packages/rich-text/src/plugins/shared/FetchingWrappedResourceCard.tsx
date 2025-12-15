@@ -69,6 +69,7 @@ export const FetchingWrappedResourceCard = (props: FetchingWrappedResourceCardPr
   const { link, onEntityFetchComplete, sdk } = props;
   const { data, status, error } = useResource(link.linkType, link.urn, {
     locale: sdk.field.locale,
+    referencingEntryId: sdk.ids.entry,
   });
 
   React.useEffect(() => {

@@ -3,7 +3,12 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BaseAppSDK } from '@contentful/app-sdk';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
-import { PlainClientAPI, ResourceProvider, fetchAll } from 'contentful-management';
+import {
+  BasicCursorPaginationOptions,
+  PlainClientAPI,
+  ResourceProvider,
+  fetchAll,
+} from 'contentful-management';
 import { get } from 'lodash';
 import PQueue from 'p-queue';
 
@@ -62,11 +67,15 @@ type UseEntityOptions = GetEntityOptions & { enabled?: boolean };
 
 type QueryEntityResult<E> = Promise<E>;
 
-type GetResourceOptions = GetOptions & { allowExternal?: boolean; locale?: string };
+type GetResourceOptions = GetOptions & {
+  allowExternal?: boolean;
+  locale?: string;
+  referencingEntryId?: string;
+};
 
 type QueryResourceResult<R extends Resource = Resource> = QueryEntityResult<ResourceInfo<R>>;
 
-type UseResourceOptions = GetResourceOptions & { enabled?: boolean; locale?: string };
+type UseResourceOptions = GetResourceOptions & { enabled?: boolean };
 
 // all types of the union share the data property to ease destructuring downstream
 type UseEntityResult<E> =
@@ -201,6 +210,7 @@ type ResourceQueryKey = [
   resourceType: string,
   urn: string,
   locale: string | undefined,
+  referencingEntryId: string | undefined,
 ];
 
 async function fetchContentfulEntry({
@@ -276,23 +286,25 @@ async function fetchExternalResource({
   environmentId,
   resourceType,
   locale,
+  referencingEntryId,
 }: FetchParams & {
   spaceId: string;
   environmentId: string;
   resourceType: string;
   locale?: string;
+  referencingEntryId?: string;
 }): Promise<ResourceInfo<ExternalResource>> {
   let resourceFetchError: unknown;
   const [resource, resourceTypes] = await Promise.all([
     fetch(
-      ['resource', spaceId, environmentId, resourceType, urn, locale],
+      ['resource', spaceId, environmentId, resourceType, urn, locale, referencingEntryId],
       ({ cmaClient }): Promise<ExternalResource | null> =>
         cmaClient.resource
           .getMany({
             spaceId,
             environmentId,
             resourceTypeId: resourceType,
-            query: { 'sys.urn[in]': urn, locale },
+            query: { 'sys.urn[in]': urn, locale, referencingEntryId },
           })
           .then(({ items }) => {
             return items[0] ?? null;
@@ -311,7 +323,8 @@ async function fetchExternalResource({
     ),
     fetch(['resource-types', spaceId, environmentId], ({ cmaClient }) => {
       return fetchAll(
-        ({ query }) => cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
+        ({ query }: { query?: BasicCursorPaginationOptions }) =>
+          cmaClient.resourceType.getForEnvironment({ spaceId, environmentId, query }),
         {},
       );
     }),
@@ -417,7 +430,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                   entryId: entityId,
                   spaceId,
                   environmentId,
-                  // @ts-expect-error - releaseId is not there yet in the CMA client
                   releaseId,
                 });
                 return entity;
@@ -428,10 +440,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     entryId: entityId,
                     spaceId,
                     environmentId,
-                    // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
-                  // @ts-expect-error - release is not there yet on the published types
                   currentEntry.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
                   };
@@ -447,7 +457,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                   assetId: entityId,
                   spaceId,
                   environmentId,
-                  // @ts-expect-error - releaseId is not there yet in the CMA client
                   releaseId,
                 });
                 return entity;
@@ -458,10 +467,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     assetId: entityId,
                     spaceId,
                     environmentId,
-                    // @ts-expect-error - releaseId is not there yet in the CMA client
                     releaseId: undefined,
                   });
-                  // @ts-expect-error - release is not there yet on the published types
                   currentAsset.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
                   };
@@ -536,7 +543,13 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         urn: string,
         options?: GetResourceOptions,
       ): QueryResourceResult<R> {
-        const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, options?.locale];
+        const queryKey: ResourceQueryKey = [
+          'Resource',
+          resourceType,
+          urn,
+          options?.locale,
+          options?.referencingEntryId,
+        ];
         return fetch(
           queryKey,
           (): Promise<ResourceInfo> => {
@@ -556,6 +569,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
               fetch,
               urn,
               locale: options?.locale,
+              referencingEntryId: options?.referencingEntryId,
               options,
               resourceType,
               spaceId: currentSpaceId,
@@ -736,16 +750,17 @@ export function useEntity<E extends FetchableEntity>(
 export function useResource<R extends Resource = Resource>(
   resourceType: string,
   urn: string,
-  { locale, ...options }: UseResourceOptions = {},
+  { locale, referencingEntryId, ...options }: UseResourceOptions = {},
 ) {
   if (resourceType.startsWith('Contentful:')) {
     locale = undefined;
+    referencingEntryId = undefined;
   }
-  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, locale];
+  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, locale, referencingEntryId];
   const { getResource } = useEntityLoader();
   const { status, data, error } = useQuery(
     queryKey,
-    () => getResource<R>(resourceType, urn, { ...options, locale }),
+    () => getResource<R>(resourceType, urn, { ...options, locale, referencingEntryId }),
     {
       enabled: options?.enabled,
     },

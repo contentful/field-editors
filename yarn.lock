@@ -11233,6 +11233,17 @@ contentful-management@^11.56.0:
     fast-copy "^3.0.0"
     globals "^15.15.0"
 
+contentful-management@^11.66.0:
+  version "11.66.0"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-11.66.0.tgz#a564585dc59d9b38cc0bed690a474e797ea5e759"
+  integrity sha512-rMI8LnNljyOBnREIT9V5MDLtxlPctO7dYwIszNZuHdBvd5C10CM8apglCrm87nFTuRGpbJ0q+y7cv/c8IQyfZw==
+  dependencies:
+    "@contentful/rich-text-types" "^16.6.1"
+    axios "^1.12.2"
+    contentful-sdk-core "^9.0.1"
+    fast-copy "^3.0.0"
+    globals "^15.15.0"
+
 contentful-management@^7.14.0:
   version "7.54.2"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.54.2.tgz#7778b3094ea409732a7809839c118f0b8eb3e156"

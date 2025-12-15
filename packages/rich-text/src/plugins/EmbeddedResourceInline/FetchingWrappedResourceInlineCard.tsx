@@ -24,6 +24,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
   const { link, onEntityFetchComplete, sdk } = props;
   const { data, status: requestStatus } = useResource(link.linkType, link.urn, {
     locale: sdk.field.locale,
+    referencingEntryId: sdk.ids.entry,
   });
 
   React.useEffect(() => {

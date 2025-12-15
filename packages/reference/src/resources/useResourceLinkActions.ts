@@ -8,7 +8,7 @@ import { LinkActionsProps } from '../components';
 
 const getUpdatedValue = (
   field: FieldAPI,
-  linkItems: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null]
+  linkItems: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null],
 ) => {
   const multiple = field.type === 'Array';
   if (multiple) {
@@ -29,7 +29,7 @@ export function useResourceLinkActions({
 
   const onLinkedExisting = useMemo(() => {
     return (
-      links: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null]
+      links: ResourceLink<'Contentful:Entry'>[] | [ResourceLink<'Contentful:Entry'> | null],
     ) => {
       const updatedValue = getUpdatedValue(field, links);
       if (updatedValue) {
@@ -39,29 +39,31 @@ export function useResourceLinkActions({
   }, [field]);
 
   const multiple = field.type === 'Array';
+  const referencingEntryId = sdk.ids.entry;
+  // @ts-expect-error wait for update of app-sdk version
+  const allowedResources = field.allowedResources;
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
       ? async (): Promise<ResourceLink<'Contentful:Entry'>[]> =>
           // @ts-expect-error wait for update of app-sdk version
           await dialogs.selectMultipleResourceEntities({
-            // @ts-expect-error wait for update of app-sdk version
-            allowedResources: field.allowedResources,
+            allowedResources,
             locale: field.locale,
+            referencingEntryId,
           })
       : async (): Promise<[ResourceLink<'Contentful:Entry'> | null]> => [
           // @ts-expect-error wait for update of app-sdk version
           await dialogs.selectSingleResourceEntity({
-            // @ts-expect-error wait for update of app-sdk version
-            allowedResources: field.allowedResources,
+            allowedResources,
             locale: field.locale,
+            referencingEntryId,
           }),
         ];
 
     return async () => {
       onLinkedExisting(await promptSelection());
     };
-    // @ts-expect-error wait for update of app-sdk version
-  }, [dialogs, field.allowedResources, field.locale, multiple, onLinkedExisting]);
+  }, [dialogs, allowedResources, field.locale, referencingEntryId, multiple, onLinkedExisting]);
 
   const { canLinkEntity } = useEditorPermissions({
     entityType: 'Entry',
