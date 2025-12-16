@@ -279,6 +279,15 @@ describe('toSlateDoc', () => {
             },
           ],
         },
+        {
+          type: 'paragraph',
+          data: {},
+          children: [
+            {
+              text: '',
+            },
+          ],
+        },
       ],
     },
     {
@@ -296,6 +305,15 @@ describe('toSlateDoc', () => {
             },
           ],
         },
+        {
+          type: 'paragraph',
+          data: {},
+          children: [
+            {
+              text: '',
+            },
+          ],
+        },
       ],
     },
     {
@@ -310,6 +328,15 @@ describe('toSlateDoc', () => {
               type: 'paragraph',
               data: {},
               children: [{ text: '' }],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          data: {},
+          children: [
+            {
+              text: '',
             },
           ],
         },
@@ -350,6 +377,15 @@ describe('toSlateDoc', () => {
                   children: [{ text: '' }],
                 },
               ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          data: {},
+          children: [
+            {
+              text: '',
             },
           ],
         },

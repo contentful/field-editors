@@ -184,5 +184,18 @@ export function toSlateDoc(doc?: CfDocument): Element[] {
     ];
   }
 
-  return doc.content.map(transformNode);
+  const elements = doc.content.map(transformNode);
+
+  const lastElement = elements.at(-1);
+
+  // Ensure a trailing paragraph
+  if (lastElement?.type !== BLOCKS.PARAGRAPH) {
+    elements.push({
+      type: BLOCKS.PARAGRAPH,
+      children: [{ text: '' }],
+      data: {},
+    });
+  }
+
+  return elements;
 }

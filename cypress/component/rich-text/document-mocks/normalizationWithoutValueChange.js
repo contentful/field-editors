@@ -98,17 +98,6 @@ export default {
             {
               nodeType: 'paragraph',
               data: {},
-              content: [{ nodeType: 'text', value: '', marks: [], data: {} }],
-            },
-          ],
-        },
-        {
-          nodeType: 'list-item',
-          data: {},
-          content: [
-            {
-              nodeType: 'paragraph',
-              data: {},
               content: [
                 { nodeType: 'text', value: 'paragraph inside list item', marks: [], data: {} },
               ],
