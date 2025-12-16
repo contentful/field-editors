@@ -60,24 +60,24 @@ describe(
             .type('hello')
             .then(triggerEmbeddedResource)
             .then(() => {
-              richText.editor.click().type('world');
+              richText.editor.click().type(' world');
             });
 
           richText.expectValue(
-            doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), resourceBlock(), text('world')))
+            doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), resourceBlock(), text(' world'))),
           );
 
           cy.findByTestId('cf-ui-card-actions').click({ force: true });
           cy.findByTestId('delete').click({ force: true });
 
-          richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
+          richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello world'))));
         });
 
         it('adds and removes embedded resource by selecting and pressing `backspace`', () => {
           richText.editor.click().type('hello').then(triggerEmbeddedResource);
 
           richText.expectValue(
-            doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), resourceBlock(), text('')))
+            doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), resourceBlock(), text(''))),
           );
 
           // TODO: the entry resource is selected first, why not here too?
@@ -87,5 +87,5 @@ describe(
         });
       });
     }
-  }
+  },
 );

@@ -49,7 +49,7 @@ describe(
             .type('hello')
             .then(triggerEmbeddedAsset)
             .then(() => {
-              richText.editor.click().type('world');
+              richText.editor.click().type(' world');
             });
 
           richText.expectValue(
@@ -67,15 +67,15 @@ describe(
                     },
                   },
                 }),
-                text('world')
-              )
-            )
+                text(' world'),
+              ),
+            ),
           );
 
           cy.findByTestId('cf-ui-card-actions').click({ force: true });
           cy.findByTestId('delete').click({ force: true });
 
-          richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello'), text('world'))));
+          richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello world'))));
         });
 
         it('adds and removes embedded resource by selecting and pressing `backspace`', () => {
@@ -96,9 +96,9 @@ describe(
                     },
                   },
                 }),
-                text('')
-              )
-            )
+                text(''),
+              ),
+            ),
           );
 
           // selected on first backspace, removed on the second time
@@ -108,5 +108,5 @@ describe(
         });
       });
     }
-  }
+  },
 );
