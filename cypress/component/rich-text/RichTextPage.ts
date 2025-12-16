@@ -121,7 +121,10 @@ export class RichTextPage {
     cy.wait(500);
 
     cy.getRichTextField().should((field) => {
-      expect(field.getValue()).to.deep.equal(expectedValue);
+      const value = field.getValue();
+
+      console.log(JSON.stringify({ value, expectedValue }, null, 2));
+      expect(value).to.deep.equal(expectedValue);
     });
   }
 }
@@ -140,7 +143,7 @@ class HyperLinkModal {
       | INLINES.HYPERLINK
       | INLINES.ENTRY_HYPERLINK
       | INLINES.ASSET_HYPERLINK
-      | INLINES.RESOURCE_HYPERLINK
+      | INLINES.RESOURCE_HYPERLINK,
   ) => {
     this.linkType.select(type);
   };
