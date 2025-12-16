@@ -123,8 +123,10 @@ export class RichTextPage {
     cy.getRichTextField().should((field) => {
       const value = field.getValue();
 
-      console.log(JSON.stringify({ value, expectedValue }, null, 2));
-      expect(value).to.deep.equal(expectedValue);
+      expect(value).to.deep.equal(
+        expectedValue,
+        `Expected: \n${JSON.stringify(value, null, 2)}\n to be equal to:\n${JSON.stringify(expectedValue, null, 2)}`,
+      );
     });
   }
 }
