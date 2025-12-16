@@ -12,7 +12,7 @@ import noop from 'lodash/noop';
 import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
-import { toSlateValue } from './helpers/toSlateValue';
+import { toSlateDoc } from './helpers/toSlateDoc';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
@@ -65,7 +65,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   );
 
   const initialValue = React.useMemo(() => {
-    return toSlateValue(props.value);
+    return toSlateDoc(props.value);
   }, [props.value]);
 
   // Force text direction based on editor locale
