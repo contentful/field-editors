@@ -8,6 +8,7 @@ import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/pl
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
+import { useDeepCompareMemo } from 'use-deep-compare';
 
 import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
@@ -64,7 +65,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
     [sdk, onAction, restrictedMarks, withCharValidation],
   );
 
-  const initialValue = React.useMemo(() => {
+  const initialValue = useDeepCompareMemo(() => {
     return toSlateDoc(props.value);
   }, [props.value]);
 
