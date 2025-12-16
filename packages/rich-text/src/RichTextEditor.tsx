@@ -13,7 +13,6 @@ import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
 import { toSlateValue } from './helpers/toSlateValue';
-import { normalizeInitialValue } from './internal/misc';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
@@ -66,14 +65,8 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   );
 
   const initialValue = React.useMemo(() => {
-    return normalizeInitialValue(
-      {
-        plugins,
-        disableCorePlugins,
-      },
-      toSlateValue(props.value),
-    );
-  }, [props.value, plugins]);
+    return toSlateValue(props.value);
+  }, [props.value]);
 
   // Force text direction based on editor locale
   const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
