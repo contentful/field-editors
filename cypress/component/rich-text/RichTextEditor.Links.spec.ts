@@ -63,7 +63,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
   for (const [triggerMethod, triggerLinkModal] of methods) {
     describe(triggerMethod, () => {
-      it.only('adds and removes hyperlinks', () => {
+      it('adds and removes hyperlinks', () => {
         safelyType('The quick brown fox jumps over the lazy ');
 
         triggerLinkModal();
