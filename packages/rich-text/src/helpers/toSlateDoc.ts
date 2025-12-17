@@ -7,7 +7,7 @@ import {
   type Hyperlink,
   BLOCKS,
 } from '@contentful/rich-text-types';
-import { Text as TextInterface } from 'slate';
+import { Text as TextInterface, Element as ElementInterface } from 'slate';
 
 import type { Text, Element } from '../internal';
 import { isText } from '../internal';
@@ -118,6 +118,12 @@ function transformNode(node: CfBlock | CfInline): Element {
     // can it be next to another inline node in the children array. If this is
     // the case, an empty text node will be added to correct this to be in
     // compliance with the constraint.
+    //
+    // Note: this only handles the case where an inline node is the first or
+    // after another inline node. Handling the case where an inline node is
+    // the last child of a parent block is implemented further down below
+    // outside the loop.
+    //
     // Ref: https://docs.slatejs.org/concepts/11-normalizing
     if (inlineTypes.has(child.nodeType) && !isText(lastChild)) {
       el.children.push({ text: '' });
@@ -163,6 +169,12 @@ function transformNode(node: CfBlock | CfInline): Element {
         el.children.push({ text: '' });
         break;
     }
+  }
+
+  // Handle the case where an inline node is the last child of a parent block
+  const lastChildElement = el.children.at(-1);
+  if (ElementInterface.isElement(lastChildElement) && inlineTypes.has(lastChildElement.type)) {
+    el.children.push({ text: '' });
   }
 
   // Fix potentially uneven tables

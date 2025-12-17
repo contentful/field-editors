@@ -85,6 +85,38 @@ describe('toSlateDoc', () => {
       ],
     },
     {
+      title: 'inlines without surrounding text',
+      input: document(
+        block(
+          BLOCKS.PARAGRAPH,
+          {},
+          inline(INLINES.EMBEDDED_ENTRY),
+          inline(INLINES.EMBEDDED_RESOURCE),
+        ),
+      ),
+      expected: [
+        {
+          type: 'paragraph',
+          children: [
+            { text: '' },
+            {
+              type: INLINES.EMBEDDED_ENTRY,
+              data: {},
+              children: [{ text: '' }],
+            },
+            { text: '' },
+            {
+              type: INLINES.EMBEDDED_RESOURCE,
+              data: {},
+              children: [{ text: '' }],
+            },
+            { text: '' },
+          ],
+          data: {},
+        },
+      ],
+    },
+    {
       title: 'uneven tables',
       input: document(
         block(
