@@ -96,11 +96,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         // in this test.
         cy.findByTestId('hyperlink-toolbar-button').click();
 
-        expectDocumentStructure(
-          // TODO: the editor should normalize this
-          ['text', 'The quick brown fox jumps over the lazy '],
-          ['text', 'dog'],
-        );
+        expectDocumentStructure(['text', 'The quick brown fox jumps over the lazy dog']);
       });
 
       it('converts text to URL hyperlink', () => {

@@ -102,6 +102,12 @@ export default {
             },
           ],
         },
+      ],
+    },
+    {
+      nodeType: 'unordered-list',
+      data: {},
+      content: [
         {
           nodeType: 'list-item',
           data: {},

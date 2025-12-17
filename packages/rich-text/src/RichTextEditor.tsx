@@ -8,12 +8,12 @@ import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/pl
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
+import { useDeepCompareMemo } from 'use-deep-compare';
 
 import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
-import { toSlateValue } from './helpers/toSlateValue';
-import { normalizeInitialValue } from './internal/misc';
+import { toSlateDoc } from './helpers/toSlateDoc';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
@@ -65,15 +65,9 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
     [sdk, onAction, restrictedMarks, withCharValidation],
   );
 
-  const initialValue = React.useMemo(() => {
-    return normalizeInitialValue(
-      {
-        plugins,
-        disableCorePlugins,
-      },
-      toSlateValue(props.value),
-    );
-  }, [props.value, plugins]);
+  const initialValue = useDeepCompareMemo(() => {
+    return toSlateDoc(props.value);
+  }, [props.value]);
 
   // Force text direction based on editor locale
   const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
