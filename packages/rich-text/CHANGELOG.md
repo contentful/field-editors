@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.18.0...@contentful/field-editor-rich-text@4.19.0) (2025-12-17)
+
+### Features
+
+- **rich-text:** speed up initial normalization and reduce re-renders ([#2013](https://github.com/contentful/field-editors/issues/2013)) ([a84e8d1](https://github.com/contentful/field-editors/commit/a84e8d1034eb6e78d4be2f6c0bc1edd8e49b26b8))
+
 # [4.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.17.9...@contentful/field-editor-rich-text@4.18.0) (2025-12-15)
 
 ### Features
