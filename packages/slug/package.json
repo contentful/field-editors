@@ -48,7 +48,7 @@
   "devDependencies": {
     "@contentful/app-sdk": "^4.45.0",
     "@contentful/field-editor-test-utils": "^1.7.0",
-    "@lingui/core": "5.3.0"
+    "@lingui/core": "5.6.1"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.45.0",
