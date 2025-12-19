@@ -2,8 +2,9 @@ import * as React from 'react';
 
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { Document, EMPTY_DOCUMENT } from '@contentful/rich-text-types';
-import deepEquals from 'fast-deep-equal';
+import type { Document } from '@contentful/rich-text-types';
+
+import { isEmptyField } from './utils/isEmptyField';
 
 export type RichTextProps = {
   sdk: FieldAppSDK;
@@ -20,17 +21,12 @@ export type RichTextProps = {
 export const RichTextEditor = (props: RichTextProps) => {
   const { sdk, isInitiallyDisabled, isDisabled } = props;
 
-  const isEmptyValue = React.useCallback(
-    (value: unknown) => !value || deepEquals(value, EMPTY_DOCUMENT),
-    [],
-  );
-
   return (
     <FieldConnector
       debounce={0}
       field={sdk.field}
       isInitiallyDisabled={isInitiallyDisabled}
-      isEmptyValue={isEmptyValue}
+      isEmptyValue={isEmptyField}
       isDisabled={isDisabled}
     >
       {() => <h1>Hello World</h1>}
