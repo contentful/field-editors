@@ -12,14 +12,12 @@ export type RichTextProps = {
   minHeight?: string | number;
   maxHeight?: string | number;
   value?: Document;
-  isDisabled?: boolean;
   isToolbarHidden?: boolean;
-  actionsDisabled?: boolean;
   withCharValidation?: boolean;
 };
 
 export const RichTextEditor = (props: RichTextProps) => {
-  const { sdk, isInitiallyDisabled, isDisabled } = props;
+  const { sdk, isInitiallyDisabled } = props;
 
   return (
     <FieldConnector
@@ -27,7 +25,6 @@ export const RichTextEditor = (props: RichTextProps) => {
       field={sdk.field}
       isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyField}
-      isDisabled={isDisabled}
     >
       {() => <h1>Hello World</h1>}
     </FieldConnector>
