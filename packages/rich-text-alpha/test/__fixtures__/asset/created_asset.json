@@ -1,0 +1,63 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "my-test-space"
+      }
+    },
+    "id": "new_asset",
+    "type": "Asset",
+    "createdAt": "2021-12-01T13:16:32.452Z",
+    "updatedAt": "2021-12-01T13:16:48.836Z",
+    "environment": {
+      "sys": {
+        "id": "master",
+        "type": "Link",
+        "linkType": "Environment"
+      }
+    },
+    "createdBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "1n6JeO5hWTbMwlazefu4ux"
+      }
+    },
+    "updatedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "1n6JeO5hWTbMwlazefu4ux"
+      }
+    },
+    "publishedCounter": 0,
+    "version": 3
+  },
+  "fields": {
+    "title": {
+      "en-US": "dog"
+    },
+    "description": {
+      "en-US": ""
+    },
+    "file": {
+      "en-US": {
+        "url": "//images.contentful.com/b04hhmxrptgr/6oYURL50Ddai6jRCboSB7u/b1a3768d6d987f3f6110a41175f4d7d3/dog.jpg",
+        "details": {
+          "size": 149870,
+          "image": {
+            "width": 800,
+            "height": 800
+          }
+        },
+        "fileName": "dog.jpg",
+        "contentType": "image/jpeg"
+      }
+    }
+  },
+  "metadata": {
+    "tags": []
+  }
+}

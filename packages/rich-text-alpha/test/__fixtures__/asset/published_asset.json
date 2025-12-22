@@ -1,0 +1,67 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "my-test-space"
+      }
+    },
+    "id": "published_asset",
+    "type": "Asset",
+    "createdAt": "2019-07-05T08:57:33.415Z",
+    "updatedAt": "2020-04-03T12:31:02.836Z",
+    "environment": {
+      "sys": {
+        "id": "master",
+        "type": "Link",
+        "linkType": "Environment"
+      }
+    },
+    "publishedVersion": 7,
+    "publishedAt": "2020-04-03T12:31:02.836Z",
+    "firstPublishedAt": "2019-07-05T08:57:50.760Z",
+    "createdBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "updatedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "publishedCounter": 2,
+    "version": 7,
+    "publishedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    }
+  },
+  "fields": {
+    "title": {
+      "en-US": "test"
+    },
+    "file": {
+      "en-US": {
+        "url": "//images.ctfassets.net/5uld3crqmsuo/12XMPLSTs2vmmjw6xTlCDg/a7099dad14319e0f2908e99c9a2d6c62/Terrier_mixed-breed_dog.jpg",
+        "details": {
+          "size": 243497,
+          "image": {
+            "width": 1280,
+            "height": 1145
+          }
+        },
+        "fileName": "Terrier_mixed-breed_dog.jpg",
+        "contentType": "image/jpeg"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "sys": {
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "my-test-space"
+      }
+    },
+    "id": "empty-asset",
+    "type": "Asset",
+    "createdAt": "2020-04-03T12:26:46.312Z",
+    "updatedAt": "2020-04-03T12:26:46.312Z",
+    "environment": {
+      "sys": {
+        "id": "master",
+        "type": "Link",
+        "linkType": "Environment"
+      }
+    },
+    "createdBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "updatedBy": {
+      "sys": {
+        "type": "Link",
+        "linkType": "User",
+        "id": "34MOMGPHEnQmheXGJJyghQ"
+      }
+    },
+    "publishedCounter": 0,
+    "version": 1
+  },
+  "fields": {}
+}

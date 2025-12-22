@@ -123,7 +123,7 @@
     "remark-validate-links": "13.1.0",
     "serve": "14.2.4",
     "start-server-and-test": "2.0.3",
-    "storybook": "^8.3.5",
+    "storybook": "8.3.5",
     "storybook-addon-swc": "1.2.0",
     "swc-loader": "0.2.6",
     "ts-loader": "9.5.4",
