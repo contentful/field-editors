@@ -61,7 +61,7 @@
     "@storybook/addon-essentials": "8.3.5",
     "@storybook/addon-links": "8.3.5",
     "@storybook/react": "8.1.11",
-    "@storybook/react-webpack5": "8.3.5",
+    "@storybook/react-webpack5": "8.6.15",
     "@swc/cli": "0.1.62",
     "@swc/core": "1.7.26",
     "@swc/jest": "0.2.37",
