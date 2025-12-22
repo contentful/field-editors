@@ -13257,10 +13257,10 @@ eslint-module-utils@^2.12.1:
 eslint-plugin-custom-lingui@./tools/eslint-plugin-custom-lingui:
   version "1.0.0"
 
-eslint-plugin-cypress@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-3.4.0.tgz#6a7f508cda7579184265b50129b853e0c06c9944"
-  integrity sha512-Rrrr3Ri6wHqzrRr+TyUV7bDS4UnMMrFY1R1PP2F7XdGfe9txDC6lQEshyoNOWqGoPkbbeDm1x1XPc/adxemsnA==
+eslint-plugin-cypress@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-3.6.0.tgz#d0e2f68f27b9a34ecf565bef58ed82c8f10d39a8"
+  integrity sha512-7IAMcBbTVu5LpWeZRn5a9mQ30y4hKp3AfTz+6nSD/x/7YyLMoBI6X7XjDLYI6zFvuy4Q4QVGl563AGEXGW/aSA==
   dependencies:
     globals "^13.20.0"
 
