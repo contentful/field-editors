@@ -57,7 +57,7 @@
     "@lingui/react": "5.3.1",
     "@lingui/swc-plugin": "5.3.0",
     "@storybook/addon-actions": "8.3.5",
-    "@storybook/addon-docs": "8.3.5",
+    "@storybook/addon-docs": "8.6.15",
     "@storybook/addon-essentials": "8.3.5",
     "@storybook/addon-links": "8.3.5",
     "@storybook/react": "8.1.11",
