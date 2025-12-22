@@ -96,7 +96,7 @@
     "eslint-plugin-lingui": "0.11.0",
     "eslint-plugin-mocha": "10.4.2",
     "eslint-plugin-react": "7.35.0",
-    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-storybook": "0.12.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.14.0",
     "git-cz": "4.9.0",
