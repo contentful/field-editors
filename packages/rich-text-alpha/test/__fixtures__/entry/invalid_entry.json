@@ -1,0 +1,19 @@
+{
+    "sys": {
+      "space": { "sys": { "type": "Link", "linkType": "Space", "id": "my-test-space" } },
+      "id": "invalid-entry",
+      "type": "Entry",
+      "createdAt": "2020-04-03T11:29:24.932Z",
+      "updatedAt": "2020-04-03T11:29:24.932Z",
+      "environment": { "sys": { "id": "master", "type": "Link", "linkType": "Environment" } },
+      "createdBy": { "sys": { "type": "Link", "linkType": "User", "id": "34MOMGPHEnQmheXGJJyghQ" } },
+      "updatedBy": { "sys": { "type": "Link", "linkType": "User", "id": "34MOMGPHEnQmheXGJJyghQ" } },
+      "publishedCounter": 0,
+      "version": 1,
+      "contentType": {
+        "sys": { "type": "Link", "linkType": "ContentType", "id": "exampleCT" }
+      }
+    },
+    "fields": {}
+  }
+  

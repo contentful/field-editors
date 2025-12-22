@@ -1,0 +1,31 @@
+{
+  "sys": {
+    "id": "en-DE",
+    "type": "Locale",
+    "createdAt": "2020-02-05T16:16:37.052Z",
+    "updatedAt": "2020-03-25T15:00:06.808Z",
+    "version": 1,
+    "space": {
+      "sys": {
+        "type": "Link",
+        "linkType": "Space",
+        "id": "my-test-space"
+      }
+    },
+    "environment": {
+      "sys": {
+        "id": "master",
+        "type": "Link",
+        "linkType": "Environment"
+      }
+    }
+  },
+  "name": "Deutsch",
+  "code": "de-DE",
+  "internal_code": "de-DE",
+  "fallbackCode": null,
+  "contentDeliveryApi": true,
+  "contentManagementApi": true,
+  "default": false,
+  "optional": false
+}
