@@ -15456,6 +15456,13 @@ html-webpack-plugin@5.6.0, html-webpack-plugin@^5.5.0:
     pretty-error "^4.0.0"
     tapable "^2.0.0"
 
+html@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/html/-/html-1.0.0.tgz#a544fa9ea5492bfb3a2cca8210a10be7b5af1f61"
+  integrity sha512-lw/7YsdKiP3kk5PnR1INY17iJuzdAtJewxr14ozKJWbbR97znovZ0mh+WEMZ8rjc3lgTK+ID/htTjuyGKB52Kw==
+  dependencies:
+    concat-stream "^1.4.7"
+
 htmlparser2@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-6.1.0.tgz#c4d762b6c3371a05dbe65e94ae43a9f845fb8fb7"
@@ -21986,6 +21993,15 @@ propose@0.0.5:
   dependencies:
     levenshtein-edit-distance "^1.0.0"
 
+prosemirror-dev-toolkit@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/prosemirror-dev-toolkit/-/prosemirror-dev-toolkit-1.1.8.tgz#ce8dfa7e0cf9ec8985efa25e02d5771308fe815e"
+  integrity sha512-Qi549XA+DqU5cCkn/xv+M53gy1sQbyOTjiOfiG7Gjq5gm6ZxLilGN04UITWTAYx9kzLBi7Y9RJmvmWB4xiRauA==
+  dependencies:
+    html "^1.0.0"
+    prosemirror-model "^1.20.0"
+    svelte-tree-view "^1.4.2"
+
 prosemirror-model@^1.0.0, prosemirror-model@^1.20.0, prosemirror-model@^1.21.0, prosemirror-model@^1.25.4:
   version "1.25.4"
   resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.25.4.tgz#8ebfbe29ecbee9e5e2e4048c4fe8e363fcd56e7c"
@@ -24830,6 +24846,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
+svelte-tree-view@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/svelte-tree-view/-/svelte-tree-view-1.4.2.tgz#828f04929031c16abd1071aab9b612c631eb65d2"
+  integrity sha512-z3yQq+/4CceyefVj03t9BG9AiZ7syovmRRo96aj8V65d1FsRS/BL2AxzcD4vl5GJg7o9qbz2mWWJzyFWENISCQ==
+
 svg-parser@^2.0.2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
@@ -25468,6 +25489,11 @@ type-fest@^3.8.0:
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-3.13.1.tgz#bb744c1f0678bea7543a2d1ec24e83e68e8c8706"
   integrity sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==
+
+type-fest@^4.26.1:
+  version "4.41.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.41.0.tgz#6ae1c8e5731273c2bf1f58ad39cbae2c91a46c58"
+  integrity sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==
 
 type-is@~1.6.18:
   version "1.6.18"
