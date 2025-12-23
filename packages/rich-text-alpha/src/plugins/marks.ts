@@ -1,3 +1,5 @@
+import { toggleMark } from 'prosemirror-commands';
+
 import { Mark } from '../core';
 
 const bold: Mark = {
@@ -15,6 +17,13 @@ const bold: Mark = {
       getAttrs: (value: string) => /^(bold(er)?|[5-9]\d{2,})$/.test(value) && null,
     },
   ],
+
+  keymap: {
+    'Mod-b': (state, dispatch) => {
+      const markType = state.schema.marks['bold'];
+      return toggleMark(markType)(state, dispatch);
+    },
+  },
 };
 
 const code: Mark = {

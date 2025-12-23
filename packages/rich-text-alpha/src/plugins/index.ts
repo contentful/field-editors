@@ -1,6 +1,8 @@
 import { reactKeys } from '@handlewithcare/react-prosemirror';
+import { baseKeymap } from 'prosemirror-commands';
+import { keymap } from 'prosemirror-keymap';
 import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
 
 import { buildMark } from '../core';
 import { marks } from './marks';
@@ -8,9 +10,15 @@ import { marks } from './marks';
 export function createEditor() {
   const markSchema: Record<string, MarkSpec> = {};
 
+  const plugins: Plugin<any>[] = [reactKeys(), keymap(baseKeymap)];
+
   for (const mark of marks) {
-    const { schema } = buildMark(mark);
+    const { schema, plugin } = buildMark(mark);
     markSchema[mark.name] = schema;
+
+    if (plugin) {
+      plugins.push(plugin);
+    }
   }
 
   const schema = new Schema({
@@ -26,7 +34,7 @@ export function createEditor() {
         group: 'block',
         parseDOM: [{ tag: 'p' }],
         toDOM() {
-          return ['p', 0];
+          return ['p', { style: 'margin-bottom: 1.5em;direction: inherit;' }, 0];
         },
       } as NodeSpec,
 
@@ -39,7 +47,7 @@ export function createEditor() {
 
   const state = EditorState.create({
     schema,
-    plugins: [reactKeys()],
+    plugins,
   });
 
   return state;

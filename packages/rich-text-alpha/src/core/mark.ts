@@ -1,4 +1,7 @@
+import { keydownHandler } from 'prosemirror-keymap';
 import type { MarkSpec } from 'prosemirror-model';
+import type { Command } from 'prosemirror-state';
+import { Plugin, PluginSpec, PluginKey } from 'prosemirror-state';
 
 export interface Mark {
   /**
@@ -18,6 +21,8 @@ export interface Mark {
 
   toDOM?: MarkSpec['toDOM'];
   parseDOM?: MarkSpec['parseDOM'];
+
+  keymap?: Record<string, Command>;
 }
 
 export function buildMark(mark: Mark) {
@@ -28,5 +33,16 @@ export function buildMark(mark: Mark) {
     group: mark.groups?.join(' '),
   };
 
-  return { schema };
+  const pluginSpec: PluginSpec<unknown> = {
+    key: new PluginKey(mark.name),
+  };
+
+  if (mark.keymap) {
+    pluginSpec.props = {
+      ...pluginSpec.props,
+      handleKeyDown: keydownHandler(mark.keymap),
+    };
+  }
+
+  return { schema, plugin: new Plugin(pluginSpec) };
 }
