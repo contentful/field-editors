@@ -20,9 +20,18 @@ export type RichTextProps = {
   onAction?: (name: string, data: Record<string, unknown>) => void;
   isToolbarHidden?: boolean;
   withCharValidation?: boolean;
+
+  /**
+   * Extra components to be rendered inside the editor hence have access
+   * to the editor state.
+   *
+   * For internal use only. e.g. dev tools integration.
+   * @internal
+   */
+  extraChildren?: React.ReactNode;
 };
 
-const Editor = ({ style }: { style: string }) => {
+const Editor = ({ style, extraChildren }: { style: string; extraChildren?: React.ReactNode }) => {
   const state = React.useMemo(() => {
     return createEditor();
   }, []);
@@ -31,6 +40,7 @@ const Editor = ({ style }: { style: string }) => {
     <div className={styles.root} data-test-id="rich-text-editor">
       <ProseMirror className={style} defaultState={state}>
         <ProseMirrorDoc />
+        {extraChildren}
       </ProseMirror>
     </div>
   );
@@ -58,7 +68,7 @@ export const RichTextEditor = (props: RichTextProps) => {
       isEmptyValue={isEmptyField}
     >
       {() => {
-        return <Editor style={style} />;
+        return <Editor style={style} extraChildren={props.extraChildren} />;
       }}
     </FieldConnector>
   );

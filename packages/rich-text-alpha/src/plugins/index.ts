@@ -1,15 +1,23 @@
 import { reactKeys } from '@handlewithcare/react-prosemirror';
 import { baseKeymap } from 'prosemirror-commands';
-import { keymap } from 'prosemirror-keymap';
+import { keydownHandler } from 'prosemirror-keymap';
 import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
-import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 
 import { Mark, Node } from '../core';
 import { LineBreak } from './lineBreak';
 import { marks } from './marks';
 import { Paragraph } from './paragraph';
 
-const ours = [...marks, new Paragraph(), new LineBreak()];
+const corePlugins = [
+  reactKeys(),
+  new Plugin({
+    key: new PluginKey('baseKeymap'),
+    props: {
+      handleKeyDown: keydownHandler(baseKeymap),
+    },
+  }),
+];
 
 export function createEditor() {
   const markSchema: Record<string, MarkSpec> = {};
@@ -23,7 +31,7 @@ export function createEditor() {
     },
   };
 
-  const plugins: Plugin<any>[] = [reactKeys(), keymap(baseKeymap), ...ours];
+  const plugins: Plugin<any>[] = [...corePlugins, ...marks, new Paragraph(), new LineBreak()];
 
   for (const p of plugins) {
     if (p instanceof Mark) {

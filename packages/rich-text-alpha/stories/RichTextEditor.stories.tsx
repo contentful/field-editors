@@ -15,8 +15,10 @@ import {
 } from '@contentful/field-editor-test-utils';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
+import { useEditorEffect } from '@handlewithcare/react-prosemirror';
 import type { Meta, StoryObj } from '@storybook/react';
 import { css } from 'emotion';
+import { applyDevTools } from 'prosemirror-dev-toolkit';
 
 import { RichTextEditor } from '../src/RichTextEditor';
 import { assets, contentTypes, entries, locales, spaces } from '../test/__fixtures__/fixtures';
@@ -55,6 +57,16 @@ const structurePreviewCopyButton = css({
   right: 0,
   top: 8,
 });
+
+function ProseMirrorDevTools() {
+  useEditorEffect((view) => {
+    if (!view) return;
+
+    applyDevTools(view);
+  });
+
+  return null;
+}
 
 const DemoRichTextEditor = () => {
   window.actions = [];
@@ -246,6 +258,7 @@ const DemoRichTextEditor = () => {
           sdk={sdk as unknown as FieldAppSDK}
           onAction={onAction}
           isInitiallyDisabled={isDisabled as boolean}
+          extraChildren={<ProseMirrorDevTools />}
         />
 
         {/* <ValidationErrors field={field} locales={[] as any} /> */}
