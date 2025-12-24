@@ -1,41 +1,31 @@
 import { reactKeys } from '@handlewithcare/react-prosemirror';
-import { baseKeymap } from 'prosemirror-commands';
-import { keydownHandler } from 'prosemirror-keymap';
 import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
 
 import { Mark, Node } from '../core';
 import { Blockquote } from './blockquote';
+import { Document } from './document';
 import { LineBreak } from './lineBreak';
-import { marks } from './marks';
+import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from './marks';
 import { Paragraph } from './paragraph';
-
-const corePlugins = [
-  reactKeys(),
-  new Plugin({
-    key: new PluginKey('baseKeymap'),
-    props: {
-      handleKeyDown: keydownHandler(baseKeymap),
-    },
-  }),
-];
+import { Text } from './text';
 
 export function createEditor() {
   const markSchema: Record<string, MarkSpec> = {};
-  const nodeSchema: Record<string, NodeSpec> = {
-    document: {
-      content: '(paragraph | top_level_block)+',
-    },
-    text: {
-      group: 'inline',
-      inline: true,
-    },
-  };
+  const nodeSchema: Record<string, NodeSpec> = {};
 
   const plugins: Plugin<any>[] = [
-    ...corePlugins,
-    ...marks,
+    reactKeys(),
+    new Document(),
     new Paragraph(),
+    new Text(),
+    new Bold(),
+    new Code(),
+    new Italic(),
+    new Underline(),
+    new Superscript(),
+    new Subscript(),
+    new Strikethrough(),
     new LineBreak(),
     new Blockquote(),
   ];
