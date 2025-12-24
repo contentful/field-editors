@@ -39,7 +39,7 @@ export abstract class Mark extends Plugin {
   /**
    * Access mark type from state
    */
-  type = (state: EditorState) => {
+  markType = (state: Pick<EditorState, 'schema'>) => {
     return state.schema.marks[this.name];
   };
 
@@ -47,7 +47,7 @@ export abstract class Mark extends Plugin {
    * Toggle the mark for the current selection.
    */
   toggleMark: Command = (state, dispatch) => {
-    const markType = this.type(state);
+    const markType = this.markType(state);
     return toggleMark(markType)(state, dispatch);
   };
 }

@@ -38,7 +38,7 @@ export abstract class Node extends Plugin {
   /**
    * Access node type from state
    */
-  type = (state: EditorState) => {
+  nodeType = (state: Pick<EditorState, 'schema'>) => {
     return state.schema.nodes[this.name];
   };
 }
