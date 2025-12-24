@@ -1,39 +1,44 @@
+import { keydownHandler } from 'prosemirror-keymap';
 import type { NodeSpec } from 'prosemirror-model';
-import type { LiteralUnion } from 'type-fest';
+import type { Command } from 'prosemirror-state';
+import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 
-export interface Node {
+import { lazyHandler } from './utils';
+
+export abstract class Node extends Plugin {
+  constructor() {
+    super({
+      key: new PluginKey(new.target.name),
+    });
+  }
+
   /**
-   * The alphanumeric, unique name of the node. e.g. paragraph, heading_1,
-   * ..etc.
+   * The unique name of the node. It must be alphanumeric and may contain
+   * underscore characters.
    */
-  name: string;
+  abstract readonly name: string;
+
+  abstract readonly schema: NodeSpec;
 
   /**
-   * The group or groups to which this node belongs, which can be referred
-   * to in the content expressions for the schema. e.g. top_level_block,
-   * block ..etc
+   * Modifiers can be given in any order. `Shift-` (or `s-`), `Alt-` (or
+   * `a-`), `Ctrl-` (or `c-` or `Control-`) and `Cmd-` (or `m-` or `Meta-`)
+   * are recognized. For characters that are created by holding shift, the
+   * `Shift-` prefix is implied, and should not be added explicitly.
+   *
+   * You can use `Mod-` as a shorthand for `Cmd-` on Mac and `Ctrl-` on
+   * other platforms.
    */
-  groups?: LiteralUnion<
-    'top_level_block' | 'table_cell_content' | 'list_content' | 'block' | 'inline',
-    string
-  >[];
+  shortcuts: Record<string, Command> = {};
 
-  schema: Pick<
-    NodeSpec,
-    | 'content'
-    | 'marks'
-    | 'inline'
-    | 'atom'
-    | 'attrs'
-    | 'selectable'
-    | 'draggable'
-    | 'whitespace'
-    | 'definingAsContext'
-    | 'definingForContent'
-    | 'defining'
-    | 'isolating'
-  >;
+  props: Plugin['props'] = {
+    handleKeyDown: lazyHandler(() => keydownHandler(this.shortcuts)),
+  };
 
-  toDOM?: NodeSpec['toDOM'];
-  parseDOM?: NodeSpec['parseDOM'];
+  /**
+   * Access node type from state
+   */
+  type = (state: EditorState) => {
+    return state.schema.nodes[this.name];
+  };
 }

@@ -13,14 +13,13 @@ import {
   createFakeNavigatorAPI,
   createFakeSpaceAPI,
 } from '@contentful/field-editor-test-utils';
-import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
 import type { Meta, StoryObj } from '@storybook/react';
 import { css } from 'emotion';
 
-import { assets, contentTypes, entries, locales, spaces } from '../test/__fixtures__/fixtures';
 import { RichTextEditor } from '../src/RichTextEditor';
+import { assets, contentTypes, entries, locales, spaces } from '../test/__fixtures__/fixtures';
 
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor (Alpha)',

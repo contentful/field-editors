@@ -40,7 +40,7 @@ class Code extends Mark {
       { tag: 'code' },
       {
         style: 'font-family',
-        getAttrs: (value) => value.match(/Consolas|monospace/) && null,
+        getAttrs: (value) => value.match(/monospace/) && null,
       },
     ],
   };
