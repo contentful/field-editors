@@ -1,81 +1,122 @@
-import { toggleMark } from 'prosemirror-commands';
+import type { MarkSpec } from 'prosemirror-model';
+import type { Command } from 'prosemirror-state';
 
 import { Mark } from '../core';
 
-const bold: Mark = {
-  name: 'bold',
+class Bold extends Mark {
+  name = 'bold';
 
-  toDOM: () => ['strong', 0],
+  schema: MarkSpec = {
+    toDOM: () => ['strong', 0],
+    parseDOM: [
+      { tag: 'strong' },
+      {
+        tag: 'b',
+        getAttrs: (node) => node.style.fontWeight != 'normal' && null,
+      },
+      {
+        style: 'font-weight=400',
+        clearMark: (m) => m.type.name == 'strong',
+      },
+      {
+        style: 'font-weight',
+        getAttrs: (value) => /^(bold(er)?|600|700)$/.test(value) && null,
+      },
+    ],
+  };
 
-  parseDOM: [
-    { tag: 'strong' },
-    // For Google Docs
-    { tag: 'b', getAttrs: (node) => node.style.fontWeight != 'normal' && null },
-    { style: 'font-weight=400', clearMark: (m) => m.type.name == 'strong' },
-    {
-      style: 'font-weight',
-      getAttrs: (value: string) => /^(bold(er)?|[5-9]\d{2,})$/.test(value) && null,
-    },
-  ],
+  shortcuts: Record<string, Command> = {
+    'Mod-b': this.toggleMark,
+  };
+}
 
-  keymap: {
-    'Mod-b': (state, dispatch) => {
-      const markType = state.schema.marks['bold'];
-      return toggleMark(markType)(state, dispatch);
-    },
-  },
-};
+class Code extends Mark {
+  name = 'code';
 
-const code: Mark = {
-  name: 'code',
-  schema: { code: true },
-  toDOM: () => ['code', 0],
-  parseDOM: [
-    { tag: 'code' },
-    {
-      style: 'font-family',
-      getAttrs: (value) => value.match(/Consolas|monospace/) && null,
-    },
-  ],
-};
+  schema: MarkSpec = {
+    code: true,
+    toDOM: () => ['code', 0],
+    parseDOM: [
+      { tag: 'code' },
+      {
+        style: 'font-family',
+        getAttrs: (value) => value.match(/Consolas|monospace/) && null,
+      },
+    ],
+  };
 
-const italic: Mark = {
-  name: 'italic',
-  toDOM: () => ['em', 0],
-  parseDOM: [{ tag: 'em' }, { tag: 'i' }],
-};
+  shortcuts: Record<string, Command> = {
+    'Mod-/': this.toggleMark,
+  };
+}
 
-const underline: Mark = {
-  name: 'underline',
-  toDOM: () => ['u', 0],
-  parseDOM: [
-    { tag: 'u' },
-    { style: 'text-decoration', getAttrs: (value) => value == 'underline' && null },
-  ],
-};
+class Italic extends Mark {
+  name = 'italic';
 
-const superscript: Mark = {
-  name: 'superscript',
-  schema: {
+  schema: MarkSpec = {
+    toDOM: () => ['em', 0],
+    parseDOM: [{ tag: 'em' }, { tag: 'i' }],
+  };
+
+  shortcuts: Record<string, Command> = {
+    'Mod-i': this.toggleMark,
+  };
+}
+
+class Underline extends Mark {
+  name = 'underline';
+
+  schema: MarkSpec = {
+    toDOM: () => ['u', 0],
+    parseDOM: [
+      { tag: 'u' },
+      {
+        style: 'text-decoration',
+        getAttrs: (value) => value == 'underline' && null,
+      },
+    ],
+  };
+
+  shortcuts: Record<string, Command> = {
+    'Mod-u': this.toggleMark,
+  };
+}
+
+class Superscript extends Mark {
+  name = 'superscript';
+
+  schema: MarkSpec = {
     excludes: 'subscript',
-  },
-  toDOM: () => ['sup', 0],
-  parseDOM: [{ tag: 'sup' }],
-};
+    toDOM: () => ['sup', 0],
+    parseDOM: [{ tag: 'sup' }],
+  };
+}
 
-const subscript: Mark = {
-  name: 'subscript',
-  schema: {
+class Subscript extends Mark {
+  name = 'subscript';
+
+  schema: MarkSpec = {
     excludes: 'superscript',
-  },
-  toDOM: () => ['sub', 0],
-  parseDOM: [{ tag: 'sub' }],
-};
+    toDOM: () => ['sub', 0],
+    parseDOM: [{ tag: 'sub' }],
+  };
+}
 
-const strikethrough: Mark = {
-  name: 'strikethrough',
-  toDOM: () => ['s', 0],
-  parseDOM: [{ tag: 's' }],
-};
+class Strikethrough extends Mark {
+  name = 'strikethrough';
 
-export const marks: Mark[] = [bold, italic, code, underline, superscript, subscript, strikethrough];
+  schema: MarkSpec = {
+    toDOM: () => ['s', 0],
+    parseDOM: [{ tag: 's' }],
+  };
+}
+
+export const marks: Mark[] = [
+  new Bold(),
+  new Code(),
+  new Italic(),
+  new Underline(),
+  new Superscript(),
+  new Subscript(),
+  new Strikethrough(),
+];

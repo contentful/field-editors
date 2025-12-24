@@ -4,21 +4,15 @@ import { keymap } from 'prosemirror-keymap';
 import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
 import { EditorState, Plugin } from 'prosemirror-state';
 
-import { buildMark } from '../core';
 import { marks } from './marks';
 
 export function createEditor() {
   const markSchema: Record<string, MarkSpec> = {};
 
-  const plugins: Plugin<any>[] = [reactKeys(), keymap(baseKeymap)];
+  const plugins: Plugin<any>[] = [reactKeys(), keymap(baseKeymap), ...marks];
 
   for (const mark of marks) {
-    const { schema, plugin } = buildMark(mark);
-    markSchema[mark.name] = schema;
-
-    if (plugin) {
-      plugins.push(plugin);
-    }
+    markSchema[mark.name] = mark.schema;
   }
 
   const schema = new Schema({

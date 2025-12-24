@@ -1,48 +1,53 @@
+import { toggleMark } from 'prosemirror-commands';
 import { keydownHandler } from 'prosemirror-keymap';
 import type { MarkSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
-import { Plugin, PluginSpec, PluginKey } from 'prosemirror-state';
+import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 
-export interface Mark {
-  /**
-   * The alphanumeric, unique name of the node. e.g. paragraph, heading_1,
-   * ..etc.
-   */
-  name: string;
+import { lazyHandler } from './utils';
 
-  /**
-   * The group or groups to which this node belongs, which can be referred
-   * to in the content expressions for the schema. e.g. top_level_block,
-   * block ..etc
-   */
-  groups?: string[];
-
-  schema?: Pick<MarkSpec, 'attrs' | 'inclusive' | 'excludes' | 'spanning' | 'code'>;
-
-  toDOM?: MarkSpec['toDOM'];
-  parseDOM?: MarkSpec['parseDOM'];
-
-  keymap?: Record<string, Command>;
-}
-
-export function buildMark(mark: Mark) {
-  const schema: MarkSpec = {
-    ...mark.schema,
-    toDOM: mark.toDOM,
-    parseDOM: mark.parseDOM,
-    group: mark.groups?.join(' '),
-  };
-
-  const pluginSpec: PluginSpec<unknown> = {
-    key: new PluginKey(mark.name),
-  };
-
-  if (mark.keymap) {
-    pluginSpec.props = {
-      ...pluginSpec.props,
-      handleKeyDown: keydownHandler(mark.keymap),
-    };
+export abstract class Mark extends Plugin {
+  constructor() {
+    super({
+      key: new PluginKey(new.target.name),
+    });
   }
 
-  return { schema, plugin: new Plugin(pluginSpec) };
+  /**
+   * The unique name of the node. It must be alphanumeric and may contain
+   * underscore characters.
+   */
+  abstract readonly name: string;
+
+  abstract readonly schema: MarkSpec;
+
+  /**
+   * Modifiers can be given in any order. `Shift-` (or `s-`), `Alt-` (or
+   * `a-`), `Ctrl-` (or `c-` or `Control-`) and `Cmd-` (or `m-` or `Meta-`)
+   * are recognized. For characters that are created by holding shift, the
+   * `Shift-` prefix is implied, and should not be added explicitly.
+   *
+   * You can use `Mod-` as a shorthand for `Cmd-` on Mac and `Ctrl-` on
+   * other platforms.
+   */
+  shortcuts: Record<string, Command> = {};
+
+  props: Plugin['props'] = {
+    handleKeyDown: lazyHandler(() => keydownHandler(this.shortcuts)),
+  };
+
+  /**
+   * Access mark type from state
+   */
+  type = (state: EditorState) => {
+    return state.schema.marks[this.name];
+  };
+
+  /**
+   * Toggle the mark for the current selection.
+   */
+  toggleMark: Command = (state, dispatch) => {
+    const markType = this.type(state);
+    return toggleMark(markType)(state, dispatch);
+  };
 }
