@@ -5,6 +5,7 @@ import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
 import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 
 import { Mark, Node } from '../core';
+import { Blockquote } from './blockquote';
 import { LineBreak } from './lineBreak';
 import { marks } from './marks';
 import { Paragraph } from './paragraph';
@@ -23,7 +24,7 @@ export function createEditor() {
   const markSchema: Record<string, MarkSpec> = {};
   const nodeSchema: Record<string, NodeSpec> = {
     document: {
-      content: 'block+',
+      content: '(paragraph | top_level_block)+',
     },
     text: {
       group: 'inline',
@@ -31,7 +32,13 @@ export function createEditor() {
     },
   };
 
-  const plugins: Plugin<any>[] = [...corePlugins, ...marks, new Paragraph(), new LineBreak()];
+  const plugins: Plugin<any>[] = [
+    ...corePlugins,
+    ...marks,
+    new Paragraph(),
+    new LineBreak(),
+    new Blockquote(),
+  ];
 
   for (const p of plugins) {
     if (p instanceof Mark) {

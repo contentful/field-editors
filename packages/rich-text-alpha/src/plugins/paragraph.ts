@@ -4,23 +4,21 @@ import type { NodeSpec } from 'prosemirror-model';
 
 import { Node } from '../core';
 
-const styles = {
-  p: css`
-    line-height: ${tokens.lineHeightDefault};
-    margin-bottom: 1.5em;
-    direction: inherit;
-  `,
-};
+const style = css({
+  lineHeight: tokens.lineHeightDefault,
+  marginBottom: '1.5em',
+  direction: 'inherit',
+});
 
 export class Paragraph extends Node {
   name = 'paragraph';
 
   schema: NodeSpec = {
     content: 'inline*',
-    group: 'block',
+    group: 'block top_level_block',
     parseDOM: [{ tag: 'p' }],
     toDOM() {
-      return ['p', { class: styles.p }, 0];
+      return ['p', { class: style }, 0];
     },
   };
 }

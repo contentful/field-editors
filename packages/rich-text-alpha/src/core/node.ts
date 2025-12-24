@@ -2,6 +2,7 @@ import { keydownHandler } from 'prosemirror-keymap';
 import type { NodeSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
 import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { findParentNodeOfType } from 'prosemirror-utils';
 
 import { lazyHandler } from './utils';
 
@@ -40,5 +41,13 @@ export abstract class Node extends Plugin {
    */
   nodeType = (state: Pick<EditorState, 'schema'>) => {
     return state.schema.nodes[this.name];
+  };
+
+  /**
+   * Check if the current selection is inside a node of this type.
+   */
+  isActive = (state: EditorState): boolean => {
+    const type = this.nodeType(state);
+    return findParentNodeOfType(type)(state.selection) !== undefined;
   };
 }
