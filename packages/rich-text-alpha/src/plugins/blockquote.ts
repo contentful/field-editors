@@ -18,7 +18,7 @@ export class Blockquote extends Node {
 
   schema: NodeSpec = {
     content: 'paragraph*',
-    group: 'block top_level_block',
+    group: 'top_level_block',
     defining: true,
     parseDOM: [{ tag: 'blockquote' }],
     toDOM() {

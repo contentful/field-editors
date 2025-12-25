@@ -15,7 +15,7 @@ export class Paragraph extends Node {
 
   schema: NodeSpec = {
     content: 'inline*',
-    group: 'block top_level_block',
+    group: 'top_level_block',
     parseDOM: [{ tag: 'p' }],
     toDOM() {
       return ['p', { class: style }, 0];
