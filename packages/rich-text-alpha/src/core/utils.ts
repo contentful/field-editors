@@ -9,3 +9,9 @@ export const lazyHandler = <T extends (...args: any[]) => any>(handler: () => T)
     return handle(...args);
   };
 };
+
+export const invariant = (condition: boolean, message: string) => {
+  if (!condition) {
+    throw new Error(message);
+  }
+};

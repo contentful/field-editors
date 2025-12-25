@@ -9,6 +9,7 @@ import { EditorState, Plugin } from 'prosemirror-state';
 import { Mark, Node } from '../core';
 import { Blockquote } from './blockquote';
 import { Document } from './document';
+import { Heading } from './heading';
 import { HorizontalRule } from './horizontalRule';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
@@ -40,6 +41,7 @@ export function createEditor() {
     new Subscript(),
     new Strikethrough(),
     new LineBreak(),
+    new Heading(),
     new Blockquote(),
     new HorizontalRule(),
   ];

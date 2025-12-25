@@ -1,6 +1,8 @@
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
+import { setBlockType } from 'prosemirror-commands';
 import type { NodeSpec } from 'prosemirror-model';
+import type { Command } from 'prosemirror-state';
 
 import { Node } from '../core';
 
@@ -20,5 +22,14 @@ export class Paragraph extends Node {
     toDOM() {
       return ['p', { class: style }, 0];
     },
+  };
+
+  setParagraph: Command = (state, dispatch) => {
+    const type = this.nodeType(state);
+    return setBlockType(type)(state, dispatch);
+  };
+
+  shortcuts: Record<string, Command> = {
+    'mod-alt-0': this.setParagraph,
   };
 }
