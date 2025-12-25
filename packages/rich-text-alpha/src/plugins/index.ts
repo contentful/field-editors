@@ -1,6 +1,7 @@
 import { reactKeys } from '@handlewithcare/react-prosemirror';
 import { dropCursor } from 'prosemirror-dropcursor';
 import { gapCursor } from 'prosemirror-gapcursor';
+import { history } from 'prosemirror-history';
 import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
 import { EditorState, Plugin } from 'prosemirror-state';
 
@@ -8,6 +9,7 @@ import { Mark, Node } from '../core';
 import { Blockquote } from './blockquote';
 import { Document } from './document';
 import { HorizontalRule } from './horizontalRule';
+import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
 import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from './marks';
 import { Paragraph } from './paragraph';
@@ -21,8 +23,10 @@ export function createEditor() {
 
   const plugins: Plugin<any>[] = [
     reactKeys(),
+    history(),
     gapCursor(),
     dropCursor(),
+    new Keymap(),
     new Document(),
     new Paragraph(),
     new Text(),

@@ -9,6 +9,7 @@ import { css, cx } from 'emotion';
 import { createEditor } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { isEmptyField } from './utils/isEmptyField';
+
 import 'prosemirror-view/style/prosemirror.css';
 
 export type RichTextProps = {
@@ -31,10 +32,23 @@ export type RichTextProps = {
   extraChildren?: React.ReactNode;
 };
 
-const Editor = ({ style, extraChildren }: { style: string; extraChildren?: React.ReactNode }) => {
+const Editor = (props: RichTextProps) => {
+  const { sdk, extraChildren } = props;
+
   const state = React.useMemo(() => {
     return createEditor();
   }, []);
+
+  // Force text direction based on editor locale
+  const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
+
+  const style = cx(
+    styles.editor,
+    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
+    props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
+    props.isToolbarHidden && styles.hiddenToolbar,
+    direction === 'rtl' ? styles.rtl : styles.ltr,
+  );
 
   return (
     <div className={styles.root} data-test-id="rich-text-editor">
@@ -49,17 +63,6 @@ const Editor = ({ style, extraChildren }: { style: string; extraChildren?: React
 export const RichTextEditor = (props: RichTextProps) => {
   const { sdk, isInitiallyDisabled } = props;
 
-  // Force text direction based on editor locale
-  const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
-
-  const style = cx(
-    styles.editor,
-    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
-    props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
-    props.isToolbarHidden && styles.hiddenToolbar,
-    direction === 'rtl' ? styles.rtl : styles.ltr,
-  );
-
   return (
     <FieldConnector
       debounce={0}
@@ -68,7 +71,7 @@ export const RichTextEditor = (props: RichTextProps) => {
       isEmptyValue={isEmptyField}
     >
       {() => {
-        return <Editor style={style} extraChildren={props.extraChildren} />;
+        return <Editor {...props} />;
       }}
     </FieldConnector>
   );

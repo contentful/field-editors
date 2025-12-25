@@ -259,6 +259,7 @@ const DemoRichTextEditor = () => {
           onAction={onAction}
           isInitiallyDisabled={isDisabled as boolean}
           extraChildren={<ProseMirrorDevTools />}
+          isToolbarHidden
         />
 
         {/* <ValidationErrors field={field} locales={[] as any} /> */}

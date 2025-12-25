@@ -36,6 +36,7 @@ export const styles = {
   }),
   hiddenToolbar: css({
     borderTop: STYLE_EDITOR_BORDER,
+    borderRadius: tokens.borderRadiusMedium,
   }),
   enabled: css({
     background: tokens.colorWhite,
