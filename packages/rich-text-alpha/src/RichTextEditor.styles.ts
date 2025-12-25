@@ -1,6 +1,9 @@
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
+import 'prosemirror-view/style/prosemirror.css';
+import 'prosemirror-gapcursor/style/gapcursor.css';
+
 const STYLE_EDITOR_BORDER = `1px solid ${tokens.gray400}`;
 
 export const styles = {

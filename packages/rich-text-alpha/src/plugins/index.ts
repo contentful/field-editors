@@ -1,3 +1,4 @@
+import tokens from '@contentful/f36-tokens';
 import { reactKeys } from '@handlewithcare/react-prosemirror';
 import { dropCursor } from 'prosemirror-dropcursor';
 import { gapCursor } from 'prosemirror-gapcursor';
@@ -15,8 +16,6 @@ import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } 
 import { Paragraph } from './paragraph';
 import { Text } from './text';
 
-import 'prosemirror-gapcursor/style/gapcursor.css';
-
 export function createEditor() {
   const markSchema: Record<string, MarkSpec> = {};
   const nodeSchema: Record<string, NodeSpec> = {};
@@ -25,7 +24,10 @@ export function createEditor() {
     reactKeys(),
     history(),
     gapCursor(),
-    dropCursor(),
+    dropCursor({
+      color: tokens.colorPrimary,
+      width: 2,
+    }),
     new Keymap(),
     new Document(),
     new Paragraph(),

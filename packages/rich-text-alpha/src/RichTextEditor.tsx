@@ -10,8 +10,6 @@ import { createEditor } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { isEmptyField } from './utils/isEmptyField';
 
-import 'prosemirror-view/style/prosemirror.css';
-
 export type RichTextProps = {
   sdk: FieldAppSDK;
   isInitiallyDisabled: boolean;
