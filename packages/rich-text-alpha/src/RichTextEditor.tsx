@@ -6,6 +6,7 @@ import type { Document } from '@contentful/rich-text-types';
 import { ProseMirror, ProseMirrorDoc } from '@handlewithcare/react-prosemirror';
 import { css, cx } from 'emotion';
 
+import { Toolbar } from './components';
 import { createEditor } from './plugins';
 import { styles } from './RichTextEditor.styles';
 import { isEmptyField } from './utils/isEmptyField';
@@ -18,6 +19,7 @@ export type RichTextProps = {
   value?: Document;
   onAction?: (name: string, data: Record<string, unknown>) => void;
   isToolbarHidden?: boolean;
+  stickyToolbarOffset?: number;
   withCharValidation?: boolean;
 
   /**
@@ -49,12 +51,13 @@ const Editor = (props: RichTextProps) => {
   );
 
   return (
-    <div className={styles.root} data-test-id="rich-text-editor">
-      <ProseMirror className={style} defaultState={state}>
+    <ProseMirror className={style} defaultState={state}>
+      <div className={styles.root} data-test-id="rich-text-editor">
+        {!props.isToolbarHidden && <Toolbar stickyOffset={props.stickyToolbarOffset} />}
         <ProseMirrorDoc />
         {extraChildren}
-      </ProseMirror>
-    </div>
+      </div>
+    </ProseMirror>
   );
 };
 

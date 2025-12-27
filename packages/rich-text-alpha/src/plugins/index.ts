@@ -10,7 +10,7 @@ import { Mark, Node } from '../core';
 import { Blockquote } from './blockquote';
 import { Document } from './document';
 import { Heading } from './heading';
-import { HorizontalRule } from './horizontalRule';
+import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
 import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from './marks';
