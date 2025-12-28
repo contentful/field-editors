@@ -3,7 +3,7 @@ import type { Command } from 'prosemirror-state';
 
 import { Mark } from '../core';
 
-export class Bold extends Mark {
+class Bold extends Mark {
   name = 'bold';
 
   schema: MarkSpec = {
@@ -30,7 +30,7 @@ export class Bold extends Mark {
   };
 }
 
-export class Code extends Mark {
+class Code extends Mark {
   name = 'code';
 
   schema: MarkSpec = {
@@ -50,7 +50,7 @@ export class Code extends Mark {
   };
 }
 
-export class Italic extends Mark {
+class Italic extends Mark {
   name = 'italic';
 
   schema: MarkSpec = {
@@ -63,7 +63,7 @@ export class Italic extends Mark {
   };
 }
 
-export class Underline extends Mark {
+class Underline extends Mark {
   name = 'underline';
 
   schema: MarkSpec = {
@@ -82,7 +82,7 @@ export class Underline extends Mark {
   };
 }
 
-export class Superscript extends Mark {
+class Superscript extends Mark {
   name = 'superscript';
 
   schema: MarkSpec = {
@@ -92,7 +92,7 @@ export class Superscript extends Mark {
   };
 }
 
-export class Subscript extends Mark {
+class Subscript extends Mark {
   name = 'subscript';
 
   schema: MarkSpec = {
@@ -102,7 +102,7 @@ export class Subscript extends Mark {
   };
 }
 
-export class Strikethrough extends Mark {
+class Strikethrough extends Mark {
   name = 'strikethrough';
 
   schema: MarkSpec = {
@@ -110,3 +110,13 @@ export class Strikethrough extends Mark {
     parseDOM: [{ tag: 's' }],
   };
 }
+
+export const marks = [
+  new Bold(),
+  new Code(),
+  new Italic(),
+  new Underline(),
+  new Superscript(),
+  new Subscript(),
+  new Strikethrough(),
+];

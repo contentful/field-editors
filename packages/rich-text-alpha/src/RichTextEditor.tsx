@@ -3,12 +3,8 @@ import * as React from 'react';
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { FieldConnector } from '@contentful/field-editor-shared';
 import type { Document } from '@contentful/rich-text-types';
-import { ProseMirror, ProseMirrorDoc } from '@handlewithcare/react-prosemirror';
-import { css, cx } from 'emotion';
 
-import { Toolbar } from './components';
-import { createEditor } from './plugins';
-import { styles } from './RichTextEditor.styles';
+import { Doc } from './components';
 import { isEmptyField } from './utils/isEmptyField';
 
 export type RichTextProps = {
@@ -16,7 +12,6 @@ export type RichTextProps = {
   isInitiallyDisabled: boolean;
   minHeight?: string | number;
   maxHeight?: string | number;
-  value?: Document;
   onAction?: (name: string, data: Record<string, unknown>) => void;
   isToolbarHidden?: boolean;
   stickyToolbarOffset?: number;
@@ -32,48 +27,30 @@ export type RichTextProps = {
   extraChildren?: React.ReactNode;
 };
 
-const Editor = (props: RichTextProps) => {
-  const { sdk, extraChildren } = props;
-
-  const state = React.useMemo(() => {
-    return createEditor();
-  }, []);
-
-  // Force text direction based on editor locale
-  const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
-
-  const style = cx(
-    styles.editor,
-    props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
-    props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
-    props.isToolbarHidden && styles.hiddenToolbar,
-    direction === 'rtl' ? styles.rtl : styles.ltr,
-  );
-
-  return (
-    <ProseMirror className={style} defaultState={state}>
-      <div className={styles.root} data-test-id="rich-text-editor">
-        {!props.isToolbarHidden && <Toolbar stickyOffset={props.stickyToolbarOffset} />}
-        <ProseMirrorDoc />
-        {extraChildren}
-      </div>
-    </ProseMirror>
-  );
-};
-
 export const RichTextEditor = (props: RichTextProps) => {
   const { sdk, isInitiallyDisabled } = props;
 
   return (
-    <FieldConnector
+    <FieldConnector<Document>
       debounce={0}
       field={sdk.field}
       isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyField}
     >
-      {() => {
-        return <Editor {...props} />;
-      }}
+      {({ lastRemoteValue, disabled }) => (
+        <Doc
+          sdk={sdk}
+          isDisabled={disabled}
+          value={lastRemoteValue}
+          minHeight={props.minHeight}
+          maxHeight={props.maxHeight}
+          toolbar={{
+            hidden: props.isToolbarHidden,
+            stickyOffset: props.stickyToolbarOffset,
+          }}
+          extraChildren={props.extraChildren}
+        />
+      )}
     </FieldConnector>
   );
 };

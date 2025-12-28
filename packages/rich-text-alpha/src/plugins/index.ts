@@ -13,7 +13,7 @@ import { Heading } from './heading';
 import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
-import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from './marks';
+import { marks } from './marks';
 import { Paragraph } from './paragraph';
 import { Text } from './text';
 
@@ -33,13 +33,7 @@ export function createEditor() {
     new Document(),
     new Paragraph(),
     new Text(),
-    new Bold(),
-    new Code(),
-    new Italic(),
-    new Underline(),
-    new Superscript(),
-    new Subscript(),
-    new Strikethrough(),
+    ...marks,
     new LineBreak(),
     new Heading(),
     new Blockquote(),

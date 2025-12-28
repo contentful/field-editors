@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Flex } from '@contentful/f36-components';
+import { Flex, Box } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from 'emotion';
 
@@ -51,18 +51,17 @@ export const Toolbar = (props: ToolbarProps) => {
   const { stickyOffset } = props;
 
   return (
-    <div className={styles.sticky(stickyOffset)}>
+    <Box className={styles.sticky(stickyOffset)} testId="toolbar">
       <Flex
         gap="spacingS"
         flexWrap="wrap"
         flexDirection="row"
-        testId="toolbar"
         className={styles.container}
         justifyContent="space-between"
       >
         <div className={styles.left}></div>
         <div className={styles.right}></div>
       </Flex>
-    </div>
+    </Box>
   );
 };
