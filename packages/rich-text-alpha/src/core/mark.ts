@@ -44,6 +44,20 @@ export abstract class Mark extends Plugin {
   };
 
   /**
+   * Check if the current selection has this mark.
+   */
+  isActive = (state: EditorState): boolean => {
+    const type = this.markType(state);
+    const { from, $from, to, empty } = state.selection;
+
+    if (empty) {
+      return !!type.isInSet(state.storedMarks || $from.marks());
+    }
+
+    return state.doc.rangeHasMark(from, to, type);
+  };
+
+  /**
    * Toggle the mark for the current selection.
    */
   toggleMark: Command = (state, dispatch) => {

@@ -7,6 +7,7 @@ import { ProseMirror, ProseMirrorDoc } from '@handlewithcare/react-prosemirror';
 import { css, cx } from 'emotion';
 
 import { createEditor } from '../plugins';
+import { LinkPopover } from './LinkPopover';
 import { Toolbar } from './Toolbar';
 
 export type DocProps = {
@@ -171,6 +172,7 @@ export const Doc = (props: DocProps) => {
       <ProseMirror className={editorStyle} defaultState={state}>
         <Toolbar {...toolbar} />
         <ProseMirrorDoc />
+        <LinkPopover />
         {extraChildren}
       </ProseMirror>
     </div>

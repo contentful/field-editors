@@ -13,6 +13,7 @@ import { Heading } from './heading';
 import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
+import { Link } from './link';
 import { marks } from './marks';
 import { Paragraph } from './paragraph';
 import { Text } from './text';
@@ -38,6 +39,7 @@ export function createEditor() {
     new Heading(),
     new Blockquote(),
     new HorizontalRule(),
+    new Link(),
   ];
 
   for (const p of plugins) {
