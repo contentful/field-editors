@@ -62,37 +62,35 @@ const styles = {
 
     &.ProseMirror {
       position: relative;
-    }
-
-    &.ProseMirror {
       word-wrap: break-word;
       white-space: pre-wrap;
       white-space: break-spaces;
       font-variant-ligatures: none;
       font-feature-settings: 'liga' 0; /* the above doesn't seem to work in Edge */
+
+      pre {
+        white-space: pre-wrap;
+      }
+
+      li {
+        position: relative;
+      }
+
+      [draggable][contenteditable='false'] {
+        user-select: text;
+      }
     }
 
-    &.ProseMirror pre {
-      white-space: pre-wrap;
-    }
-
-    &.ProseMirror li {
-      position: relative;
-    }
-
-    /* See https://github.com/ProseMirror/prosemirror/issues/1421#issuecomment-1759320191 */
-    &.ProseMirror [draggable][contenteditable='false'] {
-      user-select: text;
-    }
-
-    .ProseMirror-hideselection *::selection {
-      background: transparent;
-    }
-    .ProseMirror-hideselection *::-moz-selection {
-      background: transparent;
-    }
-    .ProseMirror-hideselection {
+    &.ProseMirror-hideselection {
       caret-color: transparent;
+
+      *::selection {
+        background: transparent;
+      }
+
+      *::-moz-selection {
+        background: transparent;
+      }
     }
 
     .ProseMirror-selectednode {
@@ -147,7 +145,7 @@ const styles = {
       }
     }
 
-    .ProseMirror-focused .ProseMirror-gapcursor {
+    &.ProseMirror-focused .ProseMirror-gapcursor {
       display: block;
     }
   `,
