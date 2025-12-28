@@ -19,7 +19,7 @@ export class Paragraph extends Node {
     content: 'inline*',
     group: 'top_level_block',
     parseDOM: [{ tag: 'p' }],
-    toDOM() {
+    toDOM: () => {
       return ['p', { class: style }, 0];
     },
   };

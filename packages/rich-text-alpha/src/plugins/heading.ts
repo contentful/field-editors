@@ -7,7 +7,6 @@ import type { Command } from 'prosemirror-state';
 import { Node } from '../core';
 import { invariant } from '../core/utils';
 
-
 const style = css({
   lineHeight: tokens.lineHeightDefault,
   fontWeight: tokens.fontWeightMedium,
@@ -60,8 +59,8 @@ export class Heading extends Node {
       { tag: 'h5', attrs: { level: 5 } },
       { tag: 'h6', attrs: { level: 6 } },
     ],
-    toDOM(node) {
-      return ['h' + node.attrs.level, { class: style }, 0];
+    toDOM: ({ attrs: { level } }) => {
+      return ['h' + level, { class: style }, 0];
     },
   };
 

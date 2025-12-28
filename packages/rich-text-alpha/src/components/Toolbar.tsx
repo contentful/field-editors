@@ -44,11 +44,16 @@ const styles = {
 };
 
 export type ToolbarProps = {
+  hidden?: boolean;
   stickyOffset?: number;
 };
 
 export const Toolbar = (props: ToolbarProps) => {
-  const { stickyOffset } = props;
+  const { hidden, stickyOffset } = props;
+
+  if (hidden) {
+    return null;
+  }
 
   return (
     <Box className={styles.sticky(stickyOffset)} testId="toolbar">

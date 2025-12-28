@@ -66,7 +66,7 @@ const styles = {
       white-space: pre-wrap;
       white-space: break-spaces;
       font-variant-ligatures: none;
-      font-feature-settings: 'liga' 0; /* the above doesn't seem to work in Edge */
+      font-feature-settings: 'liga' 0;
 
       pre {
         white-space: pre-wrap;
@@ -96,8 +96,6 @@ const styles = {
     .ProseMirror-selectednode {
       outline: 2px solid #8cf;
     }
-
-    /* Make sure li selections wrap around markers */
 
     li.ProseMirror-selectednode {
       outline: none;
@@ -171,7 +169,7 @@ export const Doc = (props: DocProps) => {
   return (
     <div className={styles.container} data-test-id="rich-text-editor">
       <ProseMirror className={editorStyle} defaultState={state}>
-        {!toolbar?.hidden && <Toolbar stickyOffset={props.toolbar?.stickyOffset} />}
+        <Toolbar {...toolbar} />
         <ProseMirrorDoc />
         {extraChildren}
       </ProseMirror>

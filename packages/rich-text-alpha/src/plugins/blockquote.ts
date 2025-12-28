@@ -21,7 +21,7 @@ export class Blockquote extends Node {
     group: 'top_level_block',
     defining: true,
     parseDOM: [{ tag: 'blockquote' }],
-    toDOM() {
+    toDOM: () => {
       return ['blockquote', { class: style }, 0];
     },
   };
