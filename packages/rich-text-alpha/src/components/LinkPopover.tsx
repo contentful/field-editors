@@ -13,6 +13,11 @@ export function LinkPopover() {
   const linkMark = state.schema.marks.link.isInSet(state.selection.$anchor.marks());
   const isOpen = linkElement !== null;
 
+  /**
+   * FIXME: We can't use Forma's Popover directly here but it would be great if
+   * Forma could export a standalone usePopper hook so we could reduce duplication
+   * and improve maintainability.
+   */
   const { styles, attributes } = usePopper(linkElement, popperElement, {
     placement: 'bottom-start',
     modifiers: [
