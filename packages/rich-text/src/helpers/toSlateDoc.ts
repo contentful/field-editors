@@ -6,6 +6,7 @@ import {
   INLINES,
   type Hyperlink,
   BLOCKS,
+  VOID_BLOCKS,
 } from '@contentful/rich-text-types';
 import { Text as TextInterface, Element as ElementInterface } from 'slate';
 
@@ -13,6 +14,11 @@ import type { Text, Element } from '../internal';
 import { isText } from '../internal';
 
 const inlineTypes = new Set<string>(Object.values(INLINES));
+const voidTypes = new Set<string>([
+  ...VOID_BLOCKS,
+  INLINES.EMBEDDED_ENTRY,
+  INLINES.EMBEDDED_RESOURCE,
+]);
 
 function isEmptyHyperlink(node: CfBlock | CfInline): boolean {
   if (node.nodeType !== INLINES.HYPERLINK) {
@@ -59,8 +65,10 @@ function maybeFixUnevenTableRows(el: Element): Element[] {
             type: BLOCKS.PARAGRAPH,
             data: {},
             children: [{ text: '' }],
+            isVoid: false,
           },
         ],
+        isVoid: false,
       });
     }
 
@@ -88,6 +96,7 @@ function transformNode(node: CfBlock | CfInline): Element {
     type: node.nodeType,
     children: [],
     data: node.data ?? {},
+    isVoid: voidTypes.has(node.nodeType),
   };
 
   for (const child of node.content) {
@@ -147,6 +156,7 @@ function transformNode(node: CfBlock | CfInline): Element {
           type: BLOCKS.PARAGRAPH,
           data: {},
           children: [{ text: '' }],
+          isVoid: false,
         });
         break;
 
@@ -160,8 +170,10 @@ function transformNode(node: CfBlock | CfInline): Element {
               type: BLOCKS.PARAGRAPH,
               data: {},
               children: [{ text: '' }],
+              isVoid: false,
             },
           ],
+          isVoid: false,
         });
         break;
 
@@ -192,6 +204,7 @@ export function toSlateDoc(doc?: CfDocument): Element[] {
         type: 'paragraph',
         children: [{ text: '' }],
         data: {},
+        isVoid: false,
       },
     ];
   }
@@ -206,6 +219,7 @@ export function toSlateDoc(doc?: CfDocument): Element[] {
       type: BLOCKS.PARAGRAPH,
       children: [{ text: '' }],
       data: {},
+      isVoid: false,
     });
   }
 
