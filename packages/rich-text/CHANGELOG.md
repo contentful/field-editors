@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.19.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.0...@contentful/field-editor-rich-text@4.19.1) (2025-12-29)
+
+### Bug Fixes
+
+- **rich-text:** preserve isVoid attribute to enable DnD for voids ([#2030](https://github.com/contentful/field-editors/issues/2030)) ([fb6cb97](https://github.com/contentful/field-editors/commit/fb6cb971cf34a97fbc38c42039fe348576952d38))
+
 # [4.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.18.0...@contentful/field-editor-rich-text@4.19.0) (2025-12-17)
 
 ### Features
