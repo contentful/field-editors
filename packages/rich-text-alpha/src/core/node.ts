@@ -31,6 +31,11 @@ export abstract class Node extends Plugin {
    * other platforms.
    */
   shortcuts: Record<string, Command> = {};
+
+  /**
+    A set of [document decorations](https://prosemirror.net/docs/ref/#view.Decoration) to show in the
+    view.
+    */
   decorations: Plugin['props']['decorations'];
 
   props: Plugin['props'] = {
