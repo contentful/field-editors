@@ -7,7 +7,10 @@ import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model';
 import { EditorState, Plugin } from 'prosemirror-state';
 
 import { Mark, Node } from '../core';
+import { Blockquote } from './blockquote';
 import { Document } from './document';
+import { Heading } from './heading';
+import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
 import { marks } from './marks';
@@ -32,6 +35,9 @@ export function createEditor() {
     new Text(),
     ...marks,
     new LineBreak(),
+    new HorizontalRule(),
+    new Blockquote(),
+    new Heading(),
   ];
 
   for (const p of plugins) {

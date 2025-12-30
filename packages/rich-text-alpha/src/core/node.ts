@@ -31,9 +31,11 @@ export abstract class Node extends Plugin {
    * other platforms.
    */
   shortcuts: Record<string, Command> = {};
+  decorations: Plugin['props']['decorations'];
 
   props: Plugin['props'] = {
     handleKeyDown: lazyHandler(() => keydownHandler(this.shortcuts)),
+    decorations: lazyHandler(() => this.decorations),
   };
 
   /**
