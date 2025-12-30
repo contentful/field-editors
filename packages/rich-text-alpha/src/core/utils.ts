@@ -1,4 +1,4 @@
-export const lazyHandler = <T extends (...args: any[]) => any>(handler: () => T) => {
+export const lazyHandler = <T extends (...args: any[]) => any>(handler: () => T | undefined) => {
   let handle: T | undefined;
 
   return (...args: Parameters<T>): ReturnType<T> => {
@@ -6,7 +6,7 @@ export const lazyHandler = <T extends (...args: any[]) => any>(handler: () => T)
       handle = handler();
     }
 
-    return handle(...args);
+    return handle?.(...args);
   };
 };
 
