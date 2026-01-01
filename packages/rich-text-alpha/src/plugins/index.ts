@@ -1,3 +1,4 @@
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { reactKeys } from '@handlewithcare/react-prosemirror';
 import { dropCursor } from 'prosemirror-dropcursor';
@@ -13,11 +14,12 @@ import { Heading } from './heading';
 import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
+import { Link } from './link';
 import { marks } from './marks';
 import { Paragraph } from './paragraph';
 import { Text } from './text';
 
-export function createEditor() {
+export function createEditor(sdk: FieldAppSDK) {
   const markSchema: Record<string, MarkSpec> = {};
   const nodeSchema: Record<string, NodeSpec> = {};
 
@@ -30,14 +32,15 @@ export function createEditor() {
       width: 2,
     }),
     new Keymap(),
-    new Document(),
-    new Paragraph(),
-    new Text(),
-    ...marks,
-    new LineBreak(),
-    new HorizontalRule(),
-    new Blockquote(),
-    new Heading(),
+    new Document(sdk),
+    new Paragraph(sdk),
+    new Text(sdk),
+    ...marks(sdk),
+    new LineBreak(sdk),
+    new HorizontalRule(sdk),
+    new Blockquote(sdk),
+    new Heading(sdk),
+    new Link(sdk),
   ];
 
   for (const p of plugins) {

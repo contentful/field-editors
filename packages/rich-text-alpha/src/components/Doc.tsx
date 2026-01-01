@@ -152,8 +152,8 @@ export const Doc = (props: DocProps) => {
   const { sdk, extraChildren } = props;
 
   const state = React.useMemo(() => {
-    return createEditor();
-  }, []);
+    return createEditor(sdk);
+  }, [sdk]);
 
   const editorStyle = cx(
     styles.editor,
