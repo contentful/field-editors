@@ -201,7 +201,8 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   return (
     Array.isArray(queryKey) &&
     (queryKey[0] === 'Entry' || queryKey[0] === 'Asset') &&
-    queryKey.length === 4
+    // length === 5 because releaseId is optional parameter
+    queryKey.length === 5
   );
 };
 
@@ -595,13 +596,17 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     // @ts-expect-error ...
     const onEntityChanged = props.sdk.space.onEntityChanged;
     const onSlideInNavigation = props.sdk.navigator.onSlideInNavigation;
-
+    console.log('>>> FieldEditors onEntityChanged', onEntityChanged);
     useEffect(() => {
       function findSameSpaceQueries(): Query[] {
-        return queryCache.findAll({
+        const queries = queryCache.findAll({
           type: 'active',
           predicate: (query) => isSameSpaceEntityQueryKey(query.queryKey),
         });
+
+        console.log('>> findSameSpaceQueries', queries);
+
+        return queries;
       }
 
       if (typeof onEntityChanged !== 'function') {
@@ -614,6 +619,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           }
         }) as { (): void };
       }
+      console.log('>>>>> subscribers ', entityChangeUnsubscribers.current);
 
       const subscribeQuery = ({ queryKey, queryHash }: Query) => {
         const [entityType, entityId, , , releaseId] = queryKey;
@@ -621,6 +627,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           entityType,
           entityId,
           (data: unknown) => {
+            console.log('>>>>entity changed data', data);
             if (get(data, 'sys.release.id') === releaseId) {
               queryClient.setQueryData(queryKey, data);
             }
@@ -630,6 +637,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       findSameSpaceQueries().forEach(subscribeQuery);
 
       const unsubscribe = queryCache.subscribe((event) => {
+        console.log('>>>>queryCache event', event);
         if (!event) {
           return;
         }
@@ -650,8 +658,9 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           entityChangeUnsubscribers.current[queryHash]?.();
         }
       });
-
+      console.log('>>>>>> real all subscriptions: ', entityChangeUnsubscribers.current);
       return () => {
+        console.log('>>>> cleaning subscriptions');
         unsubscribe();
         Object.values(entityChangeUnsubscribers.current).forEach((off) => off());
         entityChangeUnsubscribers.current = {};
