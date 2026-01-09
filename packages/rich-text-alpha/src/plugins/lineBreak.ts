@@ -14,6 +14,7 @@ export class LineBreak extends Node {
     linebreakReplacement: true,
     parseDOM: [{ tag: 'br' }],
     toDOM: () => ['br'],
+    leafText: () => '\n',
   };
 
   insertBreak: Command = ({ tr, schema }, dispatch) => {

@@ -1,5 +1,8 @@
+import type { ComponentType } from 'react';
+
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
-import { reactKeys } from '@handlewithcare/react-prosemirror';
+import { reactKeys, type NodeViewComponentProps } from '@handlewithcare/react-prosemirror';
 import { dropCursor } from 'prosemirror-dropcursor';
 import { gapCursor } from 'prosemirror-gapcursor';
 import { history } from 'prosemirror-history';
@@ -9,17 +12,20 @@ import { EditorState, Plugin } from 'prosemirror-state';
 import { Mark, Node } from '../core';
 import { Blockquote } from './blockquote';
 import { Document } from './document';
+import { embeds } from './embeds';
 import { Heading } from './heading';
 import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
+import { Link } from './link';
 import { marks } from './marks';
 import { Paragraph } from './paragraph';
 import { Text } from './text';
 
-export function createEditor() {
+export function createEditor(sdk: FieldAppSDK) {
   const markSchema: Record<string, MarkSpec> = {};
   const nodeSchema: Record<string, NodeSpec> = {};
+  const nodeViews: Record<string, ComponentType<NodeViewComponentProps>> = {};
 
   const plugins: Plugin<any>[] = [
     reactKeys(),
@@ -30,14 +36,16 @@ export function createEditor() {
       width: 2,
     }),
     new Keymap(),
-    new Document(),
-    new Paragraph(),
-    new Text(),
-    ...marks,
-    new LineBreak(),
-    new HorizontalRule(),
-    new Blockquote(),
-    new Heading(),
+    new Document(sdk),
+    new Paragraph(sdk),
+    new Text(sdk),
+    ...marks(sdk),
+    new LineBreak(sdk),
+    new HorizontalRule(sdk),
+    new Blockquote(sdk),
+    new Heading(sdk),
+    new Link(sdk),
+    ...embeds(sdk),
   ];
 
   for (const p of plugins) {
@@ -47,6 +55,10 @@ export function createEditor() {
 
     if (p instanceof Node) {
       nodeSchema[p.name] = p.schema;
+
+      if (p.component) {
+        nodeViews[p.name] = p.component;
+      }
     }
   }
 
@@ -61,5 +73,5 @@ export function createEditor() {
     plugins,
   });
 
-  return state;
+  return { state, nodeViews };
 }

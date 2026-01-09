@@ -1,3 +1,4 @@
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import { toggleMark } from 'prosemirror-commands';
 import { keydownHandler } from 'prosemirror-keymap';
 import type { MarkSpec } from 'prosemirror-model';
@@ -7,10 +8,12 @@ import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
 import { lazyHandler } from './utils';
 
 export abstract class Mark extends Plugin {
-  constructor() {
+  constructor(sdk: FieldAppSDK) {
     super({
       key: new PluginKey(new.target.name),
     });
+
+    this.sdk = sdk;
   }
 
   /**
@@ -20,6 +23,11 @@ export abstract class Mark extends Plugin {
   abstract readonly name: string;
 
   abstract readonly schema: MarkSpec;
+
+  /**
+   * The Field SDK instance.
+   */
+  sdk: FieldAppSDK;
 
   /**
    * Modifiers can be given in any order. `Shift-` (or `s-`), `Alt-` (or
@@ -55,6 +63,44 @@ export abstract class Mark extends Plugin {
     }
 
     return state.doc.rangeHasMark(from, to, type);
+  };
+
+  /**
+   * Credit:
+   * https://discuss.prosemirror.net/t/expanding-the-selection-to-the-active-mark/478/7
+   */
+  getMarkRange = ({ schema, selection }: EditorState) => {
+    const type = this.type({ schema });
+
+    const $pos = selection.$from;
+
+    const { parent, parentOffset } = $pos;
+    const start = parent.childAfter(parentOffset);
+    if (!start.node) {
+      return;
+    }
+
+    const mark = start.node.marks.find((mark) => mark.type === type);
+    if (!mark) {
+      return;
+    }
+
+    let startIndex = $pos.index();
+    let startPos = $pos.start() + start.offset;
+    let endIndex = startIndex + 1;
+    let endPos = startPos + start.node.nodeSize;
+
+    while (startIndex > 0 && mark.isInSet(parent.child(startIndex - 1).marks)) {
+      startIndex -= 1;
+      startPos -= parent.child(startIndex).nodeSize;
+    }
+
+    while (endIndex < parent.childCount && mark.isInSet(parent.child(endIndex).marks)) {
+      endPos += parent.child(endIndex).nodeSize;
+      endIndex += 1;
+    }
+
+    return { from: startPos, to: endPos };
   };
 
   /**

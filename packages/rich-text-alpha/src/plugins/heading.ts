@@ -3,9 +3,9 @@ import { css } from 'emotion';
 import { setBlockType } from 'prosemirror-commands';
 import type { NodeSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
+import { assert, enums } from 'superstruct';
 
 import { Node } from '../core';
-import { invariant } from '../core/utils';
 
 const style = css({
   lineHeight: tokens.lineHeightDefault,
@@ -40,11 +40,8 @@ export class Heading extends Node {
     attrs: {
       level: {
         default: 1,
-        validate: (value: number) => {
-          invariant(
-            typeof value === 'number' && value >= 1 && value <= 6,
-            'Heading level must be between 1 and 6',
-          );
+        validate: (value) => {
+          assert(value, enums([1, 2, 3, 4, 5, 6]));
         },
       },
     },
