@@ -17,6 +17,7 @@ import { Heading } from './heading';
 import { HorizontalRule } from './hr';
 import { Keymap } from './keymap';
 import { LineBreak } from './lineBreak';
+import { Link } from './link';
 import { marks } from './marks';
 import { Paragraph } from './paragraph';
 import { Text } from './text';
@@ -43,6 +44,7 @@ export function createEditor(sdk: FieldAppSDK) {
     new HorizontalRule(sdk),
     new Blockquote(sdk),
     new Heading(sdk),
+    new Link(sdk),
     ...embeds(sdk),
   ];
 
