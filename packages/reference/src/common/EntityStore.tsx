@@ -201,8 +201,8 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   return (
     Array.isArray(queryKey) &&
     (queryKey[0] === 'Entry' || queryKey[0] === 'Asset') &&
-    // length === 5 because releaseId is optional parameter
-    queryKey.length >= 4
+    // length === 4 when releaseId is not present, length === 5 when releaseId is present
+    (queryKey.length === 4 || queryKey.length === 5)
   );
 };
 
