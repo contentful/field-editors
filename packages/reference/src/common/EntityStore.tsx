@@ -201,7 +201,8 @@ const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   return (
     Array.isArray(queryKey) &&
     (queryKey[0] === 'Entry' || queryKey[0] === 'Asset') &&
-    queryKey.length === 4
+    // length === 4 when releaseId is not present, length === 5 when releaseId is present
+    (queryKey.length === 4 || queryKey.length === 5)
   );
 };
 
@@ -595,13 +596,13 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     // @ts-expect-error ...
     const onEntityChanged = props.sdk.space.onEntityChanged;
     const onSlideInNavigation = props.sdk.navigator.onSlideInNavigation;
-
     useEffect(() => {
       function findSameSpaceQueries(): Query[] {
-        return queryCache.findAll({
+        const queries = queryCache.findAll({
           type: 'active',
           predicate: (query) => isSameSpaceEntityQueryKey(query.queryKey),
         });
+        return queries;
       }
 
       if (typeof onEntityChanged !== 'function') {
@@ -621,8 +622,13 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           entityType,
           entityId,
           (data: unknown) => {
-            if (get(data, 'sys.release.id') === releaseId) {
+            const dataReleaseId = get(data, 'sys.release.id');
+            if (dataReleaseId === releaseId) {
               queryClient.setQueryData(queryKey, data);
+            } else if (releaseId && !dataReleaseId) {
+              // Entity was updated but response doesn't include release info
+              // Invalidate the query to refetch with release context
+              void queryClient.invalidateQueries(queryKey);
             }
           },
         );
@@ -650,7 +656,6 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           entityChangeUnsubscribers.current[queryHash]?.();
         }
       });
-
       return () => {
         unsubscribe();
         Object.values(entityChangeUnsubscribers.current).forEach((off) => off());
