@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.19.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.0...@contentful/field-editor-reference@6.19.1) (2026-01-09)
+
+### Bug Fixes
+
+- show updated entry reference title when in a specific release [TOL-3711] ([#2038](https://github.com/contentful/field-editors/issues/2038)) ([bf25d8a](https://github.com/contentful/field-editors/commit/bf25d8a8fc11c475a588a44c7e21bcc666e43183))
+
 # [6.19.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.18.0...@contentful/field-editor-reference@6.19.0) (2025-12-15)
 
 ### Features
