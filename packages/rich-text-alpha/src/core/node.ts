@@ -1,4 +1,7 @@
+import type { ComponentType } from 'react';
+
 import type { FieldAppSDK } from '@contentful/app-sdk';
+import type { NodeViewComponentProps } from '@handlewithcare/react-prosemirror';
 import { keydownHandler } from 'prosemirror-keymap';
 import type { NodeSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
@@ -45,6 +48,11 @@ export abstract class Node extends Plugin {
     view.
     */
   decorations: Plugin['props']['decorations'];
+
+  /**
+   * A react component to render the node view.
+   */
+  component?: ComponentType<NodeViewComponentProps>;
 
   props: Plugin['props'] = {
     handleKeyDown: lazyHandler(() => keydownHandler(this.shortcuts)),

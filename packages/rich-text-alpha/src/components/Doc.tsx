@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
+import { EntityProvider } from '@contentful/field-editor-reference';
 import type { Document } from '@contentful/rich-text-types';
 import { ProseMirror, ProseMirrorDoc } from '@handlewithcare/react-prosemirror';
 import { css, cx } from 'emotion';
@@ -151,7 +152,7 @@ const styles = {
 export const Doc = (props: DocProps) => {
   const { sdk, extraChildren } = props;
 
-  const state = React.useMemo(() => {
+  const { state, nodeViews } = React.useMemo(() => {
     return createEditor(sdk);
   }, [sdk]);
 
@@ -167,10 +168,12 @@ export const Doc = (props: DocProps) => {
 
   return (
     <div className={styles.container} data-test-id="rich-text-editor">
-      <ProseMirror className={editorStyle} defaultState={state}>
-        <ProseMirrorDoc />
-        {extraChildren}
-      </ProseMirror>
+      <EntityProvider sdk={sdk}>
+        <ProseMirror className={editorStyle} defaultState={state} nodeViews={nodeViews}>
+          <ProseMirrorDoc />
+          {extraChildren}
+        </ProseMirror>
+      </EntityProvider>
     </div>
   );
 };
