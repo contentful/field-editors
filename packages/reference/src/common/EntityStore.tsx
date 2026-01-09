@@ -622,8 +622,13 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           entityType,
           entityId,
           (data: unknown) => {
-            if (get(data, 'sys.release.id') === releaseId) {
+            const dataReleaseId = get(data, 'sys.release.id');
+            if (dataReleaseId === releaseId) {
               queryClient.setQueryData(queryKey, data);
+            } else if (releaseId && !dataReleaseId) {
+              // Entity was updated but response doesn't include release info
+              // Invalidate the query to refetch with release context
+              void queryClient.invalidateQueries(queryKey);
             }
           },
         );
