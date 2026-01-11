@@ -26,6 +26,15 @@ import { RichTextPreview } from './RichTextPreview';
 const meta: Meta<typeof RichTextEditor> = {
   title: 'editors/Rich Text Editor',
   component: RichTextEditor,
+  argTypes: {
+    forceRightToLeft: {
+      control: { type: 'boolean' },
+      description: 'Force text direction to RTL (overrides locale direction).',
+    },
+  },
+  args: {
+    forceRightToLeft: false,
+  },
 };
 
 export default meta;
@@ -58,7 +67,11 @@ const structurePreviewCopyButton = css({
   top: 8,
 });
 
-const DemoRichTextEditor = () => {
+type DemoRichTextEditorProps = {
+  forceRightToleft?: boolean;
+};
+
+const DemoRichTextEditor = ({ forceRightToleft }: DemoRichTextEditorProps) => {
   window.actions = [];
 
   const rtPreviewStyle = css({
@@ -249,6 +262,7 @@ const DemoRichTextEditor = () => {
           onAction={onAction}
           isInitiallyDisabled={isDisabled as boolean}
           restrictedMarks={JSON.parse(window.localStorage.getItem('restrictedMarks') as any) || []}
+          forceRightToLeft={forceRightToleft}
         />
 
         <ValidationErrors field={field} locales={[] as any} />
@@ -302,7 +316,7 @@ export const Default: Story = {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
-  render: () => {
-    return <DemoRichTextEditor />;
+  render: (args) => {
+    return <DemoRichTextEditor forceRightToleft={args.forceRightToLeft} />;
   },
 };

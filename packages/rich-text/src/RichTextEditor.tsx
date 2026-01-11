@@ -39,6 +39,7 @@ type RichTextProps = {
    */
   onChange?: (doc: Contentful.Document) => unknown;
   withCharValidation?: boolean;
+  forceRightToLeft?: boolean;
 };
 
 type ConnectedRichTextProps = {
@@ -54,6 +55,7 @@ type ConnectedRichTextProps = {
   actionsDisabled?: boolean;
   stickyToolbarOffset?: number;
   withCharValidation?: boolean;
+  forceRightToLeft?: boolean;
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
@@ -69,8 +71,8 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
     return toSlateDoc(props.value);
   }, [props.value]);
 
-  // Force text direction based on editor locale
-  const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
+  // Force text direction based on editor locale or override to rtl
+  const direction = props.forceRightToLeft? 'rtl' : sdk.locales.direction[sdk.field.locale] ?? 'ltr';
 
   const classNames = cx(
     styles.editor,
@@ -159,6 +161,7 @@ const RichTextEditor = (props: RichTextProps) => {
           onChange={setValue}
           restrictedMarks={restrictedMarks}
           withCharValidation={props.withCharValidation ?? true}
+          forceRightToLeft={props.forceRightToLeft}
         />
       )}
     </FieldConnector>
