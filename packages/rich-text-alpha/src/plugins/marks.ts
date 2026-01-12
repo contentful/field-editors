@@ -1,3 +1,4 @@
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import type { MarkSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
 
@@ -111,12 +112,12 @@ class Strikethrough extends Mark {
   };
 }
 
-export const marks = [
-  new Bold(),
-  new Code(),
-  new Italic(),
-  new Underline(),
-  new Superscript(),
-  new Subscript(),
-  new Strikethrough(),
+export const marks = (sdk: FieldAppSDK) => [
+  new Bold(sdk),
+  new Code(sdk),
+  new Italic(sdk),
+  new Underline(sdk),
+  new Superscript(sdk),
+  new Subscript(sdk),
+  new Strikethrough(sdk),
 ];

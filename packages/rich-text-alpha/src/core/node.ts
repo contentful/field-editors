@@ -1,3 +1,7 @@
+import type { ComponentType } from 'react';
+
+import type { FieldAppSDK } from '@contentful/app-sdk';
+import type { NodeViewComponentProps } from '@handlewithcare/react-prosemirror';
 import { keydownHandler } from 'prosemirror-keymap';
 import type { NodeSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
@@ -7,10 +11,12 @@ import { findParentNodeOfType } from 'prosemirror-utils';
 import { lazyHandler } from './utils';
 
 export abstract class Node extends Plugin {
-  constructor() {
+  constructor(sdk: FieldAppSDK) {
     super({
       key: new PluginKey(new.target.name),
     });
+
+    this.sdk = sdk;
   }
 
   /**
@@ -20,6 +26,11 @@ export abstract class Node extends Plugin {
   abstract readonly name: string;
 
   abstract readonly schema: NodeSpec;
+
+  /**
+   * The Field SDK instance.
+   */
+  sdk: FieldAppSDK;
 
   /**
    * Modifiers can be given in any order. `Shift-` (or `s-`), `Alt-` (or
@@ -37,6 +48,11 @@ export abstract class Node extends Plugin {
     view.
     */
   decorations: Plugin['props']['decorations'];
+
+  /**
+   * A react component to render the node view.
+   */
+  component?: ComponentType<NodeViewComponentProps>;
 
   props: Plugin['props'] = {
     handleKeyDown: lazyHandler(() => keydownHandler(this.shortcuts)),
