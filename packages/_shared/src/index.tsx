@@ -37,6 +37,7 @@ export * from './types';
 export * from './hooks/useActiveLocales';
 export * from './hooks/useReleaseStatus';
 export * from './hooks/useLocalePublishStatus';
+export * from './hooks/useContentTypes';
 export * from './LocalePublishingEntityStatusBadge';
 export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
