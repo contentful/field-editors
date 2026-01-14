@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import { useContentTypes } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
@@ -136,16 +137,14 @@ function Editor(props: EditorProps) {
   );
 }
 
-export async function MultipleReferenceEditor(
+export function MultipleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
     setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   },
 ) {
-  const allContentTypes = await props.sdk.cma.contentType
-    .getMany({})
-    .then((response) => response.items);
+  const allContentTypes = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import { useContentTypes } from '@contentful/field-editor-shared';
+
 import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ContentType, ContentEntityType, ReferenceValue } from '../types';
@@ -73,15 +75,13 @@ function Editor(props: EditorProps) {
   });
 }
 
-export async function SingleReferenceEditor(
+export function SingleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ChildProps) => React.ReactElement;
   },
 ) {
-  const allContentTypes = await props.sdk.cma.contentType
-    .getMany({})
-    .then((response) => response.items);
+  const allContentTypes = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue> {...props}>
