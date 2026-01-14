@@ -14,6 +14,7 @@ import {
   useLocalePublishStatus,
   useActiveLocales,
   useReleaseStatus,
+  useContentTypes,
   type ReleaseStatusMap,
   type ReleaseV2Props,
   type ReleaseEntityStatus,
@@ -98,7 +99,7 @@ interface FetchingWrappedEntryCardProps {
   onRemove?: VoidFunction;
 }
 
-export const FetchingWrappedEntryCard = async (props: FetchingWrappedEntryCardProps) => {
+export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
   const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', entryId);
   const { getEntityScheduledActions } = useEntityLoader();
@@ -114,9 +115,12 @@ export const FetchingWrappedEntryCard = async (props: FetchingWrappedEntryCardPr
     release: props.sdk.release,
     isReference: true,
   });
-  const contentType = await props.sdk.cma.contentType.getMany({}).then((response) => {
-    return response.items.find((ct) => ct.sys.id === entry.sys.contentType.sys.id);
-  });
+
+  const allContentTypes = useContentTypes(props.sdk);
+  const contentType = React.useMemo(
+    () => allContentTypes.find((ct) => entry && ct.sys.id === entry.sys.contentType.sys.id),
+    [allContentTypes, entry],
+  );
 
   React.useEffect(() => {
     if (status === 'success') {
