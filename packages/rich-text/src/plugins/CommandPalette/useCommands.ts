@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import type { FieldAppSDK } from '@contentful/app-sdk';
+import { useContentTypes } from '@contentful/field-editor-shared';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
@@ -91,8 +92,8 @@ const getAllowedContentTypesFromValidation = (validations) => {
   }, {});
 };
 
-export const useCommands = async (sdk: FieldAppSDK, query: string, editor: PlateEditor) => {
-  const contentTypes = await sdk.cma.contentType.getMany({}).then((response) => response.items);
+export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor) => {
+  const contentTypes = useContentTypes(sdk);
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
   const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
     sdk.field.validations,

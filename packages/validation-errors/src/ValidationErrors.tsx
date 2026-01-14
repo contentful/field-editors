@@ -4,14 +4,8 @@ import { Link, ValidationError } from '@contentful/app-sdk';
 import { List, ListItem, TextLink } from '@contentful/f36-components';
 import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import type {
-  ContentType,
-  Entry,
-  FieldAPI,
-  LocalesAPI,
-  SpaceAPI,
-} from '@contentful/field-editor-shared';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import type { ContentType, Entry, FieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
+import { entityHelpers, useContentTypes } from '@contentful/field-editor-shared';
 import { t } from '@lingui/core/macro';
 import type { PlainClientAPI } from 'contentful-management';
 
@@ -19,6 +13,7 @@ import * as styles from './styles';
 
 type UniquenessErrorProps = {
   error: ValidationError;
+  sdk: { cma: PlainClientAPI };
   cma: PlainClientAPI;
   localeCode: string;
   defaultLocaleCode: string;
@@ -34,20 +29,18 @@ function UniquenessError(props: UniquenessErrorProps) {
     entries: [],
   });
 
-  const [contentTypesById, setContentTypesById] = React.useState<Record<string, ContentType>>({});
-
-  React.useEffect(() => {
-    props.cma.contentType.getMany({}).then((response) => {
-      const typesById = response.items.reduce(
+  const allContentTypes = useContentTypes(props.sdk);
+  const contentTypesById = React.useMemo(
+    () =>
+      allContentTypes.reduce(
         (prev, ct) => ({
           ...prev,
           [ct.sys.id]: ct,
         }),
-        {},
-      );
-      setContentTypesById(typesById);
-    });
-  }, [props.cma]);
+        {} as Record<string, ContentType>,
+      ),
+    [allContentTypes],
+  );
 
   const getTitle = React.useCallback(
     (entry: Entry) =>
@@ -134,7 +127,6 @@ function UniquenessError(props: UniquenessErrorProps) {
 
 export interface ValidationErrorsProps {
   field: FieldAPI;
-  space: SpaceAPI;
   cma: PlainClientAPI;
   locales: LocalesAPI;
   errorMessageOverride?: (message: string | undefined) => React.ReactNode;
@@ -178,6 +170,7 @@ export function ValidationErrors({
               {errorMessageOverride?.(error.message) ?? error.message}
               {error.name === 'unique' && (
                 <UniquenessError
+                  sdk={{ cma }}
                   cma={cma}
                   error={error}
                   localeCode={field.locale}

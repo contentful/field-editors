@@ -8,7 +8,13 @@ import {
   useEntity,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
-import { ContentType, Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
+import {
+  ContentType,
+  Entry,
+  FieldAppSDK,
+  entityHelpers,
+  useContentTypes,
+} from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -110,9 +116,10 @@ interface FetchingWrappedInlineEntryCardProps {
   onEntityFetchComplete?: VoidFunction;
 }
 
-export async function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
+export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
   const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
+  const allContentTypes = useContentTypes(props.sdk);
 
   const { onEntityFetchComplete } = props;
 
@@ -156,10 +163,6 @@ export async function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlin
       />
     );
   }
-
-  const allContentTypes = await props.sdk.cma.contentType
-    .getMany({})
-    .then((response) => response.items);
 
   return (
     <InternalFetchingWrappedInlineEntryCard
