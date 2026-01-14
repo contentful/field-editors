@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { useContentTypes } from '@contentful/field-editor-shared';
@@ -125,7 +125,9 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
     (ct) => blockContentTypesToUse.includes(ct) || inlineContentTypesToUse.includes(ct),
   );
 
-  const [commands, setCommands] = useState((): CommandList => {
+  const [commands, setCommands] = useState<CommandList>([]);
+
+  const initialCommands = useMemo((): CommandList => {
     const getEmbedEntry = (contentType) => {
       return {
         id: contentType.sys.id,
@@ -280,11 +282,23 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
     }
 
     return contentTypeCommands;
-  });
+  }, [
+    relevantContentTypes,
+    entriesAllowed,
+    inlineAllowed,
+    assetsAllowed,
+    blockContentTypesToUse,
+    inlineContentTypesToUse,
+    sdk,
+    editor,
+    query,
+  ]);
 
   /* filter both commands and groups of commands with the user typed query */
+  const displayCommands = commands.length > 0 ? commands : initialCommands;
+
   return query
-    ? commands.reduce((list, nextItem) => {
+    ? displayCommands.reduce((list, nextItem) => {
         if ('group' in nextItem) {
           const subcommands = nextItem.commands.filter((command) => {
             return command.label.toLowerCase().includes(query.toLowerCase());
@@ -299,5 +313,5 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
         }
         return list;
       }, [] as CommandList)
-    : commands;
+    : displayCommands;
 };
