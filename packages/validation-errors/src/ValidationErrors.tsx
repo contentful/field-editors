@@ -19,7 +19,6 @@ import * as styles from './styles';
 
 type UniquenessErrorProps = {
   error: ValidationError;
-  space: SpaceAPI;
   cma: PlainClientAPI;
   localeCode: string;
   defaultLocaleCode: string;
@@ -35,18 +34,20 @@ function UniquenessError(props: UniquenessErrorProps) {
     entries: [],
   });
 
-  const contentTypesById = React.useMemo(
-    (): Record<string, ContentType> =>
-      // Maps ID => Content Type
-      props.space.getCachedContentTypes().reduce(
+  const [contentTypesById, setContentTypesById] = React.useState<Record<string, ContentType>>({});
+
+  React.useEffect(() => {
+    props.cma.contentType.getMany({}).then((response) => {
+      const typesById = response.items.reduce(
         (prev, ct) => ({
           ...prev,
           [ct.sys.id]: ct,
         }),
         {},
-      ),
-    [props.space],
-  );
+      );
+      setContentTypesById(typesById);
+    });
+  }, [props.cma]);
 
   const getTitle = React.useCallback(
     (entry: Entry) =>
@@ -142,7 +143,6 @@ export interface ValidationErrorsProps {
 
 export function ValidationErrors({
   field,
-  space,
   cma,
   locales,
   errorMessageOverride,
@@ -180,7 +180,6 @@ export function ValidationErrors({
                 <UniquenessError
                   cma={cma}
                   error={error}
-                  space={space}
                   localeCode={field.locale}
                   defaultLocaleCode={locales.default}
                   getEntryURL={getEntryURL}

@@ -136,14 +136,16 @@ function Editor(props: EditorProps) {
   );
 }
 
-export function MultipleReferenceEditor(
+export async function MultipleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
     setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   },
 ) {
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
+  const allContentTypes = await props.sdk.cma.contentType
+    .getMany({})
+    .then((response) => response.items);
 
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>

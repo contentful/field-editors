@@ -41,7 +41,9 @@ async function fetchAllData({
     : sdk.cma.asset.get({ assetId: entityId }));
   if (entity.sys.contentType) {
     const contentTypeId = entity.sys.contentType.sys.id;
-    contentType = sdk.space.getCachedContentTypes().find((ct) => ct.sys.id === contentTypeId);
+    contentType = (await sdk.cma.contentType.getMany({})).items.find(
+      (ct) => ct.sys.id === contentTypeId,
+    );
   }
 
   const entityTitle =

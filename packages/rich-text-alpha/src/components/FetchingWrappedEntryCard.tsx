@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldAppSDK } from '@contentful/app-sdk';
+import { ContentType, FieldAppSDK } from '@contentful/app-sdk';
 import { ScheduledAction, Entry } from '@contentful/app-sdk';
 import { DragHandle, EntryCard } from '@contentful/f36-components';
 import {
@@ -27,6 +27,7 @@ interface InternalEntryCard {
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
   entry: Entry;
+  contentType?: ContentType;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
   localesStatusMap?: LocalePublishStatusMap;
@@ -46,13 +47,11 @@ const InternalEntryCard = React.memo(
     isSelected,
     isDisabled,
     locale,
+    contentType,
     onEdit,
     onRemove,
     localesStatusMap,
   }: InternalEntryCard) => {
-    const contentType = sdk.space
-      .getCachedContentTypes()
-      .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
     const activeLocales = useActiveLocales(sdk);
 
     return (
@@ -99,7 +98,7 @@ interface FetchingWrappedEntryCardProps {
   onRemove?: VoidFunction;
 }
 
-export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
+export const FetchingWrappedEntryCard = async (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
   const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', entryId);
   const { getEntityScheduledActions } = useEntityLoader();
@@ -114,6 +113,9 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     locales: props.sdk.locales,
     release: props.sdk.release,
     isReference: true,
+  });
+  const contentType = await props.sdk.cma.contentType.getMany({}).then((response) => {
+    return response.items.find((ct) => ct.sys.id === entry.sys.contentType.sys.id);
   });
 
   React.useEffect(() => {
@@ -141,6 +143,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       entry={entry}
       sdk={props.sdk}
       locale={props.locale}
+      contentType={contentType}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
       onEdit={props.onEdit}

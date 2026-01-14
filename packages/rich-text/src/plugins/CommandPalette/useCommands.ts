@@ -91,8 +91,8 @@ const getAllowedContentTypesFromValidation = (validations) => {
   }, {});
 };
 
-export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor) => {
-  const contentTypes = sdk.space.getCachedContentTypes();
+export const useCommands = async (sdk: FieldAppSDK, query: string, editor: PlateEditor) => {
+  const contentTypes = await sdk.cma.contentType.getMany({}).then((response) => response.items);
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
   const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
     sdk.field.validations,

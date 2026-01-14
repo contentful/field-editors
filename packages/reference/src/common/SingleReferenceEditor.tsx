@@ -73,13 +73,15 @@ function Editor(props: EditorProps) {
   });
 }
 
-export function SingleReferenceEditor(
+export async function SingleReferenceEditor(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ChildProps) => React.ReactElement;
   },
 ) {
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
+  const allContentTypes = await props.sdk.cma.contentType
+    .getMany({})
+    .then((response) => response.items);
 
   return (
     <ReferenceEditor<ReferenceValue> {...props}>

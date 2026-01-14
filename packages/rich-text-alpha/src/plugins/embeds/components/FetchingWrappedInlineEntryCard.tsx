@@ -8,7 +8,7 @@ import {
   useEntity,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
-import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
+import { ContentType, Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -28,7 +28,7 @@ type InternalFetchingWrappedInlineEntryCardProps = Pick<
   locale: string;
   defaultLocale: string;
   entry: Entry;
-  allContentTypes: ReturnType<FieldAppSDK['space']['getCachedContentTypes']>;
+  allContentTypes: ContentType[];
   getEntityScheduledActions: React.ComponentProps<
     typeof ScheduledIconWithTooltip
   >['getEntityScheduledActions'];
@@ -110,7 +110,7 @@ interface FetchingWrappedInlineEntryCardProps {
   onEntityFetchComplete?: VoidFunction;
 }
 
-export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
+export async function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
   const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
 
@@ -157,9 +157,13 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
     );
   }
 
+  const allContentTypes = await props.sdk.cma.contentType
+    .getMany({})
+    .then((response) => response.items);
+
   return (
     <InternalFetchingWrappedInlineEntryCard
-      allContentTypes={props.sdk.space.getCachedContentTypes()}
+      allContentTypes={allContentTypes}
       getEntityScheduledActions={() => getEntityScheduledActions('Entry', props.entryId)}
       locale={props.sdk.field.locale}
       defaultLocale={props.sdk.locales.default}
