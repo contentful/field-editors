@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Link, ValidationError } from '@contentful/app-sdk';
+import { ValidationError } from '@contentful/app-sdk';
 import { List, ListItem, TextLink } from '@contentful/f36-components';
 import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -62,10 +62,13 @@ function UniquenessError({
     [localeCode, defaultLocaleCode, contentTypesById],
   );
 
-  let conflicting: Link<'Entry', 'Link'>[] = [];
-  if ('conflicting' in error) {
-    conflicting = error.conflicting;
-  }
+  const conflicting = React.useMemo(() => {
+    if ('conflicting' in error) {
+      return error.conflicting;
+    }
+    return [];
+  }, [error]);
+
   React.useEffect(() => {
     const entryIds = state.entries.map((entry) => entry.id);
     const conflictIds = conflicting.map((entry) => entry.sys.id);
@@ -98,7 +101,7 @@ function UniquenessError({
         });
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate these dependencies
-  }, [getTitle, state.entries, cma, getEntryURL]);
+  }, [getTitle, state.entries, conflicting, cma, getEntryURL]);
 
   return (
     <List className={styles.errorList} testId="validation-errors-uniqueness">
