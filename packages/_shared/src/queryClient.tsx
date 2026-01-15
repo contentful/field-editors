@@ -1,18 +1,49 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as React from 'react';
 
-import {
-  QueryClient,
-  useQuery as useRQ,
-  useQueryClient as useHostQueryClient,
+import type {
+  QueryClient as QC,
+  UseQueryOptions,
+  UseQueryResult,
+  QueryKey,
+  QueryFunction,
 } from '@tanstack/react-query';
+
+// Conditional import - only available if @tanstack/react-query is installed
+let QueryClient: typeof QC | undefined;
+let useRQ:
+  | (<
+      TQueryFnData = unknown,
+      TError = unknown,
+      TData = TQueryFnData,
+      TQueryKey extends QueryKey = QueryKey,
+    >(
+      queryKey: TQueryKey,
+      queryFn: QueryFunction<TQueryFnData, TQueryKey>,
+      options?: Omit<
+        UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+        'queryKey' | 'queryFn'
+      >,
+    ) => UseQueryResult<TData, TError>)
+  | undefined;
+let useHostQueryClient: () => QC | undefined = () => undefined; // Default no-op hook
+
+try {
+  const rq = require('@tanstack/react-query');
+  QueryClient = rq.QueryClient;
+  useRQ = rq.useQuery;
+  useHostQueryClient = rq.useQueryClient;
+} catch {
+  // React Query not available
+}
 
 /**
  * A custom client context ensures zero conflict with host apps also using
  * React Query.
  */
-const clientContext = React.createContext<QueryClient | undefined>(undefined);
+const clientContext = React.createContext<QC | undefined>(undefined);
 
-function useMaybeHostQueryClient(): QueryClient | undefined {
+function useMaybeHostQueryClient(): QC | undefined {
   try {
     return useHostQueryClient();
   } catch {
@@ -20,7 +51,7 @@ function useMaybeHostQueryClient(): QueryClient | undefined {
   }
 }
 
-export function useQueryClient(): QueryClient {
+export function useQueryClient(): QC {
   const client = React.useContext(clientContext);
   const hostClient = useMaybeHostQueryClient();
 
@@ -31,7 +62,7 @@ export function useQueryClient(): QueryClient {
 
     if (hostClient) return hostClient;
 
-    return new QueryClient({
+    return new QueryClient!({
       defaultOptions: {
         queries: {
           useErrorBoundary: false,
@@ -46,10 +77,18 @@ export function useQueryClient(): QueryClient {
   }, [client, hostClient]);
 }
 
-// @ts-expect-error
-export const useQuery: typeof useRQ = (key, fn, opt) => {
-  return useRQ(key, fn, { ...opt, context: clientContext });
-};
+export function useQuery<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  queryKey: TQueryKey,
+  queryFn: QueryFunction<TQueryFnData, TQueryKey>,
+  options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>,
+): UseQueryResult<TData, TError> {
+  return useRQ!(queryKey, queryFn, { ...options, context: clientContext });
+}
 
 /**
  * Provides access to a query client either by sharing an existing client or
