@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.19.3-alpha.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.2...@contentful/field-editor-rich-text@4.19.3-alpha.0) (2026-01-15)
+
+### Bug Fixes
+
+- reorganize slate-\* deps imports to avoid future need of override versions on consumer side ([1ef54e4](https://github.com/contentful/field-editors/commit/1ef54e44786e120562d2d182ec61a1be0830bf37))
+
 ## [4.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.1...@contentful/field-editor-rich-text@4.19.2) (2026-01-09)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
