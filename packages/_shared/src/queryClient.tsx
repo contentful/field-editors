@@ -1,10 +1,41 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as React from 'react';
 
-import {
+import type {
   QueryClient,
-  useQuery as useRQ,
-  useQueryClient as useHostQueryClient,
+  UseQueryOptions,
+  UseQueryResult,
+  QueryKey,
+  QueryFunction,
 } from '@tanstack/react-query';
+
+// Conditional import - only available if @tanstack/react-query is installed
+let RQQueryClient: typeof import('@tanstack/react-query').QueryClient | undefined;
+let useRQ:
+  | (<
+      TQueryFnData = unknown,
+      TError = unknown,
+      TData = TQueryFnData,
+      TQueryKey extends QueryKey = QueryKey,
+    >(
+      queryKey: TQueryKey,
+      queryFn: QueryFunction<TQueryFnData, TQueryKey>,
+      options?: Omit<
+        UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+        'queryKey' | 'queryFn'
+      >,
+    ) => UseQueryResult<TData, TError>)
+  | undefined;
+let useHostQueryClient: () => QueryClient | undefined = () => undefined; // Default no-op hook
+
+try {
+  const rq = require('@tanstack/react-query');
+  RQQueryClient = rq.QueryClient;
+  useRQ = rq.useQuery;
+  useHostQueryClient = rq.useQueryClient;
+} catch {
+  // React Query not available - will throw helpful errors if features are used
+}
 
 /**
  * A custom client context ensures zero conflict with host apps also using
@@ -31,7 +62,13 @@ export function useQueryClient(): QueryClient {
 
     if (hostClient) return hostClient;
 
-    return new QueryClient({
+    if (!RQQueryClient) {
+      throw new Error(
+        '@tanstack/react-query is required to use QueryClient. Please install it as a dependency: npm install @tanstack/react-query',
+      );
+    }
+
+    return new RQQueryClient({
       defaultOptions: {
         queries: {
           useErrorBoundary: false,
@@ -46,10 +83,23 @@ export function useQueryClient(): QueryClient {
   }, [client, hostClient]);
 }
 
-// @ts-expect-error
-export const useQuery: typeof useRQ = (key, fn, opt) => {
-  return useRQ(key, fn, { ...opt, context: clientContext });
-};
+export function useQuery<
+  TQueryFnData = unknown,
+  TError = unknown,
+  TData = TQueryFnData,
+  TQueryKey extends QueryKey = QueryKey,
+>(
+  queryKey: TQueryKey,
+  queryFn: QueryFunction<TQueryFnData, TQueryKey>,
+  options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>,
+): UseQueryResult<TData, TError> {
+  if (!useRQ) {
+    throw new Error(
+      '@tanstack/react-query is required to use useQuery. Please install it as a dependency: npm install @tanstack/react-query',
+    );
+  }
+  return useRQ(queryKey, queryFn, { ...options, context: clientContext });
+}
 
 /**
  * Provides access to a query client either by sharing an existing client or
