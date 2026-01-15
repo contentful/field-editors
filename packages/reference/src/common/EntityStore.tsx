@@ -331,7 +331,7 @@ async function fetchExternalResource({
     }),
   ]);
 
-  const resourceTypeEntity = resourceTypes.find((rt) => rt.sys.id === resourceType);
+  const resourceTypeEntity = resourceTypes.find((rt: ResourceType) => rt.sys.id === resourceType);
 
   if (!resourceTypeEntity) {
     throw new UnsupportedError('Unsupported resource type');
@@ -600,7 +600,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       function findSameSpaceQueries(): Query[] {
         const queries = queryCache.findAll({
           type: 'active',
-          predicate: (query) => isSameSpaceEntityQueryKey(query.queryKey),
+          predicate: (query: Query) => isSameSpaceEntityQueryKey(query.queryKey),
         });
         return queries;
       }
