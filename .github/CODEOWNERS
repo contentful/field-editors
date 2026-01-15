@@ -1,7 +1,7 @@
 # Disabling this rule as it shadows Dependabot "reviewers" config
 # *        @contentful/team-tolkien
 
-cypress/        @contentful/team-tolkien
-packages/        @contentful/team-tolkien
+cypress/        @contentful/team-content-authoring-and-publishing
+packages/        @contentful/team-content-authoring-and-publishing
 
 apps/    @contentful/team-marketplace
