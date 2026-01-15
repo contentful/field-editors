@@ -57,6 +57,11 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
+  "peerDependenciesMeta": {
+    "@tanstack/react-query": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   }
