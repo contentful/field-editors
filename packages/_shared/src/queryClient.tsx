@@ -33,8 +33,10 @@ try {
   QueryClient = rq.QueryClient;
   useRQ = rq.useQuery;
   useHostQueryClient = rq.useQueryClient;
-} catch {
-  // React Query not available
+} catch (error) {
+  console.error(
+    '[field-editors/_shared]: @tanstack/react-query is not installed. QueryClient will be created internally.',
+  );
 }
 
 /**
