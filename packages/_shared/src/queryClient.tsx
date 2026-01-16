@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import type {
-  QueryClient as QC,
+  QueryClient,
   UseQueryOptions,
   UseQueryResult,
   QueryKey,
@@ -10,7 +10,7 @@ import type {
 } from '@tanstack/react-query';
 
 // Conditional import - only available if @tanstack/react-query is installed
-let QueryClient: typeof QC | undefined;
+let RQQueryClient: typeof import('@tanstack/react-query').QueryClient | undefined;
 let useRQ:
   | (<
       TQueryFnData = unknown,
@@ -26,11 +26,11 @@ let useRQ:
       >,
     ) => UseQueryResult<TData, TError>)
   | undefined;
-let useHostQueryClient: () => QC | undefined = () => undefined; // Default no-op hook
+let useHostQueryClient: () => QueryClient | undefined = () => undefined; // Default no-op hook
 
 try {
   const rq = require('@tanstack/react-query');
-  QueryClient = rq.QueryClient;
+  RQQueryClient = rq.QueryClient;
   useRQ = rq.useQuery;
   useHostQueryClient = rq.useQueryClient;
 } catch {
@@ -41,9 +41,9 @@ try {
  * A custom client context ensures zero conflict with host apps also using
  * React Query.
  */
-const clientContext = React.createContext<QC | undefined>(undefined);
+const clientContext = React.createContext<QueryClient | undefined>(undefined);
 
-function useMaybeHostQueryClient(): QC | undefined {
+function useMaybeHostQueryClient(): QueryClient | undefined {
   try {
     return useHostQueryClient();
   } catch {
@@ -51,7 +51,7 @@ function useMaybeHostQueryClient(): QC | undefined {
   }
 }
 
-export function useQueryClient(): QC {
+export function useQueryClient(): QueryClient {
   const client = React.useContext(clientContext);
   const hostClient = useMaybeHostQueryClient();
 
@@ -62,13 +62,13 @@ export function useQueryClient(): QC {
 
     if (hostClient) return hostClient;
 
-    if (!QueryClient) {
+    if (!RQQueryClient) {
       throw new Error(
         '@tanstack/react-query is required to use QueryClient. Please install it as a dependency: npm install @tanstack/react-query',
       );
     }
 
-    return new QueryClient({
+    return new RQQueryClient({
       defaultOptions: {
         queries: {
           useErrorBoundary: false,
