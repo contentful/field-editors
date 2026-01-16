@@ -33,10 +33,8 @@ try {
   QueryClient = rq.QueryClient;
   useRQ = rq.useQuery;
   useHostQueryClient = rq.useQueryClient;
-} catch (error) {
-  console.error(
-    '[field-editors/_shared]: @tanstack/react-query is not installed. QueryClient will be created internally.',
-  );
+} catch {
+  // React Query not available - will throw helpful errors if features are used
 }
 
 /**
@@ -64,7 +62,13 @@ export function useQueryClient(): QC {
 
     if (hostClient) return hostClient;
 
-    return new QueryClient!({
+    if (!QueryClient) {
+      throw new Error(
+        '@tanstack/react-query is required to use QueryClient. Please install it as a dependency: npm install @tanstack/react-query',
+      );
+    }
+
+    return new QueryClient({
       defaultOptions: {
         queries: {
           useErrorBoundary: false,
@@ -89,7 +93,12 @@ export function useQuery<
   queryFn: QueryFunction<TQueryFnData, TQueryKey>,
   options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>,
 ): UseQueryResult<TData, TError> {
-  return useRQ!(queryKey, queryFn, { ...options, context: clientContext });
+  if (!useRQ) {
+    throw new Error(
+      '@tanstack/react-query is required to use useQuery. Please install it as a dependency: npm install @tanstack/react-query',
+    );
+  }
+  return useRQ(queryKey, queryFn, { ...options, context: clientContext });
 }
 
 /**
