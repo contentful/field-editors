@@ -109,6 +109,7 @@ jobs:
     executor: linux-node
     steps:
       - checkout
+      - run: git fetch --tags --prune --unshallow || git fetch --tags --prune
       - vault/get-secrets:
           template-preset: 'semantic-release'
       - yarn_install
@@ -117,8 +118,7 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
           echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
-      - run: yarn lerna version --no-private --conventional-commits --create-release github --yes --exact --conventional-prerelease
-      - run: yarn lerna publish from-git --yes --canary
+      - run: yarn lerna publish --no-private --canary --preid canary --dist-tag canary --conventional-commits --yes
 
 workflows:
   version: 2
