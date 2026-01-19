@@ -64,7 +64,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
-          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY)
+          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY),
         ).to.have.length(1);
       });
     });
@@ -77,7 +77,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
-          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY)
+          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY),
         ).to.have.length(1);
       });
     });
@@ -92,7 +92,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
         block(BLOCKS.EMBEDDED_ASSET, {
           target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } },
         }),
-        block(BLOCKS.PARAGRAPH, {}, text())
+        block(BLOCKS.PARAGRAPH, {}, text()),
       );
 
       richText.expectValue(expectedValue);
@@ -108,51 +108,77 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
 
     it('should navigate then embed on pressing enter', () => {
       richText.editor.click().type('/');
-      getCommandList().findByText('Embed Example Content Type').should('exist');
-      richText.editor.type('{enter}');
-      getCommandList().findByText('Embed Example Content Type').should('not.exist');
-      richText.editor.type('{enter}');
+      // Wait for React Query to load content types
+      getCommandList()
+        .findByText('Embed Example Content Type')
+        .should('exist')
+        .then(() => {
+          richText.editor.type('{enter}');
+          getCommandList().findByText('Embed Example Content Type').should('not.exist');
+          richText.editor.type('{enter}');
+        });
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
-          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY)
+          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY),
         ).to.have.length(1);
       });
     });
 
     it('should select next item on down arrow press', () => {
-      richText.editor.click().type('/{downarrow}{enter}{enter}');
+      richText.editor.click().type('/');
+      // Wait for React Query to load content types
+      getCommandList()
+        .findByText('Embed Example Content Type')
+        .should('exist')
+        .then(() => {
+          richText.editor.type('{downarrow}{enter}{enter}');
+        });
 
       richText.editor.findByTestId('embedded-entry-inline').should('exist');
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
-          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY)
+          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY),
         ).to.have.length(1);
       });
     });
 
     it('should select previous item on up arrow press', () => {
-      richText.editor.click().type('/{downarrow}{uparrow}{enter}{enter}');
+      richText.editor.click().type('/');
+      // Wait for React Query to load content types
+      getCommandList()
+        .findByText('Embed Example Content Type')
+        .should('exist')
+        .then(() => {
+          richText.editor.type('{downarrow}{uparrow}{enter}{enter}');
+        });
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
-          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY)
+          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY),
         ).to.have.length(1);
       });
     });
 
     it('should not delete adjacent text', () => {
-      richText.editor.click().type('test/{downarrow}{enter}{enter}');
+      richText.editor.click().type('test/');
+      // Wait for React Query to load content types
+      getCommandList()
+        .findByText('Embed Example Content Type')
+        .should('exist')
+        .then(() => {
+          richText.editor.type('{downarrow}{enter}{enter}');
+        });
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(doc.content[0].content[0].value).to.equal('test');
         expect(
-          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY)
+          doc.content[0].content.filter((node) => node.nodeType === INLINES.EMBEDDED_ENTRY),
         ).to.have.length(1);
       });
     });
@@ -160,14 +186,21 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
     it('should work inside headings', () => {
       richText.editor.click().type('Heading 1');
       richText.toolbar.toggleHeading(BLOCKS.HEADING_1);
-      richText.editor.click().type('/{enter}{enter}');
+      richText.editor.click().type('/');
+      // Wait for React Query to load content types
+      getCommandList()
+        .findByText('Embed Example Content Type')
+        .should('exist')
+        .then(() => {
+          richText.editor.type('{enter}{enter}');
+        });
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
           doc.content.filter((node) => {
             return node.nodeType === BLOCKS.EMBEDDED_ENTRY || node.nodeType === BLOCKS.HEADING_1;
-          })
+          }),
         ).to.have.length(2);
       });
     });
