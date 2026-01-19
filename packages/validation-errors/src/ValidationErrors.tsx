@@ -32,7 +32,7 @@ function UniquenessError({
 }: UniquenessErrorProps) {
   const [state, setState] = React.useState<{
     loading: boolean;
-    entries: { id: string; title: string; href: string }[];
+    entries: Entry[];
   }>({
     loading: true,
     entries: [],
@@ -51,38 +51,26 @@ function UniquenessError({
     [allContentTypes],
   );
 
-  const getTitle = React.useCallback(
-    (entry: Entry) =>
-      entityHelpers.getEntryTitle({
-        entry,
-        defaultTitle: t({
-          id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
-          message: 'Untitled',
-        }),
-        localeCode,
-        defaultLocaleCode,
-        contentType: contentTypesById[entry.sys.contentType.sys.id],
-      }),
-    [localeCode, defaultLocaleCode, contentTypesById],
-  );
-
-  const conflicting = React.useMemo(() => {
-    if ('conflicting' in error) {
-      return error.conflicting;
-    }
-    return [];
+  // Calculate conflict key from error
+  const conflictKey = React.useMemo(() => {
+    const conflicting = 'conflicting' in error ? error.conflicting : [];
+    return conflicting
+      .map((entry) => entry.sys.id)
+      .sort()
+      .join(',');
   }, [error]);
 
   React.useEffect(() => {
-    const entryIds = state.entries.map((entry) => entry.id);
-    const conflictIds = conflicting.map((entry) => entry.sys.id);
-
-    // Avoid unnecessary refetching
-    if (conflictIds.every((id) => entryIds.includes(id))) {
+    // If we have no conflict key (empty or no conflicting), reset
+    if (!conflictKey) {
+      setState({ loading: false, entries: [] });
       return;
     }
 
-    setState((state) => ({ ...state, loading: true }));
+    setState({ loading: true, entries: [] });
+
+    const conflicting = 'conflicting' in error ? error.conflicting : [];
+    const conflictIds = conflicting.map((entry) => entry.sys.id);
 
     cma.entry
       .getMany({
@@ -93,19 +81,30 @@ function UniquenessError({
         releaseId: undefined,
       })
       .then(({ items }) => {
-        const entries = items.map((entry) => ({
-          id: entry.sys.id,
-          title: getTitle(entry),
-          href: getEntryURL(entry),
-        }));
-
         setState({
           loading: false,
-          entries,
+          entries: items,
         });
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate these dependencies
-  }, [getTitle, state.entries, conflicting, cma, getEntryURL]);
+  }, [conflictKey, error, cma]);
+
+  // Compute display data from loaded entries and content types
+  const displayEntries = React.useMemo(() => {
+    return state.entries.map((entry) => ({
+      id: entry.sys.id,
+      title: entityHelpers.getEntryTitle({
+        entry,
+        defaultTitle: t({
+          id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
+          message: 'Untitled',
+        }),
+        localeCode,
+        defaultLocaleCode,
+        contentType: contentTypesById[entry.sys.contentType.sys.id],
+      }),
+      href: getEntryURL(entry),
+    }));
+  }, [state.entries, contentTypesById, localeCode, defaultLocaleCode, getEntryURL]);
 
   return (
     <List className={styles.errorList} testId="validation-errors-uniqueness">
@@ -118,7 +117,7 @@ function UniquenessError({
             })}
           </div>
         ) : (
-          state.entries.map((entry) => (
+          displayEntries.map((entry) => (
             <TextLink
               key={entry.id}
               href={entry.href}
