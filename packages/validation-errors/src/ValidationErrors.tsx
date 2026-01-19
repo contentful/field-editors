@@ -1,17 +1,11 @@
 import * as React from 'react';
 
-import { Link, ValidationError } from '@contentful/app-sdk';
+import { ValidationError } from '@contentful/app-sdk';
 import { List, ListItem, TextLink } from '@contentful/f36-components';
 import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import type {
-  ContentType,
-  Entry,
-  FieldAPI,
-  LocalesAPI,
-  SpaceAPI,
-} from '@contentful/field-editor-shared';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import type { ContentType, Entry, FieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
+import { entityHelpers, useContentTypes } from '@contentful/field-editor-shared';
 import { t } from '@lingui/core/macro';
 import type { PlainClientAPI } from 'contentful-management';
 
@@ -19,14 +13,19 @@ import * as styles from './styles';
 
 type UniquenessErrorProps = {
   error: ValidationError;
-  space: SpaceAPI;
   cma: PlainClientAPI;
   localeCode: string;
   defaultLocaleCode: string;
   getEntryURL: (entry: Entry) => string;
 };
 
-function UniquenessError(props: UniquenessErrorProps) {
+function UniquenessError({
+  error,
+  cma,
+  localeCode,
+  defaultLocaleCode,
+  getEntryURL,
+}: UniquenessErrorProps) {
   const [state, setState] = React.useState<{
     loading: boolean;
     entries: { id: string; title: string; href: string }[];
@@ -35,17 +34,17 @@ function UniquenessError(props: UniquenessErrorProps) {
     entries: [],
   });
 
+  const allContentTypes = useContentTypes(cma);
   const contentTypesById = React.useMemo(
-    (): Record<string, ContentType> =>
-      // Maps ID => Content Type
-      props.space.getCachedContentTypes().reduce(
+    () =>
+      allContentTypes.reduce(
         (prev, ct) => ({
           ...prev,
           [ct.sys.id]: ct,
         }),
-        {},
+        {} as Record<string, ContentType>,
       ),
-    [props.space],
+    [allContentTypes],
   );
 
   const getTitle = React.useCallback(
@@ -56,17 +55,20 @@ function UniquenessError(props: UniquenessErrorProps) {
           id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
           message: 'Untitled',
         }),
-        localeCode: props.localeCode,
-        defaultLocaleCode: props.defaultLocaleCode,
+        localeCode,
+        defaultLocaleCode,
         contentType: contentTypesById[entry.sys.contentType.sys.id],
       }),
-    [props.localeCode, props.defaultLocaleCode, contentTypesById],
+    [localeCode, defaultLocaleCode, contentTypesById],
   );
 
-  let conflicting: Link<'Entry', 'Link'>[] = [];
-  if ('conflicting' in props.error) {
-    conflicting = props.error.conflicting;
-  }
+  const conflicting = React.useMemo(() => {
+    if ('conflicting' in error) {
+      return error.conflicting;
+    }
+    return [];
+  }, [error]);
+
   React.useEffect(() => {
     const entryIds = state.entries.map((entry) => entry.id);
     const conflictIds = conflicting.map((entry) => entry.sys.id);
@@ -78,7 +80,7 @@ function UniquenessError(props: UniquenessErrorProps) {
 
     setState((state) => ({ ...state, loading: true }));
 
-    props.cma.entry
+    cma.entry
       .getMany({
         query: {
           'sys.id[in]': conflictIds.join(','),
@@ -90,7 +92,7 @@ function UniquenessError(props: UniquenessErrorProps) {
         const entries = items.map((entry) => ({
           id: entry.sys.id,
           title: getTitle(entry),
-          href: props.getEntryURL(entry),
+          href: getEntryURL(entry),
         }));
 
         setState({
@@ -99,7 +101,7 @@ function UniquenessError(props: UniquenessErrorProps) {
         });
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate these dependencies
-  }, [getTitle, state.entries, conflicting, props.cma, props.getEntryURL]);
+  }, [getTitle, state.entries, conflicting, cma, getEntryURL]);
 
   return (
     <List className={styles.errorList} testId="validation-errors-uniqueness">
@@ -133,7 +135,6 @@ function UniquenessError(props: UniquenessErrorProps) {
 
 export interface ValidationErrorsProps {
   field: FieldAPI;
-  space: SpaceAPI;
   cma: PlainClientAPI;
   locales: LocalesAPI;
   errorMessageOverride?: (message: string | undefined) => React.ReactNode;
@@ -142,7 +143,6 @@ export interface ValidationErrorsProps {
 
 export function ValidationErrors({
   field,
-  space,
   cma,
   locales,
   errorMessageOverride,
@@ -180,7 +180,6 @@ export function ValidationErrors({
                 <UniquenessError
                   cma={cma}
                   error={error}
-                  space={space}
                   localeCode={field.locale}
                   defaultLocaleCode={locales.default}
                   getEntryURL={getEntryURL}

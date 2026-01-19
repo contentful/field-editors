@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { ValidationError } from '@contentful/app-sdk';
-import type { ContentType } from '@contentful/field-editor-shared';
 import * as utils from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, act } from '@testing-library/react';
 
@@ -15,21 +14,6 @@ configure({
 
 const displayField = 'my-title';
 const contentTypeId = 'my-content-type';
-
-const getCachedContentTypes = () =>
-  [
-    {
-      displayField,
-      fields: [
-        {
-          id: displayField,
-        },
-      ],
-      sys: {
-        id: 'my-content-type',
-      },
-    },
-  ] as ContentType[];
 
 const createEntry = (id: string) => ({
   fields: {
@@ -51,6 +35,26 @@ const cma = {
   entry: {
     getMany: jest.fn().mockReturnValue({ items: [] }),
   },
+  contentType: {
+    getMany: jest.fn().mockResolvedValue({
+      items: [
+        {
+          sys: {
+            id: contentTypeId,
+          },
+          name: 'My Content Type',
+          displayField,
+          fields: [
+            {
+              id: displayField,
+              name: 'Title',
+              type: 'Symbol',
+            },
+          ],
+        },
+      ],
+    }),
+  },
 };
 
 describe('ValidationErrors', () => {
@@ -64,8 +68,6 @@ describe('ValidationErrors', () => {
         field={field}
         // @ts-expect-error - partial mock
         cma={cma}
-        // @ts-expect-error - partial mock
-        space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
       />,
@@ -90,8 +92,6 @@ describe('ValidationErrors', () => {
         field={field}
         // @ts-expect-error - partial mock
         cma={cma}
-        // @ts-expect-error - partial mock
-        space={utils.createFakeSpaceAPI()}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
       />,
@@ -125,11 +125,6 @@ describe('ValidationErrors', () => {
 
     const [field, emitter] = utils.createFakeFieldAPI();
 
-    const space = utils.createFakeSpaceAPI((api) => ({
-      ...api,
-      getCachedContentTypes,
-    }));
-
     cma.entry.getMany.mockResolvedValue({ items: ids.map(createEntry) });
 
     const { findByText, findAllByTestId } = render(
@@ -137,8 +132,6 @@ describe('ValidationErrors', () => {
         field={field}
         // @ts-expect-error - partial mock
         cma={cma}
-        // @ts-expect-error - partial mock
-        space={space}
         locales={utils.createFakeLocalesAPI()}
         getEntryURL={(entry) => `url.${entry.sys.id}`}
       />,

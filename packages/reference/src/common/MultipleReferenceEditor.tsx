@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import { useContentTypes } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
@@ -143,7 +144,7 @@ export function MultipleReferenceEditor(
     setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   },
 ) {
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
+  const allContentTypes = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>

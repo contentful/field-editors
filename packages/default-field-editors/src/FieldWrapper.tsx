@@ -71,7 +71,6 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
 
       <ValidationErrors
         field={field}
-        space={sdk.space}
         // @ts-expect-error - outdated types
         cma={sdk.cma as PlainClientAPI}
         locales={sdk.locales}

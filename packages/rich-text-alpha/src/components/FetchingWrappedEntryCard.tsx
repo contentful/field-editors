@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FieldAppSDK } from '@contentful/app-sdk';
+import { ContentType, FieldAppSDK } from '@contentful/app-sdk';
 import { ScheduledAction, Entry } from '@contentful/app-sdk';
 import { DragHandle, EntryCard } from '@contentful/f36-components';
 import {
@@ -14,6 +14,7 @@ import {
   useLocalePublishStatus,
   useActiveLocales,
   useReleaseStatus,
+  useContentTypes,
   type ReleaseStatusMap,
   type ReleaseV2Props,
   type ReleaseEntityStatus,
@@ -27,6 +28,7 @@ interface InternalEntryCard {
   sdk: FieldAppSDK;
   loadEntityScheduledActions: (entityType: string, entityId: string) => Promise<ScheduledAction[]>;
   entry: Entry;
+  contentType?: ContentType;
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
   localesStatusMap?: LocalePublishStatusMap;
@@ -46,13 +48,11 @@ const InternalEntryCard = React.memo(
     isSelected,
     isDisabled,
     locale,
+    contentType,
     onEdit,
     onRemove,
     localesStatusMap,
   }: InternalEntryCard) => {
-    const contentType = sdk.space
-      .getCachedContentTypes()
-      .find((contentType) => contentType.sys.id === entry.sys.contentType.sys.id);
     const activeLocales = useActiveLocales(sdk);
 
     return (
@@ -116,6 +116,12 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     isReference: true,
   });
 
+  const allContentTypes = useContentTypes(props.sdk);
+  const contentType = React.useMemo(
+    () => allContentTypes.find((ct) => entry && ct.sys.id === entry.sys.contentType.sys.id),
+    [allContentTypes, entry],
+  );
+
   React.useEffect(() => {
     if (status === 'success') {
       onEntityFetchComplete?.();
@@ -141,6 +147,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       entry={entry}
       sdk={props.sdk}
       locale={props.locale}
+      contentType={contentType}
       isDisabled={props.isDisabled}
       isSelected={props.isSelected}
       onEdit={props.onEdit}
