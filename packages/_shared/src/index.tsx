@@ -42,3 +42,4 @@ export * from './ReleaseEntityStatusBadge';
 export * from './utils/determineReleaseAction';
 export * from './utils/getEntityReleaseStatus';
 export * from './utils/getReleaseStatusBadgeConfig';
+export { SharedQueryClientProvider, useQueryClient, useQuery } from './queryClient';
