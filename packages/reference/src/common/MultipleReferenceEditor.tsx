@@ -144,7 +144,7 @@ export function MultipleReferenceEditor(
     setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   },
 ) {
-  const allContentTypes = useContentTypes(props.sdk);
+  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>

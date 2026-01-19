@@ -116,7 +116,7 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     isReference: true,
   });
 
-  const allContentTypes = useContentTypes(props.sdk);
+  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
   const contentType = React.useMemo(
     () => allContentTypes.find((ct) => entry && ct.sys.id === entry.sys.contentType.sys.id),
     [allContentTypes, entry],

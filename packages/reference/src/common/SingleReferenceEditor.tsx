@@ -81,7 +81,7 @@ export function SingleReferenceEditor(
     children: (props: ChildProps) => React.ReactElement;
   },
 ) {
-  const allContentTypes = useContentTypes(props.sdk);
+  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue> {...props}>
