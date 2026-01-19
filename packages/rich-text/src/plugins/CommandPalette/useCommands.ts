@@ -93,7 +93,7 @@ const getAllowedContentTypesFromValidation = (validations) => {
 };
 
 export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor) => {
-  const contentTypes = useContentTypes(sdk);
+  const { contentTypes } = useContentTypes(sdk);
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
   const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
     sdk.field.validations,

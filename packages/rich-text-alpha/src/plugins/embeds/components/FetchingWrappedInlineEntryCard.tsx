@@ -119,7 +119,7 @@ interface FetchingWrappedInlineEntryCardProps {
 export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
   const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
-  const allContentTypes = useContentTypes(props.sdk);
+  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
 
   const { onEntityFetchComplete } = props;
 
