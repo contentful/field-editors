@@ -5,7 +5,11 @@ import { List, ListItem, TextLink } from '@contentful/f36-components';
 import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import type { ContentType, Entry, FieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
-import { entityHelpers, useContentTypes } from '@contentful/field-editor-shared';
+import {
+  entityHelpers,
+  useContentTypes,
+  SharedQueryClientProvider,
+} from '@contentful/field-editor-shared';
 import { t } from '@lingui/core/macro';
 import type { PlainClientAPI } from 'contentful-management';
 
@@ -34,7 +38,7 @@ function UniquenessError({
     entries: [],
   });
 
-  const allContentTypes = useContentTypes(cma);
+  const { contentTypes: allContentTypes } = useContentTypes(cma);
   const contentTypesById = React.useMemo(
     () =>
       allContentTypes.reduce(
@@ -141,7 +145,7 @@ export interface ValidationErrorsProps {
   getEntryURL: (entry: Entry) => string;
 }
 
-export function ValidationErrors({
+function ValidationErrorsInternal({
   field,
   cma,
   locales,
@@ -190,5 +194,13 @@ export function ValidationErrors({
         );
       })}
     </List>
+  );
+}
+
+export function ValidationErrors(props: ValidationErrorsProps) {
+  return (
+    <SharedQueryClientProvider>
+      <ValidationErrorsInternal {...props} />
+    </SharedQueryClientProvider>
   );
 }
