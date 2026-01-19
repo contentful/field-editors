@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
-import { FieldConnector } from '@contentful/field-editor-shared';
+import { FieldConnector, SharedQueryClientProvider } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
 import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
@@ -82,39 +82,41 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   );
 
   return (
-    <EntityProvider sdk={sdk}>
-      <SdkProvider sdk={sdk}>
-        <ContentfulEditorIdProvider value={id}>
-          <div className={styles.root} data-test-id="rich-text-editor">
-            <Plate
-              id={id}
-              initialValue={initialValue}
-              plugins={plugins as PlatePlugin[]}
-              disableCorePlugins={disableCorePlugins}
-            >
-              {!props.isToolbarHidden && (
-                <StickyToolbarWrapper
-                  isDisabled={props.isDisabled}
-                  offset={props.stickyToolbarOffset}
-                >
-                  <Toolbar isDisabled={props.isDisabled} />
-                </StickyToolbarWrapper>
-              )}
-              <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
-              <PlateContent
+    <SharedQueryClientProvider>
+      <EntityProvider sdk={sdk}>
+        <SdkProvider sdk={sdk}>
+          <ContentfulEditorIdProvider value={id}>
+            <div className={styles.root} data-test-id="rich-text-editor">
+              <Plate
                 id={id}
-                className={classNames}
-                readOnly={props.isDisabled}
-                scrollSelectionIntoView={
-                  defaultScrollSelectionIntoView as PlateContentProps['scrollSelectionIntoView']
-                }
-              />
-              {props.withCharValidation && <CharConstraints />}
-            </Plate>
-          </div>
-        </ContentfulEditorIdProvider>
-      </SdkProvider>
-    </EntityProvider>
+                initialValue={initialValue}
+                plugins={plugins as PlatePlugin[]}
+                disableCorePlugins={disableCorePlugins}
+              >
+                {!props.isToolbarHidden && (
+                  <StickyToolbarWrapper
+                    isDisabled={props.isDisabled}
+                    offset={props.stickyToolbarOffset}
+                  >
+                    <Toolbar isDisabled={props.isDisabled} />
+                  </StickyToolbarWrapper>
+                )}
+                <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
+                <PlateContent
+                  id={id}
+                  className={classNames}
+                  readOnly={props.isDisabled}
+                  scrollSelectionIntoView={
+                    defaultScrollSelectionIntoView as PlateContentProps['scrollSelectionIntoView']
+                  }
+                />
+                {props.withCharValidation && <CharConstraints />}
+              </Plate>
+            </div>
+          </ContentfulEditorIdProvider>
+        </SdkProvider>
+      </EntityProvider>
+    </SharedQueryClientProvider>
   );
 };
 

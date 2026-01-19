@@ -162,6 +162,16 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
         get: async ({ contentTypeId }) => {
           return store.get('ContentType', contentTypeId);
         },
+        getMany: async () => {
+          const items = store.getAll('ContentType');
+          return Promise.resolve({
+            items: localizeContentTypes(items),
+            total: items.length,
+            skip: 0,
+            limit: 1000,
+            sys: { type: 'Array' },
+          });
+        },
       },
       locale: {
         getMany: async () => {
