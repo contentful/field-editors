@@ -4,6 +4,7 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { FieldConnector, SharedQueryClientProvider } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
+import { QueryClient } from '@tanstack/react-query';
 import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/plate-common';
 import { css, cx } from 'emotion';
 import deepEquals from 'fast-deep-equal';
@@ -39,6 +40,7 @@ type RichTextProps = {
    */
   onChange?: (doc: Contentful.Document) => unknown;
   withCharValidation?: boolean;
+  queryClient?: QueryClient;
 };
 
 type ConnectedRichTextProps = {
@@ -54,6 +56,7 @@ type ConnectedRichTextProps = {
   actionsDisabled?: boolean;
   stickyToolbarOffset?: number;
   withCharValidation?: boolean;
+  queryClient?: QueryClient;
 };
 
 export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
@@ -82,7 +85,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
   );
 
   return (
-    <SharedQueryClientProvider>
+    <SharedQueryClientProvider client={props.queryClient}>
       <EntityProvider sdk={sdk}>
         <SdkProvider sdk={sdk}>
           <ContentfulEditorIdProvider value={id}>
@@ -128,6 +131,7 @@ const RichTextEditor = (props: RichTextProps) => {
     restrictedMarks,
     onChange,
     isDisabled,
+    queryClient,
     ...otherProps
   } = props;
   const isEmptyValue = React.useCallback(
@@ -161,6 +165,7 @@ const RichTextEditor = (props: RichTextProps) => {
           onChange={setValue}
           restrictedMarks={restrictedMarks}
           withCharValidation={props.withCharValidation ?? true}
+          queryClient={queryClient}
         />
       )}
     </FieldConnector>
