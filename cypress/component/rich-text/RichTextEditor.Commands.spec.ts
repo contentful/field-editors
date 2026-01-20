@@ -15,7 +15,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
     cy.viewport(1000, 2000);
     richText = new RichTextPage();
     // Pre-fetch content types to avoid async loading issues in keyboard navigation tests
-    cy.wrap(null).then(() => mountRichTextEditor({ prefetchContentTypes: true }));
+    return mountRichTextEditor({ prefetchContentTypes: true });
   });
 
   describe('Palette', () => {
