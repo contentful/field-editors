@@ -189,6 +189,49 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           };
         },
       },
+      resource: {
+        getMany: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
+      resourceType: {
+        getForEnvironment: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
+      resourceProvider: {
+        get: async () => {
+          return Promise.resolve({
+            sys: {
+              type: 'ResourceProvider',
+              id: 'mock-resource-provider',
+            },
+          });
+        },
+      },
+      scheduledActions: {
+        getMany: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
     },
     space: {
       ...space,

@@ -14,8 +14,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
   beforeEach(() => {
     cy.viewport(1000, 2000);
     richText = new RichTextPage();
-    // Pre-fetch content types to avoid async loading issues in keyboard navigation tests
-    return mountRichTextEditor({ prefetchContentTypes: true });
+    mountRichTextEditor();
   });
 
   describe('Palette', () => {
@@ -109,21 +108,21 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
 
     it('should navigate then embed on pressing enter', () => {
       richText.editor.click().type('/');
-      getCommandList().findByText('Embed Example Content Type').click();
-      getCommandList().findByText('The best article ever').click();
+      getCommandList().findByText('Embed Example Content Type').should('exist');
+      richText.editor.type('{enter}');
+      getCommandList().findByText('Embed Example Content Type').should('not.exist');
+      richText.editor.type('{enter}');
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
         expect(
-          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ENTRY),
+          doc.content.filter((node) => node.nodeType === BLOCKS.EMBEDDED_ASSET),
         ).to.have.length(1);
       });
     });
 
     it('should select next item on down arrow press', () => {
-      richText.editor.click().type('/');
-      getCommandList().findByText('Embed Example Content Type - Inline').click();
-      getCommandList().findByText('The best article ever').click();
+      richText.editor.click().type('/{downarrow}{enter}{enter}');
 
       richText.editor.findByTestId('embedded-entry-inline').should('exist');
 
@@ -136,9 +135,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
     });
 
     it('should select previous item on up arrow press', () => {
-      richText.editor.click().type('/');
-      getCommandList().findByText('Embed Example Content Type').click();
-      getCommandList().findByText('The best article ever').click();
+      richText.editor.click().type('/{downarrow}{uparrow}{enter}{enter}');
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
@@ -149,9 +146,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
     });
 
     it('should not delete adjacent text', () => {
-      richText.editor.click().type('test/');
-      getCommandList().findByText('Embed Example Content Type - Inline').click();
-      getCommandList().findByText('The best article ever').click();
+      richText.editor.click().type('test/{downarrow}{enter}{enter}');
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
@@ -165,9 +160,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
     it('should work inside headings', () => {
       richText.editor.click().type('Heading 1');
       richText.toolbar.toggleHeading(BLOCKS.HEADING_1);
-      richText.editor.click().type('/');
-      getCommandList().findByText('Embed Example Content Type').click();
-      getCommandList().findByText('The best article ever').click();
+      richText.editor.click().type('/{enter}{enter}');
 
       //this is used instead of snapshot value because we have randomized entry IDs
       richText.getValue().should((doc) => {
