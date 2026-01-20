@@ -105,8 +105,16 @@ export function useQuery<
  * Provides access to a query client either by sharing an existing client or
  * creating a new one.
  */
-export function SharedQueryClientProvider({ children }: React.PropsWithChildren<{}>) {
-  const client = useQueryClient();
+export function SharedQueryClientProvider({
+  children,
+  client: providedClient,
+}: React.PropsWithChildren<{ client?: QueryClient }>) {
+  const internalClient = useQueryClient();
+  // Use provided client if available, otherwise use internal client
+  const client = React.useMemo(
+    () => providedClient ?? internalClient,
+    [providedClient, internalClient],
+  );
 
   return <clientContext.Provider value={client}>{children}</clientContext.Provider>;
 }

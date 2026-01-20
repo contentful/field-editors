@@ -114,6 +114,13 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
           }
           return Promise.reject({});
         },
+        getMany: async () => ({
+          items: Object.values(contentTypes),
+          total: Object.values(contentTypes).length,
+          skip: 0,
+          limit: 1000,
+          sys: { type: 'Array' },
+        }),
       },
       locale: {
         getMany: async () => localesFixtures.list as CollectionProp<LocaleProps>,
