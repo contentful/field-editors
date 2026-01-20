@@ -609,19 +609,48 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     useEffect(() => {
       function findSameSpaceQueries(): Query[] {
         const queries = queryCache.findAll({
-          type: 'active',
           predicate: (query: Query) => isSameSpaceEntityQueryKey(query.queryKey),
         });
         return queries;
       }
 
       if (typeof onEntityChanged !== 'function') {
-        return onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
+        return onSlideInNavigation(async ({ oldSlideLevel, newSlideLevel }) => {
           if (oldSlideLevel > newSlideLevel) {
-            findSameSpaceQueries().forEach((query) => {
-              // automatically refetches the query
-              void queryClient.invalidateQueries(query.queryKey);
-            });
+            // Fetch fresh data and update cache directly for all matching queries
+            const queries = findSameSpaceQueries();
+            await Promise.all(
+              queries.map(async (query) => {
+                const [entityType, entityId, spaceId, environmentId, releaseId] = query.queryKey;
+                try {
+                  // Fetch fresh data directly from CMA client bypassing cache
+                  let freshData;
+                  if (entityType === 'Entry') {
+                    freshData = await cmaClient.entry.get({
+                      entryId: entityId as string,
+                      spaceId: spaceId as string,
+                      environmentId: environmentId as string,
+                      releaseId: releaseId as string | undefined,
+                    });
+                  } else if (entityType === 'Asset') {
+                    freshData = await cmaClient.asset.get({
+                      assetId: entityId as string,
+                      spaceId: spaceId as string,
+                      environmentId: environmentId as string,
+                      releaseId: releaseId as string | undefined,
+                    });
+                  } else {
+                    // For other entity types, just invalidate
+                    await queryClient.invalidateQueries(query.queryKey);
+                    return;
+                  }
+                  queryClient.setQueryData(query.queryKey, freshData);
+                } catch (error) {
+                  // If fetch fails, just invalidate the query
+                  await queryClient.invalidateQueries(query.queryKey);
+                }
+              }),
+            );
           }
         }) as { (): void };
       }
@@ -678,6 +707,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       queryClient,
       getEntity,
       onSlideInNavigation,
+      cmaClient.entry,
+      cmaClient.asset,
     ]);
 
     const getResourceProvider = useCallback(
