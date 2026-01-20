@@ -7,6 +7,7 @@ import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ContentType, ContentEntityType, ReferenceValue } from '../types';
 import { CustomCardRenderer, CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
+import { SharedQueryClientProvider } from './queryClient';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -76,6 +77,19 @@ function Editor(props: EditorProps) {
 }
 
 export function SingleReferenceEditor(
+  props: ReferenceEditorProps & {
+    entityType: ContentEntityType;
+    children: (props: ChildProps) => React.ReactElement;
+  },
+) {
+  return (
+    <SharedQueryClientProvider>
+      <SingleReferenceEditorInner {...props} />
+    </SharedQueryClientProvider>
+  );
+}
+
+function SingleReferenceEditorInner(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ChildProps) => React.ReactElement;

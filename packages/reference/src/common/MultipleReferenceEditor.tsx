@@ -10,6 +10,7 @@ import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
 import { useSortIDs } from '../utils/useSortIDs';
 import { CustomCardRenderer, CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
+import { SharedQueryClientProvider } from './queryClient';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -138,6 +139,20 @@ function Editor(props: EditorProps) {
 }
 
 export function MultipleReferenceEditor(
+  props: ReferenceEditorProps & {
+    entityType: ContentEntityType;
+    children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
+  },
+) {
+  return (
+    <SharedQueryClientProvider>
+      <MultipleReferenceEditorInner {...props} />
+    </SharedQueryClientProvider>
+  );
+}
+
+function MultipleReferenceEditorInner(
   props: ReferenceEditorProps & {
     entityType: ContentEntityType;
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
