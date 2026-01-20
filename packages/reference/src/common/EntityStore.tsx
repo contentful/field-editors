@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { BaseAppSDK } from '@contentful/app-sdk';
+import {
+  createGetContentTypeKey,
+  createGetEntryKey,
+  createGetSpaceKey,
+} from '@contentful/field-editor-shared';
 import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
 import {
@@ -232,9 +237,9 @@ async function fetchContentfulEntry({
   const entryId = resourceIdMatch.groups.entityId;
 
   const [space, entry] = await Promise.all([
-    fetch(['space', spaceId], ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),
+    fetch(createGetSpaceKey(spaceId), ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),
     fetch(
-      ['entry', spaceId, environmentId, entryId],
+      createGetEntryKey(spaceId, environmentId, entryId),
       ({ cmaClient }) =>
         cmaClient.entry.get({
           spaceId,
@@ -247,7 +252,7 @@ async function fetchContentfulEntry({
   const contentTypeId = entry.sys.contentType.sys.id;
   const [contentType, defaultLocaleCode] = await Promise.all([
     fetch(
-      ['contentType', spaceId, environmentId, contentTypeId],
+      createGetContentTypeKey(spaceId, environmentId, contentTypeId),
       ({ cmaClient }) =>
         cmaClient.contentType.get({
           contentTypeId,
