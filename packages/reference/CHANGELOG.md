@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.19.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.2...@contentful/field-editor-reference@6.19.3) (2026-01-21)
+
+### Bug Fixes
+
+- **references:** improve fetching of scheduled actions ([#2054](https://github.com/contentful/field-editors/issues/2054)) ([da70d3f](https://github.com/contentful/field-editors/commit/da70d3f67c3ce3d033b419128e475388a016cb64))
+
 ## [6.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.1...@contentful/field-editor-reference@6.19.2) (2026-01-19)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
