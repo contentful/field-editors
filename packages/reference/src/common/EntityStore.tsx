@@ -6,7 +6,7 @@ import {
   createGetEntryKey,
   createGetSpaceKey,
 } from '@contentful/field-editor-shared';
-import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
+import { FetchQueryOptions, Query, QueryClient, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
 import {
   BasicCursorPaginationOptions,
@@ -55,6 +55,7 @@ const globalQueue = new PQueue({ concurrency: 50 });
 type EntityStoreProps = {
   sdk: BaseAppSDK;
   queryConcurrency?: number;
+  queryClient?: QueryClient;
 };
 
 type FetchService = ReturnType<typeof useFetch>;
@@ -828,7 +829,7 @@ export function useResourceProvider(organizationId: string, appDefinitionId: str
 
 function EntityProvider({ children, ...props }: React.PropsWithChildren<EntityStoreProps>) {
   return (
-    <SharedQueryClientProvider>
+    <SharedQueryClientProvider client={props.queryClient}>
       <InternalServiceProvider {...props}>{children}</InternalServiceProvider>
     </SharedQueryClientProvider>
   );

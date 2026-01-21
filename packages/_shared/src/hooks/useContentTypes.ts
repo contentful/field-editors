@@ -56,19 +56,17 @@ export function useContentTypes(
   const navigator = 'navigator' in source ? source.navigator : undefined;
   const queryClient = useQueryClient();
 
-  // Get space and environment IDs
-  // The SDK should have ids when passed properly.
-  // For CMA client directly, we expect empty strings (edge case).
   const spaceId = 'ids' in source ? source.ids.space : '';
   const environmentId =
     'ids' in source ? (source.ids.environmentAlias ?? source.ids.environment) : '';
 
-  // Match the query parameters used in user_interface
-  // Use useMemo to avoid re-creating the object on every render
-  const queryParams = useMemo(() => ({ limit: 1000 }), []);
+  const queryKey = useMemo(
+    () => createGetManyContentTypesKey(spaceId, environmentId, { limit: 1000 }),
+    [spaceId, environmentId],
+  );
 
   const { data: contentTypes = [] } = useQuery(
-    createGetManyContentTypesKey(spaceId, environmentId, queryParams),
+    queryKey,
     async () => {
       const allContentTypes: ContentType[] = [];
       const limit = 1000;
@@ -100,19 +98,15 @@ export function useContentTypes(
       // When closing a slide-in (going back), invalidate content types
       // This ensures the cache is refreshed if schema changes were made
       if (oldSlideLevel > newSlideLevel) {
-        void queryClient.invalidateQueries(
-          createGetManyContentTypesKey(spaceId, environmentId, queryParams),
-        );
+        void queryClient.invalidateQueries(queryKey);
       }
     });
 
     return unsubscribe as () => void;
-  }, [navigator, queryClient, spaceId, environmentId, queryParams]);
+  }, [navigator, queryClient, queryKey]);
 
   const invalidate = () => {
-    return queryClient.invalidateQueries(
-      createGetManyContentTypesKey(spaceId, environmentId, queryParams),
-    );
+    return queryClient.invalidateQueries(queryKey);
   };
 
   return { contentTypes, invalidate };
