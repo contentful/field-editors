@@ -235,19 +235,6 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
-      getContentTypes() {
-        return Promise.resolve(
-          space.getContentTypes().then((response) => {
-            return {
-              ...response,
-              items: localizeContentTypes(response.items),
-            };
-          }),
-        );
-      },
       async getEntityScheduledActions() {
         return [];
       },

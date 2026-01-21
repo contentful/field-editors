@@ -112,13 +112,15 @@ export function useQuery<
 /**
  * Provides access to a query client either by sharing an existing client or
  * creating a new one.
+ *
+ * @param client - Optional QueryClient instance. When provided (e.g., in tests),
+ *                 it takes priority over any host client or singleton.
  */
 export function SharedQueryClientProvider({
   children,
   client: providedClient,
 }: React.PropsWithChildren<{ client?: QueryClient }>) {
   const internalClient = useQueryClient();
-  // Use provided client if available, otherwise use internal client
   const client = React.useMemo(
     () => providedClient ?? internalClient,
     [providedClient, internalClient],

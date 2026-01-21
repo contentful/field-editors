@@ -131,19 +131,6 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
-      getContentTypes() {
-        return Promise.resolve(
-          space.getContentTypes().then((response) => {
-            return {
-              ...response,
-              items: localizeContentTypes(response.items),
-            };
-          }),
-        );
-      },
       async getEntityScheduledActions() {
         return [];
       },

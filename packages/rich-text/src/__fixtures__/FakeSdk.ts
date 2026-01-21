@@ -1,4 +1,4 @@
-import { ContentType, FieldAPI, FieldAppSDK, Link } from '@contentful/app-sdk';
+import { FieldAPI, FieldAppSDK, Link } from '@contentful/app-sdk';
 import {
   createFakeFieldAPI,
   createFakeLocalesAPI,
@@ -49,16 +49,6 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
 
   const delay = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
-  const localizeContentTypes = (contentTypes: ContentType[]) => {
-    return contentTypes.map((contentType) => ({
-      ...contentType,
-      fields: contentType.fields.map((field) => ({
-        ...field,
-        localized: true,
-      })),
-    }));
   };
 
   const sdk = {
@@ -128,19 +118,6 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
-      getContentTypes() {
-        return Promise.resolve(
-          space.getContentTypes().then((response) => {
-            return {
-              ...response,
-              items: localizeContentTypes(response.items),
-            };
-          }),
-        );
-      },
       async getEntityScheduledActions() {
         return [];
       },
