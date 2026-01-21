@@ -702,8 +702,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       queryClient,
       getEntity,
       onSlideInNavigation,
-      cmaClient.entry,
-      cmaClient.asset,
+      cmaClient,
     ]);
 
     const getResourceProvider = useCallback(
