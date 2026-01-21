@@ -67,7 +67,7 @@
     "@swc/jest": "0.2.37",
     "@testing-library/cypress": "10.0.3",
     "@testing-library/jest-dom": "5.16.5",
-    "@testing-library/react": "12.1.5",
+    "@testing-library/react": "16.3.1",
     "@types/jest": "29.5.1",
     "@types/lodash": "4.14.202",
     "@types/react": "18.3.12",
