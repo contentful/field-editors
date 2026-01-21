@@ -10,6 +10,7 @@ import {
   fetchAll,
 } from 'contentful-management';
 import { get } from 'lodash';
+import moment from 'moment';
 import PQueue from 'p-queue';
 
 import {
@@ -514,6 +515,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         const query = {
           'environment.sys.id': environmentId,
           'sys.status': 'scheduled',
+          // Perf:
+          // A workaround to speed up fetching. We round the value to the
+          // start of the hour to benefit from React Query caching.
+          'scheduledFor.datetime[gte]': moment().startOf('hour').toISOString(),
           'entity.sys.linkType[in]': 'Entry,Asset',
           order: '-scheduledFor.datetime',
           limit: maxScheduledActions,
