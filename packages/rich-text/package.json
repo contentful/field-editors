@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@contentful/app-sdk": "^4.42.0",
-    "@contentful/contentful-slatejs-adapter": "^15.16.5",
+    "@contentful/contentful-slatejs-adapter": "^16.1.6",
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-icons": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
