@@ -10,6 +10,7 @@ import {
   AssetIcon,
 } from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
 import { cx } from 'emotion';
 
 import { PlateEditor } from '../../../internal/types';
@@ -112,7 +113,7 @@ const CommandListItems = ({
   );
 };
 
-export const CommandList = ({ query, editor, textContainer }: CommandListProps) => {
+const InternalCommandList = ({ query, editor, textContainer }: CommandListProps) => {
   const sdk = useSdkContext();
   const popoverContainer = React.useRef<HTMLDivElement>(null);
   const popper = usePopper(textContainer, popoverContainer?.current, {
@@ -193,5 +194,13 @@ export const CommandList = ({ query, editor, textContainer }: CommandListProps) 
         </div>
       </Portal>
     </div>
+  );
+};
+
+export const CommandList = ({ query, editor, textContainer }: CommandListProps) => {
+  return (
+    <SharedQueryClientProvider>
+      <InternalCommandList query={query} editor={editor} textContainer={textContainer} />
+    </SharedQueryClientProvider>
   );
 };

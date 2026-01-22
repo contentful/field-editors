@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { BaseAppSDK } from '@contentful/app-sdk';
-import { FetchQueryOptions, Query, QueryKey } from '@tanstack/react-query';
+import {
+  createGetContentTypeKey,
+  createGetEntryKey,
+  createGetSpaceKey,
+} from '@contentful/field-editor-shared';
+import { FetchQueryOptions, Query, QueryClient, QueryKey } from '@tanstack/react-query';
 import constate from 'constate';
 import {
   BasicCursorPaginationOptions,
@@ -50,6 +55,7 @@ const globalQueue = new PQueue({ concurrency: 50 });
 type EntityStoreProps = {
   sdk: BaseAppSDK;
   queryConcurrency?: number;
+  queryClient?: QueryClient;
 };
 
 type FetchService = ReturnType<typeof useFetch>;
@@ -233,9 +239,9 @@ async function fetchContentfulEntry({
   const entryId = resourceIdMatch.groups.entityId;
 
   const [space, entry] = await Promise.all([
-    fetch(['space', spaceId], ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),
+    fetch(createGetSpaceKey(spaceId), ({ cmaClient }) => cmaClient.space.get({ spaceId }), options),
     fetch(
-      ['entry', spaceId, environmentId, entryId],
+      createGetEntryKey(spaceId, environmentId, entryId),
       ({ cmaClient }) =>
         cmaClient.entry.get({
           spaceId,
@@ -248,7 +254,7 @@ async function fetchContentfulEntry({
   const contentTypeId = entry.sys.contentType.sys.id;
   const [contentType, defaultLocaleCode] = await Promise.all([
     fetch(
-      ['contentType', spaceId, environmentId, contentTypeId],
+      createGetContentTypeKey(spaceId, environmentId, contentTypeId),
       ({ cmaClient }) =>
         cmaClient.contentType.get({
           contentTypeId,
@@ -604,19 +610,48 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     useEffect(() => {
       function findSameSpaceQueries(): Query[] {
         const queries = queryCache.findAll({
-          type: 'active',
           predicate: (query: Query) => isSameSpaceEntityQueryKey(query.queryKey),
         });
         return queries;
       }
 
       if (typeof onEntityChanged !== 'function') {
-        return onSlideInNavigation(({ oldSlideLevel, newSlideLevel }) => {
+        return onSlideInNavigation(async ({ oldSlideLevel, newSlideLevel }) => {
           if (oldSlideLevel > newSlideLevel) {
-            findSameSpaceQueries().forEach((query) => {
-              // automatically refetches the query
-              void queryClient.invalidateQueries(query.queryKey);
-            });
+            // Fetch fresh data and update cache directly for all matching queries
+            const queries = findSameSpaceQueries();
+            await Promise.all(
+              queries.map(async (query) => {
+                const [entityType, entityId, spaceId, environmentId, releaseId] = query.queryKey;
+                try {
+                  // Fetch fresh data directly from CMA client bypassing cache
+                  let freshData;
+                  if (entityType === 'Entry') {
+                    freshData = await cmaClient.entry.get({
+                      entryId: entityId as string,
+                      spaceId: spaceId as string,
+                      environmentId: environmentId as string,
+                      releaseId: releaseId as string | undefined,
+                    });
+                  } else if (entityType === 'Asset') {
+                    freshData = await cmaClient.asset.get({
+                      assetId: entityId as string,
+                      spaceId: spaceId as string,
+                      environmentId: environmentId as string,
+                      releaseId: releaseId as string | undefined,
+                    });
+                  } else {
+                    // For other entity types, just invalidate
+                    await queryClient.invalidateQueries(query.queryKey);
+                    return;
+                  }
+                  queryClient.setQueryData(query.queryKey, freshData);
+                } catch (error) {
+                  // If fetch fails, just invalidate the query
+                  await queryClient.invalidateQueries(query.queryKey);
+                }
+              }),
+            );
           }
         }) as { (): void };
       }
@@ -673,6 +708,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
       queryClient,
       getEntity,
       onSlideInNavigation,
+      cmaClient,
     ]);
 
     const getResourceProvider = useCallback(
@@ -793,7 +829,7 @@ export function useResourceProvider(organizationId: string, appDefinitionId: str
 
 function EntityProvider({ children, ...props }: React.PropsWithChildren<EntityStoreProps>) {
   return (
-    <SharedQueryClientProvider>
+    <SharedQueryClientProvider client={props.queryClient}>
       <InternalServiceProvider {...props}>{children}</InternalServiceProvider>
     </SharedQueryClientProvider>
   );

@@ -8,7 +8,14 @@ import {
   useEntity,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
-import { Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
+import {
+  ContentType,
+  Entry,
+  FieldAppSDK,
+  entityHelpers,
+  useContentType,
+  SharedQueryClientProvider,
+} from '@contentful/field-editor-shared';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 
@@ -28,7 +35,7 @@ type InternalFetchingWrappedInlineEntryCardProps = Pick<
   locale: string;
   defaultLocale: string;
   entry: Entry;
-  allContentTypes: ReturnType<FieldAppSDK['space']['getCachedContentTypes']>;
+  contentType?: ContentType;
   getEntityScheduledActions: React.ComponentProps<
     typeof ScheduledIconWithTooltip
   >['getEntityScheduledActions'];
@@ -37,7 +44,7 @@ type InternalFetchingWrappedInlineEntryCardProps = Pick<
 
 function InternalFetchingWrappedInlineEntryCard({
   entry,
-  allContentTypes,
+  contentType,
   locale,
   defaultLocale,
   isSelected,
@@ -47,16 +54,6 @@ function InternalFetchingWrappedInlineEntryCard({
   onRemove,
   isDisabled,
 }: InternalFetchingWrappedInlineEntryCardProps) {
-  const contentType = React.useMemo(() => {
-    if (!allContentTypes) {
-      return undefined;
-    }
-
-    return allContentTypes.find(
-      (contentType) => contentType.sys.id === entry.sys.contentType.sys.id,
-    );
-  }, [allContentTypes, entry]);
-
   const title = React.useMemo(
     () =>
       getEntryTitle({
@@ -110,9 +107,13 @@ interface FetchingWrappedInlineEntryCardProps {
   onEntityFetchComplete?: VoidFunction;
 }
 
-export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
+function InternalFetchingWrappedInlineEntryCardWrapper(props: FetchingWrappedInlineEntryCardProps) {
   const { data: entry, status: requestStatus } = useEntity<Entry>('Entry', props.entryId);
   const { getEntityScheduledActions } = useEntityLoader();
+  const contentTypeId = entry?.sys.contentType.sys.id;
+  const { data: contentType } = useContentType(props.sdk, contentTypeId || '', {
+    enabled: !!contentTypeId,
+  });
 
   const { onEntityFetchComplete } = props;
 
@@ -159,7 +160,7 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
 
   return (
     <InternalFetchingWrappedInlineEntryCard
-      allContentTypes={props.sdk.space.getCachedContentTypes()}
+      contentType={contentType}
       getEntityScheduledActions={() => getEntityScheduledActions('Entry', props.entryId)}
       locale={props.sdk.field.locale}
       defaultLocale={props.sdk.locales.default}
@@ -170,5 +171,13 @@ export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntry
       onEdit={props.onEdit}
       onRemove={props.onRemove}
     />
+  );
+}
+
+export function FetchingWrappedInlineEntryCard(props: FetchingWrappedInlineEntryCardProps) {
+  return (
+    <SharedQueryClientProvider>
+      <InternalFetchingWrappedInlineEntryCardWrapper {...props} />
+    </SharedQueryClientProvider>
   );
 }

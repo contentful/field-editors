@@ -8,7 +8,7 @@ import {
   Link,
   ScheduledAction,
 } from '@contentful/app-sdk';
-import { entityHelpers } from '@contentful/field-editor-shared';
+import { entityHelpers, fetchContentType } from '@contentful/field-editor-shared';
 
 import { getEntityInfo } from './utils';
 
@@ -34,16 +34,12 @@ async function fetchAllData({
   localeCode: string;
   defaultLocaleCode: string;
 }): Promise<FetchedEntityData> {
-  let contentType;
-
   const entity = await (entityType === 'Entry'
     ? sdk.cma.entry.get({ entryId: entityId })
     : sdk.cma.asset.get({ assetId: entityId }));
-  if (entity.sys.contentType) {
-    const contentTypeId = entity.sys.contentType.sys.id;
-    contentType = sdk.space.getCachedContentTypes().find((ct) => ct.sys.id === contentTypeId);
-  }
-
+  const contentType = entity.sys.contentType
+    ? await fetchContentType(sdk, entity.sys.contentType.sys.id)
+    : undefined;
   const entityTitle =
     entityType === 'Entry'
       ? entityHelpers.getEntryTitle({
