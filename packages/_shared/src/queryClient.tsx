@@ -43,6 +43,9 @@ try {
  */
 const clientContext = React.createContext<QueryClient | undefined>(undefined);
 
+// Singleton QueryClient instance shared across all field editors
+let sharedQueryClientInstance: QueryClient | undefined;
+
 function useMaybeHostQueryClient(): QueryClient | undefined {
   try {
     return useHostQueryClient();
@@ -68,18 +71,23 @@ export function useQueryClient(): QueryClient {
       );
     }
 
-    return new RQQueryClient({
-      defaultOptions: {
-        queries: {
-          useErrorBoundary: false,
-          refetchOnWindowFocus: false,
-          refetchOnReconnect: true,
-          refetchOnMount: false,
-          staleTime: Infinity,
-          retry: false,
+    // Create singleton instance only once if not already created
+    if (!sharedQueryClientInstance) {
+      sharedQueryClientInstance = new RQQueryClient({
+        defaultOptions: {
+          queries: {
+            useErrorBoundary: false,
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: true,
+            refetchOnMount: false,
+            staleTime: Infinity,
+            retry: false,
+          },
         },
-      },
-    });
+      });
+    }
+
+    return sharedQueryClientInstance;
   }, [client, hostClient]);
 }
 
@@ -104,9 +112,19 @@ export function useQuery<
 /**
  * Provides access to a query client either by sharing an existing client or
  * creating a new one.
+ *
+ * @param client - Optional QueryClient instance. When provided (e.g., in tests),
+ *                 it takes priority over any host client or singleton.
  */
-export function SharedQueryClientProvider({ children }: React.PropsWithChildren<{}>) {
-  const client = useQueryClient();
+export function SharedQueryClientProvider({
+  children,
+  client: providedClient,
+}: React.PropsWithChildren<{ client?: QueryClient }>) {
+  const internalClient = useQueryClient();
+  const client = React.useMemo(
+    () => providedClient ?? internalClient,
+    [providedClient, internalClient],
+  );
 
   return <clientContext.Provider value={client}>{children}</clientContext.Provider>;
 }

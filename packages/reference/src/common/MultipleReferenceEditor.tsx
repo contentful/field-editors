@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import { useContentTypes } from '@contentful/field-editor-shared';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
@@ -9,6 +10,7 @@ import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions
 import { ReferenceValue, ContentEntityType, ContentType } from '../types';
 import { useSortIDs } from '../utils/useSortIDs';
 import { CustomCardRenderer, CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
+import { SharedQueryClientProvider } from './queryClient';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -143,7 +145,21 @@ export function MultipleReferenceEditor(
     setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
   },
 ) {
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
+  return (
+    <SharedQueryClientProvider>
+      <MultipleReferenceEditorInner {...props} />
+    </SharedQueryClientProvider>
+  );
+}
+
+function MultipleReferenceEditorInner(
+  props: ReferenceEditorProps & {
+    entityType: ContentEntityType;
+    children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
+    setIndexToUpdate?: React.Dispatch<React.SetStateAction<number | undefined>>;
+  },
+) {
+  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue[]> {...props}>

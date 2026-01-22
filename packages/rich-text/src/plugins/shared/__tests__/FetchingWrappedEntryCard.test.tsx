@@ -28,10 +28,12 @@ beforeEach(() => {
       scheduledAction: {
         getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
       },
+      contentType: {
+        get: jest.fn().mockResolvedValue(publishedCT),
+      },
     },
     space: {
       getEntityScheduledActions: jest.fn().mockResolvedValue([]),
-      getCachedContentTypes: jest.fn().mockReturnValue([publishedCT]),
     },
     navigator: {
       onSlideInNavigation: jest.fn(),

@@ -162,6 +162,16 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
         get: async ({ contentTypeId }) => {
           return store.get('ContentType', contentTypeId);
         },
+        getMany: async () => {
+          const items = store.getAll('ContentType');
+          return Promise.resolve({
+            items: localizeContentTypes(items),
+            total: items.length,
+            skip: 0,
+            limit: 1000,
+            sys: { type: 'Array' },
+          });
+        },
       },
       locale: {
         getMany: async () => {
@@ -179,22 +189,52 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           };
         },
       },
+      resource: {
+        getMany: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
+      resourceType: {
+        getForEnvironment: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
+      resourceProvider: {
+        get: async () => {
+          return Promise.resolve({
+            sys: {
+              type: 'ResourceProvider',
+              id: 'mock-resource-provider',
+            },
+          });
+        },
+      },
+      scheduledActions: {
+        getMany: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
-      getContentTypes() {
-        return Promise.resolve(
-          space.getContentTypes().then((response) => {
-            return {
-              ...response,
-              items: localizeContentTypes(response.items),
-            };
-          }),
-        );
-      },
       async getEntityScheduledActions() {
         return [];
       },
