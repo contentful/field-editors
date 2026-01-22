@@ -14,10 +14,11 @@ import {
   useLocalePublishStatus,
   useActiveLocales,
   useReleaseStatus,
-  useContentTypes,
+  useContentType,
   type ReleaseStatusMap,
   type ReleaseV2Props,
   type ReleaseEntityStatus,
+  SharedQueryClientProvider,
 } from '@contentful/field-editor-shared';
 import areEqual from 'fast-deep-equal';
 
@@ -99,7 +100,7 @@ interface FetchingWrappedEntryCardProps {
   onRemove?: VoidFunction;
 }
 
-export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
+const InternalFetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
   const { entryId, onEntityFetchComplete } = props;
   const { data: entry, status, currentEntity } = useEntity<Entry>('Entry', entryId);
   const { getEntityScheduledActions } = useEntityLoader();
@@ -116,11 +117,10 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
     isReference: true,
   });
 
-  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
-  const contentType = React.useMemo(
-    () => allContentTypes.find((ct) => entry && ct.sys.id === entry.sys.contentType.sys.id),
-    [allContentTypes, entry],
-  );
+  const contentTypeId = entry?.sys.contentType.sys.id;
+  const { data: contentType } = useContentType(props.sdk, contentTypeId || '', {
+    enabled: !!contentTypeId,
+  });
 
   React.useEffect(() => {
     if (status === 'success') {
@@ -158,5 +158,13 @@ export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) =
       release={props.sdk.release as ReleaseV2Props | undefined}
       releaseEntityStatus={releaseEntityStatus}
     />
+  );
+};
+
+export const FetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) => {
+  return (
+    <SharedQueryClientProvider>
+      <InternalFetchingWrappedEntryCard {...props} />
+    </SharedQueryClientProvider>
   );
 };
