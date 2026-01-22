@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.3...@contentful/field-editor-reference@6.20.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
 ## [6.19.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.2...@contentful/field-editor-reference@6.19.3) (2026-01-21)
 
 ### Bug Fixes
