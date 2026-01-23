@@ -66,7 +66,7 @@
     "is-plain-obj": "^3.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.20.0",
-    "p-debounce": "^2.1.0",
+    "p-debounce": "^5.1.0",
     "react-popper": "^2.3.0",
     "slate": "0.94.1",
     "slate-history": "0.100.0",
