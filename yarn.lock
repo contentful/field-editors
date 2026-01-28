@@ -10464,9 +10464,9 @@ caniuse-lite@^1.0.30001754:
   integrity sha512-r0nnL/I28Zi/yjk1el6ilj27tKcdjLsNqAOZr0yVjWPrSQyHgKI2INaEWw21bAQSv2LXRt1XuCS/GomNpWOxsQ==
 
 caniuse-lite@^1.0.30001759:
-  version "1.0.30001765"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001765.tgz#4a78d8a797fd4124ebaab2043df942eb091648ee"
-  integrity sha512-LWcNtSyZrakjECqmpP4qdg0MMGdN368D7X8XvvAqOcqMv0RxnlqVKZl2V6/mBR68oYMxOZPLw/gO7DuisMHUvQ==
+  version "1.0.30001766"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001766.tgz#b6f6b55cb25a2d888d9393104d14751c6a7d6f7a"
+  integrity sha512-4C0lfJ0/YPjJQHagaE9x2Elb69CIqEPZeG0anQt9SIvIoOH4a4uaRl73IavyO+0qZh6MDLH//DrXThEYKHkmYA==
 
 cardinal@^2.1.1:
   version "2.1.1"
@@ -12798,9 +12798,9 @@ electron-to-chromium@^1.5.249:
   integrity sha512-NlAsMteRHek05jRUxUR0a5jpjYq9ykk6+kO0yRaMi5moe7u0fVIOeQ3Y30A8dIiWFBNUoQGi1ljb1i5VtS9WQQ==
 
 electron-to-chromium@^1.5.263:
-  version "1.5.267"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.267.tgz#5d84f2df8cdb6bfe7e873706bb21bd4bfb574dc7"
-  integrity sha512-0Drusm6MVRXSOJpGbaSVgcQsuB4hEkMpHXaVstcPmhu5LIedxs1xNK/nIxmQIU/RPC0+1/o0AVZfBTkTNJOdUw==
+  version "1.5.277"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.277.tgz#7164191a07bf32a7e646e68334f402dd60629821"
+  integrity sha512-wKXFZw4erWmmOz5N/grBoJ2XrNJGDFMu2+W5ACHza5rHtvsqrK4gb6rnLC7XxKB9WlJ+RmyQatuEXmtm86xbnw==
 
 electron-to-chromium@^1.5.73:
   version "1.5.73"
@@ -20754,10 +20754,10 @@ p-cancelable@^3.0.0:
   resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-3.0.0.tgz#63826694b54d61ca1c20ebcb6d3ecf5e14cd8050"
   integrity sha512-mlVgR3PGuzlo0MmTdk4cXqXWlwQDLnONTAg6sm62XkMJEiRxN3GL3SffkYvqwonbkJBcrI7Uvv5Zh9yjvn2iUw==
 
-p-debounce@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/p-debounce/-/p-debounce-2.1.0.tgz#e79f70c6e325cbb9bddbcbec0b81025084671ad3"
-  integrity sha512-M9bMt62TTnozdZhqFgs+V7XD2MnuKCaz+7fZdlu2/T7xruI3uIE5CicQ0vx1hV7HIUYF0jF+4/R1AgfOkl74Qw==
+p-debounce@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/p-debounce/-/p-debounce-5.1.0.tgz#86d96b5bb5efb8d941000b9502e9f48e4bbe24d6"
+  integrity sha512-3DNQmB7HPRMSuZ9P8JQFzEr7156s1S5Lqpi3mSrsZe5AHvl4ONfGrdB5azWqeOpNejQiemgQBkyU+IDKR5nwyg==
 
 p-finally@^1.0.0:
   version "1.0.0"
