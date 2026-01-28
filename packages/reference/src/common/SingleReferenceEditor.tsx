@@ -73,6 +73,7 @@ function Editor(props: EditorProps) {
   return props.children({
     ...props,
     renderCustomCard: props.renderCustomCard && customCardRenderer,
+    addReferenceToRelease: props.addReferenceToRelease,
   });
 }
 
