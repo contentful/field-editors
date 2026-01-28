@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.0...@contentful/field-editor-reference@6.21.1) (2026-01-28)
+
+### Bug Fixes
+
+- page reload would break entry selector ZEND-7525 ([#2062](https://github.com/contentful/field-editors/issues/2062)) ([6f86889](https://github.com/contentful/field-editors/commit/6f86889998cb8c10d85f914df2724d02120a35cd))
+
 # [6.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.20.1...@contentful/field-editor-reference@6.21.0) (2026-01-28)
 
 ### Features
