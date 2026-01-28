@@ -58,13 +58,13 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
         });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-    [entityType, props.onCreate, props.onAction]
+    [entityType, props.onCreate, props.onAction],
   );
   const onLinkedExisting = React.useCallback(
     (entities: Array<Entry | Asset>, index = itemsLength) => {
       props.onLink(
         entities.map((item) => item.sys.id),
-        index
+        index,
       );
       entities.forEach((entity, i) => {
         props.onAction &&
@@ -77,7 +77,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-    [entityType, props.onLink, props.onAction]
+    [entityType, props.onLink, props.onAction],
   );
 
   const onCreate = React.useCallback(
@@ -89,7 +89,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
 
       onCreated(entity, index, slide);
     },
-    [sdk, entityType, onCreated]
+    [sdk, entityType, onCreated],
   );
 
   const onLinkExisting = React.useCallback(
@@ -105,8 +105,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
 
       onLinkedExisting([entity], index);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-    [sdk, entityType, onLinkedExisting]
+    [sdk, entityType, editorPermissions, onLinkedExisting],
   );
 
   const onLinkSeveralExisting = React.useCallback(
@@ -122,8 +121,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       }
       onLinkedExisting(entities, index);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-    [sdk, entityType, onLinkedExisting]
+    [sdk, entityType, editorPermissions, onLinkedExisting],
   );
 
   // FIXME: The memoization might rerun every time due to the always changing callback identities above
@@ -162,7 +160,7 @@ export function useLinkActionsProps(props: LinkEntityActionsProps): LinkActionsP
       onCreated,
       onLinkedExisting,
       itemsLength,
-    ]
+    ],
   );
 }
 
