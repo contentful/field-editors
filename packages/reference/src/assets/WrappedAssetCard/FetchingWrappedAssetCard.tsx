@@ -30,7 +30,14 @@ type FetchingWrappedAssetCardProps = {
   renderDragHandle?: RenderDragFn;
   renderCustomCard?: CustomCardRenderer;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
-  addReferenceToRelease?: (reference: Asset, localeCode?: string) => Promise<void>;
+  addReferenceToRelease?: (
+    reference: Asset,
+    localeCode?: string,
+    options?: {
+      openModalForVersionSelection?: boolean;
+      skipNestedReferencesPrompt?: boolean;
+    },
+  ) => Promise<void>;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -53,7 +60,10 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
 
   const onAddToRelease = () => {
     if (asset && props.addReferenceToRelease) {
-      void props.addReferenceToRelease(asset, props.sdk.field.locale);
+      void props.addReferenceToRelease(asset, props.sdk.field.locale, {
+        openModalForVersionSelection: true,
+        skipNestedReferencesPrompt: true,
+      });
     }
   };
 
