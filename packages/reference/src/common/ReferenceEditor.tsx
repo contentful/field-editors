@@ -35,7 +35,14 @@ export interface ReferenceEditorProps {
   };
   updateBeforeSortStart?: ({ index }: { index: number }) => void;
   onSortingEnd?: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
-  addReferenceToRelease?: (reference: Entry | Asset, localeCode?: string) => Promise<void>;
+  addReferenceToRelease?: (
+    reference: Entry | Asset,
+    localeCode?: string,
+    options?: {
+      openModalForVersionSelection?: boolean;
+      skipNestedReferencesPrompt?: boolean;
+    },
+  ) => Promise<void>;
 }
 
 export type CustomActionProps = LinkActionsProps;

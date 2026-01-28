@@ -31,7 +31,14 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   activeLocales?: {
     code: string;
   }[];
-  addReferenceToRelease?: (reference: Entry, localeCode?: string) => Promise<void>;
+  addReferenceToRelease?: (
+    reference: Entry,
+    localeCode?: string,
+    options?: {
+      openModalForVersionSelection?: boolean;
+      skipNestedReferencesPrompt?: boolean;
+    },
+  ) => Promise<void>;
 };
 
 async function openEntry(
@@ -111,7 +118,10 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
 
   const onAddToRelease = () => {
     if (entry && props.addReferenceToRelease) {
-      void props.addReferenceToRelease(entry, props.sdk.field.locale);
+      void props.addReferenceToRelease(entry, props.sdk.field.locale, {
+        openModalForVersionSelection: true,
+        skipNestedReferencesPrompt: true,
+      });
     }
   };
 
