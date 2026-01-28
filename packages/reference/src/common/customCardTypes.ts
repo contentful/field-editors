@@ -55,4 +55,5 @@ export type CustomEntityCardProps = {
   releaseStatusMap?: ReleaseStatusMap;
   releaseAction?: ReleaseAction;
   release?: ReleaseV2Props;
+  onAddToRelease?: () => void;
 } & Partial<WrappedAssetCardProps>;

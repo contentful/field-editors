@@ -30,6 +30,7 @@ type FetchingWrappedAssetCardProps = {
   renderDragHandle?: RenderDragFn;
   renderCustomCard?: CustomCardRenderer;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
+  addReferenceToRelease?: (reference: Asset, localeCode?: string) => Promise<void>;
 };
 
 export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
@@ -49,6 +50,12 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     locales: props.sdk.locales,
     isReference: true,
   });
+
+  const onAddToRelease = () => {
+    if (asset && props.addReferenceToRelease) {
+      void props.addReferenceToRelease(asset, props.sdk.field.locale);
+    }
+  };
 
   React.useEffect(() => {
     if (asset) {
@@ -114,6 +121,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       releaseStatusMap,
       release: props.sdk.release as ReleaseV2Props | undefined,
       releaseEntityStatus,
+      onAddToRelease,
     };
 
     if (status === 'loading') {
