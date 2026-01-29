@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.1...@contentful/field-editor-reference@6.21.2) (2026-01-29)
+
+### Bug Fixes
+
+- **reference:** too many re-render on reference editor [] ([#2064](https://github.com/contentful/field-editors/issues/2064)) ([004dddd](https://github.com/contentful/field-editors/commit/004dddd69fa373ddb1c1a2d39603f4102857394f))
+
 ## [6.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.0...@contentful/field-editor-reference@6.21.1) (2026-01-28)
 
 ### Bug Fixes
