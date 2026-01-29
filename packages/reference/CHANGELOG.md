@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.2...@contentful/field-editor-reference@6.22.0) (2026-01-29)
+
+### Features
+
+- **releases:** add opts to control behavior for reference cards [TOL-3572] ([#2063](https://github.com/contentful/field-editors/issues/2063)) ([fd447f7](https://github.com/contentful/field-editors/commit/fd447f7a41ea66b53c32e896c215531ef786a1b0))
+
 ## [6.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.1...@contentful/field-editor-reference@6.21.2) (2026-01-29)
 
 ### Bug Fixes
