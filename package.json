@@ -84,7 +84,7 @@
     "cypress-plugin-tab": "1.0.5",
     "cz-lerna-changelog": "2.0.2",
     "emotion": "10.0.27",
-    "eslint": "8.56.0",
+    "eslint": "9.26.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-custom-lingui": "./tools/eslint-plugin-custom-lingui",
     "eslint-plugin-cypress": "3.6.0",
