@@ -59,25 +59,21 @@ export function useContentTypePermissions({
   const { canPerformActionOnEntryOfType } = useAccessApi(sdk.access);
 
   useEffect(() => {
-    function getContentTypes(action: 'create' | 'read') {
-      return filter(availableContentTypes, (ct) =>
-        canPerformActionOnEntryOfType(action, ct.sys.id),
-      );
-    }
-
     async function checkContentTypeAccess() {
-      const creatable = await getContentTypes('create');
+      const creatable = await filter(availableContentTypes, (ct) =>
+        canPerformActionOnEntryOfType('create', ct.sys.id),
+      );
       // Important as `filter` creates a new array and otherwise always a "new value" would be written to the state
-      if (!isEqual(creatable, creatableContentTypes)) {
-        setCreatableContentTypes(creatable);
-      }
+      setCreatableContentTypes((creatableContentTypes) =>
+        isEqual(creatable, creatableContentTypes) ? creatableContentTypes : creatable,
+      );
     }
 
     if (availableContentTypes.length > 0) {
       void checkContentTypeAccess();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [availableContentTypes, creatableContentTypes]);
+  }, [availableContentTypes]);
 
   return {
     creatableContentTypes,

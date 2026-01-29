@@ -34,8 +34,8 @@ export function useEditorPermissions({
 
   const validations = useMemo(
     () => fromFieldValidations(sdk.field),
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- fieldValidations and itemsValidations ARE necessary. sdk.field is a stable object reference, but sdk.field.validations can change after page refresh. We track the validation arrays to recalculate when they're populated asynchronously.
-    [sdk.field, fieldValidations, itemsValidations],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fieldValidations and itemsValidations ARE necessary. sdk.field is a stable object reference, but sdk.field.validations can change after page refresh. We track the validation arrays to recalculate when they're populated asynchronously. Important to use stringify to prevent re-render through React.is
+    [sdk.field, JSON.stringify(fieldValidations), JSON.stringify(itemsValidations)],
   );
 
   const [canCreateEntity, setCanCreateEntity] = useState(true);
