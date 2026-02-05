@@ -1,6 +1,6 @@
 import type { LocalesAPI } from '@contentful/app-sdk';
 import { renderHook } from '@testing-library/react-hooks';
-import { AssetProps } from 'contentful-management/types';
+import { AssetProps } from 'contentful-management';
 
 import { useLocalePublishStatus } from './useLocalePublishStatus';
 
@@ -61,7 +61,7 @@ describe('useLocalePublishStatus', () => {
           ['en-US', { status: 'published', locale: enUS }],
           ['de-DE', { status: 'changed', locale: deDE }],
           ['es-ES', { status: 'draft', locale: esES }],
-        ])
+        ]),
       );
     });
 
@@ -100,7 +100,7 @@ describe('useLocalePublishStatus', () => {
           ['en-US', { status: 'changed', locale: enUS }],
           ['de-DE', { status: 'draft', locale: deDE }],
           ['es-ES', { status: 'published', locale: esES }],
-        ])
+        ]),
       );
     });
 
@@ -132,7 +132,7 @@ describe('useLocalePublishStatus', () => {
           ['en-US', { status: 'published', locale: enUS }],
           ['de-DE', { status: 'published', locale: deDE }],
           ['es-ES', { status: 'published', locale: esES }],
-        ])
+        ]),
       );
     });
 

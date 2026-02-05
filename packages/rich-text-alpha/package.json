@@ -36,7 +36,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.42.0",
+    "@contentful/app-sdk": "4.51.4-alpha.2",
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-icons": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
