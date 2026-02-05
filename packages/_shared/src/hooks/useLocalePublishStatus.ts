@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import type { LocalesAPI } from '@contentful/app-sdk';
-import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management/types';
+import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management';
 
 import * as entityHelpers from '../utils/entityHelpers';
 import { sanitizeLocales, type SanitizedLocale } from '../utils/sanitizeLocales';

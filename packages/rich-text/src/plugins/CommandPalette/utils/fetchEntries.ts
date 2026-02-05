@@ -1,6 +1,6 @@
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import type { ContentTypeProps } from 'contentful-management/types';
+import type { ContentTypeProps } from 'contentful-management';
 
 export async function fetchEntries(sdk: FieldAppSDK, contentType: ContentTypeProps, query: string) {
   const entries = await sdk.cma.entry.getMany({

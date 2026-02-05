@@ -36,7 +36,7 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "4.51.4-alpha.2",
     "contentful-management": "^11.0.0"
   },
   "dependencies": {
@@ -45,7 +45,7 @@
     "mitt": "2.1.0"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.29.0",
+    "@contentful/app-sdk": "4.51.4-alpha.2",
     "react": ">=16.8.0"
   },
   "publishConfig": {
