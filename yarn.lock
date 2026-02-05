@@ -2774,7 +2774,7 @@
 
 "@contentful/app-sdk@4.51.4-alpha.2":
   version "4.51.4-alpha.2"
-  resolved "https://npm.pkg.github.com/download/@contentful/app-sdk/4.51.4-alpha.2/1b04e8939ddefb6014fa1e367318699a791ea002#1b04e8939ddefb6014fa1e367318699a791ea002"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.51.4-alpha.2.tgz#1b04e8939ddefb6014fa1e367318699a791ea002"
   integrity sha512-LL/gRbpOHeGyX1oT7Z2lwAQa/uKhAfANe3GK5pWmzYn7L16+/shisag86IM3mKWWQCRAoV2ceDNqUwqxqJuJag==
   dependencies:
     contentful-management "^12.0.0-new-beta.11"
