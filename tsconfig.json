@@ -3,6 +3,7 @@
     "baseUrl": "src",
     "target": "ES2020",
     "module": "esnext",
+    "lib": ["ES2015", "DOM"],
     "importHelpers": true,
     "declaration": true,
     "strict": true,

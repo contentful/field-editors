@@ -16,7 +16,7 @@ export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
   // eslint-disable-next-line -- TODO: describe this eslint disable  @typescript-eslint/no-explicit-any
   const validations: Record<string, any>[] = [
     ...field.validations,
-    ...(field.type === 'Array' ? field.items?.validations ?? [] : []),
+    ...(field.type === 'Array' ? (field.items?.validations ?? []) : []),
   ];
   const linkContentTypeValidations = validations.find((v) => 'linkContentType' in v);
   const linkMimetypeGroupValidations = validations.find((v) => 'linkMimetypeGroup' in v);
@@ -47,9 +47,16 @@ export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
     };
   }
 
+  const contentTypes = linkContentTypeValidations?.linkContentType
+    ? [...linkContentTypeValidations.linkContentType]
+    : undefined;
+  const mimetypeGroups = linkMimetypeGroupValidations?.linkMimetypeGroup
+    ? [...linkMimetypeGroupValidations.linkMimetypeGroup]
+    : undefined;
+
   const result: ReferenceValidations = {
-    contentTypes: linkContentTypeValidations?.linkContentType ?? undefined,
-    mimetypeGroups: linkMimetypeGroupValidations?.linkMimetypeGroup ?? undefined,
+    contentTypes,
+    mimetypeGroups,
     numberOfLinks,
     // todo: there are multiple BE problems that need to be solved first, for now we don't want to apply size constraints
     // linkedFileSize: findValidation(field, 'assetFileSize', {}),
