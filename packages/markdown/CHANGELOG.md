@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.15.0...@contentful/field-editor-markdown@1.15.1) (2026-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
+# [1.15.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.14.1...@contentful/field-editor-markdown@1.15.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
 ## [1.14.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@1.14.0...@contentful/field-editor-markdown@1.14.1) (2026-01-19)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown

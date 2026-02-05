@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FieldConnector } from '@contentful/field-editor-shared';
 
 import type { LinkActionsProps } from '../components';
-import { Action, ActionLabels, FieldAppSDK, ViewType } from '../types';
+import { Action, ActionLabels, FieldAppSDK, ViewType, Entry, Asset } from '../types';
 import { CustomCardRenderer, RenderCustomMissingEntityCard } from './customCardTypes';
 import { EntityProvider } from './EntityStore';
 
@@ -35,6 +35,14 @@ export interface ReferenceEditorProps {
   };
   updateBeforeSortStart?: ({ index }: { index: number }) => void;
   onSortingEnd?: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
+  addReferenceToRelease?: (
+    reference: Entry | Asset,
+    localeCode?: string,
+    options?: {
+      openModalForVersionSelection?: boolean;
+      skipNestedReferencesPrompt?: boolean;
+    },
+  ) => Promise<void>;
 }
 
 export type CustomActionProps = LinkActionsProps;
@@ -42,7 +50,7 @@ export type CustomActionProps = LinkActionsProps;
 export function ReferenceEditor<T>(
   props: ReferenceEditorProps & {
     children: FieldConnector<T>['props']['children'];
-  }
+  },
 ) {
   return (
     <EntityProvider sdk={props.sdk}>

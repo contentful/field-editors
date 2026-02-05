@@ -31,6 +31,14 @@ export type EntryCardReferenceEditorProps = ReferenceEditorProps & {
   activeLocales?: {
     code: string;
   }[];
+  addReferenceToRelease?: (
+    reference: Entry,
+    localeCode?: string,
+    options?: {
+      openModalForVersionSelection?: boolean;
+      skipNestedReferencesPrompt?: boolean;
+    },
+  ) => Promise<void>;
 };
 
 async function openEntry(
@@ -108,6 +116,15 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
     });
   };
 
+  const onAddToRelease = () => {
+    if (entry && props.addReferenceToRelease) {
+      void props.addReferenceToRelease(entry, props.sdk.field.locale, {
+        openModalForVersionSelection: true,
+        skipNestedReferencesPrompt: true,
+      });
+    }
+  };
+
   React.useEffect(() => {
     if (entry) {
       props.onAction?.({ type: 'rendered', entity: 'Entry' });
@@ -162,6 +179,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       releaseStatusMap,
       release: props.sdk.release as ReleaseV2Props | undefined,
       releaseEntityStatus,
+      onAddToRelease,
     };
 
     const { hasCardEditActions, hasCardMoveActions, hasCardRemoveActions } = props;

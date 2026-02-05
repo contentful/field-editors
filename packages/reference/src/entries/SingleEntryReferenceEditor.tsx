@@ -30,6 +30,7 @@ export function SingleEntryReferenceEditor(props: ReferenceEditorProps) {
             hasCardEditActions={hasCardEditActions}
             hasCardRemoveActions={hasCardRemoveActions}
             activeLocales={activeLocales}
+            addReferenceToRelease={props.addReferenceToRelease}
             onRemove={() => {
               setValue(null);
             }}
