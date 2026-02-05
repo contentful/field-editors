@@ -135,7 +135,7 @@ workflows:
           context: vault
           filters:
             branches:
-              only: canary
+              ignore: master
           requires:
             - lint
             - unit-tests
