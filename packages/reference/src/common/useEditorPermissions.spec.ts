@@ -4,7 +4,6 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { FieldAppSDK } from '../types';
 import { EditorPermissionsProps, useEditorPermissions } from './useEditorPermissions';
-
 type ExtendedAccessAPI = AccessAPI & {
   canPerformActionOnEntryOfType: (action: string, contentTypeId: string) => Promise<boolean>;
 };
@@ -21,12 +20,12 @@ describe('useEditorPermissions', () => {
         can: jest.fn().mockResolvedValue(true),
         canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
       },
-    } as unknown as MockedFieldAppSDK);
+    }) as unknown as MockedFieldAppSDK;
 
   const makeContentType = (id: string) =>
     ({
       sys: { id },
-    } as ContentType);
+    }) as ContentType;
 
   const renderEditorPermissions = async ({
     entityType,
@@ -51,7 +50,7 @@ describe('useEditorPermissions', () => {
         allContentTypes,
         entityType,
         parameters: { instance: params },
-      })
+      }),
     );
 
     if (waitForUpdate) {
@@ -109,7 +108,7 @@ describe('useEditorPermissions', () => {
           }
 
           return false;
-        }
+        },
       );
     };
 
@@ -199,6 +198,66 @@ describe('useEditorPermissions', () => {
       });
 
       expect(result.current.creatableContentTypes).toEqual([allContentTypes[1]]);
+    });
+
+    it(`updates availableContentTypes when linkContentType array mutates in place`, async () => {
+      const allContentTypes = [makeContentType('one'), makeContentType('two')];
+
+      const { result, sdk, rerender } = await renderEditorPermissions({
+        entityType: 'Entry',
+        allContentTypes,
+        customizeMock: (field) => {
+          const arrayField = field as FieldAPI & { items?: { validations?: any[] } };
+          arrayField.type = 'Array';
+          arrayField.items = { validations: [{ linkContentType: ['one'] }] };
+          return arrayField;
+        },
+      });
+
+      expect(result.current.availableContentTypes).toEqual([allContentTypes[0]]);
+
+      const validation = (sdk.field as FieldAPI & { items?: { validations?: any[] } }).items
+        ?.validations?.[0];
+      validation.linkContentType.length = 0;
+      validation.linkContentType.push('two');
+
+      rerender();
+
+      expect(result.current.availableContentTypes).toEqual([allContentTypes[1]]);
+    });
+
+    it(`prefers contentType field validations when field validations are empty`, async () => {
+      const allContentTypes = [makeContentType('one'), makeContentType('two')];
+
+      const { result } = await renderEditorPermissions({
+        entityType: 'Entry',
+        allContentTypes,
+        customizeMock: (field) => {
+          field.validations = [];
+          return field;
+        },
+        customizeSdk: (sdk) => {
+          sdk.contentType = {
+            sys: { id: 'ct', type: 'ContentType', version: 1 },
+            name: 'Content Type',
+            displayField: 'title',
+            fields: [
+              {
+                id: sdk.field.id,
+                name: 'Field',
+                type: 'Array',
+                items: {
+                  type: 'Link',
+                  linkType: 'Entry',
+                  validations: [{ linkContentType: ['two'] }],
+                },
+              },
+            ],
+          } as any;
+        },
+      });
+
+      expect(result.current.availableContentTypes).toEqual([allContentTypes[1]]);
     });
   });
 });

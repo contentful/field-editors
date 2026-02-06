@@ -1,4 +1,4 @@
-import { FieldAPI } from '@contentful/app-sdk';
+import type { ContentTypeField, FieldAPI } from '@contentful/app-sdk';
 import isNumber from 'lodash/isNumber';
 
 type NumberOfLinksValidation =
@@ -12,12 +12,17 @@ export type ReferenceValidations = {
   numberOfLinks?: NumberOfLinksValidation;
 };
 
-export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
+export function fromFieldValidations(
+  field: FieldAPI,
+  fieldDefinition?: ContentTypeField,
+): ReferenceValidations {
+  const fieldValidations = fieldDefinition?.validations ?? field.validations;
+  const itemsValidations =
+    fieldDefinition?.items?.validations ??
+    (field.type === 'Array' ? (field.items?.validations ?? []) : []);
+
   // eslint-disable-next-line -- TODO: describe this eslint disable  @typescript-eslint/no-explicit-any
-  const validations: Record<string, any>[] = [
-    ...field.validations,
-    ...(field.type === 'Array' ? field.items?.validations ?? [] : []),
-  ];
+  const validations: Record<string, any>[] = [...fieldValidations, ...itemsValidations];
   const linkContentTypeValidations = validations.find((v) => 'linkContentType' in v);
   const linkMimetypeGroupValidations = validations.find((v) => 'linkMimetypeGroup' in v);
   const sizeValidations = validations.find((v) => 'size' in v);
@@ -47,9 +52,16 @@ export function fromFieldValidations(field: FieldAPI): ReferenceValidations {
     };
   }
 
+  const contentTypes = linkContentTypeValidations?.linkContentType
+    ? [...linkContentTypeValidations.linkContentType]
+    : undefined;
+  const mimetypeGroups = linkMimetypeGroupValidations?.linkMimetypeGroup
+    ? [...linkMimetypeGroupValidations.linkMimetypeGroup]
+    : undefined;
+
   const result: ReferenceValidations = {
-    contentTypes: linkContentTypeValidations?.linkContentType ?? undefined,
-    mimetypeGroups: linkMimetypeGroupValidations?.linkMimetypeGroup ?? undefined,
+    contentTypes,
+    mimetypeGroups,
     numberOfLinks,
     // todo: there are multiple BE problems that need to be solved first, for now we don't want to apply size constraints
     // linkedFileSize: findValidation(field, 'assetFileSize', {}),

@@ -1,7 +1,24 @@
 import { EditorPermissions } from '../../common/useEditorPermissions';
 import { Asset, ContentType, ContentEntityType, Entry, FieldAppSDK } from '../../types';
+import { fromFieldValidations } from '../../utils/fromFieldValidations';
 
 const getContentTypeIds = (contentTypes: ContentType[]) => contentTypes.map((ct) => ct.sys.id);
+
+const getContentTypeFilter = (sdk: FieldAppSDK, editorPermissions: EditorPermissions) => {
+  const fallbackValidations = fromFieldValidations(
+    sdk.field,
+    sdk.contentType?.fields?.find((f) => f.id === sdk.field.id),
+  );
+  const validationContentTypes =
+    editorPermissions.validations.contentTypes ?? fallbackValidations.contentTypes;
+  if (validationContentTypes && validationContentTypes.length > 0) {
+    return validationContentTypes;
+  }
+
+  return editorPermissions.availableContentTypes.length > 0
+    ? getContentTypeIds(editorPermissions.availableContentTypes)
+    : [];
+};
 
 export async function createEntity(props: {
   sdk: FieldAppSDK;
@@ -30,11 +47,28 @@ export async function selectSingleEntity(props: {
   editorPermissions: EditorPermissions;
 }) {
   if (props.entityType === 'Entry') {
+    const contentTypes = getContentTypeFilter(props.sdk, props.editorPermissions);
+    // TEMP: Debug timing issues in certain spaces; remove after validation.
+    // eslint-disable-next-line no-console -- Debugging content type filtering timing.
+    console.info('[LinkActions] selectSingleEntry contentTypes', {
+      fieldId: props.sdk.field.id,
+      contentTypes,
+      availableContentTypesCount: props.editorPermissions.availableContentTypes.length,
+      validationContentTypes: props.editorPermissions.validations.contentTypes,
+      fieldValidations: props.sdk.field.validations,
+      contentTypeFieldValidations: props.sdk.contentType?.fields?.find(
+        (f) => f.id === props.sdk.field.id,
+      )?.validations,
+      contentTypeFieldItemValidations: props.sdk.contentType?.fields?.find(
+        (f) => f.id === props.sdk.field.id,
+      )?.items?.validations,
+    });
+
     return await props.sdk.dialogs.selectSingleEntry<Entry>({
       locale: props.sdk.field.locale,
       // readable CTs do not cover cases where user has partial access to a CT entry,
       // e.g. via tags so we're passing in all available CTs (based on field validations)
-      contentTypes: getContentTypeIds(props.editorPermissions.availableContentTypes),
+      contentTypes,
     });
   } else {
     return props.sdk.dialogs.selectSingleAsset<Asset>({
@@ -58,18 +92,35 @@ export async function selectMultipleEntities(props: {
   // "min" is 4 and the user wants to insert 2 entities first, then create 2 new ones?
   const min = Math.max(
     (props.editorPermissions.validations.numberOfLinks?.min || 1) - linkCount,
-    1
+    1,
   );
   // TODO: Consider same for max. If e.g. "max" is 4, we disable the button if the
   //  user wants to select 5 but we show no information why the button is disabled.
   const max = (props.editorPermissions.validations.numberOfLinks?.max || +Infinity) - linkCount;
 
   if (props.entityType === 'Entry') {
+    const contentTypes = getContentTypeFilter(props.sdk, props.editorPermissions);
+    // TEMP: Debug timing issues in certain spaces; remove after validation.
+    // eslint-disable-next-line no-console -- Debugging content type filtering timing.
+    console.info('[LinkActions] selectMultipleEntries contentTypes', {
+      fieldId: props.sdk.field.id,
+      contentTypes,
+      availableContentTypesCount: props.editorPermissions.availableContentTypes.length,
+      validationContentTypes: props.editorPermissions.validations.contentTypes,
+      fieldValidations: props.sdk.field.validations,
+      contentTypeFieldValidations: props.sdk.contentType?.fields?.find(
+        (f) => f.id === props.sdk.field.id,
+      )?.validations,
+      contentTypeFieldItemValidations: props.sdk.contentType?.fields?.find(
+        (f) => f.id === props.sdk.field.id,
+      )?.items?.validations,
+    });
+
     return await props.sdk.dialogs.selectMultipleEntries<Entry>({
       locale: props.sdk.field.locale,
       // readable CTs do not cover cases where user has partial access to a CT entry,
       // e.g. via tags so we're passing in all available CTs (based on field validations)
-      contentTypes: getContentTypeIds(props.editorPermissions.availableContentTypes),
+      contentTypes,
       min,
       max,
     });

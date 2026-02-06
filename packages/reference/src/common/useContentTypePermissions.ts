@@ -37,6 +37,8 @@ export function useContentTypePermissions({
   allContentTypes,
 }: ContentTypePermissionsProps): ContentTypePermissions {
   const availableContentTypes = useMemo(() => {
+    const validationContentTypes = validations.contentTypes ?? [];
+
     if (entityType === 'Asset') {
       return [];
     }
@@ -44,12 +46,14 @@ export function useContentTypePermissions({
     // RACE CONDITION FIX: If allContentTypes hasn't loaded yet (empty array),
     // but we have validation content types, return empty array and wait for
     // allContentTypes to populate. The useMemo will recalculate when allContentTypes changes.
-    if (validations.contentTypes && allContentTypes.length === 0) {
+    const hasValidationContentTypes = validationContentTypes.length > 0;
+
+    if (hasValidationContentTypes && allContentTypes.length === 0) {
       return [];
     }
 
-    if (validations.contentTypes) {
-      return allContentTypes.filter((ct) => validations.contentTypes?.includes(ct.sys.id));
+    if (hasValidationContentTypes) {
+      return allContentTypes.filter((ct) => validationContentTypes.includes(ct.sys.id));
     }
 
     return allContentTypes;
