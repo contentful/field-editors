@@ -7,7 +7,7 @@ import { styles } from './styles';
 
 type LinkPopoverProps = {
   isLinkFocused: boolean | undefined;
-  popoverText: React.ReactNode;
+  popoverText: React.ReactNode | ((closePopover: () => void) => React.ReactNode);
   handleEditLink: () => void;
   handleRemoveLink: () => void;
   children: React.ReactNode;
@@ -45,6 +45,13 @@ export const LinkPopover = ({
 
   const isOpen = (isLinkFocused && isEditorFocused) || isPopoverContentClicked;
 
+  const closePopover = () => {
+    setIsPopoverContentClicked(false);
+  };
+
+  const resolvedPopoverText =
+    typeof popoverText === 'function' ? popoverText(closePopover) : popoverText;
+
   // Important to render this component in a portal
   // Otherwise the content of the popover will get copied over when users copy text from the rich text editor
 
@@ -61,7 +68,7 @@ export const LinkPopover = ({
           paddingRight="spacing2Xs"
           paddingLeft="spacingXs"
         >
-          {popoverText}
+          {resolvedPopoverText}
           {handleCopyLink && (
             <Tooltip placement="bottom" content="Copy link" usePortal>
               <IconButton
