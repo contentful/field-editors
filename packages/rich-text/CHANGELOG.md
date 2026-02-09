@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.5...@contentful/field-editor-rich-text@4.20.6) (2026-02-09)
+
+### Bug Fixes
+
+- **richText:** entity hyperlink opens slide in [TOL-3684] ([#2073](https://github.com/contentful/field-editors/issues/2073)) ([dfbbe7c](https://github.com/contentful/field-editors/commit/dfbbe7cd78be29875f01063bd24a9bbc34164f49))
+
 ## [4.20.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.4...@contentful/field-editor-rich-text@4.20.5) (2026-01-29)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
