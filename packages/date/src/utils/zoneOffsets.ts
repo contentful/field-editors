@@ -1,6 +1,7 @@
-export const defaultZoneOffset = '+00:00';
+export const defaultZoneOffset = 'Local time';
 
 export const zoneOffsets = [
+  'Local time',
   '-12:00',
   '-11:00',
   '-10:00',
