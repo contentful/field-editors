@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.22.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.2...@contentful/field-editor-reference@6.22.0) (2026-01-29)
+
+### Features
+
+- **releases:** add opts to control behavior for reference cards [TOL-3572] ([#2063](https://github.com/contentful/field-editors/issues/2063)) ([fd447f7](https://github.com/contentful/field-editors/commit/fd447f7a41ea66b53c32e896c215531ef786a1b0))
+
+## [6.21.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.1...@contentful/field-editor-reference@6.21.2) (2026-01-29)
+
+### Bug Fixes
+
+- **reference:** too many re-render on reference editor [] ([#2064](https://github.com/contentful/field-editors/issues/2064)) ([004dddd](https://github.com/contentful/field-editors/commit/004dddd69fa373ddb1c1a2d39603f4102857394f))
+
+## [6.21.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.21.0...@contentful/field-editor-reference@6.21.1) (2026-01-28)
+
+### Bug Fixes
+
+- page reload would break entry selector ZEND-7525 ([#2062](https://github.com/contentful/field-editors/issues/2062)) ([6f86889](https://github.com/contentful/field-editors/commit/6f86889998cb8c10d85f914df2724d02120a35cd))
+
+# [6.21.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.20.1...@contentful/field-editor-reference@6.21.0) (2026-01-28)
+
+### Features
+
+- **reference:** add to release menu item [TOL-3572] ([#2061](https://github.com/contentful/field-editors/issues/2061)) ([7067a8d](https://github.com/contentful/field-editors/commit/7067a8d9c1762e8da95e1903052a06aff0c15118))
+
+## [6.20.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.20.0...@contentful/field-editor-reference@6.20.1) (2026-01-23)
+
+### Bug Fixes
+
+- revert "fix(references): improve fetching of scheduled actions" ([#2060](https://github.com/contentful/field-editors/issues/2060)) ([7593abc](https://github.com/contentful/field-editors/commit/7593abcc58a86427b294d350983aad89dc46a18e))
+
+# [6.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.3...@contentful/field-editor-reference@6.20.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
+## [6.19.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.2...@contentful/field-editor-reference@6.19.3) (2026-01-21)
+
+### Bug Fixes
+
+- **references:** improve fetching of scheduled actions ([#2054](https://github.com/contentful/field-editors/issues/2054)) ([da70d3f](https://github.com/contentful/field-editors/commit/da70d3f67c3ce3d033b419128e475388a016cb64))
+
+## [6.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.1...@contentful/field-editor-reference@6.19.2) (2026-01-19)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
 ## [6.19.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.19.0...@contentful/field-editor-reference@6.19.1) (2026-01-09)
 
 ### Bug Fixes

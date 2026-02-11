@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
+import { createTestQueryClient } from '@contentful/field-editor-test-utils';
 import { configure, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../__fixtures__/published_content_type.json';
@@ -81,10 +83,44 @@ test('renders entry card', async () => {
   expect(getByText(space.name)).toBeDefined();
 });
 
-test('renders skeleton when no data is provided', () => {
-  const { getByTestId } = renderResourceCard();
+test('renders skeleton while data is loading', async () => {
+  // Create a fresh QueryClient to avoid cached data
+  const queryClient = createTestQueryClient();
 
+  let resolveEntry: (value: any) => void;
+  const pendingPromise = new Promise((resolve) => {
+    resolveEntry = resolve;
+  });
+
+  sdk.cma.entry.get.mockReturnValueOnce(pendingPromise);
+
+  const { getByTestId, queryByTestId } = render(
+    <SharedQueryClientProvider client={queryClient}>
+      <EntityProvider sdk={sdk}>
+        <FetchingWrappedResourceCard
+          sdk={sdk}
+          isDisabled={false}
+          isSelected={false}
+          link={{
+            type: 'ResourceLink',
+            linkType: 'Contentful:Entry',
+            urn: resolvableEntryUrn,
+          }}
+        />
+      </EntityProvider>
+    </SharedQueryClientProvider>,
+  );
+
+  // Should show skeleton while loading
   expect(getByTestId('cf-ui-skeleton-form')).toBeDefined();
+  expect(queryByTestId('cf-ui-entry-card')).toBeNull();
+
+  // Resolve the promise
+  resolveEntry!(publishedEntry);
+
+  // Wait for entry card to appear
+  await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
+  expect(queryByTestId('cf-ui-skeleton-form')).toBeNull();
 });
 
 test('renders unsupported entity card when unsupported link is passed', async () => {

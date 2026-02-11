@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.5...@contentful/field-editor-rich-text@4.20.6) (2026-02-09)
+
+### Bug Fixes
+
+- **richText:** entity hyperlink opens slide in [TOL-3684] ([#2073](https://github.com/contentful/field-editors/issues/2073)) ([dfbbe7c](https://github.com/contentful/field-editors/commit/dfbbe7cd78be29875f01063bd24a9bbc34164f49))
+
+## [4.20.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.4...@contentful/field-editor-rich-text@4.20.5) (2026-01-29)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.20.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.3...@contentful/field-editor-rich-text@4.20.4) (2026-01-29)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.20.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.2...@contentful/field-editor-rich-text@4.20.3) (2026-01-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.20.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.1...@contentful/field-editor-rich-text@4.20.2) (2026-01-28)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.20.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.0...@contentful/field-editor-rich-text@4.20.1) (2026-01-23)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+# [4.20.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.4...@contentful/field-editor-rich-text@4.20.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
+## [4.19.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.3...@contentful/field-editor-rich-text@4.19.4) (2026-01-21)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [4.19.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.2...@contentful/field-editor-rich-text@4.19.3) (2026-01-19)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [4.19.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.19.1...@contentful/field-editor-rich-text@4.19.2) (2026-01-09)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

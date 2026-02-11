@@ -1,10 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { FieldAPI } from '@contentful/app-sdk';
+
 import { ContentType, ContentEntityType, FieldAppSDK } from '../types';
 import { fromFieldValidations } from '../utils/fromFieldValidations';
 import { ReferenceEditorProps } from './ReferenceEditor';
 import { useAccessApi } from './useAccessApi';
 import { useContentTypePermissions } from './useContentTypePermissions';
+
+// Type for Array fields that have an items property with validations
+type ArrayFieldAPI = FieldAPI & {
+  items?: { validations?: unknown[] };
+};
 
 export type EditorPermissionsProps = {
   sdk: FieldAppSDK;
@@ -19,7 +26,18 @@ export function useEditorPermissions({
   parameters,
   allContentTypes,
 }: EditorPermissionsProps) {
-  const validations = useMemo(() => fromFieldValidations(sdk.field), [sdk.field]);
+  // Extract validations with proper typing for dependency tracking
+  // This ensures useMemo recalculates when validations change, even on page refresh
+  const fieldValidations = sdk.field.validations;
+  const itemsValidations =
+    sdk.field.type === 'Array' ? (sdk.field as ArrayFieldAPI).items?.validations : undefined;
+
+  const validations = useMemo(
+    () => fromFieldValidations(sdk.field),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fieldValidations and itemsValidations ARE necessary. sdk.field is a stable object reference, but sdk.field.validations can change after page refresh. We track the validation arrays to recalculate when they're populated asynchronously. Important to use stringify to prevent re-render through React.is
+    [sdk.field, JSON.stringify(fieldValidations), JSON.stringify(itemsValidations)],
+  );
+
   const [canCreateEntity, setCanCreateEntity] = useState(true);
   const [canLinkEntity, setCanLinkEntity] = useState(true);
   const { creatableContentTypes, availableContentTypes } = useContentTypePermissions({

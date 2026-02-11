@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.7...@contentful/field-editor-validation-errors@2.1.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
+## [2.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.6...@contentful/field-editor-validation-errors@2.0.7) (2026-01-19)
+
+**Note:** Version bump only for package @contentful/field-editor-validation-errors
+
 ## [2.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.5...@contentful/field-editor-validation-errors@2.0.6) (2025-11-13)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

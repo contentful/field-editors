@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.7](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.6...@contentful/default-field-editors@2.2.7) (2026-02-09)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.6](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.5...@contentful/default-field-editors@2.2.6) (2026-01-29)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.5](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.4...@contentful/default-field-editors@2.2.5) (2026-01-29)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.4](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.3...@contentful/default-field-editors@2.2.4) (2026-01-28)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.2...@contentful/default-field-editors@2.2.3) (2026-01-28)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.1...@contentful/default-field-editors@2.2.2) (2026-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.0...@contentful/default-field-editors@2.2.1) (2026-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+# [2.2.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.19...@contentful/default-field-editors@2.2.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
+## [2.1.19](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.18...@contentful/default-field-editors@2.1.19) (2026-01-21)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.1.18](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.17...@contentful/default-field-editors@2.1.18) (2026-01-19)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
 ## [2.1.17](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.16...@contentful/default-field-editors@2.1.17) (2026-01-09)
 
 **Note:** Version bump only for package @contentful/default-field-editors

@@ -10,7 +10,7 @@ import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar
 import MarkdownPreviewSkeleton from '../components/MarkdownPreviewSkeleton';
 import {
   InitializedEditorType,
-  MarkdownTextarea
+  MarkdownTextarea,
 } from '../components/MarkdownTextarea/MarkdownTextarea';
 import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
@@ -41,36 +41,36 @@ const styles = {
     display: 'grid',
     gridTemplateRows: 'min-content 1fr min-content',
     gridTemplateColumns: '1fr 1px 1fr',
-    height: '85vh'
+    height: '85vh',
   }),
   topSplit: css({
     gridRow: '1 / 2',
-    gridColumn: '1 / 4'
+    gridColumn: '1 / 4',
   }),
   bottomSplit: css({
     gridRow: '3 / 4',
-    gridColumn: '1 / 4'
+    gridColumn: '1 / 4',
   }),
   editorSplit: css({
     gridRow: '2 / 3',
     gridColumn: '1 / 2',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
   }),
   editorSplitFullscreen: css({
     gridRow: '2 / 3',
     gridColumn: '1 / 4',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
   }),
   previewSplit: css({
     gridRow: '2 / 3',
     gridColumn: '3 / 4',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
   }),
   separator: css({
     gridRow: '2 / 3',
     gridColumn: '2 / 3',
     backgroundColor: tokens.gray400,
-    width: '1px'
+    width: '1px',
   }),
   button: css({
     cursor: 'pointer',
@@ -78,23 +78,23 @@ const styles = {
     height: '30px',
     backgroundColor: tokens.gray100,
     border: `1px solid ${tokens.gray400}`,
-    padding: 0
+    padding: 0,
   }),
   hideButton: css({
     gridRow: '2 / 3',
     gridColumn: '2 / 3',
     justifySelf: 'end',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   showButton: css({
     gridRow: '2 / 3',
     gridColumn: '3 / 4',
     justifySelf: 'end',
-    alignSelf: 'center'
+    alignSelf: 'center',
   }),
   icon: css({
-    verticalAlign: 'middle'
-  })
+    verticalAlign: 'middle',
+  }),
 };
 
 export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
@@ -124,20 +124,20 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   actions.closeZenMode = () => {
     props.onClose({
       value: currentValue,
-      cursor: editor?.getCursor()
+      cursor: editor?.getCursor(),
     });
   };
 
   const direction = props.sdk.locales.direction[props.locale] ?? 'ltr';
 
   return (
-    <Grid className={styles.root} data-test-id="zen-mode-markdown-editor">
+    <Grid className={styles.root} testId="zen-mode-markdown-editor">
       <Grid.Item className={styles.topSplit}>
         <MarkdownToolbar mode="zen" disabled={false} canUploadAssets={false} actions={actions} />
       </Grid.Item>
       <Grid.Item
         className={cx(styles.editorSplit, {
-          [styles.editorSplitFullscreen]: showPreview === false
+          [styles.editorSplitFullscreen]: showPreview === false,
         })}
       >
         <MarkdownTextarea
@@ -208,7 +208,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
 
 export const openZenMode = (
   dialogs: DialogsAPI,
-  options: { initialValue: string; locale: string }
+  options: { initialValue: string; locale: string },
 ): Promise<ZenModeResult> => {
   return dialogs.openCurrent({
     width: 'fullWidth',
@@ -217,7 +217,7 @@ export const openZenMode = (
     parameters: {
       type: MarkdownDialogType.zenMode,
       initialValue: options.initialValue,
-      locale: options.locale
-    } as MarkdownDialogsParams
+      locale: options.locale,
+    } as MarkdownDialogsParams,
   });
 };

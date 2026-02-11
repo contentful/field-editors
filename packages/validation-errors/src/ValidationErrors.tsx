@@ -1,17 +1,15 @@
 import * as React from 'react';
 
-import { Link, ValidationError } from '@contentful/app-sdk';
+import { ValidationError } from '@contentful/app-sdk';
 import { List, ListItem, TextLink } from '@contentful/f36-components';
 import { ArrowSquareOutIcon, InfoIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import type {
-  ContentType,
-  Entry,
-  FieldAPI,
-  LocalesAPI,
-  SpaceAPI,
+import type { ContentType, Entry, FieldAPI, LocalesAPI } from '@contentful/field-editor-shared';
+import {
+  entityHelpers,
+  useContentTypes,
+  SharedQueryClientProvider,
 } from '@contentful/field-editor-shared';
-import { entityHelpers } from '@contentful/field-editor-shared';
 import { t } from '@lingui/core/macro';
 import type { PlainClientAPI } from 'contentful-management';
 
@@ -19,66 +17,62 @@ import * as styles from './styles';
 
 type UniquenessErrorProps = {
   error: ValidationError;
-  space: SpaceAPI;
   cma: PlainClientAPI;
   localeCode: string;
   defaultLocaleCode: string;
   getEntryURL: (entry: Entry) => string;
 };
 
-function UniquenessError(props: UniquenessErrorProps) {
+function UniquenessError({
+  error,
+  cma,
+  localeCode,
+  defaultLocaleCode,
+  getEntryURL,
+}: UniquenessErrorProps) {
   const [state, setState] = React.useState<{
     loading: boolean;
-    entries: { id: string; title: string; href: string }[];
+    entries: Entry[];
   }>({
     loading: true,
     entries: [],
   });
 
+  const { contentTypes: allContentTypes } = useContentTypes(cma);
   const contentTypesById = React.useMemo(
-    (): Record<string, ContentType> =>
-      // Maps ID => Content Type
-      props.space.getCachedContentTypes().reduce(
+    () =>
+      allContentTypes.reduce(
         (prev, ct) => ({
           ...prev,
           [ct.sys.id]: ct,
         }),
-        {},
+        {} as Record<string, ContentType>,
       ),
-    [props.space],
+    [allContentTypes],
   );
 
-  const getTitle = React.useCallback(
-    (entry: Entry) =>
-      entityHelpers.getEntryTitle({
-        entry,
-        defaultTitle: t({
-          id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
-          message: 'Untitled',
-        }),
-        localeCode: props.localeCode,
-        defaultLocaleCode: props.defaultLocaleCode,
-        contentType: contentTypesById[entry.sys.contentType.sys.id],
-      }),
-    [props.localeCode, props.defaultLocaleCode, contentTypesById],
-  );
+  // Calculate conflict key from error
+  const conflictKey = React.useMemo(() => {
+    const conflicting = 'conflicting' in error ? error.conflicting : [];
+    return conflicting
+      .map((entry) => entry.sys.id)
+      .sort()
+      .join(',');
+  }, [error]);
 
-  let conflicting: Link<'Entry', 'Link'>[] = [];
-  if ('conflicting' in props.error) {
-    conflicting = props.error.conflicting;
-  }
   React.useEffect(() => {
-    const entryIds = state.entries.map((entry) => entry.id);
-    const conflictIds = conflicting.map((entry) => entry.sys.id);
-
-    // Avoid unnecessary refetching
-    if (conflictIds.every((id) => entryIds.includes(id))) {
+    // If we have no conflict key (empty or no conflicting), reset
+    if (!conflictKey) {
+      setState({ loading: false, entries: [] });
       return;
     }
 
-    setState((state) => ({ ...state, loading: true }));
+    setState({ loading: true, entries: [] });
 
-    props.cma.entry
+    const conflicting = 'conflicting' in error ? error.conflicting : [];
+    const conflictIds = conflicting.map((entry) => entry.sys.id);
+
+    cma.entry
       .getMany({
         query: {
           'sys.id[in]': conflictIds.join(','),
@@ -87,19 +81,30 @@ function UniquenessError(props: UniquenessErrorProps) {
         releaseId: undefined,
       })
       .then(({ items }) => {
-        const entries = items.map((entry) => ({
-          id: entry.sys.id,
-          title: getTitle(entry),
-          href: props.getEntryURL(entry),
-        }));
-
         setState({
           loading: false,
-          entries,
+          entries: items,
         });
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate these dependencies
-  }, [getTitle, state.entries, conflicting, props.cma, props.getEntryURL]);
+  }, [conflictKey, error, cma]);
+
+  // Compute display data from loaded entries and content types
+  const displayEntries = React.useMemo(() => {
+    return state.entries.map((entry) => ({
+      id: entry.sys.id,
+      title: entityHelpers.getEntryTitle({
+        entry,
+        defaultTitle: t({
+          id: 'FieldEditors.ValidationErrors.UniquenessError.DefaultTitle',
+          message: 'Untitled',
+        }),
+        localeCode,
+        defaultLocaleCode,
+        contentType: contentTypesById[entry.sys.contentType.sys.id],
+      }),
+      href: getEntryURL(entry),
+    }));
+  }, [state.entries, contentTypesById, localeCode, defaultLocaleCode, getEntryURL]);
 
   return (
     <List className={styles.errorList} testId="validation-errors-uniqueness">
@@ -112,7 +117,7 @@ function UniquenessError(props: UniquenessErrorProps) {
             })}
           </div>
         ) : (
-          state.entries.map((entry) => (
+          displayEntries.map((entry) => (
             <TextLink
               key={entry.id}
               href={entry.href}
@@ -133,16 +138,14 @@ function UniquenessError(props: UniquenessErrorProps) {
 
 export interface ValidationErrorsProps {
   field: FieldAPI;
-  space: SpaceAPI;
   cma: PlainClientAPI;
   locales: LocalesAPI;
   errorMessageOverride?: (message: string | undefined) => React.ReactNode;
   getEntryURL: (entry: Entry) => string;
 }
 
-export function ValidationErrors({
+function ValidationErrorsInternal({
   field,
-  space,
   cma,
   locales,
   errorMessageOverride,
@@ -180,7 +183,6 @@ export function ValidationErrors({
                 <UniquenessError
                   cma={cma}
                   error={error}
-                  space={space}
                   localeCode={field.locale}
                   defaultLocaleCode={locales.default}
                   getEntryURL={getEntryURL}
@@ -191,5 +193,13 @@ export function ValidationErrors({
         );
       })}
     </List>
+  );
+}
+
+export function ValidationErrors(props: ValidationErrorsProps) {
+  return (
+    <SharedQueryClientProvider>
+      <ValidationErrorsInternal {...props} />
+    </SharedQueryClientProvider>
   );
 }

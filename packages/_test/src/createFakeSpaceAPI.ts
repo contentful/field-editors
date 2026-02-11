@@ -64,9 +64,6 @@ const testContentTypes: ContentType[] = [
 
 export function createFakeSpaceAPI(customizeMock: CustomizeMockFn = identity): SpaceAPI {
   return customizeMock({
-    getCachedContentTypes() {
-      return testContentTypes;
-    },
     getContentTypes() {
       return Promise.resolve({
         items: testContentTypes,

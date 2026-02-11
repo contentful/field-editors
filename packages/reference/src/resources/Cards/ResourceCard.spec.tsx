@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import '@testing-library/jest-dom';
 
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
+import { createTestQueryClient } from '@contentful/field-editor-test-utils';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
@@ -168,10 +170,44 @@ describe('ResourceCard', () => {
     await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
   });
 
-  it('renders skeleton when no data is provided', () => {
-    const { getByTestId } = renderResourceCard();
+  it('renders skeleton while data is loading', async () => {
+    // Create a fresh QueryClient to avoid cached data
+    const queryClient = createTestQueryClient();
 
+    let resolveEntry: (value: any) => void;
+    const pendingPromise = new Promise((resolve) => {
+      resolveEntry = resolve;
+    });
+
+    sdk.cma.entry.get.mockReturnValueOnce(pendingPromise);
+
+    const { getByTestId, queryByTestId } = render(
+      <SharedQueryClientProvider client={queryClient}>
+        <EntityProvider sdk={sdk}>
+          <ResourceCard
+            isDisabled={false}
+            getEntryRouteHref={() => ''}
+            resourceLink={{
+              sys: {
+                type: 'ResourceLink',
+                linkType: 'Contentful:Entry',
+                urn: resolvableEntryUrn,
+              },
+            }}
+          />
+        </EntityProvider>
+      </SharedQueryClientProvider>,
+    );
+
+    // Should show skeleton while loading
     expect(getByTestId('cf-ui-skeleton-form')).toBeDefined();
+    expect(queryByTestId('cf-ui-entry-card')).toBeNull();
+
+    resolveEntry!(publishedEntry);
+
+    // Wait for entry card to appear
+    await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
+    expect(queryByTestId('cf-ui-skeleton-form')).toBeNull();
   });
 
   it('renders unsupported entity card when resource type is unknown', async () => {

@@ -121,9 +121,6 @@ export function newReferenceEditorFakeSdk(props?: ReferenceEditorSdkProps): [Fie
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
       getContentTypes() {
         return Promise.resolve(
           space.getContentTypes().then((response) => {

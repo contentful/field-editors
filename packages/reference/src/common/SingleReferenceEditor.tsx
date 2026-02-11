@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
+import { useContentTypes } from '@contentful/field-editor-shared';
+
 import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';
 import { ContentType, ContentEntityType, ReferenceValue } from '../types';
 import { CustomCardRenderer, CustomEntityCardProps, DefaultCardRenderer } from './customCardTypes';
+import { SharedQueryClientProvider } from './queryClient';
 import { ReferenceEditor, ReferenceEditorProps } from './ReferenceEditor';
 import { useEditorPermissions } from './useEditorPermissions';
 
@@ -70,6 +73,7 @@ function Editor(props: EditorProps) {
   return props.children({
     ...props,
     renderCustomCard: props.renderCustomCard && customCardRenderer,
+    addReferenceToRelease: props.addReferenceToRelease,
   });
 }
 
@@ -79,7 +83,20 @@ export function SingleReferenceEditor(
     children: (props: ChildProps) => React.ReactElement;
   },
 ) {
-  const allContentTypes = props.sdk.space.getCachedContentTypes();
+  return (
+    <SharedQueryClientProvider>
+      <SingleReferenceEditorInner {...props} />
+    </SharedQueryClientProvider>
+  );
+}
+
+function SingleReferenceEditorInner(
+  props: ReferenceEditorProps & {
+    entityType: ContentEntityType;
+    children: (props: ChildProps) => React.ReactElement;
+  },
+) {
+  const { contentTypes: allContentTypes } = useContentTypes(props.sdk);
 
   return (
     <ReferenceEditor<ReferenceValue> {...props}>
