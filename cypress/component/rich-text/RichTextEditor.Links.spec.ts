@@ -165,6 +165,48 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         );
       });
 
+      it('creates entry hyperlink with semantic recommendations via entity search', () => {
+        safelyType('Semantic search text{selectall}');
+        triggerLinkModal();
+        const form = richText.forms.hyperlink;
+
+        form.linkText.should('have.value', 'Semantic search text');
+        form.submit.should('be.disabled');
+
+        form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
+        form.submit.should('be.disabled');
+
+        cy.findByTestId('cf-ui-entry-card').should('not.exist');
+        form.linkEntityTarget.should('have.text', 'Select entry').click();
+
+        // Verify semantic recommendations are passed to entity selector
+        cy.window().then((win) => {
+          const options = (win as any).lastSelectSingleEntryOptions;
+          expect(options).to.exist;
+          // Verify recommendations object is properly structured for semantic search
+          expect(options.recommendations).to.be.an('object');
+          expect(options.recommendations.searchQuery).to.be.a('string');
+          expect(options.recommendations.searchQuery).to.equal('Semantic search text');
+          // Verify the searchQuery is non-empty (enables semantic recommendations in entity search)
+          expect(options.recommendations.searchQuery.length).to.be.greaterThan(0);
+        });
+        richText.forms.embed.confirm();
+
+        cy.findByTestId('cf-ui-entry-card').should('exist');
+
+        form.submit.click();
+
+        expectDocumentStructure(
+          ['text', ''],
+          [
+            INLINES.ENTRY_HYPERLINK,
+            { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
+            'Semantic search text',
+          ],
+          ['text', ''],
+        );
+      });
+
       it('converts text to resource hyperlink', () => {
         safelyType('My cool resource{selectall}');
         triggerLinkModal();
