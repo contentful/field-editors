@@ -178,7 +178,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
         // Verify entry card is not present before selection
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
-        
+
         // Click to open entity search
         form.linkEntityTarget.should('have.text', 'Select entry').click();
 
