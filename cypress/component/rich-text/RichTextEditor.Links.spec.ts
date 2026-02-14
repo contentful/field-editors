@@ -176,46 +176,27 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         form.linkType.should('have.value', 'hyperlink').select('entry-hyperlink');
         form.submit.should('be.disabled');
 
-        // Verify entry card is not present before selection
         cy.findByTestId('cf-ui-entry-card').should('not.exist');
-
-        // Click to open entity search
         form.linkEntityTarget.should('have.text', 'Select entry').click();
 
-        // Explicitly validate that semantic recommendations are enabled
-        // This validates the entity-search tab with semantic recommendations variant
         cy.window().then((win) => {
           const options = (win as any).lastSelectSingleEntryOptions;
-          
-          // Validate the options object exists
           expect(options, 'selectSingleEntry should be called with options').to.exist;
-          
-          // Validate recommendations object is present
           expect(options.recommendations, 'recommendations object should be present').to.exist;
-          
-          // Validate searchQuery is set correctly for semantic recommendations
           expect(
             options.recommendations.searchQuery,
             'searchQuery should match the link text for semantic recommendations'
           ).to.equal('Advanced AI content strategy');
-          
-          // Validate locale is present (required for entity search)
           expect(options.locale, 'locale should be present').to.exist;
-          
-          // Validate contentTypes is present (required for filtering)
           expect(options.contentTypes, 'contentTypes should be present').to.exist;
         });
 
-        // Confirm the selection
         richText.forms.embed.confirm();
 
-        // Verify entry card is displayed after selection
         cy.findByTestId('cf-ui-entry-card').should('exist');
 
-        // Submit the hyperlink form
         form.submit.click();
 
-        // Verify the final document structure contains the entry hyperlink
         expectDocumentStructure(
           ['text', ''],
           [
