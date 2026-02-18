@@ -15,12 +15,10 @@ import {
 } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import {
-  getText,
   getAboveNode,
   getLastNodeByLevel,
   insertNodes,
   PlateEditor,
-  setNodes,
   select,
   KeyboardHandler,
   removeNodes,
@@ -173,12 +171,5 @@ function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   if (!editor?.selection) return;
 
   const linkedEntityBlock = createNode(nodeType, entity);
-
-  const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
-
-  if (hasText) {
-    insertNodes(editor, linkedEntityBlock);
-  } else {
-    setNodes(editor, linkedEntityBlock);
-  }
+  insertNodes(editor, linkedEntityBlock);
 }
