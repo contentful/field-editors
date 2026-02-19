@@ -14,12 +14,14 @@ import {
   useLocalePublishStatus,
   useActiveLocales,
   useReleaseStatus,
-  useContentType,
   type ReleaseStatusMap,
   type ReleaseV2Props,
   type ReleaseEntityStatus,
-  SharedQueryClientProvider,
 } from '@contentful/field-editor-shared';
+import {
+  SharedQueryClientProvider,
+  useContentType,
+} from '@contentful/field-editor-shared/react-query';
 import areEqual from 'fast-deep-equal';
 
 interface InternalEntryCard {
