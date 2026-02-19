@@ -11,6 +11,12 @@
       "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
+    "./react-query": {
+      "types": "./dist/types/react-query.d.ts",
+      "require": "./dist/cjs/react-query.js",
+      "import": "./dist/esm/react-query.js",
+      "default": "./dist/cjs/react-query.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
