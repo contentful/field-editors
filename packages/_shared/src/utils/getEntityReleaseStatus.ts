@@ -1,4 +1,4 @@
-import type { LocaleProps } from 'contentful-management/types';
+import type { LocaleProps } from 'contentful-management';
 
 import type {
   ReleaseAction,
