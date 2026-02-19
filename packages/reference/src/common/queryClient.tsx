@@ -6,4 +6,4 @@ export {
   SharedQueryClientProvider,
   useQueryClient,
   useQuery,
-} from '@contentful/field-editor-shared';
+} from '@contentful/field-editor-shared/react-query';
