@@ -16,22 +16,16 @@ describe(
     let richText: RichTextPage;
     const expectDocumentToBeEmpty = () => richText.expectValue(undefined);
 
-    const entryBlock = () =>
+    const entryBlock = (id: string = 'published-entry') =>
       block(BLOCKS.EMBEDDED_ENTRY, {
         target: {
           sys: {
-            id: 'published-entry',
+            id,
             type: 'Link',
             linkType: 'Entry',
           },
         },
       });
-
-    beforeEach(() => {
-      cy.viewport(1000, 2000);
-      richText = new RichTextPage();
-      mountRichTextEditor();
-    });
 
     const methods: [string, () => void][] = [
       [
@@ -49,95 +43,124 @@ describe(
       ],
     ];
 
-    for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
-      describe(triggerMethod, () => {
-        it('adds paragraph before the block when pressing enter if the block is first document node', () => {
-          richText.editor.click().then(triggerEmbeddedEntry);
-
-          richText.editor.find('[data-entity-id="published-entry"]').click();
-
-          richText.editor.trigger('keydown', KEYS.enter);
-
-          richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
-        });
-
-        it('adds paragraph between two blocks when pressing enter', () => {
-          function addEmbeddedEntry() {
-            richText.editor.click('bottom').then(triggerEmbeddedEntry);
-            richText.editor.click('bottom');
-          }
-
-          addEmbeddedEntry();
-          addEmbeddedEntry();
-
-          // Inserts paragraph before embed because it's in the first line.
-          richText.editor.find('[data-entity-id="published-entry"]').first().click();
-          richText.editor.trigger('keydown', KEYS.enter);
-
-          // inserts paragraph in-between embeds.
-          richText.editor.find('[data-entity-id="published-entry"]').first().click();
-          richText.editor.trigger('keydown', KEYS.enter);
-
-          richText.expectValue(
-            doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph())
-          );
-        });
-
-        it('adds and removes embedded entries', () => {
-          richText.editor.click().then(triggerEmbeddedEntry);
-
-          richText.expectValue(doc(entryBlock(), emptyParagraph()));
-
-          cy.findByTestId('cf-ui-card-actions').click();
-          cy.findByTestId('delete').click();
-
-          richText.expectValue(undefined);
-        });
-
-        it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
-          richText.editor.click().then(triggerEmbeddedEntry);
-
-          richText.expectValue(doc(entryBlock(), emptyParagraph()));
-
-          cy.findByTestId('cf-ui-entry-card').click();
-          // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-          richText.editor.trigger('keydown', KEYS.backspace);
-
-          richText.expectValue(undefined);
-        });
-
-        it('adds embedded entries between words', () => {
-          richText.editor
-            .click()
-            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
-            .then(triggerEmbeddedEntry);
-
-          richText.expectValue(
-            doc(
-              block(BLOCKS.PARAGRAPH, {}, text('foo')),
-              entryBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text('bar'))
-            )
-          );
-        });
-
-        it('should be selected on backspace', () => {
-          richText.editor.click();
-          triggerEmbeddedEntry();
-
-          richText.editor.type('{downarrow}X');
-
-          richText.expectValue(doc(entryBlock(), paragraphWithText('X')));
-
-          richText.editor.type('{backspace}{backspace}');
-
-          richText.expectValue(doc(entryBlock(), emptyParagraph()));
-
-          richText.editor.type('{backspace}');
-
-          expectDocumentToBeEmpty();
-        });
+    describe('existing entry selection', () => {
+      beforeEach(() => {
+        cy.viewport(1000, 2000);
+        richText = new RichTextPage();
+        mountRichTextEditor();
       });
-    }
-  }
+
+      for (const [triggerMethod, triggerEmbeddedEntry] of methods) {
+        describe(triggerMethod, () => {
+          it('adds paragraph before the block when pressing enter if the block is first document node', () => {
+            richText.editor.click().then(triggerEmbeddedEntry);
+
+            richText.editor.find('[data-entity-id="published-entry"]').click();
+
+            richText.editor.trigger('keydown', KEYS.enter);
+
+            richText.expectValue(doc(emptyParagraph(), entryBlock(), emptyParagraph()));
+          });
+
+          it('adds paragraph between two blocks when pressing enter', () => {
+            function addEmbeddedEntry() {
+              richText.editor.click('bottom').then(triggerEmbeddedEntry);
+              richText.editor.click('bottom');
+            }
+
+            addEmbeddedEntry();
+            addEmbeddedEntry();
+
+            // Inserts paragraph before embed because it's in the first line.
+            richText.editor.find('[data-entity-id="published-entry"]').first().click();
+            richText.editor.trigger('keydown', KEYS.enter);
+
+            // inserts paragraph in-between embeds.
+            richText.editor.find('[data-entity-id="published-entry"]').first().click();
+            richText.editor.trigger('keydown', KEYS.enter);
+
+            richText.expectValue(
+              doc(emptyParagraph(), entryBlock(), emptyParagraph(), entryBlock(), emptyParagraph()),
+            );
+          });
+
+          it('adds and removes embedded entries', () => {
+            richText.editor.click().then(triggerEmbeddedEntry);
+
+            richText.expectValue(doc(entryBlock(), emptyParagraph()));
+
+            cy.findByTestId('cf-ui-card-actions').click();
+            cy.findByTestId('delete').click();
+
+            richText.expectValue(undefined);
+          });
+
+          it('adds and removes embedded entries by selecting and pressing `backspace`', () => {
+            richText.editor.click().then(triggerEmbeddedEntry);
+
+            richText.expectValue(doc(entryBlock(), emptyParagraph()));
+
+            cy.findByTestId('cf-ui-entry-card').click();
+            // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
+            richText.editor.trigger('keydown', KEYS.backspace);
+
+            richText.expectValue(undefined);
+          });
+
+          it('adds embedded entries between words', () => {
+            richText.editor
+              .click()
+              .type('foobar{leftarrow}{leftarrow}{leftarrow}')
+              .then(triggerEmbeddedEntry);
+
+            richText.expectValue(
+              doc(
+                block(BLOCKS.PARAGRAPH, {}, text('foo')),
+                entryBlock(),
+                block(BLOCKS.PARAGRAPH, {}, text('bar')),
+              ),
+            );
+          });
+
+          it('should be selected on backspace', () => {
+            richText.editor.click();
+            triggerEmbeddedEntry();
+
+            richText.editor.type('{downarrow}X');
+
+            richText.expectValue(doc(entryBlock(), paragraphWithText('X')));
+
+            richText.editor.type('{backspace}{backspace}');
+
+            richText.expectValue(doc(entryBlock(), emptyParagraph()));
+
+            richText.editor.type('{backspace}');
+
+            expectDocumentToBeEmpty();
+          });
+        });
+      }
+    });
+
+    describe('new entry create flow', () => {
+      beforeEach(() => {
+        cy.viewport(1000, 2000);
+        richText = new RichTextPage();
+        mountRichTextEditor();
+      });
+
+      it('inserts a newly created entry block (Untitled) when embedding into an empty editor', () => {
+        richText.editor.click();
+        richText.toolbar.embed('entry-block', false);
+        cy.findByTestId('fake-dialog-create-entry-content-type').select('exampleCT');
+        richText.forms.embed.confirm();
+
+        richText.editor
+          .find('[data-entity-id="new-entry-exampleCT"]')
+          .should('exist')
+          .and('contain', 'Untitled');
+        richText.expectValue(doc(entryBlock('new-entry-exampleCT'), emptyParagraph()));
+      });
+    });
+  },
 );

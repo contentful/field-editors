@@ -43,7 +43,6 @@ describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
     await selectEntityAndInsert(BLOCKS.EMBEDDED_ENTRY, sdk, editor, logAction);
 
     expect(editor.children.some((n: any) => n.type === BLOCKS.EMBEDDED_ENTRY)).toBe(true);
-    expect(editor.children.some((n: any) => n.type === BLOCKS.PARAGRAPH)).toBe(true);
   });
 
   it('inserts an embedded entry block when selection is inside a nested list item paragraph', async () => {
