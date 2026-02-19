@@ -1,6 +1,6 @@
 import { focus } from '../../../helpers/editor';
-import { getText } from '../../../internal/queries';
-import { setNodes, insertNodes } from '../../../internal/transforms';
+import { getSelectionElementPath, isEmptyTextContainer } from '../../../internal/selection';
+import { insertNodes, setNodes } from '../../../internal/transforms';
 
 const createNode = (nodeType, entity) => ({
   type: nodeType,
@@ -22,13 +22,14 @@ export function insertBlock(editor, nodeType, entity) {
 
   const linkedEntityBlock = createNode(nodeType, entity);
 
-  const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
-
-  if (hasText) {
-    insertNodes(editor, linkedEntityBlock);
-  } else {
-    setNodes(editor, linkedEntityBlock);
+  const elementPath = getSelectionElementPath(editor);
+  if (elementPath && isEmptyTextContainer(editor, elementPath)) {
+    setNodes(editor, linkedEntityBlock, { at: elementPath });
+    focus(editor);
+    return;
   }
+
+  insertNodes(editor, linkedEntityBlock);
 
   focus(editor);
 }
