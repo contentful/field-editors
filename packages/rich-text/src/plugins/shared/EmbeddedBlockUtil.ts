@@ -15,10 +15,12 @@ import {
 } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import {
+  getText,
   getAboveNode,
   getLastNodeByLevel,
   insertNodes,
   PlateEditor,
+  setNodes,
   select,
   KeyboardHandler,
   removeNodes,
@@ -171,5 +173,20 @@ function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   if (!editor?.selection) return;
 
   const linkedEntityBlock = createNode(nodeType, entity);
+
+  // When the cursor is in an empty text container (most commonly an empty paragraph),
+  // we want to replace that container instead of inserting a new sibling node.
+  // Using `editor.selection.focus.path` directly can point to a text node, so we
+  // target the parent element path explicitly.
+  const focusPath = editor.selection.focus.path;
+  const elementPath = focusPath.length > 0 ? focusPath.slice(0, -1) : focusPath;
+  const elementText = getText(editor, elementPath);
+  const isEmptyTextContainer = elementText.length === 0;
+
+  if (isEmptyTextContainer) {
+    setNodes(editor, linkedEntityBlock, { at: elementPath });
+    return;
+  }
+
   insertNodes(editor, linkedEntityBlock);
 }
