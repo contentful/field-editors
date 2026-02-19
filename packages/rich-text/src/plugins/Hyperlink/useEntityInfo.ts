@@ -8,7 +8,8 @@ import {
   Link,
   ScheduledAction,
 } from '@contentful/app-sdk';
-import { entityHelpers, fetchContentType } from '@contentful/field-editor-shared';
+import { entityHelpers } from '@contentful/field-editor-shared';
+import { fetchContentType } from '@contentful/field-editor-shared/react-query';
 
 import { getEntityInfo } from './utils';
 

@@ -10,7 +10,7 @@ import {
   AssetIcon,
 } from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
-import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { cx } from 'emotion';
 
 import { PlateEditor } from '../../../internal/types';
