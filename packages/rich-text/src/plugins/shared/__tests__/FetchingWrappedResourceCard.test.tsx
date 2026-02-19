@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 import { EntityProvider } from '@contentful/field-editor-reference';
-import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { createTestQueryClient } from '@contentful/field-editor-test-utils';
 import { configure, render, waitFor } from '@testing-library/react';
 

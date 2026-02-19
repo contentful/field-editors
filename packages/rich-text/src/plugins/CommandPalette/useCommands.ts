@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import type { FieldAppSDK } from '@contentful/app-sdk';
-import { useContentTypes } from '@contentful/field-editor-shared';
+import { useContentTypes } from '@contentful/field-editor-shared/react-query';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import { isNodeTypeSelected } from '../../helpers/editor';
