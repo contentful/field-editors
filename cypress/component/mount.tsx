@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { GlobalStyles } from '@contentful/f36-core';
 import tokens from '@contentful/f36-tokens';
-import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { createTestQueryClient } from '@contentful/field-editor-test-utils';
 import { MountOptions, MountReturn, mount as cyMount } from '@cypress/react';
 import { Global } from '@emotion/core';
