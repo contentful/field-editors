@@ -1,5 +1,5 @@
 import { focus } from '../../../helpers/editor';
-import { getText } from '../../../internal/queries';
+import { getSelectionElementPath, isEmptyTextContainer } from '../../../internal/selection';
 import { insertNodes, setNodes } from '../../../internal/transforms';
 
 const createNode = (nodeType, entity) => ({
@@ -22,11 +22,8 @@ export function insertBlock(editor, nodeType, entity) {
 
   const linkedEntityBlock = createNode(nodeType, entity);
 
-  const focusPath = editor.selection.focus.path;
-  const elementPath = focusPath.length > 0 ? focusPath.slice(0, -1) : focusPath;
-  const elementText = getText(editor, elementPath);
-
-  if (elementText.length === 0) {
+  const elementPath = getSelectionElementPath(editor);
+  if (elementPath && isEmptyTextContainer(editor, elementPath)) {
     setNodes(editor, linkedEntityBlock, { at: elementPath });
     focus(editor);
     return;
