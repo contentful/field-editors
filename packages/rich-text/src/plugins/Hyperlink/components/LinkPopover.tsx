@@ -26,11 +26,16 @@ export const LinkPopover = ({
 }: LinkPopoverProps) => {
   const popoverContent = React.useRef<HTMLDivElement | null>(null);
   const [isPopoverContentClicked, setIsPopoverContentClicked] = React.useState(false);
+  const isOpen = (isLinkFocused && isEditorFocused) || isPopoverContentClicked;
+  const isOpenRef = React.useRef(false);
+  isOpenRef.current = isOpen;
 
   React.useEffect(() => {
     const handleMouseDown = (event) => {
       if (popoverContent.current && popoverContent.current.contains(event.target)) {
-        setIsPopoverContentClicked(true);
+        if (!isOpenRef.current) {
+          setIsPopoverContentClicked(true);
+        }
       } else {
         setIsPopoverContentClicked(false);
       }
@@ -42,8 +47,6 @@ export const LinkPopover = ({
       document.removeEventListener('mousedown', handleMouseDown);
     };
   }, []);
-
-  const isOpen = (isLinkFocused && isEditorFocused) || isPopoverContentClicked;
 
   const closePopover = () => {
     setIsPopoverContentClicked(false);
@@ -62,6 +65,10 @@ export const LinkPopover = ({
       <Popover.Content className={styles.popover}>
         <Flex
           ref={popoverContent}
+          // Fix for an issue where you have to double click the copy button
+          // We intercept mousedown before Slate does, using a capture-phase listener (https://javascript.info/bubbling-and-capturing)
+          // By calling preventDefault we stop the browser from shifting focus away from the editor and the click event fires normally on the first click
+          onMouseDownCapture={(e) => e.preventDefault()}
           alignItems="center"
           paddingTop="spacing2Xs"
           paddingBottom="spacing2Xs"
