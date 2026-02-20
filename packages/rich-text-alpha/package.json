@@ -73,7 +73,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
     "react-reconciler": "0.29.0",
-    "type-fest": "^4.26.1"
+    "type-fest": "^5.3.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
