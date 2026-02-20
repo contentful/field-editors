@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.7...@contentful/field-editor-rich-text@4.20.8) (2026-02-20)
+
+### Bug Fixes
+
+- **richText:** double click issue [TOL-3510] ([#2081](https://github.com/contentful/field-editors/issues/2081)) ([97a2b51](https://github.com/contentful/field-editors/commit/97a2b51ea20f21ec258f09d2b714acb3b79e6840))
+
 ## [4.20.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@4.20.6...@contentful/field-editor-rich-text@4.20.7) (2026-02-19)
 
 ### Bug Fixes
