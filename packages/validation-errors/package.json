@@ -47,6 +47,7 @@
     "@lingui/core": "5.3.0"
   },
   "peerDependencies": {
+    "@tanstack/react-query": "^4.3.9",
     "@lingui/core": "^5.3.0",
     "react": ">=16.8.0"
   },
