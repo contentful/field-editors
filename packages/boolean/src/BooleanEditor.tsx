@@ -39,7 +39,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
       label: get(
         props.parameters,
         ['instance', 'trueLabel'],
-        t({ id: 'FieldEditors.Boolean.BooleanEditor.TrueDefaultValue', message: 'Yes' }),
+        t({ id: 'FieldEditors.Boolean.BooleanEditor.TrueDefaultLabel', message: 'Yes' }),
       ),
       id: nanoid(6),
     },
@@ -48,7 +48,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
       label: get(
         props.parameters,
         ['instance', 'falseLabel'],
-        t({ id: 'FieldEditors.Boolean.BooleanEditor.FalseDefaultValue', message: 'No' }),
+        t({ id: 'FieldEditors.Boolean.BooleanEditor.FalseDefaultLabel', message: 'No' }),
       ),
       id: nanoid(6),
     },
