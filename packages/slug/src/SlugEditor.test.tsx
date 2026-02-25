@@ -284,7 +284,7 @@ describe('SlugEditor', () => {
         expect(
           queryByText('This slug has already been published in another entry'),
         ).not.toBeInTheDocument();
-        expect(getByTestId('cf-ui-text-input')).toHaveAttribute('aria-invalid', 'false');
+        expect(getByTestId('cf-ui-text-input')).not.toHaveAttribute('aria-invalid');
       });
     });
   });
