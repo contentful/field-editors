@@ -99,7 +99,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 isDisabled={disabled}
                 onClick={clearOption}
               >
-                Clear
+                {t({ id: 'FieldEditors.Boolean.BooleanEditor.ClearLabel', message: 'Clear' })}
               </TextLink>
             )}
           </Flex>
