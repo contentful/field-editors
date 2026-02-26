@@ -218,6 +218,8 @@ type ResourceQueryKey = [
   urn: string,
   locale: string | undefined,
   referencingEntryId: string | undefined,
+  spaceId: string,
+  environmentId: string,
 ];
 
 async function fetchContentfulEntry({
@@ -556,6 +558,8 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           urn,
           options?.locale,
           options?.referencingEntryId,
+          currentSpaceId,
+          currentEnvironmentId,
         ];
         return fetch(
           queryKey,
@@ -797,7 +801,16 @@ export function useResource<R extends Resource = Resource>(
     locale = undefined;
     referencingEntryId = undefined;
   }
-  const queryKey: ResourceQueryKey = ['Resource', resourceType, urn, locale, referencingEntryId];
+  const { space, environment } = useCurrentIds();
+  const queryKey: ResourceQueryKey = [
+    'Resource',
+    resourceType,
+    urn,
+    locale,
+    referencingEntryId,
+    space,
+    environment,
+  ];
   const { getResource } = useEntityLoader();
   const { status, data, error } = useQuery(
     queryKey,
