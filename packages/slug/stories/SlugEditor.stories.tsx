@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as React from 'react';
 
+import { SingleLineEditor } from '@contentful/field-editor-single-line';
 import {
   ActionsPlayground,
   createFakeFieldAPI,
@@ -8,7 +9,6 @@ import {
 } from '@contentful/field-editor-test-utils';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SingleLineEditor } from '../../single-line/src/SingleLineEditor';
 import { SlugEditor } from '../src/SlugEditor';
 
 const meta: Meta<typeof SlugEditor> = {
@@ -36,8 +36,10 @@ export const DefaultLocale: Story = {
 
     const sdk = {
       locales: createFakeLocalesAPI(),
-      space: {
-        getEntries: () => Promise.resolve({ total: 0 }),
+      cma: {
+        entry: {
+          getMany: () => Promise.resolve({ total: 0 }),
+        },
       },
       entry: {
         getSys: () => {
@@ -94,8 +96,10 @@ export const NonDefaultLocale: Story = {
 
     const sdk = {
       locales: createFakeLocalesAPI(),
-      space: {
-        getEntries: () => Promise.resolve({ total: 0 }),
+      cma: {
+        entry: {
+          getMany: () => Promise.resolve({ total: 0 }),
+        },
       },
       entry: {
         getSys: () => {
