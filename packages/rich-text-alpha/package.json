@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text-alpha",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -41,7 +41,7 @@
     "@contentful/f36-icons": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
     "@contentful/f36-utils": "^5.1.0",
-    "@contentful/field-editor-reference": "^6.22.1",
+    "@contentful/field-editor-reference": "^6.22.2",
     "@contentful/field-editor-shared": "^2.18.1",
     "@contentful/field-editor-validation-errors": "^2.1.1",
     "@contentful/rich-text-types": "^17.2.5",

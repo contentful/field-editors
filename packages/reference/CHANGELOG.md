@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.22.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.22.1...@contentful/field-editor-reference@6.22.2) (2026-02-27)
+
+### Bug Fixes
+
+- use space and environment scope for Resource cache [ZEND-7634] ([#2086](https://github.com/contentful/field-editors/issues/2086)) ([55ad42b](https://github.com/contentful/field-editors/commit/55ad42bf37f2c49d3158eab7cad9e0dfe35df974))
+
 ## [6.22.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@6.22.0...@contentful/field-editor-reference@6.22.1) (2026-02-23)
 
 ### Bug Fixes
