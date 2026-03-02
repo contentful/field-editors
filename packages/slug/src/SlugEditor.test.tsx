@@ -277,13 +277,8 @@ describe('SlugEditor', () => {
       await waitFor(() => {
         expect(sdk.cma.entry.getMany).toHaveBeenCalledTimes(1);
         expect(
-          queryByText(
-            'Warning: This slug has already been published in another entry. Enable "Unique" validation in the content model to enforce this as an error.',
-          ),
+          queryByText('This slug has already been published in another entry.'),
         ).toBeInTheDocument();
-        expect(
-          queryByText('This slug has already been published in another entry'),
-        ).not.toBeInTheDocument();
         expect(getByTestId('cf-ui-text-input')).not.toHaveAttribute('aria-invalid');
       });
     });

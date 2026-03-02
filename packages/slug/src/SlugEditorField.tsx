@@ -126,8 +126,7 @@ export function SlugEditorFieldStatic(
         >
           {t({
             id: 'FieldEditors.Slug.SlugEditorField.DuplicateSlugWarning',
-            message:
-              'Warning: This slug has already been published in another entry. Enable "Unique" validation in the content model to enforce this as an error.',
+            message: 'This slug has already been published in another entry.',
           })}
         </Note>
       )}
