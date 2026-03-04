@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-shared",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -10,6 +10,12 @@
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
+    },
+    "./react-query": {
+      "types": "./dist/types/react-query.d.ts",
+      "require": "./dist/cjs/react-query.js",
+      "import": "./dist/esm/react-query.js",
+      "default": "./dist/cjs/react-query.js"
     },
     "./package.json": "./package.json"
   },

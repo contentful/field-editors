@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { LocalesAPI } from '@contentful/field-editor-shared';
+
 import { EntryFieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 import { Field as BaseField, FieldWrapper } from '@contentful/default-field-editors';
+import { LocalesAPI } from '@contentful/field-editor-shared';
+
 import { SDKContext, getEntryURL } from './shared';
 import 'codemirror/lib/codemirror.css';
 import '@contentful/field-editor-date/styles/styles.css';
@@ -16,7 +18,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   const extendedField = field.getForLocale(sdk.locales.default);
   const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
   const fieldEditorInterface = sdk.editor.editorInterface?.controls?.find(
-    ({ fieldId }) => fieldId === extendedField.id
+    ({ fieldId }) => fieldId === extendedField.id,
   );
   const widgetId = fieldEditorInterface?.widgetId ?? '';
 

@@ -19,9 +19,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "devDependencies": {
     "@contentful/browserslist-config": "^3.0.0",
     "@contentful/field-editor-test-utils": "^1.6.2",

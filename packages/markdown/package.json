@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-markdown",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -39,7 +39,7 @@
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-icons": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
-    "@contentful/field-editor-shared": "^2.18.0",
+    "@contentful/field-editor-shared": "^2.18.1",
     "@types/codemirror": "0.0.109",
     "codemirror": "^5.65.11",
     "emotion": "^10.0.17",

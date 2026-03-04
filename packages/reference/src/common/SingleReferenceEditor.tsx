@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
-import { useContentTypes } from '@contentful/field-editor-shared';
+import { useContentTypes } from '@contentful/field-editor-shared/react-query';
 
 import { LinkActionsProps, LinkEntityActions } from '../components';
 import { useLinkActionsProps } from '../components/LinkActions/LinkEntityActions';

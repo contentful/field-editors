@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-dropdown",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@contentful/f36-components": "^5.4.1",
-    "@contentful/field-editor-shared": "^2.18.0",
+    "@contentful/field-editor-shared": "^2.18.1",
     "emotion": "^10.0.0",
     "nanoid": "^3.1.3"
   },

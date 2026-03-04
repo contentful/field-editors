@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.18.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.18.0...@contentful/field-editor-shared@2.18.1) (2026-02-23)
+
+### Bug Fixes
+
+- **shared:** make React Query optional + ESM/Vite-safe via subpath export [TOL-38/46] ([#2079](https://github.com/contentful/field-editors/issues/2079)) ([64021a2](https://github.com/contentful/field-editors/commit/64021a263371c3aade8dcab93b727a012a1bce30))
+
 # [2.18.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@2.17.1...@contentful/field-editor-shared@2.18.0) (2026-01-22)
 
 ### Features

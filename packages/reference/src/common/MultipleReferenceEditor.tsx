@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 
-import { useContentTypes } from '@contentful/field-editor-shared';
+import { useContentTypes } from '@contentful/field-editor-shared/react-query';
 import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
@@ -74,10 +74,10 @@ function Editor(props: EditorProps) {
     ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
       // custom callback that is invoked *before* we sort the array
       // e.g. in Compose we want to sort the references in the referenceMap before re-rendering drag and drop
-      onSortingEnd && onSortingEnd({ oldIndex, newIndex });
+      if (onSortingEnd) onSortingEnd({ oldIndex, newIndex });
       const newItems = arrayMove(items, oldIndex, newIndex);
       setValue(newItems);
-      setIndexToUpdate && setIndexToUpdate(undefined);
+      if (setIndexToUpdate) setIndexToUpdate(undefined);
       document.body.classList.remove('grabbing');
     },
     [items, onSortingEnd, setIndexToUpdate, setValue],

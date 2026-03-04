@@ -8,14 +8,11 @@ import {
   useEntity,
   useEntityLoader,
 } from '@contentful/field-editor-reference';
+import { ContentType, Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import {
-  ContentType,
-  Entry,
-  FieldAppSDK,
-  entityHelpers,
-  useContentType,
   SharedQueryClientProvider,
-} from '@contentful/field-editor-shared';
+  useContentType,
+} from '@contentful/field-editor-shared/react-query';
 import { INLINES } from '@contentful/rich-text-types';
 import { css } from 'emotion';
 

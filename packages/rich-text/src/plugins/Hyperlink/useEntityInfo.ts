@@ -8,7 +8,8 @@ import {
   Link,
   ScheduledAction,
 } from '@contentful/app-sdk';
-import { entityHelpers, fetchContentType } from '@contentful/field-editor-shared';
+import { entityHelpers } from '@contentful/field-editor-shared';
+import { fetchContentType } from '@contentful/field-editor-shared/react-query';
 
 import { getEntityInfo } from './utils';
 
@@ -43,7 +44,7 @@ async function fetchAllData({
   const entityTitle =
     entityType === 'Entry'
       ? entityHelpers.getEntryTitle({
-          //@ts-expect-error
+          // @ts-expect-error - Type mismatch between SDK entity and helper expected type
           entry: entity,
           contentType,
           localeCode,
@@ -58,7 +59,7 @@ async function fetchAllData({
         });
 
   const entityDescription = entityHelpers.getEntityDescription({
-    // @ts-expect-error
+    // @ts-expect-error - Type mismatch between SDK entity and helper expected type
     entity,
     contentType,
     localeCode,
@@ -108,6 +109,7 @@ function useRequestStatus({ sdk, target, onEntityFetchComplete }: EntityInfoProp
           setRequestStatus({ type: 'success', data: entityInfo });
         })
         .catch((e) => {
+          // eslint-disable-next-line no-console
           console.log(e);
           setRequestStatus({ type: 'error', error: e });
         })

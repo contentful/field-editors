@@ -10,7 +10,7 @@ import {
   AssetIcon,
 } from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
-import { SharedQueryClientProvider } from '@contentful/field-editor-shared';
+import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { cx } from 'emotion';
 
 import { PlateEditor } from '../../../internal/types';
@@ -116,9 +116,14 @@ const CommandListItems = ({
 const InternalCommandList = ({ query, editor, textContainer }: CommandListProps) => {
   const sdk = useSdkContext();
   const popoverContainer = React.useRef<HTMLDivElement>(null);
-  const popper = usePopper(textContainer, popoverContainer?.current, {
+  const [popoverElement, setPopoverElement] = React.useState<HTMLDivElement | null>(null);
+  const popper = usePopper(textContainer, popoverElement, {
     placement: 'bottom-start',
   });
+
+  React.useEffect(() => {
+    setPopoverElement(popoverContainer.current);
+  }, []);
   const commandItems = useCommands(sdk, query, editor);
   const { selectedItem, isOpen } = useCommandList(commandItems, popoverContainer);
 
@@ -152,12 +157,7 @@ const InternalCommandList = ({ query, editor, textContainer }: CommandListProps)
           style={popper.styles.popper}
           {...popper.attributes.popper}
         >
-          <Popover
-            isOpen={isOpen}
-            usePortal={false}
-            /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
-            autoFocus={false}
-          >
+          <Popover isOpen={isOpen} usePortal={false} autoFocus={false}>
             {/* we need an empty trigger here for the positioning of the menu list */}
             <Popover.Trigger>
               <span />

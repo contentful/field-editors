@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Modal, ModalHeader, GlobalStyles } from '@contentful/f36-components';
+
 import { init, locations, EditorAppSDK, DialogAppSDK } from '@contentful/app-sdk';
-import { FieldGroupsEditor } from './FieldGroupsEditor';
-import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
-import { findUnassignedFields, AppContext, SDKContext } from './shared';
-import { useAppState } from './state';
-import { ActionTypes, FieldType } from './types';
-import { Field } from './Field';
+import { Modal, ModalHeader, GlobalStyles } from '@contentful/f36-components';
+import { TextLink } from '@contentful/f36-components';
+import { PencilSimpleIcon } from '@contentful/f36-icons';
 import { renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import { renderRichTextDialog } from '@contentful/field-editor-rich-text';
+
+import { CollapsibleFieldGroup } from './CollapsibleFieldGroup';
+import { Field } from './Field';
+import { FieldGroupsEditor } from './FieldGroupsEditor';
+import { findUnassignedFields, AppContext, SDKContext } from './shared';
+import { useAppState } from './state';
 import styles from './styles';
-
-import { TextLink } from '@contentful/f36-components';
-
-import { PencilSimpleIcon } from '@contentful/f36-icons';
+import { ActionTypes, FieldType } from './types';
 
 interface AppProps {
   sdk: EditorAppSDK;
@@ -34,7 +34,7 @@ export const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const [state, dispatch] = useAppState(
     props.sdk.contentType.fields,
     storageId(props.sdk),
-    props.sdk.contentType.sys.updatedAt
+    props.sdk.contentType.sys.updatedAt,
   );
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -98,7 +98,7 @@ function renderAtRoot(element: JSX.Element) {
       <GlobalStyles />
       {element}
     </>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 }
 
