@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@2.1.4...@contentful/field-editor-slug@2.2.0) (2026-03-02)
+
+### Features
+
+- **slug-editor:** implement unique validation warning in SlugEditor [TOL-3044] ([#2085](https://github.com/contentful/field-editors/issues/2085)) ([f32240a](https://github.com/contentful/field-editors/commit/f32240a3665a146367999505667f321c90f80210))
+
 ## [2.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@2.1.3...@contentful/field-editor-slug@2.1.4) (2026-02-23)
 
 **Note:** Version bump only for package @contentful/field-editor-slug
