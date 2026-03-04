@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { TextLink, Flex, Radio } from '@contentful/f36-components';
 import { FieldAPI, ParametersAPI, FieldConnector } from '@contentful/field-editor-shared';
+import { t } from '@lingui/core/macro';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 
@@ -33,8 +34,24 @@ export function BooleanEditor(props: BooleanEditorProps) {
   const { field } = props;
 
   const options = [
-    { value: true, label: get(props.parameters, ['instance', 'trueLabel'], 'Yes'), id: nanoid(6) },
-    { value: false, label: get(props.parameters, ['instance', 'falseLabel'], 'No'), id: nanoid(6) },
+    {
+      value: true,
+      label: get(
+        props.parameters,
+        ['instance', 'trueLabel'],
+        t({ id: 'FieldEditors.Boolean.BooleanEditor.TrueDefaultLabel', message: 'Yes' }),
+      ),
+      id: nanoid(6),
+    },
+    {
+      value: false,
+      label: get(
+        props.parameters,
+        ['instance', 'falseLabel'],
+        t({ id: 'FieldEditors.Boolean.BooleanEditor.FalseDefaultLabel', message: 'No' }),
+      ),
+      id: nanoid(6),
+    },
   ];
 
   return (
@@ -82,7 +99,7 @@ export function BooleanEditor(props: BooleanEditorProps) {
                 isDisabled={disabled}
                 onClick={clearOption}
               >
-                Clear
+                {t({ id: 'FieldEditors.Boolean.BooleanEditor.ClearLabel', message: 'Clear' })}
               </TextLink>
             )}
           </Flex>

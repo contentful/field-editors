@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { MenuItem, Text, MenuSectionTitle } from '@contentful/f36-components';
+import { PlusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { shortenStorageUnit } from '@contentful/field-editor-shared';
 import { css } from 'emotion';
@@ -103,14 +104,27 @@ export function renderActions(props: {
   onRemove?: () => void;
   isDisabled: boolean;
   entityFile?: File;
+  onAddToReleaseAction?: () => void;
 }) {
-  const { entityFile, isDisabled, onEdit, onRemove } = props;
+  const { entityFile, isDisabled, onEdit, onRemove, onAddToReleaseAction } = props;
 
   return [
     <MenuSectionTitle key="section-title">Actions</MenuSectionTitle>,
     onEdit ? (
       <MenuItem key="edit" onClick={onEdit} testId="card-action-edit">
         Edit
+      </MenuItem>
+    ) : null,
+    onAddToReleaseAction ? (
+      <MenuItem
+        key="add-to-release"
+        testId="add-to-release"
+        onClick={() => {
+          onAddToReleaseAction();
+        }}
+      >
+        <PlusIcon size="tiny" />
+        Add to release
       </MenuItem>
     ) : null,
     entityFile ? (

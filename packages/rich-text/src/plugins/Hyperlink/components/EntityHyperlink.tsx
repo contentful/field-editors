@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Link } from '@contentful/app-sdk';
-import { Text } from '@contentful/f36-components';
+import { Text, TextLink } from '@contentful/f36-components';
 
 import { Element, RenderElementProps } from '../../../internal/types';
 import { useLinkTracking } from '../../links-tracking';
@@ -31,7 +31,7 @@ export type HyperlinkElementProps = {
 
 export function EntityHyperlink(props: HyperlinkElementProps) {
   const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
-    props.element
+    props.element,
   );
   const { onEntityFetchComplete } = useLinkTracking();
   const { target } = props.element.data;
@@ -46,10 +46,20 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
     return null;
   }
 
-  const popoverText = (
-    <Text fontColor="blue600" fontWeight="fontWeightMedium" className={styles.openLink}>
+  const popoverText = (closePopover: () => void) => (
+    <TextLink
+      className={styles.openLink}
+      onClick={() => {
+        closePopover();
+        if (target.sys.linkType === 'Entry') {
+          sdk.navigator.openEntry(target.sys.id, { slideIn: true });
+        } else if (target.sys.linkType === 'Asset') {
+          sdk.navigator.openAsset(target.sys.id, { slideIn: true });
+        }
+      }}
+    >
       {tooltipContent}
-    </Text>
+    </TextLink>
   );
 
   return (

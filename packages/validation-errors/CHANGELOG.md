@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.1.0...@contentful/field-editor-validation-errors@2.1.1) (2026-02-23)
+
+### Bug Fixes
+
+- **shared:** make React Query optional + ESM/Vite-safe via subpath export [TOL-38/46] ([#2079](https://github.com/contentful/field-editors/issues/2079)) ([64021a2](https://github.com/contentful/field-editors/commit/64021a263371c3aade8dcab93b727a012a1bce30))
+
+# [2.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.7...@contentful/field-editor-validation-errors@2.1.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
 ## [2.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-validation-errors@2.0.6...@contentful/field-editor-validation-errors@2.0.7) (2026-01-19)
 
 **Note:** Version bump only for package @contentful/field-editor-validation-errors

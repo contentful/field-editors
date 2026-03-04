@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.9.0...@contentful/field-editor-boolean@1.10.0) (2026-02-25)
+
+### Features
+
+- **boolean:** add translation fn ([#2084](https://github.com/contentful/field-editors/issues/2084)) ([87f0c2d](https://github.com/contentful/field-editors/commit/87f0c2dec5ec658f9adddc0dd0a0c3d6f23d2369))
+
+# [1.9.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.8.4...@contentful/field-editor-boolean@1.9.0) (2026-02-24)
+
+### Features
+
+- **boolean:** add translation fn [UFO-2136] ([#2083](https://github.com/contentful/field-editors/issues/2083)) ([353f4b8](https://github.com/contentful/field-editors/commit/353f4b881c5333ad5394f84388c124eb8a51c40c))
+
+## [1.8.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.8.3...@contentful/field-editor-boolean@1.8.4) (2026-02-23)
+
+**Note:** Version bump only for package @contentful/field-editor-boolean
+
+## [1.8.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.8.2...@contentful/field-editor-boolean@1.8.3) (2026-01-22)
+
+**Note:** Version bump only for package @contentful/field-editor-boolean
+
 ## [1.8.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@1.8.1...@contentful/field-editor-boolean@1.8.2) (2026-01-19)
 
 **Note:** Version bump only for package @contentful/field-editor-boolean

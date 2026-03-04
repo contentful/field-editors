@@ -2,15 +2,16 @@ import * as React from 'react';
 
 import { Spinner, TextInput, ValidationMessage } from '@contentful/f36-components';
 import { LinkSimpleIcon } from '@contentful/f36-icons';
+import { Note } from '@contentful/f36-note';
 import { t } from '@lingui/core/macro';
 import { useDebounce } from 'use-debounce';
 
 import { makeSlug } from './services/makeSlug';
 import * as styles from './styles';
 
-
 interface SlugEditorFieldProps {
   hasError: boolean;
+  isUniqueValidationEnabled: boolean;
   isOptionalLocaleWithFallback: boolean;
   isDisabled: boolean;
   value: string | null | undefined;
@@ -73,16 +74,19 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
 export function SlugEditorFieldStatic(
   props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function },
 ) {
-  const { hasError, isDisabled, value, setValue, onChange, onBlur, id } = props;
+  const { hasError, isDisabled, value, setValue, onChange, onBlur, isUniqueValidationEnabled, id } =
+    props;
 
   const status = useUniqueChecker(props);
+  const hasDuplicate = status === 'duplicate';
+  const shouldShowDuplicateAsError = hasDuplicate && isUniqueValidationEnabled;
 
   return (
     <div className={styles.inputContainer}>
       <LinkSimpleIcon className={styles.icon} />
       <TextInput
         className={styles.input}
-        isInvalid={hasError || status === 'duplicate'}
+        isInvalid={hasError || shouldShowDuplicateAsError}
         isDisabled={isDisabled}
         value={value || ''}
         id={id}
@@ -103,7 +107,7 @@ export function SlugEditorFieldStatic(
           <Spinner testId="slug-editor-spinner" />
         </div>
       )}
-      {status === 'duplicate' && (
+      {hasDuplicate && isUniqueValidationEnabled && (
         <ValidationMessage
           testId="slug-editor-duplicate-error"
           className={styles.uniqueValidationError}
@@ -113,6 +117,18 @@ export function SlugEditorFieldStatic(
             message: 'This slug has already been published in another entry',
           })}
         </ValidationMessage>
+      )}
+      {hasDuplicate && !isUniqueValidationEnabled && (
+        <Note
+          variant="warning"
+          testId="slug-editor-duplicate-warning"
+          className={styles.uniqueValidationError}
+        >
+          {t({
+            id: 'FieldEditors.Slug.SlugEditorField.DuplicateSlugWarning',
+            message: 'This slug has already been published in another entry.',
+          })}
+        </Note>
       )}
     </div>
   );

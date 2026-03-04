@@ -15,6 +15,19 @@ export const useCommandList = (commandItems, container) => {
   });
   const [isOpen, setIsOpen] = React.useState(commandItems.length > 0);
 
+  // Reset selection to first item when commandItems change
+  React.useEffect(() => {
+    if (!commandItems.length) {
+      setSelectedItem('');
+      return;
+    }
+
+    const firstItemId =
+      'group' in commandItems[0] ? commandItems[0].commands[0].id : commandItems[0].id;
+
+    setSelectedItem(firstItemId);
+  }, [commandItems]);
+
   React.useEffect(() => {
     if (!container.current) {
       return;
@@ -22,11 +35,10 @@ export const useCommandList = (commandItems, container) => {
     const buttons = Array.from(container.current.querySelectorAll('button')) as HTMLButtonElement[];
     const currBtn = buttons.find((btn) => btn.id === selectedItem);
     const currIndex = currBtn ? buttons.indexOf(currBtn) : 0;
-    const shouldSelectFirstBtn = !currBtn && buttons.length;
 
-    if (shouldSelectFirstBtn) {
-      setSelectedItem(buttons[0].id);
-      buttons[0].scrollIntoView({
+    // Scroll the selected button into view
+    if (currBtn) {
+      currBtn.scrollIntoView({
         block: 'nearest',
         inline: 'start',
       });

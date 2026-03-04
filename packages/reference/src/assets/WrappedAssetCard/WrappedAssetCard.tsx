@@ -51,6 +51,7 @@ export interface WrappedAssetCardProps {
   releaseEntityStatus?: ReleaseEntityStatus;
   releaseStatusMap?: ReleaseStatusMap;
   release?: ReleaseV2Props;
+  onAddToRelease?: () => void;
 }
 
 const defaultProps = {
@@ -93,6 +94,7 @@ export const WrappedAssetCard = ({
   releaseEntityStatus,
   releaseStatusMap,
   release,
+  onAddToRelease,
 }: WrappedAssetCardProps) => {
   const status = entityHelpers.getEntityStatus(
     asset.sys,
@@ -129,6 +131,14 @@ export const WrappedAssetCard = ({
   });
 
   const href = getAssetUrl ? getAssetUrl(asset.sys.id) : undefined;
+
+  const onAddToReleaseAction =
+    releaseEntityStatus === 'notInRelease' &&
+    release !== undefined &&
+    onAddToRelease !== undefined &&
+    !isDisabled
+      ? onAddToRelease
+      : undefined;
 
   return (
     <AssetCard
@@ -181,7 +191,13 @@ export const WrappedAssetCard = ({
       withDragHandle={!!renderDragHandle && !isDisabled}
       draggable={!!renderDragHandle && !isDisabled}
       actions={[
-        ...renderActions({ entityFile, isDisabled: isDisabled, onEdit, onRemove }),
+        ...renderActions({
+          entityFile,
+          isDisabled: isDisabled,
+          onEdit,
+          onRemove,
+          onAddToReleaseAction,
+        }),
         ...(entityFile ? renderAssetInfo({ entityFile }) : []),
       ].filter((item) => item)}
       size={size}

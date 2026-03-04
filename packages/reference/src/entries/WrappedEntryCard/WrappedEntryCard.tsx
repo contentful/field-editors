@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { SpaceAPI } from '@contentful/app-sdk';
 import { EntryCard, MenuDivider, MenuItem } from '@contentful/f36-components';
+import { PlusIcon } from '@contentful/f36-icons';
 import {
   entityHelpers,
   isValidImage,
@@ -46,6 +47,7 @@ export interface WrappedEntryCardProps {
   releaseEntityStatus?: ReleaseEntityStatus;
   releaseStatusMap?: ReleaseStatusMap;
   release?: ReleaseV2Props;
+  onAddToRelease?: () => void;
 }
 
 const defaultProps = {
@@ -83,6 +85,7 @@ export function WrappedEntryCard({
   releaseEntityStatus,
   releaseStatusMap,
   release,
+  onAddToRelease,
 }: WrappedEntryCardProps) {
   const [file, setFile] = React.useState<null | File>(null);
 
@@ -139,6 +142,12 @@ export function WrappedEntryCard({
     defaultLocaleCode,
   });
 
+  const showAddToReleaseAction =
+    releaseEntityStatus === 'notInRelease' &&
+    release !== undefined &&
+    onAddToRelease !== undefined &&
+    !isDisabled;
+
   return (
     <EntryCard
       as={isClickable && entryUrl ? 'a' : 'article'}
@@ -172,7 +181,7 @@ export function WrappedEntryCard({
       withDragHandle={!!renderDragHandle && !isDisabled}
       draggable={!!renderDragHandle && !isDisabled}
       actions={
-        onEdit || onRemove
+        onEdit || onRemove || showAddToReleaseAction
           ? [
               hasCardEditActions && onEdit ? (
                 <MenuItem
@@ -194,6 +203,18 @@ export function WrappedEntryCard({
                   }}
                 >
                   Remove
+                </MenuItem>
+              ) : null,
+              showAddToReleaseAction ? (
+                <MenuItem
+                  key="add-to-release"
+                  testId="add-to-release"
+                  onClick={() => {
+                    onAddToRelease();
+                  }}
+                >
+                  <PlusIcon size="tiny" />
+                  Add to release
                 </MenuItem>
               ) : null,
               hasCardMoveActions && (onMoveTop || onMoveBottom) && !isDisabled ? (

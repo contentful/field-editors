@@ -24,7 +24,7 @@ async function filter<T, S extends T>(arr: T[], predicate: (value: T) => Promise
   // intentionally parallel as we assume it's cached in the implementation of the access api
   const fail = Symbol();
   const results = await Promise.all(
-    arr.map(async (item) => ((await predicate(item)) ? item : fail))
+    arr.map(async (item) => ((await predicate(item)) ? item : fail)),
   );
 
   return results.filter((x) => x !== fail) as S[];
@@ -41,6 +41,13 @@ export function useContentTypePermissions({
       return [];
     }
 
+    // RACE CONDITION FIX: If allContentTypes hasn't loaded yet (empty array),
+    // but we have validation content types, return empty array and wait for
+    // allContentTypes to populate. The useMemo will recalculate when allContentTypes changes.
+    if (validations.contentTypes && allContentTypes.length === 0) {
+      return [];
+    }
+
     if (validations.contentTypes) {
       return allContentTypes.filter((ct) => validations.contentTypes?.includes(ct.sys.id));
     }
@@ -52,25 +59,21 @@ export function useContentTypePermissions({
   const { canPerformActionOnEntryOfType } = useAccessApi(sdk.access);
 
   useEffect(() => {
-    function getContentTypes(action: 'create' | 'read') {
-      return filter(availableContentTypes, (ct) =>
-        canPerformActionOnEntryOfType(action, ct.sys.id)
-      );
-    }
-
     async function checkContentTypeAccess() {
-      const creatable = await getContentTypes('create');
+      const creatable = await filter(availableContentTypes, (ct) =>
+        canPerformActionOnEntryOfType('create', ct.sys.id),
+      );
       // Important as `filter` creates a new array and otherwise always a "new value" would be written to the state
-      if (!isEqual(creatable, creatableContentTypes)) {
-        setCreatableContentTypes(creatable);
-      }
+      setCreatableContentTypes((creatableContentTypes) =>
+        isEqual(creatable, creatableContentTypes) ? creatableContentTypes : creatable,
+      );
     }
 
     if (availableContentTypes.length > 0) {
       void checkContentTypeAccess();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
-  }, [availableContentTypes, creatableContentTypes]);
+  }, [availableContentTypes]);
 
   return {
     creatableContentTypes,

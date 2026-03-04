@@ -162,6 +162,16 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
         get: async ({ contentTypeId }) => {
           return store.get('ContentType', contentTypeId);
         },
+        getMany: async () => {
+          const items = store.getAll('ContentType');
+          return Promise.resolve({
+            items: localizeContentTypes(items),
+            total: items.length,
+            skip: 0,
+            limit: 1000,
+            sys: { type: 'Array' },
+          });
+        },
       },
       locale: {
         getMany: async () => {
@@ -179,22 +189,52 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
           };
         },
       },
+      resource: {
+        getMany: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
+      resourceType: {
+        getForEnvironment: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
+      resourceProvider: {
+        get: async () => {
+          return Promise.resolve({
+            sys: {
+              type: 'ResourceProvider',
+              id: 'mock-resource-provider',
+            },
+          });
+        },
+      },
+      scheduledActions: {
+        getMany: async () => {
+          return Promise.resolve({
+            items: [],
+            total: 0,
+            skip: 0,
+            limit: 100,
+            sys: { type: 'Array' },
+          });
+        },
+      },
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
-      getContentTypes() {
-        return Promise.resolve(
-          space.getContentTypes().then((response) => {
-            return {
-              ...response,
-              items: localizeContentTypes(response.items),
-            };
-          }),
-        );
-      },
       async getEntityScheduledActions() {
         return [];
       },
@@ -211,10 +251,103 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
       selectSingleEntry: (options?: any) => {
         // Store options for test verification
         (window as any).lastSelectSingleEntryOptions = options;
-        return createOpenDialog(
-          <EntryCard title={entries.published.fields.exField['en-US']} />,
-          entries.published,
-        )();
+        return ModalDialogLauncher.openDialog(
+          { title: 'Rich Text Embed Dialog Mock' },
+          ({ onClose }) => {
+            const withCreate = Boolean(options?.withCreate);
+            const [selectedEntry, setSelectedEntry] = React.useState<Entry>(
+              // Prefer the store-backed published entry to ensure follow-up fetching works.
+              store.get('Entry', entries.published.sys.id) as Entry,
+            );
+
+            const contentTypes: ContentType[] = (() => {
+              try {
+                return store.getAll('ContentType') as ContentType[];
+              } catch {
+                return [];
+              }
+            })();
+
+            const title = (() => {
+              if (selectedEntry.sys.id.startsWith('new-entry-')) return 'New entry (Untitled)';
+              return entries.published.fields.exField['en-US'];
+            })();
+
+            return (
+              <>
+                <ModalContent>
+                  <EntryCard title={title} />
+                  {withCreate && (
+                    <div style={{ marginTop: 12 }}>
+                      <label
+                        htmlFor={`${ID}-create-entry-content-type`}
+                        style={{ display: 'block' }}
+                      >
+                        Create new entry (content type)
+                      </label>
+                      <select
+                        id={`${ID}-create-entry-content-type`}
+                        data-test-id={`${ID}-create-entry-content-type`}
+                        defaultValue=""
+                        onChange={(e) => {
+                          const contentTypeId = e.target.value;
+                          if (!contentTypeId) return;
+
+                          const base = store.get('Entry', entries.empty.sys.id) as any;
+                          const createdId = `new-entry-${contentTypeId}`;
+                          const createdEntry = {
+                            ...base,
+                            sys: {
+                              ...base.sys,
+                              id: createdId,
+                              contentType: {
+                                sys: { type: 'Link', linkType: 'ContentType', id: contentTypeId },
+                              },
+                            },
+                            fields: {},
+                          };
+
+                          // Ensure the editor can fetch the created entry by ID.
+                          store.set('Entry', createdId, createdEntry);
+                          setSelectedEntry(createdEntry);
+                        }}
+                      >
+                        <option value="" disabled>
+                          Select a content type
+                        </option>
+                        {contentTypes.map((ct) => (
+                          <option key={ct.sys.id} value={ct.sys.id}>
+                            {ct.name ?? ct.sys.id}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </ModalContent>
+                <ModalControls>
+                  <Button
+                    type="button"
+                    onClick={() => onClose(null)}
+                    variant="secondary"
+                    testId={`${ID}-cancel-cta`}
+                    size="small"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="positive"
+                    onClick={() => onClose(selectedEntry)}
+                    testId={`${ID}-confirm-cta`}
+                    size="small"
+                  >
+                    Submit
+                  </Button>
+                </ModalControls>
+              </>
+            );
+          },
+        ) as Promise<any>;
       },
       selectSingleResourceEntity: createOpenDialog(
         <EntryCard title={resources.published.sys.urn} />,

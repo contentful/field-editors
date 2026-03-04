@@ -3,6 +3,72 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.14](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.13...@contentful/default-field-editors@2.2.14) (2026-03-02)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.13](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.12...@contentful/default-field-editors@2.2.13) (2026-02-27)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.12](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.11...@contentful/default-field-editors@2.2.12) (2026-02-25)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.11](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.10...@contentful/default-field-editors@2.2.11) (2026-02-24)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.10](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.9...@contentful/default-field-editors@2.2.10) (2026-02-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.9](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.8...@contentful/default-field-editors@2.2.9) (2026-02-20)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.8](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.7...@contentful/default-field-editors@2.2.8) (2026-02-19)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.7](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.6...@contentful/default-field-editors@2.2.7) (2026-02-09)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.6](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.5...@contentful/default-field-editors@2.2.6) (2026-01-29)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.5](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.4...@contentful/default-field-editors@2.2.5) (2026-01-29)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.4](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.3...@contentful/default-field-editors@2.2.4) (2026-01-28)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.2...@contentful/default-field-editors@2.2.3) (2026-01-28)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.1...@contentful/default-field-editors@2.2.2) (2026-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+## [2.2.1](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.2.0...@contentful/default-field-editors@2.2.1) (2026-01-23)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
+# [2.2.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.19...@contentful/default-field-editors@2.2.0) (2026-01-22)
+
+### Features
+
+- Migrate field editors .space.getCachedContentTypes to Plain Client APIs [TOL-3472] ([#2043](https://github.com/contentful/field-editors/issues/2043)) ([4f9ab95](https://github.com/contentful/field-editors/commit/4f9ab952b7b70b900a00b28695358d3b8d722b2e))
+
+## [2.1.19](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.18...@contentful/default-field-editors@2.1.19) (2026-01-21)
+
+**Note:** Version bump only for package @contentful/default-field-editors
+
 ## [2.1.18](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@2.1.17...@contentful/default-field-editors@2.1.18) (2026-01-19)
 
 **Note:** Version bump only for package @contentful/default-field-editors

@@ -15,10 +15,11 @@ import {
 } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import {
-  getText,
   getAboveNode,
   getLastNodeByLevel,
   insertNodes,
+  getSelectionElementPath,
+  isEmptyTextContainer,
   PlateEditor,
   setNodes,
   select,
@@ -174,11 +175,11 @@ function insertBlock(editor: PlateEditor, nodeType: string, entity) {
 
   const linkedEntityBlock = createNode(nodeType, entity);
 
-  const hasText = editor.selection && !!getText(editor, editor.selection.focus.path);
-
-  if (hasText) {
-    insertNodes(editor, linkedEntityBlock);
-  } else {
-    setNodes(editor, linkedEntityBlock);
+  const elementPath = getSelectionElementPath(editor);
+  if (elementPath && isEmptyTextContainer(editor, elementPath)) {
+    setNodes(editor, linkedEntityBlock, { at: elementPath });
+    return;
   }
+
+  insertNodes(editor, linkedEntityBlock);
 }

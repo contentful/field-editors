@@ -97,6 +97,20 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
         get: async ({ contentTypeId }) => {
           return store.get('ContentType', contentTypeId);
         },
+        getMany: async () => {
+          const items = localizeContentTypes(store.getAll<ContentType>('ContentType'));
+          const total = items.length;
+
+          return {
+            sys: {
+              type: 'Array' as const,
+            },
+            total,
+            skip: 0,
+            limit: 1000,
+            items,
+          };
+        },
       },
       locale: {
         getMany: async () => {
@@ -117,19 +131,6 @@ export function createReferenceEditorTestSdk(props?: ReferenceEditorFakeSdkProps
     },
     space: {
       ...space,
-      getCachedContentTypes() {
-        return localizeContentTypes(space.getCachedContentTypes());
-      },
-      getContentTypes() {
-        return Promise.resolve(
-          space.getContentTypes().then((response) => {
-            return {
-              ...response,
-              items: localizeContentTypes(response.items),
-            };
-          }),
-        );
-      },
       async getEntityScheduledActions() {
         return [];
       },
