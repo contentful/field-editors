@@ -46,6 +46,7 @@ function FieldConnectorCallback({
   locale,
   createdAt,
   performUniqueCheck,
+  isUniqueValidationEnabled,
   id,
 }: {
   Component: typeof SlugEditorFieldStatic | typeof SlugEditorField;
@@ -58,6 +59,7 @@ function FieldConnectorCallback({
   locale: FieldAPI['locale'];
   createdAt: string;
   performUniqueCheck: (value: string) => Promise<boolean>;
+  isUniqueValidationEnabled: boolean;
   id?: string;
 }) {
   // it is needed to silent permission errors
@@ -79,6 +81,7 @@ function FieldConnectorCallback({
         locale={locale}
         createdAt={createdAt}
         performUniqueCheck={performUniqueCheck}
+        isUniqueValidationEnabled={isUniqueValidationEnabled}
         hasError={errors.length > 0}
         value={value}
         isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
@@ -101,6 +104,9 @@ export function SlugEditor(props: SlugEditorProps) {
 
   const trackingFieldId = parameters?.instance?.trackingFieldId ?? undefined;
   const entrySys = entry.getSys();
+  const isUniqueValidationEnabled = (field.validations || []).some(
+    (validation) => 'unique' in validation && validation.unique === true,
+  );
 
   const isLocaleOptional = locales.optional[field.locale];
   const localeFallbackCode = locales.fallbacks[field.locale];
@@ -166,6 +172,7 @@ export function SlugEditor(props: SlugEditorProps) {
                 createdAt={entrySys.createdAt}
                 locale={field.locale}
                 performUniqueCheck={performUniqueCheck}
+                isUniqueValidationEnabled={isUniqueValidationEnabled}
                 key={`slug-editor-${externalReset}`}
                 id={id}
               />

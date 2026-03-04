@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-slug",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -38,6 +38,7 @@
   "dependencies": {
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-icons": "^5.4.1",
+    "@contentful/f36-note": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
     "@contentful/field-editor-shared": "^2.18.1",
     "@types/speakingurl": "^13.0.2",
