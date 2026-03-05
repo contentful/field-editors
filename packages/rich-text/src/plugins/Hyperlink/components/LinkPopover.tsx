@@ -28,7 +28,10 @@ export const LinkPopover = ({
   const [isPopoverContentClicked, setIsPopoverContentClicked] = React.useState(false);
   const isOpen = (isLinkFocused && isEditorFocused) || isPopoverContentClicked;
   const isOpenRef = React.useRef(false);
-  isOpenRef.current = isOpen;
+
+  React.useEffect(() => {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
 
   React.useEffect(() => {
     const handleMouseDown = (event) => {
@@ -59,7 +62,6 @@ export const LinkPopover = ({
   // Otherwise the content of the popover will get copied over when users copy text from the rich text editor
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-autofocus -- we don't want to autofocus the popover
     <Popover renderOnlyWhenOpen={false} usePortal={true} autoFocus={false} isOpen={isOpen}>
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Content className={styles.popover}>

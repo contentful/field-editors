@@ -1,6 +1,8 @@
+import * as React from 'react';
+
 import { EditorAppSDK } from '@contentful/app-sdk';
 import { Entry } from '@contentful/field-editor-shared';
-import * as React from 'react';
+
 import { Action, AppState, FieldGroupType, FieldType } from './types';
 // UTILS
 export const findUnassignedFields = (appState: AppState): FieldType[] => {

@@ -17,6 +17,24 @@ import {
 const clientContext = React.createContext<QueryClient | undefined>(undefined);
 
 // Singleton QueryClient instance shared across all field editors
+// Initialized lazily to avoid side effects during render
+function getOrCreateSharedQueryClient(): QueryClient {
+  if (!sharedQueryClientInstance) {
+    sharedQueryClientInstance = new QueryClient({
+      defaultOptions: {
+        queries: {
+          useErrorBoundary: false,
+          refetchOnWindowFocus: false,
+          refetchOnReconnect: true,
+          refetchOnMount: false,
+          staleTime: Infinity,
+          retry: false,
+        },
+      },
+    });
+  }
+  return sharedQueryClientInstance;
+}
 let sharedQueryClientInstance: QueryClient | undefined;
 
 function useMaybeHostQueryClient(): QueryClient | undefined {
@@ -39,22 +57,7 @@ export function useQueryClient(): QueryClient {
     if (hostClient) return hostClient;
 
     // Create singleton instance only once if not already created
-    if (!sharedQueryClientInstance) {
-      sharedQueryClientInstance = new QueryClient({
-        defaultOptions: {
-          queries: {
-            useErrorBoundary: false,
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: true,
-            refetchOnMount: false,
-            staleTime: Infinity,
-            retry: false,
-          },
-        },
-      });
-    }
-
-    return sharedQueryClientInstance;
+    return getOrCreateSharedQueryClient();
   }, [client, hostClient]);
 }
 

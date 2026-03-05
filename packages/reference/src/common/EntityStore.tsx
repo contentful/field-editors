@@ -57,7 +57,7 @@ type EntityStoreProps = {
   queryClient?: QueryClient;
 };
 
-type FetchService = ReturnType<typeof useFetch>;
+type FetchService = ReturnType<typeof _useFetch>;
 
 type GetOptions = {
   priority?: number;
@@ -359,7 +359,7 @@ async function fetchExternalResource({
   };
 }
 
-const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = constate(
+const [InternalServiceProvider, _useFetch, useEntityLoader, useCurrentIds] = constate(
   function useInitServices(props: EntityStoreProps) {
     const currentSpaceId = props.sdk.ids.space;
     const currentEnvironmentId = props.sdk.ids.environmentAlias ?? props.sdk.ids.environment;
@@ -371,7 +371,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
     );
     const queryClient = useQueryClient();
     const queryCache = queryClient.getQueryCache();
-    const entityChangeUnsubscribers = useRef<Record<string, Function>>({});
+    const entityChangeUnsubscribers = useRef<Record<string, () => void>>({});
     const cmaClient = props.sdk.cma as unknown as PlainClientAPI;
     const queryQueue = useMemo(() => {
       if (props.queryConcurrency) {
@@ -645,7 +645,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     return;
                   }
                   queryClient.setQueryData(query.queryKey, freshData);
-                } catch (error) {
+                } catch {
                   // If fetch fails, just invalidate the query
                   await queryClient.invalidateQueries(query.queryKey);
                 }

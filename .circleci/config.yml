@@ -7,7 +7,7 @@ executors:
   linux-node:
     resource_class: xlarge
     docker:
-      - image: cimg/node:20.14.0
+      - image: cimg/node:20.19.0
     environment:
       CYPRESS_INSTALL_BINARY: 0
   linux-cypress:
