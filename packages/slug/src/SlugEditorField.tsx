@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Spinner, TextInput, ValidationMessage } from '@contentful/f36-components';
 import { LinkSimpleIcon } from '@contentful/f36-icons';
-import { Note } from '@contentful/f36-note';
 import { t } from '@lingui/core/macro';
 import { useDebounce } from 'use-debounce';
 
@@ -117,18 +116,6 @@ export function SlugEditorFieldStatic(
             message: 'This slug has already been published in another entry',
           })}
         </ValidationMessage>
-      )}
-      {hasDuplicate && !isUniqueValidationEnabled && (
-        <Note
-          variant="warning"
-          testId="slug-editor-duplicate-warning"
-          className={styles.uniqueValidationError}
-        >
-          {t({
-            id: 'FieldEditors.Slug.SlugEditorField.DuplicateSlugWarning',
-            message: 'This slug has already been published in another entry.',
-          })}
-        </Note>
       )}
     </div>
   );
