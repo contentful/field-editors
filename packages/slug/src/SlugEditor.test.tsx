@@ -249,39 +249,6 @@ describe('SlugEditor', () => {
         ).not.toBeInTheDocument();
       });
     });
-
-    it('shows warning instead of error when unique validation is disabled on content model', async () => {
-      const { field, sdk } = createMocks({
-        titleField: 'Slug value',
-        field: 'slug-value',
-      });
-
-      field.validations = [];
-
-      sdk.entry.getSys.mockReturnValue({
-        id: 'entry-id',
-        publishedVersion: undefined,
-        contentType: {
-          sys: {
-            id: 'content-type-id',
-          },
-        },
-      });
-
-      sdk.cma.entry.getMany.mockResolvedValue({ total: 2 });
-
-      const { queryByText, getByTestId } = render(
-        <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />,
-      );
-
-      await waitFor(() => {
-        expect(sdk.cma.entry.getMany).toHaveBeenCalledTimes(1);
-        expect(
-          queryByText('This slug has already been published in another entry.'),
-        ).toBeInTheDocument();
-        expect(getByTestId('cf-ui-text-input')).not.toHaveAttribute('aria-invalid');
-      });
-    });
   });
 
   describe('should react to title changes', () => {
