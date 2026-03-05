@@ -105,7 +105,7 @@ export class FieldConnector<ValueType> extends React.Component<
 
   debouncedTriggerSetValueCallbacks = debounce(
     this.triggerSetValueCallbacks,
-    this.getDebounceDuration()
+    this.getDebounceDuration(),
   );
 
   componentDidMount() {
@@ -133,6 +133,26 @@ export class FieldConnector<ValueType> extends React.Component<
         };
       });
     });
+  }
+
+  componentDidUpdate(
+    _: Readonly<FieldConnectorProps<ValueType>>,
+    prevState: Readonly<FieldConnectorState<ValueType>>,
+  ): void {
+    const newValue = this.props.field.getValue();
+    if (
+      this.props.isEqualValues!(newValue, prevState.value) ||
+      this.props.isEqualValues!(newValue, prevState.lastRemoteValue)
+    ) {
+      return;
+    }
+
+    this.setState((currentState) => ({
+      value: newValue,
+      lastRemoteValue: newValue,
+      isLocalValueChange: true,
+      externalReset: currentState.externalReset + 1,
+    }));
   }
 
   componentWillUnmount() {
