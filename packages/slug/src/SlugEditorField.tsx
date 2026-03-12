@@ -81,7 +81,7 @@ export function SlugEditorFieldStatic(
   const hasDuplicate = status === 'duplicate';
   // If the entry is currently in an error state (e.g. publish-time validation),
   // surface duplicate as an error and suppress the warning to keep messaging exclusive.
-  const shouldShowDuplicateAsError = hasDuplicate && (isUniqueValidationEnabled || hasError);
+  const shouldShowDuplicateAsError = hasDuplicate && isUniqueValidationEnabled && !hasError;
   const shouldShowDuplicateAsWarning = hasDuplicate && !shouldShowDuplicateAsError;
 
   return (
