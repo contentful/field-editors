@@ -5,6 +5,7 @@ import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library
 
 import '@testing-library/jest-dom/extend-expect';
 import { SlugEditor } from './SlugEditor';
+import { SlugEditorFieldStatic } from './SlugEditorField';
 
 configure({
   testIdAttribute: 'data-test-id',
@@ -280,6 +281,31 @@ describe('SlugEditor', () => {
           queryByText('This slug has already been published in another entry.'),
         ).toBeInTheDocument();
         expect(getByTestId('cf-ui-text-input')).not.toHaveAttribute('aria-invalid');
+      });
+    });
+
+    it('hides duplicate warning when publish sets hasError', async () => {
+      const performUniqueCheck = jest.fn().mockResolvedValue(false);
+      const setValue = jest.fn();
+
+      const { queryByTestId } = render(
+        <SlugEditorFieldStatic
+          hasError={true}
+          isUniqueValidationEnabled={false}
+          isOptionalLocaleWithFallback={false}
+          isDisabled={false}
+          value="slug-value"
+          locale="en-US"
+          titleValue="Slug value"
+          createdAt="2020-01-24T15:33:47.906Z"
+          setValue={setValue}
+          performUniqueCheck={performUniqueCheck}
+        />,
+      );
+
+      await waitFor(() => {
+        expect(queryByTestId('slug-editor-duplicate-warning')).not.toBeInTheDocument();
+        expect(queryByTestId('slug-editor-duplicate-error')).not.toBeInTheDocument();
       });
     });
   });

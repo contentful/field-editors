@@ -79,7 +79,10 @@ export function SlugEditorFieldStatic(
 
   const status = useUniqueChecker(props);
   const hasDuplicate = status === 'duplicate';
-  const shouldShowDuplicateAsError = hasDuplicate && isUniqueValidationEnabled;
+  // If the entry is currently in an error state (e.g. publish-time validation),
+  // surface duplicate as an error and suppress the warning to keep messaging exclusive.
+  const shouldShowDuplicateAsError = hasDuplicate && isUniqueValidationEnabled && !hasError;
+  const shouldShowDuplicateAsWarning = hasDuplicate && !shouldShowDuplicateAsError && !hasError;
 
   return (
     <div className={styles.inputContainer}>
@@ -107,7 +110,7 @@ export function SlugEditorFieldStatic(
           <Spinner testId="slug-editor-spinner" />
         </div>
       )}
-      {hasDuplicate && isUniqueValidationEnabled && (
+      {shouldShowDuplicateAsError && (
         <ValidationMessage
           testId="slug-editor-duplicate-error"
           className={styles.uniqueValidationError}
@@ -118,7 +121,7 @@ export function SlugEditorFieldStatic(
           })}
         </ValidationMessage>
       )}
-      {hasDuplicate && !isUniqueValidationEnabled && (
+      {shouldShowDuplicateAsWarning && (
         <Note
           variant="warning"
           testId="slug-editor-duplicate-warning"
