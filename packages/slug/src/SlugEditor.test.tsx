@@ -288,7 +288,7 @@ describe('SlugEditor', () => {
       const performUniqueCheck = jest.fn().mockResolvedValue(false);
       const setValue = jest.fn();
 
-      const { queryByTestId } = render(
+      const { findByText, queryByText } = render(
         <SlugEditorFieldStatic
           hasError={true}
           isUniqueValidationEnabled={false}
@@ -303,10 +303,12 @@ describe('SlugEditor', () => {
         />,
       );
 
-      await waitFor(() => {
-        expect(queryByTestId('slug-editor-duplicate-error')).toBeInTheDocument();
-        expect(queryByTestId('slug-editor-duplicate-warning')).not.toBeInTheDocument();
-      });
+      expect(
+        await findByText('This slug has already been published in another entry'),
+      ).toBeInTheDocument();
+      expect(
+        queryByText('This slug has already been published in another entry.'),
+      ).not.toBeInTheDocument();
     });
   });
 
