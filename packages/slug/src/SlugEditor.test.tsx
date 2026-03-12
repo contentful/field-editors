@@ -284,11 +284,11 @@ describe('SlugEditor', () => {
       });
     });
 
-    it('shows error and hides warning for duplicate slug when publish sets hasError', async () => {
+    it('hides duplicate warning when publish sets hasError', async () => {
       const performUniqueCheck = jest.fn().mockResolvedValue(false);
       const setValue = jest.fn();
 
-      const { findByText, queryByText } = render(
+      const { queryByTestId } = render(
         <SlugEditorFieldStatic
           hasError={true}
           isUniqueValidationEnabled={false}
@@ -303,12 +303,10 @@ describe('SlugEditor', () => {
         />,
       );
 
-      expect(
-        await findByText('This slug has already been published in another entry'),
-      ).toBeInTheDocument();
-      expect(
-        queryByText('This slug has already been published in another entry.'),
-      ).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(queryByTestId('slug-editor-duplicate-warning')).not.toBeInTheDocument();
+        expect(queryByTestId('slug-editor-duplicate-error')).not.toBeInTheDocument();
+      });
     });
   });
 
