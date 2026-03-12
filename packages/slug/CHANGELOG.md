@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@2.2.2...@contentful/field-editor-slug@2.2.3) (2026-03-12)
+
+### Bug Fixes
+
+- update duplicate slug validation logic to show error and suppress warning [ZEND-7705] ([#2096](https://github.com/contentful/field-editors/issues/2096)) ([acc16cf](https://github.com/contentful/field-editors/commit/acc16cf66f04cd537ecbcfd4d81b5d366023f98c))
+
 ## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@2.2.1...@contentful/field-editor-slug@2.2.2) (2026-03-12)
 
 **Note:** Version bump only for package @contentful/field-editor-slug
