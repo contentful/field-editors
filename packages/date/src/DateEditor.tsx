@@ -3,7 +3,7 @@ import * as React from 'react';
 import { TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { FieldAPI, FieldConnector, ParametersAPI } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';

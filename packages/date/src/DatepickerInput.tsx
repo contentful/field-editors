@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Datepicker } from '@contentful/f36-components';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 // eslint-disable-next-line -- TODO: move to date-fns
 import moment from 'moment';
 
