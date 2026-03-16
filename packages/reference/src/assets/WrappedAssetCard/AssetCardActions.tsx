@@ -4,7 +4,7 @@ import { MenuItem, Text, MenuSectionTitle } from '@contentful/f36-components';
 import { PlusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { shortenStorageUnit } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import get from 'lodash/get';
 
 import { File } from '../../types';

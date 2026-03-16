@@ -9,7 +9,7 @@ import {
   Caption,
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import truncate from 'truncate';
 
 import { ExternalResourceInfo } from '../../common/EntityStore';

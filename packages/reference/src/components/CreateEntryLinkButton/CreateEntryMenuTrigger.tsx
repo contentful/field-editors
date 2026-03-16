@@ -5,8 +5,8 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { TextInput, Menu, type MenuProps } from '@contentful/f36-components';
 import { MagnifyingGlassIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
+import { css } from '@emotion/css';
 import { plural, t } from '@lingui/core/macro';
-import { css } from 'emotion';
 import get from 'lodash/get';
 
 import type { ContentType } from '../../types';
