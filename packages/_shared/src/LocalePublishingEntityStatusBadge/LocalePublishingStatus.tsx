@@ -2,8 +2,8 @@ import React from 'react';
 
 import { EntityStatusBadge, Text } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
+import { css } from '@emotion/css';
 import type { LocaleProps } from 'contentful-management';
-import { css } from 'emotion';
 
 const styles = {
   locale: css({
