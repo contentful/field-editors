@@ -3,7 +3,7 @@ import * as React from 'react';
 import { IconButton } from '@contentful/f36-components';
 import { StarIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 type RatingRibbonProps = {
   disabled: boolean;
