@@ -28,6 +28,11 @@ cache-key: &cache-key
 commands:
   yarn_install:
     steps:
+      - vault/get-secrets:
+          template-preset: packages-read
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
+          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - restore_cache: *cache-key
       - run: yarn install --prefer-offline --pure-lockfile
       - save_cache:
@@ -77,11 +82,6 @@ jobs:
               --reporter junit \
               --reporter-options "mochaFile=./cypress/reports/component/test-results.[hash].xml" \
               --browser chrome
-      - vault/get-secrets:
-          template-preset: packages-read
-      - run: |
-          echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_READ_TOKEN}" > ~/.npmrc
-          echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run:
           name: Format JUnit Reports
           command: npx @contentful/circleci-orb-tools@2 fix-junit-format --path cypress/reports/component
