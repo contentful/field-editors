@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import type { Emitter } from 'mitt';
 
 type EventDefinition = { type?: string; value: any; id: number };
