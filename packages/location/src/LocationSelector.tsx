@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Flex, Radio, TextInput, TextLink } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { LocationSearchInput } from './LocationSearchInput';
 import { Coords, GeocodeApiResponse, ViewType } from './types';

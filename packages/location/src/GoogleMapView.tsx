@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import GoogleMapReact from 'google-map-react';
 
 import { Coords } from './types';
