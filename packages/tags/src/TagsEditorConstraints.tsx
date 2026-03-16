@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { Text } from '@contentful/f36-components';
+import { css } from '@emotion/css';
 import { t, plural } from '@lingui/core/macro';
-import { css } from 'emotion';
 
 import { Constraint, ConstraintsType } from './types';
 
