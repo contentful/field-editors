@@ -1,4 +1,10 @@
-import { checkValue, renderMarkdownEditor, type, clickVisibleButtonByName } from './utils';
+import {
+  checkValue,
+  renderMarkdownEditor,
+  type,
+  openAdditionalActions,
+  clickVisibleButtonByName,
+} from './utils';
 
 describe('Markdown Editor / History', () => {
   const selectors = {
@@ -6,7 +12,7 @@ describe('Markdown Editor / History', () => {
       return cy.findByRole('button', { name: 'More actions' });
     },
     openAdditionalActions() {
-      return clickVisibleButtonByName('More actions');
+      return openAdditionalActions();
     },
     getRedoButton() {
       return cy.findByRole('button', { name: 'Redo' });
@@ -19,7 +25,7 @@ describe('Markdown Editor / History', () => {
   it('should redo and undo properly', () => {
     renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
 
-    selectors.openAdditionalActions();
+    selectors.openAdditionalActions().should('be.visible');
 
     type('Hello!{enter}');
     checkValue('Hello!\n');

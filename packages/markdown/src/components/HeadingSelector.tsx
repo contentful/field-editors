@@ -5,17 +5,24 @@ import { Menu } from '@contentful/f36-components';
 import { HeadingType } from '../types';
 
 export const HeadingSelector = (props: {
-  children: React.ReactElement;
   onSelect: (heading: HeadingType) => void;
-  tooltip?: string;
+  renderTrigger: (props: { isOpen: boolean; onClick: () => void }) => React.ReactElement;
 }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   const handleMenuClick = (heading: HeadingType) => {
+    setIsOpen(false);
     props.onSelect(heading);
   };
 
   return (
-    <Menu>
-      <Menu.Trigger>{props.children}</Menu.Trigger>
+    <Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Menu.Trigger>
+        {props.renderTrigger({
+          isOpen,
+          onClick: () => setIsOpen((current) => !current),
+        })}
+      </Menu.Trigger>
       <Menu.List>
         <Menu.Item testId="markdown-action-button-heading-h1" onClick={() => handleMenuClick('h1')}>
           Heading 1

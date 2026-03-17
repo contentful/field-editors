@@ -31,7 +31,10 @@ const styles = {
   selectedCharButton: css({
     backgroundColor: tokens.gray100,
   }),
-  tooltip: css({ zIndex: 1000 }),
+  tooltip: css({
+    zIndex: 1000,
+    pointerEvents: 'none',
+  }),
   button: css({
     marginTop: tokens.spacingM,
     marginRight: tokens.spacingS,

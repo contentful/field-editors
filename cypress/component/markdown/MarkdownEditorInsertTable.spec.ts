@@ -1,4 +1,9 @@
-import { checkValue, clearAll, renderMarkdownEditor, clickVisibleButtonByName } from './utils';
+import {
+  checkValue,
+  renderMarkdownEditor,
+  clickVisibleButtonByName,
+  openAdditionalActions,
+} from './utils';
 
 describe('Markdown Editor / Insert Table Dialog', () => {
   const selectors = {
@@ -9,7 +14,7 @@ describe('Markdown Editor / Insert Table Dialog', () => {
       return cy.findByRole('button', { name: 'More actions' });
     },
     openAdditionalActions() {
-      return clickVisibleButtonByName('More actions');
+      return openAdditionalActions();
     },
     getInsertTableButton() {
       return cy.findByRole('button', { name: 'Insert table' });
@@ -36,19 +41,18 @@ describe('Markdown Editor / Insert Table Dialog', () => {
     },
   };
 
-  it('should have correct title', () => {
-    renderMarkdownEditor();
+  beforeEach(() => {
+    renderMarkdownEditor({ spyOnSetValue: true });
+    selectors.openAdditionalActions().should('be.visible');
+  });
 
-    selectors.openAdditionalActions();
+  it('should have correct title', () => {
     selectors.openInsertTableDialog();
     selectors.getDialogTitle().should('have.text', 'Insert table');
     selectors.getCancelButton().click();
   });
 
   it('should insert nothing if click on cancel button or close window with ESC', () => {
-    renderMarkdownEditor({ spyOnSetValue: true });
-    selectors.openAdditionalActions();
-
     // close with button
     selectors.openInsertTableDialog();
     selectors.getCancelButton().click();
@@ -63,9 +67,6 @@ describe('Markdown Editor / Insert Table Dialog', () => {
   });
 
   it('should have a correct default state', () => {
-    renderMarkdownEditor();
-
-    selectors.openAdditionalActions();
     selectors.openInsertTableDialog();
 
     selectors.inputs.getRowsInput().should('have.value', '2');
@@ -76,9 +77,6 @@ describe('Markdown Editor / Insert Table Dialog', () => {
   });
 
   it('should validate incorrect values', () => {
-    renderMarkdownEditor();
-
-    selectors.openAdditionalActions();
     selectors.openInsertTableDialog();
 
     selectors.inputs.getRowsInput().focus().type('{selectall}').type('1');
@@ -93,16 +91,13 @@ describe('Markdown Editor / Insert Table Dialog', () => {
     selectors.getCancelButton().click();
   });
 
-  it('should insert table with correct number rows and cols', () => {
-    renderMarkdownEditor({ spyOnRemoveValue: true, spyOnSetValue: true });
-    selectors.openAdditionalActions();
-
+  it('should insert table with default number of rows and cols', () => {
     selectors.openInsertTableDialog();
     selectors.getConfirmButton().click();
     checkValue('\n| Header     |\n| ---------- |\n| Cell       |\n| Cell       |\n');
+  });
 
-    clearAll();
-
+  it('should insert table with custom number of rows and cols', () => {
     selectors.openInsertTableDialog();
     selectors.inputs.getRowsInput().focus().type('{selectall}').type('3');
     selectors.inputs.getColsInput().focus().type('{selectall}').type('2');

@@ -1,4 +1,9 @@
-import { checkValue, clearAll, renderMarkdownEditor, clickVisibleButtonByName } from './utils';
+import {
+  checkValue,
+  renderMarkdownEditor,
+  clickVisibleButtonByName,
+  openAdditionalActions,
+} from './utils';
 
 describe('Markdown Editor / Embed External Dialog', () => {
   const selectors = {
@@ -40,19 +45,18 @@ describe('Markdown Editor / Embed External Dialog', () => {
     clickVisibleButtonByName('Embed external content');
   }
 
-  it('should have correct title', () => {
-    renderMarkdownEditor();
-    clickVisibleButtonByName('More actions');
+  beforeEach(() => {
+    renderMarkdownEditor({ spyOnSetValue: true });
+    openAdditionalActions().should('be.visible');
+  });
 
+  it('should have correct title', () => {
     openDialog();
     selectors.getDialogTitle().should('have.text', 'Embed external content');
     selectors.getCancelButton().click();
   });
 
   it('should have correct default state', () => {
-    renderMarkdownEditor();
-    clickVisibleButtonByName('More actions');
-
     openDialog();
 
     selectors.inputs.getUrlInput().should('have.value', 'https://');
@@ -63,10 +67,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
     selectors.getCancelButton().click();
   });
 
-  it('should insert a correct embedly script', () => {
-    renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
-    clickVisibleButtonByName('More actions');
-
+  it('should insert a correct embedly script with percentage width', () => {
     openDialog();
     selectors.inputs.getUrlInput().clear().type('https://contentful.com');
     selectors.getConfirmButton().click();
@@ -74,9 +75,9 @@ describe('Markdown Editor / Embed External Dialog', () => {
     checkValue(
       `<a href="https://contentful.com" class="embedly-card" data-card-width="100%" data-card-controls="0">Embedded content: https://contentful.com</a>`,
     );
+  });
 
-    clearAll();
-
+  it('should insert a correct embedly script with pixel width', () => {
     openDialog();
     selectors.inputs.getUrlInput().clear().type('https://contentful.com');
     selectors.inputs.getPixelRadio().click();

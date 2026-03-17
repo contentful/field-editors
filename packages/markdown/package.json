@@ -53,6 +53,7 @@
     "@babel/core": "^7.5.5",
     "@contentful/app-sdk": "^4.29.0",
     "@contentful/field-editor-test-utils": "^1.8.0",
+    "@testing-library/user-event": "^13.1.9",
     "@lingui/core": "5.3.0"
   },
   "peerDependencies": {

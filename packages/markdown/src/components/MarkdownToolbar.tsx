@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import type { ButtonProps } from '@contentful/f36-components';
-import { Flex, IconButton, Tooltip } from '@contentful/f36-components';
+import { Flex, IconButton } from '@contentful/f36-components';
 import {
   CodeSimpleIcon,
   TextBIcon,
@@ -51,6 +51,7 @@ const styles = {
   }),
   tooltip: css({
     zIndex: Number(tokens.zIndexTooltip),
+    pointerEvents: 'none',
   }),
 };
 
@@ -74,21 +75,51 @@ const ToolbarButton = React.forwardRef<
     isDisabled = false,
     ...otherProps
   } = props;
+  const pointerTriggeredRef = React.useRef(false);
+
+  const handlePointerDown = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (isDisabled || !onClick || event.button !== 0) {
+        return;
+      }
+      event.preventDefault();
+      pointerTriggeredRef.current = true;
+      onClick(event);
+    },
+    [isDisabled, onClick],
+  );
+
+  const handleClick = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (pointerTriggeredRef.current) {
+        pointerTriggeredRef.current = false;
+        return;
+      }
+      onClick?.(event);
+    },
+    [onClick],
+  );
 
   return (
-    <Tooltip className={styles.tooltip} usePortal placement={tooltipPlace} content={tooltip}>
-      <IconButton
-        {...otherProps}
-        ref={ref}
-        className={cx(styles.button, className)}
-        isDisabled={isDisabled}
-        onClick={onClick as ButtonProps['onClick']}
-        variant={variant}
-        size="small"
-        icon={children}
-        aria-label={tooltip}
-      />
-    </Tooltip>
+    <IconButton
+      {...otherProps}
+      ref={ref}
+      className={cx(styles.button, className)}
+      isDisabled={isDisabled}
+      onMouseDown={handlePointerDown as ButtonProps['onMouseDown']}
+      onClick={handleClick as ButtonProps['onClick']}
+      variant={variant}
+      size="small"
+      icon={children}
+      aria-label={tooltip}
+      withTooltip
+      tooltipProps={{
+        className: styles.tooltip,
+        usePortal: true,
+        placement: tooltipPlace,
+        content: tooltip,
+      }}
+    />
   );
 });
 ToolbarButton.displayName = 'ToolbarButton';
@@ -111,16 +142,19 @@ function MainButtons(props: MarkdownToolbarProps) {
             props.actions.headings[heading]();
           }
         }}
-      >
-        <ToolbarButton
-          isDisabled={props.disabled}
-          testId="markdown-action-button-heading"
-          tooltip="Headings"
-          tooltipPlace={tooltipPlace}
-        >
-          <TextHIcon aria-label="Headings" className={styles.icon} />
-        </ToolbarButton>
-      </HeadingSelector>
+        renderTrigger={({ isOpen, onClick }) => (
+          <ToolbarButton
+            isDisabled={props.disabled}
+            testId="markdown-action-button-heading"
+            tooltip="Headings"
+            tooltipPlace={tooltipPlace}
+            onClick={onClick}
+            aria-expanded={isOpen}
+          >
+            <TextHIcon aria-label="Headings" className={styles.icon} />
+          </ToolbarButton>
+        )}
+      />
       <ToolbarButton
         isDisabled={props.disabled}
         testId="markdown-action-button-bold"
@@ -289,6 +323,10 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
 export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
   const [showAdditional, setShowAdditional] = React.useState(false);
 
+  const toggleAdditionalActions = React.useCallback(() => {
+    setShowAdditional((current) => !current);
+  }, []);
+
   return (
     <div className={styles.root}>
       <Flex justifyContent="space-between" flexWrap="wrap">
@@ -298,9 +336,8 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             isDisabled={props.disabled}
             testId="markdown-action-button-toggle-additional"
             tooltip={showAdditional ? 'Hide additional actions' : 'More actions'}
-            onClick={() => {
-              setShowAdditional(!showAdditional);
-            }}
+            aria-expanded={showAdditional}
+            onClick={toggleAdditionalActions}
           >
             <DotsThreeIcon className={styles.icon} />
           </ToolbarButton>

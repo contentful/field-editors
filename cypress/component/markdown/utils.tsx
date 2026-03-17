@@ -75,7 +75,7 @@ export const getToolbarButton = (testId: string): Cypress.Chainable => {
 };
 
 export const clickToolbarButton = (testId: string): Cypress.Chainable => {
-  return getToolbarButton(testId).should('not.be.disabled').click({ force: true });
+  return getToolbarButton(testId).should('not.be.disabled').click();
 };
 
 export const getVisibleButtonByName = (name: string | RegExp): Cypress.Chainable => {
@@ -83,7 +83,14 @@ export const getVisibleButtonByName = (name: string | RegExp): Cypress.Chainable
 };
 
 export const clickVisibleButtonByName = (name: string | RegExp): Cypress.Chainable => {
-  return getVisibleButtonByName(name).should('not.be.disabled').click({ force: true });
+  return getVisibleButtonByName(name).should('not.be.disabled').click();
+};
+
+export const openAdditionalActions = (): Cypress.Chainable => {
+  clickVisibleButtonByName('More actions');
+  return cy
+    .findByRole('button', { name: /More actions|Hide additional actions/ })
+    .should('have.attr', 'aria-expanded', 'true');
 };
 
 export const type = (value: string): Cypress.Chainable => {
@@ -93,14 +100,13 @@ export const type = (value: string): Cypress.Chainable => {
 export const clearAll = (): void => {
   //Using extra select all because of flakiness with a single clear
   focusInput();
-  getInput().type('{selectall}', { force: true }).clear({ force: true });
-  checkRemoved();
+  getInput().type('{selectall}{backspace}', { force: true });
 };
 
 //util to select chars backwards from current cursor position
 export const selectCharsBackwards = (skip: number, len: number): void => {
-  for (let i = 0; i < skip; i++) {
-    type('{leftarrow}');
+  if (skip > 0) {
+    type('{leftarrow}'.repeat(skip));
   }
   for (let i = 0; i < len; i++) {
     type('{shift}{leftarrow}');
