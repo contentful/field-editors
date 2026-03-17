@@ -4,7 +4,8 @@ import '@testing-library/jest-dom';
 
 import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { createTestQueryClient } from '@contentful/field-editor-test-utils';
-import { configure, fireEvent, render, waitFor } from '@testing-library/react';
+import { configure, render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
 import publishedEntryNonMasterEnvironment from '../../__fixtures__/entry/published_entry_non_master.json';
@@ -139,8 +140,10 @@ describe('ResourceCard', () => {
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
     expect(getByText(publishedEntry.fields.exField['en-US'])).toBeDefined();
     expect(getByText(space.name)).toBeDefined();
-    fireEvent.mouseEnter(getByText(space.name));
-    await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
+    userEvent.hover(getByText(space.name));
+    await waitFor(() => {
+      expect(getByText(tooltipContent)).toBeVisible();
+    });
   });
 
   it('renders entry card with explicit master crn', async () => {
@@ -152,8 +155,10 @@ describe('ResourceCard', () => {
     await waitFor(() => expect(getByTestId('cf-ui-entry-card')).toBeDefined());
     expect(getByText(publishedEntry.fields.exField['en-US'])).toBeDefined();
     expect(getByText(space.name)).toBeDefined();
-    fireEvent.mouseEnter(getByText(space.name));
-    await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
+    userEvent.hover(getByText(space.name));
+    await waitFor(() => {
+      expect(getByText(tooltipContent)).toBeVisible();
+    });
   });
 
   it('renders entry card with a non master environment', async () => {
@@ -166,8 +171,10 @@ describe('ResourceCard', () => {
 
     expect(getByText(publishedEntryNonMasterEnvironment.fields.exField['en-US'])).toBeDefined();
     expect(getByText(space.name)).toBeDefined();
-    fireEvent.mouseEnter(getByText(space.name));
-    await waitFor(() => expect(getByText(tooltipContent)).toBeDefined());
+    userEvent.hover(getByText(space.name));
+    await waitFor(() => {
+      expect(getByText(tooltipContent)).toBeVisible();
+    });
   });
 
   it('renders skeleton while data is loading', async () => {

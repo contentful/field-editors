@@ -1,8 +1,9 @@
+import * as React from 'react';
+
 import { FieldAppSDK } from '@contentful/app-sdk';
 import '@testing-library/jest-dom/extend-expect';
-import { fireEvent, render, screen } from '@testing-library/react';
-
-import * as React from 'react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { useResource } from '../common/EntityStore';
 import { useEditorPermissions } from '../common/useEditorPermissions';
@@ -78,7 +79,7 @@ describe('Multiple resource editor', () => {
 
     const button = await screen.findByText('Add existing content');
     expect(button).toBeDefined();
-    fireEvent.click(button);
+    userEvent.click(button);
 
     // @ts-expect-error wait app-sdk version update
     const dialogFn = sdk.dialogs.selectMultipleResourceEntities;
@@ -275,7 +276,7 @@ describe('Multiple resource editor', () => {
           const removeBtn = await screen.findByText('Remove', {
             selector: '[role="menuitem"]',
           });
-          fireEvent.click(removeBtn);
+          userEvent.click(removeBtn);
         }
 
         // all cards were deleted
@@ -303,13 +304,13 @@ async function expectToNotHaveMoveButton(info: any, buttonString: string) {
 }
 
 async function clickCardActionsButton(info: any) {
-  fireEvent.click(document.body);
+  userEvent.click(document.body);
   const entryTitle = info.resource.fields.title[info.defaultLocaleCode];
   const spaceName = info.space.name;
   const card = await expectEntryCard(entryTitle, spaceName);
   const actionsBtn = card.querySelector('[data-test-id="cf-ui-card-actions"]') as Element;
   expect(actionsBtn).toBeInTheDocument();
-  fireEvent.click(actionsBtn);
+  userEvent.click(actionsBtn);
 }
 
 async function expectEntryCard(entryTitle: string, spaceName: string): Promise<Element> {
