@@ -5,7 +5,7 @@ import { Flex, IconButton, Menu } from '@contentful/f36-components';
 import { DotsThreeIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { useContentfulEditor } from '../ContentfulEditorProvider';
 import { isNodeTypeSelected } from '../helpers/editor';

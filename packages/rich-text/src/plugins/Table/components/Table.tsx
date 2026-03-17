@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import * as Slate from 'slate-react';
 
 const style = css`

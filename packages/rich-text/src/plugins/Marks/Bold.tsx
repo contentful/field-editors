@@ -2,14 +2,13 @@ import * as React from 'react';
 
 import { TextBIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
+import { css } from '@emotion/css';
 import { createBoldPlugin as createDefaultBoldPlugin } from '@udecode/plate-basic-marks';
-import { css } from 'emotion';
 
 import { someHtmlElement } from '../../internal/queries';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
-
 
 export const ToolbarBoldButton = createMarkToolbarButton({
   title: 'Bold',

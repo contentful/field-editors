@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const styles = {
   nativeSticky: (offset?: number) => css`

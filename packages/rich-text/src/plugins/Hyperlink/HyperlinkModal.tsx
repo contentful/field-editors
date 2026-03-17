@@ -15,7 +15,7 @@ import tokens from '@contentful/f36-tokens';
 import { EntityProvider, Link } from '@contentful/field-editor-reference';
 import { FieldAppSDK, ModalDialogLauncher } from '@contentful/field-editor-shared';
 import { INLINES, ResourceLink } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { focus, getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import getAllowedResourcesForNodeType from '../../helpers/getAllowedResourcesForNodeType';

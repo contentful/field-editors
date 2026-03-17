@@ -2,7 +2,7 @@ import React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { CharValidation, ConstraintsUtils } from '@contentful/field-editor-shared';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { usePlateEditorState } from './internal/hooks';
 import { useSdkContext } from './SdkProvider';

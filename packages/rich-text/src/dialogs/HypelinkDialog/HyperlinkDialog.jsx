@@ -13,8 +13,8 @@ import {
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
+import { css } from '@emotion/css';
 import { t } from '@lingui/core/macro';
-import { css } from 'emotion';
 import PropTypes from 'prop-types';
 
 import { FetchingWrappedAssetCard } from '../../plugins/shared/FetchingWrappedAssetCard';

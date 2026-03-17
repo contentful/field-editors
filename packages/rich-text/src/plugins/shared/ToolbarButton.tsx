@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Button, Tooltip } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 const styles = {
   button: css({

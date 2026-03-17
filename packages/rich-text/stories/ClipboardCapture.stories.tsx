@@ -11,8 +11,8 @@ import {
   Textarea,
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
+import { css } from '@emotion/css';
 import type { Meta, StoryObj } from '@storybook/react';
-import { css } from 'emotion';
 
 import ClipboardCapture from '../src/ClipboardCapture.mdx';
 
@@ -69,7 +69,7 @@ const Demo = () => {
 
     const data = event.clipboardData.types.reduce(
       (acc, type) => [...acc, { type, data: event.clipboardData.getData(type) }],
-      []
+      [],
     );
     setData(data);
   }, []);

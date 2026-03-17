@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { EntityLink, ResourceLink } from '@contentful/field-editor-reference';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { IS_CHROME } from '../../helpers/environment';
 import { RenderElementProps } from '../../internal';

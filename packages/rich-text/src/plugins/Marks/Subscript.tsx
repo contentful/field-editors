@@ -2,13 +2,12 @@ import * as React from 'react';
 
 import { TextSubscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
+import { css } from '@emotion/css';
 import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '@udecode/plate-basic-marks';
-import { css } from 'emotion';
 
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
-
 
 const styles = {
   subscript: css({

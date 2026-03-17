@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { PlateEditor, RenderLeafProps } from '../../../internal/types';
 import { trimLeadingSlash } from '../utils/trimLeadingSlash';

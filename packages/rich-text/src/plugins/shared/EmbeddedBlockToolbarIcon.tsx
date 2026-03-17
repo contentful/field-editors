@@ -6,7 +6,7 @@ import { Icon } from '@contentful/f36-components';
 import { ImageSquareIcon, EmbeddedBlockIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { useSdkContext } from '../../SdkProvider';

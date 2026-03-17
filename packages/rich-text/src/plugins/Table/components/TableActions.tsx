@@ -3,8 +3,8 @@ import * as React from 'react';
 import { IconButton, Menu } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { css } from '@emotion/css';
 import { deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
-import { css } from 'emotion';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
@@ -15,7 +15,6 @@ import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
-
 
 export const styles = {
   topRight: css({

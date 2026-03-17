@@ -2,14 +2,13 @@ import * as React from 'react';
 
 import { TextItalicIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
+import { css } from '@emotion/css';
 import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
-import { css } from 'emotion';
 
 import { someHtmlElement } from '../../internal/queries';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
-
 
 export const ToolbarItalicButton = createMarkToolbarButton({
   title: 'Italic',

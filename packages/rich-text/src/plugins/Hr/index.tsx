@@ -3,7 +3,7 @@ import * as React from 'react';
 import { MinusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
@@ -17,7 +17,6 @@ import { getText } from '../../internal/queries';
 import { insertNodes, setNodes, removeNodes } from '../../internal/transforms';
 import { PlatePlugin, PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../shared/ToolbarButton';
-
 
 const styles = {
   container: css`

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { EntryLink, ResourceLink } from '@contentful/field-editor-reference';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { IS_CHROME } from '../../helpers/environment';
 import { RenderElementProps } from '../../internal/types';

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { TableCell } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { useSelected } from 'slate-react';
 
 import { RenderElementProps } from '../../../internal/types';

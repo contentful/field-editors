@@ -4,14 +4,14 @@ import { Menu, Button } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import {
   getElementFromCurrentSelection,
   focus,
   isBlockSelected,
-  toggleElement
+  toggleElement,
 } from '../../../helpers/editor';
 import { isNodeTypeEnabled } from '../../../helpers/validations';
 import { Element } from '../../../internal/types';
@@ -21,7 +21,7 @@ const styles = {
   // prevent the layout to jump due switch from "normal text" to "headline" and vice versa
   button: css({
     minWidth: '125px',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   }),
   dropdown: {
     root: css`
@@ -47,8 +47,8 @@ const styles = {
     `,
     [BLOCKS.HEADING_6]: css`
       font-size: 0.875rem;
-    `
-  }
+    `,
+  },
 };
 
 const LABELS = {
@@ -58,7 +58,7 @@ const LABELS = {
   [BLOCKS.HEADING_3]: 'Heading 3',
   [BLOCKS.HEADING_4]: 'Heading 4',
   [BLOCKS.HEADING_5]: 'Heading 5',
-  [BLOCKS.HEADING_6]: 'Heading 6'
+  [BLOCKS.HEADING_6]: 'Heading 6',
 };
 
 export interface ToolbarHeadingButtonProps {
@@ -94,7 +94,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
 
   const [nodeTypesByEnablement, someHeadingsEnabled] = React.useMemo(() => {
     const nodeTypesByEnablement = Object.fromEntries(
-      Object.keys(LABELS).map((nodeType) => [nodeType, isNodeTypeEnabled(sdk.field, nodeType)])
+      Object.keys(LABELS).map((nodeType) => [nodeType, isNodeTypeEnabled(sdk.field, nodeType)]),
     );
     const someHeadingsEnabled = Object.values(nodeTypesByEnablement).filter(Boolean).length > 0;
     return [nodeTypesByEnablement, someHeadingsEnabled];
@@ -165,7 +165,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                     {LABELS[nodeType]}
                   </span>
                 </Menu.Item>
-              )
+              ),
           )
           .filter(Boolean)}
       </Menu.List>

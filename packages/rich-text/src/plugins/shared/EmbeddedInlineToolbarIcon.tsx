@@ -5,7 +5,7 @@ import { Menu, Flex } from '@contentful/f36-components';
 import { EmbeddedLineIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { INLINES } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { moveToTheNextChar } from '../../helpers/editor';
