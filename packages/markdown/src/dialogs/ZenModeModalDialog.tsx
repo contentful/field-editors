@@ -4,7 +4,7 @@ import { DialogAppSDK, DialogsAPI } from '@contentful/app-sdk';
 import { Grid } from '@contentful/f36-components';
 import { CaretLeftIcon, CaretRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { MarkdownBottomBar, MarkdownHelp } from '../components/MarkdownBottomBar';
 import MarkdownPreviewSkeleton from '../components/MarkdownPreviewSkeleton';

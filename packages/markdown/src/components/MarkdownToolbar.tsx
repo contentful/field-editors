@@ -16,7 +16,7 @@ import {
   QuotesIcon,
 } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { MarkdownActions } from '../types';
 import { HeadingSelector } from './HeadingSelector';

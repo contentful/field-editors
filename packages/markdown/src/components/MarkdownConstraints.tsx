@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { CharCounter, CharValidation, ConstraintsUtils } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const styles = {
   root: css({
@@ -18,7 +18,7 @@ const styles = {
 export function MarkdownConstraints(props: { sdk: FieldAppSDK; value: string }) {
   const constraints = ConstraintsUtils.fromFieldValidations(
     props.sdk.field.validations,
-    props.sdk.field.type as 'Text'
+    props.sdk.field.type as 'Text',
   );
 
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);

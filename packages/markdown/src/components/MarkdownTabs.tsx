@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import { MarkdownEditorProps } from 'MarkdownEditor';
 
 import { MarkdownTab } from '../types';

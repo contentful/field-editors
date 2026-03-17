@@ -14,8 +14,8 @@ import {
   TextInput,
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
+import { css } from '@emotion/css';
 import { t } from '@lingui/core/macro';
-import { css } from 'emotion';
 
 import { MarkdownDialogType, MarkdownDialogsParams } from '../types';
 import { isValidUrl } from '../utils/isValidUrl';

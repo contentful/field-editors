@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { FieldConnector } from '@contentful/field-editor-shared';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 import { MarkdownBottomBar, MarkdownHelp } from './components/MarkdownBottomBar';
 import { MarkdownConstraints } from './components/MarkdownConstraints';
@@ -52,7 +52,7 @@ export function MarkdownEditor(
     value: string | null | undefined;
     saveValueToSDK: Function;
     externalReset?: number;
-  }
+  },
 ) {
   const prevExternalReset = React.useRef(props.externalReset);
   const [currentValue, setCurrentValue] = React.useState<string>(props.value ?? '');

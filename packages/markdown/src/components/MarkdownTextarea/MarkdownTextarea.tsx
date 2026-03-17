@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
 import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { EditorDirection } from '../../types';
 import { createMarkdownEditor } from './createMarkdownEditor';
@@ -138,9 +138,9 @@ export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
                   height: '100%',
                 }
               : {},
-            props.minHeight !== undefined ? { height: props.minHeight } : {}
-          )
-        )
+            props.minHeight !== undefined ? { height: props.minHeight } : {},
+          ),
+        ),
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
@@ -157,7 +157,7 @@ export const MarkdownTextarea = React.memo((props: MarkdownTextareaProps) => {
     styles.root,
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
-    props.disabled && styles.disabled
+    props.disabled && styles.disabled,
   );
 
   return (

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 type IconProps = {
   width?: number;

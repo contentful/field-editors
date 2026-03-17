@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import tokens from '@contentful/f36-tokens';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
@@ -197,7 +197,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
   const className = cx(
     props.minHeight !== undefined ? css({ minHeight: props.minHeight }) : undefined,
     props.mode === 'default' ? styles.framed : styles.zen,
-    props.direction === 'rtl' ? styles.rtl : undefined
+    props.direction === 'rtl' ? styles.rtl : undefined,
   );
 
   return (
