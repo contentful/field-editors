@@ -4,7 +4,7 @@ import tokens from '@contentful/f36-tokens';
 import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { SortableContext, SortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { useSortIDs } from '../utils/useSortIDs';
 import { ReferenceEditorProps } from './ReferenceEditor';
@@ -76,7 +76,7 @@ const SortableLink = <T extends { sys: any }>({
         </div>
       );
     },
-    [listeners, setActivatorNodeRef]
+    [listeners, setActivatorNodeRef],
   );
 
   return (
@@ -114,7 +114,7 @@ export const SortableLinkList = <T extends { sys: any }>({
       updateBeforeSortStart?.({ index });
       onSortStart?.(event);
     },
-    [updateBeforeSortStart, onSortStart, sortIDs]
+    [updateBeforeSortStart, onSortStart, sortIDs],
   );
 
   const onSortEndHandler = React.useCallback(
@@ -127,7 +127,7 @@ export const SortableLinkList = <T extends { sys: any }>({
         onSortEnd?.({ oldIndex, newIndex });
       }
     },
-    [onSortEnd, sortIDs, rearrangeSortIDs]
+    [onSortEnd, sortIDs, rearrangeSortIDs],
   );
 
   return (

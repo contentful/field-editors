@@ -3,8 +3,8 @@ import * as React from 'react';
 import { FormControl } from '@contentful/f36-components';
 import type { FieldAppSDK, Entry } from '@contentful/field-editor-shared';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
+import { cx } from '@emotion/css';
 import type { PlainClientAPI } from 'contentful-management';
-import { cx } from 'emotion';
 
 import { styles } from './FieldWrapper.styles';
 

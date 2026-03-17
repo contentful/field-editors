@@ -4,8 +4,8 @@ import { json } from '@codemirror/lang-json';
 import { indentUnit } from '@codemirror/language';
 import { EditorView } from '@codemirror/view';
 import tokens from '@contentful/f36-tokens';
+import { css, cx } from '@emotion/css';
 import CodeMirror from '@uiw/react-codemirror';
-import { css, cx } from 'emotion';
 
 import { SPACE_INDENT_COUNT } from './utils';
 

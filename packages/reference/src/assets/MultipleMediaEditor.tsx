@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { rectSortingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 import { MultipleReferenceEditor } from '../common/MultipleReferenceEditor';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';

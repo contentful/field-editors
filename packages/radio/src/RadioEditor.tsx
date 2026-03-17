@@ -8,8 +8,8 @@ import {
   PredefinedValuesError,
   LocalesAPI,
 } from '@contentful/field-editor-shared';
+import { cx } from '@emotion/css';
 import { t } from '@lingui/core/macro';
-import { cx } from 'emotion';
 
 import * as styles from './styles';
 

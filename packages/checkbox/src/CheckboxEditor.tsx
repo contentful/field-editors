@@ -9,8 +9,8 @@ import {
   LocalesAPI,
   PredefinedValuesError,
 } from '@contentful/field-editor-shared';
+import { cx } from '@emotion/css';
 import { t } from '@lingui/core/macro';
-import { cx } from 'emotion';
 import get from 'lodash/get';
 import { nanoid } from 'nanoid';
 
