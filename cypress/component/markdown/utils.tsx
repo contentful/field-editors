@@ -62,8 +62,28 @@ export const checkRemoved = (): Cypress.Chainable => {
   return cy.get('@removeValue').should('be.called');
 };
 
-const getInput = () => {
+export const getInput = () => {
   return cy.findByTestId('markdown-textarea').find('[contenteditable]');
+};
+
+export const focusInput = (): Cypress.Chainable => {
+  return getInput().click({ force: true });
+};
+
+export const getToolbarButton = (testId: string): Cypress.Chainable => {
+  return cy.findByTestId(testId);
+};
+
+export const clickToolbarButton = (testId: string): Cypress.Chainable => {
+  return getToolbarButton(testId).should('not.be.disabled').click({ force: true });
+};
+
+export const getVisibleButtonByName = (name: string | RegExp): Cypress.Chainable => {
+  return cy.findAllByRole('button', { name }).filter(':visible').last();
+};
+
+export const clickVisibleButtonByName = (name: string | RegExp): Cypress.Chainable => {
+  return getVisibleButtonByName(name).should('not.be.disabled').click({ force: true });
 };
 
 export const type = (value: string): Cypress.Chainable => {
@@ -72,6 +92,7 @@ export const type = (value: string): Cypress.Chainable => {
 
 export const clearAll = (): void => {
   //Using extra select all because of flakiness with a single clear
+  focusInput();
   getInput().type('{selectall}', { force: true }).clear({ force: true });
   checkRemoved();
 };

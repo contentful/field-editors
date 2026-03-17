@@ -1,4 +1,11 @@
-import { renderMarkdownEditor, type, clearAll, checkValue, selectCharsBackwards } from './utils';
+import {
+  renderMarkdownEditor,
+  type,
+  clearAll,
+  checkValue,
+  selectCharsBackwards,
+  clickVisibleButtonByName,
+} from './utils';
 
 describe('Markdown Editor / Simple Actions', () => {
   const selectors = {
@@ -24,7 +31,7 @@ describe('Markdown Editor / Simple Actions', () => {
       return cy.findByRole('button', { name: 'Ordered list' });
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return cy.findByRole('button', { name: 'More actions' });
     },
     getStrikeButton: () => {
       return cy.findByRole('button', { name: 'Strike out' });
@@ -49,7 +56,7 @@ describe('Markdown Editor / Simple Actions', () => {
   };
 
   const unveilAdditionalButtonsRow = () => {
-    selectors.getToggleAdditionalActionsButton().click();
+    clickVisibleButtonByName('More actions');
   };
 
   describe('headings', () => {
@@ -95,7 +102,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('bold', () => {
     const clickBold = () => {
-      selectors.getBoldButton().click();
+      clickVisibleButtonByName('Bold');
     };
 
     it('should work properly', () => {
@@ -136,7 +143,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('italic', () => {
     const clickItalic = () => {
-      selectors.getItalicButton().click();
+      clickVisibleButtonByName('Italic');
     };
 
     it('should work properly', () => {
@@ -178,7 +185,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('quote', () => {
     const clickQuote = () => {
-      selectors.getQuoteButton().click();
+      clickVisibleButtonByName('Quote');
     };
 
     it('should work properly', () => {
@@ -206,7 +213,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('code', () => {
     const clickCode = () => {
-      selectors.getCodeButton().click();
+      clickVisibleButtonByName('Code block');
     };
 
     it('should work properly', () => {
@@ -233,7 +240,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('strike', () => {
     const clickStrike = () => {
-      selectors.getStrikeButton().click();
+      clickVisibleButtonByName('Strike out');
     };
 
     it('should work properly', () => {
@@ -273,7 +280,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('unordered list', () => {
     const clickUnorderedList = () => {
-      selectors.getUnorderedListButton().click();
+      clickVisibleButtonByName('Unordered list');
     };
 
     it('should work properly', () => {
@@ -323,7 +330,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('ordered list', () => {
     const clickOrderedList = () => {
-      selectors.getOrderedListButton().click();
+      clickVisibleButtonByName('Ordered list');
     };
 
     it('should work properly', () => {
@@ -374,7 +381,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('horizontal line', () => {
     const clickHorizontalButton = () => {
-      selectors.getHorizontalLineButton().click();
+      clickVisibleButtonByName('Horizontal rule');
     };
 
     it('should work properly', () => {
@@ -397,11 +404,11 @@ describe('Markdown Editor / Simple Actions', () => {
 
   describe('indent and dedent', () => {
     const clickIndentButton = () => {
-      selectors.getIndentButton().click();
+      clickVisibleButtonByName('Increase indentation');
     };
 
     const clickDedentButton = () => {
-      selectors.getDedentButton().click();
+      clickVisibleButtonByName('Decrease indentation');
     };
 
     it('should work properly', () => {

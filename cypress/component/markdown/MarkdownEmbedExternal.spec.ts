@@ -1,4 +1,4 @@
-import { checkValue, clearAll, renderMarkdownEditor } from './utils';
+import { checkValue, clearAll, renderMarkdownEditor, clickVisibleButtonByName } from './utils';
 
 describe('Markdown Editor / Embed External Dialog', () => {
   const selectors = {
@@ -6,7 +6,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
       return cy.findByTestId('dialog-title').find('h2');
     },
     getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return cy.findByRole('button', { name: 'More actions' });
     },
     getModalContent() {
       return cy.findByTestId('embed-external-dialog');
@@ -37,12 +37,12 @@ describe('Markdown Editor / Embed External Dialog', () => {
   };
 
   function openDialog() {
-    selectors.getEmbedExternalContentButton().click();
+    clickVisibleButtonByName('Embed external content');
   }
 
   it('should have correct title', () => {
     renderMarkdownEditor();
-    selectors.getToggleAdditionalActionsButton().click();
+    clickVisibleButtonByName('More actions');
 
     openDialog();
     selectors.getDialogTitle().should('have.text', 'Embed external content');
@@ -51,7 +51,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
 
   it('should have correct default state', () => {
     renderMarkdownEditor();
-    selectors.getToggleAdditionalActionsButton().click();
+    clickVisibleButtonByName('More actions');
 
     openDialog();
 
@@ -65,14 +65,14 @@ describe('Markdown Editor / Embed External Dialog', () => {
 
   it('should insert a correct embedly script', () => {
     renderMarkdownEditor({ spyOnSetValue: true, spyOnRemoveValue: true });
-    selectors.getToggleAdditionalActionsButton().click();
+    clickVisibleButtonByName('More actions');
 
     openDialog();
     selectors.inputs.getUrlInput().clear().type('https://contentful.com');
     selectors.getConfirmButton().click();
     selectors.getModalContent().should('not.exist');
     checkValue(
-      `<a href="https://contentful.com" class="embedly-card" data-card-width="100%" data-card-controls="0">Embedded content: https://contentful.com</a>`
+      `<a href="https://contentful.com" class="embedly-card" data-card-width="100%" data-card-controls="0">Embedded content: https://contentful.com</a>`,
     );
 
     clearAll();
@@ -84,7 +84,7 @@ describe('Markdown Editor / Embed External Dialog', () => {
     selectors.getConfirmButton().click();
     selectors.getModalContent().should('not.exist');
     checkValue(
-      `<a href="https://contentful.com" class="embedly-card" data-card-width="500px" data-card-controls="0">Embedded content: https://contentful.com</a>`
+      `<a href="https://contentful.com" class="embedly-card" data-card-width="500px" data-card-controls="0">Embedded content: https://contentful.com</a>`,
     );
   });
 });

@@ -1,48 +1,44 @@
-import { checkValue, renderMarkdownEditor } from './utils';
+import { checkValue, renderMarkdownEditor, clickToolbarButton } from './utils';
 
 describe('Markdown Editor / Insert Special Character Dialog', () => {
   const selectors = {
-    getInput: () => {
-      return cy.findByTestId('markdown-textarea').find('[contenteditable]');
-    },
     getDialogTitle() {
-      return cy.findByTestId('dialog-title').find('h2');
-    },
-    getToggleAdditionalActionsButton: () => {
-      return cy.findByTestId('markdown-action-button-toggle-additional');
+      return cy.findAllByTestId('dialog-title').last().find('h2');
     },
     getModalContent() {
-      return cy.findByTestId('insert-special-character-modal');
-    },
-    getInsertCharacterButton() {
-      return cy.findByRole('button', { name: 'Insert special character' });
+      return cy.findAllByTestId('insert-special-character-modal').last();
     },
     getConfirmButton() {
-      return cy.findByRole('button', { name: 'Insert selected' });
+      return cy.findAllByTestId('insert-character-confirm').last();
     },
     getCancelButton() {
-      return cy.findByRole('button', { name: 'Cancel' });
+      return cy.findAllByTestId('insert-character-cancel').last();
     },
     getSpecialCharacterButtons() {
-      return cy.findAllByTestId('special-character-button');
+      return selectors.getModalContent().findAllByTestId('special-character-button');
     },
     getCharButton(char: string) {
-      return cy.findByText(char);
+      return selectors
+        .getSpecialCharacterButtons()
+        .filter((_, element) => element.textContent?.trim() === char);
+    },
+    getSelectedCharPreview() {
+      return selectors.getModalContent().findAllByTestId('cf-ui-text').first();
     },
   };
 
   beforeEach(() => {
     renderMarkdownEditor({ spyOnSetValue: true });
-    selectors.getToggleAdditionalActionsButton().click();
+    clickToolbarButton('markdown-action-button-toggle-additional');
   });
 
   function openDialog() {
-    // we need to force the click here as a tooltip covers it
-    selectors.getInsertCharacterButton().click({ force: true });
+    clickToolbarButton('markdown-action-button-special');
   }
 
   function insertSpecialCharacter(char: string) {
-    selectors.getCharButton(char).click();
+    selectors.getCharButton(char).click({ force: true });
+    selectors.getSelectedCharPreview().should('have.text', char);
     selectors.getConfirmButton().click();
   }
 
