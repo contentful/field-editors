@@ -71,7 +71,7 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
       {command.thumbnail ? (
         <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
       ) : (
-        <AssetIcon width="30" height="30" className={styles.thumbnail} />
+        <AssetIcon className={styles.thumbnail} />
       )}
       <span>{command.label}</span>
     </Flex>

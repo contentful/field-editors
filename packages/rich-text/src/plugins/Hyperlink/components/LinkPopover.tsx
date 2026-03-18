@@ -10,7 +10,7 @@ type LinkPopoverProps = {
   popoverText: React.ReactNode | ((closePopover: () => void) => React.ReactNode);
   handleEditLink: () => void;
   handleRemoveLink: () => void;
-  children: React.ReactNode;
+  children: React.ReactElement;
   handleCopyLink?: () => void;
   isEditorFocused: boolean;
 };

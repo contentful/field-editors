@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Icon } from '@contentful/f36-icon';
 import { TextSubscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
@@ -19,7 +20,7 @@ const styles = {
 export const ToolbarSubscriptButton = createMarkToolbarButton({
   title: 'Subscript',
   mark: MARKS.SUBSCRIPT,
-  icon: <TextSubscriptIcon viewBox="0 0 23 18" />,
+  icon: <Icon as={TextSubscriptIcon} viewBox="0 0 23 18" />,
 });
 
 export const ToolbarDropdownSubscriptButton = createMarkToolbarButton({
