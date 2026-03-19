@@ -4903,6 +4903,15 @@
     emotion "^10.0.0"
     lodash "^4.17.15"
 
+"@contentful/field-editor-test-utils@^1.6.2":
+  version "1.8.0"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-test-utils/1.8.0/99491b8eda28842e6a9eec13399cca05928c835d#99491b8eda28842e6a9eec13399cca05928c835d"
+  integrity sha512-cbb1f587UH4Vq9C8ylwJOCnbsagR5jACSUfUurqQ4wDefxXRMTOuCaMEJE6V+zypQVCmDgQHiEwFkiFzdvYO/A==
+  dependencies:
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+    mitt "2.1.0"
+
 "@contentful/field-editor-url@^1.5.14":
   version "1.6.5"
   resolved "https://npm.pkg.github.com/download/@contentful/field-editor-url/1.6.5/afcd410a4fefe7fd663010b60c75debe4b91d279#afcd410a4fefe7fd663010b60c75debe4b91d279"
