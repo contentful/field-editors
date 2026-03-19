@@ -13,4 +13,16 @@ describe('slugify', () => {
       expect(slugify(input[0])).toBe(input[1]);
     });
   });
+
+  it('defaults to a 75 character limit', () => {
+    expect(slugify('a'.repeat(80))).toBe('a'.repeat(75));
+  });
+
+  it('accepts a custom max length', () => {
+    expect(slugify('a'.repeat(80), 'en', 80)).toBe('a'.repeat(80));
+  });
+
+  it('does not cut off words when a custom max length is provided', () => {
+    expect(slugify('one two three four', 'en', 13)).toBe('one-two-three');
+  });
 });

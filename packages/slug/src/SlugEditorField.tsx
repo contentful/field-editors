@@ -18,6 +18,7 @@ interface SlugEditorFieldProps {
   locale: string;
   titleValue: string | null | undefined;
   createdAt: string;
+  maxLength: number;
   setValue: (value: string | null | undefined) => void;
   performUniqueCheck: (value: string) => Promise<boolean>;
   id?: string;
@@ -26,7 +27,15 @@ interface SlugEditorFieldProps {
 type CheckerState = 'checking' | 'unique' | 'duplicate';
 
 function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
-  const { value, setValue, createdAt, locale, titleValue, isOptionalLocaleWithFallback } = props;
+  const {
+    value,
+    setValue,
+    createdAt,
+    locale,
+    titleValue,
+    isOptionalLocaleWithFallback,
+    maxLength,
+  } = props;
 
   React.useEffect(() => {
     if (check === false) {
@@ -36,11 +45,21 @@ function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
       isOptionalLocaleWithFallback,
       locale,
       createdAt,
+      maxLength,
     });
     if (newSlug !== value) {
       setValue(newSlug);
     }
-  }, [value, titleValue, isOptionalLocaleWithFallback, check, createdAt, locale, setValue]);
+  }, [
+    value,
+    titleValue,
+    isOptionalLocaleWithFallback,
+    check,
+    createdAt,
+    locale,
+    maxLength,
+    setValue,
+  ]);
 }
 
 function useUniqueChecker(props: SlugEditorFieldProps) {
@@ -74,8 +93,17 @@ function useUniqueChecker(props: SlugEditorFieldProps) {
 export function SlugEditorFieldStatic(
   props: SlugEditorFieldProps & { onChange?: Function; onBlur?: Function },
 ) {
-  const { hasError, isDisabled, value, setValue, onChange, onBlur, isUniqueValidationEnabled, id } =
-    props;
+  const {
+    hasError,
+    isDisabled,
+    value,
+    setValue,
+    onChange,
+    onBlur,
+    isUniqueValidationEnabled,
+    id,
+    maxLength,
+  } = props;
 
   const status = useUniqueChecker(props);
   const hasDuplicate = status === 'duplicate';
@@ -93,6 +121,7 @@ export function SlugEditorFieldStatic(
         isDisabled={isDisabled}
         value={value || ''}
         id={id}
+        maxLength={maxLength}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);
           if (onChange) {
@@ -138,16 +167,17 @@ export function SlugEditorFieldStatic(
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
-  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value } = props;
+  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value, maxLength } = props;
 
   const areEqual = React.useCallback(() => {
     const potentialSlug = makeSlug(titleValue, {
-      isOptionalLocaleWithFallback: isOptionalLocaleWithFallback,
-      locale: locale,
-      createdAt: createdAt,
+      isOptionalLocaleWithFallback,
+      locale,
+      createdAt,
+      maxLength,
     });
     return value === potentialSlug;
-  }, [titleValue, isOptionalLocaleWithFallback, locale, createdAt, value]);
+  }, [titleValue, isOptionalLocaleWithFallback, locale, createdAt, maxLength, value]);
 
   const [check, setCheck] = React.useState<boolean>(() => {
     if (props.value) {

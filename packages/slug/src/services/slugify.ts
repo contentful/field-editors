@@ -1,6 +1,6 @@
 import getSlug from 'speakingurl';
 
-const CF_GENERATED_SLUG_MAX_LENGTH = 75;
+const DEFAULT_SLUG_MAX_LENGTH = 75;
 
 const languages = [
   'ar',
@@ -47,17 +47,20 @@ function supportedLanguage(locale: string) {
  * If the locale belongs to a language supported by SpeakingURL, it
  * is used as the symbol language. Otherwise, the symbol language
  * is english.
- * Slug suggestions are limited to 75 characters.
+ *
+ * By default slug suggestions are limited to 75 characters.
+ * Consumers can override that limit via maxLength.
  *
  * @param {string} text To be turned into a slug.
  * @param {string?} locale
+ * @param {number?} maxLength
  * @returns {string} Slug for provided text.
  */
-export function slugify(text: string, locale = 'en') {
+export function slugify(text: string, locale = 'en', maxLength = DEFAULT_SLUG_MAX_LENGTH) {
   return getSlug(text, {
     separator: '-',
     lang: supportedLanguage(locale) || 'en',
-    truncate: CF_GENERATED_SLUG_MAX_LENGTH + 1,
+    truncate: maxLength + 1,
     custom: {
       "'": '',
       '`': '',

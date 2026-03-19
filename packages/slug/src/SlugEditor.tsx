@@ -31,6 +31,22 @@ export interface SlugEditorProps {
   };
 }
 
+const DEFAULT_SYMBOL_FIELD_MAX_LENGTH = 256;
+
+function getSlugFieldMaxLength(validations: FieldAPI['validations'] = []) {
+  const maxFromValidations = validations.reduce<number | null>((currentMax, validation) => {
+    if (!('size' in validation) || typeof validation.size?.max !== 'number') {
+      return currentMax;
+    }
+
+    return currentMax === null ? validation.size.max : Math.min(currentMax, validation.size.max);
+  }, null);
+
+  return maxFromValidations === null
+    ? DEFAULT_SYMBOL_FIELD_MAX_LENGTH
+    : Math.min(DEFAULT_SYMBOL_FIELD_MAX_LENGTH, maxFromValidations);
+}
+
 function isSupportedFieldTypes(val: string): val is 'Symbol' {
   return val === 'Symbol';
 }
@@ -45,6 +61,7 @@ function FieldConnectorCallback({
   isOptionalLocaleWithFallback,
   locale,
   createdAt,
+  maxLength,
   performUniqueCheck,
   isUniqueValidationEnabled,
   id,
@@ -58,6 +75,7 @@ function FieldConnectorCallback({
   isOptionalLocaleWithFallback: boolean;
   locale: FieldAPI['locale'];
   createdAt: string;
+  maxLength: number;
   performUniqueCheck: (value: string) => Promise<boolean>;
   isUniqueValidationEnabled: boolean;
   id?: string;
@@ -80,6 +98,7 @@ function FieldConnectorCallback({
       <Component
         locale={locale}
         createdAt={createdAt}
+        maxLength={maxLength}
         performUniqueCheck={performUniqueCheck}
         isUniqueValidationEnabled={isUniqueValidationEnabled}
         hasError={errors.length > 0}
@@ -107,6 +126,7 @@ export function SlugEditor(props: SlugEditorProps) {
   const isUniqueValidationEnabled = (field.validations || []).some(
     (validation) => 'unique' in validation && validation.unique === true,
   );
+  const maxLength = getSlugFieldMaxLength(field.validations);
 
   const isLocaleOptional = locales.optional[field.locale];
   const localeFallbackCode = locales.fallbacks[field.locale];
@@ -171,6 +191,7 @@ export function SlugEditor(props: SlugEditorProps) {
                 isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
                 createdAt={entrySys.createdAt}
                 locale={field.locale}
+                maxLength={maxLength}
                 performUniqueCheck={performUniqueCheck}
                 isUniqueValidationEnabled={isUniqueValidationEnabled}
                 key={`slug-editor-${externalReset}`}

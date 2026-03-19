@@ -298,6 +298,7 @@ describe('SlugEditor', () => {
           locale="en-US"
           titleValue="Slug value"
           createdAt="2020-01-24T15:33:47.906Z"
+          maxLength={256}
           setValue={setValue}
           performUniqueCheck={performUniqueCheck}
         />,
@@ -526,21 +527,39 @@ describe('SlugEditor', () => {
     });
   });
 
-  it('slug suggestion is limited to 75 symbols', async () => {
+  it('slug suggestion is limited to 256 characters by default', async () => {
+    const longTitle = 'a'.repeat(300);
     const { field, sdk } = createMocks({
       field: '',
-      titleField: '',
+      titleField: longTitle,
     });
 
-    render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
-
-    await waitFor(async () => {
-      await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
-    });
+    const { getByTestId } = render(
+      <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />,
+    );
 
     await waitFor(() => {
-      const expectedSlug = 'a'.repeat(75);
+      const expectedSlug = 'a'.repeat(256);
       expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+      expect(getByTestId('cf-ui-text-input')).toHaveAttribute('maxlength', '256');
+    });
+  });
+
+  it('slug suggestion respects size max validation', async () => {
+    const { field, sdk } = createMocks({
+      field: '',
+      titleField: 'one two three four',
+    });
+
+    field.validations = [{ unique: true }, { size: { max: 13 } }];
+
+    const { getByTestId } = render(
+      <SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />,
+    );
+
+    await waitFor(() => {
+      expect(field.setValue).toHaveBeenLastCalledWith('one-two-three');
+      expect(getByTestId('cf-ui-text-input')).toHaveAttribute('maxlength', '13');
     });
   });
 
@@ -553,7 +572,7 @@ describe('SlugEditor', () => {
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
     await waitFor(async () => {
-      await sdk.entry.fields['title-id'].setValue(`one two three ${'a'.repeat(80)}`);
+      await sdk.entry.fields['title-id'].setValue(`one two three ${'a'.repeat(300)}`);
     });
 
     await waitFor(() => {
