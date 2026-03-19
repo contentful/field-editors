@@ -72,8 +72,8 @@ describe(
             ),
           );
 
-          cy.findByTestId('cf-ui-card-actions').click({ force: true });
-          cy.findByTestId('delete').click({ force: true });
+          cy.findByTestId('cf-ui-card-actions').click();
+          cy.findByTestId('delete').click();
 
           richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('hello world'))));
         });

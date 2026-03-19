@@ -24,7 +24,7 @@ export class RichTextPage {
 
       toggleHeading(type: string) {
         this.headingsDropdown.click();
-        cy.findByTestId(`dropdown-option-${type}`).click({ force: true });
+        cy.findByTestId(`dropdown-option-${type}`).click();
       },
 
       get undo() {

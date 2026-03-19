@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Tooltip } from '@contentful/f36-components';
+import { IconButton } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from '@emotion/css';
 
@@ -14,6 +14,7 @@ const styles = {
 
   tooltip: css({
     zIndex: Number(tokens.zIndexTooltip),
+    pointerEvents: 'none',
   }),
 };
 
@@ -21,7 +22,7 @@ interface ToolbarButtonProps {
   onClick: () => void;
   isActive?: boolean;
   isDisabled?: boolean;
-  children: any;
+  children: React.ReactElement;
   title: string;
   className?: string;
   testId?: string;
@@ -29,30 +30,50 @@ interface ToolbarButtonProps {
 
 export function ToolbarButton(props: ToolbarButtonProps) {
   const { title, testId, isActive, children, className, isDisabled = false } = props;
-  const handleClick = (event) => {
-    event.preventDefault();
-    props.onClick();
-  };
+  const pointerTriggeredRef = React.useRef(false);
 
-  const button = (
-    <Button
+  const handlePointerDown = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (isDisabled || event.button !== 0) {
+        return;
+      }
+      event.preventDefault();
+      pointerTriggeredRef.current = true;
+      props.onClick();
+    },
+    [isDisabled, props],
+  );
+
+  const handleClick = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (pointerTriggeredRef.current) {
+        pointerTriggeredRef.current = false;
+        return;
+      }
+      event.preventDefault();
+      props.onClick();
+    },
+    [props],
+  );
+
+  return (
+    <IconButton
       className={cx(styles.button, className)}
       isDisabled={isDisabled}
-      startIcon={children}
+      onMouseDown={handlePointerDown}
       onClick={handleClick}
       testId={testId}
       variant={isActive ? 'secondary' : 'transparent'}
       size="small"
+      icon={children}
+      aria-label={title}
+      withTooltip
+      tooltipProps={{
+        className: styles.tooltip,
+        usePortal: true,
+        placement: 'bottom',
+        content: title,
+      }}
     />
   );
-
-  if (title) {
-    return (
-      <Tooltip className={styles.tooltip} placement="bottom" content={title}>
-        {button}
-      </Tooltip>
-    );
-  }
-
-  return button;
 }
