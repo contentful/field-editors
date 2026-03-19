@@ -67,7 +67,7 @@ export function ToolbarButton(props: ToolbarButtonProps) {
       size="small"
       icon={children}
       aria-label={title}
-      withTooltip
+      withTooltip={!!title}
       tooltipProps={{
         className: styles.tooltip,
         usePortal: true,
