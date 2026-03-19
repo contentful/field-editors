@@ -2912,6 +2912,18 @@
     "@contentful/f36-typography" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-accordion@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-accordion/5.9.1/2cb70da5b9325588eb8c13d8e43173d7188fd0c4#2cb70da5b9325588eb8c13d8e43173d7188fd0c4"
+  integrity sha512-3TTcYXBs4axgP6YQj0hFIh3CIrWdPMUx2DgBxUDBUmgttLTx0P8kMXA4Smc2wpGw0SySrjNNnrDMFajZaeKAJQ==
+  dependencies:
+    "@contentful/f36-collapse" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-accordion@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-accordion/6.7.1/bd68f534816a724fda7ea588613cec3a11cece2c#bd68f534816a724fda7ea588613cec3a11cece2c"
@@ -2934,6 +2946,18 @@
     "@contentful/f36-icons" "^5.4.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
+    emotion "^10.0.17"
+
+"@contentful/f36-asset@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-asset/5.9.1/feb055e66f3250435b97b40e96c142f407c55a4b#feb055e66f3250435b97b40e96c142f407c55a4b"
+  integrity sha512-Y2AnZhxjVmLpesjPyURFkvzbFt4Jnr6PD+NQDTyoDYUsW74U7TXym3KVvAJNATeI+5S4RUF3hdxp0H8Ugym7+Q==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icon" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
     emotion "^10.0.17"
 
 "@contentful/f36-asset@^6.7.1":
@@ -2962,6 +2986,23 @@
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
     "@contentful/f36-utils" "^5.1.0"
+    downshift "^6.1.12"
+    emotion "^10.0.17"
+
+"@contentful/f36-autocomplete@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-autocomplete/5.9.1/4ad73cf4971f31aa5ad63b61a36c56675f579b9f#4ad73cf4971f31aa5ad63b61a36c56675f579b9f"
+  integrity sha512-icPKC7KVGmg7Yfvrr8hLdXvO1tePSIbFPNrSMcLSJXu/XI0lYjtjAKwDyb3duCaHMyDeXaASl0LiajAcw37tlQ==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-forms" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-popover" "^5.9.1"
+    "@contentful/f36-skeleton" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
     downshift "^6.1.12"
     emotion "^10.0.17"
 
@@ -2994,6 +3035,18 @@
     "@contentful/f36-tooltip" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-avatar@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-avatar/5.9.1/f82dc4075e943be11b3ce5bb0641855d8e83f9cb#f82dc4075e943be11b3ce5bb0641855d8e83f9cb"
+  integrity sha512-Aem9srqBF7ueyyAEPY4uOxa8j3yQ0ui7Xatw0z6uO2h0yhX8irmT7S833TdPvUblvAZOMFTgKC7OWOF2bx8CWQ==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-image" "^5.9.1"
+    "@contentful/f36-menu" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-avatar@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-avatar/6.7.1/0b61ea100ef9c5f9fbb7e4d354fa054a1d058ec3#0b61ea100ef9c5f9fbb7e4d354fa054a1d058ec3"
@@ -3016,6 +3069,17 @@
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
+"@contentful/f36-badge@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-badge/5.9.1/727968a720c3858143e8aecbe50f0aaa36da9949#727968a720c3858143e8aecbe50f0aaa36da9949"
+  integrity sha512-4JaMmJZbD8BcSX4do14nijDORbClkzYOAxovTLBfzoGae69FxnXnNcVYsibwM7kYhyrBBgXevAcE/Y3GgG6jNw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+
 "@contentful/f36-badge@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-badge/6.7.1/669d56e5c47cc7a2e91f93e302b8fcff73709331#669d56e5c47cc7a2e91f93e302b8fcff73709331"
@@ -3036,6 +3100,18 @@
     "@contentful/f36-spinner" "^5.9.0"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-tooltip" "^5.9.0"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-button@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-button/5.9.1/a9156e1553c2331523b1ad4253e79515ff4d7d38#a9156e1553c2331523b1ad4253e79515ff4d7d38"
+  integrity sha512-2UVwQY3yekL3V4TO2uP5adN/ArRKRMvq8iB8OptnqnFEZClI7jT5YFuu/99AS4nLTdRVISNi/Bf2g7m0PIotvw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-spinner" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
     "@contentful/f36-utils" "^5.2.0"
     emotion "^10.0.17"
 
@@ -3071,6 +3147,26 @@
     emotion "^10.0.17"
     truncate "^3.0.0"
 
+"@contentful/f36-card@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-card/5.9.1/52f7e282a10ebea33f810a8b47180b78c8bd58e4#52f7e282a10ebea33f810a8b47180b78c8bd58e4"
+  integrity sha512-1r1k96l6rnHwJQc8yV6Ys67d1FrsE2785R2TTQCqdNGItrrF5aJylkNCVI+CLXgKI7EVCiNAQvbMd1iy4bUZQQ==
+  dependencies:
+    "@contentful/f36-asset" "^5.9.1"
+    "@contentful/f36-badge" "^5.9.1"
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-drag-handle" "^5.9.1"
+    "@contentful/f36-icon" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-menu" "^5.9.1"
+    "@contentful/f36-skeleton" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    "@contentful/f36-typography" "^5.9.1"
+    emotion "^10.0.17"
+    truncate "^3.0.0"
+
 "@contentful/f36-card@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-card/6.7.1/690c71b34ddb4bfa4f778c83205149b52f1d473a#690c71b34ddb4bfa4f778c83205149b52f1d473a"
@@ -3097,6 +3193,15 @@
   integrity sha512-9dC1i5cIdFlVZCaxaDr2s3biHN972UqoC4nTXXU1VybmYOLNHBsBAlc3ex1Ek8m7rC6VoWXw6tNycQYqWmCr7g==
   dependencies:
     "@contentful/f36-core" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-collapse@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-collapse/5.9.1/7585a63b45c63f41fe5a9bdf15d35d9448a3460f#7585a63b45c63f41fe5a9bdf15d35d9448a3460f"
+  integrity sha512-9n66T8PZJnRVlJeItnznFtwlfnndGizqYgF8e+Ad6d+xTNP009f70nLALg1qncpxtxd488Xwbkune7j9WVlaEQ==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
@@ -3157,6 +3262,55 @@
     "@contentful/f36-usage-card" "^5.4.1"
     "@contentful/f36-usage-count" "^5.4.1"
     "@contentful/f36-utils" "^5.1.0"
+
+"@contentful/f36-components@^5.8.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-components/5.9.1/08d3db2e412b0d8d4a3feb0457e555cc4d257af0#08d3db2e412b0d8d4a3feb0457e555cc4d257af0"
+  integrity sha512-yTnO6qC8S0SZEneD2Szc98QbpTzwUBHlnGxyJsncTrRV5rIX5p3PruTBsXJ1IhPdFjQ7OW9eZFLVXsiHWM/abA==
+  dependencies:
+    "@contentful/f36-accordion" "^5.9.1"
+    "@contentful/f36-asset" "^5.9.1"
+    "@contentful/f36-autocomplete" "^5.9.1"
+    "@contentful/f36-avatar" "^5.9.1"
+    "@contentful/f36-badge" "^5.9.1"
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-card" "^5.9.1"
+    "@contentful/f36-collapse" "^5.9.1"
+    "@contentful/f36-copybutton" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-datepicker" "^5.9.1"
+    "@contentful/f36-datetime" "^5.9.1"
+    "@contentful/f36-drag-handle" "^5.9.1"
+    "@contentful/f36-empty-state" "^5.9.1"
+    "@contentful/f36-entity-list" "^5.9.1"
+    "@contentful/f36-forms" "^5.9.1"
+    "@contentful/f36-header" "^5.9.1"
+    "@contentful/f36-icon" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-image" "^5.9.1"
+    "@contentful/f36-layout" "^5.9.1"
+    "@contentful/f36-list" "^5.9.1"
+    "@contentful/f36-menu" "^5.9.1"
+    "@contentful/f36-modal" "^5.9.1"
+    "@contentful/f36-multiselect" "^5.9.1"
+    "@contentful/f36-navlist" "^5.9.1"
+    "@contentful/f36-note" "^5.9.1"
+    "@contentful/f36-notification" "^5.9.1"
+    "@contentful/f36-pagination" "^5.9.1"
+    "@contentful/f36-pill" "^5.9.1"
+    "@contentful/f36-popover" "^5.9.1"
+    "@contentful/f36-progress-stepper" "^5.9.1"
+    "@contentful/f36-skeleton" "^5.9.1"
+    "@contentful/f36-spinner" "^5.9.1"
+    "@contentful/f36-table" "^5.9.1"
+    "@contentful/f36-tabs" "^5.9.1"
+    "@contentful/f36-text-link" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-usage-card" "^5.9.1"
+    "@contentful/f36-usage-count" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
 
 "@contentful/f36-components@^6.7.1":
   version "6.7.1"
@@ -3219,6 +3373,18 @@
     "@contentful/f36-tooltip" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-copybutton@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-copybutton/5.9.1/d765df90ba1f7764f50a8b34d67b04bffb669e98#d765df90ba1f7764f50a8b34d67b04bffb669e98"
+  integrity sha512-pCeahvjcNuDXjUZx6qiKDfUqDmYnRUTZPKFUTlKSSAMsU2smjnxG5fZhVhEbYgBpwxn/Uj2VvkozkIedhEOjuw==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-copybutton@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-copybutton/6.7.1/f1452cdbd4de1054d302cfc88258135ba409235e#f1452cdbd4de1054d302cfc88258135ba409235e"
@@ -3235,6 +3401,17 @@
   version "5.9.0"
   resolved "https://registry.yarnpkg.com/@contentful/f36-core/-/f36-core-5.9.0.tgz#d7bff2de8f8a7adf90d53041544116628665faa9"
   integrity sha512-6uFPzFaoVX3wwYaHcFWy9UK5/nA0xPBgJk49uZd1yDoEkL8B+QEdYp/McmkF0Sit6G9DDHXmSZE0+jjeA7c5LA==
+  dependencies:
+    "@contentful/f36-tokens" "^5.1.0"
+    "@emotion/core" "^10.1.1"
+    "@emotion/is-prop-valid" "^1.2.0"
+    csstype "^3.1.1"
+    emotion "^10.0.17"
+
+"@contentful/f36-core@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-core/5.9.1/2cebb1b0e4942a24b190f4714aac0a2c99104c78#2cebb1b0e4942a24b190f4714aac0a2c99104c78"
+  integrity sha512-egPXjZLcUwF+LJ7q8w/9zpMVNTWVIIEV5DEmn5nAgPd4+FLQjyWFbL8ubyOMk41F0ceCbB1cp5AILuA0xRIsvQ==
   dependencies:
     "@contentful/f36-tokens" "^5.1.0"
     "@emotion/core" "^10.1.1"
@@ -3269,6 +3446,23 @@
     react-day-picker "^8.7.1"
     react-focus-lock "^2.9.1"
 
+"@contentful/f36-datepicker@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-datepicker/5.9.1/894be34a169036e36046832d6d6422230bb25aa9#894be34a169036e36046832d6d6422230bb25aa9"
+  integrity sha512-T4xmo3o6TBhmRV5oW7RXKOn/FpiZOgBEptpMsgcU+ICJ4taTZ87vFdNIkfQf2LibwQzhJhBNxPbEhZ1pZNoVIg==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-forms" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-popover" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    date-fns "^2.28.0"
+    emotion "^10.0.17"
+    react-day-picker "^8.7.1"
+    react-focus-lock "^2.9.1"
+
 "@contentful/f36-datepicker@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-datepicker/6.7.1/68321681781b9cccff2d1953f34dc79582e3a1bf#68321681781b9cccff2d1953f34dc79582e3a1bf"
@@ -3296,6 +3490,16 @@
     dayjs "^1.11.5"
     emotion "^10.0.17"
 
+"@contentful/f36-datetime@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-datetime/5.9.1/c78cfed2bf8211767ea1335911014caa810b6f05#c78cfed2bf8211767ea1335911014caa810b6f05"
+  integrity sha512-WHwlTQLM21J2SskvVxJisJMql+WcqDSu939KUegRgHjhriEkEfgUA/KyjHyjfKxZFrC7MamBYnaSV2IKBuDPDA==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    dayjs "^1.11.5"
+    emotion "^10.0.17"
+
 "@contentful/f36-datetime@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-datetime/6.7.1/774c06cd902c36f1b4f7583dcdb289424e40aed4#774c06cd902c36f1b4f7583dcdb289424e40aed4"
@@ -3317,6 +3521,17 @@
     "@contentful/f36-utils" "^5.1.0"
     emotion "^10.0.17"
 
+"@contentful/f36-drag-handle@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-drag-handle/5.9.1/abe38fc0bf8d33edf08a702306614a9e2ef9a417#abe38fc0bf8d33edf08a702306614a9e2ef9a417"
+  integrity sha512-h8jCcob5pPp5FK88wgrqN/91N2uSxEBSAMoaxePwsNS15k6G0TpNV4U9vtlRVBx1htEzj2R2BSBR7ANlQEKMRQ==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+
 "@contentful/f36-drag-handle@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-drag-handle/6.7.1/5354ba98a86e86294dfea4dd49b002d79022337b#5354ba98a86e86294dfea4dd49b002d79022337b"
@@ -3335,6 +3550,15 @@
   dependencies:
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
+    emotion "^10.0.17"
+
+"@contentful/f36-empty-state@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-empty-state/5.9.1/8f89045ce402cd68bc094c1e242edd3dd678bcc8#8f89045ce402cd68bc094c1e242edd3dd678bcc8"
+  integrity sha512-6T07mp9aWWxFFJHICNbqPpBFrf04t2rVAX/kFST1ibsab934ZvutpwOAlQvjl/L9emY3c2LSt6dSnjsyaqHttA==
+  dependencies:
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
     emotion "^10.0.17"
 
 "@contentful/f36-empty-state@^6.7.1":
@@ -3361,6 +3585,23 @@
     "@contentful/f36-skeleton" "^5.4.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
+    emotion "^10.0.17"
+
+"@contentful/f36-entity-list@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-entity-list/5.9.1/4760844c7c030a9373b950c92fa4685f6dc5056c#4760844c7c030a9373b950c92fa4685f6dc5056c"
+  integrity sha512-agdjTStNZVJNbNfD8MX/HkJ1K9Nh5qtccpO76eubfWUa8ZOTzSwdV2I3pBMgQ1/Zpxt09+1yqG28Mdn0b5QhWQ==
+  dependencies:
+    "@contentful/f36-badge" "^5.9.1"
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-drag-handle" "^5.9.1"
+    "@contentful/f36-icon" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-menu" "^5.9.1"
+    "@contentful/f36-skeleton" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
     emotion "^10.0.17"
 
 "@contentful/f36-entity-list@^6.7.1":
@@ -3392,6 +3633,18 @@
     "@contentful/f36-utils" "^5.1.0"
     emotion "^10.0.17"
 
+"@contentful/f36-forms@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-forms/5.9.1/265e47f68b562d895b40f366bebe64bf85dc5eaf#265e47f68b562d895b40f366bebe64bf85dc5eaf"
+  integrity sha512-hQMNJobHj5CrMtdVbNuxuM/jgUuYDTYNADRVGCpxKesl0KLC3c9efKKNCm8djE4wnCK8zZhXtLBAD4LJRCiUaw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+
 "@contentful/f36-forms@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-forms/6.7.1/056afb1982e12f30403bd1837b27d82d3bf88221#056afb1982e12f30403bd1837b27d82d3bf88221"
@@ -3417,6 +3670,18 @@
     "@contentful/f36-typography" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-header@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-header/5.9.1/a81646ce46121cb69389eb9a6e6f134e83bd34f7#a81646ce46121cb69389eb9a6e6f134e83bd34f7"
+  integrity sha512-A5v7UkRRtAny6NBqAx+QgD2jdvy7KD5GFe3UItjhhbX8D1LDo5TfECYZjiNHgn5guCZyKsejN99b2Tqc3n++hw==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-header@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-header/6.7.1/27bbfc33d0e1bb06602648ec76d0147757b40bb5#27bbfc33d0e1bb06602648ec76d0147757b40bb5"
@@ -3435,6 +3700,16 @@
   integrity sha512-uiMqdWZDDyd/2fizqMiUpBlVhFOLeurGJYazyeKyctAwqOV6D/osyXy1nLKK4WH48ucTlNT8NnHotyBYjj8JRw==
   dependencies:
     "@contentful/f36-core" "^5.9.0"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@phosphor-icons/react" "2.1.8"
+    emotion "^10.0.17"
+
+"@contentful/f36-icon@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-icon/5.9.1/f96e5ba43a169411c570994f51642f293974b0a9#f96e5ba43a169411c570994f51642f293974b0a9"
+  integrity sha512-58Pa0r5vpSX6jr6Lsvoc0ah82Hid6kvNFvu8+/vGDO//KgX7On0LjLUYiygLmyNG9FeKaJingxB8RUe2FEIR6g==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@phosphor-icons/react" "2.1.8"
     emotion "^10.0.17"
@@ -3460,6 +3735,17 @@
     "@phosphor-icons/react" "2.1.8"
     emotion "^10.0.17"
 
+"@contentful/f36-icons@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-icons/5.9.1/a73f298f7e2088ff04e08c6833608e80371b3d5c#a73f298f7e2088ff04e08c6833608e80371b3d5c"
+  integrity sha512-bq2i5W8rA+jYPsdPQdBegrWqbZquYfYcNHF6VOuxZuUl9xn78FvaiWHxiaVDyjFk/3kQFSDjMLUdQI3sePJSUw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icon" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@phosphor-icons/react" "2.1.8"
+    emotion "^10.0.17"
+
 "@contentful/f36-icons@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-icons/6.7.1/24779d22766276e89a615fee10620ba62c06acf7#24779d22766276e89a615fee10620ba62c06acf7"
@@ -3478,6 +3764,16 @@
   dependencies:
     "@contentful/f36-core" "^5.4.1"
     "@contentful/f36-skeleton" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-image@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-image/5.9.1/5dfb661889bbd3b3d8ec466f87df086fa38ebb50#5dfb661889bbd3b3d8ec466f87df086fa38ebb50"
+  integrity sha512-azVK98nlMWF1ElwZ0tvmN82opXwHMN0BVFG5g6zlZzqCeH7zYzm6lC5Lck5J/+ZVNStJoJjRdA9l4Pj7U1fnvg==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-skeleton" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
@@ -3501,6 +3797,16 @@
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
+"@contentful/f36-layout@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-layout/5.9.1/2ad6f9b8ebcb107c29da945a78fc7104fdc72cb7#2ad6f9b8ebcb107c29da945a78fc7104fdc72cb7"
+  integrity sha512-JSrogs8BcCHpf6RTS27aFOSId9K2aSLH47eq+qE6v0OJTeep7iwDEruJarw4C4xBPxIJoKY2LC3JytdATzY6eg==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-header" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
 "@contentful/f36-layout@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-layout/6.7.1/59cb6ae7cbbb7e1a771124b9c49e327568aee25e#59cb6ae7cbbb7e1a771124b9c49e327568aee25e"
@@ -3517,6 +3823,15 @@
   integrity sha512-52o153qI0EtqOl1zH52PMsmBh8liCHYv/9anSkXXQVVWgGdfO355mStvpjByG6i3swUuOiK/x64jXgZwq28ezA==
   dependencies:
     "@contentful/f36-core" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-list@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-list/5.9.1/2f456a72b5f5996505344657e717c79119d60cfb#2f456a72b5f5996505344657e717c79119d60cfb"
+  integrity sha512-AVXiUb83CmMuAI0lLR3hAg4cqTbNx1jaUPLVmJ8xiFX1wJjgu7KdQnOazrwH4wfU0lOztiMnGgH8NRqWX8D5OQ==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
@@ -3540,6 +3855,19 @@
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
     "@contentful/f36-utils" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-menu@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-menu/5.9.1/770bf490fd1f90262ade5cb53ce79e1f411488cc#770bf490fd1f90262ade5cb53ce79e1f411488cc"
+  integrity sha512-Za7rFmaJ3wYVt5IH4ONDZloPm+F/vPat5qnarDSrT/Unp8hvvJbv7oLGF/yueQY5jimZ1OrfeldghIqeq1+bxQ==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-popover" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
     emotion "^10.0.17"
 
 "@contentful/f36-menu@^6.7.1":
@@ -3567,6 +3895,20 @@
     "@contentful/f36-icons" "^5.4.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
+    "@types/react-modal" "^3.13.1"
+    emotion "^10.0.17"
+    react-modal "^3.16.1"
+
+"@contentful/f36-modal@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-modal/5.9.1/f678d38a06a591f728797e17de138a0c0c849cbe#f678d38a06a591f728797e17de138a0c0c849cbe"
+  integrity sha512-nau1EWXo7fXOQb+vbFqLvOZJYVdzA73QYUzZhl4YjSMDBbBmSZ7eNQJY32GxiQ+8bV7n2ozLcylghUnoKZhWSA==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
     "@types/react-modal" "^3.13.1"
     emotion "^10.0.17"
     react-modal "^3.16.1"
@@ -3604,6 +3946,25 @@
     emotion "^10.0.17"
     react-focus-lock "^2.9.5"
 
+"@contentful/f36-multiselect@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-multiselect/5.9.1/b3c786a238d2141595d1735ca350269ae64d2484#b3c786a238d2141595d1735ca350269ae64d2484"
+  integrity sha512-JWDwZ81Qdwh1550iTNDkMDcaXFLxG9fPpMDq13Lf+a7SHp1Tp3yFLOUdviWURgjeMJSFo3LXeU5iX60sxmomYA==
+  dependencies:
+    "@babel/runtime" "^7.27.1"
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-forms" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-popover" "^5.9.1"
+    "@contentful/f36-skeleton" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+    react-focus-lock "^2.9.5"
+
 "@contentful/f36-multiselect@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-multiselect/6.7.1/fdb627bb4c1eeba2e49c84596877b52e4e31f6a5#fdb627bb4c1eeba2e49c84596877b52e4e31f6a5"
@@ -3628,6 +3989,15 @@
   integrity sha512-LPQVcD0wTOuVvKDpvhJAVeMjjx71tCEnmLYxQtNjLssFw/J/MfAJwYKNDYs9AxyIrG8R8e3a3VzqNaCV02AHnw==
   dependencies:
     "@contentful/f36-core" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-navlist@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-navlist/5.9.1/c4eb209fe734de92fd79430c5f3f37fdb4a32180#c4eb209fe734de92fd79430c5f3f37fdb4a32180"
+  integrity sha512-nPcKopkpt3HaaXJ0NFf0tyrQEyob1+q+5XiIYIBoc2TasEJvjIZX9veLCp6f0Ab8kUlegIRnTsCW2WaQmCB8kA==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
@@ -3668,6 +4038,20 @@
     "@contentful/f36-utils" "^5.2.0"
     emotion "^10.0.17"
 
+"@contentful/f36-note@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-note/5.9.1/1e2ef8ceb99285e1be0d928eff716e2064446d0b#1e2ef8ceb99285e1be0d928eff716e2064446d0b"
+  integrity sha512-T6xYZDOCj9rEeV2bpVYTyKA/IQJWhTk738JdtGrOoUCfVaTYRHQZ7Lwr7FDbhZeBX+hXoe3G5JXUsAOe9/WNng==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icon" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+
 "@contentful/f36-note@^6.7.0", "@contentful/f36-note@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-note/6.7.1/adac17c6de545a65b1a695d07241fab89b5e57a4#adac17c6de545a65b1a695d07241fab89b5e57a4"
@@ -3693,6 +4077,20 @@
     "@contentful/f36-text-link" "^5.4.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
+    emotion "^10.0.17"
+    react-animate-height "^3.0.4"
+
+"@contentful/f36-notification@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-notification/5.9.1/21b2365cbf4eb1995a86623ffa8cea549a281594#21b2365cbf4eb1995a86623ffa8cea549a281594"
+  integrity sha512-iV7QV/8cTiOJZNjeSeqCSgigxymfU/ksq60/PeS3NZq4HcKq+T9zQguJJnJnCbQ/Cx5qSrugQ5SuUrIi6CqEBA==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-text-link" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
     emotion "^10.0.17"
     react-animate-height "^3.0.4"
 
@@ -3723,6 +4121,19 @@
     "@contentful/f36-typography" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-pagination@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-pagination/5.9.1/6dc2b7e8931630855e531426e2e49a28ef8904f5#6dc2b7e8931630855e531426e2e49a28ef8904f5"
+  integrity sha512-YoK8+jEGvfX+lKGxGGQjBucQ/5fRg6SbvY6ZGLELcxhYm1ZZAwI0mLkNXQ/++N8uDejAIdqx3sYHW5uhEoRaEw==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-forms" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-pagination@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-pagination/6.7.1/ae6996778301c72c438ef00bffabce2041be4d5c#ae6996778301c72c438ef00bffabce2041be4d5c"
@@ -3749,6 +4160,19 @@
     "@contentful/f36-tooltip" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-pill@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-pill/5.9.1/adfbc45d18fe5eb3ee3c304201f5d9c5d136be47#adfbc45d18fe5eb3ee3c304201f5d9c5d136be47"
+  integrity sha512-+lkq35mWHTWSUdjRi9+psrdMaIYM0f80vtJzqCRVS5IE9C7oXTlX6NxsrHMQUMX1jfNGylJv6vATTUgo6XA93Q==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-drag-handle" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-pill@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-pill/6.7.1/93194df635c629d6236237180c9ceb6f9207d23e#93194df635c629d6236237180c9ceb6f9207d23e"
@@ -3770,6 +4194,18 @@
     "@contentful/f36-core" "^5.4.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-utils" "^5.1.0"
+    "@popperjs/core" "^2.11.5"
+    emotion "^10.0.17"
+    react-popper "^2.3.0"
+
+"@contentful/f36-popover@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-popover/5.9.1/d21ca4187d528deb00f188f8ccd4859751ffaa5a#d21ca4187d528deb00f188f8ccd4859751ffaa5a"
+  integrity sha512-gLJyS4u0Umst7QYtFZq/gLjZP0pkZ756KzvGlxfGsRgfHq75AxWdMMnyMuWvqq1J2JcJuYrw28JJRs0tFMfl/A==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-utils" "^5.2.0"
     "@popperjs/core" "^2.11.5"
     emotion "^10.0.17"
     react-popper "^2.3.0"
@@ -3798,6 +4234,18 @@
     "@contentful/f36-typography" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-progress-stepper@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-progress-stepper/5.9.1/26bb89ffa4cf90f9bd38abb9943d5293c5bca420#26bb89ffa4cf90f9bd38abb9943d5293c5bca420"
+  integrity sha512-UQkGFDfl17WY1UIkaWnKVTCKZjVk7Mx9rkkE3c5OJ4llihbHDRI9mxD+6i5OXA+U3iEMW2UsUgxy3ACeOnSsmQ==
+  dependencies:
+    "@contentful/f36-button" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-progress-stepper@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-progress-stepper/6.7.1/481584e6cc9283d564ef16b079d70f74313be1cd#481584e6cc9283d564ef16b079d70f74313be1cd"
@@ -3817,6 +4265,16 @@
   dependencies:
     "@contentful/f36-core" "^5.4.1"
     "@contentful/f36-table" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-skeleton@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-skeleton/5.9.1/6e06f959223474173cce13f90ec7e3ecc99df975#6e06f959223474173cce13f90ec7e3ecc99df975"
+  integrity sha512-/xucQq3ON7oymJbJaMLFPL/vwc4VjW29/JumRls6nAHM0jSK/1g0KjShqVVdy+YPxi4VocYujdBKd8IMqS4eXg==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-table" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
@@ -3848,6 +4306,15 @@
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
+"@contentful/f36-spinner@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-spinner/5.9.1/30c0b1ed5775bb1da54fc9b104080630c496e27a#30c0b1ed5775bb1da54fc9b104080630c496e27a"
+  integrity sha512-or3wkkdSZA6ljXIFURiDl2I1YhFgp7ouWiCxJYYOl8brujYnVGhZlxz5G0MUHzFx7N6tz+4wqY3Ru52lneHt+Q==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
 "@contentful/f36-spinner@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-spinner/6.7.1/e549712f6f53f6fbd53f075fb8d0eec72a571c01#e549712f6f53f6fbd53f075fb8d0eec72a571c01"
@@ -3867,6 +4334,18 @@
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
     "@contentful/f36-utils" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-table@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-table/5.9.1/3d9187543c2bb30b180b689aa2519130ad5a372b#3d9187543c2bb30b180b689aa2519130ad5a372b"
+  integrity sha512-QE8BIsIZpq1ZK55wp2Qokkcjsu21hW4LECKzBrx+Es/7dxeXGZaqFuQ6jzP+MyGAs5Cu2pYegs/qys17cr/QUw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
+    "@contentful/f36-utils" "^5.2.0"
     emotion "^10.0.17"
 
 "@contentful/f36-table@^6.7.1":
@@ -3891,6 +4370,16 @@
     "@radix-ui/react-tabs" "^1.0.1"
     emotion "^10.0.17"
 
+"@contentful/f36-tabs@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-tabs/5.9.1/bb93b35026ed9fd18eed25b0cf8971d94ddf0e95#bb93b35026ed9fd18eed25b0cf8971d94ddf0e95"
+  integrity sha512-Smvn0s/IWKQBhqsIxU51mjouaWWx/jDY65LGusK2qhtHMA3n9yg7TMsBXgZpJnX1Y9UOJD6nalAC7be3smWQug==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@radix-ui/react-tabs" "^1.0.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-tabs@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-tabs/6.7.1/71a549130bd7064df05f99457c629ca5201351f0#71a549130bd7064df05f99457c629ca5201351f0"
@@ -3907,6 +4396,15 @@
   integrity sha512-FkzmCI8qWq7ho6U5mIIhP3ca7WL4AORczr1YZVhMbi4yiCY5bpp7TFZCPyLszWXrCnax91zjpUWwghB2W1VuTg==
   dependencies:
     "@contentful/f36-core" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-text-link@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-text-link/5.9.1/bc7b31fa51c3435f715c59cbad99727169666ba0#bc7b31fa51c3435f715c59cbad99727169666ba0"
+  integrity sha512-I9HYYHTiyFkhvFQlGc+bNvRXwzKKLsQW4RJJZ3SiXxIA44/NNMIVxD0xg3CEYt89+DWpjiiLwp5q5ZJpq1hZIw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     emotion "^10.0.17"
 
@@ -3956,6 +4454,19 @@
     emotion "^10.0.17"
     react-popper "^2.3.0"
 
+"@contentful/f36-tooltip@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-tooltip/5.9.1/150aeca433fe295b0774a4604927f8241bf02c50#150aeca433fe295b0774a4604927f8241bf02c50"
+  integrity sha512-q8XbO/sOr3CCGQJt/xJfNBXtiDccYyNFleZJwGirxj9Z5GnvMTOdM5Rc+hjxi4mCYczcutQTybu8aFvVJFR+FA==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-utils" "^5.2.0"
+    "@popperjs/core" "^2.11.5"
+    csstype "^3.1.1"
+    emotion "^10.0.17"
+    react-popper "^2.3.0"
+
 "@contentful/f36-tooltip@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-tooltip/6.7.1/0e1b6538df2ff584f291da561f7d68b79f0f3703#0e1b6538df2ff584f291da561f7d68b79f0f3703"
@@ -3974,6 +4485,16 @@
   integrity sha512-ai6+xx8hdaDI8l27GJNbQ+AN1gOoWxQAKosAdvt7rnMyWegBwl0YK8vQ8OY6tQ5ba7yekSvMSHv7Pq+Ov29WJg==
   dependencies:
     "@contentful/f36-core" "^5.9.0"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-utils" "^5.2.0"
+    emotion "^10.0.17"
+
+"@contentful/f36-typography@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-typography/5.9.1/766d1d48cdf179d32e84dc4e1d4924f497c6a7bc#766d1d48cdf179d32e84dc4e1d4924f497c6a7bc"
+  integrity sha512-EB05+XuBuocSJtBpE/BvXL8wq91GKwL+Hu5OFcVmpggWS1OUU/CeuQGUMggj96LwMSRGlKNKrZ7iLLT8FZVvAA==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-utils" "^5.2.0"
     emotion "^10.0.17"
@@ -4002,6 +4523,20 @@
     "@contentful/f36-typography" "^5.4.1"
     emotion "^10.0.17"
 
+"@contentful/f36-usage-card@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-usage-card/5.9.1/1a029f7a7068a174c0d366b77e84bed7a1b4a17d#1a029f7a7068a174c0d366b77e84bed7a1b4a17d"
+  integrity sha512-tdHjX3J86dUaFs859P9xrab7XZJ2NFhp6DxSN7TD2ZJ5Fy0qY8X8jk4GT/7sCyeg+7ZzL8PB+FeRHDMXq3gAXQ==
+  dependencies:
+    "@contentful/f36-card" "^5.9.1"
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-icons" "^5.9.1"
+    "@contentful/f36-text-link" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-tooltip" "^5.9.1"
+    "@contentful/f36-typography" "^5.9.1"
+    emotion "^10.0.17"
+
 "@contentful/f36-usage-card@^6.7.1":
   version "6.7.1"
   resolved "https://npm.pkg.github.com/download/@contentful/f36-usage-card/6.7.1/e6e39a8dd9c1ef8842c6635a1866fbdad3833a9c#e6e39a8dd9c1ef8842c6635a1866fbdad3833a9c"
@@ -4024,6 +4559,16 @@
     "@contentful/f36-core" "^5.4.1"
     "@contentful/f36-tokens" "^5.1.0"
     "@contentful/f36-typography" "^5.4.1"
+    emotion "^10.0.17"
+
+"@contentful/f36-usage-count@^5.9.1":
+  version "5.9.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/f36-usage-count/5.9.1/3276465ba3a784a5875701be9b44f30c90a634e4#3276465ba3a784a5875701be9b44f30c90a634e4"
+  integrity sha512-vlhGgoyiUtxLE48tAh+m/8Wv4YpBDUHh8nCAR2FgPkU/dR+BCYO6e/i2BFXXTax4dZDhIo+A9N/1FBJ+mmsngw==
+  dependencies:
+    "@contentful/f36-core" "^5.9.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-typography" "^5.9.1"
     emotion "^10.0.17"
 
 "@contentful/f36-usage-count@^6.7.1":
@@ -4052,6 +4597,106 @@
     "@contentful/f36-tokens" "^6.1.0"
     "@emotion/css" "^11.13.5"
 
+"@contentful/field-editor-boolean@^1.7.14":
+  version "1.10.1"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-boolean/1.10.1/9dbde178131611dab72cf7815437e6987ea84877#9dbde178131611dab72cf7815437e6987ea84877"
+  integrity sha512-Yx62fHl0Q251no6oBGntqqE1Eqy9/FXg+81RHnUQOSTtQ9AW7uHMZsMxR+wqA3VpMRb1KrSgPFz24z3rPtxhDg==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/field-editor-shared" "^3.0.0"
+    lodash "^4.17.15"
+    nanoid "^3.1.3"
+
+"@contentful/field-editor-checkbox@^1.6.14":
+  version "1.7.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-checkbox/1.7.5/894052393ca3ca71be63d5cfa07dc889b08b2fbc#894052393ca3ca71be63d5cfa07dc889b08b2fbc"
+  integrity sha512-QrlCDxsGhTgtxuqiQcbbm46lqwmnFyMTgXDCJU09aW1/X1u/oQwhyp5FtVoM3gzQS3hOzbYO2PoK6MxfQm2ffg==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    nanoid "^3.1.3"
+
+"@contentful/field-editor-date@^1.9.14":
+  version "1.9.25"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-date/1.9.25/c63205f2582f5ddc0e3c2836a06209839d1cee20#c63205f2582f5ddc0e3c2836a06209839d1cee20"
+  integrity sha512-BfGY3TZuH7Ur4S3sHfW9Z8dyMEoTwTQG3ytubHrFCY4pBAlnjq1Fu018KVzImfoYc3ggIb/L0vG/ygGaYqG1tw==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+    moment "^2.20.0"
+
+"@contentful/field-editor-dropdown@^1.8.14", "@contentful/field-editor-dropdown@^1.9.5":
+  version "1.9.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-dropdown/1.9.5/c30cd8809c3888aa7b68af31e7599d1032f9ef5e#c30cd8809c3888aa7b68af31e7599d1032f9ef5e"
+  integrity sha512-WvGPu4fBj89w5IygLIicin3B0lQeTIRhqneoD3PMfZvYFrGzDMvnbEkGyV0D6oz0MsLA27qzQss5RliChkWwQA==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.0"
+    nanoid "^3.1.3"
+
+"@contentful/field-editor-json@^3.5.14":
+  version "3.6.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-json/3.6.5/12dc4153dc63fea9f5ebdcd4608b7e333bdd1277#12dc4153dc63fea9f5ebdcd4608b7e333bdd1277"
+  integrity sha512-H8VfanttrKuxoOiBmwy6vojCGeNVhgbn/WPF7oteh6tklh75X9u2y2vv4rDdCttQAlLx282Jxo+cM5w+gjfe5A==
+  dependencies:
+    "@codemirror/lang-json" "^6.0.0"
+    "@codemirror/language" "^6.0.0"
+    "@codemirror/view" "^6.0.0"
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    "@types/react-codemirror" "1.0.11"
+    "@uiw/react-codemirror" "^4.11.4"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+
+"@contentful/field-editor-list@^1.6.14":
+  version "1.7.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-list/1.7.5/bf47db2dc9e7b8cb09f6d9e966414c23ea42147c#bf47db2dc9e7b8cb09f6d9e966414c23ea42147c"
+  integrity sha512-9LyfRR314hsSXo9xhocTZQOdb6rX067Aga3ylp28KP8XRgralXO1ZKtvITwxCLWolLcyDOUI7K/qYpJuPiiE/w==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+
+"@contentful/field-editor-location@^1.5.14":
+  version "1.5.25"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-location/1.5.25/b867fb08d02d361fee14dde76d19b23213a2127b#b867fb08d02d361fee14dde76d19b23213a2127b"
+  integrity sha512-bQttpzSt/1PKr+e/FkEFWNCzKX9SiaE3Wki5oEd4KXlb0HRuNryBS6VWLCSQv17hzy1EOI4yjvARjm2n0Onxhw==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    "@types/google-map-react" "2.1.10"
+    emotion "^10.0.17"
+    google-map-react "2.2.1"
+    lodash "^4.17.15"
+
+"@contentful/field-editor-markdown@^1.12.7":
+  version "1.15.3"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-markdown/1.15.3/8f8bbd88ea0aef9d1401f6b1265e49f7d9243e57#8f8bbd88ea0aef9d1401f6b1265e49f7d9243e57"
+  integrity sha512-28pyeQYmbtfNVCFer70jSgu+cDPmL4TdhjQPXvGWtW7JnT8rPdLcVyp4PpjhPqWVvENAQD9GuqQK2ZS9A4/qZw==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    "@types/codemirror" "0.0.109"
+    codemirror "^5.65.11"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    react-markdown "^9.0.1"
+    rehype-raw "^7.0.0"
+    rehype-sanitize "^6.0.0"
+    remark-gfm "^4.0.0"
+
 "@contentful/field-editor-markdown@lastest":
   version "1.11.5"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-markdown/-/field-editor-markdown-1.11.5.tgz#1c963080a9d1d7628e5f9e16bdc7c05a4c434205"
@@ -4071,6 +4716,50 @@
     rehype-sanitize "^6.0.0"
     remark-gfm "^4.0.0"
 
+"@contentful/field-editor-multiple-line@^1.6.14":
+  version "1.7.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-multiple-line/1.7.5/2be9cfd15be28eb6d9f6975d1b3fdb8926e12684#2be9cfd15be28eb6d9f6975d1b3fdb8926e12684"
+  integrity sha512-WSxR9ztTf8gXdXzD1jsfkBYgr53Q+d8Q0TpssWCT9a5YAyq+FtuwWLB9FGTEHpXAb/vgrr0rvgZcQ88A1losxA==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+
+"@contentful/field-editor-number@^1.5.14":
+  version "1.6.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-number/1.6.5/2788c8a4408e8ce31b096c412d50026aaffb9ac9#2788c8a4408e8ce31b096c412d50026aaffb9ac9"
+  integrity sha512-4fIOHOMX1DKKStGku1Z9eab7wZMiz669469yJyihi8SbYm5mQHeUQ+FwP/woF80IgiZO30TrrS6hMfWfJFDV6g==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+
+"@contentful/field-editor-radio@^1.7.14":
+  version "1.8.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-radio/1.8.5/d8f4d41bc003b129f7a491022ca36cc6dafa953a#d8f4d41bc003b129f7a491022ca36cc6dafa953a"
+  integrity sha512-y2LrPNtJF57F4j2uoML4gddj4Gs7RqJdoAfC8xZxz/awNCwWMNqFMVwC50yoC/UFD4O6dLnh6Nm4RRwdwfLM/A==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-dropdown" "^1.9.5"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+
+"@contentful/field-editor-rating@^1.6.15":
+  version "1.7.6"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-rating/1.7.6/31675340708819279205e78cd64dbd65014dca5f#31675340708819279205e78cd64dbd65014dca5f"
+  integrity sha512-LrtWCTKN0KguMIFCt4/wk3BY77qgdweQBMXvoOIGn9RGImPwFSludi0G72boLp8Z7b0sG5wI4UhUJptmEQicCQ==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+
 "@contentful/field-editor-reference@^2.21.2":
   version "2.21.2"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-reference/-/field-editor-reference-2.21.2.tgz#15ad626d0ff00d29a304c6ca97d184f556c8c625"
@@ -4089,6 +4778,29 @@
     lodash-es "^4.17.15"
     moment "^2.20.0"
     react-sortable-hoc "^2.0.0"
+
+"@contentful/field-editor-reference@^6.13.9":
+  version "6.22.3"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-reference/6.22.3/2036dbcf36ac1e9c39e19bfb08d81d6a484ce592#2036dbcf36ac1e9c39e19bfb08d81d6a484ce592"
+  integrity sha512-5r6dWR2Y+gN0wxeWeb8jQMHQB0iVx7yFBWlK4fR/Jdzp+YiuRC8njrufVRj02M2rZRrBh1Xsavk0pKFWrsa/SA==
+  dependencies:
+    "@contentful/f36-components" "^5.8.1"
+    "@contentful/f36-icons" "^5.8.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    "@contentful/mimetype" "^2.2.29"
+    "@dnd-kit/core" "^6.0.8"
+    "@dnd-kit/sortable" "^8.0.0"
+    "@dnd-kit/utilities" "^3.2.2"
+    "@tanstack/react-query" "^4.3.9"
+    constate "^3.3.2"
+    contentful-management "^11.66.0"
+    emotion "^10.0.17"
+    lodash "^4.17.15"
+    moment "^2.20.0"
+    p-queue "^4.0.0"
+    react-intersection-observer "9.4.0"
+    truncate "^3.0.0"
 
 "@contentful/field-editor-shared@^0.25.1":
   version "0.25.1"
@@ -4139,6 +4851,16 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
+"@contentful/field-editor-single-line@^1.8.14", "@contentful/field-editor-single-line@^1.8.5":
+  version "1.9.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-single-line/1.9.5/6bae2b7cb8a78457ba5be46329c991caea63f5fb#6bae2b7cb8a78457ba5be46329c991caea63f5fb"
+  integrity sha512-R2TVkxQ7OtIV/VesB92wtyiWvrY1AqaQNpSFvOemKyD/7BsFn1ibAq+kpW5mnh5lFoXeO+of7YgcZVv/d1fK6Q==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    emotion "^10.0.17"
+
 "@contentful/field-editor-single-line@latest":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-single-line/-/field-editor-single-line-1.8.5.tgz#65d3b2647a0292c56ce8651a0d3f338d859c6dbe"
@@ -4164,6 +4886,30 @@
     lodash "^4.17.15"
     speakingurl "^14.0.1"
     use-debounce "^10.0.0"
+
+"@contentful/field-editor-tags@^1.7.14":
+  version "1.8.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-tags/1.8.5/de0811d17ce4449275a99c9626a3ae680061e8eb#de0811d17ce4449275a99c9626a3ae680061e8eb"
+  integrity sha512-QukK7N2XfP+3Nmd3oMac4P4J2TBhfIoD29hhfv1MdnQh9zXW7kjovrxgVDOeK9ZGh1l+ch1p31OP6kPqz3d9rA==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/field-editor-shared" "^3.0.0"
+    "@dnd-kit/core" "^6.0.8"
+    "@dnd-kit/modifiers" "^7.0.0"
+    "@dnd-kit/sortable" "^8.0.0"
+    "@dnd-kit/utilities" "^3.2.2"
+    emotion "^10.0.0"
+    lodash "^4.17.15"
+
+"@contentful/field-editor-url@^1.5.14":
+  version "1.6.5"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-url/1.6.5/afcd410a4fefe7fd663010b60c75debe4b91d279#afcd410a4fefe7fd663010b60c75debe4b91d279"
+  integrity sha512-/RZfIGOoBMtClg4E5ppVnQXdYLoOCAkfoxK9p7uAyh8Rblo6EfeD0vls8/cmqpNrvphuNHzbLLFOzxoE9lh+Rg==
+  dependencies:
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/field-editor-shared" "^3.0.0"
 
 "@contentful/field-editor-validation-errors@^1.7.7":
   version "1.7.7"
@@ -12984,7 +13730,7 @@ emojis-list@^3.0.0:
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
   integrity sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==
 
-emotion@10.0.27, emotion@^10.0.17, emotion@^10.0.27:
+emotion@10.0.27, emotion@^10.0.0, emotion@^10.0.17, emotion@^10.0.27:
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/emotion/-/emotion-10.0.27.tgz#f9ca5df98630980a23c819a56262560562e5d75e"
   integrity sha512-2xdDzdWWzue8R8lu4G76uWX5WhyQuzATon9LmNeCy/2BHVC6dsEpfhN1a0qhELgtDVdjyEA6J8Y/VlI5ZnaH0g==
