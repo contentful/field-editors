@@ -4,8 +4,8 @@ import type { FieldAppSDK } from '@contentful/app-sdk';
 import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import type { Document } from '@contentful/rich-text-types';
+import { css, cx } from '@emotion/css';
 import { ProseMirror, ProseMirrorDoc } from '@handlewithcare/react-prosemirror';
-import { css, cx } from 'emotion';
 
 import { createEditor } from '../plugins';
 

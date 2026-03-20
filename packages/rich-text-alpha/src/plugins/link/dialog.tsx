@@ -15,7 +15,7 @@ import tokens from '@contentful/f36-tokens';
 import { EntityProvider, Entity } from '@contentful/field-editor-reference';
 import { FieldAppSDK, ModalDialogLauncher } from '@contentful/field-editor-shared';
 import { INLINES, ResourceLink, Link } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import type { Except, SetRequired } from 'type-fest';
 
 import { FetchingWrappedAssetCard } from '../../components/FetchingWrappedAssetCard';

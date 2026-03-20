@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { INLINES } from '@contentful/rich-text-types';
+import { css } from '@emotion/css';
 import { useIsNodeSelected, type NodeViewComponentProps } from '@handlewithcare/react-prosemirror';
-import { css } from 'emotion';
 import type { NodeSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
 import { assert, object, union, string, literal } from 'superstruct';

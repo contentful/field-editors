@@ -14,7 +14,7 @@ import {
   useContentType,
 } from '@contentful/field-editor-shared/react-query';
 import { INLINES } from '@contentful/rich-text-types';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const { getEntryTitle, getEntityStatus } = entityHelpers;
 

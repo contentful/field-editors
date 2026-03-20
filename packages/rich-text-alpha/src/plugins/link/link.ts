@@ -1,5 +1,5 @@
 import tokens from '@contentful/f36-tokens';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import type { MarkSpec } from 'prosemirror-model';
 import type { Command } from 'prosemirror-state';
 import { assert, enums, object, union, string, literal } from 'superstruct';
