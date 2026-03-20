@@ -4802,6 +4802,47 @@
     react-intersection-observer "9.4.0"
     truncate "^3.0.0"
 
+"@contentful/field-editor-rich-text@^4.12.2", "@contentful/field-editor-rich-text@^4.13.9":
+  version "4.20.14"
+  resolved "https://npm.pkg.github.com/download/@contentful/field-editor-rich-text/4.20.14/7145f9d5d1a6358833ad1f40cf15a7456c0498fe#7145f9d5d1a6358833ad1f40cf15a7456c0498fe"
+  integrity sha512-DXdJKxanT14G9/iYV8/PZPFHGrhSNSewQ7viVHdhNKlrfbGRjvp6inqrhzpiPIWYl+B5BXoGUMkDK2v43Jk6rQ==
+  dependencies:
+    "@contentful/app-sdk" "^4.42.0"
+    "@contentful/contentful-slatejs-adapter" "^16.1.6"
+    "@contentful/f36-components" "^5.4.1"
+    "@contentful/f36-icons" "^5.4.1"
+    "@contentful/f36-tokens" "^5.1.0"
+    "@contentful/f36-utils" "^5.1.0"
+    "@contentful/field-editor-reference" "^7.0.1"
+    "@contentful/field-editor-shared" "^3.0.1"
+    "@contentful/rich-text-plain-text-renderer" "^17.0.0"
+    "@contentful/rich-text-types" "^17.2.5"
+    "@popperjs/core" "^2.11.5"
+    "@udecode/plate-basic-marks" "36.0.0"
+    "@udecode/plate-break" "36.0.0"
+    "@udecode/plate-common" "36.5.9"
+    "@udecode/plate-core" "36.5.9"
+    "@udecode/plate-list" "36.0.0"
+    "@udecode/plate-paragraph" "36.0.0"
+    "@udecode/plate-reset-node" "36.0.0"
+    "@udecode/plate-select" "36.0.0"
+    "@udecode/plate-serializer-docx" "36.0.10"
+    "@udecode/plate-table" "36.5.9"
+    "@udecode/plate-trailing-block" "36.0.0"
+    constate "^3.3.2"
+    fast-deep-equal "^3.1.3"
+    is-hotkey "^0.2.0"
+    is-plain-obj "^3.0.0"
+    lodash "^4.17.21"
+    moment "^2.20.0"
+    p-debounce "^2.1.0"
+    react-popper "^2.3.0"
+    slate "0.94.1"
+    slate-history "0.100.0"
+    slate-hyperscript "0.77.0"
+    slate-react "0.102.0"
+    use-deep-compare "^1.3.0"
+
 "@contentful/field-editor-shared@^0.25.1":
   version "0.25.1"
   resolved "https://registry.yarnpkg.com/@contentful/field-editor-shared/-/field-editor-shared-0.25.1.tgz#9f2454237a777a4991a4e3e51733d8fa696ae0ed"
@@ -15216,9 +15257,9 @@ flat@^5.0.2:
   integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
 
 flatted@^3.2.9:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
-  integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.4.2.tgz#f5c23c107f0f37de8dbdf24f13722b3b98d52726"
+  integrity sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==
 
 focus-lock@^1.3.5:
   version "1.3.5"
