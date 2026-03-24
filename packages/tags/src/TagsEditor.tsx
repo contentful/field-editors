@@ -6,7 +6,7 @@ import { DndContext, type DragEndEvent } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import noop from 'lodash/noop';
 
 import { TagsEditorConstraints } from './TagsEditorConstraints';
@@ -81,7 +81,7 @@ export function TagsEditor(props: TagsEditorProps) {
   const { isDisabled, items, constraints, constraintsType, hasError, onUpdate, id } = props;
   const itemsMap = React.useMemo(
     () => items.map((item, index) => ({ id: item + index, value: item })),
-    [items]
+    [items],
   );
 
   const removeItem = useCallback(
@@ -89,7 +89,7 @@ export function TagsEditor(props: TagsEditorProps) {
       const newItems = items.filter((_, filterIndex) => index !== filterIndex);
       onUpdate(newItems);
     },
-    [items, onUpdate]
+    [items, onUpdate],
   );
 
   const swapItems = useCallback(
@@ -101,7 +101,7 @@ export function TagsEditor(props: TagsEditorProps) {
         onUpdate(newItems);
       }
     },
-    [items, itemsMap, onUpdate]
+    [items, itemsMap, onUpdate],
   );
 
   return (

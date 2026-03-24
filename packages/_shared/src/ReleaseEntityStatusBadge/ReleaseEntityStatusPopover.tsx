@@ -3,8 +3,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Badge, Flex, Popover } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
+import { css, cx } from '@emotion/css';
 import type { LocaleProps } from 'contentful-management';
-import { css, cx } from 'emotion';
 
 import type { ReleaseEntityStatus, ReleaseStatusMap } from '../types';
 import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';

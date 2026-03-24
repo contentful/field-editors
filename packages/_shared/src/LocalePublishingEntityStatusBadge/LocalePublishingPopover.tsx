@@ -3,13 +3,13 @@ import React, { useCallback, useRef, useState } from 'react';
 import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
+import { cx, css } from '@emotion/css';
 import type {
   LocaleProps,
   EntryProps,
   AssetProps,
   ScheduledActionProps,
 } from 'contentful-management';
-import { cx, css } from 'emotion';
 
 import { LocalePublishStatusMap } from '../hooks/useLocalePublishStatus';
 import * as entityHelpers from '../utils/entityHelpers';

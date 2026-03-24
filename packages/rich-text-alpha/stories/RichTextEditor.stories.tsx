@@ -15,9 +15,9 @@ import {
 } from '@contentful/field-editor-test-utils';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
+import { css } from '@emotion/css';
 import { useEditorEffect } from '@handlewithcare/react-prosemirror';
 import type { Meta, StoryObj } from '@storybook/react';
-import { css } from 'emotion';
 import { applyDevTools } from 'prosemirror-dev-toolkit';
 
 import { RichTextEditor } from '../src/RichTextEditor';
