@@ -37,7 +37,17 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
-    'no-restricted-imports': ['warn'],
+    'no-restricted-imports': [
+      'warn',
+      {
+        paths: [
+          {
+            name: 'emotion',
+            message: 'Use @emotion/css instead.',
+          },
+        ],
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
     'custom-lingui/enforce-translation-call-format': 'error',
