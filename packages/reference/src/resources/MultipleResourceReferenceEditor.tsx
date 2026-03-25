@@ -30,8 +30,14 @@ type EditorProps = ReferenceEditorProps &
     children: (props: ReferenceEditorProps & ChildProps) => React.ReactElement;
   };
 
+const nullableValue = { sys: { type: 'ResourceLink', urn: 'null-value' } } as ResourceLink<string>;
+
 function ResourceEditor(props: EditorProps) {
-  const { setValue, items } = props;
+  const { setValue } = props;
+  const items = React.useMemo(
+    () => (props.items || []).map((link) => link || nullableValue),
+    [props.items],
+  );
 
   const onSortStart = () => noop();
   const onSortEnd = useCallback(

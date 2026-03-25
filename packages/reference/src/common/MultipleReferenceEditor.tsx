@@ -132,6 +132,7 @@ function Editor(props: EditorProps) {
         onSortEnd,
         onMove,
         renderCustomCard: props.renderCustomCard && customCardRenderer,
+        items,
       })}
       <LinkEntityActions renderCustomActions={props.renderCustomActions} {...linkActionsProps} />
     </>
