@@ -200,10 +200,11 @@ export function getEntryTitle({
 }
 
 export type EntitySys = Entry['sys'] | Asset['sys'];
+type FieldStatus = 'draft' | 'published' | 'changed';
 
-function getLocaleStatusObject(sys: EntitySys) {
+function getLocaleStatusObject(sys: EntitySys): Record<string, FieldStatus> | undefined {
   if ('localeStatus' in sys) {
-    return sys.localeStatus;
+    return sys.localeStatus as Record<string, FieldStatus>;
   }
 
   return sys.fieldStatus?.['*'];
