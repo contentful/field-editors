@@ -221,7 +221,7 @@ function getLocaleStatusObject(sys: EntitySys): Record<string, FieldStatus> | un
  * - draft
  */
 export function getEntityStatus(sys: EntitySys, localeCodes?: string | string[]) {
-  if (!sys || (sys.type !== 'Entry' && sys.type !== 'Asset')) {
+  if (!sys) {
     throw new TypeError('Invalid entity metadata object');
   }
 

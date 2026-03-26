@@ -148,7 +148,7 @@ const determineBadgeStatus = (
 };
 
 type LocalePublishingPopoverProps = {
-  entity: EntryProps | AssetProps;
+  entity: Pick<EntryProps | AssetProps, 'sys'>;
   jobs: ScheduledActionProps[];
   isScheduled: boolean;
   activeLocales?: Pick<LocaleProps, 'code'>[];
