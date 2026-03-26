@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.0.2...@contentful/field-editor-shared@3.1.0) (2026-03-26)
+
+### Features
+
+- support locale status [TOL-3931] ([#2116](https://github.com/contentful/field-editors/issues/2116)) ([0d68133](https://github.com/contentful/field-editors/commit/0d68133faee465804628dcfa174dabcfc3fd5e74))
+
 ## [3.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.0.1...@contentful/field-editor-shared@3.0.2) (2026-03-24)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

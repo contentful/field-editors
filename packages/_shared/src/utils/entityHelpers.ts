@@ -199,9 +199,16 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
+export type EntitySys = Entry['sys'] | Asset['sys'];
 type FieldStatus = 'draft' | 'published' | 'changed';
 
-export type EntitySys = Entry['sys'] | Asset['sys'];
+function getLocaleStatusObject(sys: EntitySys): Record<string, FieldStatus> | undefined {
+  if ('localeStatus' in sys) {
+    return sys.localeStatus as Record<string, FieldStatus>;
+  }
+
+  return sys.fieldStatus?.['*'];
+}
 
 /**
  * Returns the status of the entry/asset
@@ -226,20 +233,22 @@ export function getEntityStatus(sys: EntitySys, localeCodes?: string | string[])
     return 'archived';
   }
 
+  const localeStatus = getLocaleStatusObject(sys);
+
   // TODO: remove the condition, once locale based publishing is GA
   // Then we don't need the publishedVersion calculation anymore
-  if (sys.fieldStatus && localeCodes) {
+  if (localeStatus && localeCodes) {
     let status: FieldStatus = 'draft';
     const locales = Array.isArray(localeCodes) ? localeCodes : [localeCodes];
 
-    for (const [localeCode, fieldStatus] of Object.entries(sys.fieldStatus['*'])) {
+    for (const [localeCode, localeStatusValue] of Object.entries(localeStatus)) {
       if (!locales || locales.includes(localeCode)) {
-        if (fieldStatus === 'changed') {
-          status = fieldStatus;
+        if (localeStatusValue === 'changed') {
+          status = localeStatusValue;
           break;
         }
-        if (fieldStatus === 'published') {
-          status = fieldStatus;
+        if (localeStatusValue === 'published') {
+          status = localeStatusValue;
         }
       }
     }
