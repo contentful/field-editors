@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.1.0...@contentful/field-editor-shared@3.1.1) (2026-03-26)
+
+### Bug Fixes
+
+- **shared:** improve types for useLocalePublishStatus [TOL-3931] ([#2118](https://github.com/contentful/field-editors/issues/2118)) ([05a4921](https://github.com/contentful/field-editors/commit/05a492194d2c3d90a4e5e78210e6e31005be9936))
+
 # [3.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.0.2...@contentful/field-editor-shared@3.1.0) (2026-03-26)
 
 ### Features
