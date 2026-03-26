@@ -71,6 +71,7 @@ function ResourceEditor(props: EditorProps) {
     <>
       {props.children({
         ...props,
+        items,
         onSortStart,
         onSortEnd,
         onMove,
