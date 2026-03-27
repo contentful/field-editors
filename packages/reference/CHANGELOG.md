@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.5...@contentful/field-editor-reference@7.0.6) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.4...@contentful/field-editor-reference@7.0.5) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.3...@contentful/field-editor-reference@7.0.4) (2026-03-26)
+
+### Bug Fixes
+
+- pass nullmapped props.items in xref editor [ZEND-7752] ([#2115](https://github.com/contentful/field-editors/issues/2115)) ([92e5923](https://github.com/contentful/field-editors/commit/92e5923d5c4b0a993a6af5ae30db795ff26a36c8))
+
 ## [7.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.2...@contentful/field-editor-reference@7.0.3) (2026-03-25)
 
 ### Bug Fixes
