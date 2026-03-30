@@ -14,7 +14,10 @@ export type LocalePublishStatus = {
 };
 export type LocalePublishStatusMap = Map<string, LocalePublishStatus>;
 
-function getLocalePublishStatusMap(entity: AssetProps | EntryProps, locales: SanitizedLocale[]) {
+function getLocalePublishStatusMap(
+  entity: Pick<AssetProps | EntryProps, 'sys'>,
+  locales: SanitizedLocale[],
+) {
   const entityStatus = entityHelpers.getEntityStatus(entity.sys);
 
   if (['archived', 'deleted'].includes(entityStatus)) {

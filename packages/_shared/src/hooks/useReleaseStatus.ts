@@ -36,7 +36,7 @@ function createReleaseLocaleStatus(
 function getReleaseItemLocaleStatus(
   releaseItem: ReleaseV2Entity | ReleaseV2EntityWithLocales,
   locale: Pick<LocaleProps, 'code' | 'default' | 'name'>,
-  previousEntityOnTimeline?: EntryProps | AssetProps,
+  previousEntityOnTimeline?: Pick<EntryProps | AssetProps, 'sys'>,
 ): ReleaseEntityStatus {
   // Entry based
   if ('action' in releaseItem) {
@@ -72,10 +72,10 @@ function getReleaseItemLocaleStatus(
 }
 
 type UseActiveReleaseLocalesStatuses = {
-  entity?: EntryProps | AssetProps;
+  entity?: Pick<EntryProps | AssetProps, 'sys'>;
   locales: LocaleProps[] | LocalesAPI;
   release?: ReleaseProps | ReleaseV2Props;
-  previousEntityOnTimeline?: EntryProps | AssetProps;
+  previousEntityOnTimeline?: Pick<EntryProps | AssetProps, 'sys'>;
   isReference?: boolean;
 };
 
