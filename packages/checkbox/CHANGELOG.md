@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@2.0.5...@contentful/field-editor-checkbox@2.0.6) (2026-03-30)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
+## [2.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@2.0.4...@contentful/field-editor-checkbox@2.0.5) (2026-03-27)
+
+**Note:** Version bump only for package @contentful/field-editor-checkbox
+
 ## [2.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@2.0.3...@contentful/field-editor-checkbox@2.0.4) (2026-03-26)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox

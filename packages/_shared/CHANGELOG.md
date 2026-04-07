@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.1.2...@contentful/field-editor-shared@3.1.3) (2026-03-30)
+
+**Note:** Version bump only for package @contentful/field-editor-shared
+
+## [3.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.1.1...@contentful/field-editor-shared@3.1.2) (2026-03-27)
+
+### Bug Fixes
+
+- **shared:** improve types for useReleaseStatus [TOL-3931] ([#2123](https://github.com/contentful/field-editors/issues/2123)) ([e774d2f](https://github.com/contentful/field-editors/commit/e774d2fdd4768c061eff4beec44c47b2d7a59004))
+
 ## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.1.0...@contentful/field-editor-shared@3.1.1) (2026-03-26)
 
 ### Bug Fixes

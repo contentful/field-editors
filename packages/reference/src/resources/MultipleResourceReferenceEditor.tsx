@@ -36,7 +36,8 @@ function ResourceEditor(props: EditorProps) {
   const { setValue } = props;
   const items = React.useMemo(
     () => (props.items || []).map((link) => link || nullableValue),
-    [props.items],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- props.items.length is necessary to ensure that the memo does not become stale upon link removal
+    [props.items, props.items.length],
   );
 
   const onSortStart = () => noop();

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.8...@contentful/field-editor-reference@7.0.9) (2026-03-30)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.7...@contentful/field-editor-reference@7.0.8) (2026-03-27)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.6...@contentful/field-editor-reference@7.0.7) (2026-03-27)
+
+### Bug Fixes
+
+- stale data in ref editors upon reference removal [ZEND-7752] ([#2120](https://github.com/contentful/field-editors/issues/2120)) ([2ef237b](https://github.com/contentful/field-editors/commit/2ef237b34386999d643ff8f1c87c6e704c40cf7a))
+
 ## [7.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.5...@contentful/field-editor-reference@7.0.6) (2026-03-26)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

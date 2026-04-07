@@ -62,7 +62,8 @@ function Editor(props: EditorProps) {
         // card render
         .map((link) => link || nullableValue)
     );
-  }, [props.items]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- props.items.length is necessary to ensure that the memo does not become stale upon link removal
+  }, [props.items, props.items.length]);
 
   const { rearrangeSortIDs } = useSortIDs(items);
 
