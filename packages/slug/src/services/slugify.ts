@@ -1,6 +1,7 @@
 import getSlug from 'speakingurl';
 
-const CF_GENERATED_SLUG_MAX_LENGTH = 75;
+// https://www.contentful.com/developers/docs/technical-limits/
+const MAX_FIELD_LENGTH = 256;
 
 const languages = [
   'ar',
@@ -48,16 +49,12 @@ function supportedLanguage(locale: string) {
  * is used as the symbol language. Otherwise, the symbol language
  * is english.
  * Slug suggestions are limited to 75 characters.
- *
- * @param {string} text To be turned into a slug.
- * @param {string?} locale
- * @returns {string} Slug for provided text.
  */
-export function slugify(text: string, locale = 'en') {
+export function slugify(text: string, locale = 'en', maxLength?: number): string {
   return getSlug(text, {
     separator: '-',
     lang: supportedLanguage(locale) || 'en',
-    truncate: CF_GENERATED_SLUG_MAX_LENGTH + 1,
+    truncate: maxLength ?? MAX_FIELD_LENGTH,
     custom: {
       "'": '',
       '`': '',

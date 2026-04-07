@@ -4,6 +4,7 @@ type MakeSlugOptions = {
   locale: string;
   isOptionalLocaleWithFallback: boolean;
   createdAt: string;
+  maxLength?: number;
 };
 
 function formatTwoDigit(num: number) {
@@ -22,15 +23,15 @@ export function formatUtcDate(date: Date) {
   return `${year} ${month} ${day} at ${hour} ${minutes} ${seconds}`;
 }
 
-function untitledSlug({ isOptionalLocaleWithFallback, createdAt }: MakeSlugOptions) {
+function untitledSlug({ isOptionalLocaleWithFallback, createdAt, maxLength }: MakeSlugOptions) {
   if (isOptionalLocaleWithFallback) {
     return ''; // Will result in `undefined` slug.
   }
 
   const createdAtFormatted = formatUtcDate(new Date(createdAt));
-  return slugify('Untitled entry ' + createdAtFormatted, 'en-US');
+  return slugify('Untitled entry ' + createdAtFormatted, 'en-US', maxLength);
 }
 
 export function makeSlug(title: string | null | undefined, options: MakeSlugOptions) {
-  return title ? slugify(title, options.locale) : untitledSlug(options);
+  return title ? slugify(title, options.locale, options.maxLength) : untitledSlug(options);
 }

@@ -48,6 +48,7 @@ function FieldConnectorCallback({
   performUniqueCheck,
   isUniqueValidationEnabled,
   id,
+  maxLength,
 }: {
   Component: typeof SlugEditorFieldStatic | typeof SlugEditorField;
   value: string | null | undefined;
@@ -61,6 +62,7 @@ function FieldConnectorCallback({
   performUniqueCheck: (value: string) => Promise<boolean>;
   isUniqueValidationEnabled: boolean;
   id?: string;
+  maxLength?: number;
 }) {
   // it is needed to silent permission errors
   // this happens when setValue is called on a field which is disabled for permission reasons
@@ -89,6 +91,7 @@ function FieldConnectorCallback({
         titleValue={titleValue}
         setValue={safeSetValue}
         id={id}
+        maxLength={maxLength}
       />
     </div>
   );
@@ -107,6 +110,8 @@ export function SlugEditor(props: SlugEditorProps) {
   const isUniqueValidationEnabled = (field.validations || []).some(
     (validation) => 'unique' in validation && validation.unique === true,
   );
+
+  const maxLength = (field.validations || []).find((validation) => 'size' in validation)?.size?.max;
 
   const isLocaleOptional = locales.optional[field.locale];
   const localeFallbackCode = locales.fallbacks[field.locale];
@@ -175,6 +180,7 @@ export function SlugEditor(props: SlugEditorProps) {
                 isUniqueValidationEnabled={isUniqueValidationEnabled}
                 key={`slug-editor-${externalReset}`}
                 id={id}
+                maxLength={maxLength}
               />
             );
           }}
