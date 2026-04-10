@@ -393,11 +393,11 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
         options: FetchServiceOptions<TQueryFnData, TError, TData, TQueryKey> = {},
       ) {
         const { priority, ...queryOptions } = options;
-        return queryClient.fetchQuery(
+        return queryClient.fetchQuery({
           queryKey,
-          () => queryQueue.add(() => fn({ cmaClient }), { priority }),
-          queryOptions,
-        );
+          queryFn: () => queryQueue.add(() => fn({ cmaClient }), { priority }),
+          ...queryOptions,
+        });
       },
       [queryClient, queryQueue, cmaClient],
     );
@@ -641,13 +641,13 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     });
                   } else {
                     // For other entity types, just invalidate
-                    await queryClient.invalidateQueries(query.queryKey);
+                    await queryClient.invalidateQueries({ queryKey: query.queryKey });
                     return;
                   }
                   queryClient.setQueryData(query.queryKey, freshData);
                 } catch (error) {
                   // If fetch fails, just invalidate the query
-                  await queryClient.invalidateQueries(query.queryKey);
+                  await queryClient.invalidateQueries({ queryKey: query.queryKey });
                 }
               }),
             );
@@ -667,7 +667,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
             } else if (releaseId && !dataReleaseId) {
               // Entity was updated but response doesn't include release info
               // Invalidate the query to refetch with release context
-              void queryClient.invalidateQueries(queryKey);
+              void queryClient.invalidateQueries({ queryKey });
             }
           },
         );
