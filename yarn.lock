@@ -2837,12 +2837,12 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@4.53.1-alpha.1", "@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.29.0", "@contentful/app-sdk@^4.42.0", "@contentful/app-sdk@^4.45.0":
-  version "4.53.1-alpha.1"
-  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.53.1-alpha.1.tgz#a967b12a9542273aeb48f176a701da172102e5d7"
-  integrity sha512-kg/gMwgWrLWltkUJTRoyCcV4Z63UFH95esfwkj4sjzv3QK4kR+yVb4GsZDgL7sfSpOgXsIRbXZtwrb8L+U+/oA==
+"@contentful/app-sdk@4.54.0", "@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.29.0", "@contentful/app-sdk@^4.42.0", "@contentful/app-sdk@^4.45.0":
+  version "4.54.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.54.0.tgz#6f1dd14b8e23eccb19436797716bfcc5eea98fdd"
+  integrity sha512-jKeBeX3soas72resUNRnWP3rTurFCzZ/47I0v+6/a9JoKojYTd8eXMGMRZ8KmGuo8GIle5PNB7ublMVMJumscg==
   dependencies:
-    contentful-management "12.0.0-new-beta.16"
+    contentful-management "^12.3.1"
 
 "@contentful/browserslist-config@^3.0.0":
   version "3.0.0"
@@ -10558,7 +10558,7 @@ axios@^1.12.2:
     form-data "^4.0.4"
     proxy-from-env "^1.1.0"
 
-axios@^1.13.5:
+axios@^1.13.5, axios@^1.15.0:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.15.0.tgz#0fcee91ef03d386514474904b27863b2c683bf4f"
   integrity sha512-wWyJDlAatxk30ZJer+GeCWS209sA42X+N5jU2jy6oHTp7ufw8uzUTVFBX9+wTfAlhiJXGS0Bq7X6efruWjuK9Q==
@@ -12249,18 +12249,6 @@ contentful-import@^9.0.0:
     p-queue "^6.6.2"
     yargs "^17.7.2"
 
-contentful-management@12.0.0-new-beta.16:
-  version "12.0.0-new-beta.16"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-12.0.0-new-beta.16.tgz#aa94c776f815b3193b72c195b04d5be4bbf11e4f"
-  integrity sha512-nU2+s6h2p1fOJgMVtQWRWwNsRK1xykzi/+A5HXGGrHX/mtfCOxNAGcT36HuIH6+8WxTc9EMGqsGkbvnlIBqFpQ==
-  dependencies:
-    "@contentful/rich-text-types" "^16.6.1"
-    axios "^1.13.5"
-    contentful-sdk-core "^9.4.4"
-    fast-copy "^3.0.0"
-    globals "^15.15.0"
-    process "^0.11.10"
-
 contentful-management@12.3.0, contentful-management@^12.3.0:
   version "12.3.0"
   resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-12.3.0.tgz#c8ee716b6175a9995d1d6f17a78ea364456dce92"
@@ -12305,6 +12293,18 @@ contentful-management@^11.66.0:
     contentful-sdk-core "^9.0.1"
     fast-copy "^3.0.0"
     globals "^15.15.0"
+
+contentful-management@^12.3.1:
+  version "12.3.1"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-12.3.1.tgz#dc45a47740a9d5fa1ce4f3ee66a0e7d194c4b31d"
+  integrity sha512-Lnx6ieod2z88AhZwcV2kDhN5stctq+0ifflX+xepphPJ1a2RsPNonCAcySabPETuoNox8G0kXo5ebNybrPjOYw==
+  dependencies:
+    "@contentful/rich-text-types" "^16.6.1"
+    axios "^1.15.0"
+    contentful-sdk-core "^9.4.4"
+    fast-copy "^3.0.0"
+    globals "^15.15.0"
+    process "^0.11.10"
 
 contentful-management@^7.14.0:
   version "7.54.2"
