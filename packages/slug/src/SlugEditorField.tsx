@@ -21,26 +21,25 @@ interface SlugEditorFieldProps {
   setValue: (value: string | null | undefined) => void;
   performUniqueCheck: (value: string) => Promise<boolean>;
   id?: string;
+  maxLength?: number;
 }
 
 type CheckerState = 'checking' | 'unique' | 'duplicate';
 
-function useSlugUpdater(props: SlugEditorFieldProps, check: boolean) {
-  const { value, setValue, createdAt, locale, titleValue, isOptionalLocaleWithFallback } = props;
-
+function useSlugUpdater(
+  { value, setValue }: Pick<SlugEditorFieldProps, 'value' | 'setValue'>,
+  check: boolean,
+  generateSlug: () => string,
+) {
   React.useEffect(() => {
     if (check === false) {
       return;
     }
-    const newSlug = makeSlug(titleValue, {
-      isOptionalLocaleWithFallback,
-      locale,
-      createdAt,
-    });
+    const newSlug = generateSlug();
     if (newSlug !== value) {
       setValue(newSlug);
     }
-  }, [value, titleValue, isOptionalLocaleWithFallback, check, createdAt, locale, setValue]);
+  }, [value, generateSlug, check, setValue]);
 }
 
 function useUniqueChecker(props: SlugEditorFieldProps) {
@@ -138,16 +137,21 @@ export function SlugEditorFieldStatic(
 }
 
 export function SlugEditorField(props: SlugEditorFieldProps) {
-  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value } = props;
+  const { titleValue, isOptionalLocaleWithFallback, locale, createdAt, value, maxLength } = props;
 
-  const areEqual = React.useCallback(() => {
-    const potentialSlug = makeSlug(titleValue, {
+  const generateSlug = React.useCallback(() => {
+    return makeSlug(titleValue, {
       isOptionalLocaleWithFallback: isOptionalLocaleWithFallback,
       locale: locale,
       createdAt: createdAt,
+      maxLength: maxLength,
     });
+  }, [titleValue, isOptionalLocaleWithFallback, locale, createdAt, maxLength]);
+
+  const areEqual = React.useCallback(() => {
+    const potentialSlug = generateSlug();
     return value === potentialSlug;
-  }, [titleValue, isOptionalLocaleWithFallback, locale, createdAt, value]);
+  }, [generateSlug, value]);
 
   const [check, setCheck] = React.useState<boolean>(() => {
     if (props.value) {
@@ -165,7 +169,7 @@ export function SlugEditorField(props: SlugEditorFieldProps) {
     }
   }, [props.titleValue, areEqual]);
 
-  useSlugUpdater(props, check);
+  useSlugUpdater(props, check, generateSlug);
 
   return (
     <SlugEditorFieldStatic

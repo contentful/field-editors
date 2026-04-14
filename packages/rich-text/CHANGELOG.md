@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.8...@contentful/field-editor-rich-text@5.0.9) (2026-04-14)
+
+### Bug Fixes
+
+- react-query v4/v5 compability [] ([#2131](https://github.com/contentful/field-editors/issues/2131)) ([d77c7f0](https://github.com/contentful/field-editors/commit/d77c7f0ad000cfd14cd94ba68b1df8f4b1d9dfe1))
+
+## [5.0.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.7...@contentful/field-editor-rich-text@5.0.8) (2026-03-30)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [5.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.6...@contentful/field-editor-rich-text@5.0.7) (2026-03-27)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [5.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.5...@contentful/field-editor-rich-text@5.0.6) (2026-03-27)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [5.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.4...@contentful/field-editor-rich-text@5.0.5) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [5.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.3...@contentful/field-editor-rich-text@5.0.4) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [5.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.2...@contentful/field-editor-rich-text@5.0.3) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [5.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.1...@contentful/field-editor-rich-text@5.0.2) (2026-03-25)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
 ## [5.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@5.0.0...@contentful/field-editor-rich-text@5.0.1) (2026-03-24)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -22,7 +22,6 @@ export function createTestQueryClient(): QueryClient {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        useErrorBoundary: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: true,
         refetchOnMount: false,

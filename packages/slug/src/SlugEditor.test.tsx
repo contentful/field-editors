@@ -526,21 +526,22 @@ describe('SlugEditor', () => {
     });
   });
 
-  it('slug suggestion is limited to 75 symbols', async () => {
+  it('slug suggestion is limited to size validation max', async () => {
     const { field, sdk } = createMocks({
       field: '',
       titleField: '',
     });
 
+    field.validations = [{ unique: true }, { size: { max: 20 } }];
+
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 
     await waitFor(async () => {
-      await sdk.entry.fields['title-id'].setValue('a'.repeat(80));
+      await sdk.entry.fields['title-id'].setValue('the quick brown fox jumps over the lazy dog');
     });
 
     await waitFor(() => {
-      const expectedSlug = 'a'.repeat(75);
-      expect(field.setValue).toHaveBeenLastCalledWith(expectedSlug);
+      expect(field.setValue).toHaveBeenLastCalledWith('the-quick-brown-fox');
     });
   });
 
@@ -549,6 +550,8 @@ describe('SlugEditor', () => {
       field: '',
       titleField: '',
     });
+
+    field.validations = [{ unique: true }, { size: { max: 20 } }];
 
     render(<SlugEditor field={field} baseSdk={sdk as any} isInitiallyDisabled={false} />);
 

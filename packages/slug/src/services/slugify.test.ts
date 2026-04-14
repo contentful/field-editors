@@ -13,4 +13,8 @@ describe('slugify', () => {
       expect(slugify(input[0])).toBe(input[1]);
     });
   });
+
+  it('truncates to maxLength', () => {
+    expect(slugify('hello world', 'en', 5)).toBe('hello');
+  });
 });

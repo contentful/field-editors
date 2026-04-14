@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.9...@contentful/field-editor-reference@7.0.10) (2026-04-14)
+
+### Bug Fixes
+
+- react-query v4/v5 compability [] ([#2131](https://github.com/contentful/field-editors/issues/2131)) ([d77c7f0](https://github.com/contentful/field-editors/commit/d77c7f0ad000cfd14cd94ba68b1df8f4b1d9dfe1))
+
+## [7.0.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.8...@contentful/field-editor-reference@7.0.9) (2026-03-30)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.7...@contentful/field-editor-reference@7.0.8) (2026-03-27)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.6...@contentful/field-editor-reference@7.0.7) (2026-03-27)
+
+### Bug Fixes
+
+- stale data in ref editors upon reference removal [ZEND-7752] ([#2120](https://github.com/contentful/field-editors/issues/2120)) ([2ef237b](https://github.com/contentful/field-editors/commit/2ef237b34386999d643ff8f1c87c6e704c40cf7a))
+
+## [7.0.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.5...@contentful/field-editor-reference@7.0.6) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.4...@contentful/field-editor-reference@7.0.5) (2026-03-26)
+
+**Note:** Version bump only for package @contentful/field-editor-reference
+
+## [7.0.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.3...@contentful/field-editor-reference@7.0.4) (2026-03-26)
+
+### Bug Fixes
+
+- pass nullmapped props.items in xref editor [ZEND-7752] ([#2115](https://github.com/contentful/field-editors/issues/2115)) ([92e5923](https://github.com/contentful/field-editors/commit/92e5923d5c4b0a993a6af5ae30db795ff26a36c8))
+
+## [7.0.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.2...@contentful/field-editor-reference@7.0.3) (2026-03-25)
+
+### Bug Fixes
+
+- pass nullable mapped items to multiref editor children [ZEND-7552] ([#2114](https://github.com/contentful/field-editors/issues/2114)) ([1cc3976](https://github.com/contentful/field-editors/commit/1cc39768b8091460d6d50ea63720b944e627ccd2))
+
 ## [7.0.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.1...@contentful/field-editor-reference@7.0.2) (2026-03-24)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

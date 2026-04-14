@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@2.0.0...@contentful/field-editor-test-utils@2.0.1) (2026-04-14)
+
+### Bug Fixes
+
+- react-query v4/v5 compability [] ([#2131](https://github.com/contentful/field-editors/issues/2131)) ([d77c7f0](https://github.com/contentful/field-editors/commit/d77c7f0ad000cfd14cd94ba68b1df8f4b1d9dfe1))
+
 # [2.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@1.8.0...@contentful/field-editor-test-utils@2.0.0) (2026-03-19)
 
 ### chore

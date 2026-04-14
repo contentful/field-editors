@@ -98,7 +98,7 @@ export function useContentTypes(
       // When closing a slide-in (going back), invalidate content types
       // This ensures the cache is refreshed if schema changes were made
       if (oldSlideLevel > newSlideLevel) {
-        void queryClient.invalidateQueries(queryKey);
+        void queryClient.invalidateQueries({ queryKey });
       }
     });
 
@@ -106,7 +106,7 @@ export function useContentTypes(
   }, [navigator, queryClient, queryKey]);
 
   const invalidate = () => {
-    return queryClient.invalidateQueries(queryKey);
+    return queryClient.invalidateQueries({ queryKey });
   };
 
   return { contentTypes, invalidate };
