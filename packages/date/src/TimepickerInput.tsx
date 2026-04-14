@@ -1,10 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-// eslint-disable-next-line -- TODO: move to date-fns
 import { TextInput, Flex } from '@contentful/f36-components';
 import { css } from '@emotion/css';
-// eslint-disable-next-line no-restricted-imports -- will change
-import moment from 'moment';
+import { parse, format, isValid } from 'date-fns';
 
 export type TimepickerProps = {
   disabled: boolean;
@@ -14,43 +12,21 @@ export type TimepickerProps = {
   ampm?: string;
 };
 
-const validInputFormats = [
-  'hh:mm a',
-  'hh:mm A',
-  'h:mm a',
-  'h:mm A',
-  'hh:mm',
-  'k:mm',
-  'kk:mm',
-  'h a',
-  'h A',
-  'h',
-  'hh',
-  'HH',
-];
+const validInputFormats = ['hh:mm a', 'h:mm a', 'hh:mm', 'kk:mm', 'k:mm', 'h a', 'HH', 'H:mm', 'h'];
+const REF_DATE = new Date(2000, 0, 1);
 
-function parseRawInput(raw: string): moment.Moment | null {
-  let time: moment.Moment | null = null;
-
-  // eslint-disable-next-line -- TODO: refactor to use for of loop
-  for (let i = 0; i < validInputFormats.length; i++) {
-    const date = moment(raw, validInputFormats[i]);
-    if (date.isValid()) {
-      time = date;
-      break;
-    }
+function parseRawInput(raw: string): Date | null {
+  for (const fmt of validInputFormats) {
+    const parsed = parse(raw, fmt, REF_DATE);
+    if (isValid(parsed)) return parsed;
   }
-
-  return time;
+  return null;
 }
 
-const getDefaultTime = () => {
-  return moment(`12:00 AM`, 'hh:mm A');
-};
+const getDefaultTime = () => parse('12:00 AM', 'hh:mm a', REF_DATE);
 
-const formatToString = (uses12hClock: boolean, value: moment.Moment): string => {
-  return uses12hClock ? value.format('hh:mm A') : value.format('HH:mm');
-};
+const formatToString = (uses12hClock: boolean, value: Date): string =>
+  format(value, uses12hClock ? 'hh:mm a' : 'HH:mm');
 
 export const TimepickerInput = ({
   disabled,
@@ -64,7 +40,7 @@ export const TimepickerInput = ({
   });
 
   useEffect(() => {
-    setSelectedTime(formatToString(uses12hClock, moment(`${time} ${ampm}`, 'hh:mm A')));
+    setSelectedTime(formatToString(uses12hClock, parse(`${time} ${ampm}`, 'hh:mm a', REF_DATE)));
   }, [time, ampm, uses12hClock]);
 
   const handleChange = useCallback(
@@ -76,7 +52,7 @@ export const TimepickerInput = ({
       // blur never fires.
       const parsedTime = parseRawInput(raw);
       if (parsedTime) {
-        onChange({ time: parsedTime.format('hh:mm'), ampm: parsedTime.format('A') });
+        onChange({ time: format(parsedTime, 'hh:mm'), ampm: format(parsedTime, 'a').toUpperCase() });
       }
     },
     [onChange],
@@ -91,7 +67,7 @@ export const TimepickerInput = ({
     const parsedTime = parseRawInput(selectedTime);
     const value = parsedTime ?? getDefaultTime();
     setSelectedTime(formatToString(uses12hClock, value));
-    onChange({ time: value.format('hh:mm'), ampm: value.format('A') });
+    onChange({ time: format(value, 'hh:mm'), ampm: format(value, 'a').toUpperCase() });
   }, [selectedTime, uses12hClock, onChange]);
 
   return (

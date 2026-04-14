@@ -1,32 +1,45 @@
-// eslint-disable-next-line -- TODO: move to date-fns
-import moment from 'moment';
+import { format, getHours, getMinutes, isValid, parse, parseISO, set } from 'date-fns';
+
 import { TimeResult } from '../types';
 
 const ZONE_RX = /(Z|[+-]\d{2}[:+]?\d{2})$/;
 
-function startOfToday(format: string) {
-  return moment().set({ hours: 0, minutes: 0 }).format(format);
+function startOfTodayOffset(): string {
+  return format(new Date(), 'xxx');
 }
 
-function fieldValueToMoment(datetimeString: string | null | undefined): moment.Moment | null {
+function parseUtcOffset(datetimeString: string): string {
+  const match = datetimeString.match(ZONE_RX);
+  return match ? match[1] : '+00:00';
+}
+
+function fieldValueToDate(datetimeString: string | null | undefined): Date | null {
   if (!datetimeString) {
     return null;
   }
-
-  const datetime = moment(datetimeString);
-  if (ZONE_RX.test(datetimeString)) {
-    datetime.utcOffset(datetimeString);
-  }
-  return datetime;
+  const date = parseISO(datetimeString);
+  return isValid(date) ? date : null;
 }
 
-function timeFromUserInput(input: TimeResult) {
+// Mirrors the original moment logic: parse time as 24h, then apply AM/PM.
+// e.g. time='05:00', ampm='PM' → hours=17, minutes=0
+function timeFromUserInput(input: TimeResult): { hours: number; minutes: number } {
   const timeInput = input.time || '00:00';
-  return moment.utc(timeInput + '!' + input.ampm, 'HH:mm!A');
+  const parsed = parse(timeInput, 'HH:mm', new Date(0));
+  let hours = getHours(parsed);
+  const minutes = getMinutes(parsed);
+
+  if (input.ampm === 'PM' && hours < 12) {
+    hours += 12;
+  } else if (input.ampm === 'AM' && hours === 12) {
+    hours = 0;
+  }
+
+  return { hours, minutes };
 }
 
 /**
- * Convert the user input object into either a 'moment' value or an
+ * Convert the user input object into either a Date value or an
  * invalid symbol.
  *
  * Success is indicated by returning '{valid: value}' and failure is
@@ -35,20 +48,16 @@ function timeFromUserInput(input: TimeResult) {
  */
 function datetimeFromUserInput(input: TimeResult): {
   invalid?: boolean;
-  valid: moment.Moment | null;
+  valid: Date | null;
 } {
   if (!input.date) {
     return { valid: null };
   }
 
-  const time = timeFromUserInput(input);
+  const { hours, minutes } = timeFromUserInput(input);
+  const date = set(input.date, { hours, minutes, seconds: 0, milliseconds: 0 });
 
-  const date = moment
-    .parseZone(input.utcOffset, 'Z')
-    .set(input.date.toObject())
-    .set({ hours: time.hours(), minutes: time.minutes() });
-
-  if (date.isValid()) {
+  if (isValid(date)) {
     return { valid: date };
   } else {
     return { invalid: true, valid: null };
@@ -72,20 +81,20 @@ export function buildFieldValue({
 }) {
   const date = datetimeFromUserInput(data);
   if (date.invalid) {
-    return {
-      invalid: true,
-    };
+    return { invalid: true };
   }
 
-  let format;
-  if (usesTimezone) {
-    format = 'YYYY-MM-DDTHH:mmZ';
-  } else if (usesTime) {
-    format = 'YYYY-MM-DDTHH:mm';
-  } else {
-    format = 'YYYY-MM-DD';
+  if (!date.valid) {
+    return { valid: null, invalid: false };
   }
-  return { valid: date?.valid ? date.valid.format(format) : null, invalid: false };
+
+  if (usesTimezone) {
+    return { valid: format(date.valid, "yyyy-MM-dd'T'HH:mm") + data.utcOffset, invalid: false };
+  } else if (usesTime) {
+    return { valid: format(date.valid, "yyyy-MM-dd'T'HH:mm"), invalid: false };
+  } else {
+    return { valid: format(date.valid, 'yyyy-MM-dd'), invalid: false };
+  }
 }
 
 export function getDefaultAMPM() {
@@ -93,7 +102,14 @@ export function getDefaultAMPM() {
 }
 
 export function getDefaultUtcOffset() {
-  return startOfToday('Z');
+  return startOfTodayOffset();
+}
+
+// Extract the time portion from an ISO string as HH:mm, ignoring timezone conversion.
+// e.g. '2018-02-02T17:00+03:00' → '17:00'
+function extractTimeFromIso(value: string): string | undefined {
+  const match = value.match(/T(\d{2}:\d{2})/);
+  return match ? match[1] : undefined;
 }
 
 /**
@@ -106,15 +122,28 @@ export function userInputFromDatetime({
   value: string | undefined | null;
   uses12hClock: boolean;
 }): TimeResult {
-  const datetime = fieldValueToMoment(value);
+  const datetime = fieldValueToDate(value);
 
-  if (datetime) {
-    const timeFormat = uses12hClock ? 'hh:mm' : 'HH:mm';
+  if (datetime && value) {
+    const rawTime = extractTimeFromIso(value);
+    // Parse the raw HH:mm time to get hours/minutes for 12h formatting
+    const timeDate = rawTime ? parse(rawTime, 'HH:mm', new Date(0)) : datetime;
+    const hours = getHours(timeDate);
+    const ampm = hours < 12 ? 'AM' : 'PM';
+
+    let time: string;
+    if (uses12hClock) {
+      const h12 = hours % 12 || 12;
+      time = `${String(h12).padStart(2, '0')}:${String(getMinutes(timeDate)).padStart(2, '0')}`;
+    } else {
+      time = rawTime ?? format(datetime, 'HH:mm');
+    }
+
     return {
       date: datetime,
-      time: datetime.format(timeFormat),
-      ampm: datetime.format('A'),
-      utcOffset: datetime.format('Z'),
+      time,
+      ampm,
+      utcOffset: parseUtcOffset(value),
     };
   } else {
     return {
