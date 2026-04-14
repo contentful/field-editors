@@ -2839,7 +2839,7 @@
 
 "@contentful/app-sdk@4.53.1-alpha.1", "@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.29.0", "@contentful/app-sdk@^4.42.0", "@contentful/app-sdk@^4.45.0":
   version "4.53.1-alpha.1"
-  resolved "https://npm.pkg.github.com/download/@contentful/app-sdk/4.53.1-alpha.1/a967b12a9542273aeb48f176a701da172102e5d7#a967b12a9542273aeb48f176a701da172102e5d7"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.53.1-alpha.1.tgz#a967b12a9542273aeb48f176a701da172102e5d7"
   integrity sha512-kg/gMwgWrLWltkUJTRoyCcV4Z63UFH95esfwkj4sjzv3QK4kR+yVb4GsZDgL7sfSpOgXsIRbXZtwrb8L+U+/oA==
   dependencies:
     contentful-management "12.0.0-new-beta.16"
