@@ -29,6 +29,7 @@ export interface SlugEditorProps {
       trackingFieldId?: string;
     };
   };
+  autoGenerationStrategy?: 'field' | 'document';
 }
 
 function isSupportedFieldTypes(val: string): val is 'Symbol' {
@@ -97,9 +98,15 @@ function FieldConnectorCallback({
   );
 }
 
-export function SlugEditor(props: SlugEditorProps) {
-  const { field, parameters, id } = props;
-  const { locales, entry, cma } = props.baseSdk;
+export function SlugEditor({
+  isInitiallyDisabled,
+  autoGenerationStrategy = 'field',
+  baseSdk,
+  field,
+  parameters,
+  id,
+}: SlugEditorProps) {
+  const { locales, entry, cma } = baseSdk;
 
   if (!isSupportedFieldTypes(field.type)) {
     throw new Error(`"${field.type}" field type is not supported by SlugEditor`);
@@ -148,7 +155,7 @@ export function SlugEditor(props: SlugEditorProps) {
 
   return (
     <TrackingFieldConnector<string>
-      sdk={props.baseSdk}
+      sdk={baseSdk}
       field={field}
       defaultLocale={locales.default}
       isOptionalLocaleWithFallback={isOptionalLocaleWithFallback}
@@ -157,11 +164,12 @@ export function SlugEditor(props: SlugEditorProps) {
       {({ titleValue, isPublished, isSame }) => (
         <FieldConnector<string>
           field={field}
-          isInitiallyDisabled={props.isInitiallyDisabled}
+          isInitiallyDisabled={isInitiallyDisabled}
           debounce={0}
         >
           {({ value, errors, disabled, setValue, externalReset }) => {
-            const shouldTrackTitle = isPublished === false && isSame === false;
+            const shouldTrackTitle =
+              autoGenerationStrategy !== 'document' && isPublished === false && isSame === false;
 
             const Component = shouldTrackTitle ? SlugEditorField : SlugEditorFieldStatic;
 
@@ -189,7 +197,3 @@ export function SlugEditor(props: SlugEditorProps) {
     </TrackingFieldConnector>
   );
 }
-
-SlugEditor.defaultProps = {
-  isInitiallyDisabled: true,
-};
