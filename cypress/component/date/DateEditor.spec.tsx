@@ -63,18 +63,6 @@ const getTodayKebabString = () => {
   return `${getToday().year}-${month}-${date}`;
 };
 
-const getTimezoneOffsetString = () => {
-  const currentDate = new Date();
-  const offsetInMinutes = currentDate.getTimezoneOffset();
-  const offsetHours = Math.floor(Math.abs(offsetInMinutes) / 60);
-  const offsetMinutes = Math.abs(offsetInMinutes) % 60;
-  const offsetSign = offsetInMinutes <= 0 ? '+' : '-';
-
-  return `${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes
-    .toString()
-    .padStart(2, '0')}`;
-};
-
 type Parameters = ParametersAPI & {
   instance: {
     format: DateTimeFormat;
@@ -93,7 +81,7 @@ const setupDateEditor = ({
 }) => {
   const [fieldSdk] = createFakeFieldAPI(undefined, initialValue);
   mount(
-    <DateEditor field={fieldSdk} isInitiallyDisabled={initiallyDisabled} parameters={parameters} />
+    <DateEditor field={fieldSdk} isInitiallyDisabled={initiallyDisabled} parameters={parameters} />,
   );
   return fieldSdk;
 };
@@ -130,10 +118,7 @@ describe('Date Editor', () => {
         .should('have.attr', 'placeholder', '00:00')
         .should('have.value', '00:00');
 
-      selectors
-        .getTimezoneInput()
-        .should('be.visible')
-        .should('have.value', getTimezoneOffsetString());
+      selectors.getTimezoneInput().should('be.visible').should('have.value', 'Local time');
     });
 
     it('calendar should show current year, month and date', () => {
@@ -173,7 +158,7 @@ describe('Date Editor', () => {
       selectors.getDateInput().should('have.value', '');
       selectors.getTimeInput().should('have.value', '00:00');
 
-      selectors.getTimezoneInput().should('have.value', getTimezoneOffsetString());
+      selectors.getTimezoneInput().should('have.value', 'Local time');
       selectors.getClearBtn().should('not.exist');
     });
 

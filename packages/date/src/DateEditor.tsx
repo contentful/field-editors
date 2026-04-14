@@ -9,12 +9,8 @@ import { DatepickerInput } from './DatepickerInput';
 import { TimepickerInput } from './TimepickerInput';
 import { TimezonepickerInput } from './TimezonePickerInput';
 import { TimeFormat, DateTimeFormat, TimeResult } from './types';
-import {
-  userInputFromDatetime,
-  buildFieldValue,
-  getDefaultAMPM,
-  getDefaultUtcOffset,
-} from './utils/date';
+import { userInputFromDatetime, buildFieldValue, getDefaultAMPM } from './utils/date';
+import { defaultZoneOffset } from './utils/zoneOffsets';
 
 export interface DateEditorProps {
   /**
@@ -147,7 +143,7 @@ function DateEditorContainer({
                 date: undefined,
                 time: undefined,
                 ampm: getDefaultAMPM(),
-                utcOffset: getDefaultUtcOffset(),
+                utcOffset: defaultZoneOffset,
               });
             }}
           >
