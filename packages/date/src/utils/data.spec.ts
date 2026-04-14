@@ -1,3 +1,5 @@
+// eslint-disable-next-line -- TODO: move to date-fns
+import moment from 'moment';
 import {
   buildFieldValue,
   userInputFromDatetime,
@@ -11,7 +13,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2018-02-02'),
+            date: moment('2018-02-02'),
             time: '05:00',
             ampm: 'PM',
             utcOffset: '+03:00',
@@ -27,7 +29,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2015-01-14'),
+            date: moment('2015-01-14'),
             time: '05:00',
             ampm: 'AM',
             utcOffset: '-05:00',
@@ -43,7 +45,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2015-01-14'),
+            date: moment('2015-01-14'),
             time: '17:00',
             ampm: 'PM',
             utcOffset: '-05:00',
@@ -61,7 +63,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2020-06-15'),
+            date: moment('2020-06-15'),
             time: '10:30',
             ampm: 'AM',
             utcOffset: '+00:00',
@@ -79,7 +81,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2020-06-15'),
+            date: moment('2020-06-15'),
             time: '14:30',
             ampm: 'PM',
             utcOffset: '+00:00',
@@ -114,7 +116,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2021-03-01'),
+            date: moment('2021-03-01'),
             time: '12:00',
             ampm: 'AM',
             utcOffset: '+00:00',
@@ -132,7 +134,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2021-03-01'),
+            date: moment('2021-03-01'),
             time: '12:00',
             ampm: 'PM',
             utcOffset: '+00:00',
@@ -146,14 +148,14 @@ describe('date utils', () => {
       });
     });
 
-    // Timezone offset passthrough — parity with moment.format('YYYY-MM-DDTHH:mmZ').
-    // The offset is appended verbatim from data.utcOffset, not derived from the Date.
+    // Timezone offset passthrough — moment.format('YYYY-MM-DDTHH:mmZ') appends the
+    // offset verbatim from the moment object's utcOffset, not the system timezone.
 
     it('preserves half-hour offset +05:30 (India)', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-08-15'),
+            date: moment('2023-08-15'),
             time: '10:00',
             ampm: 'AM',
             utcOffset: '+05:30',
@@ -171,7 +173,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-08-15'),
+            date: moment('2023-08-15'),
             time: '03:30',
             ampm: 'AM',
             utcOffset: '-09:30',
@@ -189,7 +191,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-08-15'),
+            date: moment('2023-08-15'),
             time: '05:45',
             ampm: 'AM',
             utcOffset: '+05:45',
@@ -207,7 +209,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-01-01'),
+            date: moment('2023-01-01'),
             time: '00:00',
             ampm: 'AM',
             utcOffset: '+00:00',
@@ -225,7 +227,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-01-01'),
+            date: moment('2023-01-01'),
             time: '23:59',
             ampm: 'PM',
             utcOffset: '-12:00',
@@ -243,7 +245,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-01-01'),
+            date: moment('2023-01-01'),
             time: '01:00',
             ampm: 'AM',
             utcOffset: '+14:00',
@@ -257,13 +259,13 @@ describe('date utils', () => {
       });
     });
 
-    // 12h → 24h conversion parity with moment.utc(time+'!'+ampm, 'HH:mm!A')
+    // 12h → 24h conversion via moment.utc(time+'!'+ampm, 'HH:mm!A')
 
     it('11:59 PM → 23:59', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-06-01'),
+            date: moment('2023-06-01'),
             time: '11:59',
             ampm: 'PM',
             utcOffset: '+00:00',
@@ -281,7 +283,7 @@ describe('date utils', () => {
       expect(
         buildFieldValue({
           data: {
-            date: new Date('2023-06-01'),
+            date: moment('2023-06-01'),
             time: '01:00',
             ampm: 'AM',
             utcOffset: '+00:00',
@@ -335,18 +337,17 @@ describe('date utils', () => {
       expect(result.date).toBeUndefined();
     });
 
-    it('parses a date-only string', () => {
+    it('parses a date-only string — utcOffset is the local system offset', () => {
+      // moment() parses date-only strings in local time, so the offset reflects
+      // the system timezone. We verify it is a valid offset format, not a specific value.
       const result = userInputFromDatetime({ value: '2022-09-16', uses12hClock: false });
-      expect(result.utcOffset).toBe('+00:00');
+      expect(result.utcOffset).toMatch(/^[+-]\d{2}:\d{2}$/);
     });
 
-    // Timezone offset handling — parity with moment.js utcOffset() behavior.
-    // The raw HH:mm is extracted directly from the string so the displayed time
-    // is never shifted by the local system timezone (moment used utcOffset() for
-    // the same effect).
+    // Timezone offset handling — moment.utcOffset(string) keeps the stored offset,
+    // so the displayed time is never shifted by the local system timezone.
 
     it('preserves raw time and does not shift by system timezone (positive offset)', () => {
-      // T14:00+05:30 — system may be in any timezone; displayed time must stay 14:00
       const result = userInputFromDatetime({
         value: '2020-03-15T14:00+05:30',
         uses12hClock: false,
@@ -366,14 +367,15 @@ describe('date utils', () => {
       expect(result.utcOffset).toBe('-05:30');
     });
 
-    it('handles UTC "Z" suffix — offset is +00:00, time is not shifted', () => {
+    it('handles UTC "Z" suffix — moment normalizes offset to +00:00', () => {
+      // moment.format('Z') always emits ±HH:MM, never the literal 'Z'
       const result = userInputFromDatetime({
         value: '2021-06-01T12:00Z',
         uses12hClock: false,
       });
       expect(result.time).toBe('12:00');
       expect(result.ampm).toBe('PM');
-      expect(result.utcOffset).toBe('Z');
+      expect(result.utcOffset).toBe('+00:00');
     });
 
     it('handles midnight UTC correctly', () => {
