@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@3.1.1...@contentful/field-editor-slug@3.2.0) (2026-04-14)
+
+### Features
+
+- **slug:** add document-level auto-generation opt-out [TOL-3879] ([#2135](https://github.com/contentful/field-editors/issues/2135)) ([dd94978](https://github.com/contentful/field-editors/commit/dd9497884a8317424b559277f9d521dc99d4e8cd))
+
 ## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@3.1.0...@contentful/field-editor-slug@3.1.1) (2026-04-14)
 
 **Note:** Version bump only for package @contentful/field-editor-slug
