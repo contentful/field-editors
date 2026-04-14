@@ -1,6 +1,6 @@
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { entityHelpers } from '@contentful/field-editor-shared';
-import type { ContentTypeProps } from 'contentful-management/types';
+import type { ContentTypeProps, EntryProps } from 'contentful-management/types';
 
 export async function fetchEntries(sdk: FieldAppSDK, contentType: ContentTypeProps, query: string) {
   const entries = await sdk.cma.entry.getMany({
@@ -10,7 +10,7 @@ export async function fetchEntries(sdk: FieldAppSDK, contentType: ContentTypePro
     },
   });
 
-  return entries.items.map((entry) => {
+  return entries.items.map((entry: EntryProps) => {
     const description = entityHelpers.getEntityDescription({
       contentType,
       entity: entry,
