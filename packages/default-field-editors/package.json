@@ -60,7 +60,7 @@
     "@contentful/field-editor-url": "^2.0.2",
     "@contentful/field-editor-validation-errors": "^3.0.2",
     "@emotion/css": "^11.13.5",
-    "contentful-management": "^12.0.0"
+    "contentful-management": "^12.3.0"
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^2.0.0"
