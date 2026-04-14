@@ -1,4 +1,4 @@
-import { AssetProps, EntryProps } from 'contentful-management/types';
+import { AssetProps, EntryProps } from 'contentful-management';
 
 import * as assetsFixtures from './asset';
 import * as contentTypes from './content-type';

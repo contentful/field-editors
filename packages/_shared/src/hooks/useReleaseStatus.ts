@@ -1,12 +1,7 @@
 import { useMemo } from 'react';
 
 import type { LocalesAPI } from '@contentful/app-sdk';
-import type {
-  AssetProps,
-  EntryProps,
-  LocaleProps,
-  ReleaseProps,
-} from 'contentful-management/types';
+import type { AssetProps, EntryProps, LocaleProps, ReleaseProps } from 'contentful-management';
 
 import type {
   ReleaseEntityStatus,
