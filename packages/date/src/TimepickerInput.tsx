@@ -67,21 +67,32 @@ export const TimepickerInput = ({
     setSelectedTime(formatToString(uses12hClock, moment(`${time} ${ampm}`, 'hh:mm A')));
   }, [time, ampm, uses12hClock]);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedTime(e.currentTarget.value);
-  }, []);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.currentTarget.value;
+      setSelectedTime(raw);
+      // Save the value as the user types if it already parses — without reformatting
+      // the display. This ensures the field is up-to-date before publish, even if
+      // blur never fires.
+      const parsedTime = parseRawInput(raw);
+      if (parsedTime) {
+        onChange({ time: parsedTime.format('hh:mm'), ampm: parsedTime.format('A') });
+      }
+    },
+    [onChange],
+  );
 
   const handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault();
     e.target.select();
   }, []);
 
-  const handleBlur = () => {
+  const handleBlur = useCallback(() => {
     const parsedTime = parseRawInput(selectedTime);
     const value = parsedTime ?? getDefaultTime();
     setSelectedTime(formatToString(uses12hClock, value));
     onChange({ time: value.format('hh:mm'), ampm: value.format('A') });
-  };
+  }, [selectedTime, uses12hClock, onChange]);
 
   return (
     <Flex className={css({ width: '145px' })}>

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@2.0.7...@contentful/field-editor-date@2.0.8) (2026-04-14)
+
+### Bug Fixes
+
+- **date:** trigger onChange while typing if input is already parseable [ZEND-7743] ([#2136](https://github.com/contentful/field-editors/issues/2136)) ([3dbde68](https://github.com/contentful/field-editors/commit/3dbde681b6d809da066993d0374c36577fbe1a52))
+
 ## [2.0.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@2.0.6...@contentful/field-editor-date@2.0.7) (2026-04-14)
 
 **Note:** Version bump only for package @contentful/field-editor-date
