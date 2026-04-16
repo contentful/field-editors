@@ -43,20 +43,10 @@ export const TimepickerInput = ({
     setSelectedTime(formatToString(uses12hClock, parse(`${time} ${ampm}`, 'hh:mm a', REF_DATE)));
   }, [time, ampm, uses12hClock]);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const raw = e.currentTarget.value;
-      setSelectedTime(raw);
-      // Save the value as the user types if it already parses — without reformatting
-      // the display. This ensures the field is up-to-date before publish, even if
-      // blur never fires.
-      const parsedTime = parseRawInput(raw);
-      if (parsedTime) {
-        onChange({ time: format(parsedTime, 'hh:mm'), ampm: format(parsedTime, 'a').toUpperCase() });
-      }
-    },
-    [onChange],
-  );
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.currentTarget.value;
+    setSelectedTime(raw);
+  }, []);
 
   const handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault();
