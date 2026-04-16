@@ -363,14 +363,14 @@ describe('date utils', () => {
       expect(result.utcOffset).toBe('-05:30');
     });
 
-    it('handles UTC "Z" suffix — offset is preserved as Z', () => {
+    it('handles UTC "Z" suffix — normalizes offset to +00:00', () => {
       const result = userInputFromDatetime({
         value: '2021-06-01T12:00Z',
         uses12hClock: false,
       });
       expect(result.time).toBe('12:00');
       expect(result.ampm).toBe('PM');
-      expect(result.utcOffset).toBe('Z');
+      expect(result.utcOffset).toBe('+00:00');
     });
 
     it('handles midnight UTC correctly', () => {
