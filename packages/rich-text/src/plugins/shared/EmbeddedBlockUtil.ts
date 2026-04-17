@@ -9,6 +9,7 @@ import {
 } from '../../helpers/config';
 import {
   focus,
+  getAncestorPathFromSelection,
   getNodeEntryFromSelection,
   insertEmptyParagraph,
   moveToTheNextChar,
@@ -22,9 +23,14 @@ import {
   isEmptyTextContainer,
   PlateEditor,
   setNodes,
-  select,
   KeyboardHandler,
   removeNodes,
+  moveNodes,
+  isFirstChildPath,
+  getPreviousPath,
+  getNodeEntries,
+  isAncestorEmpty,
+  Ancestor,
 } from '../../internal';
 import { TrackingPluginActions } from '../Tracking';
 
@@ -72,16 +78,12 @@ export async function selectEntityAndInsert(
     baseConfig.entityType === 'Asset' ? dialogs.selectSingleAsset : dialogs.selectSingleEntry;
   const config = { ...baseConfig, withCreate: true };
 
-  const { selection } = editor;
   const rteSlide = watchCurrentSlide(sdk.navigator);
   const entity = await selectEntity(config);
 
   if (!entity) {
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
-    // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
-    // (i.e. when using hotkeys and slide-in)
-    select(editor, selection);
     insertBlock(editor, nodeType, entity);
     ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY]);
     logAction('insert', { nodeType, entity });
@@ -104,16 +106,11 @@ export async function selectResourceEntityAndInsert(
   const { field, dialogs } = sdk;
   const config = newResourceEntitySelectorConfigFromRichTextField(field, BLOCKS.EMBEDDED_RESOURCE);
 
-  const { selection } = editor;
-
   const entityLink = await dialogs.selectSingleResourceEntity(config);
 
   if (!entityLink) {
     logAction('cancelCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
   } else {
-    // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
-    // (i.e. when using hotkeys and slide-in)
-    select(editor, selection);
     insertBlock(editor, BLOCKS.EMBEDDED_RESOURCE, entityLink);
     ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_RESOURCE]);
     logAction('insert', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
@@ -171,8 +168,6 @@ const createNode = (nodeType, entity) => {
 
 // TODO: DRY up copied code from HR
 function insertBlock(editor: PlateEditor, nodeType: string, entity) {
-  if (!editor?.selection) return;
-
   const linkedEntityBlock = createNode(nodeType, entity);
 
   const elementPath = getSelectionElementPath(editor);
@@ -182,4 +177,28 @@ function insertBlock(editor: PlateEditor, nodeType: string, entity) {
   }
 
   insertNodes(editor, linkedEntityBlock);
+  replaceEmptyParagraphWithBlock(editor);
+}
+
+export function replaceEmptyParagraphWithBlock(editor: PlateEditor) {
+  const blockPath = getAncestorPathFromSelection(editor);
+  if (!blockPath || isFirstChildPath(blockPath)) return;
+
+  const previousPath = getPreviousPath(blockPath);
+  if (!previousPath) return;
+
+  const [nodes] = getNodeEntries(editor, {
+    at: previousPath,
+    match: (node) => node.type === BLOCKS.PARAGRAPH,
+  });
+  if (!nodes) return;
+
+  const [previousNode] = nodes;
+  const isPreviousNodeTextEmpty = isAncestorEmpty(editor, previousNode as Ancestor);
+  if (isPreviousNodeTextEmpty) {
+    // Switch block with previous empty paragraph
+    moveNodes(editor, { at: blockPath, to: previousPath });
+    // Remove previous paragraph that now is under the block
+    removeNodes(editor, { at: blockPath });
+  }
 }

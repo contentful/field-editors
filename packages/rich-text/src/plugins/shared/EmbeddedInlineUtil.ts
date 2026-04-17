@@ -64,16 +64,12 @@ export async function selectEntityAndInsert(
     ...newEntitySelectorConfigFromRichTextField(sdk.field, nodeType),
     withCreate: true,
   };
-  const { selection } = editor;
   const rteSlide = watchCurrentSlide(sdk.navigator);
   const entry = await sdk.dialogs.selectSingleEntry(config);
 
   if (!entry) {
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
-    // Selection prevents incorrect position of inserted ref when RTE doesn't have focus
-    // (i.e. when using hotkeys and slide-in)
-    select(editor, selection);
     insertNodes(editor, createInlineEntryNode(nodeType, entry));
     logAction('insert', { nodeType, entity: entry });
   }

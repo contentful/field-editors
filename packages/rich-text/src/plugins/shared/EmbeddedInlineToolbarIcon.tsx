@@ -8,6 +8,7 @@ import { INLINES } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
+// import { focus } from '../../helpers/editor';
 import { moveToTheNextChar } from '../../helpers/editor';
 import { useSdkContext } from '../../SdkProvider';
 import { selectEntityAndInsert, selectResourceEntityAndInsert } from '../shared/EmbeddedInlineUtil';
@@ -45,7 +46,9 @@ export function EmbeddedInlineToolbarIcon({
   async function handleClick(event) {
     event.preventDefault();
 
-    if (!editor) return;
+    if (!editor) {
+      return;
+    }
 
     onClose();
 
