@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -41,7 +41,7 @@
     "@contentful/f36-tokens": "^6.1.2",
     "@contentful/field-editor-boolean": "^2.0.8",
     "@contentful/field-editor-checkbox": "^2.0.8",
-    "@contentful/field-editor-date": "^2.0.9",
+    "@contentful/field-editor-date": "^2.0.11",
     "@contentful/field-editor-dropdown": "^3.0.0",
     "@contentful/field-editor-json": "^4.0.8",
     "@contentful/field-editor-list": "^2.0.8",

@@ -40,7 +40,10 @@ export const TimepickerInput = ({
   });
 
   useEffect(() => {
-    setSelectedTime(formatToString(uses12hClock, parse(`${time} ${ampm}`, 'hh:mm a', REF_DATE)));
+    const parsed = uses12hClock
+      ? parse(`${time} ${ampm}`, 'hh:mm a', REF_DATE)
+      : parse(time, 'HH:mm', REF_DATE);
+    setSelectedTime(formatToString(uses12hClock, parsed));
   }, [time, ampm, uses12hClock]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
