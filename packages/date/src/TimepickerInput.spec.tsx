@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
-import { cleanup, configure, render } from '@testing-library/react';
+import { cleanup, configure, fireEvent, render } from '@testing-library/react';
 
 import { TimepickerInput } from './TimepickerInput';
 
@@ -38,5 +38,135 @@ describe('TimepickerInput', () => {
       />,
     );
     expect(getByTestId('time-input')).toHaveValue('23:00');
+  });
+
+  describe('onChange on blur — 24h mode', () => {
+    it('emits 19:00 (not 07:00) when user types 19:00 in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="19:00"
+          ampm="PM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '19:00' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '19:00', ampm: 'PM' });
+    });
+
+    it('emits 23:59 (not 11:59) when user types 23:59 in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="23:59"
+          ampm="PM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '23:59' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '23:59', ampm: 'PM' });
+    });
+
+    it('emits 00:00 when user types 00:00 in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="00:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '00:00' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '00:00', ampm: 'AM' });
+    });
+
+    it('emits 12:00 (noon) correctly in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="12:00"
+          ampm="PM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '12:00' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '12:00', ampm: 'PM' });
+    });
+
+    it('emits 13:00 (not 01:00) when user types 13:00 in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="13:00"
+          ampm="PM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '13:00' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '13:00', ampm: 'PM' });
+    });
+  });
+
+  describe('onChange on blur — 12h mode', () => {
+    it('emits 07:00 AM correctly in 12h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={true}
+          time="07:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '07:00 AM' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '07:00', ampm: 'AM' });
+    });
+
+    it('emits 07:00 PM correctly in 12h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={true}
+          time="07:00"
+          ampm="PM"
+          onChange={onChange}
+        />,
+      );
+      const input = getByTestId('time-input');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: '07:00 PM' } });
+      fireEvent.blur(input);
+      expect(onChange).toHaveBeenCalledWith({ time: '07:00', ampm: 'PM' });
+    });
   });
 });

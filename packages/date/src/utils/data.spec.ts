@@ -443,4 +443,51 @@ describe('date utils', () => {
       expect(getDefaultAMPM()).toBe('AM');
     });
   });
+
+  describe('buildFieldValue — date does not shift due to timezone offset', () => {
+    // These cases demonstrate the bug: parseISO of an offset-aware string gives a UTC
+    // instant that, when formatted in local time (UTC in CI), lands on a different date
+    // than the nominal date in the original string.
+
+    it('April 27 23:00-02:00 round-trips as April 27 (UTC would parse as April 28 01:00Z)', () => {
+      // parseISO('2026-04-27T23:00-02:00') = 2026-04-28T01:00:00Z → local date is April 28 in UTC
+      const result = userInputFromDatetime({
+        value: '2026-04-27T23:00-02:00',
+        uses12hClock: false,
+      });
+      const built = buildFieldValue({
+        data: result,
+        usesTime: true,
+        usesTimezone: true,
+      });
+      expect(built.valid).toBe('2026-04-27T23:00-02:00');
+    });
+
+    it('April 28 01:00+02:00 round-trips as April 28 (UTC would parse as April 27 23:00Z)', () => {
+      // parseISO('2026-04-28T01:00+02:00') = 2026-04-27T23:00:00Z → local date is April 27 in UTC
+      const result = userInputFromDatetime({
+        value: '2026-04-28T01:00+02:00',
+        uses12hClock: false,
+      });
+      const built = buildFieldValue({
+        data: result,
+        usesTime: true,
+        usesTimezone: true,
+      });
+      expect(built.valid).toBe('2026-04-28T01:00+02:00');
+    });
+
+    it('preserves date for 23:59-01:00 (UTC: April 28 00:59Z → would show as April 28)', () => {
+      const result = userInputFromDatetime({
+        value: '2026-06-15T23:59-01:00',
+        uses12hClock: false,
+      });
+      const built = buildFieldValue({
+        data: result,
+        usesTime: true,
+        usesTimezone: true,
+      });
+      expect(built.valid).toBe('2026-06-15T23:59-01:00');
+    });
+  });
 });

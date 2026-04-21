@@ -12,7 +12,18 @@ export type TimepickerProps = {
   ampm?: string;
 };
 
-const validInputFormats = ['hh:mm a', 'h:mm a', 'hh:mm', 'kk:mm', 'k:mm', 'h a', 'HH', 'H:mm', 'h'];
+const validInputFormats = [
+  'hh:mm a',
+  'h:mm a',
+  'HH:mm',
+  'hh:mm',
+  'kk:mm',
+  'k:mm',
+  'h a',
+  'HH',
+  'H:mm',
+  'h',
+];
 const REF_DATE = new Date(2000, 0, 1);
 
 function parseRawInput(raw: string): Date | null {
@@ -60,7 +71,8 @@ export const TimepickerInput = ({
     const parsedTime = parseRawInput(selectedTime);
     const value = parsedTime ?? getDefaultTime();
     setSelectedTime(formatToString(uses12hClock, value));
-    onChange({ time: format(value, 'hh:mm'), ampm: format(value, 'a').toUpperCase() });
+    const timeStr = uses12hClock ? format(value, 'hh:mm') : format(value, 'HH:mm');
+    onChange({ time: timeStr, ampm: format(value, 'a').toUpperCase() });
   }, [selectedTime, uses12hClock, onChange]);
 
   return (
