@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
-import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { cleanup, configure, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { TimepickerInput } from './TimepickerInput';
 
@@ -52,10 +53,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '19:00' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '19:00');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '19:00', ampm: 'PM' });
     });
 
@@ -70,10 +70,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '23:59' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '23:59');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '23:59', ampm: 'PM' });
     });
 
@@ -88,10 +87,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '00:00' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '00:00');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '00:00', ampm: 'AM' });
     });
 
@@ -106,10 +104,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '12:00' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '12:00');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '12:00', ampm: 'PM' });
     });
 
@@ -124,10 +121,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '13:00' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '13:00');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '13:00', ampm: 'PM' });
     });
   });
@@ -144,10 +140,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '07:00 AM' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '07:00 AM');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '07:00', ampm: 'AM' });
     });
 
@@ -162,10 +157,9 @@ describe('TimepickerInput', () => {
           onChange={onChange}
         />,
       );
-      const input = getByTestId('time-input');
-      fireEvent.focus(input);
-      fireEvent.change(input, { target: { value: '07:00 PM' } });
-      fireEvent.blur(input);
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '07:00 PM');
+      userEvent.tab();
       expect(onChange).toHaveBeenCalledWith({ time: '07:00', ampm: 'PM' });
     });
   });
