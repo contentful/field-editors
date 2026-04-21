@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ArrowArcRightIcon } from '@contentful/f36-icons';
+import { ArrowClockwiseIcon } from '@contentful/f36-icons';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
@@ -20,7 +20,7 @@ export const ButtonRedo = () => {
       isActive={false}
       isDisabled={editor.history.redos.length === 0}
     >
-      <ArrowArcRightIcon />
+      <ArrowClockwiseIcon aria-label="Redo" />
     </ToolbarButton>
   );
 };
