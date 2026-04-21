@@ -19,10 +19,10 @@ const styles = {
   root: css({
     cursor: 'text',
     padding: tokens.spacingS,
-    border: `1px solid ${tokens.gray200}`,
+    border: `1px solid ${tokens.gray400}`,
     borderTop: 'none',
-    borderBottomLeftRadius: tokens.borderRadiusSmall,
-    borderBottomRightRadius: tokens.borderRadiusSmall,
+    borderBottomLeftRadius: tokens.borderRadiusMedium,
+    borderBottomRightRadius: tokens.borderRadiusMedium,
     fontSize: tokens.fontSizeM,
     '.cm-editor': {
       color: tokens.gray900,
