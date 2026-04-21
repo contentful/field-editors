@@ -1,4 +1,4 @@
-import { format, getHours, getMinutes, isValid, parse, parseISO, set } from 'date-fns';
+import { format, getHours, getMinutes, isValid, parse, set } from 'date-fns';
 
 import { TimeResult } from '../types';
 
@@ -15,17 +15,8 @@ function parseUtcOffset(datetimeString: string): string {
 }
 
 function fieldValueToDate(datetimeString: string | null | undefined): Date | null {
-  if (!datetimeString) {
-    return null;
-  }
-  // Extract yyyy-MM-dd directly from the string to avoid timezone conversion.
-  // parseISO shifts to local time, which can move the date across midnight.
-  const datePart = datetimeString.match(/^(\d{4}-\d{2}-\d{2})/);
-  if (datePart) {
-    const date = parse(datePart[1], 'yyyy-MM-dd', new Date(0));
-    return isValid(date) ? date : null;
-  }
-  const date = parseISO(datetimeString);
+  if (!datetimeString) return null;
+  const date = parse(datetimeString.slice(0, 10), 'yyyy-MM-dd', new Date(0));
   return isValid(date) ? date : null;
 }
 
