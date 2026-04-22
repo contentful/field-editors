@@ -21,8 +21,8 @@ import {
   TableIcon,
   CurrencyEurIcon,
   TreeStructureIcon,
-  ArrowCounterClockwiseIcon,
-  ArrowClockwiseIcon,
+  ArrowUUpLeftIcon,
+  ArrowUUpRightIcon,
   ArrowsOutIcon,
 } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
@@ -317,7 +317,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.history.undo}
       >
-        <ArrowCounterClockwiseIcon aria-label="Undo" className={styles.icon} />
+        <ArrowUUpLeftIcon aria-label="Undo" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -326,7 +326,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.history.redo}
       >
-        <ArrowClockwiseIcon aria-label="Redo" className={styles.icon} />
+        <ArrowUUpRightIcon aria-label="Redo" className={styles.icon} />
       </ToolbarButton>
     </>
   );
