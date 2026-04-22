@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ArrowArcLeftIcon } from '@contentful/f36-icons';
+import { ArrowUUpLeftIcon } from '@contentful/f36-icons';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
@@ -20,7 +20,7 @@ export const ButtonUndo = () => {
       isActive={false}
       isDisabled={editor.history.undos.length === 0}
     >
-      <ArrowArcLeftIcon />
+      <ArrowUUpLeftIcon aria-label="Undo" />
     </ToolbarButton>
   );
 };

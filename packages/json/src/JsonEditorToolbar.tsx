@@ -1,11 +1,17 @@
 import * as React from 'react';
 
 import { Button, Flex } from '@contentful/f36-components';
-import { ArrowCounterClockwiseIcon, ArrowClockwiseIcon } from '@contentful/f36-icons';
+import { ArrowUUpLeftIcon, ArrowUUpRightIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css } from '@emotion/css';
 
 const styles = {
+  // Visually center the arrow icon with the button text
+  arrowButton: css({
+    '& > span:first-child': {
+      paddingBottom: '2px',
+    },
+  }),
   toolbar: css({
     display: 'flex',
     alignItems: 'center',
@@ -30,8 +36,9 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
     <div className={styles.toolbar}>
       <Flex alignItems="center">
         <Button
+          className={styles.arrowButton}
           variant="transparent"
-          startIcon={<ArrowCounterClockwiseIcon size="small" />}
+          startIcon={<ArrowUUpLeftIcon size="small" />}
           size="small"
           isDisabled={props.isUndoDisabled}
           testId="json-editor-undo"
@@ -42,9 +49,10 @@ export function JsonEditorToolbar(props: JsonEditorToolbarProps) {
           Undo
         </Button>
         <Button
+          className={styles.arrowButton}
           variant="transparent"
           size="small"
-          startIcon={<ArrowClockwiseIcon size="small" />}
+          startIcon={<ArrowUUpRightIcon size="small" />}
           isDisabled={props.isRedoDisabled}
           testId="json-editor-redo"
           onClick={() => {

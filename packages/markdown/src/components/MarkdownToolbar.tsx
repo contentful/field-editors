@@ -14,13 +14,22 @@ import {
   ListNumbersIcon,
   DotsThreeIcon,
   QuotesIcon,
+  TextStrikethroughIcon,
+  TextIndentIcon,
+  TextOutdentIcon,
+  CubesThreeIcon,
+  TableIcon,
+  CurrencyEurIcon,
+  TreeStructureIcon,
+  ArrowUUpLeftIcon,
+  ArrowUUpRightIcon,
+  ArrowsOutIcon,
 } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from '@emotion/css';
 
 import { MarkdownActions } from '../types';
 import { HeadingSelector } from './HeadingSelector';
-import * as Icons from './icons';
 import { InsertLinkSelector } from './InsertLinkSelector';
 
 const styles = {
@@ -45,9 +54,12 @@ const styles = {
   }),
   zenButton: css({
     marginLeft: tokens.spacingXs,
+    marginRight: '0px',
   }),
   zenButtonPressed: css({
-    backgroundColor: tokens.gray400,
+    '&:active': {
+      backgroundColor: tokens.gray400,
+    },
   }),
   tooltip: css({
     zIndex: Number(tokens.zIndexTooltip),
@@ -224,7 +236,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.strike}
       >
-        <Icons.Strikethrough label="Strike out" className={styles.icon} />
+        <TextStrikethroughIcon aria-label="Strike out" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -251,7 +263,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.indent}
       >
-        <Icons.Indent label="Increase indentation" className={styles.icon} />
+        <TextIndentIcon aria-label="Increase indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -260,7 +272,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.simple.dedent}
       >
-        <Icons.Dedent label="Decrease indentation" className={styles.icon} />
+        <TextOutdentIcon aria-label="Decrease indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -269,7 +281,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.embedExternalContent}
       >
-        <Icons.Cubes label="Embed external content" className={styles.icon} />
+        <CubesThreeIcon aria-label="Embed external content" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -278,7 +290,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.insertTable}
       >
-        <Icons.Table label="Insert table" className={styles.icon} />
+        <TableIcon aria-label="Insert table" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -287,7 +299,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.insertSpecialCharacter}
       >
-        <Icons.SpecialChar label="Insert special character" className={styles.icon} />
+        <CurrencyEurIcon aria-label="Insert special character" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -296,7 +308,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.organizeLinks}
       >
-        <Icons.OrgLinks label="Organize links" className={styles.icon} />
+        <TreeStructureIcon aria-label="Organize links" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -305,7 +317,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.history.undo}
       >
-        <Icons.Undo label="Undo" className={styles.icon} />
+        <ArrowUUpLeftIcon aria-label="Undo" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
         isDisabled={props.disabled}
@@ -314,7 +326,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         tooltipPlace={tooltipPlace}
         onClick={props.actions.history.redo}
       >
-        <Icons.Redo label="Redo" className={styles.icon} />
+        <ArrowUUpRightIcon aria-label="Redo" className={styles.icon} />
       </ToolbarButton>
     </>
   );
@@ -357,7 +369,7 @@ export function DefaultMarkdownToolbar(props: MarkdownToolbarProps) {
             className={styles.zenButton}
             tooltip="Expand"
           >
-            <Icons.Zen label="Expand" className={styles.icon} />
+            <ArrowsOutIcon aria-label="Expand" className={styles.icon} />
           </ToolbarButton>
         </Flex>
       </Flex>
@@ -395,7 +407,7 @@ export function ZenMarkdownToolbar(props: MarkdownToolbarProps) {
             onClick={() => {
               props.actions.closeZenMode();
             }}
-            icon={<Icons.Zen label="Collapse" className={styles.icon} />}
+            icon={<ArrowsOutIcon aria-label="Collapse" className={styles.icon} />}
             aria-label="Collapse"
           />
         </Flex>
