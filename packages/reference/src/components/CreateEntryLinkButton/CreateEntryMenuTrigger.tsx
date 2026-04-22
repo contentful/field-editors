@@ -237,7 +237,7 @@ export const CreateEntryMenuTrigger = ({
           >
             {Boolean(customDropdownItems) && (
               <>
-                {customDropdownItems}
+                <div className={styles.inputWrapper}>{customDropdownItems}</div>
                 <Menu.Divider />
               </>
             )}

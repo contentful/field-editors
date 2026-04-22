@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@2.0.12...@contentful/field-editor-date@2.0.13) (2026-04-21)
+
+### Bug Fixes
+
+- **date:** support colon-free time input [ES-145] ([#2141](https://github.com/contentful/field-editors/issues/2141)) ([adb1632](https://github.com/contentful/field-editors/commit/adb163239998366a0f6086a162c0822cbd1d0fc8))
+
 ## [2.0.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@2.0.11...@contentful/field-editor-date@2.0.12) (2026-04-21)
 
 ### Bug Fixes

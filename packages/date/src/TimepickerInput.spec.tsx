@@ -128,6 +128,59 @@ describe('TimepickerInput', () => {
     });
   });
 
+  describe('shorthand input without colon', () => {
+    it('parses 1005 as 10:05 in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="00:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '1005');
+      userEvent.tab();
+      expect(onChange).toHaveBeenCalledWith({ time: '10:05', ampm: 'AM' });
+    });
+
+    it('parses 1900 as 19:00 in 24h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={false}
+          time="00:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '1900');
+      userEvent.tab();
+      expect(onChange).toHaveBeenCalledWith({ time: '19:00', ampm: 'PM' });
+    });
+
+    it('parses 0700 as 07:00 AM in 12h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={true}
+          time="12:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '0700');
+      userEvent.tab();
+      expect(onChange).toHaveBeenCalledWith({ time: '07:00', ampm: 'AM' });
+    });
+  });
+
   describe('onChange on blur — 12h mode', () => {
     it('emits 07:00 AM correctly in 12h mode', () => {
       const onChange = jest.fn();

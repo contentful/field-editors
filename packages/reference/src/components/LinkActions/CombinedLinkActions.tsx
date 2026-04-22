@@ -55,14 +55,17 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         }}
         customDropdownItems={
           props.canLinkEntity ? (
-            <Menu.Item
+            <Button
+              startIcon={<PlusIcon />}
+              size="small"
               testId={testIds.linkExisting}
               onClick={() => {
                 props.onLinkExisting();
               }}
+              isFullWidth
             >
               Add existing content
-            </Menu.Item>
+            </Button>
           ) : undefined
         }
       />

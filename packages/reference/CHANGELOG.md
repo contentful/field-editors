@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.0.0...@contentful/field-editor-reference@8.1.0) (2026-04-22)
+
+### Features
+
+- [TOL-3962] Tweak design of the add existing content button ([#2143](https://github.com/contentful/field-editors/issues/2143)) ([8cb489c](https://github.com/contentful/field-editors/commit/8cb489cebe3dcbcbcb574d45c3254495238b55f8))
+
 # [8.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@7.0.10...@contentful/field-editor-reference@8.0.0) (2026-04-15)
 
 ### Features
