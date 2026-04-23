@@ -1,22 +1,23 @@
-// eslint-disable-next-line no-restricted-imports -- TODO: explain this disable
-import moment from 'moment';
+import { differenceInCalendarDays, format, startOfDay } from 'date-fns';
 
 type DateFormatFn = (date: Date | string, short?: boolean) => string;
 
 /**
- * @param {Date|string} date A valid constructor argument for moment()
+ * @param {Date|string} date A valid Date object or ISO string
  * @param {boolean=} short Render only Today/Tomorrow/Yesterday if valid. Defaults to false
  */
 export const formatDate: DateFormatFn = (date, short) => {
-  switch (moment().startOf('day').diff(moment(date).startOf('day'), 'days')) {
+  const d = new Date(date);
+  const diff = differenceInCalendarDays(startOfDay(new Date()), startOfDay(d));
+  switch (diff) {
     case 0:
-      return short ? 'Today' : `Today, ${moment(date).format('DD MMM YYYY')}`;
+      return short ? 'Today' : `Today, ${format(d, 'dd MMM yyyy')}`;
     case -1:
-      return short ? 'Tomorrow' : `Tomorrow, ${moment(date).format('DD MMM YYYY')}`;
+      return short ? 'Tomorrow' : `Tomorrow, ${format(d, 'dd MMM yyyy')}`;
     case 1:
-      return short ? 'Yesterday' : `Yesterday, ${moment(date).format('DD MMM YYYY')}`;
+      return short ? 'Yesterday' : `Yesterday, ${format(d, 'dd MMM yyyy')}`;
     default:
-      return moment(date).format('ddd, DD MMM YYYY');
+      return format(d, 'eee, dd MMM yyyy');
   }
 };
 
@@ -27,7 +28,7 @@ export const formatDate: DateFormatFn = (date, short) => {
  * * `T15:36:45.000Z` => 3:36 PM (if in +0:00 offset)
  */
 export const formatTime: DateFormatFn = (date) => {
-  return moment.utc(date).local().format('h:mm A');
+  return format(new Date(date), 'h:mm a');
 };
 
 export const formatDateAndTime: DateFormatFn = (date, short) => {
