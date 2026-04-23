@@ -60,6 +60,7 @@ export function slugify(text: string, locale = 'en', maxLength?: number): string
       '`': '',
       '’': '',
       '‘': '',
+      $: '',
     },
   });
 }
