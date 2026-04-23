@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import * as ReactQuery from '@tanstack/react-query';
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,8 +13,7 @@ import {
 } from '@tanstack/react-query';
 
 // `version` is exported at runtime in v4.36+ and v5, but not typed in v4's type declarations.
-const rqVersion: string | undefined = (require('@tanstack/react-query') as { version?: string }) // eslint-disable-line @typescript-eslint/no-var-requires -- version is untyped in v4
-  .version;
+const rqVersion: string | undefined = (ReactQuery as any).version;
 const RQ_MAJOR = parseInt(rqVersion ?? '4', 10);
 const IS_V5 = RQ_MAJOR >= 5;
 
