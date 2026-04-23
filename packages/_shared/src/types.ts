@@ -27,20 +27,14 @@ export type ReleaseV2Entity = {
   action: 'publish' | 'unpublish';
 };
 
+export type ReleaseV2LocaleFields = string[] | { fields: { '*': string[] } };
+
 export type ReleaseV2EntityWithLocales = {
   entity: {
     sys: { type: 'Link'; linkType: ReleaseV2EntityLinkType; id: string };
   };
-  add: {
-    fields: {
-      '*': string[];
-    };
-  };
-  remove: {
-    fields: {
-      '*': string[];
-    };
-  };
+  add: ReleaseV2LocaleFields;
+  remove: ReleaseV2LocaleFields;
 };
 
 export type ReleaseV2AnnotationType = 'Hidden' | 'Ideation';

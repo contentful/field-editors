@@ -449,6 +449,74 @@ describe('useReleaseStatus', () => {
     });
   });
 
+  describe('Flat array payload shape', () => {
+    const buildFlatShapeRelease = (verb: 'add' | 'remove', localeCodes: string[]): ReleaseV2Props =>
+      ({
+        title: 'Release 1',
+        sys: { id: 'release-1', type: 'Release', schemaVersion: 'Release.v2' },
+        entities: {
+          items: [
+            {
+              entity: { sys: { type: 'Link', linkType: 'Entry', id: 'entry-1' } },
+              [verb]: localeCodes,
+            } as unknown as ReleaseV2EntityWithLocales,
+          ],
+        },
+      }) as ReleaseV2Props;
+
+    it('treats flat-array add as willPublish', () => {
+      const { result } = renderHook(() =>
+        useReleaseStatus({
+          locales,
+          release: buildFlatShapeRelease('add', ['en-US']),
+          entity: entryBuilder().withStatus('draft'),
+        }),
+      );
+
+      expectLocaleStatus(result.current, 'en-US', {
+        variant: 'positive',
+        status: 'willPublish',
+        label: 'Will publish',
+        locale: { code: 'en-US' },
+      });
+    });
+
+    it('treats flat-array remove as becomesDraft', () => {
+      const { result } = renderHook(() =>
+        useReleaseStatus({
+          locales,
+          previousEntityOnTimeline: entryBuilder().withStatus('published'),
+          release: buildFlatShapeRelease('remove', ['en-US']),
+          entity: entryBuilder().withStatus('draft'),
+        }),
+      );
+
+      expectLocaleStatus(result.current, 'en-US', {
+        variant: 'warning',
+        status: 'becomesDraft',
+        label: 'Becomes draft',
+        locale: { code: 'en-US' },
+      });
+    });
+
+    it('treats empty flat-array remove as remainsDraft', () => {
+      const { result } = renderHook(() =>
+        useReleaseStatus({
+          locales,
+          release: buildFlatShapeRelease('remove', []),
+          entity: entryBuilder().withStatus('draft'),
+        }),
+      );
+
+      expectLocaleStatus(result.current, 'en-US', {
+        variant: 'warning',
+        status: 'remainsDraft',
+        label: 'Remains draft',
+        locale: { code: 'en-US' },
+      });
+    });
+  });
+
   // Primary organization: isReference (true vs false) - the key behavioral difference
   // Secondary: Publishing model (entry-based vs locale-based)
   // Tertiary: Entity type (Entry vs Asset) - behavior is identical

@@ -2,8 +2,19 @@ import type {
   ReleaseAction,
   ReleaseV2Entity,
   ReleaseV2EntityWithLocales,
+  ReleaseV2LocaleFields,
   ReleaseV2Props,
 } from '../types';
+
+export function normalizeReleaseLocaleFields(value?: ReleaseV2LocaleFields): string[] {
+  if (!value) {
+    return [];
+  }
+  if (Array.isArray(value)) {
+    return value;
+  }
+  return value.fields?.['*'] ?? [];
+}
 
 type DetermineActionResult = {
   releaseAction: ReleaseAction;
@@ -24,9 +35,10 @@ function getLocalesFromEntity(entityItem: ReleaseV2EntityWithLocales): {
   addLocales: string[];
   removeLocales: string[];
 } {
-  const addLocales = entityItem?.add?.fields?.['*'] ?? [];
-  const removeLocales = entityItem?.remove?.fields?.['*'] ?? [];
-  return { addLocales, removeLocales };
+  return {
+    addLocales: normalizeReleaseLocaleFields(entityItem?.add),
+    removeLocales: normalizeReleaseLocaleFields(entityItem?.remove),
+  };
 }
 
 function getLocaleBasedAction(addLocales: string[], removeLocales: string[]): ReleaseAction {
