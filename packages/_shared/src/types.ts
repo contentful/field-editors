@@ -17,17 +17,19 @@ export type ValidationType =
       max: number;
     };
 
+export type ReleaseV2EntityLinkType = 'Entry' | 'Asset' | 'Fragment' | 'Experience';
+
 //@TODO: use Release types from contentful management once they are ready
 export type ReleaseV2Entity = {
   entity: {
-    sys: { type: 'Link'; linkType: 'Entry' | 'Asset'; id: string };
+    sys: { type: 'Link'; linkType: ReleaseV2EntityLinkType; id: string };
   };
   action: 'publish' | 'unpublish';
 };
 
 export type ReleaseV2EntityWithLocales = {
   entity: {
-    sys: { type: 'Link'; linkType: 'Entry' | 'Asset'; id: string };
+    sys: { type: 'Link'; linkType: ReleaseV2EntityLinkType; id: string };
   };
   add: {
     fields: {

@@ -10,7 +10,7 @@ import type {
 import type { PublishStatus } from './useLocalePublishStatus';
 import { useReleaseStatus } from './useReleaseStatus';
 
-type EntityType = 'Entry' | 'Asset';
+type EntityType = 'Entry' | 'Asset' | 'Fragment' | 'Experience';
 
 interface EntityBuilder {
   withStatus: (status: PublishStatus) => EntryProps | AssetProps;
@@ -43,6 +43,8 @@ const createEntityBuilder = (entityType: EntityType, defaultId: string): EntityB
 
 const entryBuilder = () => createEntityBuilder('Entry', 'entry-1');
 const assetBuilder = () => createEntityBuilder('Asset', 'asset-1');
+const fragmentBuilder = () => createEntityBuilder('Fragment', 'fragment-1');
+const experienceBuilder = () => createEntityBuilder('Experience', 'experience-1');
 
 const createEntryBasedReleaseEntity = ({
   entityId,
@@ -132,7 +134,21 @@ const expectEntityStatus = (
   expect(result.releaseEntityStatus).toBe(expectedStatus);
 };
 
-const ENTITY_TYPES: EntityType[] = ['Entry', 'Asset'];
+const ENTITY_TYPES: EntityType[] = ['Entry', 'Asset', 'Fragment', 'Experience'];
+
+const ENTITY_ID_BY_TYPE: Record<EntityType, { default: string; different: string }> = {
+  Entry: { default: 'entry-1', different: 'entry-2' },
+  Asset: { default: 'asset-1', different: 'asset-2' },
+  Fragment: { default: 'fragment-1', different: 'fragment-2' },
+  Experience: { default: 'experience-1', different: 'experience-2' },
+};
+
+const BUILDER_BY_TYPE: Record<EntityType, () => EntityBuilder> = {
+  Entry: entryBuilder,
+  Asset: assetBuilder,
+  Fragment: fragmentBuilder,
+  Experience: experienceBuilder,
+};
 
 describe('useReleaseStatus', () => {
   const locales = createDefaultLocales();
@@ -445,13 +461,11 @@ describe('useReleaseStatus', () => {
     const locales = createDefaultLocales();
 
     ENTITY_TYPES.forEach((entityType) => {
-      const defaultEntityId = entityType === 'Entry' ? 'entry-1' : 'asset-1';
-      const differentEntityId = entityType === 'Entry' ? 'entry-2' : 'asset-2';
+      const { default: defaultEntityId, different: differentEntityId } =
+        ENTITY_ID_BY_TYPE[entityType];
 
-      const buildEntity = (status: PublishStatus) => {
-        const builder = entityType === 'Entry' ? entryBuilder() : assetBuilder();
-        return builder.withStatus(status);
-      };
+      const buildEntity = (status: PublishStatus) =>
+        BUILDER_BY_TYPE[entityType]().withStatus(status);
 
       const createRelease = (options: {
         entityId: string;
