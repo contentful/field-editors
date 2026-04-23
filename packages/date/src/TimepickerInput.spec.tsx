@@ -28,6 +28,20 @@ describe('TimepickerInput', () => {
     expect(getByTestId('time-input')).toHaveValue('00:00');
   });
 
+  it('defaults to 00:00 in 24h mode when no time prop is provided', () => {
+    const { getByTestId } = render(
+      <TimepickerInput disabled={false} uses12hClock={false} onChange={jest.fn()} />,
+    );
+    expect(getByTestId('time-input')).toHaveValue('00:00');
+  });
+
+  it('defaults to 12:00 AM in 12h mode when no time prop is provided', () => {
+    const { getByTestId } = render(
+      <TimepickerInput disabled={false} uses12hClock={true} onChange={jest.fn()} />,
+    );
+    expect(getByTestId('time-input')).toHaveValue('12:00 AM');
+  });
+
   it('renders late-night hours (e.g. 23:00) in 24h mode without crashing', () => {
     const { getByTestId } = render(
       <TimepickerInput

@@ -44,7 +44,7 @@ const formatToString = (uses12hClock: boolean, value: Date): string =>
 export const TimepickerInput = ({
   disabled,
   uses12hClock,
-  time = '12:00',
+  time = '00:00',
   ampm = 'AM',
   onChange,
 }: TimepickerProps) => {
@@ -56,7 +56,7 @@ export const TimepickerInput = ({
     const parsed = uses12hClock
       ? parse(`${time} ${ampm}`, 'hh:mm a', REF_DATE)
       : parse(time, 'HH:mm', REF_DATE);
-    setSelectedTime(formatToString(uses12hClock, parsed));
+    setSelectedTime(formatToString(uses12hClock, isValid(parsed) ? parsed : getDefaultTime()));
   }, [time, ampm, uses12hClock]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
