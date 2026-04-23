@@ -48,8 +48,8 @@
     "@tanstack/react-query": "^4.3.9",
     "constate": "^3.3.2",
     "contentful-management": "^12.3.0",
+    "date-fns": "^2.30.0",
     "lodash": "^4.17.15",
-    "moment": "^2.20.0",
     "p-queue": "^4.0.0",
     "react-intersection-observer": "9.4.0",
     "truncate": "^3.0.0"
