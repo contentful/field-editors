@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.0.0...@contentful/field-editor-shared@4.1.0) (2026-04-23)
+
+### Features
+
+- add Fragment and Experience support to shared release entity types [TOL-3946] ([#2145](https://github.com/contentful/field-editors/issues/2145)) ([d5ddd70](https://github.com/contentful/field-editors/commit/d5ddd7089cdd38325b293a0d8340eb974f11933d))
+
 # [4.0.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@3.1.4...@contentful/field-editor-shared@4.0.0) (2026-04-15)
 
 ### Features

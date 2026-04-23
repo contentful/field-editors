@@ -11,6 +11,7 @@ import type {
   ReleaseV2EntityWithLocales,
   ReleaseV2Props,
 } from '../types';
+import { normalizeReleaseLocaleFields } from '../utils/determineReleaseAction';
 import { getEntityStatus } from '../utils/entityHelpers';
 import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { sanitizeLocales } from '../utils/sanitizeLocales';
@@ -49,8 +50,12 @@ function getReleaseItemLocaleStatus(
   }
 
   // Locale based
-  const addedLocales = (releaseItem as ReleaseV2EntityWithLocales).add?.fields['*'] || [];
-  const removedLocales = (releaseItem as ReleaseV2EntityWithLocales).remove?.fields['*'] || [];
+  const addedLocales = normalizeReleaseLocaleFields(
+    (releaseItem as ReleaseV2EntityWithLocales).add,
+  );
+  const removedLocales = normalizeReleaseLocaleFields(
+    (releaseItem as ReleaseV2EntityWithLocales).remove,
+  );
 
   if (addedLocales.includes(locale.code)) {
     return 'willPublish';
