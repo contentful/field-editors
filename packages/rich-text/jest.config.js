@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+process.env.TZ = 'UTC';
+
 const baseConfig = require('../../baseJestConfig');
 
 const package = require('./package.json');
