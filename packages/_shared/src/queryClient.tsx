@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import * as ReactQuery from '@tanstack/react-query';
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,10 +11,8 @@ import {
   type UseQueryResult,
 } from '@tanstack/react-query';
 
-// `version` is exported at runtime in v4.36+ and v5, but not typed in v4's type declarations.
-const rqVersion: string | undefined = (ReactQuery as any).version;
-const RQ_MAJOR = parseInt(rqVersion ?? '4', 10);
-const IS_V5 = RQ_MAJOR >= 5;
+// v4 exposed `getLogger()` on QueryClient.prototype; it was removed in v5.
+const IS_V5 = typeof (QueryClient.prototype as any).setLogger !== 'function';
 
 /**
  * A custom client context ensures zero conflict with host apps also using
