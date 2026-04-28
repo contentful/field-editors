@@ -195,6 +195,59 @@ describe('TimepickerInput', () => {
     });
   });
 
+  describe('am/pm without space separator', () => {
+    it('parses 1:15pm (no space) correctly in 12h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={true}
+          time="12:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '1:15pm');
+      userEvent.tab();
+      expect(onChange).toHaveBeenCalledWith({ time: '01:15', ampm: 'PM' });
+    });
+
+    it('parses 1:15PM (no space, uppercase) correctly in 12h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={true}
+          time="12:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '1:15PM');
+      userEvent.tab();
+      expect(onChange).toHaveBeenCalledWith({ time: '01:15', ampm: 'PM' });
+    });
+
+    it('parses 1pm (no space, no minutes) correctly in 12h mode', () => {
+      const onChange = jest.fn();
+      const { getByTestId } = render(
+        <TimepickerInput
+          disabled={false}
+          uses12hClock={true}
+          time="12:00"
+          ampm="AM"
+          onChange={onChange}
+        />,
+      );
+      userEvent.clear(getByTestId('time-input'));
+      userEvent.type(getByTestId('time-input'), '1pm');
+      userEvent.tab();
+      expect(onChange).toHaveBeenCalledWith({ time: '01:00', ampm: 'PM' });
+    });
+  });
+
   describe('onChange on blur — 12h mode', () => {
     it('emits 07:00 AM correctly in 12h mode', () => {
       const onChange = jest.fn();

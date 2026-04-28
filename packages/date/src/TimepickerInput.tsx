@@ -28,9 +28,15 @@ const validInputFormats = [
 ];
 const REF_DATE = new Date(2000, 0, 1);
 
+function normalizeRawInput(raw: string): string {
+  // date-fns 'a' token requires a space before AM/PM; moment was lenient
+  return raw.replace(/(\d)(am|pm)$/i, '$1 $2');
+}
+
 function parseRawInput(raw: string): Date | null {
+  const normalized = normalizeRawInput(raw);
   for (const fmt of validInputFormats) {
-    const parsed = parse(raw, fmt, REF_DATE);
+    const parsed = parse(normalized, fmt, REF_DATE);
     if (isValid(parsed)) return parsed;
   }
   return null;
