@@ -4,12 +4,7 @@ import { EntityStatus, EntityStatusBadge, Flex, Popover } from '@contentful/f36-
 import { CaretDownIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { cx, css } from '@emotion/css';
-import type {
-  LocaleProps,
-  EntryProps,
-  AssetProps,
-  ScheduledActionProps,
-} from 'contentful-management';
+import type { LocaleProps, ScheduledActionProps } from 'contentful-management';
 
 import { LocalePublishStatusMap } from '../hooks/useLocalePublishStatus';
 import * as entityHelpers from '../utils/entityHelpers';
@@ -148,7 +143,7 @@ const determineBadgeStatus = (
 };
 
 type LocalePublishingPopoverProps = {
-  entity: Pick<EntryProps | AssetProps, 'sys'>;
+  entity: { sys: entityHelpers.EntitySys };
   jobs: ScheduledActionProps[];
   isScheduled: boolean;
   activeLocales?: Pick<LocaleProps, 'code'>[];

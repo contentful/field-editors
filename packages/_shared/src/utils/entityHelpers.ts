@@ -199,8 +199,20 @@ export function getEntryTitle({
   return titleOrDefault(title, defaultTitle);
 }
 
-export type EntitySys = Entry['sys'] | Asset['sys'];
 type FieldStatus = 'draft' | 'published' | 'changed';
+
+// @TODO - use general type instead once Experience and Fragment types are public
+// export type EntitySys = Entry['sys'] | Asset['sys'] | Experience['sys'] | Fragment['sys'];
+export type EntitySys = {
+  type: string;
+  id: string;
+  version: number;
+  publishedVersion?: number;
+  archivedVersion?: number;
+  deletedVersion?: number;
+  localeStatus?: Record<string, FieldStatus>;
+  fieldStatus?: Record<string, Record<string, FieldStatus>>;
+};
 
 function getLocaleStatusObject(sys: EntitySys): Record<string, FieldStatus> | undefined {
   if ('localeStatus' in sys) {

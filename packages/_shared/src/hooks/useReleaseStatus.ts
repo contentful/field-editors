@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import type { LocalesAPI } from '@contentful/app-sdk';
-import type { AssetProps, EntryProps, LocaleProps, ReleaseProps } from 'contentful-management';
+import type { LocaleProps, ReleaseProps } from 'contentful-management';
 
 import type {
   ReleaseEntityStatus,
@@ -12,7 +12,7 @@ import type {
   ReleaseV2Props,
 } from '../types';
 import { normalizeReleaseLocaleFields } from '../utils/determineReleaseAction';
-import { getEntityStatus } from '../utils/entityHelpers';
+import { getEntityStatus, type EntitySys } from '../utils/entityHelpers';
 import { getReleaseStatusBadgeConfig } from '../utils/getReleaseStatusBadgeConfig';
 import { sanitizeLocales } from '../utils/sanitizeLocales';
 
@@ -32,7 +32,7 @@ function createReleaseLocaleStatus(
 function getReleaseItemLocaleStatus(
   releaseItem: ReleaseV2Entity | ReleaseV2EntityWithLocales,
   locale: Pick<LocaleProps, 'code' | 'default' | 'name'>,
-  previousEntityOnTimeline?: Pick<EntryProps | AssetProps, 'sys'>,
+  previousEntityOnTimeline?: { sys: EntitySys },
 ): ReleaseEntityStatus {
   // Entry based
   if ('action' in releaseItem) {
@@ -72,10 +72,10 @@ function getReleaseItemLocaleStatus(
 }
 
 type UseActiveReleaseLocalesStatuses = {
-  entity?: Pick<EntryProps | AssetProps, 'sys'>;
+  entity?: { sys: EntitySys };
   locales: LocaleProps[] | LocalesAPI;
   release?: ReleaseProps | ReleaseV2Props;
-  previousEntityOnTimeline?: Pick<EntryProps | AssetProps, 'sys'>;
+  previousEntityOnTimeline?: { sys: EntitySys };
   isReference?: boolean;
 };
 
