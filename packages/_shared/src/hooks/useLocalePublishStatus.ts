@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { LocalesAPI } from '@contentful/app-sdk';
 import type { LocaleProps } from 'contentful-management';
 
-import * as entityHelpers from '../utils/entityHelpers';
+import { getEntityStatus, type EntitySys } from '../utils/entityHelpers';
 import { sanitizeLocales, type SanitizedLocale } from '../utils/sanitizeLocales';
 
 export type PublishStatus = 'draft' | 'published' | 'changed';
@@ -14,11 +14,8 @@ export type LocalePublishStatus = {
 };
 export type LocalePublishStatusMap = Map<string, LocalePublishStatus>;
 
-function getLocalePublishStatusMap(
-  entity: { sys: entityHelpers.EntitySys },
-  locales: SanitizedLocale[],
-) {
-  const entityStatus = entityHelpers.getEntityStatus(entity.sys);
+function getLocalePublishStatusMap(entity: { sys: EntitySys }, locales: SanitizedLocale[]) {
+  const entityStatus = getEntityStatus(entity.sys);
 
   if (['archived', 'deleted'].includes(entityStatus)) {
     return;
@@ -29,10 +26,7 @@ function getLocalePublishStatusMap(
       locale.code,
       {
         // save to cast as archived and deleted are already handled before
-        status: entityHelpers.getEntityStatus(entity.sys, locale.code) as
-          | 'draft'
-          | 'published'
-          | 'changed',
+        status: getEntityStatus(entity.sys, locale.code) as 'draft' | 'published' | 'changed',
         locale,
       },
     ]),
@@ -45,7 +39,7 @@ function getLocalePublishStatusMap(
  * Get the publish status for each locale
  */
 export function useLocalePublishStatus(
-  entity?: { sys: entityHelpers.EntitySys },
+  entity?: { sys: EntitySys },
   locales?: Pick<LocalesAPI, 'available' | 'default' | 'names'> | LocaleProps[] | null,
 ): LocalePublishStatusMap | undefined {
   return useMemo(() => {

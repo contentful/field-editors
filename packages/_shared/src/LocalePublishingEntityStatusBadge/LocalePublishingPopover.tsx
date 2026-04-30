@@ -7,7 +7,7 @@ import { cx, css } from '@emotion/css';
 import type { LocaleProps, ScheduledActionProps } from 'contentful-management';
 
 import { LocalePublishStatusMap } from '../hooks/useLocalePublishStatus';
-import * as entityHelpers from '../utils/entityHelpers';
+import { getEntityStatus, type EntitySys } from '../utils/entityHelpers';
 import { LocalePublishingStatusList } from './LocalePublishingStatusList';
 import { ScheduledBanner } from './ScheduledBanner';
 
@@ -143,7 +143,7 @@ const determineBadgeStatus = (
 };
 
 type LocalePublishingPopoverProps = {
-  entity: { sys: entityHelpers.EntitySys };
+  entity: { sys: EntitySys };
   jobs: ScheduledActionProps[];
   isScheduled: boolean;
   activeLocales?: Pick<LocaleProps, 'code'>[];
@@ -174,7 +174,7 @@ export function LocalePublishingPopover({
     }, 300);
   }, []);
 
-  const entityStatus = entityHelpers.getEntityStatus(
+  const entityStatus = getEntityStatus(
     entity.sys,
     activeLocales?.map((locale) => locale.code),
   );
