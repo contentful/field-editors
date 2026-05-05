@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@2.1.4...@contentful/field-editor-markdown@2.1.5) (2026-05-05)
+
+### Bug Fixes
+
+- add missing type export for MarkdownTab [] ([#2153](https://github.com/contentful/field-editors/issues/2153)) ([2e5fb46](https://github.com/contentful/field-editors/commit/2e5fb463556f91618789b2e0b20a6b28469709e4))
+
 ## [2.1.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@2.1.3...@contentful/field-editor-markdown@2.1.4) (2026-04-30)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
