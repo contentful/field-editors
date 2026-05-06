@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.2.0...@contentful/field-editor-shared@4.3.0) (2026-05-06)
+
+### Features
+
+- support new all locales spec [TOL-3944] ([#2154](https://github.com/contentful/field-editors/issues/2154)) ([2734610](https://github.com/contentful/field-editors/commit/27346106495039d0981797eb60fee9db0206204a))
+
 # [4.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.1.2...@contentful/field-editor-shared@4.2.0) (2026-04-30)
 
 ### Features
