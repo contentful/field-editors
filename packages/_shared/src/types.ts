@@ -27,7 +27,14 @@ export type ReleaseV2Entity = {
   action: 'publish' | 'unpublish';
 };
 
-export type ReleaseV2LocaleFields = string[] | { fields: { '*': string[] } };
+export type ReleaseV2LocaleFields =
+  | '*'
+  | string[]
+  | {
+      fields: {
+        '*': string[];
+      };
+    };
 
 export type ReleaseV2EntityWithLocales = {
   entity: {
