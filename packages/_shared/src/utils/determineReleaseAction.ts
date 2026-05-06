@@ -13,7 +13,10 @@ export function normalizeReleaseLocaleFields(value?: ReleaseV2LocaleFields): str
   if (Array.isArray(value)) {
     return value;
   }
-  return value.fields?.['*'] ?? [];
+  if (value === '*') {
+    return ['*'];
+  }
+  return value.fields['*'] ?? [];
 }
 
 type DetermineActionResult = {
