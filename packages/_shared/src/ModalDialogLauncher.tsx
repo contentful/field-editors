@@ -1,42 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-use-before-define */
 
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+import { flushSync } from 'react-dom';
+import { createRoot, Root } from 'react-dom/client';
 
 import { OpenCustomWidgetOptions } from '@contentful/app-sdk';
 import { Modal, ModalHeader } from '@contentful/f36-components';
 import isNumber from 'lodash/isNumber';
 
+const CLOSE_DELAY = 300;
+
 export function open(componentRenderer: (params: { onClose: Function; isShown: boolean }) => any) {
-  let rootDom: any = null;
+  let rootDom: HTMLDivElement | null = null;
+  let reactRoot: Root | null = null;
 
   const getRoot = () => {
     if (rootDom === null) {
       rootDom = document.createElement('div');
       rootDom.setAttribute('id', 'field-editor-modal-root');
       document.body.appendChild(rootDom);
+      reactRoot = createRoot(rootDom);
     }
-    return rootDom;
+    return reactRoot!;
   };
 
   return new Promise((resolve) => {
     let currentConfig = { onClose, isShown: true };
 
     function render({ onClose, isShown }: { onClose: Function; isShown: boolean }) {
-      // eslint-disable-next-line -- TODO: use createRoot instead here
-      ReactDOM.render(componentRenderer({ onClose, isShown }), getRoot());
+      flushSync(() => {
+        getRoot().render(componentRenderer({ onClose, isShown }));
+      });
     }
 
-    function onClose(...args: any[]) {
+    async function onClose(...args: any[]) {
       currentConfig = {
         ...currentConfig,
         isShown: false,
       };
       render(currentConfig);
-      // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      // @ts-expect-error -- resolve is called with variadic args from onClose
       resolve(...args);
-      getRoot().remove();
+      await new Promise((r) => setTimeout(r, CLOSE_DELAY));
+      reactRoot?.unmount();
+      rootDom?.remove();
     }
 
     render(currentConfig);
@@ -45,7 +52,7 @@ export function open(componentRenderer: (params: { onClose: Function; isShown: b
 
 export function openDialog<T>(
   options: OpenCustomWidgetOptions,
-  Component: React.FC<{ onClose: (result: T) => void }>
+  Component: React.FC<{ onClose: (result: T) => void }>,
 ) {
   const key = Date.now();
   const size = isNumber(options.width) ? `${options.width}px` : options.width;
