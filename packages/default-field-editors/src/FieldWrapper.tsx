@@ -71,7 +71,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = function (props: FieldW
 
       <ValidationErrors
         field={field}
-        cma={sdk.cma as PlainClientAPI}
+        cma={sdk.cma as unknown as PlainClientAPI}
         locales={sdk.locales}
         getEntryURL={getEntryURL || defaultGetEntryUrl}
       />
