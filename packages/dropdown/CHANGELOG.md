@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@3.0.5...@contentful/field-editor-dropdown@3.1.0) (2026-05-13)
+
+### Features
+
+- migrate from ReactDOM.render to createRoot API [TOL-2866] ([#2158](https://github.com/contentful/field-editors/issues/2158)) ([1569218](https://github.com/contentful/field-editors/commit/15692180d5ab7e21af2100cef707b992f56c0431))
+
 ## [3.0.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@3.0.4...@contentful/field-editor-dropdown@3.0.5) (2026-05-06)
 
 **Note:** Version bump only for package @contentful/field-editor-dropdown

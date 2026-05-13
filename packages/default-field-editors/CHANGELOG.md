@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@4.0.15...@contentful/default-field-editors@4.1.0) (2026-05-13)
+
+### Features
+
+- migrate from ReactDOM.render to createRoot API [TOL-2866] ([#2158](https://github.com/contentful/field-editors/issues/2158)) ([1569218](https://github.com/contentful/field-editors/commit/15692180d5ab7e21af2100cef707b992f56c0431))
+
 ## [4.0.15](https://github.com/contentful/field-editors/compare/@contentful/default-field-editors@4.0.14...@contentful/default-field-editors@4.0.15) (2026-05-06)
 
 **Note:** Version bump only for package @contentful/default-field-editors
