@@ -134,7 +134,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onAddToRelease,
     };
 
-    if (status === 'loading') {
+    if (status === 'loading' || (status as string) === 'pending') {
       return props.viewType === 'link' ? (
         <EntryCard size="small" isLoading />
       ) : (

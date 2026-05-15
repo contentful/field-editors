@@ -19,7 +19,7 @@ export function useResourceEntityInfo({ onEntityFetchComplete, target }: Resourc
     }
   }, [status, onEntityFetchComplete]);
 
-  if (status === 'loading') {
+  if (status === 'loading' || (status as string) === 'pending') {
     return `Loading entry...`;
   }
 
@@ -30,7 +30,7 @@ export function useResourceEntityInfo({ onEntityFetchComplete, target }: Resourc
   const title =
     truncateTitle(
       data.resource.fields[data.contentType.displayField]?.[data.defaultLocaleCode],
-      40
+      40,
     ) || 'Untitled';
 
   return `${data.contentType.name}: ${title} (Space: ${data.space.name} – Env.: ${data.resource.sys.environment.sys.id})`;

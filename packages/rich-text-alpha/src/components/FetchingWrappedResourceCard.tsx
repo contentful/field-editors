@@ -16,13 +16,13 @@ interface InternalEntryCard {
   isSelected: boolean;
   sdk: FieldAppSDK;
   data?: ResourceInfo<Entry>;
-  status: 'loading' | 'error' | 'success';
+  status: 'loading' | 'pending' | 'error' | 'success';
   onEdit?: VoidFunction;
   onRemove?: VoidFunction;
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  if (props.data === undefined || props.status === 'loading') {
+  if (props.data === undefined || props.status === 'loading' || props.status === 'pending') {
     return <EntryCard isLoading />;
   }
 
