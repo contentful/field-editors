@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.5...@contentful/field-editor-rich-text@6.3.6) (2026-05-18)
+
+### Bug Fixes
+
+- handle react-query v5 pending status in fetching cards [ES-262] ([#2159](https://github.com/contentful/field-editors/issues/2159)) ([209106f](https://github.com/contentful/field-editors/commit/209106fa5ccca9066c0e2485d188be42cfd44a2e))
+
 ## [6.3.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.4...@contentful/field-editor-rich-text@6.3.5) (2026-05-13)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
