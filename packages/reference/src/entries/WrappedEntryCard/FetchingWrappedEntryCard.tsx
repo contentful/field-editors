@@ -152,7 +152,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       }
       return card;
     }
-    if (status === 'loading') {
+    if (status === 'loading' || (status as string) === 'pending') {
       return <EntryCard size={size} isLoading />;
     }
 

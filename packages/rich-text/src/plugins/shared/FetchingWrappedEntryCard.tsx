@@ -131,7 +131,7 @@ const InternalFetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) 
     }
   }, [onEntityFetchComplete, status]);
 
-  if (status === 'loading' || status === 'idle') {
+  if (status === 'loading' || status === 'idle' || (status as string) === 'pending') {
     return <EntryCard isLoading />;
   }
 

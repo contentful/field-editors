@@ -116,7 +116,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
   }, [onEntityFetchComplete, status]);
 
-  if (status === 'loading' || status === 'idle') {
+  if (status === 'loading' || status === 'idle' || (status as string) === 'pending') {
     return <AssetCard size="default" isLoading />;
   }
 
