@@ -12,7 +12,8 @@ const style = css`
 
   ol,
   ul {
-    margin: 0 0 0 ${tokens.spacingL};
+    margin: 0;
+    margin-inline-start: ${tokens.spacingL};
   }
 `;
 
