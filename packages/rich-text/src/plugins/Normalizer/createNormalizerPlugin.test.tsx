@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { transformWrapIn } from '../../helpers/transformers';
 import { jsx, createTestEditor, mockPlugin, assertOutput } from '../../test-utils';
@@ -59,7 +60,7 @@ describe('Normalizer', () => {
         createTestEditor({
           input,
           plugins: [mockPlugin({ normalizer: rules }), createNormalizerPlugin()],
-        })
+        }),
       ).toThrow(/rule.match MUST be defined/);
     });
   });

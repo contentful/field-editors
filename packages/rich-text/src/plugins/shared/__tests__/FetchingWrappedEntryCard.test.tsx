@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { EntityProvider } from '@contentful/field-editor-reference';
-import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
+import { beforeEach, expect, test, vi } from 'vitest';
 
 import publishedCT from '../__fixtures__/published_content_type.json';
 import publishedEntry from '../__fixtures__/published_entry.json';
@@ -24,19 +24,19 @@ beforeEach(() => {
       },
     },
     cma: {
-      entry: { get: jest.fn().mockResolvedValue(publishedEntry) },
+      entry: { get: vi.fn().mockResolvedValue(publishedEntry) },
       scheduledAction: {
-        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
       },
       contentType: {
-        get: jest.fn().mockResolvedValue(publishedCT),
+        get: vi.fn().mockResolvedValue(publishedCT),
       },
     },
     space: {
-      getEntityScheduledActions: jest.fn().mockResolvedValue([]),
+      getEntityScheduledActions: vi.fn().mockResolvedValue([]),
     },
     navigator: {
-      onSlideInNavigation: jest.fn(),
+      onSlideInNavigation: vi.fn(),
     },
     ids: {
       space: 'space-id',

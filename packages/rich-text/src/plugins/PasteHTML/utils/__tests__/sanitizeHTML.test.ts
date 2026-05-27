@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { sanitizeHTML } from '../sanitizeHTML';
 
 describe('HTML Sanitization', () => {
@@ -30,7 +32,7 @@ describe('HTML Sanitization', () => {
 
     cases.forEach((case_) => {
       expect(sanitizeHTML(case_.input)).toBe(
-        case_.output === 'unchanged' ? case_.input : case_.output
+        case_.output === 'unchanged' ? case_.input : case_.output,
       );
     });
   });

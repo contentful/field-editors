@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { test } from 'vitest';
+
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 import { insertTableAndFocusFirstCell } from '../helpers';
 

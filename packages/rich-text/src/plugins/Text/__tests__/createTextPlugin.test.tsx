@@ -1,5 +1,7 @@
 /** @jsx jsx */
 
+import { describe, test } from 'vitest';
+
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 
 describe('delete backward', () => {

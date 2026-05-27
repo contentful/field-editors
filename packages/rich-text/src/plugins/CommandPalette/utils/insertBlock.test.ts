@@ -1,14 +1,17 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { describe, expect, it, vi } from 'vitest';
 
 import { PlateEditor } from '../../../internal/types';
 import { insertBlock } from './insertBlock';
 
-jest.mock('../../../helpers/editor', () => {
+vi.mock('../../../helpers/editor', async () => {
+  const actual =
+    await vi.importActual<typeof import('../../../helpers/editor')>('../../../helpers/editor');
   return {
     __esModule: true,
-    ...jest.requireActual('../../../helpers/editor'),
-    focus: jest.fn(),
+    ...actual,
+    focus: vi.fn(),
   };
 });
 

@@ -1,23 +1,28 @@
+import { afterEach, describe, expect, test, vi } from 'vitest';
+
 import * as internal from '../../internal/transforms';
 import { createTestEditor } from '../../test-utils';
 import { COMMAND_PROMPT } from './constants';
 import { createOnKeyDown } from './onKeyDown';
 
-jest.mock('../../internal/transforms', () => {
+vi.mock('../../internal/transforms', async () => {
+  const actual = await vi.importActual<typeof import('../../internal/transforms')>(
+    '../../internal/transforms',
+  );
   return {
     __esModule: true,
-    ...jest.requireActual('../../internal/transforms'),
+    ...actual,
   };
 });
 
 describe('onKeyDown', () => {
   const { editor } = createTestEditor({});
 
-  const addMark = jest.spyOn(internal, 'addMark');
-  const onCommandPaletteAction = jest.spyOn(editor.tracking, 'onCommandPaletteAction');
+  const addMark = vi.spyOn(internal, 'addMark');
+  const onCommandPaletteAction = vi.spyOn(editor.tracking, 'onCommandPaletteAction');
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   test.each`

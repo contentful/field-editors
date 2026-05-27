@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { EntityProvider } from '@contentful/field-editor-reference';
-import '@testing-library/jest-dom/extend-expect';
 import { configure, fireEvent, render, waitFor } from '@testing-library/react';
+import { beforeEach, expect, test, vi } from 'vitest';
 
 import publishedAsset from '../__fixtures__/published_asset.json';
 import { FetchingWrappedAssetCard } from '../FetchingWrappedAssetCard';
@@ -23,16 +23,16 @@ beforeEach(() => {
       },
     },
     cma: {
-      asset: { get: jest.fn().mockResolvedValue(publishedAsset) },
+      asset: { get: vi.fn().mockResolvedValue(publishedAsset) },
       scheduledAction: {
-        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
       },
     },
     space: {
-      getEntityScheduledActions: jest.fn().mockResolvedValue([]),
+      getEntityScheduledActions: vi.fn().mockResolvedValue([]),
     },
     navigator: {
-      onSlideInNavigation: jest.fn(),
+      onSlideInNavigation: vi.fn(),
     },
     ids: {
       space: 'space-id',

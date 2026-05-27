@@ -1,14 +1,17 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { describe, expect, it, vi } from 'vitest';
 
 import { PlateEditor } from '../../../internal/types';
 import { selectEntityAndInsert } from '../EmbeddedBlockUtil';
 
-jest.mock('../../../helpers/editor', () => {
+vi.mock('../../../helpers/editor', async () => {
+  const actual =
+    await vi.importActual<typeof import('../../../helpers/editor')>('../../../helpers/editor');
   return {
     __esModule: true,
-    ...jest.requireActual('../../../helpers/editor'),
-    focus: jest.fn(),
+    ...actual,
+    focus: vi.fn(),
   };
 });
 
@@ -31,14 +34,14 @@ describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
     const sdk: any = {
       field: { locale: 'en-US', validations: [] },
       dialogs: {
-        selectSingleEntry: jest.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } })),
+        selectSingleEntry: vi.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } })),
       },
       navigator: {
-        onSlideInNavigation: jest.fn(() => () => {}),
+        onSlideInNavigation: vi.fn(() => () => {}),
       },
     };
 
-    const logAction = jest.fn();
+    const logAction = vi.fn();
 
     await selectEntityAndInsert(BLOCKS.EMBEDDED_ENTRY, sdk, editor, logAction);
 
@@ -77,14 +80,14 @@ describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
     const sdk: any = {
       field: { locale: 'en-US', validations: [] },
       dialogs: {
-        selectSingleEntry: jest.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } })),
+        selectSingleEntry: vi.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } })),
       },
       navigator: {
-        onSlideInNavigation: jest.fn(() => () => {}),
+        onSlideInNavigation: vi.fn(() => () => {}),
       },
     };
 
-    const logAction = jest.fn();
+    const logAction = vi.fn();
 
     await selectEntityAndInsert(BLOCKS.EMBEDDED_ENTRY, sdk, editor, logAction);
 

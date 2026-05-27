@@ -1,5 +1,6 @@
 import { NavigatorAPI, NavigatorSlideInfo } from '@contentful/app-sdk';
 import mitt from 'mitt';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { watchCurrentSlide } from './sdkNavigatorSlideIn';
 
@@ -138,7 +139,7 @@ describe('watchCurrentSlide().onActive()', () => {
     const fakeNavigator = createFakeNavigatorAPI();
     api = fakeNavigator[0];
     fake = fakeNavigator[1];
-    spy = jest.fn();
+    spy = vi.fn();
   });
 
   it('fires initially if there was no slide event', () => {
@@ -218,8 +219,8 @@ describe('watchCurrentSlide().unwatch()', () => {
   it('does not fire outstanding onActive after unwatch()', () => {
     const slide = watchCurrentSlide(api);
     const slide2 = watchCurrentSlide(api);
-    const spy = jest.fn();
-    const spy2 = jest.fn();
+    const spy = vi.fn();
+    const spy2 = vi.fn();
 
     fake.slideIn({
       oldSlideLevel: 0,
