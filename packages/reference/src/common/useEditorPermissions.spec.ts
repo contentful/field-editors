@@ -1,6 +1,7 @@
 import { AccessAPI, ContentType, FieldAPI } from '@contentful/app-sdk';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { renderHook } from '@testing-library/react-hooks';
+import { describe, expect, it, vi, type Mocked } from 'vitest';
 
 import { FieldAppSDK } from '../types';
 import { EditorPermissionsProps, useEditorPermissions } from './useEditorPermissions';
@@ -11,22 +12,22 @@ type ExtendedAccessAPI = AccessAPI & {
 
 describe('useEditorPermissions', () => {
   type MockedFieldAppSDK = Omit<FieldAppSDK, 'access'> & {
-    access: jest.Mocked<ExtendedAccessAPI>;
+    access: Mocked<ExtendedAccessAPI>;
   };
 
   const makeFieldAppSDK = (customizeMock?: (fieldApi: FieldAPI) => FieldAPI) =>
     ({
       field: createFakeFieldAPI(customizeMock)[0],
       access: {
-        can: jest.fn().mockResolvedValue(true),
-        canPerformActionOnEntryOfType: jest.fn().mockResolvedValue(true),
+        can: vi.fn().mockResolvedValue(true),
+        canPerformActionOnEntryOfType: vi.fn().mockResolvedValue(true),
       },
-    } as unknown as MockedFieldAppSDK);
+    }) as unknown as MockedFieldAppSDK;
 
   const makeContentType = (id: string) =>
     ({
       sys: { id },
-    } as ContentType);
+    }) as ContentType;
 
   const renderEditorPermissions = async ({
     entityType,
@@ -51,7 +52,7 @@ describe('useEditorPermissions', () => {
         allContentTypes,
         entityType,
         parameters: { instance: params },
-      })
+      }),
     );
 
     if (waitForUpdate) {
@@ -109,7 +110,7 @@ describe('useEditorPermissions', () => {
           }
 
           return false;
-        }
+        },
       );
     };
 

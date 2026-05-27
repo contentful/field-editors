@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
-import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
 
 import { useResource } from '../common/EntityStore';
 import { useEditorPermissions } from '../common/useEditorPermissions';
@@ -11,30 +11,33 @@ import { createFakeEntryResource, mockSdkForField } from './testHelpers/resource
 
 const mockedResources: Record<string, unknown> = {};
 
-jest.mock('../common/EntityStore', () => {
-  const module = jest.requireActual('../common/EntityStore');
+vi.mock('../common/EntityStore', async () => {
+  const actual =
+    await vi.importActual<typeof import('../common/EntityStore')>('../common/EntityStore');
 
   return {
-    ...module,
-    useResource: jest.fn((linkType: string, urn: string) => ({
+    ...actual,
+    useResource: vi.fn((linkType: string, urn: string) => ({
       data: mockedResources[`${linkType}.${urn}`],
       status: 'success',
     })),
   };
 });
 
-jest.mock('react-intersection-observer', () => {
-  const module = jest.requireActual('react-intersection-observer');
+vi.mock('react-intersection-observer', async () => {
+  const actual = await vi.importActual<typeof import('react-intersection-observer')>(
+    'react-intersection-observer',
+  );
 
   return {
-    ...module,
+    ...actual,
     useInView: () => ({ inView: true }),
   };
 });
 
-jest.mock('../common/useEditorPermissions', () => {
+vi.mock('../common/useEditorPermissions', () => {
   return {
-    useEditorPermissions: jest.fn(),
+    useEditorPermissions: vi.fn(),
   };
 });
 
@@ -52,7 +55,7 @@ const fieldDefinition = {
   validations: [],
 };
 
-const mockedUseEditorPermissions = useEditorPermissions as jest.Mock;
+const mockedUseEditorPermissions = useEditorPermissions as Mock;
 
 beforeEach(() => {
   mockedUseEditorPermissions.mockImplementation(() => ({ canLinkEntity: true }));
@@ -151,7 +154,7 @@ describe('Single resource editor', () => {
         hasCardEditActions={true}
         viewType="card"
         apiUrl="test-contentful"
-        getEntryRouteHref={jest.fn()}
+        getEntryRouteHref={vi.fn()}
         // @ts-expect-error unused...
         parameters={{}}
       />,

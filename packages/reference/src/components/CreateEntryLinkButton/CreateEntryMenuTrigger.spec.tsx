@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { Button } from '@contentful/f36-components';
-import '@testing-library/jest-dom/extend-expect';
 import { act, configure, fireEvent, render } from '@testing-library/react';
 import noop from 'lodash/noop';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // eslint-disable-next-line -- TODO: describe this disable  you-dont-need-lodash-underscore/fill
 import fill from 'lodash/fill';
@@ -44,9 +44,9 @@ describe('CreateEntryMenuTrigger general', () => {
     },
   };
 
-  let stub = jest.fn();
+  let stub = vi.fn();
   beforeEach(() => {
-    stub = jest.fn().mockImplementation(() => <Button testId="menu-trigger" />);
+    stub = vi.fn().mockImplementation(() => <Button testId="menu-trigger" />);
   });
 
   it('shares the state and functions for the menu', () => {
@@ -60,7 +60,7 @@ describe('CreateEntryMenuTrigger general', () => {
   });
 
   it('should set isSelecting to true in case onSelect returns a promise', async () => {
-    const selectStub = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+    const selectStub = vi.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
 
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
@@ -78,7 +78,7 @@ describe('CreateEntryMenuTrigger general', () => {
   });
 
   it('should not set isSelecting to true in case onSelect is sync', async () => {
-    const selectStub = jest.fn();
+    const selectStub = vi.fn();
 
     const { getAllByTestId, getByTestId } = render(
       <CreateEntryMenuTrigger {...props} onSelect={selectStub}>
