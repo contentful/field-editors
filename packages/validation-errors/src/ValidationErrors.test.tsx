@@ -1,10 +1,10 @@
 /* eslint-disable jest/expect-expect */
 import * as React from 'react';
 
-import '@testing-library/jest-dom/extend-expect';
 import { ValidationError } from '@contentful/app-sdk';
 import * as utils from '@contentful/field-editor-test-utils';
 import { render, configure, cleanup, act } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { ValidationErrors } from './ValidationErrors';
 
@@ -33,10 +33,10 @@ const createEntry = (id: string) => ({
 
 const cma = {
   entry: {
-    getMany: jest.fn().mockReturnValue({ items: [] }),
+    getMany: vi.fn().mockReturnValue({ items: [] }),
   },
   contentType: {
-    getMany: jest.fn().mockResolvedValue({
+    getMany: vi.fn().mockResolvedValue({
       items: [
         {
           sys: {
