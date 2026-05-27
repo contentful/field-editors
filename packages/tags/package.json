@@ -31,8 +31,8 @@
     "build:types": "tsc --outDir dist/types --emitDeclarationOnly",
     "build:cjs": "swc src --config-file ../../.swcrc -d dist/cjs -C module.type=commonjs",
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
-    "test": "jest --watch",
-    "test:ci": "jest --ci --passWithNoTests",
+    "test": "vitest",
+    "test:ci": "vitest run --passWithNoTests",
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
