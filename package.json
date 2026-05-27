@@ -185,7 +185,7 @@
     }
   },
   "volta": {
-    "node": "20",
+    "node": "24",
     "yarn": "1.21.1"
   },
   "publishConfig": {
