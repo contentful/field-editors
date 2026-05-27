@@ -3,6 +3,7 @@ import * as React from 'react';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { act, render } from '@testing-library/react';
 import noop from 'lodash/noop';
+import { expect, it, vi } from 'vitest';
 
 import { FieldConnector, FieldConnectorChildProps } from './FieldConnector';
 
@@ -11,7 +12,7 @@ function getChild(children: any): FieldConnectorChildProps<any> {
 }
 
 it('does not rerender with outdated value after calling setValue', async () => {
-  const onSchemaErrorsChanged = jest.fn();
+  const onSchemaErrorsChanged = vi.fn();
   const [field] = createFakeFieldAPI((field: any) => {
     return {
       ...field,
@@ -23,7 +24,7 @@ it('does not rerender with outdated value after calling setValue', async () => {
 
   const props = {
     isInitiallyDisabled: false,
-    children: jest.fn().mockImplementation(() => null),
+    children: vi.fn().mockImplementation(() => null),
     field,
     debounce: 0,
   };
@@ -52,13 +53,13 @@ it('takes initial disable state from sdk.field', () => {
     return {
       ...field,
       // this promise never resolves
-      getIsDisabled: jest.fn().mockReturnValue(true),
+      getIsDisabled: vi.fn().mockReturnValue(true),
     };
   }, 'initial value');
 
   const props = {
     isInitiallyDisabled: false,
-    children: jest.fn().mockImplementation(() => null),
+    children: vi.fn().mockImplementation(() => null),
     field,
     debounce: 0,
   };
@@ -74,6 +75,6 @@ it('takes initial disable state from sdk.field', () => {
   expect(props.children).toHaveBeenCalledWith(
     expect.objectContaining({
       disabled: true,
-    })
+    }),
   );
 });

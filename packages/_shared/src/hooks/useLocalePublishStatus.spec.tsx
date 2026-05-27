@@ -1,6 +1,7 @@
 import type { LocalesAPI } from '@contentful/app-sdk';
 import { renderHook } from '@testing-library/react-hooks';
 import { AssetProps } from 'contentful-management';
+import { describe, expect, it } from 'vitest';
 
 import { useLocalePublishStatus } from './useLocalePublishStatus';
 

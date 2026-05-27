@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { getEntityStatus, getResolvedImageUrl, type EntitySys } from './entityHelpers';
 
 describe('getEntityStatus', () => {
