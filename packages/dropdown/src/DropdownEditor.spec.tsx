@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { DropdownEditor } from './DropdownEditor';
 
@@ -22,7 +22,7 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('DropdownEditor', () => {
       };
     });
     const { container, getByText } = render(
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expect(container.querySelectorAll('option')).toHaveLength(4);
@@ -50,15 +50,15 @@ describe('DropdownEditor', () => {
 
   it('calls setValue if user select on default option', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [{ in: ['initial'] }],
       };
     });
     const { getByTestId } = render(
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
     const changeDropdownValue = (value: string) =>
       fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
@@ -71,7 +71,7 @@ describe('DropdownEditor', () => {
 
   it('calls removeValue if user selects default option', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         getValue: () => 'initial',
@@ -79,7 +79,7 @@ describe('DropdownEditor', () => {
       };
     });
     const { getByTestId } = render(
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
     const changeDropdownValue = (value: string) =>
       fireEvent.change(getByTestId('dropdown-editor'), { target: { value } });
@@ -91,8 +91,8 @@ describe('DropdownEditor', () => {
   it('calls #setValue with number for Number fields', function () {
     const predefined = [1, '2.71', 3];
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         type: 'Number',
@@ -101,7 +101,7 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId } = render(
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     const $editorInput = getByTestId('dropdown-editor');
@@ -119,8 +119,8 @@ describe('DropdownEditor', () => {
   it('calls #setValue with number for Integer fields', function () {
     const predefined = [0, 1, '2', 3];
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         type: 'Number',
@@ -129,7 +129,7 @@ describe('DropdownEditor', () => {
     });
 
     const { getByTestId } = render(
-      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <DropdownEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     const $editorInput = getByTestId('dropdown-editor');
