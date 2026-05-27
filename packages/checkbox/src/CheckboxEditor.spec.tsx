@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { CheckboxEditor } from './CheckboxEditor';
 
@@ -26,7 +26,7 @@ describe('CheckboxEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -46,7 +46,7 @@ describe('CheckboxEditor', () => {
       };
     });
     const { container } = render(
-      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     const $inputs = container.querySelectorAll('input[type="checkbox"]');
@@ -60,8 +60,8 @@ describe('CheckboxEditor', () => {
   it('calls setValue for every check event and removeValue if all items are unclicked', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
     const [field] = createFakeFieldAPI((mock) => {
-      jest.spyOn(mock, 'setValue');
-      jest.spyOn(mock, 'removeValue');
+      vi.spyOn(mock, 'setValue');
+      vi.spyOn(mock, 'removeValue');
       return {
         ...mock,
         items: {
@@ -72,7 +72,7 @@ describe('CheckboxEditor', () => {
       };
     });
     const { container } = render(
-      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     const $inputs = container.querySelectorAll('input[type="checkbox"]');
@@ -103,8 +103,8 @@ describe('CheckboxEditor', () => {
   it('renders invalid text and remove link when value set is not in predefined values', () => {
     const predefined = ['banana', 'orange', 'strawberry'];
     const [field] = createFakeFieldAPI((mock) => {
-      jest.spyOn(mock, 'setValue');
-      jest.spyOn(mock, 'removeValue');
+      vi.spyOn(mock, 'setValue');
+      vi.spyOn(mock, 'removeValue');
       return {
         ...mock,
         items: {
@@ -119,7 +119,7 @@ describe('CheckboxEditor', () => {
     field.setValue(['mango']);
 
     const { getByTestId } = render(
-      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <CheckboxEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expect(getByTestId('invalid-text')).toBeInTheDocument();
@@ -146,7 +146,7 @@ describe('CheckboxEditor', () => {
       <div>
         <CheckboxEditor field={field} locales={locales} isInitiallyDisabled={false} />
         <CheckboxEditor field={field} locales={locales} isInitiallyDisabled={false} />
-      </div>
+      </div>,
     );
 
     const $labels = await findAllByTestId('cf-ui-checkbox');
