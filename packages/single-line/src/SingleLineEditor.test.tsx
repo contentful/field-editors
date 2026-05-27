@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import '@testing-library/jest-dom/extend-expect';
 import { SingleLineEditor } from './SingleLineEditor';
 
 configure({
@@ -26,7 +26,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
   });
 
@@ -49,7 +49,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(getByTestId('cf-ui-text-input')).toHaveValue(initialValue);
@@ -59,8 +59,8 @@ describe('SingleLineEditor', () => {
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         id: 'field-id',
@@ -73,7 +73,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     const $input = getByTestId('cf-ui-text-input');
@@ -115,7 +115,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(getByText('0 characters')).toBeInTheDocument();
@@ -136,7 +136,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(getByText('0 characters')).toBeInTheDocument();
@@ -165,7 +165,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(getByText('0 characters')).toBeInTheDocument();
@@ -193,7 +193,7 @@ describe('SingleLineEditor', () => {
         field={field}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(getByText('0 characters')).toBeInTheDocument();
@@ -223,7 +223,7 @@ describe('SingleLineEditor', () => {
         withCharValidation={false}
         isInitiallyDisabled={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(getByText('0 characters')).toBeInTheDocument();
@@ -254,7 +254,7 @@ describe('SingleLineEditor', () => {
         isInitiallyDisabled={false}
         withCharInformation={false}
         locales={createFakeLocalesAPI()}
-      />
+      />,
     );
 
     expect(queryByText('0 characters')).not.toBeInTheDocument();
