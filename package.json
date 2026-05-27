@@ -76,6 +76,8 @@
     "@types/webpack-env": "1.18.4",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
+    "@vitejs/plugin-react-swc": "^4.3.1",
+    "@vitest/eslint-plugin": "^1.6.18",
     "ajv": "8.17.1",
     "concurrently": "8.0.1",
     "contentful-cli": "3.3.8",
@@ -106,6 +108,7 @@
     "jest-cli": "30.2.0",
     "jest-environment-jsdom": "29.5.0",
     "jest-junit": "16.0.0",
+    "jsdom": "^29.1.1",
     "lerna": "8.1.3",
     "lint-staged": "15.5.0",
     "mocha": "10.6.0",
@@ -130,6 +133,8 @@
     "tslib": "2.6.3",
     "type-fest": "4.26.1",
     "typescript": "5.3.3",
+    "vite": "^8.0.14",
+    "vitest": "^4.1.7",
     "webpack": "5.104.1"
   },
   "resolutions": {
