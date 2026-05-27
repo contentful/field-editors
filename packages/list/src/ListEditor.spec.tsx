@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import {
   RenderResult,
   cleanup,
@@ -10,6 +9,7 @@ import {
   render,
   waitFor,
 } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { ListEditor } from './ListEditor';
 
@@ -63,8 +63,8 @@ describe('ListEditor', () => {
 
   it('calls setValue and removeValue when user inputs data', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [],
@@ -92,7 +92,7 @@ describe('ListEditor', () => {
   it('keeps trailing commas', () => {
     const [field] = createFakeFieldAPI(
       (field) => {
-        jest.spyOn(field, 'setValue');
+        vi.spyOn(field, 'setValue');
         return {
           ...field,
           validations: [],
@@ -114,7 +114,7 @@ describe('ListEditor', () => {
   it('listens to external changes', async () => {
     const [field] = createFakeFieldAPI(
       (field) => {
-        jest.spyOn(field, 'setValue');
+        vi.spyOn(field, 'setValue');
         return {
           ...field,
           validations: [],
