@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import '@testing-library/jest-dom/extend-expect';
 import { configure, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { MarkdownToolbar } from './MarkdownToolbar';
 
@@ -16,41 +16,41 @@ const createProps = () => ({
   mode: 'default' as const,
   actions: {
     headings: {
-      h1: jest.fn(),
-      h2: jest.fn(),
-      h3: jest.fn(),
+      h1: vi.fn(),
+      h2: vi.fn(),
+      h3: vi.fn(),
     },
     simple: {
-      bold: jest.fn(),
-      italic: jest.fn(),
-      quote: jest.fn(),
-      ol: jest.fn(),
-      ul: jest.fn(),
-      strike: jest.fn(),
-      code: jest.fn(),
-      hr: jest.fn(),
-      indent: jest.fn(),
-      dedent: jest.fn(),
+      bold: vi.fn(),
+      italic: vi.fn(),
+      quote: vi.fn(),
+      ol: vi.fn(),
+      ul: vi.fn(),
+      strike: vi.fn(),
+      code: vi.fn(),
+      hr: vi.fn(),
+      indent: vi.fn(),
+      dedent: vi.fn(),
     },
     history: {
-      undo: jest.fn(),
-      redo: jest.fn(),
+      undo: vi.fn(),
+      redo: vi.fn(),
     },
-    insertLink: jest.fn(),
-    insertSpecialCharacter: jest.fn(),
-    insertTable: jest.fn(),
-    organizeLinks: jest.fn(),
-    embedExternalContent: jest.fn(),
-    linkExistingMedia: jest.fn(),
-    addNewMedia: jest.fn(),
-    openZenMode: jest.fn(),
-    closeZenMode: jest.fn(),
+    insertLink: vi.fn(),
+    insertSpecialCharacter: vi.fn(),
+    insertTable: vi.fn(),
+    organizeLinks: vi.fn(),
+    embedExternalContent: vi.fn(),
+    linkExistingMedia: vi.fn(),
+    addNewMedia: vi.fn(),
+    openZenMode: vi.fn(),
+    closeZenMode: vi.fn(),
   },
 });
 
 describe('MarkdownToolbar', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('opens the heading menu and calls the selected heading action', async () => {
