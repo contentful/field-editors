@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { act, cleanup, configure, render } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { FieldWrapper } from './FieldWrapper';
 
@@ -32,7 +32,7 @@ describe('Field', () => {
     const { queryByTestId } = render(
       <FieldWrapper name="field" sdk={sdk} getEntryURL={getEntryURL}>
         <div data-test-id="children">children</div>
-      </FieldWrapper>
+      </FieldWrapper>,
     );
     // Add a validation error so ValidationErrors would render
     act(() => {
@@ -55,7 +55,7 @@ describe('Field', () => {
         renderHeading={() => <div data-test-id="custom-label">custom label</div>}
       >
         <div>children</div>
-      </FieldWrapper>
+      </FieldWrapper>,
     );
     expect(queryByTestId('custom-label')).toBeInTheDocument();
   });
@@ -69,7 +69,7 @@ describe('Field', () => {
         renderHelpText={() => <div data-test-id="custom-hint">custom hint</div>}
       >
         <div>children</div>
-      </FieldWrapper>
+      </FieldWrapper>,
     );
     expect(queryByTestId('custom-hint')).toBeInTheDocument();
   });

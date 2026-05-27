@@ -3,8 +3,8 @@ import * as React from 'react';
 import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi, type Mock } from 'vitest';
 
 import { Field } from './Field';
 
@@ -12,9 +12,15 @@ configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock('@contentful/field-editor-reference', () => ({
-  SingleEntryReferenceEditor: jest.fn(() => <div>mock</div>),
-}));
+vi.mock('@contentful/field-editor-reference', async () => {
+  const actual = await vi.importActual<typeof import('@contentful/field-editor-reference')>(
+    '@contentful/field-editor-reference',
+  );
+  return {
+    ...actual,
+    SingleEntryReferenceEditor: vi.fn(() => <div>mock</div>),
+  };
+});
 
 const getSdk = (customize?: (field: any) => any, initialValue?: any) => {
   const [field] = createFakeFieldAPI(customize, initialValue);
@@ -43,7 +49,7 @@ describe('Field', () => {
         renderFieldEditor={() => {
           return <div data-test-id="customEditor">custom editor</div>;
         }}
-      />
+      />,
     );
 
     expect(queryByTestId('customEditor')).toBeInTheDocument();
@@ -54,8 +60,8 @@ describe('Field', () => {
 
     const options = {
       entryLinkEditor: {
-        onAction: jest.fn(),
-        renderCustomCard: jest.fn(),
+        onAction: vi.fn(),
+        renderCustomCard: vi.fn(),
       },
     };
     render(
@@ -64,9 +70,9 @@ describe('Field', () => {
         isInitiallyDisabled={false}
         widgetId="entryLinkEditor"
         getOptions={() => options}
-      />
+      />,
     );
-    expect((SingleEntryReferenceEditor as unknown as jest.Mock).mock.calls[0][0]).toMatchObject({
+    expect((SingleEntryReferenceEditor as unknown as Mock).mock.calls[0][0]).toMatchObject({
       onAction: options.entryLinkEditor.onAction,
       renderCustomCard: options.entryLinkEditor.renderCustomCard,
     } as Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>);
@@ -82,7 +88,7 @@ describe('Field', () => {
           field.locale = 'en-US';
           return field;
         }, 'english value')}
-      />
+      />,
     );
 
     expect(container.querySelector('input')?.value).toBe('english value');
@@ -94,7 +100,7 @@ describe('Field', () => {
           field.locale = 'de';
           return field;
         }, 'german value')}
-      />
+      />,
     );
 
     expect(container.querySelector('input')?.value).toBe('german value');
