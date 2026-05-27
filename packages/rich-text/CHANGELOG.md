@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.6...@contentful/field-editor-rich-text@6.3.7) (2026-05-27)
+
+### Bug Fixes
+
+- **rich-text:** list indentation in RTL [ES-319] ([#2166](https://github.com/contentful/field-editors/issues/2166)) ([7116ed5](https://github.com/contentful/field-editors/commit/7116ed53e710fc8d0c9cf18fa13e21a9ccd0d53d))
+
 ## [6.3.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.5...@contentful/field-editor-rich-text@6.3.6) (2026-05-18)
 
 ### Bug Fixes

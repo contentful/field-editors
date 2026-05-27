@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text-alpha",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
