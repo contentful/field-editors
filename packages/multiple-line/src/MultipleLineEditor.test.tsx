@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import '@testing-library/jest-dom/extend-expect';
 import { MultipleLineEditor } from './MultipleLineEditor';
 
 configure({
@@ -20,7 +20,7 @@ describe('MultipleLineEditor', () => {
         field={field}
         locales={createFakeLocalesAPI()}
         isInitiallyDisabled={false}
-      />
+      />,
     );
   });
 
@@ -42,7 +42,7 @@ describe('MultipleLineEditor', () => {
         field={field}
         locales={createFakeLocalesAPI()}
         isInitiallyDisabled={false}
-      />
+      />,
     );
 
     expect(getByTestId('cf-ui-textarea')).toHaveValue(initialValue);
@@ -50,8 +50,8 @@ describe('MultipleLineEditor', () => {
 
   it('calls field.setValue when user types and calls field.removeValue when user clears the input', async () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         id: 'field-id',
@@ -63,7 +63,7 @@ describe('MultipleLineEditor', () => {
         field={field}
         locales={createFakeLocalesAPI()}
         isInitiallyDisabled={false}
-      />
+      />,
     );
 
     const $input = getByTestId('cf-ui-textarea');
