@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { BooleanEditor } from './BooleanEditor';
 
@@ -16,7 +16,7 @@ describe('BooleanEditor', () => {
   it('renders inputs for true and false values', () => {
     const [field] = createFakeFieldAPI();
     const { container, getByLabelText } = render(
-      <BooleanEditor field={field} isInitiallyDisabled={false} />
+      <BooleanEditor field={field} isInitiallyDisabled={false} />,
     );
 
     const $inputs = container.querySelectorAll('input[type="radio"]');
@@ -33,8 +33,8 @@ describe('BooleanEditor', () => {
 
   it('calls setValue and removeValue properly', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
       };
@@ -51,7 +51,7 @@ describe('BooleanEditor', () => {
             falseLabel: 'No, of course',
           },
         }}
-      />
+      />,
     );
 
     expect(queryByText('Clear')).not.toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('BooleanEditor', () => {
     }, true);
 
     const { getByTestId, getByLabelText } = render(
-      <BooleanEditor field={field} isInitiallyDisabled={true} />
+      <BooleanEditor field={field} isInitiallyDisabled={true} />,
     );
 
     expect(getByLabelText('Yes')).toBeDisabled();
