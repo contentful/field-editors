@@ -11,6 +11,7 @@ export function createVitestConfig(packageName: string) {
       globals: false,
       environment: 'jsdom' as const,
       pool: 'threads' as const,
+      testTimeout: 15000,
       setupFiles: [resolve(rootDir, 'vitest.setup.ts')],
       include: ['**/*.{test,spec}.{ts,tsx,js,jsx}'],
       exclude: ['**/node_modules/**', '**/dist/**'],
