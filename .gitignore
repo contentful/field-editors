@@ -24,3 +24,4 @@ snapshots.js
 .swc
 claude.md
 .worktrees
+tmp/

@@ -1,14 +1,16 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { formatDate, formatDateAndTime, formatTime } from './formatDateAndTime';
 
 const TODAY = new Date('2024-06-15T12:00:00.000Z');
 
 beforeEach(() => {
-  jest.useFakeTimers();
-  jest.setSystemTime(TODAY);
+  vi.useFakeTimers();
+  vi.setSystemTime(TODAY);
 });
 
 afterEach(() => {
-  jest.useRealTimers();
+  vi.useRealTimers();
 });
 
 describe('formatDate', () => {

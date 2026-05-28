@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { RatingEditor } from './RatingEditor';
 
@@ -33,8 +33,8 @@ describe('RatingEditor', () => {
 
   it('should setValue by clicking on a item and removeValue by clicking on clear', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
       };
@@ -64,8 +64,8 @@ describe('RatingEditor', () => {
 
   it('should should setValue by focusing and using Enter', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
       };

@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom';
 import { cleanup, configure, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { NumberEditor } from './NumberEditor';
 
@@ -19,9 +19,9 @@ function createField({
   type?: 'Number' | 'Integer';
 }) {
   const [field] = createFakeFieldAPI((field) => {
-    jest.spyOn(field, 'setValue');
-    jest.spyOn(field, 'removeValue');
-    jest.spyOn(field, 'setInvalid');
+    vi.spyOn(field, 'setValue');
+    vi.spyOn(field, 'removeValue');
+    vi.spyOn(field, 'setInvalid');
     return {
       ...field,
       type,

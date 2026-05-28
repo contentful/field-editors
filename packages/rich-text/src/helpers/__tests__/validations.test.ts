@@ -1,5 +1,6 @@
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 import { MARKS } from '@contentful/rich-text-types';
+import { describe, expect, it } from 'vitest';
 
 import { isMarkEnabled } from '../validations';
 

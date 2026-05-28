@@ -1,35 +1,38 @@
-/* eslint-disable */
+import { cleanup } from '@testing-library/react';
+import { afterEach, vi } from 'vitest';
 
-// Mock Lingui's t function for tests
-jest.mock('@lingui/core/macro', () => ({
-  t: jest.fn((obj) => {
+import '@testing-library/jest-dom/vitest';
+
+afterEach(() => {
+  cleanup();
+});
+
+vi.mock('@lingui/core/macro', () => ({
+  t: vi.fn((obj) => {
     if (typeof obj === 'object' && obj.message) {
       return obj.message;
     }
     return obj;
   }),
-  plural: jest.fn((count, obj) => {
+  plural: vi.fn((count, obj) => {
     if (typeof obj === 'object') {
-      // For plural, return 'one' if count is 1, otherwise 'other'
       const form = count === 1 ? 'one' : 'other';
       const message = obj[form] || obj.other || obj.one || '';
-      // Replace # placeholder with the actual count
       return message.replace(/#/g, count);
     }
     return obj;
   }),
 }));
 
-// Mock Lingui's i18n instance
-jest.mock('@lingui/core', () => ({
+vi.mock('@lingui/core', () => ({
   i18n: {
-    _: jest.fn((obj) => {
+    _: vi.fn((obj) => {
       if (typeof obj === 'object' && obj.message) {
         return obj.message;
       }
       return obj;
     }),
-    activate: jest.fn(),
-    load: jest.fn(),
+    activate: vi.fn(),
+    load: vi.fn(),
   },
 }));

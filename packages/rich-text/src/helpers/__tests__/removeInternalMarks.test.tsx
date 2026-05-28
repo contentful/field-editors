@@ -2,6 +2,7 @@
 /** @jsx jsx */
 
 import { toContentfulDocument } from '@contentful/contentful-slatejs-adapter';
+import { describe, expect, it } from 'vitest';
 
 import { COMMAND_PROMPT } from '../../plugins/CommandPalette/constants';
 import { jsx } from '../../test-utils';

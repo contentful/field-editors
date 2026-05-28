@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
+import { describe, it } from 'vitest';
+
 import { assertOutput, jsx } from '../../../test-utils';
 
 describe('normalization', () => {

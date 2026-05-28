@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import '@testing-library/jest-dom';
 import {
   act,
   configure,
@@ -10,6 +9,7 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import noop from 'lodash/noop';
+import { describe, expect, it, vi } from 'vitest';
 
 import { ContentType } from '../../types';
 import { CreateEntryLinkButton } from './CreateEntryLinkButton';
@@ -48,14 +48,14 @@ describe('CreateEntryLinkButton general', () => {
     const menuItems = menu.querySelectorAll('[data-test-id="contentType"]');
     expect(menuItems).toHaveLength(props.contentTypes.length);
     menuItems.forEach((item, index) =>
-      expect(item.textContent).toBe(props.contentTypes[index].name)
+      expect(item.textContent).toBe(props.contentTypes[index].name),
     );
   });
 
   it('renders suggestedContentType as text when given', () => {
     const suggestedContentTypeId = 'ID_2';
     const { getByTestId } = render(
-      <CreateEntryLinkButton {...props} suggestedContentTypeId={suggestedContentTypeId} />
+      <CreateEntryLinkButton {...props} suggestedContentTypeId={suggestedContentTypeId} />,
     );
     expect(getByTestId('create-entry-button-menu-trigger')).toBeDefined();
     const button = findButton(getByTestId);
@@ -65,7 +65,7 @@ describe('CreateEntryLinkButton general', () => {
 
   it('renders the name of the content type as part of the text if only 1 content type is given', () => {
     const { getByTestId } = render(
-      <CreateEntryLinkButton onSelect={props.onSelect} contentTypes={[CONTENT_TYPE_1]} />
+      <CreateEntryLinkButton onSelect={props.onSelect} contentTypes={[CONTENT_TYPE_1]} />,
     );
     expect(getByTestId('create-entry-button-menu-trigger')).toBeDefined();
     const button = findButton(getByTestId);
@@ -100,9 +100,9 @@ describe('CreateEntryLinkButton with multiple entries', () => {
   });
 
   it('calls onSelect after click on menu item', () => {
-    const selectSpy = jest.fn();
+    const selectSpy = vi.fn();
     const { getByTestId, getAllByTestId } = render(
-      <CreateEntryLinkButton {...props} onSelect={selectSpy} />
+      <CreateEntryLinkButton {...props} onSelect={selectSpy} />,
     );
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(getAllByTestId('contentType')[1]);
@@ -119,21 +119,21 @@ describe('CreateEntryLinkButton with a single entry', () => {
   };
 
   it('should fire the onSelect function when clicked', () => {
-    const onSelectStub = jest.fn();
+    const onSelectStub = vi.fn();
     const { getByTestId } = render(<CreateEntryLinkButton {...props} onSelect={onSelectStub} />);
     fireEvent.click(findButton(getByTestId));
     expect(onSelectStub).toHaveBeenCalledWith(props.contentTypes[0].sys.id);
     expect(() => getByTestId('cf-ui-spinner')).toThrow(
-      'Unable to find an element by: [data-test-id="cf-ui-spinner"]'
+      'Unable to find an element by: [data-test-id="cf-ui-spinner"]',
     );
   });
 });
 
 describe('CreateEntryLinkButton common', () => {
   it('should render a spinner if onSelect returns a promise', async () => {
-    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
+    const onSelect = vi.fn(() => new Promise((resolve) => setTimeout(resolve, 1000)));
     const { getByTestId, container } = render(
-      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
+      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />,
     );
     fireEvent.click(findButton(getByTestId));
     expect(onSelect).toHaveBeenCalled();
@@ -143,9 +143,9 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('should hide a spinner after the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 500)));
+    const onSelect = vi.fn(() => new Promise((resolve) => setTimeout(resolve, 500)));
     const { getByTestId, container } = render(
-      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
+      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />,
     );
     fireEvent.click(findButton(getByTestId));
     const getSpinner = () => getByTestId('cf-ui-spinner');
@@ -156,11 +156,11 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('does not emit onSelect on subsequent click before the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(
-      () => new Promise((resolve) => setTimeout(() => resolve(undefined), 200))
+    const onSelect = vi.fn(
+      () => new Promise((resolve) => setTimeout(() => resolve(undefined), 200)),
     );
     const { getByTestId } = render(
-      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
+      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />,
     );
     fireEvent.click(findButton(getByTestId));
     fireEvent.click(findButton(getByTestId));
@@ -170,9 +170,9 @@ describe('CreateEntryLinkButton common', () => {
   });
 
   it('emits onSelect on subsequent click after the promise from onSelect resolves', async () => {
-    const onSelect = jest.fn(() => Promise.resolve());
+    const onSelect = vi.fn(() => Promise.resolve());
     const { getByTestId } = render(
-      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />
+      <CreateEntryLinkButton contentTypes={[CONTENT_TYPE_1]} onSelect={onSelect} />,
     );
     await act(async () => {
       fireEvent.click(findButton(getByTestId));

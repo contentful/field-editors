@@ -1,17 +1,19 @@
-jest.mock('./dialogs/InsertLinkModalDialog', () => ({
-  openInsertLinkDialog: jest.fn(),
+import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
+
+vi.mock('./dialogs/InsertLinkModalDialog', () => ({
+  openInsertLinkDialog: vi.fn(),
 }));
 
-jest.mock('./dialogs/SpecialCharacterModalDialog', () => ({
-  openInsertSpecialCharacter: jest.fn(),
+vi.mock('./dialogs/SpecialCharacterModalDialog', () => ({
+  openInsertSpecialCharacter: vi.fn(),
 }));
 
-jest.mock('./dialogs/InsertTableModalDialog', () => ({
-  openInsertTableDialog: jest.fn(),
+vi.mock('./dialogs/InsertTableModalDialog', () => ({
+  openInsertTableDialog: vi.fn(),
 }));
 
-jest.mock('./dialogs/ZenModeModalDialog', () => ({
-  openZenMode: jest.fn(),
+vi.mock('./dialogs/ZenModeModalDialog', () => ({
+  openZenMode: vi.fn(),
 }));
 
 import { openInsertLinkDialog } from './dialogs/InsertLinkModalDialog';
@@ -20,38 +22,38 @@ import { openInsertSpecialCharacter } from './dialogs/SpecialCharacterModalDialo
 import { openZenMode } from './dialogs/ZenModeModalDialog';
 import { createMarkdownActions } from './MarkdownActions';
 
-const mockedOpenInsertLinkDialog = openInsertLinkDialog as jest.Mock;
-const mockedOpenInsertSpecialCharacter = openInsertSpecialCharacter as jest.Mock;
-const mockedOpenInsertTableDialog = openInsertTableDialog as jest.Mock;
-const mockedOpenZenMode = openZenMode as jest.Mock;
+const mockedOpenInsertLinkDialog = openInsertLinkDialog as Mock;
+const mockedOpenInsertSpecialCharacter = openInsertSpecialCharacter as Mock;
+const mockedOpenInsertTableDialog = openInsertTableDialog as Mock;
+const mockedOpenZenMode = openZenMode as Mock;
 
 const createEditor = () => ({
   actions: {
-    h1: jest.fn(),
-    h2: jest.fn(),
-    h3: jest.fn(),
-    bold: jest.fn(),
-    italic: jest.fn(),
-    quote: jest.fn(),
-    ol: jest.fn(),
-    ul: jest.fn(),
-    strike: jest.fn(),
-    code: jest.fn(),
-    hr: jest.fn(),
-    indent: jest.fn(),
-    dedent: jest.fn(),
-    undo: jest.fn(),
-    redo: jest.fn(),
-    link: jest.fn(),
-    table: jest.fn(),
+    h1: vi.fn(),
+    h2: vi.fn(),
+    h3: vi.fn(),
+    bold: vi.fn(),
+    italic: vi.fn(),
+    quote: vi.fn(),
+    ol: vi.fn(),
+    ul: vi.fn(),
+    strike: vi.fn(),
+    code: vi.fn(),
+    hr: vi.fn(),
+    indent: vi.fn(),
+    dedent: vi.fn(),
+    undo: vi.fn(),
+    redo: vi.fn(),
+    link: vi.fn(),
+    table: vi.fn(),
   },
-  usePrimarySelection: jest.fn(),
-  getSelectedText: jest.fn(),
-  insert: jest.fn(),
-  getContent: jest.fn(),
-  setContent: jest.fn(),
-  setCursor: jest.fn(),
-  focus: jest.fn(),
+  usePrimarySelection: vi.fn(),
+  getSelectedText: vi.fn(),
+  insert: vi.fn(),
+  getContent: vi.fn(),
+  setContent: vi.fn(),
+  setCursor: vi.fn(),
+  focus: vi.fn(),
 });
 
 const createSdk = () =>
@@ -62,13 +64,13 @@ const createSdk = () =>
       fallbacks: {},
     },
     notifier: {
-      success: jest.fn(),
+      success: vi.fn(),
     },
   }) as any;
 
 describe('createMarkdownActions', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('dispatches toolbar actions to the editor', () => {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { TimepickerInput } from './TimepickerInput';
 
@@ -22,7 +22,7 @@ describe('TimepickerInput', () => {
         uses12hClock={false}
         time="00:00"
         ampm="AM"
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />,
     );
     expect(getByTestId('time-input')).toHaveValue('00:00');
@@ -30,14 +30,14 @@ describe('TimepickerInput', () => {
 
   it('defaults to 00:00 in 24h mode when no time prop is provided', () => {
     const { getByTestId } = render(
-      <TimepickerInput disabled={false} uses12hClock={false} onChange={jest.fn()} />,
+      <TimepickerInput disabled={false} uses12hClock={false} onChange={vi.fn()} />,
     );
     expect(getByTestId('time-input')).toHaveValue('00:00');
   });
 
   it('defaults to 12:00 AM in 12h mode when no time prop is provided', () => {
     const { getByTestId } = render(
-      <TimepickerInput disabled={false} uses12hClock={true} onChange={jest.fn()} />,
+      <TimepickerInput disabled={false} uses12hClock={true} onChange={vi.fn()} />,
     );
     expect(getByTestId('time-input')).toHaveValue('12:00 AM');
   });
@@ -49,7 +49,7 @@ describe('TimepickerInput', () => {
         uses12hClock={false}
         time="23:00"
         ampm="PM"
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />,
     );
     expect(getByTestId('time-input')).toHaveValue('23:00');
@@ -57,7 +57,7 @@ describe('TimepickerInput', () => {
 
   describe('onChange on blur — 24h mode', () => {
     it('emits 19:00 (not 07:00) when user types 19:00 in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -74,7 +74,7 @@ describe('TimepickerInput', () => {
     });
 
     it('emits 23:59 (not 11:59) when user types 23:59 in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -91,7 +91,7 @@ describe('TimepickerInput', () => {
     });
 
     it('emits 00:00 when user types 00:00 in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -108,7 +108,7 @@ describe('TimepickerInput', () => {
     });
 
     it('emits 12:00 (noon) correctly in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -125,7 +125,7 @@ describe('TimepickerInput', () => {
     });
 
     it('emits 13:00 (not 01:00) when user types 13:00 in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -144,7 +144,7 @@ describe('TimepickerInput', () => {
 
   describe('shorthand input without colon', () => {
     it('parses 1005 as 10:05 in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -161,7 +161,7 @@ describe('TimepickerInput', () => {
     });
 
     it('parses 1900 as 19:00 in 24h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -178,7 +178,7 @@ describe('TimepickerInput', () => {
     });
 
     it('parses 0700 as 07:00 AM in 12h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -197,7 +197,7 @@ describe('TimepickerInput', () => {
 
   describe('am/pm without space separator', () => {
     it('parses 1:15pm (no space) correctly in 12h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -214,7 +214,7 @@ describe('TimepickerInput', () => {
     });
 
     it('parses 1:15PM (no space, uppercase) correctly in 12h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -231,7 +231,7 @@ describe('TimepickerInput', () => {
     });
 
     it('parses 1pm (no space, no minutes) correctly in 12h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -250,7 +250,7 @@ describe('TimepickerInput', () => {
 
   describe('onChange on blur — 12h mode', () => {
     it('emits 07:00 AM correctly in 12h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}
@@ -267,7 +267,7 @@ describe('TimepickerInput', () => {
     });
 
     it('emits 07:00 PM correctly in 12h mode', () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { getByTestId } = render(
         <TimepickerInput
           disabled={false}

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { RadioEditor } from './RadioEditor';
 
@@ -22,7 +22,7 @@ describe('RadioEditor', () => {
     });
 
     const { getByTestId, queryByTestId } = render(
-      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expect(getByTestId('predefined-values-warning')).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('RadioEditor', () => {
       };
     });
     const { container } = render(
-      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     const $inputs = container.querySelectorAll('input[type="radio"]');
@@ -51,15 +51,15 @@ describe('RadioEditor', () => {
 
   it('calls setValue and removeValue properly', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [{ in: ['banana', 'orange', 'strawberry'] }],
       };
     });
     const { container, queryByText, getByText } = render(
-      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+      <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
     );
 
     expect(queryByText('Clear')).not.toBeInTheDocument();
@@ -83,8 +83,8 @@ describe('RadioEditor', () => {
     it('calls setValue and removeValue properly', function () {
       const predefined = [1, '2.71', '0'];
       const [field] = createFakeFieldAPI((field) => {
-        jest.spyOn(field, 'setValue');
-        jest.spyOn(field, 'removeValue');
+        vi.spyOn(field, 'setValue');
+        vi.spyOn(field, 'removeValue');
         return {
           ...field,
           type: 'Number',
@@ -93,7 +93,7 @@ describe('RadioEditor', () => {
       });
 
       const { container, getByText } = render(
-        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
       );
 
       const $inputs = container.querySelectorAll('input[type="radio"]');
@@ -123,8 +123,8 @@ describe('RadioEditor', () => {
     it('calls setValue and removeValue properly', function () {
       const predefined = [0, '65', '99', 100];
       const [field] = createFakeFieldAPI((field) => {
-        jest.spyOn(field, 'setValue');
-        jest.spyOn(field, 'removeValue');
+        vi.spyOn(field, 'setValue');
+        vi.spyOn(field, 'removeValue');
         return {
           ...field,
           type: 'Number',
@@ -133,7 +133,7 @@ describe('RadioEditor', () => {
       });
 
       const { container, getByText } = render(
-        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />
+        <RadioEditor field={field} locales={createFakeLocalesAPI()} isInitiallyDisabled={false} />,
       );
 
       const $inputs = container.querySelectorAll('input[type="radio"]');

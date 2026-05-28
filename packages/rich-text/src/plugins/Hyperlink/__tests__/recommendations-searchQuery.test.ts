@@ -1,6 +1,8 @@
+import { describe, expect, it, vi } from 'vitest';
+
 describe('HyperlinkModal recommendations.searchQuery feature', () => {
   it('should pass linkText as searchQuery to selectSingleEntry', () => {
-    const mockSelectSingleEntry = jest.fn();
+    const mockSelectSingleEntry = vi.fn();
     const linkText = 'example search text';
 
     const expectedOptions = {
@@ -24,7 +26,7 @@ describe('HyperlinkModal recommendations.searchQuery feature', () => {
   });
 
   it('should update searchQuery when linkText changes', () => {
-    const mockSelectSingleEntry = jest.fn();
+    const mockSelectSingleEntry = vi.fn();
 
     const modifiedText = 'modified text';
 
@@ -48,7 +50,7 @@ describe('HyperlinkModal recommendations.searchQuery feature', () => {
   });
 
   it('should handle empty linkText', () => {
-    const mockSelectSingleEntry = jest.fn();
+    const mockSelectSingleEntry = vi.fn();
 
     const expectedOptions = {
       locale: 'en-US',

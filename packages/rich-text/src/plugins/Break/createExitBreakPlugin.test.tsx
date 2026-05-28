@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { ExitBreakRule } from '@udecode/plate-break';
 import { KEY_EXIT_BREAK } from '@udecode/plate-break';
+import { describe, expect, it } from 'vitest';
 
 import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createExitBreakPlugin } from './createExitBreakPlugin';

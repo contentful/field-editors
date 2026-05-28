@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import '@testing-library/jest-dom/extend-expect';
 import { RenderResult, cleanup, configure, fireEvent, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { TagsEditorContainer } from './TagsEditorContainer';
 
@@ -41,7 +41,7 @@ describe('TagsEditor', () => {
 
   function clickRemoveTag({ getAllByTestId }: RenderResult, index: number) {
     fireEvent.click(
-      getAllByTestId('tag-editor-pill')[index].querySelector('button') as HTMLButtonElement
+      getAllByTestId('tag-editor-pill')[index].querySelector('button') as HTMLButtonElement,
     );
   }
 
@@ -114,7 +114,6 @@ describe('TagsEditor', () => {
     ];
 
     conditions.forEach((condition) => {
-      // eslint-disable-next-line -- TODO: describe this disable  jest/valid-title
       it(condition.testType, () => {
         const [field] = createFakeFieldAPI((mock) => {
           return {
@@ -124,7 +123,7 @@ describe('TagsEditor', () => {
         });
 
         const { getByTestId } = render(
-          <TagsEditorContainer field={field} isInitiallyDisabled={false} />
+          <TagsEditorContainer field={field} isInitiallyDisabled={false} />,
         );
 
         const $constraints = getByTestId('tag-editor-constraints');
@@ -135,8 +134,8 @@ describe('TagsEditor', () => {
 
   it('adds and removes values', () => {
     const [field] = createFakeFieldAPI((field) => {
-      jest.spyOn(field, 'setValue');
-      jest.spyOn(field, 'removeValue');
+      vi.spyOn(field, 'setValue');
+      vi.spyOn(field, 'removeValue');
       return {
         ...field,
         validations: [],

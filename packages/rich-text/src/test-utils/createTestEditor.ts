@@ -1,4 +1,5 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
+import { vi } from 'vitest';
 
 import { normalize, createPlateEditor, PlateEditor } from '../internal';
 import { PlatePlugin } from '../internal/types';
@@ -12,7 +13,7 @@ export const createTestEditor = (options: {
   trackingHandler?: RichTextTrackingActionHandler;
   plugins?: PlatePlugin[];
 }) => {
-  const trackingHandler: RichTextTrackingActionHandler = options.trackingHandler ?? jest.fn();
+  const trackingHandler: RichTextTrackingActionHandler = options.trackingHandler ?? vi.fn();
 
   const sdk: FieldAppSDK = options.sdk ?? ({ field: { validation: [] } } as any);
 

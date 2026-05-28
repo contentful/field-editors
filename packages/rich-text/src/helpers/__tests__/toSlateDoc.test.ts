@@ -1,4 +1,5 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { describe, expect, it } from 'vitest';
 
 import type { Element } from '../../internal';
 import { block, document, inline, text } from '../nodeFactory';

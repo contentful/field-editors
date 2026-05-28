@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { replaceMailtoAmp } from './replaceMailtoAmp';
 
 describe('replace inside mailto', () => {
@@ -7,7 +9,7 @@ describe('replace inside mailto', () => {
   test('replace &amp; with &', () => {
     const newStr = replaceMailtoAmp(str);
     expect(newStr).toBe(
-      '<a href="mailto:example@example.com?subject=Hello&body=Hello%20world">Send Email</a>'
+      '<a href="mailto:example@example.com?subject=Hello&body=Hello%20world">Send Email</a>',
     );
   });
 
@@ -15,7 +17,7 @@ describe('replace inside mailto', () => {
     str = '<a href="https://example.com?subject=Hello&amp;body=Hello%20world">Visit Website</a>';
     const newStr = replaceMailtoAmp(str);
     expect(newStr).toBe(
-      '<a href="https://example.com?subject=Hello&amp;body=Hello%20world">Visit Website</a>'
+      '<a href="https://example.com?subject=Hello&amp;body=Hello%20world">Visit Website</a>',
     );
   });
 

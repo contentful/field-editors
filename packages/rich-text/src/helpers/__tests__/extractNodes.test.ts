@@ -1,5 +1,6 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { describe, expect, it } from 'vitest';
 
 import { Element, PlateEditor, Path } from '../../internal/types';
 import { extractParagraphs } from '../extractNodes';

@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import '@testing-library/jest-dom';
-
 import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { createTestQueryClient } from '@contentful/field-editor-test-utils';
 import { configure, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 
 import publishedCT from '../../__fixtures__/content-type/published_content_type.json';
 import publishedEntryNonMasterEnvironment from '../../__fixtures__/entry/published_entry_non_master.json';
@@ -20,8 +19,8 @@ configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock('react-intersection-observer', () => ({
-  useInView: jest.fn().mockReturnValue({}),
+vi.mock('react-intersection-observer', () => ({
+  useInView: vi.fn().mockReturnValue({}),
 }));
 
 // explicit master
@@ -42,10 +41,10 @@ const sdk: any = {
   },
   cma: {
     contentType: {
-      get: jest.fn().mockReturnValue(publishedCT),
+      get: vi.fn().mockReturnValue(publishedCT),
     },
     entry: {
-      get: jest.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
+      get: vi.fn().mockImplementation(({ spaceId, environmentId, entryId }) => {
         if (
           spaceId === 'space-id' &&
           environmentId === 'master' &&
@@ -64,10 +63,10 @@ const sdk: any = {
       }),
     },
     locale: {
-      getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+      getMany: vi.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
     },
     resource: {
-      getMany: jest.fn().mockImplementation(({ spaceId, environmentId, resourceTypeId, query }) => {
+      getMany: vi.fn().mockImplementation(({ spaceId, environmentId, resourceTypeId, query }) => {
         if (
           spaceId === 'space-id' &&
           environmentId === 'environment-id' &&
@@ -89,7 +88,7 @@ const sdk: any = {
       }),
     },
     resourceType: {
-      getForEnvironment: jest.fn().mockImplementation(({ spaceId, environmentId }) => {
+      getForEnvironment: vi.fn().mockImplementation(({ spaceId, environmentId }) => {
         console.log('>> getForEnvironment', { spaceId, environmentId });
         if (spaceId === 'space-id' && environmentId === 'environment-id') {
           return Promise.resolve({ items: [resourceType], pages: {} });
@@ -98,16 +97,16 @@ const sdk: any = {
       }),
     },
     scheduledActions: {
-      getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+      getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
     },
-    space: { get: jest.fn().mockResolvedValue(space) },
+    space: { get: vi.fn().mockResolvedValue(space) },
     resourceProvider: {
-      get: jest.fn().mockImplementation(() => {
+      get: vi.fn().mockImplementation(() => {
         return Promise.resolve({ function: { sys: { id: 'function-id' } } });
       }),
     },
   },
-  space: { onEntityChanged: jest.fn() },
+  space: { onEntityChanged: vi.fn() },
   navigator: {},
   ids: {
     space: 'space-id',

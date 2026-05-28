@@ -1,3 +1,5 @@
+import { expect } from 'vitest';
+
 import { normalize } from '../internal';
 import { PlateEditor } from '../internal/types';
 import { createTestEditor } from './createTestEditor';
@@ -28,8 +30,8 @@ export const assertOutput = (options: {
           actualSelection: editor.selection,
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   }
 

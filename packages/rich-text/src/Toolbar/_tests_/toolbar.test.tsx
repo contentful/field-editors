@@ -3,8 +3,8 @@ import * as React from 'react';
 import { MARKS } from '@contentful/rich-text-types';
 import { configure, render, waitFor } from '@testing-library/react';
 import { Plate } from '@udecode/plate-common';
+import { describe, expect, it, test, vi } from 'vitest';
 
-import '@testing-library/jest-dom/extend-expect';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
 import { SdkProvider } from '../../SdkProvider';
 import Toolbar from '../index';
@@ -19,7 +19,7 @@ const mockSdk = (marks?: MARKS[]): any => {
       default: 'en-US',
     },
     entry: {
-      getSys: jest.fn().mockReturnValue({ id: 'entry-id' }),
+      getSys: vi.fn().mockReturnValue({ id: 'entry-id' }),
     },
     field: {
       id: 'field-id',
@@ -31,7 +31,7 @@ const mockSdk = (marks?: MARKS[]): any => {
       ],
     },
     access: {
-      can: jest.fn().mockResolvedValue(true),
+      can: vi.fn().mockResolvedValue(true),
     },
     parameters: {
       instance: {
@@ -53,7 +53,7 @@ describe('Toolbar', () => {
             <Toolbar isDisabled />
           </ContentfulEditorIdProvider>
         </SdkProvider>
-      </Plate>
+      </Plate>,
     );
     await waitFor(() => {
       expect(getByTestId('toolbar-heading-toggle')).toBeDisabled();
@@ -84,7 +84,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>
+        </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).toBeVisible();
     });
@@ -99,7 +99,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>
+        </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).not.toBeInTheDocument();
     });

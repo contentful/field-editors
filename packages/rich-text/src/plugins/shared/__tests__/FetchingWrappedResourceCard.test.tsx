@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import '@testing-library/jest-dom/extend-expect';
 import { EntityProvider } from '@contentful/field-editor-reference';
 import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
 import { createTestQueryClient } from '@contentful/field-editor-test-utils';
 import { configure, render, waitFor } from '@testing-library/react';
+import { beforeEach, expect, test, vi } from 'vitest';
 
 import publishedCT from '../__fixtures__/published_content_type.json';
 import publishedEntry from '../__fixtures__/published_entry.json';
@@ -30,9 +30,9 @@ beforeEach(() => {
       },
     },
     cma: {
-      contentType: { get: jest.fn().mockReturnValue(publishedCT) },
+      contentType: { get: vi.fn().mockReturnValue(publishedCT) },
       entry: {
-        get: jest.fn().mockImplementation(({ entryId }) => {
+        get: vi.fn().mockImplementation(({ entryId }) => {
           if (entryId === 'linked-entry-urn') {
             return Promise.resolve(publishedEntry);
           }
@@ -40,14 +40,14 @@ beforeEach(() => {
         }),
       },
       locale: {
-        getMany: jest.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
+        getMany: vi.fn().mockResolvedValue({ items: [{ default: true, code: 'en' }] }),
       },
       scheduledAction: {
-        getMany: jest.fn().mockResolvedValue({ items: [], total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ items: [], total: 0 }),
       },
-      space: { get: jest.fn().mockResolvedValue(space) },
+      space: { get: vi.fn().mockResolvedValue(space) },
     },
-    space: { onEntityChanged: jest.fn() },
+    space: { onEntityChanged: vi.fn() },
     navigator: {},
     ids: {
       space: 'space-id',

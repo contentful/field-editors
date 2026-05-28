@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { cleanup, configure, fireEvent, render, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import '@testing-library/jest-dom/extend-expect';
 import { SlugEditor } from './SlugEditor';
 import { SlugEditorFieldStatic } from './SlugEditorField';
 
@@ -11,7 +11,7 @@ configure({
   testIdAttribute: 'data-test-id',
 });
 
-jest.mock('use-debounce', () => ({
+vi.mock('use-debounce', () => ({
   useDebounce: (text: string) => [text],
 }));
 
@@ -23,8 +23,8 @@ function createMocks(
       ...field,
       id: 'slug-id',
       validations: [{ unique: true }],
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
-      setValue: jest.fn().mockImplementation(field.setValue),
+      onValueChanged: vi.fn().mockImplementation(field.onValueChanged),
+      setValue: vi.fn().mockImplementation(field.setValue),
     }),
     initialValues.field || '',
   );
@@ -33,9 +33,9 @@ function createMocks(
     (field) => ({
       ...field,
       id: 'title-id',
-      setValue: jest.fn().mockImplementation(field.setValue),
-      getValue: jest.fn().mockImplementation(field.getValue),
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
+      setValue: vi.fn().mockImplementation(field.setValue),
+      getValue: vi.fn().mockImplementation(field.getValue),
+      onValueChanged: vi.fn().mockImplementation(field.onValueChanged),
     }),
     initialValues.titleField || '',
   );
@@ -44,9 +44,9 @@ function createMocks(
     (field) => ({
       ...field,
       id: 'description-id',
-      setValue: jest.fn().mockImplementation(field.setValue),
-      getValue: jest.fn().mockImplementation(field.getValue),
-      onValueChanged: jest.fn().mockImplementation(field.onValueChanged),
+      setValue: vi.fn().mockImplementation(field.setValue),
+      getValue: vi.fn().mockImplementation(field.getValue),
+      onValueChanged: vi.fn().mockImplementation(field.onValueChanged),
     }),
     initialValues.descriptionField || '',
   );
@@ -55,11 +55,11 @@ function createMocks(
     locales: createFakeLocalesAPI(),
     cma: {
       entry: {
-        getMany: jest.fn().mockResolvedValue({ total: 0 }),
+        getMany: vi.fn().mockResolvedValue({ total: 0 }),
       },
     },
     entry: {
-      getSys: jest.fn().mockReturnValue({
+      getSys: vi.fn().mockReturnValue({
         id: 'entry-id',
         publishedVersion: undefined,
         createdAt: '2020-01-24T15:33:47.906Z',
@@ -69,7 +69,7 @@ function createMocks(
           },
         },
       }),
-      onSysChanged: jest.fn(),
+      onSysChanged: vi.fn(),
       fields: {
         'title-id': titleField,
         'entry-id': field,
@@ -285,8 +285,8 @@ describe('SlugEditor', () => {
     });
 
     it('hides duplicate warning when publish sets hasError', async () => {
-      const performUniqueCheck = jest.fn().mockResolvedValue(false);
-      const setValue = jest.fn();
+      const performUniqueCheck = vi.fn().mockResolvedValue(false);
+      const setValue = vi.fn();
 
       const { queryByTestId } = render(
         <SlugEditorFieldStatic

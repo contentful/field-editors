@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import type { AssetProps, EntryProps, LocaleProps } from 'contentful-management';
+import { describe, expect, it } from 'vitest';
 
 import type {
   ReleaseEntityStatus,

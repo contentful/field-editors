@@ -39,11 +39,12 @@ module.exports = {
       env: {
         node: true,
       },
-      extends: ['plugin:jest/recommended', 'plugin:jsx-a11y/recommended'],
+      extends: ['plugin:@vitest/legacy-recommended', 'plugin:jsx-a11y/recommended'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        'jest/expect-expect': 'off',
+        '@vitest/expect-expect': 'off',
+        '@vitest/valid-title': 'off',
       },
     },
   ],
