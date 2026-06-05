@@ -2,7 +2,7 @@ import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
-import { getEndPoint, isNode } from './queries';
+import { getEndPoint, getNodeEntry, isNode, isText } from './queries';
 import {
   PlateEditor,
   Node,
@@ -160,6 +160,8 @@ export const deleteFragment = (
  * https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
  */
 export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
+  const savedSelection = editor.selection;
+
   // Replaces editor content while keeping change history
   withoutNormalizing(editor, () => {
     const children = [...editor.children];
@@ -172,9 +174,22 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
       });
     }
 
-    const point = getEndPoint(editor, []);
-    if (point) {
-      select(editor, point);
+    // Restore the prior selection, clamping to valid bounds in the new content.
+    // Without this, every external value update (e.g. autosave round-trip) moves the
+    // cursor to the end of the document, interrupting the user mid-type.
+    const endPoint = getEndPoint(editor, []);
+
+    if (savedSelection && endPoint) {
+      const clampPoint = (point: BasePoint): BasePoint => {
+        const entry = getNodeEntry(editor, point.path);
+        if (entry && isText(entry[0])) {
+          return { path: point.path, offset: Math.min(point.offset, entry[0].text.length) };
+        }
+        return endPoint;
+      };
+      select(editor, { anchor: clampPoint(savedSelection.anchor), focus: clampPoint(savedSelection.focus) });
+    } else if (endPoint) {
+      select(editor, endPoint);
     }
   });
 };
