@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.8...@contentful/field-editor-rich-text@6.3.9) (2026-06-05)
+
+### Bug Fixes
+
+- **rich-text:** preserve cursor position on external value updates [ES-346] ([#2171](https://github.com/contentful/field-editors/issues/2171)) ([bc33b25](https://github.com/contentful/field-editors/commit/bc33b25290f6699ec50983b88debe946c29e8ced))
+
 ## [6.3.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.7...@contentful/field-editor-rich-text@6.3.8) (2026-05-28)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
