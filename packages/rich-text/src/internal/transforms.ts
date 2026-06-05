@@ -2,7 +2,7 @@ import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
-import { getEndPoint, isNode } from './queries';
+import { getEndPoint, getNodeEntry, isNode, isText } from './queries';
 import {
   PlateEditor,
   Node,
@@ -181,12 +181,9 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
 
     if (savedSelection && endPoint) {
       const clampPoint = (point: BasePoint): BasePoint => {
-        if (!s.Editor.hasPath(editor, point.path)) {
-          return endPoint;
-        }
-        const [node] = s.Editor.node(editor, point.path);
-        if (s.Text.isText(node)) {
-          return { path: point.path, offset: Math.min(point.offset, node.text.length) };
+        const entry = getNodeEntry(editor, point.path);
+        if (entry && isText(entry[0])) {
+          return { path: point.path, offset: Math.min(point.offset, entry[0].text.length) };
         }
         return endPoint;
       };
