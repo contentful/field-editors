@@ -17,7 +17,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
 import { useEditorEffect } from '@handlewithcare/react-prosemirror';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { applyDevTools } from 'prosemirror-dev-toolkit';
 
 import { RichTextEditor } from '../src/RichTextEditor';

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FormControl } from '@contentful/f36-components';
 import { ActionsPlayground, createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { BooleanEditor } from '../src/BooleanEditor';
 

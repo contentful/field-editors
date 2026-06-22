@@ -12,7 +12,7 @@ import {
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { css } from '@emotion/css';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import ClipboardCapture from '../src/ClipboardCapture.mdx';
 

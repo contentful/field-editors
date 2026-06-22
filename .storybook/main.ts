@@ -4,17 +4,12 @@ import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.tsx', '../packages/**/*.mdx'],
+
   addons: [
     getAbsolutePath('storybook-addon-swc'),
     getAbsolutePath('@storybook/addon-links'),
     {
-      name: '@storybook/addon-essentials',
-      options: {
-        docs: false,
-      },
-    },
-    {
-      name: '@storybook/addon-docs',
+      name: getAbsolutePath("@storybook/addon-docs"),
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -22,8 +17,9 @@ const config: StorybookConfig = {
           },
         },
       },
-    },
+    }
   ],
+
   webpackFinal(config, options) {
     if (!config?.module?.rules || !config.resolve?.extensions) {
       return config;
@@ -50,13 +46,11 @@ const config: StorybookConfig = {
 
     return config;
   },
+
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
-  },
-  docs: {
-    autodocs: true,
-  },
+  }
 };
 
 export default config;

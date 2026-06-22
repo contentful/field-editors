@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Button, Menu } from '@contentful/f36-components';
 import { PlusIcon } from '@contentful/f36-icons';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { type ContentType, CreateEntryMenuTrigger } from '../src';
 

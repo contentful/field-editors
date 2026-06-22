@@ -56,12 +56,9 @@
     "@lingui/cli": "5.3.0",
     "@lingui/react": "5.3.1",
     "@lingui/swc-plugin": "5.3.0",
-    "@storybook/addon-actions": "8.3.5",
-    "@storybook/addon-docs": "8.6.15",
-    "@storybook/addon-essentials": "8.3.5",
-    "@storybook/addon-links": "8.6.17",
-    "@storybook/react": "8.2.10",
-    "@storybook/react-webpack5": "8.6.15",
+    "@storybook/addon-docs": "9.1.20",
+    "@storybook/addon-links": "9.1.20",
+    "@storybook/react-webpack5": "9.1.20",
     "@swc/cli": "0.1.62",
     "@swc/core": "1.7.26",
     "@testing-library/cypress": "10.0.3",
@@ -96,7 +93,7 @@
     "eslint-plugin-mocha": "10.4.2",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-storybook": "0.12.0",
+    "eslint-plugin-storybook": "9.1.20",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.14.0",
     "git-cz": "4.9.0",
     "html-webpack-plugin": "5.6.0",
@@ -119,7 +116,7 @@
     "remark-validate-links": "13.1.0",
     "serve": "14.2.5",
     "start-server-and-test": "2.0.3",
-    "storybook": "^8.3.5",
+    "storybook": "9.1.20",
     "storybook-addon-swc": "1.2.0",
     "swc-loader": "0.2.6",
     "ts-loader": "9.5.4",
@@ -190,6 +187,5 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
-  },
-  "dependencies": {}
+  }
 }
