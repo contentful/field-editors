@@ -15,6 +15,7 @@ import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
 import { toSlateDoc } from './helpers/toSlateDoc';
+import { logRichTextDebug, summarizeRichTextTreeForDebug } from './internal/debug';
 import { getPlugins, disableCorePlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
@@ -59,18 +60,108 @@ type ConnectedRichTextProps = {
   queryClient?: QueryClient;
 };
 
-export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
+const getChangedPropNames = (
+  previousProps: ConnectedRichTextProps | undefined,
+  nextProps: ConnectedRichTextProps,
+) => {
+  if (!previousProps) {
+    return ['initial-render'];
+  }
+
+  return [
+    previousProps.actionsDisabled !== nextProps.actionsDisabled && 'actionsDisabled',
+    previousProps.isDisabled !== nextProps.isDisabled && 'isDisabled',
+    previousProps.isToolbarHidden !== nextProps.isToolbarHidden && 'isToolbarHidden',
+    previousProps.maxHeight !== nextProps.maxHeight && 'maxHeight',
+    previousProps.minHeight !== nextProps.minHeight && 'minHeight',
+    previousProps.onAction !== nextProps.onAction && 'onAction',
+    previousProps.onChange !== nextProps.onChange && 'onChange',
+    previousProps.queryClient !== nextProps.queryClient && 'queryClient',
+    previousProps.restrictedMarks !== nextProps.restrictedMarks && 'restrictedMarks',
+    previousProps.sdk !== nextProps.sdk && 'sdk',
+    previousProps.stickyToolbarOffset !== nextProps.stickyToolbarOffset && 'stickyToolbarOffset',
+    previousProps.value !== nextProps.value && 'value',
+    previousProps.withCharValidation !== nextProps.withCharValidation && 'withCharValidation',
+  ].filter((name): name is string => Boolean(name));
+};
+
+export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEditor(
+  props: ConnectedRichTextProps,
+) {
   const { sdk, onAction, restrictedMarks, withCharValidation } = props;
 
   const id = getContentfulEditorId(sdk);
+  const renderCount = React.useRef(0);
+  const initialDebugPayload = React.useRef<Record<string, unknown>>();
+  const previousProps = React.useRef<ConnectedRichTextProps>();
+  renderCount.current += 1;
+
+  if (!initialDebugPayload.current) {
+    initialDebugPayload.current = {
+      props: {
+        isDisabled: props.isDisabled,
+        isToolbarHidden: props.isToolbarHidden,
+        withCharValidation: props.withCharValidation,
+      },
+      value: summarizeRichTextTreeForDebug(props.value),
+    };
+  }
+
+  React.useEffect(() => {
+    logRichTextDebug('ConnectedRichTextEditor:mounted', () => ({
+      editorId: id,
+      ...(initialDebugPayload.current ?? {}),
+    }));
+
+    return () => {
+      logRichTextDebug('ConnectedRichTextEditor:unmounted', () => ({
+        editorId: id,
+        renderCount: renderCount.current,
+      }));
+    };
+  }, [id]);
+
+  React.useEffect(() => {
+    logRichTextDebug('ConnectedRichTextEditor:rendered', () => ({
+      changedProps: getChangedPropNames(previousProps.current, props),
+      editorId: id,
+      props: {
+        actionsDisabled: props.actionsDisabled,
+        isDisabled: props.isDisabled,
+        isToolbarHidden: props.isToolbarHidden,
+        stickyToolbarOffset: props.stickyToolbarOffset,
+        withCharValidation: props.withCharValidation,
+      },
+      renderCount: renderCount.current,
+      value: summarizeRichTextTreeForDebug(props.value),
+    }));
+
+    previousProps.current = props;
+  });
+
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation),
     [sdk, onAction, restrictedMarks, withCharValidation],
   );
 
+  React.useEffect(() => {
+    logRichTextDebug('ConnectedRichTextEditor:pluginsChanged', () => ({
+      editorId: id,
+      pluginCount: plugins.length,
+      pluginKeys: plugins.map((plugin) => plugin.key),
+    }));
+  }, [id, plugins]);
+
   const initialValue = useDeepCompareMemo(() => {
     return toSlateDoc(props.value);
   }, [props.value]);
+
+  React.useEffect(() => {
+    logRichTextDebug('ConnectedRichTextEditor:incomingValueConverted', () => ({
+      editorId: id,
+      initialValue: summarizeRichTextTreeForDebug(initialValue),
+    }));
+  }, [id, initialValue]);
 
   // Force text direction based on editor locale
   const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
@@ -119,7 +210,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
       </SdkProvider>
     </EntityProvider>
   );
-};
+});
 
 const RichTextEditor = (props: RichTextProps) => {
   const {

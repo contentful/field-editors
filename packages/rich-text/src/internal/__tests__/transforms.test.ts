@@ -55,10 +55,27 @@ describe('setEditorValue', () => {
     });
   });
 
-  it('moves cursor to end when there is no prior selection', () => {
+  it('preserves previous cursor position when current selection is cleared', () => {
+    const initial = [paragraph('hello world')];
+    const editor = createEditor(initial);
+
+    select(editor, { path: [0, 0], offset: 5 });
+    editor.prevSelection = editor.selection;
+    editor.selection = null;
+
+    const incoming = [paragraph('hello world')];
+    setEditorValue(editor, incoming);
+
+    expect(editor.selection).toEqual({
+      anchor: { path: [0, 0], offset: 5 },
+      focus: { path: [0, 0], offset: 5 },
+    });
+  });
+
+  it('moves cursor to end when there is no current or previous selection', () => {
     const initial = [paragraph('hello')];
     const editor = createEditor(initial);
-    // No explicit selection set — editor.selection is null
+    // No explicit selection set. Both editor.selection and editor.prevSelection are null.
 
     const incoming = [paragraph('hello')];
     setEditorValue(editor, incoming);

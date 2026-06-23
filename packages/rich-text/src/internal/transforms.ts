@@ -2,6 +2,13 @@ import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
+import {
+  formatPointForDebug,
+  formatSelectionForDebug,
+  getEditorSnapshotForDebug,
+  logRichTextDebug,
+  summarizeRichTextTreeForDebug,
+} from './debug';
 import { getEndPoint, getNodeEntry, isNode, isText } from './queries';
 import {
   PlateEditor,
@@ -160,7 +167,19 @@ export const deleteFragment = (
  * https://github.com/udecode/plate/issues/1269#issuecomment-1057643622
  */
 export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
-  const savedSelection = editor.selection;
+  const savedSelection = editor.selection ?? editor.prevSelection;
+  const selectionSource = editor.selection
+    ? 'selection'
+    : editor.prevSelection
+      ? 'prevSelection'
+      : 'none';
+
+  logRichTextDebug('setEditorValue:start', () => ({
+    editor: getEditorSnapshotForDebug(editor),
+    incomingValue: summarizeRichTextTreeForDebug(nodes),
+    savedSelection: formatSelectionForDebug(savedSelection),
+    selectionSource,
+  }));
 
   // Replaces editor content while keeping change history
   withoutNormalizing(editor, () => {
@@ -180,16 +199,60 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
     const endPoint = getEndPoint(editor, []);
 
     if (savedSelection && endPoint) {
-      const clampPoint = (point: BasePoint): BasePoint => {
+      const clampPoint = (point: BasePoint) => {
         const entry = getNodeEntry(editor, point.path);
+
         if (entry && isText(entry[0])) {
-          return { path: point.path, offset: Math.min(point.offset, entry[0].text.length) };
+          const clampedOffset = Math.min(point.offset, entry[0].text.length);
+
+          return {
+            debug: {
+              input: formatPointForDebug(point),
+              output: formatPointForDebug({ path: point.path, offset: clampedOffset }),
+              reason: clampedOffset === point.offset ? 'unchanged' : 'offset-clamped',
+              textLength: entry[0].text.length,
+            },
+            point: { path: point.path, offset: clampedOffset },
+          };
         }
-        return endPoint;
+
+        return {
+          debug: {
+            input: formatPointForDebug(point),
+            output: formatPointForDebug(endPoint),
+            reason: 'path-missing',
+          },
+          point: endPoint,
+        };
       };
-      select(editor, { anchor: clampPoint(savedSelection.anchor), focus: clampPoint(savedSelection.focus) });
+      const anchor = clampPoint(savedSelection.anchor);
+      const focus = clampPoint(savedSelection.focus);
+
+      select(editor, {
+        anchor: anchor.point,
+        focus: focus.point,
+      });
+
+      logRichTextDebug('setEditorValue:selectionRestored', () => ({
+        anchor: anchor.debug,
+        editor: getEditorSnapshotForDebug(editor),
+        endPoint: formatPointForDebug(endPoint),
+        focus: focus.debug,
+        selectionSource,
+      }));
     } else if (endPoint) {
       select(editor, endPoint);
+
+      logRichTextDebug('setEditorValue:selectionFallbackToEnd', () => ({
+        editor: getEditorSnapshotForDebug(editor),
+        endPoint: formatPointForDebug(endPoint),
+        selectionSource,
+      }));
+    } else {
+      logRichTextDebug('setEditorValue:noSelectionRestored', () => ({
+        editor: getEditorSnapshotForDebug(editor),
+        selectionSource,
+      }));
     }
   });
 };
