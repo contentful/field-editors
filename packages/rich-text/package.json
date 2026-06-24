@@ -70,7 +70,7 @@
     "lodash": "^4.17.21",
     "p-debounce": "^2.1.0",
     "react-popper": "^2.3.0",
-    "slate": "0.94.1",
+    "slate": "0.124.1",
     "slate-history": "0.100.0",
     "slate-hyperscript": "0.77.0",
     "slate-react": "0.102.0",
