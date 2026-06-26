@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     getAbsolutePath('storybook-addon-swc'),
     getAbsolutePath('@storybook/addon-links'),
     {
-      name: getAbsolutePath("@storybook/addon-docs"),
+      name: getAbsolutePath('@storybook/addon-docs'),
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -17,7 +17,7 @@ const config: StorybookConfig = {
           },
         },
       },
-    }
+    },
   ],
 
   webpackFinal(config, options) {
@@ -32,6 +32,15 @@ const config: StorybookConfig = {
       use: [
         {
           loader: require.resolve('swc-loader'),
+          options: {
+            jsc: {
+              transform: {
+                react: {
+                  runtime: 'automatic',
+                },
+              },
+            },
+          },
         },
       ],
       exclude: [/node_modules/, /storybook-config-entry\.js$/, /storybook-stories\.js$/],
@@ -50,7 +59,7 @@ const config: StorybookConfig = {
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
-  }
+  },
 };
 
 export default config;
