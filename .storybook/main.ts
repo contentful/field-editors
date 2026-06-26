@@ -11,6 +11,7 @@ const config: StorybookConfig = {
   addons: [
     getAbsolutePath('storybook-addon-swc'),
     getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-a11y'),
     {
       name: getAbsolutePath('@storybook/addon-docs'),
       options: {
