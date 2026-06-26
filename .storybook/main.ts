@@ -1,6 +1,9 @@
+import { createRequire } from 'node:module';
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
+
+const require = createRequire(import.meta.url);
 
 const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.tsx', '../packages/**/*.mdx'],
