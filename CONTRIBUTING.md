@@ -128,7 +128,7 @@ yarn tsc
 
 ### Tests
 
-We use [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/) for writing unit tests.
+We use [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/) for writing unit tests.
 
 #### Run tests for concrete package
 
@@ -144,8 +144,71 @@ yarn test
 yarn test:ci
 ```
 
+#### Accessibility tests
+
+We use [`vitest-axe`](https://github.com/nicholasgasior/vitest-axe) for automated accessibility checks. The `toHaveNoViolations` matcher is globally available — no import needed.
+
+Every component needs axe coverage across its meaningful states. A single test on the default render is not sufficient: a component that passes in its default state can still have violations when disabled, in an error state, or with different content rendered. Cover each state where the DOM structure or ARIA attributes change.
+
+```tsx
+import { axe } from 'vitest-axe';
+import { render } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
+
+import { SingleLineEditor } from './SingleLineEditor';
+
+describe('SingleLineEditor accessibility', () => {
+  it('has no violations in default state', async () => {
+    const [field] = createFakeFieldAPI((f) => ({ ...f, type: 'Symbol' }));
+    const { container } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />,
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('has no violations when disabled', async () => {
+    const [field] = createFakeFieldAPI((f) => ({ ...f, type: 'Symbol' }));
+    const { container } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={true}
+        locales={createFakeLocalesAPI()}
+      />,
+    );
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('has no violations with a validation error', async () => {
+    const [field, mitt] = createFakeFieldAPI((f) => ({ ...f, type: 'Symbol' }));
+    const { container } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />,
+    );
+    // trigger an error state before asserting
+    act(() => mitt.emit('schemaErrors', [{ message: 'Required' }]));
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});
+```
+
+What to cover per component:
+
+- **Default / empty** — baseline render with no value
+- **Filled** — rendered with actual content (especially relevant for rich text or media editors where content changes the DOM)
+- **Disabled** — `isInitiallyDisabled={true}`
+- **Error / validation state** — after schema errors are emitted
+- Any state that adds or removes interactive elements (e.g. dialogs, popovers, expanded panels)
+
 #### Links
 
 - [`@testing-library/react` documentation](https://testing-library.com/docs/react-testing-library/intro)
-- [`jest` documentation](https://testing-library.com/docs/react-testing-library/intro)
-- [`jest` cheat sheet](https://github.com/sapegin/jest-cheat-sheet)
+- [`vitest` documentation](https://vitest.dev/guide/)
+- [`vitest-axe` documentation](https://github.com/nicholasgasior/vitest-axe)
