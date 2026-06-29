@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Button, Card, Heading, Paragraph } from '@contentful/f36-components';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { SingleEntryReferenceEditor } from '../../src';
 import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';

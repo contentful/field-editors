@@ -17,7 +17,7 @@ import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
 import RichTextEditor from '../src/RichTextEditor';

@@ -1,20 +1,19 @@
+import { createRequire } from 'node:module';
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import { dirname, join } from 'path';
 import remarkGfm from 'remark-gfm';
 
+const require = createRequire(import.meta.url);
+
 const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.tsx', '../packages/**/*.mdx'],
+
   addons: [
     getAbsolutePath('storybook-addon-swc'),
     getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-a11y'),
     {
-      name: '@storybook/addon-essentials',
-      options: {
-        docs: false,
-      },
-    },
-    {
-      name: '@storybook/addon-docs',
+      name: getAbsolutePath('@storybook/addon-docs'),
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -24,6 +23,7 @@ const config: StorybookConfig = {
       },
     },
   ],
+
   webpackFinal(config, options) {
     if (!config?.module?.rules || !config.resolve?.extensions) {
       return config;
@@ -36,6 +36,15 @@ const config: StorybookConfig = {
       use: [
         {
           loader: require.resolve('swc-loader'),
+          options: {
+            jsc: {
+              transform: {
+                react: {
+                  runtime: 'automatic',
+                },
+              },
+            },
+          },
         },
       ],
       exclude: [/node_modules/, /storybook-config-entry\.js$/, /storybook-stories\.js$/],
@@ -50,12 +59,10 @@ const config: StorybookConfig = {
 
     return config;
   },
+
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
-  },
-  docs: {
-    autodocs: true,
   },
 };
 

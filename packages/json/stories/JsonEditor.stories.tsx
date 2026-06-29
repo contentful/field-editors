@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ActionsPlayground, createFakeFieldAPI } from '@contentful/field-editor-test-utils';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import JsonEditor from '../src/JsonEditor';
 

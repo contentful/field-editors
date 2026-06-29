@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Asset, Button, Card, Heading, TextLink } from '@contentful/f36-components';
 import { ThumbsUpIcon } from '@contentful/f36-icons';
 import { ActionsPlayground } from '@contentful/field-editor-test-utils';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { SingleMediaEditor } from '../../src';
 import { newReferenceEditorFakeSdk } from '../../src/__fixtures__/FakeSdk';
