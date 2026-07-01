@@ -73,6 +73,8 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
       it('allows writing marked text by selecting text', () => {
         richText.editor.click().type('some text{selectall}');
 
+        cy.wait(100); // eslint-disable-line cypress/no-unnecessary-waiting
+
         toggleMarkViaToolbar(mark);
 
         const expectedValue = doc(block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }])));
@@ -96,6 +98,8 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
       it('allows writing unmarked text by selecting text', () => {
         richText.editor.click().type('some text{selectall}');
 
+        cy.wait(100); // eslint-disable-line cypress/no-unnecessary-waiting
+
         toggleMarkViaToolbar(mark);
 
         // Wait until the mark is applied
@@ -117,7 +121,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
           richText.editor.click().type(shortcut).type('some text');
 
           const expectedValue = doc(
-            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }])),
           );
 
           richText.expectValue(expectedValue);
@@ -131,7 +135,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
           richText.editor.type('{selectall}').type(shortcut);
 
           const expectedValue = doc(
-            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }]))
+            block(BLOCKS.PARAGRAPH, {}, text('some text', [{ type: mark }])),
           );
 
           richText.expectValue(expectedValue);
@@ -167,7 +171,11 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
     toggleMarkViaToolbar(MARKS.SUPERSCRIPT);
 
     const expectedValue = doc(
-      block(BLOCKS.PARAGRAPH, {}, text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }]))
+      block(
+        BLOCKS.PARAGRAPH,
+        {},
+        text('should only be superscript', [{ type: MARKS.SUPERSCRIPT }]),
+      ),
     );
     richText.expectValue(expectedValue);
   });
@@ -179,7 +187,7 @@ describe('Rich Text Editor - Marks', { viewportHeight: 2000, viewportWidth: 1000
     toggleMarkViaToolbar(MARKS.SUBSCRIPT);
 
     const expectedValue = doc(
-      block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }]))
+      block(BLOCKS.PARAGRAPH, {}, text('should only be subscript', [{ type: MARKS.SUBSCRIPT }])),
     );
     richText.expectValue(expectedValue);
   });
