@@ -6,7 +6,7 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url));
 
 export function createVitestConfig(packageName: string) {
   return {
-    plugins: [react({ plugins: [['@lingui/swc-plugin', {}]] })],
+    plugins: [react()],
     test: {
       globals: false,
       environment: 'jsdom' as const,
