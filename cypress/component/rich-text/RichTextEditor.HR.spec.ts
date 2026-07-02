@@ -20,7 +20,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
 
     const expectedValue = doc(
       block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
-      block(BLOCKS.PARAGRAPH, {}, text('', []))
+      block(BLOCKS.PARAGRAPH, {}, text('', [])),
     );
 
     richText.expectValue(expectedValue);
@@ -48,7 +48,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       const expectedValue = doc(
         block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
         block(BLOCKS.HR, {}),
-        block(BLOCKS.PARAGRAPH, {}, text('', []))
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
       );
 
       richText.expectValue(expectedValue);
@@ -74,7 +74,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
         block(BLOCKS.HR, {}),
         block(BLOCKS.HR, {}),
         block(BLOCKS.HR, {}),
-        block(BLOCKS.PARAGRAPH, {}, text('', []))
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
       );
 
       richText.expectValue(expectedValue);
@@ -83,7 +83,8 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
     it('should split blockquote', () => {
       addBlockquote('some text');
 
-      richText.editor.type('{enter}some text{uparrow}');
+      richText.editor.type('{enter}some text');
+      cy.realPress('ArrowUp');
 
       richText.editor.should('be.focused');
       richText.toolbar.hr.click();
@@ -93,7 +94,7 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
         block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
         block(BLOCKS.HR, {}),
         block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-        block(BLOCKS.PARAGRAPH, {}, text('', []))
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
       );
 
       richText.expectValue(expectedValue);
@@ -111,12 +112,13 @@ describe('Rich Text Editor - HR', { viewportHeight: 2000, viewportWidth: 1000 },
       richText.expectValue(doc(block(BLOCKS.HR, {}), block(BLOCKS.PARAGRAPH, {}, text('', []))));
 
       // Move arrow up to select the HR then press ENTER
-      focusEditorAndType(richText, '{uparrow}{enter}');
+      cy.realPress('ArrowUp');
+      richText.editor.type('{enter}');
 
       const expectedValue = doc(
         block(BLOCKS.PARAGRAPH, {}, text('', [])),
         block(BLOCKS.HR, {}),
-        block(BLOCKS.PARAGRAPH, {}, text('', []))
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
       );
 
       richText.expectValue(expectedValue);

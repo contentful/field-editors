@@ -22,7 +22,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
 
     const expectedValue = doc(
       block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
-      block(BLOCKS.PARAGRAPH, {}, text('', []))
+      block(BLOCKS.PARAGRAPH, {}, text('', [])),
     );
 
     richText.expectValue(expectedValue);
@@ -73,7 +73,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
         },
       }),
       emptyParagraph(),
-      emptyParagraph()
+      emptyParagraph(),
     );
 
     richText.expectValue(expectedValue);
@@ -101,9 +101,9 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           block(
             test.listType,
             {},
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('item 1', [])))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('item 1', []))),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -138,9 +138,9 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           block(
             test.listType,
             {},
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('abc', [])))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('abc', []))),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -174,7 +174,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -189,9 +189,9 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           block(
             test.listType,
             {},
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', [])))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -208,9 +208,9 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           block(
             test.listType,
             {},
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.HEADING_1, {}, text('heading')))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.HEADING_1, {}, text('heading'))),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -224,7 +224,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
 
         const expectedValue = doc(
           block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.HR, {}))),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -238,7 +238,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
 
         const expectedValue = doc(
           block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, entryBlock(), emptyParagraph())),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -252,7 +252,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
 
         const expectedValue = doc(
           block(test.listType, {}, block(BLOCKS.LIST_ITEM, {}, assetBlock(), emptyParagraph())),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -269,9 +269,9 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           block(
             test.listType,
             {},
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.QUOTE, {}, paragraphWithText('quote')))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.QUOTE, {}, paragraphWithText('quote'))),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -304,16 +304,16 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
                 BLOCKS.PARAGRAPH,
                 {},
                 text('bold ', [mark(MARKS.BOLD)]),
-                text('italic', [mark(MARKS.ITALIC)])
-              )
+                text('italic', [mark(MARKS.ITALIC)]),
+              ),
             ),
             block(
               BLOCKS.LIST_ITEM,
               {},
-              block(BLOCKS.PARAGRAPH, {}, text('more italic text', [mark(MARKS.ITALIC)]))
-            )
+              block(BLOCKS.PARAGRAPH, {}, text('more italic text', [mark(MARKS.ITALIC)])),
+            ),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -323,18 +323,12 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
         richText.editor.click();
         test.getList().click();
 
-        richText.editor
-          .type('1{enter}2{enter}3{enter}4')
-          .trigger('keydown', KEYS.tab)
-          .type('{uparrow}')
-          .wait(50)
-          .type('{uparrow}')
-          .trigger('keydown', KEYS.tab)
-          .type('{downarrow}')
-          .wait(50)
-          .type('{backspace}')
-          .wait(50)
-          .type('{backspace}');
+        richText.editor.type('1{enter}2{enter}3{enter}4').trigger('keydown', KEYS.tab);
+        cy.realPress('ArrowUp').wait(50);
+        cy.realPress('ArrowUp');
+        richText.editor.trigger('keydown', KEYS.tab);
+        cy.realPress('ArrowDown').wait(50);
+        richText.editor.type('{backspace}').wait(50).type('{backspace}');
 
         const expectedValue = doc(
           block(
@@ -347,12 +341,12 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
               block(
                 test.listType,
                 {},
-                block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('2')))
-              )
+                block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('2'))),
+              ),
             ),
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('4')))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('4'))),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -364,7 +358,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           test.getList().click();
           richText.editor.type('A paragraph');
           richText.toolbar.embed('entry-block');
-          richText.editor.type('{uparrow}');
+          cy.realPress('ArrowUp');
 
           // switch the list off
           test.getList().click();
@@ -373,7 +367,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
             block(BLOCKS.PARAGRAPH, {}, text('A paragraph')),
             entryBlock(),
             emptyParagraph(),
-            emptyParagraph()
+            emptyParagraph(),
           );
 
           richText.expectValue(expectedValue);
@@ -389,7 +383,8 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
           richText.editor.type('{enter}Another paragraph');
           richText.toolbar.embed('entry-block');
           richText.editor.type('{enter}Another paragraph again');
-          richText.editor.type('{uparrow}').wait(50).type('{uparrow}');
+          cy.realPress('ArrowUp').wait(50);
+          cy.realPress('ArrowUp');
 
           // switch the list off
           test.getList().click();
@@ -402,8 +397,8 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
                 BLOCKS.LIST_ITEM,
                 {},
                 block(BLOCKS.PARAGRAPH, {}, text('A paragraph')),
-                entryBlock()
-              )
+                entryBlock(),
+              ),
             ),
             block(BLOCKS.PARAGRAPH, {}, text('Another paragraph')),
             entryBlock(),
@@ -414,10 +409,10 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
                 BLOCKS.LIST_ITEM,
                 {},
                 block(BLOCKS.PARAGRAPH, {}, text('Another paragraph again')),
-                emptyParagraph()
-              )
+                emptyParagraph(),
+              ),
             ),
-            emptyParagraph()
+            emptyParagraph(),
           );
 
           richText.expectValue(expectedValue);

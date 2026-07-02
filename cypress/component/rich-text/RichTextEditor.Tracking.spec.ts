@@ -313,14 +313,13 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
       return richText.editor;
     };
     const insertTableWithExampleData = () => {
-      insertTable()
-        .type('foo')
-        .type('{rightarrow}')
-        .type('bar')
-        .type('{rightarrow}')
-        .type('baz')
-        .type('{rightarrow}')
-        .type('quux');
+      insertTable().type('foo');
+      cy.realPress('ArrowRight');
+      richText.editor.type('bar');
+      cy.realPress('ArrowRight');
+      richText.editor.type('baz');
+      cy.realPress('ArrowRight');
+      richText.editor.type('quux');
     };
 
     const insertTableAction = () => action('insertTable', 'toolbar-icon');

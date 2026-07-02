@@ -45,7 +45,7 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000, viewportWidth: 1
 
     const expectedValue = doc(
       block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text(content, []))),
-      block(BLOCKS.PARAGRAPH, {}, text('', []))
+      block(BLOCKS.PARAGRAPH, {}, text('', [])),
     );
 
     richText.expectValue(expectedValue);
@@ -104,7 +104,7 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000, viewportWidth: 1
 
           const expectedHeadingValue = doc(
             block(type, {}, text('some text', [])),
-            block(BLOCKS.PARAGRAPH, {}, text('', []))
+            block(BLOCKS.PARAGRAPH, {}, text('', [])),
           );
 
           richText.expectValue(expectedHeadingValue);
@@ -131,10 +131,12 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000, viewportWidth: 1
         // To make sure paragraph/heading is present
         richText.expectValue(doc(block(type, {}, text('x')), entryBlock(), emptyParagraph()));
 
-        richText.editor
-          .click('bottom')
-          // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correctly
-          .type('{uparrow}{uparrow}{uparrow}{del}{del}', { delay: 100 });
+        // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correctly
+        richText.editor.click('bottom');
+        cy.realPress('ArrowUp');
+        cy.realPress('ArrowUp');
+        cy.realPress('ArrowUp');
+        richText.editor.type('{del}{del}', { delay: 100 });
 
         richText.expectValue(doc(entryBlock(), emptyParagraph()));
       });
@@ -148,7 +150,8 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000, viewportWidth: 1
         richText.toolbar.embed('entry-block');
 
         // Using `delay` to avoid flakiness, cypress triggers a keypress every 10ms and the editor was not responding correcrly
-        richText.editor.type('{leftarrow}{del}', { delay: 100 });
+        cy.realPress('ArrowLeft');
+        richText.editor.type('{del}', { delay: 100 });
 
         richText.expectValue(doc(block(type, {}, text(value)), emptyParagraph()));
       });
