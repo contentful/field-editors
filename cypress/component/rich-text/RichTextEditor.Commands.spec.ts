@@ -126,7 +126,7 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
       getCommandList().findByText('Embed Example Content Type').should('exist');
       richText.editor.type('{enter}');
       richText.editor.type('{enter}');
-      richText.editor.type('{downarrow}');
+      cy.realPress('ArrowDown');
 
       cy.findByRole('article').should('exist');
 
@@ -140,8 +140,8 @@ describe('Rich Text Editor - Commands', { viewportHeight: 2000, viewportWidth: 1
       getCommandList().findByText('Embed Example Content Type').should('exist');
       richText.editor.type('{enter}');
       richText.editor.type('{enter}');
-      richText.editor.type('{downarrow}');
-      richText.editor.type('{uparrow}');
+      cy.realPress('ArrowDown');
+      cy.realPress('ArrowUp');
       cy.findByRole('article').should('exist');
 
       //check for the CSS style that indicates it is not selected

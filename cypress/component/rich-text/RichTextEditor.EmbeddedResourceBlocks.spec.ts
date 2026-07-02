@@ -55,7 +55,7 @@ describe(
 
           richText.editor
             .find(
-              '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]'
+              '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]',
             )
             .click();
 
@@ -76,7 +76,7 @@ describe(
           // Inserts paragraph before embed because it's in the first line.
           richText.editor
             .find(
-              '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]'
+              '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]',
             )
             .first()
             .click();
@@ -85,7 +85,7 @@ describe(
           // inserts paragraph in-between embeds.
           richText.editor
             .find(
-              '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]'
+              '[data-entity-id="crn:contentful:::content:spaces/indifferent/entries/published-entry"]',
             )
             .first()
             .click();
@@ -97,8 +97,8 @@ describe(
               resourceBlock(),
               emptyParagraph(),
               resourceBlock(),
-              emptyParagraph()
-            )
+              emptyParagraph(),
+            ),
           );
         });
 
@@ -126,17 +126,18 @@ describe(
         });
 
         it('adds embedded resource between words', () => {
-          richText.editor
-            .click()
-            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
-            .then(triggerEmbeddedResource);
+          richText.editor.click().type('foobar');
+          cy.realPress('ArrowLeft');
+          cy.realPress('ArrowLeft');
+          cy.realPress('ArrowLeft');
+          richText.editor.then(triggerEmbeddedResource);
 
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
               resourceBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text('bar'))
-            )
+              block(BLOCKS.PARAGRAPH, {}, text('bar')),
+            ),
           );
         });
 
@@ -144,7 +145,8 @@ describe(
           richText.editor.click();
           triggerEmbeddedResource();
 
-          richText.editor.type('{downarrow}X');
+          cy.realPress('ArrowDown');
+          richText.editor.type('X');
 
           richText.expectValue(doc(resourceBlock(), paragraphWithText('X')));
 
@@ -168,5 +170,5 @@ describe(
 
       richText.expectValue(doc(resourceBlock(), resourceBlock(), emptyParagraph()));
     });
-  }
+  },
 );

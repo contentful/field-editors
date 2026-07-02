@@ -108,10 +108,11 @@ describe(
           });
 
           it('adds embedded entries between words', () => {
-            richText.editor
-              .click()
-              .type('foobar{leftarrow}{leftarrow}{leftarrow}')
-              .then(triggerEmbeddedEntry);
+            richText.editor.click().type('foobar');
+            cy.realPress('ArrowLeft');
+            cy.realPress('ArrowLeft');
+            cy.realPress('ArrowLeft');
+            richText.editor.then(triggerEmbeddedEntry);
 
             richText.expectValue(
               doc(
@@ -126,7 +127,8 @@ describe(
             richText.editor.click();
             triggerEmbeddedEntry();
 
-            richText.editor.type('{downarrow}X');
+            cy.realPress('ArrowDown');
+            richText.editor.type('X');
 
             richText.expectValue(doc(entryBlock(), paragraphWithText('X')));
 

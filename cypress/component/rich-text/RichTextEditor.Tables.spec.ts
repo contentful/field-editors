@@ -41,14 +41,13 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       return richText.editor;
     };
     const insertTableWithExampleData = () => {
-      insertTable()
-        .type('foo')
-        .type('{rightarrow}')
-        .type('bar')
-        .type('{rightarrow}')
-        .type('baz')
-        .type('{rightarrow}')
-        .type('quux');
+      insertTable().type('foo');
+      cy.realPress('ArrowRight');
+      richText.editor.type('bar');
+      cy.realPress('ArrowRight');
+      richText.editor.type('baz');
+      cy.realPress('ArrowRight');
+      richText.editor.type('quux');
     };
     const expectDocumentStructure = (...elements) => {
       richText.expectValue(doc(...elements, emptyParagraph()));
@@ -62,7 +61,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         Cypress.on('uncaught:exception', (err) => {
           if (
             err.message.includes(
-              'Cannot resolve a Slate point from DOM point: [object HTMLDivElement],0'
+              'Cannot resolve a Slate point from DOM point: [object HTMLDivElement],0',
             )
           ) {
             return false;
@@ -74,15 +73,16 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
         insertTable();
 
-        richText.editor.type('{uparrow}{enter}');
+        cy.realPress('ArrowUp');
+        richText.editor.type('{enter}');
 
         richText.expectValue(
           doc(
             emptyParagraph(),
 
             table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
-            emptyParagraph()
-          )
+            emptyParagraph(),
+          ),
         );
       });
     }
@@ -98,10 +98,10 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         doc(
           table(
             row(header(paragraphWithText('hey')), emptyHeader()),
-            row(emptyCell(), emptyCell())
+            row(emptyCell(), emptyCell()),
           ),
-          emptyParagraph()
-        )
+          emptyParagraph(),
+        ),
       );
     });
 
@@ -110,18 +110,15 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
     it.skip('does not delete table header cells when selecting the whole header row', () => {
       insertTable();
 
-      richText.editor
-        .type(`hey`)
-        .type('{shift}{downarrow}', {
-          delay: 100,
-        })
-        .type('{backspace}');
+      richText.editor.type(`hey`);
+      cy.realPress(['Shift', 'ArrowDown']);
+      richText.editor.type('{backspace}');
 
       richText.expectValue(
         doc(
           table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
-          emptyParagraph()
-        )
+          emptyParagraph(),
+        ),
       );
     });
 
@@ -134,10 +131,10 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         doc(
           table(
             row(header(paragraphWithText('hey')), emptyHeader()),
-            row(emptyCell(), emptyCell())
+            row(emptyCell(), emptyCell()),
           ),
-          emptyParagraph()
-        )
+          emptyParagraph(),
+        ),
       );
     });
 
@@ -153,7 +150,9 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       richText.toolbar.headingsDropdown.should('be.disabled');
 
       // select outside the table
-      richText.editor.click().type('{downarrow}').wait(100);
+      richText.editor.click();
+      cy.realPress('ArrowDown');
+      cy.wait(100);
 
       blockElements.forEach((el) => {
         cy.findByTestId(`${el}-toolbar-button`).should('not.be.disabled');
@@ -178,8 +177,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         richText.expectValue(
           doc(
             table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
-            emptyParagraph()
-          )
+            emptyParagraph(),
+          ),
         );
       });
 
@@ -192,8 +191,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           doc(
             paragraphWithText('foo'),
             table(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell())),
-            emptyParagraph()
-          )
+            emptyParagraph(),
+          ),
         );
       });
 
@@ -201,7 +200,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         const buttonsToDisableTable = ['ul', 'ol', 'quote'];
 
         it(`should disable table button if ${buttonsToDisableTable.join(
-          ', '
+          ', ',
         )} elements are focused`, () => {
           buttonsToDisableTable.forEach((button) => {
             richText.editor.click();
@@ -226,7 +225,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),
-            row(cellWithText('baz'), emptyCell())
+            row(cellWithText('baz'), emptyCell()),
           );
 
           // make sure it works for table header cells, too
@@ -238,7 +237,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
           expectTable(
             row(emptyHeader(), headerWithText('bar')),
-            row(cellWithText('baz'), emptyCell())
+            row(cellWithText('baz'), emptyCell()),
           );
         });
       });
@@ -247,16 +246,19 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         it('removes the text, not the cell', () => {
           insertTableWithExampleData();
           richText.editor.find('table > tbody > tr:first-child > th:first-child').click();
+          cy.realPress('ArrowLeft');
+          cy.realPress('ArrowLeft');
+          cy.realPress('ArrowLeft');
           richText.editor
-            .type('{leftarrow}{leftarrow}{leftarrow}{del}{del}{del}{del}')
+            .type('{del}{del}{del}{del}')
             // .type('{backspace}') does not work on non-typable elements.(contentEditable=false)
-            .trigger('keydown', KEYS.delete) // 8 = delete/backspace
-            // try forward-deleting from outside the table for good measure
-            .type('{leftarrow}{del}')
-            .trigger('keydown', KEYS.delete);
+            .trigger('keydown', KEYS.delete); // 8 = delete/backspace
+          // try forward-deleting from outside the table for good measure
+          cy.realPress('ArrowLeft');
+          richText.editor.type('{del}').trigger('keydown', KEYS.delete);
           expectTable(
             row(headerWithText(''), headerWithText('bar')),
-            row(cellWithText('baz'), cellWithText('quux'))
+            row(cellWithText('baz'), cellWithText('quux')),
           );
         });
       });
@@ -294,7 +296,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),
             row(emptyCell(), emptyCell()),
-            row(cellWithText('baz'), cellWithText('quux'))
+            row(cellWithText('baz'), cellWithText('quux')),
           );
         });
       });
@@ -306,7 +308,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),
             row(cellWithText('baz'), cellWithText('quux')),
-            row(emptyCell(), emptyCell())
+            row(emptyCell(), emptyCell()),
           );
         });
 
@@ -316,7 +318,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),
             row(cellWithText('baz'), cellWithText('quux')),
-            row(emptyCell(), emptyCell())
+            row(emptyCell(), emptyCell()),
           );
         });
       });
@@ -326,7 +328,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
         expectTable(
           row(headerWithText('foo'), emptyHeader(), headerWithText('bar')),
-          row(cellWithText('baz'), emptyCell(), cellWithText('quux'))
+          row(cellWithText('baz'), emptyCell(), cellWithText('quux')),
         );
       });
 
@@ -335,7 +337,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
         expectTable(
           row(headerWithText('foo'), headerWithText('bar'), emptyHeader()),
-          row(cellWithText('baz'), cellWithText('quux'), emptyCell())
+          row(cellWithText('baz'), cellWithText('quux'), emptyCell()),
         );
       });
 
@@ -344,14 +346,14 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
         expectTable(
           row(cellWithText('foo'), cellWithText('bar')),
-          row(cellWithText('baz'), cellWithText('quux'))
+          row(cellWithText('baz'), cellWithText('quux')),
         );
 
         doAction('Enable table header');
 
         expectTable(
           row(headerWithText('foo'), headerWithText('bar')),
-          row(cellWithText('baz'), cellWithText('quux'))
+          row(cellWithText('baz'), cellWithText('quux')),
         );
       });
 

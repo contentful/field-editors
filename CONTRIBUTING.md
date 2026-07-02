@@ -144,11 +144,34 @@ yarn test
 yarn test:ci
 ```
 
-#### Accessibility tests
+#### Links
 
-We use [`vitest-axe`](https://github.com/nicholasgasior/vitest-axe) for automated accessibility checks. The `toHaveNoViolations` matcher is globally available — no import needed.
+- [`@testing-library/react` documentation](https://testing-library.com/docs/react-testing-library/intro)
+- [`vitest` documentation](https://vitest.dev/guide/)
+
+## Accessibility
+
+The repo has three complementary layers of accessibility tooling, active at different points in the development workflow.
+
+### Storybook (`@storybook/addon-a11y`)
+
+The accessibility addon is pre-configured. Run `yarn start` and open any story — the **Accessibility** panel shows live axe results as you develop.
+
+### Unit tests (`vitest-axe`)
+
+We use [`vitest-axe`](https://github.com/nicholasgasior/vitest-axe) for automated accessibility checks in unit tests. The `toHaveNoViolations` matcher is globally available.
 
 Every component needs axe coverage across its meaningful states. A single test on the default render is not sufficient: a component that passes in its default state can still have violations when disabled, in an error state, or with different content rendered. Cover each state where the DOM structure or ARIA attributes change.
+
+What to cover per component:
+
+- **Default / empty** — baseline render with no value
+- **Filled** — rendered with actual content (especially relevant for rich text or media editors where content changes the DOM)
+- **Disabled** — if element can be rendered in a disabled state
+- **Error / validation state** — after errors are emitted
+- Any state that adds or removes interactive elements (e.g. dialogs, popovers, expanded panels)
+
+#### Example unit test
 
 ```tsx
 import { axe } from 'vitest-axe';
@@ -199,16 +222,33 @@ describe('SingleLineEditor accessibility', () => {
 });
 ```
 
-What to cover per component:
+### Component tests (`cypress-axe`)
 
-- **Default / empty** — baseline render with no value
-- **Filled** — rendered with actual content (especially relevant for rich text or media editors where content changes the DOM)
-- **Disabled** — `isInitiallyDisabled={true}`
-- **Error / validation state** — after schema errors are emitted
-- Any state that adds or removes interactive elements (e.g. dialogs, popovers, expanded panels)
+Component tests have `cypress-axe` wired up via `cypress/support/component.ts`. Use `cy.checkA11y()` to assert no violations after mounting a component.
 
-#### Links
+Axe is injected lazily on the first `cy.checkA11y()` call. Four structural rules are globally disabled as they do not apply to isolated component tests: `html-has-lang`, `landmark-one-main`, `page-has-heading-one`, `region`. Violations are printed to the terminal for readable CI output.
 
-- [`@testing-library/react` documentation](https://testing-library.com/docs/react-testing-library/intro)
-- [`vitest` documentation](https://vitest.dev/guide/)
+To scope the check or disable a rule for one test:
+
+```ts
+// Check only a specific element
+cy.checkA11y('[role="dialog"]');
+
+// Disable a rule for one test
+cy.checkA11y(undefined, { rules: { 'color-contrast': { enabled: false } } });
+```
+
+#### Example component test
+
+```ts
+it('has no a11y violations', () => {
+  cy.mount(<MyComponent />);
+  cy.checkA11y();
+});
+```
+
+### Further reading
+
 - [`vitest-axe` documentation](https://github.com/nicholasgasior/vitest-axe)
+- [`cypress-axe` documentation](https://github.com/component-driven/cypress-axe)
+- [`@storybook/addon-a11y` documentation](https://storybook.js.org/docs/writing-tests/accessibility-testing)

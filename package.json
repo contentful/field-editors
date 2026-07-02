@@ -75,11 +75,14 @@
     "@vitejs/plugin-react-swc": "^3.7.0",
     "@vitest/eslint-plugin": "^1.6.18",
     "ajv": "8.17.1",
+    "axe-core": "^4.12.1",
     "concurrently": "8.0.1",
     "contentful-cli": "3.3.8",
     "contentful-management": "12.3.0",
-    "cypress": "13.4.0",
+    "cypress": "^15.18.0",
+    "cypress-axe": "^1.7.0",
     "cypress-plugin-tab": "1.0.5",
+    "cypress-real-events": "^1.15.0",
     "cz-lerna-changelog": "2.0.2",
     "emotion": "10.0.27",
     "eslint": "8.56.0",
@@ -127,7 +130,8 @@
     "vite": "^8.0.14",
     "vitest": "^4.1.7",
     "vitest-axe": "^0.1.0",
-    "webpack": "5.104.1"
+    "webpack": "5.104.1",
+    "webpack-dev-server": "^5"
   },
   "resolutions": {
     "@types/react": "18.3.1",

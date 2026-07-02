@@ -68,7 +68,7 @@ describe(
           richText.editor.trigger('keydown', KEYS.enter);
 
           richText.expectValue(
-            doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph())
+            doc(emptyParagraph(), assetBlock(), emptyParagraph(), assetBlock(), emptyParagraph()),
           );
         });
 
@@ -96,17 +96,18 @@ describe(
         });
 
         it('adds embedded assets between words', () => {
-          richText.editor
-            .click()
-            .type('foobar{leftarrow}{leftarrow}{leftarrow}')
-            .then(triggerEmbeddedAsset);
+          richText.editor.click().type('foobar');
+          cy.realPress('ArrowLeft');
+          cy.realPress('ArrowLeft');
+          cy.realPress('ArrowLeft');
+          richText.editor.then(triggerEmbeddedAsset);
 
           richText.expectValue(
             doc(
               block(BLOCKS.PARAGRAPH, {}, text('foo')),
               assetBlock(),
-              block(BLOCKS.PARAGRAPH, {}, text('bar'))
-            )
+              block(BLOCKS.PARAGRAPH, {}, text('bar')),
+            ),
           );
         });
 
@@ -114,7 +115,8 @@ describe(
           richText.editor.click();
           triggerEmbeddedAsset();
 
-          richText.editor.type('{downarrow}X');
+          cy.realPress('ArrowDown');
+          richText.editor.type('X');
 
           richText.expectValue(doc(assetBlock(), paragraphWithText('X')));
 
@@ -128,5 +130,5 @@ describe(
         });
       });
     }
-  }
+  },
 );

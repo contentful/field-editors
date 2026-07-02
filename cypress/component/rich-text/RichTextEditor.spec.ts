@@ -469,7 +469,9 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       richText.toolbar.embed('entry-block');
       richText.editor.type('hey');
       richText.toolbar.embed('entry-block');
-      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+      cy.realPress('ArrowLeft');
+      cy.realPress('ArrowLeft');
+      richText.editor.type('{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(entryBlock(), entryBlock(), emptyParagraph()));
     });
@@ -479,7 +481,9 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       richText.toolbar.embed('asset-block');
       richText.editor.type('hey');
       richText.toolbar.embed('asset-block');
-      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+      cy.realPress('ArrowLeft');
+      cy.realPress('ArrowLeft');
+      richText.editor.type('{backspace}{backspace}{backspace}{backspace}');
 
       richText.expectValue(doc(assetBlock(), assetBlock(), emptyParagraph()));
     });
@@ -489,7 +493,9 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       richText.toolbar.hr.click();
       richText.editor.type('hey');
       richText.toolbar.hr.click();
-      richText.editor.type('{leftarrow}{leftarrow}{backspace}{backspace}{backspace}{backspace}');
+      cy.realPress('ArrowLeft');
+      cy.realPress('ArrowLeft');
+      richText.editor.type('{backspace}{backspace}{backspace}{backspace}');
 
       const hr = block(BLOCKS.HR, {});
       richText.expectValue(doc(hr, hr, emptyParagraph()));

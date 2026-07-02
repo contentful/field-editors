@@ -7,6 +7,10 @@ import {
 } from './utils';
 
 describe('Markdown Editor / History', () => {
+  beforeEach(() => {
+    cy.viewport(1280, 720);
+  });
+
   const selectors = {
     getToggleAdditionalActionsButton: () => {
       return cy.findByRole('button', { name: 'More actions' });
@@ -40,6 +44,8 @@ describe('Markdown Editor / History', () => {
 
     clickVisibleButtonByName('Undo');
     cy.get('@removeValue').should('be.calledOnce');
+
+    selectors.getRedoButton().should('be.visible');
 
     clickVisibleButtonByName('Redo');
     checkValue('Hello!\n');

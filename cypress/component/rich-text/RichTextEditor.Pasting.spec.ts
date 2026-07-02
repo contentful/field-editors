@@ -60,17 +60,17 @@ describe(
             inline(
               'hyperlink',
               { uri: 'https://be.contentful.com' },
-              text('with link', [mark('underline')])
+              text('with link', [mark('underline')]),
             ),
             text(' and some more text'),
             inline(
               'hyperlink',
               { uri: 'https://be.contentful.com' },
               text(' '),
-              text('and another link', [mark('underline')])
+              text('and another link', [mark('underline')]),
             ),
-            text(' following.')
-          )
+            text(' following.'),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -105,7 +105,7 @@ describe(
                 },
               },
             }),
-            text('')
+            text(''),
           ),
           block(
             BLOCKS.PARAGRAPH,
@@ -122,10 +122,10 @@ describe(
                   },
                 },
               },
-              text('resourceHyperlink')
+              text('resourceHyperlink'),
             ),
-            text('')
-          )
+            text(''),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -144,9 +144,9 @@ describe(
             'unordered-list',
             {},
             block('list-item', {}, block('paragraph', {}, text('item #1'))),
-            block('list-item', {}, block('paragraph', {}, text('item #2')))
+            block('list-item', {}, block('paragraph', {}, text('item #2'))),
           ),
-          block('paragraph', {}, text())
+          block('paragraph', {}, text()),
         );
 
         richText.expectValue(expectedValue);
@@ -175,13 +175,13 @@ describe(
                 inline(
                   'hyperlink',
                   { uri: 'https://www.google.com/' },
-                  text('item', [mark('underline')])
+                  text('item', [mark('underline')]),
                 ),
-                text(' with a background colors')
-              )
-            )
+                text(' with a background colors'),
+              ),
+            ),
           ),
-          block('paragraph', {}, text())
+          block('paragraph', {}, text()),
         );
 
         richText.expectValue(expectedValue);
@@ -201,9 +201,9 @@ describe(
           block(
             BLOCKS.UL_LIST,
             {},
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('Hello world!')))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('Hello world!'))),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -240,11 +240,11 @@ describe(
                     },
                   },
                 }),
-                text('')
-              )
-            )
+                text(''),
+              ),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -281,7 +281,7 @@ describe(
                       },
                     },
                   },
-                  text('resourceHyperlink')
+                  text('resourceHyperlink'),
                 ),
                 text(' '),
                 text('and an inline resource link: '),
@@ -294,11 +294,11 @@ describe(
                     },
                   },
                 }),
-                text('')
-              )
-            )
+                text(''),
+              ),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -354,12 +354,12 @@ describe(
                 block(
                   BLOCKS.LIST_ITEM,
                   {},
-                  block(BLOCKS.PARAGRAPH, {}, text('world!', [mark(MARKS.BOLD)]))
-                )
-              )
-            )
+                  block(BLOCKS.PARAGRAPH, {}, text('world!', [mark(MARKS.BOLD)])),
+                ),
+              ),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -394,13 +394,13 @@ describe(
                 {},
                 text('Header 2 ('),
                 inline(INLINES.HYPERLINK, { uri: 'https://example.com' }, text('with link')),
-                text(')')
+                text(')'),
               ),
               block(BLOCKS.PARAGRAPH, {}, text('Cell 1', [mark(MARKS.BOLD)])),
-              block(BLOCKS.PARAGRAPH, {}, text('Cell 2'))
-            )
+              block(BLOCKS.PARAGRAPH, {}, text('Cell 2')),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -436,7 +436,7 @@ describe(
               'table-row',
               {},
               block('table-header-cell', {}, block('paragraph', {}, text('Property'))),
-              block('table-header-cell', {}, block('paragraph', {}, text('Supported')))
+              block('table-header-cell', {}, block('paragraph', {}, text('Supported'))),
             ),
             block(
               'table-row',
@@ -444,15 +444,15 @@ describe(
               block(
                 'table-cell',
                 {},
-                block('paragraph', {}, text('Adding and removing rows and columns'))
+                block('paragraph', {}, text('Adding and removing rows and columns')),
               ),
-              block('table-cell', {}, block('paragraph', {}, text('Yes')))
+              block('table-cell', {}, block('paragraph', {}, text('Yes'))),
             ),
             block(
               'table-row',
               {},
               block('table-cell', {}, block('paragraph', {}, text('Table header'))),
-              block('table-cell', {}, block('paragraph', {}, text('Yes, for rows and columns')))
+              block('table-cell', {}, block('paragraph', {}, text('Yes, for rows and columns'))),
             ),
             block(
               'table-row',
@@ -470,9 +470,9 @@ describe(
                   text(','),
                   text('underline', [mark('underline')]),
                   text(','),
-                  text('code', [mark('code')])
-                )
-              )
+                  text('code', [mark('code')]),
+                ),
+              ),
             ),
             block(
               'table-row',
@@ -492,7 +492,7 @@ describe(
                     {
                       target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } },
                     },
-                    text('asset')
+                    text('asset'),
                   ),
                   text(' and '),
                   inline(
@@ -500,11 +500,11 @@ describe(
                     {
                       target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } },
                     },
-                    text('entry')
+                    text('entry'),
                   ),
-                  text('')
-                )
-              )
+                  text(''),
+                ),
+              ),
             ),
             block(
               'table-row',
@@ -520,9 +520,9 @@ describe(
                   inline('embedded-entry-inline', {
                     target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } },
                   }),
-                  text('')
-                )
-              )
+                  text(''),
+                ),
+              ),
             ),
             block(
               'table-row',
@@ -530,16 +530,16 @@ describe(
               block(
                 'table-cell',
                 {},
-                block('paragraph', {}, text('Copy & paste from other documents'))
+                block('paragraph', {}, text('Copy & paste from other documents')),
               ),
               block(
                 'table-cell',
                 {},
-                block('paragraph', {}, text('Yes. Eg. Google Docs, Jira, Confluence'))
-              )
-            )
+                block('paragraph', {}, text('Yes. Eg. Google Docs, Jira, Confluence')),
+              ),
+            ),
           ),
-          block('paragraph', {}, text(''))
+          block('paragraph', {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -560,10 +560,10 @@ describe(
               {},
               block('table-cell', {}, block('paragraph', {}, text('Field'))),
               block('table-cell', {}, block('paragraph', {}, text('Type'))),
-              block('table-cell', {}, block('paragraph', {}, text('Description')))
-            )
+              block('table-cell', {}, block('paragraph', {}, text('Description'))),
+            ),
           ),
-          block('paragraph', {}, text(''))
+          block('paragraph', {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -615,16 +615,16 @@ describe(
               'table-row',
               {},
               block('table-cell', {}, block('paragraph', {}, text('Cell 1'))),
-              block('table-cell', {}, block('paragraph', {}, text('Cell 2')))
+              block('table-cell', {}, block('paragraph', {}, text('Cell 2'))),
             ),
             block(
               'table-row',
               {},
               block('table-cell', {}, block('paragraph', {}, text('Cell 3'))),
-              block('table-cell', {}, block('paragraph', {}, text('Cell 4')))
-            )
+              block('table-cell', {}, block('paragraph', {}, text('Cell 4'))),
+            ),
           ),
-          block('paragraph', {}, text(''))
+          block('paragraph', {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -644,8 +644,8 @@ describe(
             inline(INLINES.EMBEDDED_ENTRY, {
               target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } },
             }),
-            text('.')
-          )
+            text('.'),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -674,7 +674,7 @@ describe(
                   },
                 },
               },
-              text('resourceHyperlink')
+              text('resourceHyperlink'),
             ),
             text(' and a resource inline :'),
             inline(INLINES.EMBEDDED_RESOURCE, {
@@ -686,8 +686,8 @@ describe(
                 },
               },
             }),
-            text('')
-          )
+            text(''),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -710,10 +710,10 @@ describe(
                 'table-row',
                 {},
                 block('table-cell', {}, block('paragraph', {}, text('Cell 1'))),
-                block('table-cell', {}, block('paragraph', {}, text('Cell 2')))
-              )
+                block('table-cell', {}, block('paragraph', {}, text('Cell 2'))),
+              ),
             ),
-            block('paragraph', {}, text(''))
+            block('paragraph', {}, text('')),
           );
 
           richText.expectValue(expectedValue);
@@ -733,10 +733,10 @@ describe(
                 'table-row',
                 {},
                 block('table-cell', {}, block('paragraph', {}, text('Cell 1'))),
-                block('table-cell', {}, block('paragraph', {}, text('Cell 2')))
-              )
+                block('table-cell', {}, block('paragraph', {}, text('Cell 2'))),
+              ),
             ),
-            block('paragraph', {}, text(''))
+            block('paragraph', {}, text('')),
           );
 
           richText.expectValue(expectedValue);
@@ -763,10 +763,10 @@ describe(
             inline(
               'hyperlink',
               { uri: 'https://contentful.com/' },
-              text('links', [mark('underline')])
+              text('links', [mark('underline')]),
             ),
-            text(' ')
-          )
+            text(' '),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -823,9 +823,9 @@ describe(
             {},
             block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('This'))),
             block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('Is'))),
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('A list')))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('A list'))),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -842,9 +842,9 @@ describe(
             BLOCKS.OL_LIST,
             {},
             block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('This is'))),
-            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('An ordered list')))
+            block(BLOCKS.LIST_ITEM, {}, block(BLOCKS.PARAGRAPH, {}, text('An ordered list'))),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -866,7 +866,7 @@ describe(
               block(
                 BLOCKS.TABLE_CELL,
                 {},
-                block(BLOCKS.PARAGRAPH, {}, text('This is some', [{ type: MARKS.ITALIC }]))
+                block(BLOCKS.PARAGRAPH, {}, text('This is some', [{ type: MARKS.ITALIC }])),
               ),
               block(
                 BLOCKS.TABLE_CELL,
@@ -874,12 +874,12 @@ describe(
                 block(
                   BLOCKS.PARAGRAPH,
                   {},
-                  text('Content on tables', [{ type: MARKS.UNDERLINE }, { type: MARKS.BOLD }])
-                )
-              )
-            )
+                  text('Content on tables', [{ type: MARKS.UNDERLINE }, { type: MARKS.BOLD }]),
+                ),
+              ),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -940,8 +940,8 @@ describe(
               { type: MARKS.ITALIC },
               { type: MARKS.UNDERLINE },
               { type: MARKS.CODE },
-            ])
-          )
+            ]),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -965,8 +965,8 @@ describe(
             BLOCKS.PARAGRAPH,
             {},
             text('Hello', [mark(MARKS.SUPERSCRIPT)]),
-            text('World', [mark(MARKS.SUBSCRIPT)])
-          )
+            text('World', [mark(MARKS.SUBSCRIPT)]),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -984,7 +984,7 @@ describe(
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('Hello world', [mark(MARKS.STRIKETHROUGH)])),
-          block(BLOCKS.PARAGRAPH, {}, text('\n'))
+          block(BLOCKS.PARAGRAPH, {}, text('\n')),
         );
 
         richText.expectValue(expectedValue);
@@ -1015,10 +1015,10 @@ describe(
                   },
                 },
               },
-              text('a')
+              text('a'),
             ),
-            text(' b')
-          )
+            text(' b'),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -1047,10 +1047,10 @@ describe(
                   },
                 },
               },
-              text('a')
+              text('a'),
             ),
-            text(' b')
-          )
+            text(' b'),
+          ),
         );
 
         richText.expectValue(expectedValue);
@@ -1059,7 +1059,9 @@ describe(
 
     describe('blockquotes', () => {
       it('breaks a paragraph when pasting a blockquote in the middle', () => {
-        richText.editor.type('A paragraph{leftarrow}').paste({
+        richText.editor.type('A paragraph');
+        cy.realPress('ArrowLeft');
+        richText.editor.paste({
           'text/html':
             '<span data-slate-fragment="JTVCJTdCJTIydHlwZSUyMiUzQSUyMmJsb2NrcXVvdGUlMjIlMkMlMjJkYXRhJTIyJTNBJTdCJTdEJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0eXBlJTIyJTNBJTIycGFyYWdyYXBoJTIyJTJDJTIyY2hpbGRyZW4lMjIlM0ElNUIlN0IlMjJ0ZXh0JTIyJTNBJTIyYSUyMHF1b3RlJTIyJTdEJTVEJTdEJTVEJTdEJTVE" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration: none; white-space: pre;">a quote</span>',
           'text/plain': 'a blockquote',
@@ -1068,7 +1070,7 @@ describe(
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('A paragrap')),
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('a quote'))),
-          block(BLOCKS.PARAGRAPH, {}, text('h'))
+          block(BLOCKS.PARAGRAPH, {}, text('h')),
         );
 
         richText.expectValue(expectedValue);
@@ -1083,7 +1085,7 @@ describe(
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('a quote'))),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -1108,7 +1110,7 @@ describe(
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('a quote'))),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -1124,7 +1126,7 @@ describe(
         });
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('quote'))),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -1149,5 +1151,5 @@ describe(
         richText.expectValue(expectedValue);
       });
     });
-  }
+  },
 );
