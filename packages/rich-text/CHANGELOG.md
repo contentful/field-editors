@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.9...@contentful/field-editor-rich-text@6.4.0) (2026-07-02)
+
+### Features
+
+- upgrade storybook to latest and enable addon-a11y [UFO-2307] ([#2179](https://github.com/contentful/field-editors/issues/2179)) ([864ee24](https://github.com/contentful/field-editors/commit/864ee245eb3324527376e709f95d40792ae9141f))
+
 ## [6.3.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.3.8...@contentful/field-editor-rich-text@6.3.9) (2026-06-05)
 
 ### Bug Fixes

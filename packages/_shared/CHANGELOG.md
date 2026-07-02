@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.4.1...@contentful/field-editor-shared@4.5.0) (2026-07-02)
+
+### Bug Fixes
+
+- show max char count capped by technical limits, add missing translations [ES-443] ([#2182](https://github.com/contentful/field-editors/issues/2182)) ([ac4c834](https://github.com/contentful/field-editors/commit/ac4c834f5fd7bb4de27e5f87c2ac937e32301f19))
+
+### Features
+
+- upgrade storybook to latest and enable addon-a11y [UFO-2307] ([#2179](https://github.com/contentful/field-editors/issues/2179)) ([864ee24](https://github.com/contentful/field-editors/commit/864ee245eb3324527376e709f95d40792ae9141f))
+
 ## [4.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.4.0...@contentful/field-editor-shared@4.4.1) (2026-05-28)
 
 **Note:** Version bump only for package @contentful/field-editor-shared

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@3.1.1...@contentful/field-editor-test-utils@3.1.2) (2026-07-02)
+
+### Bug Fixes
+
+- show max char count capped by technical limits, add missing translations [ES-443] ([#2182](https://github.com/contentful/field-editors/issues/2182)) ([ac4c834](https://github.com/contentful/field-editors/commit/ac4c834f5fd7bb4de27e5f87c2ac937e32301f19))
+
 ## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@3.1.0...@contentful/field-editor-test-utils@3.1.1) (2026-05-28)
 
 **Note:** Version bump only for package @contentful/field-editor-test-utils

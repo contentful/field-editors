@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@3.1.1...@contentful/field-editor-dropdown@3.2.0) (2026-07-02)
+
+### Features
+
+- upgrade storybook to latest and enable addon-a11y [UFO-2307] ([#2179](https://github.com/contentful/field-editors/issues/2179)) ([864ee24](https://github.com/contentful/field-editors/commit/864ee245eb3324527376e709f95d40792ae9141f))
+
 ## [3.1.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-dropdown@3.1.0...@contentful/field-editor-dropdown@3.1.1) (2026-05-28)
 
 **Note:** Version bump only for package @contentful/field-editor-dropdown
