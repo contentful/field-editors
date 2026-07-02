@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { t } from '@lingui/core/macro';
+
 import { ValidationType } from './types';
 
 interface CharValidationProps {
@@ -10,13 +12,33 @@ export function CharValidation(props: CharValidationProps) {
   const { constraints } = props;
 
   if (constraints.type === 'max') {
-    return <span>Maximum {constraints.max} characters</span>;
-  } else if (constraints.type === 'min') {
-    return <span>Requires at least {constraints.min} characters</span>;
-  } else {
+    const { max } = constraints;
     return (
       <span>
-        Requires between {constraints.min} and {constraints.max} characters
+        {t({
+          id: 'FieldEditors.Shared.CharValidation.MaximumConstraint',
+          message: `Maximum ${max} characters`,
+        })}
+      </span>
+    );
+  } else if (constraints.type === 'min') {
+    const { min } = constraints;
+    return (
+      <span>
+        {t({
+          id: 'FieldEditors.Shared.CharValidation.MinimumConstraint',
+          message: `Requires at least ${min} characters`,
+        })}
+      </span>
+    );
+  } else {
+    const { max, min } = constraints;
+    return (
+      <span>
+        {t({
+          id: 'FieldEditors.Shared.CharValidation.MinMaxConstraint',
+          message: `Requires between ${min} and ${max} characters`,
+        })}
       </span>
     );
   }

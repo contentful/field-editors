@@ -29,7 +29,7 @@ export function fromFieldValidations(
     return {
       type: 'min-max',
       min,
-      max,
+      max: Math.min(max, MAX_LIMITS[fieldType]),
     };
   } else if (isNumber(min)) {
     return {
@@ -39,7 +39,7 @@ export function fromFieldValidations(
   } else if (isNumber(max)) {
     return {
       type: 'max',
-      max,
+      max: Math.min(max, MAX_LIMITS[fieldType]),
     };
   } else {
     return {

@@ -7,6 +7,11 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url));
 export function createVitestConfig(packageName: string) {
   return {
     plugins: [react()],
+    resolve: {
+      alias: {
+        '@lingui/core/macro': resolve(rootDir, 'packages/_test/src/lingui-macro-stub.ts'),
+      },
+    },
     test: {
       globals: false,
       environment: 'jsdom' as const,

@@ -152,6 +152,35 @@ describe('SingleLineEditor', () => {
           {
             size: {
               min: 100,
+              max: 200,
+            },
+          },
+        ],
+        id: 'field-id',
+      };
+    });
+
+    const { getByText } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />,
+    );
+
+    expect(getByText('0 characters')).toBeInTheDocument();
+    expect(getByText('Requires between 100 and 200 characters')).toBeInTheDocument();
+  });
+
+  it('caps min-max validation message at the technical limit', () => {
+    const [field] = createFakeFieldAPI((field) => {
+      return {
+        ...field,
+        type: 'Symbol',
+        validations: [
+          {
+            size: {
+              min: 100,
               max: 1000,
             },
           },
@@ -169,7 +198,35 @@ describe('SingleLineEditor', () => {
     );
 
     expect(getByText('0 characters')).toBeInTheDocument();
-    expect(getByText('Requires between 100 and 1000 characters')).toBeInTheDocument();
+    expect(getByText('Requires between 100 and 256 characters')).toBeInTheDocument();
+  });
+
+  it('caps max-only validation message at the technical limit', () => {
+    const [field] = createFakeFieldAPI((field) => {
+      return {
+        ...field,
+        type: 'Symbol',
+        validations: [
+          {
+            size: {
+              max: 1000,
+            },
+          },
+        ],
+        id: 'field-id',
+      };
+    });
+
+    const { getByText } = render(
+      <SingleLineEditor
+        field={field}
+        isInitiallyDisabled={false}
+        locales={createFakeLocalesAPI()}
+      />,
+    );
+
+    expect(getByText('0 characters')).toBeInTheDocument();
+    expect(getByText('Maximum 256 characters')).toBeInTheDocument();
   });
 
   it('shows proper min validation message', () => {

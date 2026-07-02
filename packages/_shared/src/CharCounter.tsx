@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import tokens from '@contentful/f36-tokens';
 import { css, cx } from '@emotion/css';
+import { plural, t } from '@lingui/core/macro';
 
 interface CharCounterProps {
   value?: string;
@@ -27,7 +28,13 @@ export function CharCounter(props: CharCounterProps) {
         [styles.invalid]: !valid,
       })}
     >
-      {count} characters
+      {t({
+        id: 'FieldEditors.Shared.CharCounter.Counter',
+        message: plural(count, {
+          one: '1 character',
+          other: '{count} characters',
+        }),
+      })}
     </span>
   );
 }
