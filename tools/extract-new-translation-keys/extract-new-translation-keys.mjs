@@ -100,8 +100,8 @@ async function runCommand(command, message) {
     const result = await command();
     console.log(' DONE');
     return result;
-  } catch (error) {
-    console.error(`\nError: ${error}`);
+  } catch {
+    console.error(`\nError: ${message} failed.`);
     process.exit(1);
   }
 }
@@ -223,8 +223,8 @@ async function createTranslationEntry(client, key, messageEntry) {
         environmentId: ENVIRONMENT_ID,
         entryId: messageEntry.sys.id,
       });
-    } catch (err) {
-      console.error(err);
+    } catch (cleanupErr) {
+      console.error(`Failed to clean up entries for key ${key} (${cleanupErr.name}).`);
     }
 
     if (
@@ -234,7 +234,7 @@ async function createTranslationEntry(client, key, messageEntry) {
       console.error(`Entry for key ${key} already exists.`);
       return;
     }
-    console.error(err);
+    console.error(`Failed to create entry for key ${key} (${err.name}).`);
   }
 }
 
