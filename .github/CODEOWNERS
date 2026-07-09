@@ -1,5 +1,4 @@
-# Disabling this rule as it shadows Renovate "reviewers" config
-# *        @contentful/team-tolkien
+*        @contentful/team-tolkien
 
 cypress/        @contentful/team-content-authoring-and-publishing
 packages/        @contentful/team-content-authoring-and-publishing
