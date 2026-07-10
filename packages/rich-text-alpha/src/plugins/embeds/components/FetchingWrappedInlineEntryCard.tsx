@@ -11,6 +11,7 @@ import {
 import { ContentType, Entry, FieldAppSDK, entityHelpers } from '@contentful/field-editor-shared';
 import {
   SharedQueryClientProvider,
+  isLoadingStatus,
   useContentType,
 } from '@contentful/field-editor-shared/react-query';
 import { INLINES } from '@contentful/rich-text-types';
@@ -121,7 +122,7 @@ function InternalFetchingWrappedInlineEntryCardWrapper(props: FetchingWrappedInl
     onEntityFetchComplete?.();
   }, [requestStatus, onEntityFetchComplete]);
 
-  if (requestStatus === 'loading' || requestStatus === 'idle') {
+  if (isLoadingStatus(requestStatus)) {
     return <InlineEntryCard isLoading />;
   }
 
