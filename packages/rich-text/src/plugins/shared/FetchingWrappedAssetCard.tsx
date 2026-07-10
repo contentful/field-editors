@@ -17,6 +17,7 @@ import {
   useReleaseStatus,
   type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
+import { isLoadingStatus } from '@contentful/field-editor-shared/react-query';
 import areEqual from 'fast-deep-equal';
 
 interface InternalAssetCardProps {
@@ -116,7 +117,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     }
   }, [onEntityFetchComplete, status]);
 
-  if (status === 'loading' || status === 'idle' || (status as string) === 'pending') {
+  if (isLoadingStatus(status)) {
     return <AssetCard size="default" isLoading />;
   }
 

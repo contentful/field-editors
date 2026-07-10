@@ -8,6 +8,7 @@ import {
   WrappedEntryCard,
   useResource,
 } from '@contentful/field-editor-reference';
+import { isLoadingStatus } from '@contentful/field-editor-shared/react-query';
 import { ResourceLink } from '@contentful/rich-text-types';
 import areEqual from 'fast-deep-equal';
 
@@ -22,7 +23,7 @@ interface InternalEntryCard {
 }
 
 const InternalEntryCard = React.memo((props: InternalEntryCard) => {
-  if (props.data === undefined || props.status === 'loading' || props.status === 'pending') {
+  if (props.data === undefined || isLoadingStatus(props.status)) {
     return <EntryCard isLoading />;
   }
 

@@ -19,6 +19,7 @@ import {
   type ReleaseEntityStatus,
 } from '@contentful/field-editor-shared';
 import {
+  isLoadingStatus,
   SharedQueryClientProvider,
   useContentType,
 } from '@contentful/field-editor-shared/react-query';
@@ -130,7 +131,7 @@ const InternalFetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) 
     }
   }, [onEntityFetchComplete, status]);
 
-  if (status === 'loading' || status === 'idle' || (status as string) === 'pending') {
+  if (isLoadingStatus(status)) {
     return <EntryCard isLoading />;
   }
 
