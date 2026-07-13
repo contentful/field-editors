@@ -6,6 +6,7 @@ import {
   useReleaseStatus,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
+import { isLoadingStatus } from '@contentful/field-editor-shared/react-query';
 import { EntryProps } from 'contentful-management';
 
 import { CustomEntityCardProps, RenderCustomMissingEntityCard } from '../../common/customCardTypes';
@@ -152,7 +153,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
       }
       return card;
     }
-    if (status === 'loading' || (status as string) === 'pending') {
+    if (isLoadingStatus(status)) {
       return <EntryCard size={size} isLoading />;
     }
 

@@ -7,6 +7,7 @@ import {
   useReleaseStatus,
   type ReleaseV2Props,
 } from '@contentful/field-editor-shared';
+import { isLoadingStatus } from '@contentful/field-editor-shared/react-query';
 
 import {
   CustomEntityCardProps,
@@ -134,7 +135,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
       onAddToRelease,
     };
 
-    if (status === 'loading' || (status as string) === 'pending') {
+    if (isLoadingStatus(status)) {
       return props.viewType === 'link' ? (
         <EntryCard size="small" isLoading />
       ) : (

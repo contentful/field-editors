@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Entry, useResource } from '@contentful/field-editor-reference';
+import { isLoadingStatus } from '@contentful/field-editor-shared/react-query';
 import { ResourceLink } from '@contentful/rich-text-types';
 
 import { truncateTitle } from '../../plugins/shared/utils';
@@ -19,7 +20,7 @@ export function useResourceEntityInfo({ onEntityFetchComplete, target }: Resourc
     }
   }, [status, onEntityFetchComplete]);
 
-  if (status === 'loading' || (status as string) === 'pending') {
+  if (isLoadingStatus(status)) {
     return `Loading entry...`;
   }
 
