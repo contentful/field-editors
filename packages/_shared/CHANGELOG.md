@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.5.0...@contentful/field-editor-shared@4.5.1) (2026-07-13)
+
+### Bug Fixes
+
+- [TOL-4271] normalize react-query v5 loading status across field editors ([#2185](https://github.com/contentful/field-editors/issues/2185)) ([060cdf6](https://github.com/contentful/field-editors/commit/060cdf6a8238b1e17edb97c387686eed72ae7141))
+
 # [4.5.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-shared@4.4.1...@contentful/field-editor-shared@4.5.0) (2026-07-02)
 
 ### Bug Fixes
