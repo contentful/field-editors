@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>contentful/renovate-config:defaultNxMonorepo"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["/slate/", "/plate/"],
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["@lingui/react", "@lingui/core", "@lingui/cli", "@lingui/swc-plugin"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "lingui"
+    }
+  ]
+}
