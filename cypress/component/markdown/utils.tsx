@@ -103,6 +103,11 @@ export const clearAll = (): void => {
   getInput().type('{selectall}{backspace}', { force: true });
 };
 
+export const selectAll = (): void => {
+  focusInput();
+  getInput().type('{selectall}{selectall}', { force: true });
+};
+
 //util to select chars backwards from current cursor position
 export const selectCharsBackwards = (skip: number, len: number): void => {
   if (skip > 0) {
