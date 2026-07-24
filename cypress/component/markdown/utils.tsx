@@ -105,7 +105,7 @@ export const clearAll = (): void => {
 
 export const selectAll = (): Cypress.Chainable => {
   focusInput();
-  getInput().type('{selectall}', { force: true });
+  getInput().type('{selectall}{selectall}', { force: true });
 
   return cy.get('.CodeMirror-selected').should('exist');
 };
