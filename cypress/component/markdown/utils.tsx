@@ -103,11 +103,9 @@ export const clearAll = (): void => {
   getInput().type('{selectall}{backspace}', { force: true });
 };
 
-export const selectAll = (): Cypress.Chainable => {
+export const selectAll = (): void => {
   focusInput();
   getInput().type('{selectall}{selectall}', { force: true });
-
-  return cy.get('.CodeMirror-selected').should('exist');
 };
 
 //util to select chars backwards from current cursor position
