@@ -28,7 +28,7 @@ export function create(
     readOnly: boolean;
     fixedHeight?: number | boolean;
     height?: number | string;
-  }
+  },
 ) {
   const { direction, fixedHeight, height, readOnly } = options || {};
 
@@ -73,7 +73,12 @@ export function create(
 
   cm.setOption('extraKeys', {
     Tab: function () {
-      replaceSelectedText(getIndentation());
+      const line = cm.getLine(cm.getCursor().line);
+      const leadingSpaces = (line.match(/^ */) ?? [''])[0].length;
+      const indentUnit = cm.getOption('indentUnit') ?? 2;
+      if (leadingSpaces + indentUnit <= 3) {
+        replaceSelectedText(getIndentation());
+      }
     },
     Enter: 'newlineAndIndentContinueMarkdownList',
     Esc: () => {
@@ -181,8 +186,8 @@ export function create(
           // @ts-ignore
           acc[ctrlKey + '-' + key] = value;
         },
-        {}
-      )
+        {},
+      ),
     );
   }
 

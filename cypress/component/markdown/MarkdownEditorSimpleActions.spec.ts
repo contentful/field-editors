@@ -449,5 +449,32 @@ describe('Markdown Editor / Simple Actions', () => {
       clickDedentButton();
       checkValue('- first item');
     });
+
+    it('Tab key indents a plain paragraph when below the 4-space code block threshold', () => {
+      renderMarkdownEditor({ spyOnSetValue: true });
+
+      type('A plain paragraph');
+      type('{tab}');
+
+      checkValue('  A plain paragraph');
+    });
+
+    it('Tab key does not indent a plain paragraph that would reach 4 leading spaces', () => {
+      renderMarkdownEditor({ spyOnSetValue: true });
+
+      type('  A plain paragraph');
+      type('{tab}');
+
+      checkValue('  A plain paragraph');
+    });
+
+    it('Tab key indents a list item', () => {
+      renderMarkdownEditor({ spyOnSetValue: true });
+
+      type('- first item');
+      type('{tab}');
+
+      checkValue('  - first item');
+    });
   });
 });
