@@ -162,8 +162,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             editor.focus();
             const syncIndentState = () => {
               const line = editor.getCurrentLine();
-              const unit = editor.getIndentation().length;
-              setCanIndentLine(canIndent(line, unit));
+              setCanIndentLine(canIndent(line));
               setCanDedentLine(canDedent(line));
             };
             editor.events.onChange((value: string) => {

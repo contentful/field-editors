@@ -8,7 +8,7 @@ export function getLeadingSpaces(line: string): number {
   return line.match(/^ */)?.[0].length ?? 0;
 }
 
-export function canIndent(line: string, indentUnit: number): boolean {
+export function canIndent(line: string, indentUnit = 2): boolean {
   if (isMarkdownListItem(line)) return true;
   return getLeadingSpaces(line) + indentUnit <= MAX_PARAGRAPH_LEADING_SPACES;
 }
