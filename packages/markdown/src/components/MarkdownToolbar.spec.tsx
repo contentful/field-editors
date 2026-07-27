@@ -13,6 +13,7 @@ configure({
 const createProps = () => ({
   canUploadAssets: true,
   disabled: false,
+  indentationDisabled: false,
   mode: 'default' as const,
   actions: {
     headings: {
@@ -77,6 +78,16 @@ describe('MarkdownToolbar', () => {
       'true',
     );
     expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
+  });
+
+  it('disables indentation controls when indentation is unavailable', async () => {
+    const props = { ...createProps(), indentationDisabled: true };
+    render(<MarkdownToolbar {...props} />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'More actions' }));
+
+    expect(screen.getByRole('button', { name: 'Increase indentation' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Decrease indentation' })).toBeDisabled();
   });
 
   it('triggers a toolbar action once per click', async () => {

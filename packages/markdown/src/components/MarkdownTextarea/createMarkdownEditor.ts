@@ -11,7 +11,7 @@ export function createMarkdownEditor(
     readOnly: boolean;
     fixedHeight?: number | boolean;
     height?: number | string;
-  }
+  },
 ) {
   const editor = CodeMirrorWrapper.create(host, options);
 
@@ -43,10 +43,14 @@ export function createMarkdownEditor(
       onPaste: function (fn: Function) {
         editor.attachEvent('paste', fn, 0);
       },
+      onCursorActivity: function (fn: Function) {
+        editor.attachEvent('cursorActivity', fn, 0);
+      },
     },
     insert: editor.insertAtCursor,
     focus: editor.focus,
     getContent: editor.getValue,
+    getCurrentLine: editor.getCurrentLine,
     destroy: editor.destroy,
     setContent: editor.setValue,
     getSelectedText: editor.getSelectedText,
