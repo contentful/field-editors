@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@2.3.1...@contentful/field-editor-markdown@2.3.2) (2026-07-27)
+
+### Bug Fixes
+
+- **markdown:** limit indentation to list items ([#2191](https://github.com/contentful/field-editors/issues/2191)) ([7e40bc4](https://github.com/contentful/field-editors/commit/7e40bc40de7170c963b05ca5d8a4908756fa2fc9))
+
 ## [2.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@2.3.0...@contentful/field-editor-markdown@2.3.1) (2026-07-13)
 
 **Note:** Version bump only for package @contentful/field-editor-markdown
