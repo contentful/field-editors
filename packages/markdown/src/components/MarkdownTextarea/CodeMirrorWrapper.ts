@@ -6,6 +6,7 @@ import throttle from 'lodash/throttle';
 import transform from 'lodash/transform';
 
 import { EditorDirection } from '../../types';
+import { canIndent, getLeadingSpaces } from '../../utils/indentation';
 import * as userAgent from '../../utils/userAgent';
 
 function stripUnit(value: number | string): number {
@@ -73,10 +74,12 @@ export function create(
 
   cm.setOption('extraKeys', {
     Tab: function () {
-      const line = cm.getLine(cm.getCursor().line);
-      const leadingSpaces = (line.match(/^ */) ?? [''])[0].length;
+      const cursor = cm.getCursor();
+      const line = cm.getLine(cursor.line);
       const indentUnit = cm.getOption('indentUnit') ?? 2;
-      if (leadingSpaces + indentUnit <= 3) {
+      // Only tab presses within the leading whitespace zone can grow indentation.
+      // Past the indentation zone, insert freely (can't create a code block).
+      if (cursor.ch > getLeadingSpaces(line) || canIndent(line, indentUnit)) {
         replaceSelectedText(getIndentation());
       }
     },

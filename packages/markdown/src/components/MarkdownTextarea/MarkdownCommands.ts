@@ -7,6 +7,7 @@ import times from 'lodash/times';
 // eslint-disable-next-line -- TODO: describe this disable  you-dont-need-lodash-underscore/repeat
 import repeat from 'lodash/repeat';
 
+import { canIndent, canDedent, getLeadingSpaces } from '../../utils/indentation';
 import * as CodeMirrorWrapper from './CodeMirrorWrapper';
 
 type EditorInstanceType = ReturnType<typeof CodeMirrorWrapper.create>;
@@ -40,7 +41,7 @@ function wrapSelection(editor: EditorInstanceType, marker: string, emptyText: st
         const markerLength = marker.length;
         const textWithoutMarker = selectedText.slice(
           markerLength,
-          selectedText.length - markerLength
+          selectedText.length - markerLength,
         );
         editor.replaceSelectedText(textWithoutMarker);
       } else {
@@ -107,7 +108,11 @@ export function create(editor: EditorInstanceType) {
    * Indent the current line.
    */
   function indent() {
-    editor.insertAtLineBeginning(editor.getIndentation());
+    const line = editor.getCurrentLine();
+    const indentUnit = editor.getIndentation().length;
+    if (canIndent(line, indentUnit)) {
+      editor.insertAtLineBeginning(editor.getIndentation());
+    }
   }
 
   /**
@@ -115,9 +120,10 @@ export function create(editor: EditorInstanceType) {
    * Dedent the current line.
    */
   function dedent() {
-    const indentation = editor.getIndentation();
-    if (editor.lineStartsWith(indentation)) {
-      editor.removeFromLineBeginning(indentation.length);
+    const line = editor.getCurrentLine();
+    if (canDedent(line)) {
+      const remove = Math.min(editor.getIndentation().length, getLeadingSpaces(line));
+      editor.removeFromLineBeginning(remove);
     }
   }
 
@@ -159,7 +165,7 @@ export function create(editor: EditorInstanceType) {
 function modifySelection(
   editor: EditorInstanceType,
   toggleFn: (editor: EditorInstanceType, listNumber?: number) => void,
-  isList?: boolean
+  isList?: boolean,
 ) {
   return () => {
     editor.usePrimarySelection();
@@ -198,7 +204,7 @@ function forLineIn(
     anchor: CodeMirror.Position;
     head: CodeMirror.Position;
   },
-  cb: Function
+  cb: Function,
 ) {
   // anchor/head depend on selection direction, so min & max have to be used
   const lines = [selection.anchor.line, selection.head.line];

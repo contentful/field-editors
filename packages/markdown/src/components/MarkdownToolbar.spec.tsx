@@ -13,7 +13,8 @@ configure({
 const createProps = () => ({
   canUploadAssets: true,
   disabled: false,
-  indentationDisabled: false,
+  indentDisabled: false,
+  dedentDisabled: false,
   mode: 'default' as const,
   actions: {
     headings: {
@@ -80,13 +81,23 @@ describe('MarkdownToolbar', () => {
     expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
   });
 
-  it('disables indentation controls when indentation is unavailable', async () => {
-    const props = { ...createProps(), indentationDisabled: true };
+  it('disables indent button when indent is unavailable', async () => {
+    const props = { ...createProps(), indentDisabled: true };
     render(<MarkdownToolbar {...props} />);
 
     await userEvent.click(screen.getByRole('button', { name: 'More actions' }));
 
     expect(screen.getByRole('button', { name: 'Increase indentation' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Decrease indentation' })).not.toBeDisabled();
+  });
+
+  it('disables dedent button when dedent is unavailable', async () => {
+    const props = { ...createProps(), dedentDisabled: true };
+    render(<MarkdownToolbar {...props} />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'More actions' }));
+
+    expect(screen.getByRole('button', { name: 'Increase indentation' })).not.toBeDisabled();
     expect(screen.getByRole('button', { name: 'Decrease indentation' })).toBeDisabled();
   });
 

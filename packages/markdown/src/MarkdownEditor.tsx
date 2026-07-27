@@ -17,7 +17,7 @@ import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from './MarkdownActions';
 import { MarkdownTab, PreviewComponents } from './types';
-import { isMarkdownListItem } from './utils/isMarkdownListItem';
+import { canIndent, canDedent } from './utils/indentation';
 
 const MarkdownPreview = React.lazy(() => import('./components/MarkdownPreview'));
 
@@ -60,7 +60,8 @@ export function MarkdownEditor(
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
   const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
-  const [isCurrentLineAListItem, setIsCurrentLineAListItem] = React.useState(false);
+  const [canIndentLine, setCanIndentLine] = React.useState(false);
+  const [canDedentLine, setCanDedentLine] = React.useState(false);
 
   React.useEffect(() => {
     if (props.enableTab) {
@@ -101,7 +102,8 @@ export function MarkdownEditor(
   }, [props.value, props.externalReset, editor]);
 
   const isActionDisabled = editor === null || props.isDisabled || selectedTab !== 'editor';
-  const isIndentationDisabled = isActionDisabled || !isCurrentLineAListItem;
+  const indentDisabled = isActionDisabled || !canIndentLine;
+  const dedentDisabled = isActionDisabled || !canDedentLine;
 
   const direction = props.sdk.locales.direction[props.sdk.field.locale] ?? 'ltr';
 
@@ -128,7 +130,8 @@ export function MarkdownEditor(
       <MarkdownToolbar
         mode="default"
         disabled={isActionDisabled}
-        indentationDisabled={isIndentationDisabled}
+        indentDisabled={indentDisabled}
+        dedentDisabled={dedentDisabled}
         canUploadAssets={canUploadAssets}
         actions={actions}
       />
@@ -142,16 +145,20 @@ export function MarkdownEditor(
           editor.setContent(props.value ?? '');
           editor.setReadOnly(!!props.isDisabled);
           setEditor(editor);
+          const syncIndentState = () => {
+            const line = editor.getCurrentLine();
+            const unit = editor.getIndentation().length;
+            setCanIndentLine(canIndent(line, unit));
+            setCanDedentLine(canDedent(line));
+          };
           editor.events.onChange((value: string) => {
             // Trim empty lines
             const trimmedValue = value.replace(/^\s+$/gm, '');
             props.saveValueToSDK(trimmedValue);
             setCurrentValue(value);
-            setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
+            syncIndentState();
           });
-          editor.events.onCursorActivity(() => {
-            setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
-          });
+          editor.events.onCursorActivity(syncIndentState);
         }}
       />
       {selectedTab === 'preview' && (

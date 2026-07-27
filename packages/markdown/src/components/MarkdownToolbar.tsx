@@ -139,7 +139,8 @@ ToolbarButton.displayName = 'ToolbarButton';
 interface MarkdownToolbarProps {
   canUploadAssets: boolean;
   disabled: boolean;
-  indentationDisabled: boolean;
+  indentDisabled: boolean;
+  dedentDisabled: boolean;
   actions: MarkdownActions;
   mode: 'default' | 'zen';
 }
@@ -258,7 +259,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <MinusIcon aria-label="Horizontal rule" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        isDisabled={props.indentationDisabled}
+        isDisabled={props.indentDisabled}
         testId="markdown-action-button-indent"
         tooltip="Increase indentation"
         tooltipPlace={tooltipPlace}
@@ -267,7 +268,7 @@ function AdditionalButtons(props: MarkdownToolbarProps) {
         <TextIndentIcon aria-label="Increase indentation" className={styles.icon} />
       </ToolbarButton>
       <ToolbarButton
-        isDisabled={props.indentationDisabled}
+        isDisabled={props.dedentDisabled}
         testId="markdown-action-button-dedent"
         tooltip="Decrease indentation"
         tooltipPlace={tooltipPlace}

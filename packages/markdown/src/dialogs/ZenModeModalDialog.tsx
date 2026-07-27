@@ -16,7 +16,7 @@ import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from '../MarkdownActions';
 import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types';
-import { isMarkdownListItem } from '../utils/isMarkdownListItem';
+import { canIndent, canDedent } from '../utils/indentation';
 
 const MarkdownPreview = React.lazy(() => import('../components/MarkdownPreview'));
 
@@ -102,7 +102,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [showPreview, setShowPreview] = React.useState<boolean>(true);
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
-  const [isCurrentLineAListItem, setIsCurrentLineAListItem] = React.useState(false);
+  const [canIndentLine, setCanIndentLine] = React.useState(false);
+  const [canDedentLine, setCanDedentLine] = React.useState(false);
 
   React.useEffect(() => {
     // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
@@ -138,7 +139,8 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
         <MarkdownToolbar
           mode="zen"
           disabled={false}
-          indentationDisabled={!isCurrentLineAListItem}
+          indentDisabled={!canIndentLine}
+          dedentDisabled={!canDedentLine}
           canUploadAssets={false}
           actions={actions}
         />
@@ -158,14 +160,18 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             editor.setReadOnly(false);
             setEditor(editor);
             editor.focus();
+            const syncIndentState = () => {
+              const line = editor.getCurrentLine();
+              const unit = editor.getIndentation().length;
+              setCanIndentLine(canIndent(line, unit));
+              setCanDedentLine(canDedent(line));
+            };
             editor.events.onChange((value: string) => {
               setCurrentValue(value);
               props.saveValueToSDK(value);
-              setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
+              syncIndentState();
             });
-            editor.events.onCursorActivity(() => {
-              setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
-            });
+            editor.events.onCursorActivity(syncIndentState);
           }}
         />
       </Grid.Item>

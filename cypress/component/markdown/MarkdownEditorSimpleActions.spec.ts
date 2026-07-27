@@ -427,14 +427,37 @@ describe('Markdown Editor / Simple Actions', () => {
       clickVisibleButtonByName('Decrease indentation');
     };
 
-    it('disables indentation for a plain paragraph', () => {
+    it('enables indent button for a plain paragraph with no indentation', () => {
       renderMarkdownEditor();
 
       unveilAdditionalButtonsRow();
       type('A plain paragraph');
 
-      selectors.getIndentButton().should('be.disabled');
+      selectors.getIndentButton().should('not.be.disabled');
       selectors.getDedentButton().should('be.disabled');
+    });
+
+    it('disables indent button for a plain paragraph at the 2-space cap', () => {
+      renderMarkdownEditor({ spyOnSetValue: true });
+
+      unveilAdditionalButtonsRow();
+      type('A plain paragraph');
+      clickIndentButton();
+      checkValue('  A plain paragraph');
+
+      selectors.getIndentButton().should('be.disabled');
+      selectors.getDedentButton().should('not.be.disabled');
+    });
+
+    it('indents and dedents a plain paragraph up to the 2-space cap', () => {
+      renderMarkdownEditor({ spyOnSetValue: true });
+
+      unveilAdditionalButtonsRow();
+      type('A plain paragraph');
+      clickIndentButton();
+      checkValue('  A plain paragraph');
+      clickDedentButton();
+      checkValue('A plain paragraph');
     });
 
     it('indents and dedents a list item', () => {
@@ -450,22 +473,20 @@ describe('Markdown Editor / Simple Actions', () => {
       checkValue('- first item');
     });
 
-    it('Tab key indents a plain paragraph when below the 4-space code block threshold', () => {
+    it('Tab key indents a plain paragraph when below the cap', () => {
       renderMarkdownEditor({ spyOnSetValue: true });
 
-      type('A plain paragraph');
       type('{tab}');
 
-      checkValue('  A plain paragraph');
+      checkValue('  ');
     });
 
-    it('Tab key does not indent a plain paragraph that would reach 4 leading spaces', () => {
+    it('Tab key does not indent a plain paragraph beyond the 2-space cap', () => {
       renderMarkdownEditor({ spyOnSetValue: true });
 
-      type('  A plain paragraph');
-      type('{tab}');
+      type('{tab}{tab}');
 
-      checkValue('  A plain paragraph');
+      checkValue('  ');
     });
 
     it('Tab key indents a list item', () => {
