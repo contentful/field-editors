@@ -41,7 +41,7 @@ export interface ReferenceEditorProps {
     options?: {
       openModalForVersionSelection?: boolean;
       skipNestedReferencesPrompt?: boolean;
-    },
+    }
   ) => Promise<void>;
 }
 
@@ -49,8 +49,8 @@ export type CustomActionProps = LinkActionsProps;
 
 export function ReferenceEditor<T>(
   props: ReferenceEditorProps & {
-    children: FieldConnector<T>['props']['children'];
-  },
+    children: NonNullable<React.ComponentProps<typeof FieldConnector<T>>['children']>;
+  }
 ) {
   return (
     <EntityProvider sdk={props.sdk}>
@@ -67,5 +67,5 @@ export function ReferenceEditor<T>(
 
 ReferenceEditor.defaultProps = {
   isInitiallyDisabled: true,
-  hasCardEditActions: true,
+  hasCardEditActions: true
 };

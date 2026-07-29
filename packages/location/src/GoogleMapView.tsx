@@ -10,13 +10,13 @@ import { Coords } from './types';
 const styles = {
   root: css({
     height: '300px',
-    width: '100%',
-  }),
+    width: '100%'
+  })
 };
 
 const BerlinLocation = {
   lat: 52.5018,
-  lng: 13.41115439,
+  lng: 13.41115439
 };
 
 type GoogleMapViewProps = {
@@ -27,86 +27,84 @@ type GoogleMapViewProps = {
   googleMapsKey?: string;
 };
 
-type GoogleMapsViewState = {
-  marker: any;
-  maps: any;
-};
+export function GoogleMapView(props: GoogleMapViewProps) {
+  const [googleMapsState, setGoogleMapsState] = React.useState<{
+    marker: any;
+    maps: any;
+  }>({ marker: undefined, maps: undefined });
+  const propsRef = React.useRef(props);
+  propsRef.current = props;
+  const googleMapsStateRef = React.useRef(googleMapsState);
+  googleMapsStateRef.current = googleMapsState;
+  const pendingLoadedMapsRef = React.useRef<any>(null);
 
-export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMapsViewState> {
-  constructor(props: GoogleMapViewProps) {
-    super(props);
-    this.state = {
-      marker: undefined,
-      maps: undefined,
-    };
-  }
-
-  componentDidUpdate() {
-    if (this.state.marker && this.state.maps) {
-      if (this.props.location) {
-        const latLng = new this.state.maps.LatLng(this.props.location.lat, this.props.location.lng);
-        this.state.marker.setPosition(latLng);
-        this.state.marker.setVisible(true);
+  React.useLayoutEffect(() => {
+    const { marker, maps } = googleMapsState;
+    if (marker && maps) {
+      if (props.location) {
+        const latLng = new maps.LatLng(props.location.lat, props.location.lng);
+        marker.setPosition(latLng);
+        marker.setVisible(true);
       } else {
-        this.state.marker.setVisible(false);
+        marker.setVisible(false);
       }
-      this.state.marker.setDraggable(!this.props.disabled);
-      this.state.marker.setCursor(this.props.disabled ? 'not-allowed' : 'auto');
+      marker.setDraggable(!props.disabled);
+      marker.setCursor(props.disabled ? 'not-allowed' : 'auto');
     }
-  }
+    if (pendingLoadedMapsRef.current !== null && pendingLoadedMapsRef.current === maps) {
+      pendingLoadedMapsRef.current = null;
+      propsRef.current.onGoogleApiLoaded({ maps });
+    }
+  });
 
-  onGoogleApiLoaded = (event: { maps: any; map: any }) => {
-    const { maps, map } = event;
-    const marker = new maps.Marker({
+  const handleGoogleApiLoaded = React.useCallback((event: { maps: any; map: any }) => {
+    const { maps: loadedMaps, map } = event;
+    const loadedMarker = new loadedMaps.Marker({
       map,
       position: map.getCenter(),
-      cursor: this.props.disabled ? 'not-allowed' : 'auto',
-      draggable: !this.props.disabled,
-      visible: Boolean(this.props.location),
+      cursor: propsRef.current.disabled ? 'not-allowed' : 'auto',
+      draggable: !propsRef.current.disabled,
+      visible: Boolean(propsRef.current.location)
     });
 
-    maps.event.addListener(map, 'click', (event: any) => {
-      if (this.props.disabled || !this.state.marker || !this.state.maps) {
+    loadedMaps.event.addListener(map, 'click', (event: any) => {
+      const { marker, maps } = googleMapsStateRef.current;
+      if (propsRef.current.disabled || !marker || !maps) {
         return;
       }
-      this.state.marker.setPosition(event.latLng);
-      this.state.marker.setVisible(true);
-      this.props.onChangeLocation({
+      marker.setPosition(event.latLng);
+      marker.setVisible(true);
+      propsRef.current.onChangeLocation({
         lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+        lng: event.latLng.lng()
       });
     });
 
-    maps.event.addListener(marker, 'dragend', (event: any) => {
-      this.props.onChangeLocation({
+    loadedMaps.event.addListener(loadedMarker, 'dragend', (event: any) => {
+      propsRef.current.onChangeLocation({
         lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+        lng: event.latLng.lng()
       });
     });
-    this.setState({ marker, maps }, () => {
-      this.props.onGoogleApiLoaded({ maps });
-    });
-  };
+    pendingLoadedMapsRef.current = loadedMaps;
+    setGoogleMapsState({ marker: loadedMarker, maps: loadedMaps });
+  }, []);
 
-  render() {
-    return (
-      <div className={styles.root}>
-        <GoogleMapReact
-          draggable={!this.props.disabled}
-          bootstrapURLKeys={
-            this.props.googleMapsKey ? { key: this.props.googleMapsKey } : undefined
-          }
-          defaultCenter={BerlinLocation}
-          center={this.props.location}
-          options={{
-            scrollwheel: false,
-            mapTypeId: 'roadmap',
-          }}
-          defaultZoom={6}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={this.onGoogleApiLoaded}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={styles.root}>
+      <GoogleMapReact
+        draggable={!props.disabled}
+        bootstrapURLKeys={props.googleMapsKey ? { key: props.googleMapsKey } : undefined}
+        defaultCenter={BerlinLocation}
+        center={props.location}
+        options={{
+          scrollwheel: false,
+          mapTypeId: 'roadmap'
+        }}
+        defaultZoom={6}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={handleGoogleApiLoaded}
+      />
+    </div>
+  );
 }
