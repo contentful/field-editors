@@ -11,15 +11,13 @@ interface AppProps {
   sdk: FieldAppSDK;
 }
 
-export class App extends React.Component<AppProps> {
-  render = () => {
-    return (
-      <>
-        <GlobalStyles />
-        <MarkdownEditor isInitiallyDisabled={false} sdk={this.props.sdk} />
-      </>
-    );
-  };
+export function App({ sdk }: AppProps) {
+  return (
+    <>
+      <GlobalStyles />
+      <MarkdownEditor isInitiallyDisabled={false} sdk={sdk} />
+    </>
+  );
 }
 
 init((sdk: FieldAppSDK) => {
@@ -30,7 +28,7 @@ init((sdk: FieldAppSDK) => {
         <GlobalStyles />
         {renderMarkdownDialog(sdk as any)}
       </>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   } else {
     render(<App sdk={sdk as FieldAppSDK} />, document.getElementById('root'));

@@ -27,86 +27,74 @@ type GoogleMapViewProps = {
   googleMapsKey?: string;
 };
 
-type GoogleMapsViewState = {
-  marker: any;
-  maps: any;
-};
+export function GoogleMapView(props: GoogleMapViewProps) {
+  const [marker, setMarker] = React.useState<any>();
+  const [maps, setMaps] = React.useState<any>();
+  const propsRef = React.useRef(props);
+  propsRef.current = props;
 
-export class GoogleMapView extends React.Component<GoogleMapViewProps, GoogleMapsViewState> {
-  constructor(props: GoogleMapViewProps) {
-    super(props);
-    this.state = {
-      marker: undefined,
-      maps: undefined,
-    };
-  }
-
-  componentDidUpdate() {
-    if (this.state.marker && this.state.maps) {
-      if (this.props.location) {
-        const latLng = new this.state.maps.LatLng(this.props.location.lat, this.props.location.lng);
-        this.state.marker.setPosition(latLng);
-        this.state.marker.setVisible(true);
+  React.useEffect(() => {
+    if (marker && maps) {
+      if (props.location) {
+        const latLng = new maps.LatLng(props.location.lat, props.location.lng);
+        marker.setPosition(latLng);
+        marker.setVisible(true);
       } else {
-        this.state.marker.setVisible(false);
+        marker.setVisible(false);
       }
-      this.state.marker.setDraggable(!this.props.disabled);
-      this.state.marker.setCursor(this.props.disabled ? 'not-allowed' : 'auto');
+      marker.setDraggable(!props.disabled);
+      marker.setCursor(props.disabled ? 'not-allowed' : 'auto');
     }
-  }
+  }, [marker, maps, props.disabled, props.location]);
 
-  onGoogleApiLoaded = (event: { maps: any; map: any }) => {
-    const { maps, map } = event;
-    const marker = new maps.Marker({
+  const handleGoogleApiLoaded = (event: { maps: any; map: any }) => {
+    const { maps: loadedMaps, map } = event;
+    const loadedMarker = new loadedMaps.Marker({
       map,
       position: map.getCenter(),
-      cursor: this.props.disabled ? 'not-allowed' : 'auto',
-      draggable: !this.props.disabled,
-      visible: Boolean(this.props.location),
+      cursor: propsRef.current.disabled ? 'not-allowed' : 'auto',
+      draggable: !propsRef.current.disabled,
+      visible: Boolean(propsRef.current.location),
     });
 
-    maps.event.addListener(map, 'click', (event: any) => {
-      if (this.props.disabled || !this.state.marker || !this.state.maps) {
+    loadedMaps.event.addListener(map, 'click', (event: any) => {
+      if (propsRef.current.disabled) {
         return;
       }
-      this.state.marker.setPosition(event.latLng);
-      this.state.marker.setVisible(true);
-      this.props.onChangeLocation({
+      loadedMarker.setPosition(event.latLng);
+      loadedMarker.setVisible(true);
+      propsRef.current.onChangeLocation({
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
       });
     });
 
-    maps.event.addListener(marker, 'dragend', (event: any) => {
-      this.props.onChangeLocation({
+    loadedMaps.event.addListener(loadedMarker, 'dragend', (event: any) => {
+      propsRef.current.onChangeLocation({
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
       });
     });
-    this.setState({ marker, maps }, () => {
-      this.props.onGoogleApiLoaded({ maps });
-    });
+    setMarker(loadedMarker);
+    setMaps(loadedMaps);
+    propsRef.current.onGoogleApiLoaded({ maps: loadedMaps });
   };
 
-  render() {
-    return (
-      <div className={styles.root}>
-        <GoogleMapReact
-          draggable={!this.props.disabled}
-          bootstrapURLKeys={
-            this.props.googleMapsKey ? { key: this.props.googleMapsKey } : undefined
-          }
-          defaultCenter={BerlinLocation}
-          center={this.props.location}
-          options={{
-            scrollwheel: false,
-            mapTypeId: 'roadmap',
-          }}
-          defaultZoom={6}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={this.onGoogleApiLoaded}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={styles.root}>
+      <GoogleMapReact
+        draggable={!props.disabled}
+        bootstrapURLKeys={props.googleMapsKey ? { key: props.googleMapsKey } : undefined}
+        defaultCenter={BerlinLocation}
+        center={props.location}
+        options={{
+          scrollwheel: false,
+          mapTypeId: 'roadmap',
+        }}
+        defaultZoom={6}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={handleGoogleApiLoaded}
+      />
+    </div>
+  );
 }
