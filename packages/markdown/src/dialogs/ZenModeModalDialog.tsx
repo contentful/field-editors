@@ -16,7 +16,6 @@ import { MarkdownToolbar } from '../components/MarkdownToolbar';
 import { openCheatsheetModal } from '../dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from '../MarkdownActions';
 import { MarkdownDialogsParams, MarkdownDialogType, PreviewComponents } from '../types';
-import { isMarkdownListItem } from '../utils/isMarkdownListItem';
 
 const MarkdownPreview = React.lazy(() => import('../components/MarkdownPreview'));
 
@@ -102,7 +101,6 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [currentValue, setCurrentValue] = React.useState<string>(props.initialValue ?? '');
   const [showPreview, setShowPreview] = React.useState<boolean>(true);
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
-  const [isCurrentLineAListItem, setIsCurrentLineAListItem] = React.useState(false);
 
   React.useEffect(() => {
     // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
@@ -135,13 +133,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   return (
     <Grid className={styles.root} testId="zen-mode-markdown-editor">
       <Grid.Item className={styles.topSplit}>
-        <MarkdownToolbar
-          mode="zen"
-          disabled={false}
-          indentationDisabled={!isCurrentLineAListItem}
-          canUploadAssets={false}
-          actions={actions}
-        />
+        <MarkdownToolbar mode="zen" disabled={false} canUploadAssets={false} actions={actions} />
       </Grid.Item>
       <Grid.Item
         className={cx(styles.editorSplit, {
@@ -161,10 +153,6 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
             editor.events.onChange((value: string) => {
               setCurrentValue(value);
               props.saveValueToSDK(value);
-              setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
-            });
-            editor.events.onCursorActivity(() => {
-              setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
             });
           }}
         />

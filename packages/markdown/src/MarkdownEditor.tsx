@@ -17,7 +17,6 @@ import { MarkdownToolbar } from './components/MarkdownToolbar';
 import { openCheatsheetModal } from './dialogs/CheatsheetModalDialog';
 import { createMarkdownActions } from './MarkdownActions';
 import { MarkdownTab, PreviewComponents } from './types';
-import { isMarkdownListItem } from './utils/isMarkdownListItem';
 
 const MarkdownPreview = React.lazy(() => import('./components/MarkdownPreview'));
 
@@ -60,7 +59,6 @@ export function MarkdownEditor(
   const [selectedTab, setSelectedTab] = React.useState<MarkdownTab>('editor');
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
   const [canUploadAssets, setCanUploadAssets] = React.useState<boolean>(false);
-  const [isCurrentLineAListItem, setIsCurrentLineAListItem] = React.useState(false);
 
   React.useEffect(() => {
     if (props.enableTab) {
@@ -101,7 +99,6 @@ export function MarkdownEditor(
   }, [props.value, props.externalReset, editor]);
 
   const isActionDisabled = editor === null || props.isDisabled || selectedTab !== 'editor';
-  const isIndentationDisabled = isActionDisabled || !isCurrentLineAListItem;
 
   const direction = props.sdk.locales.direction[props.sdk.field.locale] ?? 'ltr';
 
@@ -128,7 +125,6 @@ export function MarkdownEditor(
       <MarkdownToolbar
         mode="default"
         disabled={isActionDisabled}
-        indentationDisabled={isIndentationDisabled}
         canUploadAssets={canUploadAssets}
         actions={actions}
       />
@@ -147,10 +143,6 @@ export function MarkdownEditor(
             const trimmedValue = value.replace(/^\s+$/gm, '');
             props.saveValueToSDK(trimmedValue);
             setCurrentValue(value);
-            setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
-          });
-          editor.events.onCursorActivity(() => {
-            setIsCurrentLineAListItem(isMarkdownListItem(editor.getCurrentLine()));
           });
         }}
       />

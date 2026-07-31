@@ -2,7 +2,6 @@ import {
   renderMarkdownEditor,
   type,
   checkValue,
-  selectAll,
   selectCharsBackwards,
   clickVisibleButtonByName,
   openAdditionalActions,
@@ -336,7 +335,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
       type('first item{enter}second item{enter}third item');
 
-      selectAll();
+      type('{selectall}{selectall}');
       clickUnorderedList();
       checkValue('- first item\n- second item\n- third item');
     });
@@ -385,7 +384,7 @@ describe('Markdown Editor / Simple Actions', () => {
 
       type('first item{enter}second item{enter}third item');
 
-      selectAll();
+      type('{selectall}{selectall}');
       clickOrderedList();
 
       checkValue('1. first item\n2. second item\n3. third item');
@@ -427,27 +426,23 @@ describe('Markdown Editor / Simple Actions', () => {
       clickVisibleButtonByName('Decrease indentation');
     };
 
-    it('disables indentation for a plain paragraph', () => {
-      renderMarkdownEditor();
-
-      unveilAdditionalButtonsRow();
-      type('A plain paragraph');
-
-      selectors.getIndentButton().should('be.disabled');
-      selectors.getDedentButton().should('be.disabled');
-    });
-
-    it('indents and dedents a list item', () => {
+    it('should work properly', () => {
       renderMarkdownEditor({ spyOnSetValue: true });
 
       unveilAdditionalButtonsRow();
-      type('- first item');
-      selectors.getIndentButton().should('not.be.disabled');
-      selectors.getDedentButton().should('not.be.disabled');
+      type('something');
       clickIndentButton();
-      checkValue('  - first item');
+      checkValue('  something');
+
+      type('{enter}');
+      clickIndentButton();
+      type('line two{enter}');
       clickDedentButton();
-      checkValue('- first item');
+      type('line three{enter}');
+      clickDedentButton();
+      type('final line');
+
+      checkValue('  something\n    line two\n  line three\nfinal line');
     });
   });
 });
