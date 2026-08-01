@@ -72,7 +72,7 @@
     "@types/webpack-env": "1.18.8",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
-    "@vitejs/plugin-react-swc": "^3.7.0",
+    "@vitejs/plugin-react-swc": "^3.11.0",
     "@vitest/eslint-plugin": "^1.6.18",
     "ajv": "8.18.0",
     "axe-core": "^4.12.1",
