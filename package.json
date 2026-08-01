@@ -73,7 +73,7 @@
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
     "@vitejs/plugin-react-swc": "^3.11.0",
-    "@vitest/eslint-plugin": "^1.6.18",
+    "@vitest/eslint-plugin": "^1.6.24",
     "ajv": "8.18.0",
     "axe-core": "^4.12.1",
     "concurrently": "8.0.1",
