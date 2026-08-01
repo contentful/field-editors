@@ -83,7 +83,7 @@
     "cypress-axe": "^1.7.0",
     "cypress-plugin-tab": "1.0.5",
     "cypress-real-events": "^1.15.0",
-    "cz-lerna-changelog": "2.0.2",
+    "cz-lerna-changelog": "2.0.3",
     "emotion": "10.0.27",
     "eslint": "8.56.0",
     "eslint-config-react-app": "7.0.1",
