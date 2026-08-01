@@ -8241,10 +8241,10 @@
   dependencies:
     "@types/estree" "*"
 
-"@types/testing-library__cypress@5.0.9":
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.9.tgz#c65f2be0cbb7f11556c1a35fd767d8dd6d1dff23"
-  integrity sha512-WTiIZhZKWDnV+Tgo42pxff8YfHdmaNFQz/bFoTlmfw2vbXcstCcb39VRaRi5yFHj/lb7t3K47btKYEbR1fci+Q==
+"@types/testing-library__cypress@5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.13.tgz#eb28cfb227a43a4d28f3745df0c367d5b88c1b37"
+  integrity sha512-lkxNGVFBEX825Z/FrHA8FLuKv1q5L6Bccqm08Zds2MUG4gd5al32hCpplzVumke3br+hkhtVmuPTfwQadIkc5w==
   dependencies:
     "@testing-library/dom" "^7.11.0"
     cypress "*"
