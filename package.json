@@ -127,7 +127,7 @@
     "tslib": "2.6.3",
     "type-fest": "4.26.1",
     "typescript": "5.3.3",
-    "vite": "^8.0.14",
+    "vite": "^8.2.0",
     "vitest": "^4.1.7",
     "vitest-axe": "^0.1.0",
     "webpack": "5.104.1",
