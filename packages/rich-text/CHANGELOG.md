@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.4.1...@contentful/field-editor-rich-text@6.4.2) (2026-08-06)
+
+### Bug Fixes
+
+- **rich-text:** prevent heading hotkey from firing inside table cells [ES-533] ([#2227](https://github.com/contentful/field-editors/issues/2227)) ([b71f655](https://github.com/contentful/field-editors/commit/b71f65551ec4ca6a4ec75daba90225d0457a6e79))
+
 ## [6.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.4.0...@contentful/field-editor-rich-text@6.4.1) (2026-07-13)
 
 ### Bug Fixes
