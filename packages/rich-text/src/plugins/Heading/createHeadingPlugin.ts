@@ -13,6 +13,14 @@ const buildHeadingEventHandler =
   (editor, { options: { hotkey } }) =>
   (event) => {
     if (editor.selection && hotkey && isHotkey(hotkey, event)) {
+      if (
+        getAboveNode(editor, {
+          match: { type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL] },
+        })
+      ) {
+        return;
+      }
+
       if (type !== BLOCKS.PARAGRAPH) {
         const isActive = isBlockSelected(editor, type);
         editor.tracking.onShortcutAction(isActive ? 'remove' : 'insert', { nodeType: type });
