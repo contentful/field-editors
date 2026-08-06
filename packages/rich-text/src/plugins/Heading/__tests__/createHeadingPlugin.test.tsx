@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
-import { describe, it } from 'vitest';
+import { BLOCKS } from '@contentful/rich-text-types';
+import { describe, expect, it, vi } from 'vitest';
 
-import { assertOutput, jsx } from '../../../test-utils';
+import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
+import { createHeadingPlugin } from '../createHeadingPlugin';
 
 describe('normalization', () => {
   it('can contain inline entries & hyperlinks', () => {
@@ -291,5 +293,151 @@ describe('normalization', () => {
 
       assertOutput({ input, expected });
     });
+  });
+});
+
+describe('buildHeadingEventHandler / onKeyDown', () => {
+  const H5_KEYCODE = 53; // '5'
+  const H3_KEYCODE = 51; // '3'
+
+  const fireModAlt = (editor: any, plugin: any, keyCode: number, key: string) => {
+    const event = new KeyboardEvent('keydown', {
+      key,
+      ctrlKey: true,
+      altKey: true,
+      which: keyCode,
+      keyCode,
+      bubbles: true,
+      cancelable: true,
+    });
+
+    plugin.handlers!.onKeyDown!(editor, plugin)(event as any);
+  };
+
+  const getHeadingPlugin = (nodeType: string) => {
+    const heading = createHeadingPlugin();
+    const plugin = heading.plugins!.find((p) => p.type === nodeType)!;
+    return plugin;
+  };
+
+  it('does not toggle a heading when the selection is inside a table cell', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hp>
+                <htext />
+                <cursor />
+              </hp>
+            </htd>
+          </htr>
+        </htable>
+      </editor>
+    );
+
+    const trackingHandler = vi.fn();
+    const { editor } = createTestEditor({ input, trackingHandler });
+    const plugin = getHeadingPlugin(BLOCKS.HEADING_5);
+
+    fireModAlt(editor, plugin, H5_KEYCODE, '5');
+
+    expect(
+      editor.children.some((n: any) =>
+        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`),
+      ),
+    ).toBe(false);
+    expect(trackingHandler).not.toHaveBeenCalled();
+  });
+
+  it('does not toggle a heading when the selection is inside a table header cell', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <hth>
+              <hp>
+                <htext />
+                <cursor />
+              </hp>
+            </hth>
+          </htr>
+        </htable>
+      </editor>
+    );
+
+    const trackingHandler = vi.fn();
+    const { editor } = createTestEditor({ input, trackingHandler });
+    const plugin = getHeadingPlugin(BLOCKS.HEADING_5);
+
+    fireModAlt(editor, plugin, H5_KEYCODE, '5');
+
+    expect(
+      editor.children.some((n: any) =>
+        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`),
+      ),
+    ).toBe(false);
+    expect(trackingHandler).not.toHaveBeenCalled();
+  });
+
+  it('still toggles a heading in a plain paragraph outside a table (regression guard)', () => {
+    const input = (
+      <editor>
+        <hp>
+          <htext />
+          <cursor />
+        </hp>
+      </editor>
+    );
+
+    const trackingHandler = vi.fn();
+    const { editor } = createTestEditor({ input, trackingHandler });
+    const plugin = getHeadingPlugin(BLOCKS.HEADING_5);
+
+    fireModAlt(editor, plugin, H5_KEYCODE, '5');
+
+    expect(
+      editor.children.some((n: any) =>
+        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`),
+      ),
+    ).toBe(true);
+    expect(trackingHandler).toHaveBeenCalledWith(
+      'insert',
+      expect.objectContaining({ nodeType: BLOCKS.HEADING_5 }),
+    );
+  });
+
+  it('does not toggle a heading when the selection is in a list item nested inside a table cell', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hul>
+                <hli>
+                  <hp>
+                    <htext />
+                    <cursor />
+                  </hp>
+                </hli>
+              </hul>
+            </htd>
+          </htr>
+        </htable>
+      </editor>
+    );
+
+    const trackingHandler = vi.fn();
+    const { editor } = createTestEditor({ input, trackingHandler });
+    const plugin = getHeadingPlugin(BLOCKS.HEADING_3);
+
+    fireModAlt(editor, plugin, H3_KEYCODE, '3');
+
+    expect(
+      editor.children.some((n: any) =>
+        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_3}"`),
+      ),
+    ).toBe(false);
+    expect(trackingHandler).not.toHaveBeenCalled();
   });
 });
