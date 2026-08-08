@@ -132,7 +132,7 @@
     "vitest": "^4.1.10",
     "vitest-axe": "^0.1.0",
     "webpack": "5.104.1",
-    "webpack-dev-server": "^5.2.6"
+    "webpack-dev-server": "^6.0.0"
   },
   "resolutions": {
     "@types/react": "18.3.1",
