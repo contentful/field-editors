@@ -59,7 +59,9 @@ type ConnectedRichTextProps = {
   queryClient?: QueryClient;
 };
 
-export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
+export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEditor(
+  props: ConnectedRichTextProps,
+) {
   const { sdk, onAction, restrictedMarks, withCharValidation } = props;
 
   const id = getContentfulEditorId(sdk);
@@ -119,7 +121,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
       </SdkProvider>
     </EntityProvider>
   );
-};
+});
 
 const RichTextEditor = (props: RichTextProps) => {
   const {
