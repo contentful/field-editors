@@ -117,7 +117,19 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_WRITE_TOKEN}" > ~/.npmrc
           echo "@contentful:registry=https://npm.pkg.github.com" >> ~/.npmrc
       - run: yarn build
-      - run: yarn lerna publish --no-private --canary --preid canary --dist-tag canary --conventional-commits --yes
+      - run:
+          name: Publish canary packages
+          command: |
+            CANARY_SHORT_SHA="${CIRCLE_SHA1:0:8}"
+            # npm ignores Lerna's +sha build metadata when identifying versions.
+            yarn lerna publish \
+              --no-private \
+              --canary \
+              --preid "canary.sha-${CANARY_SHORT_SHA}" \
+              --dist-tag canary \
+              --conventional-commits \
+              --force-publish \
+              --yes
 
 workflows:
   version: 2
@@ -134,7 +146,7 @@ workflows:
           context: vault
           filters:
             branches:
-              ignore: master
+              only: canary
           requires:
             - lint
             - unit-tests
