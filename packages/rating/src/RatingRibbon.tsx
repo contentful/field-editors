@@ -12,19 +12,10 @@ type RatingRibbonProps = {
   onSelect: (val: number) => void;
 };
 
-type RatingRibbonState = {
-  hovered: null | number;
-};
+export function RatingRibbon({ disabled, stars, value, onSelect }: RatingRibbonProps) {
+  const [hovered, setHovered] = React.useState<number | null>(null);
 
-export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbonState> {
-  state = {
-    hovered: null,
-  };
-
-  isSelected = (num: number) => {
-    const hovered = this.state.hovered;
-    const value = this.props.value;
-
+  const isSelected = (num: number) => {
     if (hovered !== null) {
       return num <= hovered;
     }
@@ -34,59 +25,57 @@ export class RatingRibbon extends React.Component<RatingRibbonProps, RatingRibbo
     return false;
   };
 
-  onBlur = () => {
-    if (!this.props.disabled) {
-      this.setState({ hovered: null });
+  const onBlur = () => {
+    if (!disabled) {
+      setHovered(null);
     }
   };
 
-  onFocus = (num: number) => () => {
-    if (!this.props.disabled) {
-      this.setState({ hovered: num });
+  const onFocus = (num: number) => () => {
+    if (!disabled) {
+      setHovered(num);
     }
   };
 
-  render() {
-    const items: number[] = [];
-    for (let i = 1; i <= this.props.stars; i++) {
-      items.push(i);
-    }
-
-    return (
-      <>
-        {items.map((num) => (
-          <IconButton
-            variant="transparent"
-            size="small"
-            icon={
-              <StarIcon
-                isActive={this.isSelected(num)}
-                color={this.isSelected(num) ? tokens.colorPrimary : tokens.gray600}
-                className={css({ width: '22px', height: '22px' })}
-              />
-            }
-            data-selected={this.isSelected(num) ? 'true' : 'false'}
-            testId="rating-editor-star"
-            isDisabled={this.props.disabled}
-            key={num}
-            onMouseDown={(e: React.MouseEvent) => {
-              if (e.button === 0) {
-                this.props.onSelect(num);
-              }
-            }}
-            onKeyDown={(e: React.KeyboardEvent) => {
-              if (e.keyCode === 13) {
-                this.props.onSelect(num);
-              }
-            }}
-            onMouseOver={this.onFocus(num)}
-            onMouseLeave={this.onBlur}
-            onFocus={this.onFocus(num)}
-            onBlur={this.onBlur}
-            aria-label={num.toString()}
-          />
-        ))}
-      </>
-    );
+  const items: number[] = [];
+  for (let i = 1; i <= stars; i++) {
+    items.push(i);
   }
+
+  return (
+    <>
+      {items.map((num) => (
+        <IconButton
+          variant="transparent"
+          size="small"
+          icon={
+            <StarIcon
+              isActive={isSelected(num)}
+              color={isSelected(num) ? tokens.colorPrimary : tokens.gray600}
+              className={css({ width: '22px', height: '22px' })}
+            />
+          }
+          data-selected={isSelected(num) ? 'true' : 'false'}
+          testId="rating-editor-star"
+          isDisabled={disabled}
+          key={num}
+          onMouseDown={(e: React.MouseEvent) => {
+            if (e.button === 0) {
+              onSelect(num);
+            }
+          }}
+          onKeyDown={(e: React.KeyboardEvent) => {
+            if (e.keyCode === 13) {
+              onSelect(num);
+            }
+          }}
+          onMouseOver={onFocus(num)}
+          onMouseLeave={onBlur}
+          onFocus={onFocus(num)}
+          onBlur={onBlur}
+          aria-label={num.toString()}
+        />
+      ))}
+    </>
+  );
 }
