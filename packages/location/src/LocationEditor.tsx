@@ -11,7 +11,7 @@ import {
   ViewType,
   NullableLocationValue,
   Coords,
-  GeocodeApiResponse,
+  GeocodeApiResponse
 } from './types';
 
 export interface LocationEditorConnectedProps {
@@ -54,105 +54,107 @@ function toLocationValue(coords?: Coords): NullableLocationValue {
   }
 }
 
-export class LocationEditor extends React.Component<
-  LocationEditorProps,
-  {
-    localValue?: Coords;
-    mapsObject: any; // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
-  }
-> {
-  constructor(props: LocationEditorProps) {
-    super(props);
+export function LocationEditor({
+  disabled,
+  value,
+  setValue,
+  googleMapsKey,
+  selectedView,
+  setSelectedView
+}: LocationEditorProps) {
+  const [localValue, setLocalValue] = React.useState<Coords | undefined>(() =>
+    // if we have only the lon or lat set, we set the other to 0.
+    // if both are not set, we set localValue to undefined.
+    value?.lon || value?.lat
+      ? {
+          lng: value.lon ?? 0,
+          lat: value.lat ?? 0
+        }
+      : undefined
+  );
+  // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
+  const [mapsObject, setMapsObject] = React.useState<any>(null);
+  const mapsObjectRef = React.useRef(mapsObject);
+  mapsObjectRef.current = mapsObject;
 
-    this.state = {
-      localValue:
-        // if we have only the lon or lat set, we set the other to 0.
-        // if both are not set, we set localValue to undefined.
-        props?.value?.lon || props?.value?.lat
-          ? {
-              lng: props.value.lon ?? 0,
-              lat: props.value.lat ?? 0,
+  const throttledSearchAddress = React.useMemo(
+    () =>
+      throttle((searchValue: string): Promise<GeocodeApiResponse> => {
+        const currentMapsObject = mapsObjectRef.current;
+        if (!currentMapsObject || !searchValue) {
+          return Promise.resolve(null);
+        }
+        return new Promise((resolve) => {
+          const geocoder = new currentMapsObject.Geocoder();
+          geocoder.geocode({ address: searchValue }, resolve, () => {
+            resolve(null);
+          });
+        });
+      }, 300),
+    []
+  );
+
+  const onSearchAddress = throttledSearchAddress as (
+    searchValue: string
+  ) => Promise<GeocodeApiResponse>;
+
+  const onGetAddressFromLocation = React.useCallback(
+    (location: Coords | undefined, address: string): Promise<string> => {
+      const currentMapsObject = mapsObjectRef.current;
+      if (!currentMapsObject || !location) {
+        return Promise.resolve('');
+      }
+      return new Promise((resolve) => {
+        const geocoder = new currentMapsObject.Geocoder();
+        geocoder.geocode(
+          { location },
+          (result: GeocodeApiResponse) => {
+            if (result && result.length > 0) {
+              const addresses = result.map((item) => item.formatted_address);
+              resolve(addresses.find((item) => item === address) || addresses[0]);
+            } else {
+              resolve('');
             }
-          : undefined,
-      mapsObject: null,
-    };
-  }
-
-  // @ts-expect-error
-  onSearchAddress: (value: string) => Promise<GeocodeApiResponse> = throttle((value) => {
-    if (!this.state.mapsObject) {
-      return Promise.resolve(null);
-    }
-    const { mapsObject } = this.state;
-    if (!value) {
-      return Promise.resolve(null);
-    }
-    return new Promise((resolve) => {
-      const geocoder = new mapsObject.Geocoder();
-      geocoder.geocode({ address: value }, resolve, () => {
-        resolve(null);
-      });
-    });
-  }, 300);
-
-  onGetAddressFromLocation = (location: Coords | undefined, value: string): Promise<string> => {
-    if (!this.state.mapsObject || !location) {
-      return Promise.resolve('');
-    }
-    const { mapsObject } = this.state;
-    return new Promise((resolve) => {
-      const geocoder = new mapsObject.Geocoder();
-      geocoder.geocode(
-        { location },
-        (result: GeocodeApiResponse) => {
-          if (result && result.length > 0) {
-            const addresses = result.map((item) => item.formatted_address);
-            resolve(addresses.find((item) => item === value) || addresses[0]);
-          } else {
+          },
+          () => {
             resolve('');
           }
-        },
-        () => {
-          resolve('');
-        }
-      );
-    });
-  };
+        );
+      });
+    },
+    []
+  );
 
-  render() {
-    const { mapsObject, localValue } = this.state;
-
-    return (
-      <div data-test-id="location-editor">
-        <GoogleMapView
-          disabled={this.props.disabled || mapsObject === null}
-          googleMapsKey={this.props.googleMapsKey}
-          location={localValue}
-          onGoogleApiLoaded={({ maps }) => {
-            this.setState({ mapsObject: maps });
-          }}
-          onChangeLocation={(coords) => {
-            this.setState({ localValue: coords });
-            this.props.setValue(toLocationValue(coords));
-          }}
-        />
-        <LocationSelector
-          disabled={this.props.disabled || mapsObject === null}
-          value={localValue}
-          view={this.props.selectedView}
-          onChangeView={(view) => {
-            this.props.setSelectedView(view);
-          }}
-          onChangeLocation={(coords) => {
-            this.setState({ localValue: coords });
-            this.props.setValue(toLocationValue(coords));
-          }}
-          onSearchAddress={this.onSearchAddress}
-          onGetAddressFromLocation={this.onGetAddressFromLocation}
-        />
-      </div>
-    );
-  }
+  return (
+    <div data-test-id="location-editor">
+      <GoogleMapView
+        disabled={disabled || mapsObject === null}
+        googleMapsKey={googleMapsKey}
+        location={localValue}
+        onGoogleApiLoaded={({ maps }) => {
+          setMapsObject(maps);
+        }}
+        onChangeLocation={(coords) => {
+          setLocalValue(coords);
+          setValue(toLocationValue(coords));
+        }}
+      />
+      <LocationSelector
+        disabled={disabled || mapsObject === null}
+        value={localValue}
+        view={selectedView}
+        onChangeView={(view) => {
+          setSelectedView(view);
+        }}
+        onChangeLocation={(coords) => {
+          setLocalValue(coords);
+          setValue(toLocationValue(coords));
+        }}
+        onSearchAddress={onSearchAddress}
+        onGetAddressFromLocation={onGetAddressFromLocation}
+      />
+    </div>
+  );
 }
 
 export function LocationEditorConnected(props: LocationEditorConnectedProps) {
@@ -181,5 +183,5 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
 }
 
 LocationEditorConnected.defaultProps = {
-  isInitiallyDisabled: true,
+  isInitiallyDisabled: true
 };

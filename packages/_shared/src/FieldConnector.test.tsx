@@ -18,7 +18,7 @@ it('does not rerender with outdated value after calling setValue', async () => {
       ...field,
       // this promise never resolves
       setValue: () => new Promise(noop),
-      onSchemaErrorsChanged,
+      onSchemaErrorsChanged
     };
   }, 'initial value');
 
@@ -26,7 +26,7 @@ it('does not rerender with outdated value after calling setValue', async () => {
     isInitiallyDisabled: false,
     children: vi.fn().mockImplementation(() => null),
     field,
-    debounce: 0,
+    debounce: 0
   };
 
   render(<FieldConnector {...props} />);
@@ -53,7 +53,7 @@ it('takes initial disable state from sdk.field', () => {
     return {
       ...field,
       // this promise never resolves
-      getIsDisabled: vi.fn().mockReturnValue(true),
+      getIsDisabled: vi.fn().mockReturnValue(true)
     };
   }, 'initial value');
 
@@ -61,7 +61,7 @@ it('takes initial disable state from sdk.field', () => {
     isInitiallyDisabled: false,
     children: vi.fn().mockImplementation(() => null),
     field,
-    debounce: 0,
+    debounce: 0
   };
 
   render(<FieldConnector {...props} />);
@@ -74,7 +74,82 @@ it('takes initial disable state from sdk.field', () => {
   expect(props.children).toHaveBeenCalledTimes(1);
   expect(props.children).toHaveBeenCalledWith(
     expect.objectContaining({
-      disabled: true,
-    }),
+      disabled: true
+    })
   );
+});
+
+it('handles subscriptions that do not return unsubscribe callbacks', () => {
+  const [field] = createFakeFieldAPI((field: any) => ({
+    ...field,
+    onSchemaErrorsChanged: vi.fn(),
+    onIsDisabledChanged: vi.fn(),
+    onValueChanged: vi.fn()
+  }));
+
+  const { unmount } = render(
+    <FieldConnector field={field} isInitiallyDisabled={false} debounce={0} />
+  );
+
+  expect(() => unmount()).not.toThrow();
+});
+
+it('keeps pending debounced value updates after unmounting', async () => {
+  vi.useFakeTimers();
+  const setValue = vi.fn().mockResolvedValue(undefined);
+  const [field] = createFakeFieldAPI((field: any) => ({
+    ...field,
+    setValue
+  }));
+  const children = vi.fn().mockReturnValue(null);
+
+  try {
+    const { unmount } = render(
+      <FieldConnector field={field} isInitiallyDisabled={false} debounce={300}>
+        {children}
+      </FieldConnector>
+    );
+
+    await act(async () => {
+      await getChild(children).setValue('new value');
+    });
+    unmount();
+
+    await vi.advanceTimersByTimeAsync(300);
+
+    expect(setValue).toHaveBeenCalledWith('new value');
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+it('uses the deprecated throttle value as the debounce duration', async () => {
+  vi.useFakeTimers();
+  const setValue = vi.fn().mockResolvedValue(undefined);
+  const [field] = createFakeFieldAPI((field: any) => ({
+    ...field,
+    setValue
+  }));
+  const children = vi.fn().mockReturnValue(null);
+
+  try {
+    render(
+      <FieldConnector field={field} isInitiallyDisabled={false} throttle={100}>
+        {children}
+      </FieldConnector>
+    );
+
+    await act(async () => {
+      await getChild(children).setValue('new value');
+    });
+    await vi.advanceTimersByTimeAsync(99);
+
+    expect(setValue).not.toHaveBeenCalled();
+
+    await vi.advanceTimersByTimeAsync(1);
+
+    expect(setValue).toHaveBeenCalledWith('new value');
+  } finally {
+    vi.useRealTimers();
+  }
 });

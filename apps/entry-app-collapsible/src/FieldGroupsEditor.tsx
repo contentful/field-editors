@@ -32,8 +32,10 @@ const SortableDragHandle = SortableHandle(() => (
   <DragHandle label="Reorder item" className={styles.handle} />
 ));
 
-const SortableFieldItem = SortableElement(
-  ({ field, groupId }: { field: FieldType; groupId: string }) => {
+type SortableFieldItemProps = { field: FieldType; groupId: string };
+
+const SortableFieldItem = SortableElement<SortableFieldItemProps>(
+  ({ field, groupId }: SortableFieldItemProps) => {
     const { dispatch } = React.useContext(AppContext);
     const sdk = React.useContext(SDKContext);
     const fieldDetails = sdk.contentType.fields.find(({ id }) => id === field.id);
@@ -64,8 +66,10 @@ const SortableFieldItem = SortableElement(
   }
 );
 
-const SortableFieldList = SortableContainer(
-  ({ items, groupId }: { items: FieldType[]; groupId: string }) => (
+type SortableFieldListProps = { items: FieldType[]; groupId: string };
+
+const SortableFieldList = SortableContainer<SortableFieldListProps>(
+  ({ items, groupId }: SortableFieldListProps) => (
     <ul className={styles.listContainer}>
       {items.map((field: FieldType, index: number) => (
         <SortableFieldItem groupId={groupId} key={`item-${field.id}`} index={index} field={field} />
@@ -74,40 +78,36 @@ const SortableFieldList = SortableContainer(
   )
 );
 
-export class FieldGroupsEditor extends React.Component<FieldGroupsEditorProps> {
-  render() {
-    const { fieldGroups } = this.props;
-
-    return (
-      <React.Fragment>
-        <div className={styles.controls}>
-          <Text as="p" fontColor="gray500" marginTop="spacingXs">
-            Group fields to seperate concerns in the entry editor
-          </Text>
-          <div>
-            <Button variant="primary" onClick={this.props.addGroup}>
-              Add Group
-            </Button>
-            <Button className={styles.saveButton} variant="positive" onClick={this.props.onClose}>
-              Save
-            </Button>
-          </div>
+export function FieldGroupsEditor({ fieldGroups, addGroup, onClose }: FieldGroupsEditorProps) {
+  return (
+    <React.Fragment>
+      <div className={styles.controls}>
+        <Text as="p" fontColor="gray500" marginTop="spacingXs">
+          Group fields to seperate concerns in the entry editor
+        </Text>
+        <div>
+          <Button variant="primary" onClick={addGroup}>
+            Add Group
+          </Button>
+          <Button className={styles.saveButton} variant="positive" onClick={onClose}>
+            Save
+          </Button>
         </div>
-        <ModalContent>
-          {fieldGroups.map(({ name, fields, id }, index) => (
-            <FieldGroupEditor
-              first={index === 0}
-              last={index === fieldGroups.length - 1}
-              key={id}
-              groupId={id}
-              name={name}
-              fields={fields}
-            />
-          ))}
-        </ModalContent>
-      </React.Fragment>
-    );
-  }
+      </div>
+      <ModalContent>
+        {fieldGroups.map(({ name, fields, id }, index) => (
+          <FieldGroupEditor
+            first={index === 0}
+            last={index === fieldGroups.length - 1}
+            key={id}
+            groupId={id}
+            name={name}
+            fields={fields}
+          />
+        ))}
+      </ModalContent>
+    </React.Fragment>
+  );
 }
 
 interface FieldGroupProps {

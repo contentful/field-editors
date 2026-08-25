@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { type ReactNode, useLayoutEffect, useRef, useState } from 'react';
 
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 
@@ -16,7 +16,7 @@ interface TrackingFieldConnectorProps<ValueType> {
   defaultLocale: string;
   trackingFieldId?: string;
   isOptionalLocaleWithFallback: boolean;
-  children: (state: TrackingFieldConnectorState<ValueType>) => React.ReactNode;
+  children?: (state: TrackingFieldConnectorState<ValueType>) => ReactNode;
 }
 
 function getTitleField(sdk: FieldAppSDK, trackingFieldId?: string) {
@@ -27,84 +27,68 @@ function getTitleField(sdk: FieldAppSDK, trackingFieldId?: string) {
   return entry.fields[contentType.displayField];
 }
 
-export class TrackingFieldConnector<ValueType> extends React.Component<
-  TrackingFieldConnectorProps<ValueType>,
-  TrackingFieldConnectorState<ValueType>
-> {
-  static defaultProps = {
-    children: () => {
-      return null;
-    },
-  };
-
-  constructor(props: TrackingFieldConnectorProps<ValueType>) {
-    super(props);
+export function TrackingFieldConnector<ValueType>(props: TrackingFieldConnectorProps<ValueType>) {
+  const [state, setState] = useState<TrackingFieldConnectorState<ValueType>>(() => {
     const titleField = getTitleField(props.sdk, props.trackingFieldId);
     const entrySys = props.sdk.entry.getSys();
-    const isSame = titleField ? props.field.id === titleField.id : false;
-    this.state = {
+    return {
       titleValue: titleField ? titleField.getValue() : '',
       isPublished: Boolean(entrySys.publishedVersion),
-      isSame,
+      isSame: titleField ? props.field.id === titleField.id : false
     };
-  }
+  });
+  const propsRef = useRef(props);
+  propsRef.current = props;
+  const initialIsSameRef = useRef(state.isSame);
 
-  unsubscribeValue: Function | null = null;
-  unsubscribeLocalizedValue: Function | null = null;
-  unsubscribeSysChanges: Function | null = null;
-
-  componentDidMount() {
-    this.unsubscribeSysChanges = this.props.sdk.entry.onSysChanged((sys) => {
-      this.setState({
-        isPublished: Boolean(sys.publishedVersion),
-      });
+  useLayoutEffect(() => {
+    const initialProps = propsRef.current;
+    const unsubscribeSysChanges = initialProps.sdk.entry.onSysChanged((sys) => {
+      setState((currentState) => ({
+        ...currentState,
+        isPublished: Boolean(sys.publishedVersion)
+      }));
     });
 
-    const titleField = getTitleField(this.props.sdk, this.props.trackingFieldId);
+    const titleField = getTitleField(initialProps.sdk, initialProps.trackingFieldId);
 
     // the content type's display field might not exist
     if (!titleField) {
-      return;
+      return typeof unsubscribeSysChanges === 'function' ? unsubscribeSysChanges : undefined;
     }
 
-    if (!this.state.isSame) {
-      this.unsubscribeLocalizedValue = titleField.onValueChanged(
-        this.props.field.locale,
-        (value: ValueType | Nullable) => {
-          this.setState({ titleValue: value });
-        }
-      );
-    }
+    const unsubscribeLocalizedValue = initialIsSameRef.current
+      ? undefined
+      : titleField.onValueChanged(initialProps.field.locale, (value: ValueType | Nullable) => {
+          setState((currentState) => ({ ...currentState, titleValue: value }));
+        });
 
-    if (this.props.field.locale !== this.props.defaultLocale) {
-      if (!this.props.isOptionalLocaleWithFallback) {
-        this.unsubscribeValue = titleField.onValueChanged(
-          this.props.defaultLocale,
+    let unsubscribeValue: Function | undefined;
+    if (initialProps.field.locale !== initialProps.defaultLocale) {
+      if (!initialProps.isOptionalLocaleWithFallback) {
+        unsubscribeValue = titleField.onValueChanged(
+          initialProps.defaultLocale,
           (value: ValueType | Nullable) => {
-            if (!titleField.getValue(this.props.field.locale)) {
-              this.setState({ titleValue: value });
+            if (!titleField.getValue(propsRef.current.field.locale)) {
+              setState((currentState) => ({ ...currentState, titleValue: value }));
             }
           }
         );
       }
     }
-  }
 
-  componentWillUnmount() {
-    if (typeof this.unsubscribeValue === 'function') {
-      this.unsubscribeValue();
-    }
-    if (typeof this.unsubscribeLocalizedValue === 'function') {
-      this.unsubscribeLocalizedValue();
-    }
-    if (typeof this.unsubscribeSysChanges === 'function') {
-      this.unsubscribeSysChanges();
-    }
-  }
+    return () => {
+      if (typeof unsubscribeValue === 'function') {
+        unsubscribeValue();
+      }
+      if (typeof unsubscribeLocalizedValue === 'function') {
+        unsubscribeLocalizedValue();
+      }
+      if (typeof unsubscribeSysChanges === 'function') {
+        unsubscribeSysChanges();
+      }
+    };
+  }, []);
 
-  render() {
-    return this.props.children({
-      ...this.state,
-    });
-  }
+  return props.children ? props.children(state) : null;
 }

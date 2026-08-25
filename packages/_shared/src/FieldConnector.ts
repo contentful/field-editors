@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { type ReactNode, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 import deepEqual from 'fast-deep-equal';
@@ -29,129 +29,121 @@ type FieldConnectorProps<ValueType> = {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
   isDisabled?: boolean;
-  children: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
-  isEmptyValue: (value: ValueType | null) => boolean;
+  children?: (state: FieldConnectorChildProps<ValueType>) => ReactNode;
+  isEmptyValue?: (value: ValueType | null) => boolean;
   isEqualValues?: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
 } & (
-  | { debounce: number }
+  | { debounce?: number }
   | {
       /** @deprecated: Please use `debounce` instead */
       throttle: number;
     }
 );
 
-export class FieldConnector<ValueType> extends React.Component<
-  FieldConnectorProps<ValueType>,
-  FieldConnectorState<ValueType>
-> {
-  static defaultProps = {
-    children: () => {
-      return null;
-    },
-    // eslint-disable-next-line -- TODO: describe this disable
-    isEmptyValue: (value: any | Nullable) => {
-      return value === null || value === '';
-    },
-    // eslint-disable-next-line -- TODO: describe this disable
-    isEqualValues: (value1: any | Nullable, value2: any | Nullable) => {
-      return deepEqual(value1, value2);
-    },
-    debounce: 300,
-  };
+const defaultIsEmptyValue = (value: unknown) => value === null || value === '';
+const defaultIsEqualValues = (value1: unknown, value2: unknown) => deepEqual(value1, value2);
 
-  constructor(props: FieldConnectorProps<ValueType>) {
-    super(props);
+export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>) {
+  const [state, setState] = useState<FieldConnectorState<ValueType>>(() => {
     const initialValue = props.field.getValue();
-    this.state = {
+    return {
       isLocalValueChange: false,
       externalReset: 0,
       value: initialValue,
       lastRemoteValue: initialValue,
       disabled: props.isInitiallyDisabled || props.field.getIsDisabled(),
-      errors: [],
+      errors: []
     };
-  }
+  });
+  const propsRef = useRef(props);
+  propsRef.current = props;
+  const subscribedFieldRef = useRef(props.field);
 
-  unsubscribeErrors: Function | null = null;
-  unsubscribeDisabled: Function | null = null;
-  unsubscribeValue: Function | null = null;
+  const getDebounceDuration = () =>
+    'throttle' in propsRef.current ? propsRef.current.throttle : (propsRef.current.debounce ?? 300);
 
-  getDebounceDuration = () =>
-    'debounce' in this.props ? this.props.debounce : this.props.throttle;
-
-  setValue = async (value: ValueType | Nullable) => {
-    if (this.props.isEmptyValue(value ?? null)) {
-      this.setState({ value: undefined });
-    } else {
-      this.setState({ value });
-    }
-
-    if (this.getDebounceDuration() === 0) {
-      await this.triggerSetValueCallbacks(value);
-    } else {
-      await this.debouncedTriggerSetValueCallbacks(value);
-    }
-  };
-
-  triggerSetValueCallbacks = (value: ValueType | Nullable) => {
+  const triggerSetValueCallbacks = useCallback((value: ValueType | Nullable) => {
     return new Promise((resolve, reject) => {
-      if (this.props.isEmptyValue(value ?? null)) {
-        this.props.field.removeValue().then(resolve).catch(reject);
+      if ((propsRef.current.isEmptyValue ?? defaultIsEmptyValue)(value ?? null)) {
+        propsRef.current.field.removeValue().then(resolve).catch(reject);
       } else {
-        this.props.field.setValue(value).then(resolve).catch(reject);
+        propsRef.current.field.setValue(value).then(resolve).catch(reject);
       }
     });
-  };
+  }, []);
 
-  debouncedTriggerSetValueCallbacks = debounce(
-    this.triggerSetValueCallbacks,
-    this.getDebounceDuration()
+  const debouncedTriggerSetValueCallbacks = useMemo(
+    () => debounce(triggerSetValueCallbacks, getDebounceDuration()),
+    [triggerSetValueCallbacks]
   );
 
-  componentDidMount() {
-    const { field } = this.props;
-    this.unsubscribeErrors = field.onSchemaErrorsChanged((errors: ValidationError[]) => {
-      this.setState({
-        errors: errors || [],
-      });
+  const setValue = useCallback(
+    async (value: ValueType | Nullable) => {
+      if ((propsRef.current.isEmptyValue ?? defaultIsEmptyValue)(value ?? null)) {
+        setState((currentState) => ({ ...currentState, value: undefined }));
+      } else {
+        setState((currentState) => ({ ...currentState, value }));
+      }
+
+      if (getDebounceDuration() === 0) {
+        await triggerSetValueCallbacks(value);
+      } else {
+        await debouncedTriggerSetValueCallbacks(value);
+      }
+    },
+    [debouncedTriggerSetValueCallbacks, triggerSetValueCallbacks]
+  );
+
+  useLayoutEffect(() => {
+    const field = subscribedFieldRef.current;
+    const unsubscribeErrors = field.onSchemaErrorsChanged((errors: ValidationError[]) => {
+      setState((currentState) => ({
+        ...currentState,
+        errors: errors || []
+      }));
     });
-    this.unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
-      this.setState({
-        disabled,
-      });
+    const unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
+      setState((currentState) => ({
+        ...currentState,
+        disabled
+      }));
     });
-    this.unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
-      this.setState((currentState) => {
-        const isLocalValueChange = this.props.isEqualValues!(value, currentState.value);
+    const unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
+      setState((currentState) => {
+        const isLocalValueChange = (propsRef.current.isEqualValues ?? defaultIsEqualValues)(
+          value,
+          currentState.value
+        );
         const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
         const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
         return {
+          ...currentState,
           value,
           lastRemoteValue,
           isLocalValueChange,
-          externalReset,
+          externalReset
         };
       });
     });
-  }
 
-  componentWillUnmount() {
-    if (typeof this.unsubscribeErrors === 'function') {
-      this.unsubscribeErrors();
-    }
-    if (typeof this.unsubscribeDisabled === 'function') {
-      this.unsubscribeDisabled();
-    }
-    if (typeof this.unsubscribeValue === 'function') {
-      this.unsubscribeValue();
-    }
-  }
+    return () => {
+      if (typeof unsubscribeErrors === 'function') {
+        unsubscribeErrors();
+      }
+      if (typeof unsubscribeDisabled === 'function') {
+        unsubscribeDisabled();
+      }
+      if (typeof unsubscribeValue === 'function') {
+        unsubscribeValue();
+      }
+    };
+  }, []);
 
-  render() {
-    return this.props.children({
-      ...this.state,
-      setValue: this.setValue,
-      disabled: this.props.isDisabled || this.state.disabled,
-    });
-  }
+  return props.children
+    ? props.children({
+        ...state,
+        setValue,
+        disabled: props.isDisabled || state.disabled
+      })
+    : null;
 }

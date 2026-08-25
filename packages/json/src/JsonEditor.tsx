@@ -37,56 +37,62 @@ type ConnectedJsonEditorState = {
   lastUndo: string;
 };
 
-class ConnectedJsonEditor extends React.Component<
-  ConnectedJsonEditorProps,
-  ConnectedJsonEditorState
-> {
-  static defaultProps = {
-    isInitiallyDisabled: true,
-  };
-
-  constructor(props: ConnectedJsonEditorProps) {
-    super(props);
-    this.state = {
-      value: stringifyJSON(props.initialValue),
+function ConnectedJsonEditor({ initialValue, setValue, disabled }: ConnectedJsonEditorProps) {
+  const [state, setState] = React.useState<ConnectedJsonEditorState>(() => {
+    return {
+      value: stringifyJSON(initialValue),
       isValidJson: true,
       undoStack: [],
       redoStack: [],
-      lastUndo: '',
+      lastUndo: ''
     };
-  }
+  });
+  const stateRef = React.useRef(state);
+  stateRef.current = state;
+  const setValueRef = React.useRef(setValue);
+  setValueRef.current = setValue;
+  const valuesToPersistAfterCommitRef = React.useRef<NullableJsonObject[]>([]);
 
-  setValidJson = (value: boolean) => {
-    this.setState({
-      isValidJson: value,
-    });
-  };
+  React.useLayoutEffect(() => {
+    const values = valuesToPersistAfterCommitRef.current.splice(0);
+    values.forEach((value) => setValueRef.current(value));
+  });
 
-  pushUndo = throttle((value: string) => {
-    this.setState((state) => ({
-      undoStack: [...state.undoStack, value],
-    }));
-  }, 400);
+  const pushUndo = React.useMemo(
+    () =>
+      throttle((value: string) => {
+        setState((currentState) => ({
+          ...currentState,
+          undoStack: [...currentState.undoStack, value]
+        }));
+      }, 400),
+    []
+  );
 
-  onChange = (value: string) => {
-    const parsed = parseJSON(value);
+  const onChange = React.useCallback(
+    (value: string) => {
+      const currentState = stateRef.current;
+      const parsed = parseJSON(value);
 
-    if (value !== this.state.lastUndo) {
-      this.pushUndo(this.state.value);
-    }
+      if (value !== currentState.lastUndo) {
+        pushUndo(currentState.value);
+      }
 
-    this.setState({
-      value,
-      isValidJson: parsed.valid,
-    });
+      setState((latestState) => ({
+        ...latestState,
+        value,
+        isValidJson: parsed.valid
+      }));
 
-    if (parsed.valid) {
-      this.props.setValue(parsed.value);
-    }
-  };
+      if (parsed.valid) {
+        setValueRef.current(parsed.value);
+      }
+    },
+    [pushUndo]
+  );
 
-  onUndo = () => {
-    const undoStack = this.state.undoStack;
+  const onUndo = React.useCallback(() => {
+    const undoStack = stateRef.current.undoStack;
 
     if (undoStack.length === 0) {
       return;
@@ -96,25 +102,21 @@ class ConnectedJsonEditor extends React.Component<
 
     const parsedValue = parseJSON(value);
 
-    this.setState(
-      (state) => ({
-        ...state,
-        value,
-        isValidJson: parsedValue.valid,
-        undoStack,
-        redoStack: [...state.redoStack, state.value],
-        lastUndo: value,
-      }),
-      () => {
-        if (parsedValue.valid) {
-          this.props.setValue(parsedValue.value);
-        }
-      }
-    );
-  };
+    if (parsedValue.valid) {
+      valuesToPersistAfterCommitRef.current.push(parsedValue.value);
+    }
+    setState((currentState) => ({
+      ...currentState,
+      value,
+      isValidJson: parsedValue.valid,
+      undoStack,
+      redoStack: [...currentState.redoStack, currentState.value],
+      lastUndo: value
+    }));
+  }, []);
 
-  onRedo = () => {
-    const redoStack = [...this.state.redoStack];
+  const onRedo = React.useCallback(() => {
+    const redoStack = [...stateRef.current.redoStack];
 
     if (redoStack.length === 0) {
       return;
@@ -124,40 +126,30 @@ class ConnectedJsonEditor extends React.Component<
 
     const parsedValue = parseJSON(value);
 
-    this.setState(
-      (state) => ({
-        ...state,
-        value,
-        isValidJson: parsedValue.valid,
-        redoStack,
-        undoStack: [...state.undoStack, state.value],
-      }),
-      () => {
-        if (parsedValue.valid) {
-          this.props.setValue(parsedValue.value);
-        }
-      }
-    );
-  };
+    if (parsedValue.valid) {
+      valuesToPersistAfterCommitRef.current.push(parsedValue.value);
+    }
+    setState((currentState) => ({
+      ...currentState,
+      value,
+      isValidJson: parsedValue.valid,
+      redoStack,
+      undoStack: [...currentState.undoStack, currentState.value]
+    }));
+  }, []);
 
-  render() {
-    return (
-      <div data-test-id="json-editor">
-        <JsonEditorToolbar
-          isRedoDisabled={this.props.disabled || this.state.redoStack.length === 0}
-          isUndoDisabled={this.props.disabled || this.state.undoStack.length === 0}
-          onUndo={this.onUndo}
-          onRedo={this.onRedo}
-        />
-        <JsonEditorField
-          value={this.state.value}
-          onChange={this.onChange}
-          isDisabled={this.props.disabled}
-        />
-        {!this.state.isValidJson && <JsonInvalidStatus />}
-      </div>
-    );
-  }
+  return (
+    <div data-test-id="json-editor">
+      <JsonEditorToolbar
+        isRedoDisabled={disabled || state.redoStack.length === 0}
+        isUndoDisabled={disabled || state.undoStack.length === 0}
+        onUndo={onUndo}
+        onRedo={onRedo}
+      />
+      <JsonEditorField value={state.value} onChange={onChange} isDisabled={disabled} />
+      {!state.isValidJson && <JsonInvalidStatus />}
+    </div>
+  );
 }
 
 export default function JsonEditor(props: JsonEditorProps) {
