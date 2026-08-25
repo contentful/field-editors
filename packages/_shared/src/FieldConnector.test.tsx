@@ -122,3 +122,34 @@ it('keeps pending debounced value updates after unmounting', async () => {
     vi.useRealTimers();
   }
 });
+
+it('uses the deprecated throttle value as the debounce duration', async () => {
+  vi.useFakeTimers();
+  const setValue = vi.fn().mockResolvedValue(undefined);
+  const [field] = createFakeFieldAPI((field: any) => ({
+    ...field,
+    setValue
+  }));
+  const children = vi.fn().mockReturnValue(null);
+
+  try {
+    render(
+      <FieldConnector field={field} isInitiallyDisabled={false} throttle={100}>
+        {children}
+      </FieldConnector>
+    );
+
+    await act(async () => {
+      await getChild(children).setValue('new value');
+    });
+    await vi.advanceTimersByTimeAsync(99);
+
+    expect(setValue).not.toHaveBeenCalled();
+
+    await vi.advanceTimersByTimeAsync(1);
+
+    expect(setValue).toHaveBeenCalledWith('new value');
+  } finally {
+    vi.useRealTimers();
+  }
+});
