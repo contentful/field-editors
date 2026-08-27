@@ -2,8 +2,6 @@
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
-> **Correction from the previous version of this file:** this document previously said the test runner was Jest. As of `#2167` (2026-05-28), every package uses **Vitest**. The Jest references below have been replaced; see `docs/ADRs/2026-05-28-vitest-replaces-jest.md` (internal-only) for the migration history.
-
 ## 1. Prerequisites
 
 | Tool    | Version                 | Notes                                                                                                                                                            |
@@ -105,7 +103,7 @@ To add a new package: create a new directory under `packages/`. Since Lerna mana
 
 ## 5. Testing
 
-- **Framework:** Vitest (`vitest` / `vitest run`), not Jest — corrected as of `#2167` (2026-05-28).
+- **Framework:** Vitest (`vitest` / `vitest run`).
 - **Location:** colocated with source, e.g. `packages/single-line/src/SingleLineEditor.test.tsx` next to `SingleLineEditor.tsx`. Glob: `**/*.{test,spec}.{ts,tsx,js,jsx}` (`vitest.shared.ts`).
 - **Run all:** `yarn test:ci` (root).
 - **Run single package:** `cd packages/<name> && yarn test:ci`, or `yarn test` for watch mode.
