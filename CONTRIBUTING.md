@@ -2,253 +2,162 @@
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
-## Getting started
+> **Correction from the previous version of this file:** this document previously said the test runner was Jest. As of `#2167` (2026-05-28), every package uses **Vitest**. The Jest references below have been replaced; see `docs/ADRs/2026-05-28-vitest-replaces-jest.md` (internal-only) for the migration history.
 
-### Requirements
+## 1. Prerequisites
 
-- Node.js: `>=16.18.0`
-- Yarn: `>=1.21.1`
+| Tool    | Version                 | Notes                                                                                                                                                            |
+| ------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Node.js | `>=20`                  | `package.json` → `engines.node`; `.nvmrc` pins `v22`; `package.json` → `volta.node` pins `22`. Use `nvm use` to match `.nvmrc`.                                  |
+| Yarn    | `>=1.21.1` (Classic/v1) | `package.json` → `engines.yarn`; `volta.yarn` pins `1.21.1`. No `packageManager` field is set — see § File-Level Guidance / Notable Findings for the drift flag. |
 
-To install all dependencies and build all packages run the following commands from the root of the project.
+No `.npmrc` registry token is required for local development beyond what's already in `.npmrc` (`ignore-scripts=true`). CI jobs write a job-local `.npmrc` with a `GITHUB_PACKAGES_*_TOKEN` to publish/install from the private `@contentful` npm scope — not needed for local package installs of public dependencies.
 
-```
+## 2. Getting Started
+
+```bash
+git clone https://github.com/contentful/field-editors.git
+cd field-editors
 yarn
 yarn build
 ```
 
-You are ready to go! You can either develop your apps from `apps` folder or run a playground of all components in `development` mode.
+# source: package.json → scripts.build ("lerna run build --scope=@contentful/\*\*")
 
-## Submitting a Pull Request
-
-Good pull requests, such as patches, improvements, and new features, are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.
-
-Please ask first if somebody else is already working on this or the Contentful developers think your feature is in-scope. Generally always have a related issue with discussions for whatever you are including.
-
-## Folder structure
-
-`@contenful/field-editors` is a monorepo, meaning it is divided into independent sub-packages.
-These packages can be found in the `packages/` directory.
-
-This monorepo is maintained using Lerna. Get started with Lerna by following [this link](https://github.com/lerna/lerna).
-
-## Local development
-
-### Using `docz`
-
-We use [`storybook`](https://storybook.js.org//) as a components playground.
+You are ready to go. Develop apps from the `apps/` folder, or run the Storybook playground across all components:
 
 ```bash
-# to run playground in a development mode
-yarn start
+yarn storybook
 ```
 
-### Making changes in shared packages
+# source: package.json → scripts.storybook ("storybook dev -p 9000"); scripts.start aliases to "yarn storybook"
 
-Go to a shared package and run the following command to watch for changes and rebuild the package once it's changed:
+## 3. Development Workflow
+
+This is a Lerna-managed monorepo (`workspaces: ["packages/**", "apps/**"]`). To develop a single shared package and have it rebuild on change:
 
 ```bash
 cd packages/_shared
 yarn watch
 ```
 
-### Integration to Contentful web application
+# source: packages/\_shared/package.json → scripts.watch
 
-_Relevant for Contentful employees only_.
-
-It is convenient to link a local copy of a package to a locally running Contentful web application without publishing a package.
+To link a local package build into a locally-running Contentful web application without publishing (relevant for Contentful employees only):
 
 ```bash
-yarn
-yarn build
+yarn && yarn build
 cd packages/single-line
-# register a symplink
 yarn link
-# watch for changes in the package
 yarn watch
 ```
 
-In the web app repository:
+Then, in the consuming repository: `yarn link '@contentful/field-editor-single-line'`.
 
-```bash
-# create a symlink to a local folder
-yarn link '@contentful/field-editor-single-line'
-```
+# source: existing CONTRIBUTING.md § "Integration to Contentful web application" (unchanged; command shape verified against packages/single-line/package.json scripts.watch)
 
-## Adding packages
+To add a new package: create a new directory under `packages/`. Since Lerna manages the workspace, any package script is runnable from the root via `lerna run <script_name>` (or scoped: `lerna run <script> --scope=@contentful/<pkg-name>`).
 
-To add another package create a new directory in the `packages` folder. Since we are using Lerna all package scripts are available from the root by running `lerna run <script_name>`.
+## 4. Commands
 
-## Internationalization (i18n) setup
+**Development**
 
-The project supports i18n thanks to the [Lingui library](https://lingui.dev/).
+| Command          | Source                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------- |
+| `yarn storybook` | `package.json` → `scripts.storybook`                                                              |
+| `yarn watch`     | `package.json` → `scripts.watch` ("lerna run --stream watch") — runs every package's watch script |
 
-## Prerequisites & Naming conventions
+**Building**
 
-To translate your strings, you need to make them identifiable with a translation key, represented by the `id`.
+| Command           | Source                                                                          |
+| ----------------- | ------------------------------------------------------------------------------- |
+| `yarn build`      | `package.json` → `scripts.build` — builds `@contentful/**`-scoped packages only |
+| `yarn build:apps` | `package.json` → `scripts.build:apps` — builds `*-app`-scoped packages          |
+| `yarn bootstrap`  | `package.json` → `scripts.bootstrap` ("lerna bootstrap")                        |
+| `yarn clean`      | `package.json` → `scripts.clean` ("lerna clean")                                |
 
-To ensure uniqueness, consistency, and descriptive keys, the keys follow a naming convention.
+**Testing**
 
-A custom [ESLint rule](./tools/eslint-rules/custom/enforce-translation-key-naming.js) is available to ensure the naming convention is followed, and that only supported projects prefixes are used.
+| Command                              | Source                                                                                                                                                        |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `yarn test:ci`                       | `package.json` → `scripts.test:ci` ("lerna run test:ci") — runs `vitest run` in every package                                                                 |
+| `cd packages/<name> && yarn test`    | per-package `package.json` → `scripts.test` ("vitest", watch mode)                                                                                            |
+| `cd packages/<name> && yarn test:ci` | per-package `package.json` → `scripts.test:ci` ("vitest run")                                                                                                 |
+| `yarn test:integration`              | `package.json` → `scripts.test:integration` — starts Storybook then runs `cy:run` against it (`start-server-and-test storybook http://localhost:9000 cy:run`) |
+| `yarn cy:open` / `yarn cy:open:ct`   | `package.json` → `scripts.cy:open` / `cy:open:ct` — interactive Cypress (E2E / component mode)                                                                |
+| `yarn cy:run` / `yarn cy:run:ct`     | `package.json` → `scripts.cy:run` / `cy:run:ct` — headless Cypress against Chrome                                                                             |
 
-## Adding translations
+**Linting & Type Checking**
 
-Depending on the structure and complexity of your strings, use the `t` function from `@lingui/core/macro` or the `Trans` react component from `@lingui/react`. Important: you have to add a default message to every new key added, in case the frontend application where a package is used, is not providing a translation catalog.
+| Command         | Source                                                                              |
+| --------------- | ----------------------------------------------------------------------------------- |
+| `yarn lint`     | `package.json` → `scripts.lint` ("eslint ./ --ext .js,.jsx,.ts,.tsx")               |
+| `yarn lint:md`  | `package.json` → `scripts.lint:md` ("remark --no-stdout --frail _.md _/\*.md")      |
+| `yarn tsc`      | `package.json` → `scripts.tsc` ("lerna run tsc") — per-package `tsc -p ./ --noEmit` |
+| `yarn prettier` | `package.json` → `scripts.prettier` — writes formatting across `.js/.jsx/.ts/.tsx`  |
 
-## Quality & Code Style
+**i18n**
 
-### Commit messages
+| Command                         | Source                                                                                                                          |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `yarn extract-translation-keys` | `package.json` → `scripts.extract-translation-keys` ("lingui extract")                                                          |
+| `yarn upload-translation-keys`  | `package.json` → `scripts.upload-translation-keys` — runs `tools/extract-new-translation-keys/extract-new-translation-keys.mjs` |
 
-All commit messages should meet the [conventional commit format](https://github.com/conventional-changelog/commitlint). The easiest way is to use `yarn cm` command which launches commit message wizard.
+## 5. Testing
 
-### Code formatting
+- **Framework:** Vitest (`vitest` / `vitest run`), not Jest — corrected as of `#2167` (2026-05-28).
+- **Location:** colocated with source, e.g. `packages/single-line/src/SingleLineEditor.test.tsx` next to `SingleLineEditor.tsx`. Glob: `**/*.{test,spec}.{ts,tsx,js,jsx}` (`vitest.shared.ts`).
+- **Run all:** `yarn test:ci` (root).
+- **Run single package:** `cd packages/<name> && yarn test:ci`, or `yarn test` for watch mode.
+- **Shared config:** every `packages/*/vitest.config.ts` calls `createVitestConfig('<package-name>')` from root `vitest.shared.ts`; global setup (Lingui mocks, `@testing-library/jest-dom/vitest`, `cleanup()` after each test) lives in root `vitest.setup.ts`. Environment: `jsdom`; pool: `threads`; `testTimeout: 15000`.
+- **Component tests:** Cypress, under `cypress/component/`, run via `yarn cy:run:ct` / `yarn cy:open:ct`. In CI these run against **built** package output (CI runs `yarn build` before `cypress run`), not live TS source across package boundaries.
+- **Links:**
+  - [`@testing-library/react` documentation](https://testing-library.com/docs/react-testing-library/intro)
+  - [Vitest documentation](https://vitest.dev/)
 
-You don't need to worry about formatting your code. It is automatically reformatted using `prettier` on every commit using Git hooks.
+## 6. Code Style & Conventions
 
-### Linting
+- **Language/target:** TypeScript, `target: ES2020`, `module: esnext`, `strict: true` (all strict-family flags enabled: `noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`, `strictPropertyInitialization`, `noImplicitThis`, `alwaysStrict`, `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`, `noFallthroughCasesInSwitch`). Source: `tsconfig.json`.
+- **JSX:** classic `jsx: "react"` (not the automatic runtime) per root `tsconfig.json`; note `packages/rich-text/vitest.config.ts` explicitly forces the SWC React plugin into classic-runtime mode for files using the `/** @jsx jsx */` pragma (`@udecode/plate-test-utils`).
+- **Linting:** ESLint (`.eslintrc.js`) extends `eslint:recommended`, `plugin:react/recommended`, `plugin:react-hooks/recommended`, `plugin:@typescript-eslint/recommended`, `plugin:lingui/recommended`, plus custom rules: `react-hooks/exhaustive-deps: error`, `@typescript-eslint/no-explicit-any: warn`, `no-restricted-imports` (blocks importing `emotion`, requires `@emotion/css`), `no-console: warn`, and two custom Lingui rules (`custom-lingui/enforce-translation-call-format`, `custom-lingui/enforce-translation-key-naming`) from the local plugin at `tools/eslint-plugin-custom-lingui`.
+- **Import order:** enforced by `eslint-plugin-import-helpers` — groups: React imports, then external modules, then parent/sibling/index imports, alphabetized, with a blank line between groups.
+- **Formatting:** Prettier (`.prettierrc`), auto-applied on commit — don't hand-format.
+- **i18n:** all new user-facing strings must use the Lingui `t` macro (`@lingui/core/macro`) or `<Trans>` (`@lingui/react`), with a default `message` supplied inline (consuming apps may not provide a translation catalog). Translation key naming is enforced by the custom ESLint rule at `tools/eslint-rules/custom/enforce-translation-key-naming.js`.
 
-We use [ESLint](https://eslint.org/) and [Typescript ESLint](https://github.com/typescript-eslint/typescript-eslint) for linting and checking code for errors.
+## 7. Commit Convention
 
-All modern editors should automatically pick up configuration and show errors and warnings while you type.
+All commits must follow [Conventional Commits](https://github.com/conventional-changelog/commitlint) (`commitlint.config.js` extends `@commitlint/config-conventional`). Use `yarn cm` for the guided wizard (`git-cz` + `cz-lerna-changelog`). Enforced by a Husky commit-msg hook (`.husky/`).
 
-#### Run ESLint for all packages
+## 8. Branch Strategy & Release Process
 
-```bash
-# at the monorepo root
-yarn lint
-```
+- `master` is the release branch. Merges to `master` (after `lint` + `unit-tests` pass) trigger the `release` CircleCI job: `lerna version --no-private --conventional-commits --create-release github --yes` then `lerna publish from-git --yes`.
+- Any other branch (after `lint` + `unit-tests` pass) triggers the `prerelease` job: `lerna publish --no-private --canary --preid canary --dist-tag canary --conventional-commits --yes`. To get a testable canary build, open your PR against the `canary` branch (per root `README.md`); the CI trigger condition itself is broader than that (any non-`master` branch), so canary publishes can also happen off other branches — verify against `.circleci/config.yml` if this matters for your workflow.
+- Package versions are **independent**, not lockstep (`lerna.json` → `version: "independent"`) — a change to one package does not bump every package's version.
 
-### Checking types
+## 9. Pull Requests
 
-#### Run Typescript checker for all packages
+- Keep PRs focused in scope; avoid bundling unrelated commits.
+- Discuss significant changes first (open an issue) before large feature work.
+- `packages/` and `cypress/` changes are reviewed by `@contentful/team-content-authoring-and-publishing`; `apps/` changes by `@contentful/team-marketplace` (`.github/CODEOWNERS`).
+- Dependabot PRs are grouped for Lingui packages (minor/patch) and run on a weekly schedule with a 15-day cooldown (`.github/dependabot.yml`).
 
-```bash
-# at the monorepo root
-yarn tsc
-```
+## 10. CI/CD
 
-### Tests
+| Job               | Trigger                                                    | What it does                                                                                          |
+| ----------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `lint`            | every commit                                               | `yarn lint`, `yarn build`, `yarn tsc`                                                                 |
+| `unit-tests`      | every commit                                               | `yarn build`, `yarn test:ci`, stores JUnit results from `reports/`                                    |
+| `component-tests` | every commit                                               | Cypress component tests (parallelism 3) against a `cypress/browsers` Docker image, after `yarn build` |
+| `prerelease`      | any branch except `master`, requires `lint` + `unit-tests` | canary publish (see § Release Process)                                                                |
+| `release`         | `master` only, requires `lint` + `unit-tests`              | version bump + npm/GitHub release publish                                                             |
 
-We use [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/) for writing unit tests.
+Source: `.circleci/config.yml`. A separate `codeql.yml` GitHub Actions workflow runs CodeQL scanning; `auto-merge.yml`, `labeler.yml`, `stale.yml`, `remove-stale.yml` handle repo hygiene automation (`.github/workflows/`).
 
-#### Run tests for concrete package
+## 11. File-Level Guidance
 
-```bash
-cd packages/single-line
-yarn test
-```
-
-#### Run tests for all packages
-
-```bash
-# at the monorepo root
-yarn test:ci
-```
-
-#### Links
-
-- [`@testing-library/react` documentation](https://testing-library.com/docs/react-testing-library/intro)
-- [`vitest` documentation](https://vitest.dev/guide/)
-
-## Accessibility
-
-The repo has three complementary layers of accessibility tooling, active at different points in the development workflow.
-
-### Storybook (`@storybook/addon-a11y`)
-
-The accessibility addon is pre-configured. Run `yarn start` and open any story — the **Accessibility** panel shows live axe results as you develop.
-
-### Unit tests (`vitest-axe`)
-
-We use [`vitest-axe`](https://github.com/nicholasgasior/vitest-axe) for automated accessibility checks in unit tests. The `toHaveNoViolations` matcher is globally available.
-
-Every component needs axe coverage across its meaningful states. A single test on the default render is not sufficient: a component that passes in its default state can still have violations when disabled, in an error state, or with different content rendered. Cover each state where the DOM structure or ARIA attributes change.
-
-What to cover per component:
-
-- **Default / empty** — baseline render with no value
-- **Filled** — rendered with actual content (especially relevant for rich text or media editors where content changes the DOM)
-- **Disabled** — if element can be rendered in a disabled state
-- **Error / validation state** — after errors are emitted
-- Any state that adds or removes interactive elements (e.g. dialogs, popovers, expanded panels)
-
-#### Example unit test
-
-```tsx
-import { axe } from 'vitest-axe';
-import { render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
-
-import { SingleLineEditor } from './SingleLineEditor';
-
-describe('SingleLineEditor accessibility', () => {
-  it('has no violations in default state', async () => {
-    const [field] = createFakeFieldAPI((f) => ({ ...f, type: 'Symbol' }));
-    const { container } = render(
-      <SingleLineEditor
-        field={field}
-        isInitiallyDisabled={false}
-        locales={createFakeLocalesAPI()}
-      />,
-    );
-    expect(await axe(container)).toHaveNoViolations();
-  });
-
-  it('has no violations when disabled', async () => {
-    const [field] = createFakeFieldAPI((f) => ({ ...f, type: 'Symbol' }));
-    const { container } = render(
-      <SingleLineEditor
-        field={field}
-        isInitiallyDisabled={true}
-        locales={createFakeLocalesAPI()}
-      />,
-    );
-    expect(await axe(container)).toHaveNoViolations();
-  });
-
-  it('has no violations with a validation error', async () => {
-    const [field, mitt] = createFakeFieldAPI((f) => ({ ...f, type: 'Symbol' }));
-    const { container } = render(
-      <SingleLineEditor
-        field={field}
-        isInitiallyDisabled={false}
-        locales={createFakeLocalesAPI()}
-      />,
-    );
-    // trigger an error state before asserting
-    act(() => mitt.emit('schemaErrors', [{ message: 'Required' }]));
-    expect(await axe(container)).toHaveNoViolations();
-  });
-});
-```
-
-### Component tests (`cypress-axe`)
-
-Component tests have `cypress-axe` wired up via `cypress/support/component.ts`. Use `cy.checkA11y()` to assert no violations after mounting a component.
-
-Axe is injected lazily on the first `cy.checkA11y()` call. Four structural rules are globally disabled as they do not apply to isolated component tests: `html-has-lang`, `landmark-one-main`, `page-has-heading-one`, `region`. Violations are printed to the terminal for readable CI output.
-
-To scope the check or disable a rule for one test:
-
-```ts
-// Check only a specific element
-cy.checkA11y('[role="dialog"]');
-
-// Disable a rule for one test
-cy.checkA11y(undefined, { rules: { 'color-contrast': { enabled: false } } });
-```
-
-#### Example component test
-
-```ts
-it('has no a11y violations', () => {
-  cy.mount(<MyComponent />);
-  cy.checkA11y();
-});
-```
-
-### Further reading
-
-- [`vitest-axe` documentation](https://github.com/nicholasgasior/vitest-axe)
-- [`cypress-axe` documentation](https://github.com/component-driven/cypress-axe)
-- [`@storybook/addon-a11y` documentation](https://storybook.js.org/docs/writing-tests/accessibility-testing)
+| Path                                                               | Why restricted / notable                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/*/dist/`                                                 | Build output — regenerated by `yarn build`, never hand-edited.                                                                                                                                                                                                                                                                                 |
+| `packages/shared` (extensionless file, not a directory)            | Leftover docz-era MDX stub, last touched 2023-06-02, not referenced by Storybook's `stories` glob. Do not edit expecting it to render anywhere.                                                                                                                                                                                                |
+| `tools/eslint-plugin-custom-lingui/`, `tools/eslint-rules/custom/` | Custom lint rules enforcing translation-key conventions — read before changing translation-key patterns.                                                                                                                                                                                                                                       |
+| `.npmrc` (`ignore-scripts=true`)                                   | Disables install-time lifecycle scripts repo-wide. Added by commit `5876ccbf` ("chore: ignore npm scripts (#1994)", 2025-11-26) — a supply-chain hardening measure (blocks arbitrary `postinstall` scripts from dependencies at install time). Don't remove without understanding that this is a deliberate security control, not an accident. |
