@@ -4,8 +4,8 @@
 import { MARKS } from '@contentful/rich-text-types';
 import * as p from '@udecode/plate-common';
 import * as s from 'slate';
+import { DOMRange as SlateDomRange } from 'slate-dom';
 import * as sr from 'slate-react';
-import { DOMRange as SlateReactDomRange } from 'slate-react/dist/utils/dom';
 import type {
   SelectionMoveOptions as SlateSelectionMoveOptions,
   SelectionCollapseOptions as SlateSelectionCollapseOptions,
@@ -68,6 +68,6 @@ export type Span = p.TSpan;
 export type BasePoint = s.BasePoint;
 export type BaseSelection = s.BaseSelection;
 export type PathRef = s.PathRef;
-export type DOMRange = SlateReactDomRange;
+export type DOMRange = SlateDomRange;
 
 export const Range = s.Range;

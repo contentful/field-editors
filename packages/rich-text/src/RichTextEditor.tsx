@@ -109,7 +109,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
                 className={classNames}
                 readOnly={props.isDisabled}
                 scrollSelectionIntoView={
-                  defaultScrollSelectionIntoView as PlateContentProps['scrollSelectionIntoView']
+                  defaultScrollSelectionIntoView as unknown as PlateContentProps['scrollSelectionIntoView']
                 }
               />
               {props.withCharValidation && <CharConstraints />}
