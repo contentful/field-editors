@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@2.2.2...@contentful/field-editor-date@2.2.3) (2026-09-04)
+
+### Bug Fixes
+
+- **date:** normalize compact timezone offsets ([#2234](https://github.com/contentful/field-editors/issues/2234)) ([cf63b95](https://github.com/contentful/field-editors/commit/cf63b95bbfa855e9b649e4d6b54acef4620ca74b))
+
 ## [2.2.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-date@2.2.1...@contentful/field-editor-date@2.2.2) (2026-08-25)
 
 **Note:** Version bump only for package @contentful/field-editor-date
