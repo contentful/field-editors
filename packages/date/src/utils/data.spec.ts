@@ -309,6 +309,16 @@ describe('date utils', () => {
       expect(result.utcOffset).toBe('+03:00');
     });
 
+    it('normalizes a compact timezone offset for the timezone picker', () => {
+      const result = userInputFromDatetime({
+        value: '2026-12-11T20:00:00.000-0500',
+        uses12hClock: false,
+      });
+      expect(result.time).toBe('20:00');
+      expect(result.ampm).toBe('PM');
+      expect(result.utcOffset).toBe('-05:00');
+    });
+
     it('parses a full ISO datetime string with 12h clock', () => {
       const result = userInputFromDatetime({
         value: '2018-02-02T05:00+03:00',
