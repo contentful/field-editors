@@ -34,9 +34,9 @@
     "tsc": "tsc -p ./ --noEmit"
   },
   "dependencies": {
-    "@codemirror/lang-json": "^6.0.0",
-    "@codemirror/language": "^6.0.0",
-    "@codemirror/view": "^6.0.0",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/language": "^6.12.4",
+    "@codemirror/view": "^6.43.11",
     "@contentful/f36-components": "^6.7.1",
     "@contentful/f36-icons": "^6.7.1",
     "@contentful/f36-tokens": "^6.1.2",
