@@ -3996,6 +3996,14 @@
     "@contentful/f36-tokens" "^6.1.0"
     "@emotion/css" "^11.13.5"
 
+"@contentful/f36-utils@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@contentful/f36-utils/-/f36-utils-6.1.2.tgz#800e869b5e28e2e4c791805d63fc6604ee0fad00"
+  integrity sha512-gaG+q5NHVEfDzCEGoK12/+8Y1VODPO8k/DyrZjCIOTxTK9rXZ5l1xESMbnMAbwHnz2zXoLkkzI0QGCChW6xrpw==
+  dependencies:
+    "@contentful/f36-tokens" "^6.1.2"
+    "@emotion/css" "^11.13.5"
+
 "@contentful/mimetype@^2.2.29":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@contentful/mimetype/-/mimetype-2.6.0.tgz#9bcab1c8dccfb9995800f5167ef86630c713f0a6"
