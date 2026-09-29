@@ -51,6 +51,7 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
+    'jsx-a11y/no-autofocus': ['error', { ignoreNonDOM: true }],
     'custom-lingui/enforce-translation-call-format': 'error',
     'custom-lingui/enforce-translation-key-naming': 'error'
   },

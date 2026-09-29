@@ -1,17 +1,7 @@
 {
-  "src/LocalePublishingEntityStatusBadge/LocalePublishingPopover.tsx": {
-    "jsx-a11y/no-autofocus": {
-      "count": 1
-    }
-  },
   "src/ModalDialogLauncher.tsx": {
     "@typescript-eslint/no-unsafe-function-type": {
       "count": 2
-    }
-  },
-  "src/ReleaseEntityStatusBadge/ReleaseEntityStatusPopover.tsx": {
-    "jsx-a11y/no-autofocus": {
-      "count": 1
     }
   },
   "src/utils/entityHelpers.ts": {

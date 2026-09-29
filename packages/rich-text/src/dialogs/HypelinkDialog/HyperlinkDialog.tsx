@@ -300,7 +300,6 @@ export function HyperlinkDialog({
                       text: event.target.value
                     }))
                   }
-                  // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
                   autoFocus={!isUriInputAutoFocused}
                 />
               </FormControl>
@@ -361,7 +360,6 @@ export function HyperlinkDialog({
                       uri: event.target.value
                     }))
                   }
-                  // eslint-disable-next-line -- TODO: describe this disable  jsx-a11y/no-autofocus
                   autoFocus={isUriInputAutoFocused}
                 />
                 <FormControl.HelpText>
