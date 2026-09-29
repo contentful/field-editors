@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: [
     'eslint:recommended',
@@ -9,21 +9,22 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:lingui/recommended',
+    'plugin:jsx-a11y/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: 'latest',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: [
     'react',
     'react-hooks',
     '@typescript-eslint',
     'eslint-plugin-import-helpers',
-    'custom-lingui',
+    'custom-lingui'
   ],
   rules: {
     'react-hooks/exhaustive-deps': 'error',
@@ -34,8 +35,8 @@ module.exports = {
       {
         newlinesBetween: 'always',
         groups: ['/^react/', 'module', ['parent', 'sibling', 'index']],
-        alphabetize: { order: 'asc', ignoreCase: true },
-      },
+        alphabetize: { order: 'asc', ignoreCase: true }
+      }
     ],
     'no-restricted-imports': [
       'warn',
@@ -43,17 +44,17 @@ module.exports = {
         paths: [
           {
             name: 'emotion',
-            message: 'Use @emotion/css instead.',
-          },
-        ],
-      },
+            message: 'Use @emotion/css instead.'
+          }
+        ]
+      }
     ],
     'react/react-in-jsx-scope': 'off',
     'no-console': 'warn',
     'custom-lingui/enforce-translation-call-format': 'error',
-    'custom-lingui/enforce-translation-key-naming': 'error',
+    'custom-lingui/enforce-translation-key-naming': 'error'
   },
   settings: {
-    react: { version: 'detect' },
-  },
+    react: { version: 'detect' }
+  }
 };

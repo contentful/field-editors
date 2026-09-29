@@ -4,11 +4,6 @@
       "count": 2
     }
   },
-  "src/plugins/CommandPalette/components/CommandList.tsx": {
-    "jsx-a11y/no-autofocus": {
-      "count": 1
-    }
-  },
   "src/plugins/EmbeddedEntityInline/LinkedEntityInline.tsx": {
     "@typescript-eslint/no-unused-expressions": {
       "count": 1
@@ -16,11 +11,6 @@
   },
   "src/plugins/Hr/index.tsx": {
     "@typescript-eslint/no-unused-expressions": {
-      "count": 1
-    }
-  },
-  "src/plugins/Hyperlink/components/LinkPopover.tsx": {
-    "jsx-a11y/no-autofocus": {
       "count": 1
     }
   },
