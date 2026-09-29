@@ -33,7 +33,9 @@
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "test": "vitest",
     "test:ci": "vitest run",
-    "tsc": "tsc -p ./ --noEmit"
+    "tsc": "tsc -p ./ --noEmit",
+    "lint": "eslint src",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@contentful/f36-components": "^6.7.1",
@@ -59,5 +61,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --prune-suppressions",
+      "prettier --write"
+    ]
   }
 }

@@ -1,0 +1,7 @@
+{
+  "src/TagsEditor.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  }
+}

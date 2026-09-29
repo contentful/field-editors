@@ -16,7 +16,7 @@
     "clean": "lerna clean",
     "build": "lerna run build --scope=@contentful/**",
     "build:apps": "lerna run build --scope=*-app",
-    "lint": "eslint .",
+    "lint": "lerna run --stream lint",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
     "tsc": "lerna run tsc",

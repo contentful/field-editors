@@ -1,0 +1,52 @@
+{
+  "src/helpers/sdkNavigatorSlideIn.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 2
+    }
+  },
+  "src/plugins/CommandPalette/components/CommandList.tsx": {
+    "jsx-a11y/no-autofocus": {
+      "count": 1
+    }
+  },
+  "src/plugins/EmbeddedEntityInline/LinkedEntityInline.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/plugins/Hr/index.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/plugins/Hyperlink/components/LinkPopover.tsx": {
+    "jsx-a11y/no-autofocus": {
+      "count": 1
+    }
+  },
+  "src/plugins/Hyperlink/components/linkHandlers.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/plugins/List/transforms/moveListItemDown.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/plugins/PasteHTML/utils/sanitizeSheets.ts": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/plugins/Text/createTextPlugin.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/test-utils/hyperscript.d.ts": {
+    "@typescript-eslint/no-empty-object-type": {
+      "count": 20
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "src/index.tsx": {
+    "react/no-deprecated": {
+      "count": 1
+    }
+  }
+}
