@@ -1,14 +1,4 @@
 import {
-  KEY_DESERIALIZE_HTML,
-  cleanHtmlBrElements,
-  cleanHtmlFontElements,
-  cleanHtmlLinkElements,
-  cleanHtmlTextNodes,
-  copyBlockMarksToSpanChild,
-  postCleanHtml,
-  preCleanHtml,
-} from '@udecode/plate-common';
-import {
   cleanDocxBrComments,
   cleanDocxEmptyParagraphs,
   cleanDocxFootnotes,
@@ -16,11 +6,21 @@ import {
   cleanDocxListElements,
   cleanDocxQuotes,
   cleanDocxSpans,
-  createDeserializeDocxPlugin as originalCreateDeserializeDocxPlugin,
-  isDocxContent,
-} from '@udecode/plate-serializer-docx';
+  isDocxContent
+} from '@platejs/docx';
 
 import { PlatePlugin } from '../../internal';
+import {
+  KEY_DESERIALIZE_HTML,
+  cleanHtmlBrElements,
+  cleanHtmlFontElements,
+  cleanHtmlLinkElements,
+  cleanHtmlTextNodes,
+  copyBlockMarksToSpanChild,
+  postCleanHtml,
+  preCleanHtml
+} from '../../internal/plate';
+import { createDeserializeDocxPlugin as originalCreateDeserializeDocxPlugin } from '../../internal/pluginFactories';
 import { cleanHtmlEmptyElements } from './cleanHtmlEmptyElements';
 
 export const createDeserializeDocxPlugin: () => PlatePlugin = () =>
@@ -51,10 +51,10 @@ export const createDeserializeDocxPlugin: () => PlatePlugin = () =>
                 cleanDocxListElements(body);
                 copyBlockMarksToSpanChild(body);
                 return postCleanHtml(body.innerHTML);
-              },
-            },
-          },
-        },
-      },
-    },
+              }
+            }
+          }
+        }
+      }
+    }
   });

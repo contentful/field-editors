@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import * as Slate from 'slate-react';
+import type * as Slate from 'slate-react';
 
 const style = css`
   margin-bottom: 1.5em;
@@ -19,7 +19,7 @@ const style = css`
 export const Table = (props: Slate.RenderElementProps) => {
   return (
     <div data-block-type={BLOCKS.TABLE}>
-      <table className={style} {...props.attributes}>
+      <table {...props.attributes} className={style}>
         <tbody>{props.children}</tbody>
       </table>
     </div>

@@ -1,9 +1,9 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { createParagraphPlugin as createDefaultParagraphPlugin } from '@udecode/plate-paragraph';
 import isHotkey from 'is-hotkey';
 
 import { isInlineOrText, toggleElement } from '../../helpers/editor';
 import { transformUnwrap, transformLift } from '../../helpers/transformers';
+import { createParagraphPlugin as createDefaultParagraphPlugin } from '../../internal/pluginFactories';
 import { PlatePlugin, KeyboardHandler, HotkeyPlugin } from '../../internal/types';
 import { Paragraph } from './Paragraph';
 import { isEmbedElement, isEmptyElement } from './utils';
@@ -21,37 +21,37 @@ export const createParagraphPlugin = (): PlatePlugin => {
     type: BLOCKS.PARAGRAPH,
     component: Paragraph,
     options: {
-      hotkey: ['mod+opt+0'],
+      hotkey: ['mod+opt+0']
     },
     handlers: {
-      onKeyDown: buildParagraphKeyDownHandler,
+      onKeyDown: buildParagraphKeyDownHandler
     },
     softBreak: [
       // create a new line with SHIFT+Enter inside a paragraph
       {
         hotkey: 'shift+enter',
         query: {
-          allow: BLOCKS.PARAGRAPH,
-        },
-      },
+          allow: BLOCKS.PARAGRAPH
+        }
+      }
     ],
     deserializeHtml: {
       rules: [
         {
-          validNodeName: ['P', 'DIV'],
-        },
+          validNodeName: ['P', 'DIV']
+        }
       ],
-      query: (el) => !isEmptyElement(el) && !isEmbedElement(el),
+      query: (el) => !isEmptyElement(el) && !isEmbedElement(el)
     },
     normalizer: [
       {
         validChildren: (_, [node]) => isInlineOrText(node),
         transform: {
           [BLOCKS.PARAGRAPH]: transformUnwrap,
-          default: transformLift,
-        },
-      },
-    ],
+          default: transformLift
+        }
+      }
+    ]
   };
 
   return createDefaultParagraphPlugin(config);

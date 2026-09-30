@@ -10,7 +10,7 @@ import {
   getPointAfter,
   isRangeCollapsed,
   queryNode,
-  isText,
+  isText
 } from '../../internal/queries';
 import {
   setSelection,
@@ -18,7 +18,7 @@ import {
   removeNodes,
   splitNodes,
   unhangRange,
-  unsetNodes,
+  unsetNodes
 } from '../../internal/transforms';
 import {
   PlatePlugin,
@@ -26,7 +26,7 @@ import {
   Ancestor,
   Node,
   Location,
-  BaseRange,
+  BaseRange
 } from '../../internal/types';
 
 export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
@@ -42,7 +42,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
         }
 
         setSelection(editor, unhangRange(editor, editor.selection) as Partial<BaseRange>);
-      },
+      }
     },
     withOverrides: (editor) => {
       // Reverts the change made upstream that caused the cursor
@@ -60,14 +60,14 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
         if (selection && isRangeCollapsed(selection)) {
           const inlinePath = getAboveNode(editor, {
             match: (n) => isInline(editor, n),
-            mode: 'highest',
+            mode: 'highest'
           })?.[1];
 
           if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
             const point = getPointAfter(editor, inlinePath);
             setSelection(editor, {
               anchor: point,
-              focus: point,
+              focus: point
             });
           }
         }
@@ -79,6 +79,13 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
       const { deleteForward, deleteBackward } = editor;
 
       editor.deleteBackward = (unit) => {
+        if (
+          editor.selection &&
+          editor.api.isCollapsed() &&
+          editor.api.isStart(editor.selection.anchor, [])
+        ) {
+          return;
+        }
         deleteEmptyParagraph(unit, editor, deleteBackward);
       };
 
@@ -100,9 +107,9 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
           return !restrictedMarks.some((mark) => {
             return mark in node;
           });
-        },
-      },
-    ],
+        }
+      }
+    ]
   };
 }
 
@@ -113,8 +120,8 @@ function deleteEmptyParagraph(
 ) {
   const entry = getAboveNode(editor, {
     match: {
-      type: TEXT_CONTAINERS,
-    },
+      type: TEXT_CONTAINERS
+    }
   });
 
   if (entry) {
@@ -128,7 +135,7 @@ function deleteEmptyParagraph(
       removeNodes(editor, { at: path });
 
       const prevNode = getPointBefore(editor, editor.selection as Location, {
-        unit,
+        unit
       });
 
       if (prevNode) {
@@ -139,10 +146,10 @@ function deleteEmptyParagraph(
                 BLOCKS.EMBEDDED_ASSET,
                 BLOCKS.EMBEDDED_ENTRY,
                 BLOCKS.EMBEDDED_RESOURCE,
-                BLOCKS.HR,
-              ],
+                BLOCKS.HR
+              ]
             }),
-          at: prevNode,
+          at: prevNode
         });
 
         if (prevCell) {

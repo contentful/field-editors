@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
-import { AnyObject, HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
+import { AnyObject, HotkeyPlugin } from '../../internal/plate';
 import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { EntityHyperlink } from './components/EntityHyperlink';
 import { ResourceHyperlink } from './components/ResourceHyperlink';
@@ -56,42 +56,42 @@ const getNodeOfType = (type: INLINES) => (el: HTMLElement, node: AnyObject) => (
   data:
     type === INLINES.HYPERLINK
       ? {
-          uri: el.getAttribute('href'),
+          uri: el.getAttribute('href')
         }
       : type === INLINES.RESOURCE_HYPERLINK
-      ? {
-          target: {
-            sys: {
-              urn: el.getAttribute('data-resource-link-urn'),
-              linkType: el.getAttribute('data-resource-link-type'),
-              type: 'ResourceLink',
-            },
-          },
-        }
-      : {
-          target: {
-            sys: {
-              id: el.getAttribute('data-link-id'),
-              linkType: el.getAttribute('data-link-type'),
-              type: 'Link',
-            },
-          },
-        },
+        ? {
+            target: {
+              sys: {
+                urn: el.getAttribute('data-resource-link-urn'),
+                linkType: el.getAttribute('data-resource-link-type'),
+                type: 'ResourceLink'
+              }
+            }
+          }
+        : {
+            target: {
+              sys: {
+                id: el.getAttribute('data-link-id'),
+                linkType: el.getAttribute('data-link-type'),
+                type: 'Link'
+              }
+            }
+          }
 });
 
 export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
   const common: Partial<PlatePlugin> = {
     isElement: true,
-    isInline: true,
+    isInline: true
   };
 
   return {
     key: 'HyperlinkPlugin',
     options: {
-      hotkey: 'mod+k',
+      hotkey: 'mod+k'
     },
     handlers: {
-      onKeyDown: buildHyperlinkEventHandler(sdk),
+      onKeyDown: buildHyperlinkEventHandler(sdk)
     },
     plugins: [
       // URL Hyperlink
@@ -103,12 +103,12 @@ export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
         deserializeHtml: {
           rules: [
             {
-              validNodeName: ['A'],
-            },
+              validNodeName: ['A']
+            }
           ],
           query: (el) => isAnchor(el) && !(isEntryAnchor(el) || isAssetAnchor(el)),
-          getNode: getNodeOfType(INLINES.HYPERLINK),
-        },
+          getNode: getNodeOfType(INLINES.HYPERLINK)
+        }
       },
       // Entry Hyperlink
       {
@@ -119,12 +119,12 @@ export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
         deserializeHtml: {
           rules: [
             {
-              validNodeName: ['A'],
-            },
+              validNodeName: ['A']
+            }
           ],
           query: (el) => isEntryAnchor(el),
-          getNode: getNodeOfType(INLINES.ENTRY_HYPERLINK),
-        },
+          getNode: getNodeOfType(INLINES.ENTRY_HYPERLINK)
+        }
       },
       // Resource Hyperlink
       {
@@ -135,12 +135,12 @@ export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
         deserializeHtml: {
           rules: [
             {
-              validNodeName: ['A'],
-            },
+              validNodeName: ['A']
+            }
           ],
           query: (el) => isResourceAnchor(el),
-          getNode: getNodeOfType(INLINES.RESOURCE_HYPERLINK),
-        },
+          getNode: getNodeOfType(INLINES.RESOURCE_HYPERLINK)
+        }
       },
       // Asset Hyperlink
       {
@@ -151,13 +151,13 @@ export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
         deserializeHtml: {
           rules: [
             {
-              validNodeName: ['A'],
-            },
+              validNodeName: ['A']
+            }
           ],
           query: (el) => isAssetAnchor(el),
-          getNode: getNodeOfType(INLINES.ASSET_HYPERLINK),
-        },
-      },
+          getNode: getNodeOfType(INLINES.ASSET_HYPERLINK)
+        }
+      }
     ],
     normalizer: [
       {
@@ -166,12 +166,12 @@ export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {
             INLINES.HYPERLINK,
             INLINES.ASSET_HYPERLINK,
             INLINES.ENTRY_HYPERLINK,
-            INLINES.RESOURCE_HYPERLINK,
-          ],
+            INLINES.RESOURCE_HYPERLINK
+          ]
         },
         validNode: hasText,
-        transform: transformRemove,
-      },
-    ],
+        transform: transformRemove
+      }
+    ]
   };
 };

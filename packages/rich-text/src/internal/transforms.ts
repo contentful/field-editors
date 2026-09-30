@@ -1,7 +1,7 @@
-import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
+import * as p from './plate';
 import { getEndPoint, getNodeEntry, isNode, isText } from './queries';
 import {
   PlateEditor,
@@ -14,10 +14,8 @@ import {
   TextInsertTextOptions,
   Element,
   SelectionCollapseOptions,
-  Path,
-  Span,
   BasePoint,
-  Location,
+  Location
 } from './types';
 
 /**
@@ -25,7 +23,7 @@ import {
  */
 export const normalize = (
   editor: PlateEditor,
-  options: s.EditorNormalizeOptions = { force: true },
+  options: p.EditorNormalizeOptions = { force: true }
 ) => {
   return p.normalizeEditor(editor, options);
 };
@@ -49,7 +47,7 @@ export const moveSelection = (editor: PlateEditor, options?: SelectionMoveOption
   return p.moveSelection(editor, options);
 };
 
-export const moveChildren = (editor: PlateEditor, options: p.MoveChildrenOptions<Value>) => {
+export const moveChildren = (editor: PlateEditor, options: p.MoveChildrenOptions) => {
   return p.moveChildren(editor, options);
 };
 
@@ -60,15 +58,15 @@ export const collapseSelection = (editor: PlateEditor, options?: SelectionCollap
 export const setNodes = (
   editor: PlateEditor,
   attrs: Partial<Except<Node, 'children' | 'text'>>,
-  opts?: p.SetNodesOptions<Value>,
+  opts?: p.SetNodesOptions<Value>
 ) => {
   p.setNodes(editor, attrs, opts);
 };
 
 export const unsetNodes = (
   editor: PlateEditor,
-  props: string | number | (string | number)[],
-  options?: p.UnsetNodesOptions<Value> | undefined,
+  props: string | string[],
+  options?: p.UnsetNodesOptions<Value> | undefined
 ) => {
   p.unsetNodes(editor, props, options);
 };
@@ -76,7 +74,7 @@ export const unsetNodes = (
 export const insertNodes = (
   editor: PlateEditor,
   nodes: Node | Node[],
-  opts?: p.InsertNodesOptions,
+  opts?: p.InsertNodesOptions
 ) => {
   return p.insertNodes(editor, nodes, opts);
 };
@@ -96,7 +94,7 @@ export const unwrapNodes = (editor: PlateEditor, options?: p.UnwrapNodesOptions<
 export const wrapNodes = (
   editor: PlateEditor,
   element: Element,
-  options?: p.WrapNodesOptions<Value>,
+  options?: p.WrapNodesOptions<Value>
 ) => {
   return p.wrapNodes(editor, element, options);
 };
@@ -104,7 +102,7 @@ export const wrapNodes = (
 export const toggleNodeType = (
   editor: PlateEditor,
   options: ToggleNodeTypeOptions,
-  editorOptions?: Omit<EditorNodesOptions, 'match'>,
+  editorOptions?: Omit<EditorNodesOptions, 'match'>
 ) => {
   p.toggleNodeType(editor, options, editorOptions);
 };
@@ -115,10 +113,11 @@ export const removeMark = (editor: PlateEditor, type: string, at: BaseRange) => 
 
 export const unhangRange = (
   editor: PlateEditor,
-  range?: Path | BasePoint | BaseRange | Span | null | undefined,
-  options?: p.UnhangRangeOptions | undefined,
+  range?: BaseRange | null,
+  options?: p.UnhangRangeOptions | undefined
 ) => {
-  return p.unhangRange(editor, range, options);
+  const selection = range ?? editor.selection;
+  return selection ? p.unhangRange(editor, selection, options) : undefined;
 };
 
 export const toggleMark = (editor: PlateEditor, options: p.ToggleMarkOptions) => {
@@ -141,13 +140,13 @@ export const removeNodes = (editor: PlateEditor, opts?: p.RemoveNodesOptions<Val
   p.removeNodes(editor, opts);
 };
 
-export const moveNodes = (editor: PlateEditor, opts?: p.MoveNodesOptions<Value>) => {
+export const moveNodes = (editor: PlateEditor, opts: p.MoveNodesOptions<Value>) => {
   p.moveNodes(editor, opts);
 };
 
 export const deleteFragment = (
   editor: PlateEditor,
-  options?: s.EditorFragmentDeletionOptions | undefined,
+  options?: s.EditorFragmentDeletionOptions | undefined
 ) => {
   return p.deleteFragment(editor, options);
 };
@@ -187,7 +186,10 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
         }
         return endPoint;
       };
-      select(editor, { anchor: clampPoint(savedSelection.anchor), focus: clampPoint(savedSelection.focus) });
+      select(editor, {
+        anchor: clampPoint(savedSelection.anchor),
+        focus: clampPoint(savedSelection.focus)
+      });
     } else if (endPoint) {
       select(editor, endPoint);
     }

@@ -1,18 +1,17 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import {
   newEntitySelectorConfigFromRichTextField,
-  newResourceEntitySelectorConfigFromRichTextField,
+  newResourceEntitySelectorConfigFromRichTextField
 } from '../../helpers/config';
 import {
   focus,
   getAncestorPathFromSelection,
   getNodeEntryFromSelection,
   insertEmptyParagraph,
-  moveToTheNextChar,
+  moveToTheNextChar
 } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
 import {
@@ -30,13 +29,14 @@ import {
   getPreviousPath,
   getNodeEntries,
   isAncestorEmpty,
-  Ancestor,
+  Ancestor
 } from '../../internal';
+import { HotkeyPlugin } from '../../internal/plate';
 import { TrackingPluginActions } from '../Tracking';
 
 export function getWithEmbeddedBlockEvents(
   nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET | BLOCKS.EMBEDDED_RESOURCE,
-  sdk: FieldAppSDK,
+  sdk: FieldAppSDK
 ): KeyboardHandler<HotkeyPlugin> {
   return (editor, { options: { hotkey } }) =>
     (event) => {
@@ -68,7 +68,7 @@ export async function selectEntityAndInsert(
   nodeType,
   sdk,
   editor,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
 ) {
   logAction('openCreateEmbedDialog', { nodeType });
 
@@ -99,7 +99,7 @@ export async function selectEntityAndInsert(
 export async function selectResourceEntityAndInsert(
   sdk,
   editor,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
 ) {
   logAction('openCreateEmbedDialog', { nodeType: BLOCKS.EMBEDDED_RESOURCE });
 
@@ -121,8 +121,8 @@ export async function selectResourceEntityAndInsert(
 function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   const entityBlock = getAboveNode(editor, {
     match: {
-      type: nodeTypes,
-    },
+      type: nodeTypes
+    }
   });
 
   if (!entityBlock) {
@@ -133,7 +133,7 @@ function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   const lastNode = getLastNodeByLevel(editor, level);
 
   const isTextContainer = (TEXT_CONTAINERS as string[]).includes(
-    (lastNode?.[0].type ?? '') as string,
+    (lastNode?.[0].type ?? '') as string
   );
 
   // If the new block isn't followed by a sibling text container (e.g. paragraph)
@@ -150,8 +150,8 @@ const getLink = (entity) => {
     sys: {
       id: entity.sys.id,
       type: 'Link',
-      linkType: entity.sys.type,
-    },
+      linkType: entity.sys.type
+    }
   };
 };
 
@@ -159,10 +159,10 @@ const createNode = (nodeType, entity) => {
   return {
     type: nodeType,
     data: {
-      target: nodeType === BLOCKS.EMBEDDED_RESOURCE ? entity : getLink(entity),
+      target: nodeType === BLOCKS.EMBEDDED_RESOURCE ? entity : getLink(entity)
     },
     children: [{ text: '' }],
-    isVoid: true,
+    isVoid: true
   };
 };
 
@@ -189,7 +189,7 @@ export function replaceEmptyParagraphWithBlock(editor: PlateEditor) {
 
   const [nodes] = getNodeEntries(editor, {
     at: previousPath,
-    match: (node) => node.type === BLOCKS.PARAGRAPH,
+    match: (node) => node.type === BLOCKS.PARAGRAPH
   });
   if (!nodes) return;
 

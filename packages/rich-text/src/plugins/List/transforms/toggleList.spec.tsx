@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-common';
 import { describe, it } from 'vitest';
 
+import { PlateEditor } from '../../../internal/plate';
 import { assertOutput, jsx, createTestEditor } from '../../../test-utils';
 import { toggleList } from './toggleList';
 
@@ -32,7 +32,7 @@ describe('toggle on', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
@@ -69,7 +69,7 @@ describe('toggle on', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
@@ -114,7 +114,7 @@ describe('toggle on', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
@@ -166,7 +166,7 @@ describe('toggle off', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
@@ -227,7 +227,7 @@ describe('toggle off', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
@@ -269,7 +269,7 @@ describe('toggle off', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.UL_LIST });
@@ -306,7 +306,7 @@ describe('toggle over', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.OL_LIST });
@@ -355,7 +355,7 @@ describe('toggle over', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.OL_LIST });
@@ -408,7 +408,7 @@ describe('toggle over', () => {
     ) as any as PlateEditor;
 
     const { editor } = createTestEditor({
-      input,
+      input
     });
 
     toggleList(editor, { type: BLOCKS.OL_LIST });

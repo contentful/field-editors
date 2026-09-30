@@ -6,7 +6,6 @@ import { FieldConnector } from '@contentful/field-editor-shared';
 import * as Contentful from '@contentful/rich-text-types';
 import { css, cx } from '@emotion/css';
 import { QueryClient } from '@tanstack/react-query';
-import { PlateContent, Plate, PlatePlugin, PlateContentProps } from '@udecode/plate-common';
 import deepEquals from 'fast-deep-equal';
 import noop from 'lodash/noop';
 import { useDeepCompareMemo } from 'use-deep-compare';
@@ -14,8 +13,11 @@ import { useDeepCompareMemo } from 'use-deep-compare';
 import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
+import { createOnChangeCallback } from './helpers/callbacks';
 import { toSlateDoc } from './helpers/toSlateDoc';
-import { getPlugins, disableCorePlugins } from './plugins';
+import { PlateContent, Plate, PlateContentProps } from './internal/plate';
+import { createPlateEditor } from './internal/pluginAdapter';
+import { getPlugins } from './plugins';
 import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
@@ -69,12 +71,33 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation),
-    [sdk, onAction, restrictedMarks, withCharValidation],
+    [sdk, onAction, restrictedMarks, withCharValidation]
   );
 
   const initialValue = useDeepCompareMemo(() => {
     return toSlateDoc(props.value);
   }, [props.value]);
+
+  // Match Plate's previous lifetime: equivalent parent props must not reset
+  // the editor's selection or undo history.
+  const editorOptions = React.useRef({ plugins, value: initialValue });
+  editorOptions.current = { plugins, value: initialValue };
+  const editor = React.useMemo(() => createPlateEditor({ id, ...editorOptions.current }), [id]);
+  const handleValueChange = React.useMemo(
+    () => createOnChangeCallback(props.onChange),
+    [props.onChange]
+  );
+  const lastValue = React.useMemo(() => ({ current: editor.children }), [editor]);
+  const acceptExternalValue = React.useCallback(() => {
+    handleValueChange.cancel();
+    lastValue.current = editor.children;
+  }, [editor, handleValueChange, lastValue]);
+  React.useEffect(
+    () => () => {
+      handleValueChange.flush();
+    },
+    [handleValueChange]
+  );
 
   // Force text direction based on editor locale
   const direction = sdk.locales.direction[sdk.field.locale] ?? 'ltr';
@@ -85,7 +108,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
     props.isToolbarHidden && styles.hiddenToolbar,
-    direction === 'rtl' ? styles.rtl : styles.ltr,
+    direction === 'rtl' ? styles.rtl : styles.ltr
   );
 
   return (
@@ -94,10 +117,13 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
         <ContentfulEditorIdProvider value={id}>
           <div className={styles.root} data-test-id="rich-text-editor">
             <Plate
-              id={id}
-              initialValue={initialValue}
-              plugins={plugins as PlatePlugin[]}
-              disableCorePlugins={disableCorePlugins}
+              editor={editor}
+              readOnly={props.isDisabled}
+              onValueChange={({ value }) => {
+                if (deepEquals(lastValue.current, value)) return;
+                lastValue.current = value;
+                handleValueChange(value);
+              }}
             >
               {!props.isToolbarHidden && (
                 <StickyToolbarWrapper
@@ -107,7 +133,10 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
                   <Toolbar isDisabled={props.isDisabled} />
                 </StickyToolbarWrapper>
               )}
-              <SyncEditorChanges incomingValue={initialValue} onChange={props.onChange} />
+              <SyncEditorChanges
+                incomingValue={initialValue}
+                onValueApplied={acceptExternalValue}
+              />
               <PlateContent
                 id={id}
                 className={classNames}
@@ -138,7 +167,7 @@ const RichTextEditor = (props: RichTextProps) => {
   } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
-    [],
+    []
   );
   React.useEffect(() => {
     if (!onChange) {

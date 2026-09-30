@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 
 import { PlateEditor } from '../../../internal/types';
@@ -11,50 +11,50 @@ vi.mock('../../../helpers/editor', async () => {
   return {
     __esModule: true,
     ...actual,
-    focus: vi.fn(),
+    focus: vi.fn()
   };
 });
 
 describe('CommandPalette insertBlock', () => {
   it('inserts an embedded entry block even when selection is in an empty paragraph', () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.PARAGRAPH,
         data: {},
         isVoid: false,
-        children: [{ text: '' }],
-      },
+        children: [{ text: '' }]
+      }
     ]) as PlateEditor;
 
     editor.selection = {
       anchor: { path: [0, 0], offset: 0 },
-      focus: { path: [0, 0], offset: 0 },
+      focus: { path: [0, 0], offset: 0 }
     };
 
     insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, {
-      sys: { id: 'entry-1', type: 'Entry' },
+      sys: { id: 'entry-1', type: 'Entry' }
     } as any);
 
     expect(editor.children.some((n: any) => n.type === BLOCKS.EMBEDDED_ENTRY)).toBe(true);
   });
 
   it('does not remove existing paragraph text when inserting from a non-empty paragraph', () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.PARAGRAPH,
         data: {},
         isVoid: false,
-        children: [{ text: 'hello' }],
-      },
+        children: [{ text: 'hello' }]
+      }
     ]) as PlateEditor;
 
     editor.selection = {
       anchor: { path: [0, 0], offset: 5 },
-      focus: { path: [0, 0], offset: 5 },
+      focus: { path: [0, 0], offset: 5 }
     };
 
     insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, {
-      sys: { id: 'entry-1', type: 'Entry' },
+      sys: { id: 'entry-1', type: 'Entry' }
     } as any);
 
     const containsText = (node: any, text: string): boolean => {

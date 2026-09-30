@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { EntryLink } from '@contentful/field-editor-reference';
-import { useReadOnly, useSelected } from 'slate-react';
+import { useReadOnly, useSelected } from 'platejs/react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { focus } from '../../helpers/editor';
