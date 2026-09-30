@@ -42,7 +42,7 @@
     "@contentful/f36-tokens": "^6.1.2",
     "@contentful/field-editor-shared": "^4.5.2",
     "@emotion/css": "^11.13.5",
-    "@types/speakingurl": "^13.0.2",
+    "@types/speakingurl": "^13.0.6",
     "speakingurl": "^14.0.1",
     "use-debounce": "^10.0.0"
   },

@@ -8243,7 +8243,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/speakingurl@^13.0.2":
+"@types/speakingurl@^13.0.6":
   version "13.0.6"
   resolved "https://registry.yarnpkg.com/@types/speakingurl/-/speakingurl-13.0.6.tgz#fb64d905bb802e89facca641ed4ff5ed13854c88"
   integrity sha512-ywkRHNHBwq0mFs/2HRgW6TEBAzH66G8f2Txzh1aGR0UC9ZoAUHfHxLZGDhwMpck4BpSnB61eNFIFmlV+TJ+KUA==
