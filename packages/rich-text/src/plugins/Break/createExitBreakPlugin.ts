@@ -1,22 +1,21 @@
 import {
   createExitBreakPlugin as createDefaultExitBreakPlugin,
-  ExitBreakRule,
-} from '@udecode/plate-break';
-
+  ExitBreakRule
+} from '../../internal/breaks';
 import { PlatePlugin } from '../../internal/types';
 
 export const createExitBreakPlugin = (): PlatePlugin =>
   createDefaultExitBreakPlugin({
     options: {
-      rules: [],
+      rules: []
     },
     then: (editor) => {
-      const rules: ExitBreakRule[] = editor.plugins.flatMap((p) => {
+      const rules: ExitBreakRule[] = editor.contentfulPlugins.flatMap((p) => {
         return (p as PlatePlugin).exitBreak || [];
       });
 
       return {
-        options: { rules },
+        options: { rules }
       };
-    },
+    }
   });

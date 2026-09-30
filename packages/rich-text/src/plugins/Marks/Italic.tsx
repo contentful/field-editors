@@ -3,8 +3,8 @@ import * as React from 'react';
 import { TextItalicIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
 
+import { createItalicPlugin as createDefaultItalicPlugin } from '../../internal/pluginFactories';
 import { someHtmlElement } from '../../internal/queries';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
@@ -13,13 +13,13 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarItalicButton = createMarkToolbarButton({
   title: 'Italic',
   mark: MARKS.ITALIC,
-  icon: <TextItalicIcon />,
+  icon: <TextItalicIcon />
 });
 
 const styles = {
   italic: css({
-    fontStyle: 'italic',
-  }),
+    fontStyle: 'italic'
+  })
 };
 
 export function Italic(props: RenderLeafProps) {
@@ -35,22 +35,22 @@ export const createItalicPlugin = (): PlatePlugin =>
     type: MARKS.ITALIC,
     component: Italic,
     options: {
-      hotkey: ['mod+i'],
+      hotkey: ['mod+i']
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.ITALIC),
+      onKeyDown: buildMarkEventHandler(MARKS.ITALIC)
     },
     deserializeHtml: {
       rules: [
         { validNodeName: ['I', 'EM'] },
         {
           validStyle: {
-            fontStyle: 'italic',
-          },
-        },
+            fontStyle: 'italic'
+          }
+        }
       ],
       query: (el) => {
         return !someHtmlElement(el, (node) => node.style.fontStyle === 'normal');
-      },
-    },
+      }
+    }
   });

@@ -3,27 +3,27 @@ import * as React from 'react';
 import { TextStrikethroughIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { createStrikethroughPlugin as createDefaultStrikethroughPlugin } from '@udecode/plate-basic-marks';
 
+import { createStrikethroughPlugin as createDefaultStrikethroughPlugin } from '../../internal/pluginFactories';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
 const styles = {
   strikethrough: css({
-    textDecoration: 'line-through',
-  }),
+    textDecoration: 'line-through'
+  })
 };
 
 export const ToolbarDropdownStrikethroughButton = createMarkToolbarButton({
   title: 'Strikethrough',
-  mark: MARKS.STRIKETHROUGH,
+  mark: MARKS.STRIKETHROUGH
 });
 
 export const ToolbarStrikethroughButton = createMarkToolbarButton({
   title: 'Strikethrough',
   mark: MARKS.STRIKETHROUGH,
-  icon: <TextStrikethroughIcon />,
+  icon: <TextStrikethroughIcon />
 });
 
 export function Strikethrough(props: RenderLeafProps) {
@@ -39,13 +39,13 @@ export const createStrikethroughPlugin = (): PlatePlugin =>
     type: MARKS.STRIKETHROUGH,
     component: Strikethrough,
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.STRIKETHROUGH),
+      onKeyDown: buildMarkEventHandler(MARKS.STRIKETHROUGH)
     },
     deserializeHtml: {
       rules: [
         {
-          validNodeName: ['S'],
-        },
-      ],
-    },
+          validNodeName: ['S']
+        }
+      ]
+    }
   });

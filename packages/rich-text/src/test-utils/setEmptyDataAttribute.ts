@@ -1,6 +1,6 @@
-import { setNodes } from '@udecode/plate-common';
 import { Element } from 'slate';
 
+import { setNodes } from '../internal/plate';
 import { PlateEditor } from '../internal/types';
 
 /**
@@ -14,7 +14,7 @@ export const setEmptyDataAttribute = (root: PlateEditor) => {
     {
       at: [],
       match: (node) => Element.isElement(node) && !node.data,
-      mode: 'all',
-    },
+      mode: 'all'
+    }
   );
 };

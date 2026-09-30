@@ -1,29 +1,28 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
+
+import { isRootLevel } from '../../helpers/editor';
+import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
+import { createTablePlugin as createDefaultTablePlugin } from '../../internal/pluginFactories';
 import {
-  createTablePlugin as createDefaultTablePlugin,
+  getParentNode,
+  getBlockAbove,
+  getLastChildPath,
+  getNextPath
+} from '../../internal/queries';
+import {
   ELEMENT_TABLE,
   ELEMENT_TD,
   ELEMENT_TH,
   ELEMENT_TR,
-  TablePlugin,
   withDeleteTable,
   withGetFragmentTable,
   withInsertTextTable,
   withSelectionTable,
   withSetFragmentDataTable,
-  withInsertFragmentTable,
-} from '@udecode/plate-table';
-
-import { isRootLevel } from '../../helpers/editor';
-import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import {
-  getParentNode,
-  getBlockAbove,
-  getLastChildPath,
-  getNextPath,
-} from '../../internal/queries';
+  withInsertFragmentTable
+} from '../../internal/table';
 import { insertNodes } from '../../internal/transforms';
-import { PlatePlugin, PlateEditor, Value } from '../../internal/types';
+import { PlatePlugin } from '../../internal/types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
@@ -35,11 +34,10 @@ import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './table
 import { withInsertFragmentTableOverride } from './withInsertFragmentTableOverride';
 
 export const createTablePlugin = (): PlatePlugin =>
-  createDefaultTablePlugin<TablePlugin<Value>, Value, PlateEditor>({
+  createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {
-      // @ts-expect-error
-      onKeyDown: onKeyDownTable,
+      onKeyDown: onKeyDownTable
     },
     withOverrides: (editor, plugin) => {
       const { normalizeNode } = editor;
@@ -53,7 +51,7 @@ export const createTablePlugin = (): PlatePlugin =>
       editor = withSelectionTable(editor);
       editor = withSetFragmentDataTable(editor);
 
-      // Resets all normalization rules added by @udecode/plate-table as
+      // Resets all normalization rules added by @platejs/table as
       // they conflict with our own
       editor.normalizeNode = normalizeNode;
 
@@ -69,7 +67,7 @@ export const createTablePlugin = (): PlatePlugin =>
         component: Table,
         normalizer: [
           {
-            validNode: isNotEmpty,
+            validNode: isNotEmpty
           },
           {
             // Move to root level unless nested
@@ -79,18 +77,18 @@ export const createTablePlugin = (): PlatePlugin =>
               const isNestedTable = !!getBlockAbove(editor, {
                 at: path,
                 match: {
-                  type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL],
-                },
+                  type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL]
+                }
               });
 
               return isRootLevel(path) || isNestedTable;
             },
-            transform: transformLift,
+            transform: transformLift
           },
           {
-            validChildren: CONTAINERS[BLOCKS.TABLE],
-          },
-        ],
+            validChildren: CONTAINERS[BLOCKS.TABLE]
+          }
+        ]
       },
       [ELEMENT_TR]: {
         type: BLOCKS.TABLE_ROW,
@@ -98,11 +96,11 @@ export const createTablePlugin = (): PlatePlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_ROW],
-            transform: transformWrapIn(BLOCKS.TABLE_CELL),
+            transform: transformWrapIn(BLOCKS.TABLE_CELL)
           },
           {
             // Remove empty rows
-            validNode: isNotEmpty,
+            validNode: isNotEmpty
           },
           {
             // Parent must be a table
@@ -110,7 +108,7 @@ export const createTablePlugin = (): PlatePlugin =>
               const parent = getParentNode(editor, path)?.[0];
               return parent && parent.type === BLOCKS.TABLE;
             },
-            transform: transformWrapIn(BLOCKS.TABLE),
+            transform: transformWrapIn(BLOCKS.TABLE)
           },
           {
             // ensure consistent number of cells in each row
@@ -122,11 +120,11 @@ export const createTablePlugin = (): PlatePlugin =>
               const at = getNextPath(getLastChildPath(entry));
 
               insertNodes(editor, createEmptyTableCells(howMany), {
-                at,
+                at
               });
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       [ELEMENT_TH]: {
         type: BLOCKS.TABLE_HEADER_CELL,
@@ -134,9 +132,9 @@ export const createTablePlugin = (): PlatePlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_HEADER_CELL],
-            transform: withInvalidCellChildrenTracking(transformParagraphs),
-          },
-        ],
+            transform: withInvalidCellChildrenTracking(transformParagraphs)
+          }
+        ]
       },
       [ELEMENT_TD]: {
         type: BLOCKS.TABLE_CELL,
@@ -144,9 +142,9 @@ export const createTablePlugin = (): PlatePlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_CELL],
-            transform: withInvalidCellChildrenTracking(transformParagraphs),
-          },
-        ],
-      },
-    } as Record<string, Partial<PlatePlugin>>,
+            transform: withInvalidCellChildrenTracking(transformParagraphs)
+          }
+        ]
+      }
+    } as Record<string, Partial<PlatePlugin>>
   });

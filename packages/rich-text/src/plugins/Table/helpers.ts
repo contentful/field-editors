@@ -1,11 +1,4 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  ELEMENT_TABLE,
-  ELEMENT_TH,
-  ELEMENT_TD,
-  ELEMENT_TR,
-  getEmptyRowNode,
-} from '@udecode/plate-table';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
 import { selectEditor } from '../../internal';
@@ -19,8 +12,15 @@ import {
   getParentNode,
   isElement,
   getNodeEntries,
-  getPreviousPath,
+  getPreviousPath
 } from '../../internal/queries';
+import {
+  ELEMENT_TABLE,
+  ELEMENT_TH,
+  ELEMENT_TD,
+  ELEMENT_TR,
+  getEmptyRowNode
+} from '../../internal/table';
 import { insertNodes, removeNodes, moveNodes } from '../../internal/transforms';
 import { PlateEditor, NodeEntry, Ancestor, Node } from '../../internal/types';
 
@@ -30,15 +30,15 @@ export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
     data: {},
     children: [
       getEmptyRowNode(editor, { colCount: 2, header: true }),
-      getEmptyRowNode(editor, { colCount: 2 }),
-    ],
+      getEmptyRowNode(editor, { colCount: 2 })
+    ]
   };
 
   insertNodes(editor, table);
 
   if (editor.selection) {
     const tableEntry = getBlockAbove(editor, {
-      match: { type: BLOCKS.TABLE },
+      match: { type: BLOCKS.TABLE }
     });
     if (!tableEntry) return;
 
@@ -56,8 +56,8 @@ export function isTableActive(editor: PlateEditor) {
 export function isTableHeaderEnabled(editor: PlateEditor) {
   const tableItem = getAboveNode(editor, {
     match: {
-      type: BLOCKS.TABLE,
-    },
+      type: BLOCKS.TABLE
+    }
   });
 
   if (!tableItem) {
@@ -84,7 +84,7 @@ export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
 
   const [nodes] = getNodeEntries(editor, {
     at: previousPath,
-    match: (node) => node.type === BLOCKS.PARAGRAPH,
+    match: (node) => node.type === BLOCKS.PARAGRAPH
   });
   if (!nodes) return;
 
@@ -129,9 +129,9 @@ export const createEmptyTableCells = (count: number): Node[] => {
       {
         type: BLOCKS.PARAGRAPH,
         data: {},
-        children: [{ text: '' }],
-      },
-    ],
+        children: [{ text: '' }]
+      }
+    ]
   };
 
   return new Array(count).fill(emptyTableCell);

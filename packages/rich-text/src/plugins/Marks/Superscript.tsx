@@ -3,8 +3,8 @@ import * as React from 'react';
 import { TextSuperscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '@udecode/plate-basic-marks';
 
+import { createSuperscriptPlugin as createDefaultSuperscriptPlugin } from '../../internal/pluginFactories';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
@@ -12,19 +12,19 @@ import { buildMarkEventHandler } from './helpers';
 const styles = {
   superscript: css({
     verticalAlign: 'super',
-    fontSize: 'smaller',
-  }),
+    fontSize: 'smaller'
+  })
 };
 
 export const ToolbarSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
   mark: MARKS.SUPERSCRIPT,
-  icon: <TextSuperscriptIcon />,
+  icon: <TextSuperscriptIcon />
 });
 
 export const ToolbarDropdownSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
-  mark: MARKS.SUPERSCRIPT,
+  mark: MARKS.SUPERSCRIPT
 });
 
 export function Superscript(props: RenderLeafProps) {
@@ -40,13 +40,13 @@ export const createSuperscriptPlugin = (): PlatePlugin =>
     type: MARKS.SUPERSCRIPT,
     component: Superscript,
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.SUPERSCRIPT),
+      onKeyDown: buildMarkEventHandler(MARKS.SUPERSCRIPT)
     },
     deserializeHtml: {
       rules: [
         {
-          validNodeName: ['SUP'],
-        },
-      ],
-    },
+          validNodeName: ['SUP']
+        }
+      ]
+    }
   });

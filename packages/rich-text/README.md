@@ -12,16 +12,15 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 
 ## ⚠️ Important: Package Configuration
 
-Due to peer dependency resolution in npm, you must add the following to your `package.json` to ensure compatible versions are installed:
-This is a temporary workaround until we have upgraded the underlying rich text packages.
+Plate 53.3.14 pins `slate-react` to 0.126.4. To use the latest Slate React version tested by this package (0.127.1), update existing overrides in your application as shown below. Package-manager overrides in this repository are not inherited by applications that install the published package.
 
 **For npm:**
 
 ```json
 {
   "overrides": {
-    "slate": "0.94.1",
-    "slate-react": "0.102.0"
+    "slate": "0.126.2",
+    "slate-react": "0.127.1"
   }
 }
 ```
@@ -31,8 +30,8 @@ This is a temporary workaround until we have upgraded the underlying rich text p
 ```json
 {
   "resolutions": {
-    "slate": "0.94.1",
-    "slate-react": "0.102.0"
+    "slate": "0.126.2",
+    "slate-react": "0.127.1"
   }
 }
 ```
