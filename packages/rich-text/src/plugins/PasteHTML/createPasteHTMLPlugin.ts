@@ -1,5 +1,4 @@
-import { KEY_DESERIALIZE_HTML } from '@udecode/plate-common';
-
+import { KEY_DESERIALIZE_HTML } from '../../internal/plate';
 import { PlatePlugin } from '../../internal/types';
 import { sanitizeHTML } from './utils/sanitizeHTML';
 
@@ -46,10 +45,10 @@ export const createPasteHTMLPlugin = (): PlatePlugin => ({
           insertData: {
             format: 'text/html',
             // Perform custom content transformation *before* pasting
-            transformData: sanitizeHTML,
-          },
-        },
-      },
-    },
-  },
+            transformData: sanitizeHTML
+          }
+        }
+      }
+    }
+  }
 });

@@ -2,18 +2,17 @@ import * as React from 'react';
 
 import { TextUnderlineIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
-import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '@udecode/plate-basic-marks';
 
+import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '../../internal/pluginFactories';
 import { someHtmlElement } from '../../internal/queries';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
-
 export const ToolbarUnderlineButton = createMarkToolbarButton({
   title: 'Underline',
   mark: MARKS.UNDERLINE,
-  icon: <TextUnderlineIcon />,
+  icon: <TextUnderlineIcon />
 });
 
 export function Underline(props: RenderLeafProps) {
@@ -25,24 +24,24 @@ export const createUnderlinePlugin = (): PlatePlugin =>
     type: MARKS.UNDERLINE,
     component: Underline,
     options: {
-      hotkey: ['mod+u'],
+      hotkey: ['mod+u']
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.UNDERLINE),
+      onKeyDown: buildMarkEventHandler(MARKS.UNDERLINE)
     },
     deserializeHtml: {
       rules: [
         {
-          validNodeName: ['U'],
+          validNodeName: ['U']
         },
         {
           validStyle: {
-            textDecoration: ['underline'],
-          },
-        },
+            textDecoration: ['underline']
+          }
+        }
       ],
       query: (el) => {
         return !someHtmlElement(el, (node) => node.style.textDecoration === 'none');
-      },
-    },
+      }
+    }
   });

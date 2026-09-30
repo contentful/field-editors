@@ -3,16 +3,16 @@ import isPlainObject from 'is-plain-obj';
 import { transformRemove } from '../../helpers/transformers';
 import { withoutNormalizing } from '../../internal';
 import { getChildren, matchNode, getPluginType } from '../../internal/queries';
-import { PlateEditor, PlatePlugin, NodeEntry } from '../../internal/types';
+import { PlateEditor, NodeEntry } from '../../internal/types';
 import { baseRules } from './baseRules';
 import { NormalizerRule, NodeTransformer, NodeValidator } from './types';
 import { NormalizerError, createValidatorFromTypes, createTransformerFromObject } from './utils';
 
 export const withNormalizer = (editor: PlateEditor) => {
-  const rules: Required<NormalizerRule>[] = baseRules;
+  const rules: Required<NormalizerRule>[] = [...baseRules];
 
   // Derive normalization rules from other plugin's configurations
-  for (const p of editor.plugins as PlatePlugin[]) {
+  for (const p of editor.contentfulPlugins) {
     const { normalizer: _rules } = p;
 
     if (!_rules) {
@@ -30,7 +30,7 @@ export const withNormalizer = (editor: PlateEditor) => {
       // By default we filter elements with given plugin type
       if (!rule.match) {
         rule.match = {
-          type: getPluginType(editor, p.key),
+          type: getPluginType(editor, p.key)
         };
       }
 
@@ -50,7 +50,7 @@ export const withNormalizer = (editor: PlateEditor) => {
 
         rule.transform = createTransformerFromObject({
           default: transformRemove,
-          ...rule.transform,
+          ...rule.transform
         });
       }
 
@@ -78,8 +78,8 @@ export const withNormalizer = (editor: PlateEditor) => {
 
   const { normalizeNode } = editor;
 
-  // @ts-expect-error
-  editor.normalizeNode = (entry: NodeEntry) => {
+  editor.normalizeNode = (rawEntry) => {
+    const entry = rawEntry as NodeEntry;
     const [node, path] = entry;
     const children = getChildren(entry);
 

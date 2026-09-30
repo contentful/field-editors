@@ -10,11 +10,9 @@ describe('normalization', () => {
       <editor>
         <hp>
           some text before
-          <hinline type="Entry" id="inline-entry" />
-          <hlink uri="https://contentful.com" />
-          <hlink entry="entry-id" />
-          <hlink resource="resource-urn" />
-          <hlink asset="asset-id" />
+          <hinline type="Entry" id="inline-entry" />{' '}
+          <hlink uri="https://contentful.com">website</hlink> <hlink entry="entry-id">entry</hlink>{' '}
+          <hlink resource="resource-urn">resource</hlink> <hlink asset="asset-id">asset</hlink>
           some text after
         </hp>
       </editor>

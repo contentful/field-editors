@@ -2,7 +2,7 @@
  The cleanHtmlEmptyElements from Plate is overly aggressive in removing elements, removing those that are necessary for maintaining proper spacing (span).
  We are using a slightly adjusted version of the cleanHtmlEmptyElements function to prevent the removal of span elements.
  */
-import { traverseHtmlElements } from '@udecode/plate-common';
+import { traverseHtmlElements } from '../../internal/plate';
 
 const ALLOWED_EMPTY_ELEMENTS = new Set(['BR', 'IMG', 'TH', 'TD', 'SPAN']);
 

@@ -2,17 +2,17 @@
  * https://platejs.org/docs/typescript
  */
 import { MARKS } from '@contentful/rich-text-types';
-import * as p from '@udecode/plate-common';
 import * as s from 'slate';
+import { DOMRange as SlateReactDomRange } from 'slate-dom';
 import * as sr from 'slate-react';
-import { DOMRange as SlateReactDomRange } from 'slate-react/dist/utils/dom';
 import type {
   SelectionMoveOptions as SlateSelectionMoveOptions,
-  SelectionCollapseOptions as SlateSelectionCollapseOptions,
+  SelectionCollapseOptions as SlateSelectionCollapseOptions
 } from 'slate/dist/interfaces/transforms/selection';
 import type { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate/dist/interfaces/transforms/text';
 
 import { TrackingPluginActions } from '../../plugins/Tracking';
+import * as p from '../plate';
 
 export interface Text extends p.TText {
   [MARKS.BOLD]?: boolean;
@@ -32,8 +32,9 @@ export interface Element extends p.TElement {
 }
 
 export type Value = Element[];
-export type ReactEditor = p.PlateEditor<Value>;
-export interface PlateEditor extends p.PlateEditor<Value> {
+export type ReactEditor = PlateEditor;
+export interface PlateEditor extends p.TPlateEditor<Value>, p.LegacyEditorMethods<Value> {
+  contentfulPlugins: import('./plugins').PlatePlugin[];
   getCharacterCount: () => number;
   tracking: TrackingPluginActions;
   undo: {
@@ -47,21 +48,19 @@ export interface PlateEditor extends p.PlateEditor<Value> {
 }
 
 export type Node = p.ElementOf<PlateEditor> | p.TextOf<PlateEditor>;
-export type Path = p.TPath;
-export type NodeEntry<T extends Node = Node> = p.TNodeEntry<T>;
-export type NodeMatch = p.ENodeMatch<Node>;
+export type Path = s.Path;
+export type NodeEntry<T extends Node = Node> = p.NodeEntry<T>;
+export type NodeMatch = p.Predicate<Node>;
 export type Ancestor = p.AncestorOf<PlateEditor>;
 export type Descendant = p.DescendantOf<PlateEditor>;
-export type Operation = p.TOperation<Descendant>;
+export type Operation = p.Operation;
 export type Location = p.TLocation;
 export type BaseRange = p.TRange;
 export type ToggleNodeTypeOptions = p.ToggleNodeTypeOptions;
 export type EditorNodesOptions = Omit<p.GetNodeEntriesOptions<Value>, 'match'>;
-export type WithOverride<P = p.AnyObject> = p.WithOverride<P, Value, PlateEditor>;
 export type SelectionMoveOptions = SlateSelectionMoveOptions;
 export type TextInsertTextOptions = SlateTextInsertTextOptions;
 export type SelectionCollapseOptions = SlateSelectionCollapseOptions;
-export type HotkeyPlugin = p.HotkeyPlugin;
 export type RenderLeafProps = sr.RenderLeafProps;
 export type RenderElementProps = sr.RenderElementProps;
 export type Span = p.TSpan;

@@ -2,15 +2,19 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
-
 import { withoutNormalizing } from '../../../internal';
+import {
+  isListNested,
+  ELEMENT_LIC,
+  getListItemEntry,
+  moveListItemUp
+} from '../../../internal/list';
 import {
   getNodeEntries,
   getPluginType,
   createPathRef,
   getParentPath,
-  isAncestorPath,
+  isAncestorPath
 } from '../../../internal/queries';
 import { EditorNodesOptions, PlateEditor, Path, PathRef } from '../../../internal/types';
 import { moveListItemDown } from './moveListItemDown';
@@ -27,8 +31,8 @@ export const moveListItems = (
   const _nodes = getNodeEntries(editor, {
     at,
     match: {
-      type: getPluginType(editor, ELEMENT_LIC),
-    },
+      type: getPluginType(editor, ELEMENT_LIC)
+    }
   });
 
   // Get the selected lic

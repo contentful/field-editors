@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css, cx } from '@emotion/css';
-import * as Slate from 'slate-react';
+import type * as Slate from 'slate-react';
 
 const styles = {
   dropdown: {
@@ -30,7 +30,7 @@ const styles = {
     `,
     [BLOCKS.HEADING_6]: css`
       font-size: 0.875rem;
-    `,
+    `
   },
   headings: {
     root: css`
@@ -56,8 +56,8 @@ const styles = {
     `,
     [BLOCKS.HEADING_6]: css`
       font-size: 1rem;
-    `,
-  },
+    `
+  }
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: explain this disable
@@ -77,5 +77,5 @@ export const HeadingComponents = {
   [BLOCKS.HEADING_3]: React.memo(createHeading('h3', BLOCKS.HEADING_3)),
   [BLOCKS.HEADING_4]: React.memo(createHeading('h4', BLOCKS.HEADING_4)),
   [BLOCKS.HEADING_5]: React.memo(createHeading('h5', BLOCKS.HEADING_5)),
-  [BLOCKS.HEADING_6]: React.memo(createHeading('h6', BLOCKS.HEADING_6)),
+  [BLOCKS.HEADING_6]: React.memo(createHeading('h6', BLOCKS.HEADING_6))
 };

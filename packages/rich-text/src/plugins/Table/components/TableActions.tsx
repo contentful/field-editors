@@ -4,13 +4,13 @@ import { IconButton, Menu } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
 import { withoutNormalizing } from '../../../internal';
 import { useReadOnly } from '../../../internal/hooks';
 import { getAboveNode } from '../../../internal/queries';
+import { deleteColumn, deleteRow, deleteTable } from '../../../internal/table';
 import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';
@@ -20,12 +20,12 @@ export const styles = {
   topRight: css({
     position: 'absolute',
     insetBlockStart: '6px',
-    insetInlineEnd: '5px',
-  }),
+    insetInlineEnd: '5px'
+  })
 };
 
 const getCurrentTableSize = (
-  editor: PlateEditor,
+  editor: PlateEditor
 ): Record<'numRows' | 'numColumns', number> | null => {
   const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   return table ? getTableSize(table) : null;
@@ -55,8 +55,8 @@ export const TableActions = () => {
 
     const headerCell = getAboveNode(editor, {
       match: {
-        type: BLOCKS.TABLE_HEADER_CELL,
-      },
+        type: BLOCKS.TABLE_HEADER_CELL
+      }
     });
 
     return !headerCell;
@@ -89,7 +89,7 @@ export const TableActions = () => {
       const actionName = `${type}Table${element === 'Table' ? '' : element}`;
       editor.tracking.onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
     },
-    [editor, isHeaderEnabled, close],
+    [editor, isHeaderEnabled, close]
   );
 
   if (isDisabled) {

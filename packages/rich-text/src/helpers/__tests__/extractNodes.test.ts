@@ -1,12 +1,11 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it } from 'vitest';
 
 import { Element, PlateEditor, Path } from '../../internal/types';
 import { extractParagraphs } from '../extractNodes';
 
-const createEditor = (children: Element[]) =>
-  createSlateEditor('test-editor', {}, children) as PlateEditor;
+const createEditor = (children: Element[]) => slateJsx('editor', {}, children) as PlateEditor;
 
 type Text = {
   text: string;
@@ -26,7 +25,7 @@ const buildParagraph = (children: TextOrInline[] = []) => ({
   type: BLOCKS.PARAGRAPH,
   data: {},
   isVoid: false,
-  children: children.map((child) => ({ data: {}, ...child })),
+  children: children.map((child) => ({ data: {}, ...child }))
 });
 const paragraph = (text = '', marks = {}) => buildParagraph([{ text, ...marks }]);
 
@@ -50,25 +49,25 @@ const buildList = (type: List = BLOCKS.UL_LIST, secondType: List = BLOCKS.UL_LIS
               data: {},
               isVoid: false,
               type: BLOCKS.LIST_ITEM,
-              children: [paragraph('text 1')],
-            },
-          ],
-        },
-      ],
+              children: [paragraph('text 1')]
+            }
+          ]
+        }
+      ]
     },
     {
       data: {},
       isVoid: false,
       type: BLOCKS.LIST_ITEM,
-      children: [paragraph('text 2')],
+      children: [paragraph('text 2')]
     },
     {
       data: {},
       isVoid: false,
       type: BLOCKS.LIST_ITEM,
-      children: [paragraph('text 3')],
-    },
-  ],
+      children: [paragraph('text 3')]
+    }
+  ]
 });
 
 describe('extractParagraphs', () => {
@@ -87,15 +86,15 @@ describe('extractParagraphs', () => {
               type: BLOCKS.TABLE_HEADER_CELL,
               data: {},
               isVoid: false,
-              children: [paragraph('header 1')],
+              children: [paragraph('header 1')]
             },
             {
               type: BLOCKS.TABLE_HEADER_CELL,
               data: {},
               isVoid: false,
-              children: [paragraph('header 2')],
-            },
-          ],
+              children: [paragraph('header 2')]
+            }
+          ]
         },
         {
           type: BLOCKS.TABLE_ROW,
@@ -106,17 +105,17 @@ describe('extractParagraphs', () => {
               type: BLOCKS.TABLE_CELL,
               data: {},
               isVoid: false,
-              children: [paragraph('cell 1')],
+              children: [paragraph('cell 1')]
             },
             {
               type: BLOCKS.TABLE_CELL,
               data: {},
               isVoid: false,
-              children: [paragraph('cell 2')],
-            },
-          ],
-        },
-      ],
+              children: [paragraph('cell 2')]
+            }
+          ]
+        }
+      ]
     };
     const editor = createEditor([table]);
     const path: Path = [0];
@@ -125,7 +124,7 @@ describe('extractParagraphs', () => {
       paragraph('header 1'),
       paragraph('header 2'),
       paragraph('cell 1'),
-      paragraph('cell 2'),
+      paragraph('cell 2')
     ]);
   });
 
@@ -134,7 +133,7 @@ describe('extractParagraphs', () => {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,
-      children: [paragraph('text 1'), paragraph('text 2')],
+      children: [paragraph('text 1'), paragraph('text 2')]
     };
     const editor = createEditor([blockquote]);
     const path: Path = [0];
@@ -150,7 +149,7 @@ describe('extractParagraphs', () => {
     expect(extractParagraphs(editor, path)).toEqual([
       paragraph('text 1'),
       paragraph('text 2'),
-      paragraph('text 3'),
+      paragraph('text 3')
     ]);
   });
 
@@ -162,7 +161,7 @@ describe('extractParagraphs', () => {
     expect(extractParagraphs(editor, path)).toEqual([
       paragraph('text 1'),
       paragraph('text 2'),
-      paragraph('text 3'),
+      paragraph('text 3')
     ]);
   });
 
@@ -173,15 +172,15 @@ describe('extractParagraphs', () => {
       type: BLOCKS.QUOTE,
       children: [
         paragraph('text 1', { bold: true, italic: true }),
-        paragraph('text 2', { underline: true, code: true }),
-      ],
+        paragraph('text 2', { underline: true, code: true })
+      ]
     };
     const editor = createEditor([element]);
     const path: Path = [0];
 
     expect(extractParagraphs(editor, path)).toEqual([
       paragraph('text 1', { bold: true, italic: true }),
-      paragraph('text 2', { underline: true, code: true }),
+      paragraph('text 2', { underline: true, code: true })
     ]);
   });
 
@@ -191,15 +190,15 @@ describe('extractParagraphs', () => {
       {
         type: INLINES.HYPERLINK,
         children: [{ text: 'with link' }],
-        data: { uri: 'https://link.com' },
-      },
+        data: { uri: 'https://link.com' }
+      }
     ]);
 
     const element: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,
-      children: [paragraphWithLink, paragraph('text 2')],
+      children: [paragraphWithLink, paragraph('text 2')]
     };
     const editor = createEditor([element]);
     const path: Path = [0];
@@ -213,15 +212,15 @@ describe('extractParagraphs', () => {
       {
         type: INLINES.EMBEDDED_ENTRY,
         children: [{ text: '' }],
-        data: { target: { sys: { id: 'inline-id', linkType: 'Entry', type: 'Link' } } },
-      },
+        data: { target: { sys: { id: 'inline-id', linkType: 'Entry', type: 'Link' } } }
+      }
     ]);
 
     const element: Element = {
       data: {},
       isVoid: false,
       type: BLOCKS.QUOTE,
-      children: [paragraphWithEmbedded, paragraph('text 2')],
+      children: [paragraphWithEmbedded, paragraph('text 2')]
     };
     const editor = createEditor([element]);
     const path: Path = [0];

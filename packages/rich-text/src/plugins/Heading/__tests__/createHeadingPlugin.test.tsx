@@ -12,11 +12,9 @@ describe('normalization', () => {
       <editor>
         <hh1>
           some text before
-          <hinline type="Entry" id="inline-entry" />
-          <hlink uri="https://contentful.com" />
-          <hlink entry="entry-id" />
-          <hlink resource="resource-urn" />
-          <hlink asset="asset-id" />
+          <hinline type="Entry" id="inline-entry" />{' '}
+          <hlink uri="https://contentful.com">website</hlink> <hlink entry="entry-id">entry</hlink>{' '}
+          <hlink resource="resource-urn">resource</hlink> <hlink asset="asset-id">asset</hlink>
           some text after
         </hh1>
 
@@ -308,7 +306,7 @@ describe('buildHeadingEventHandler / onKeyDown', () => {
       which: keyCode,
       keyCode,
       bubbles: true,
-      cancelable: true,
+      cancelable: true
     });
 
     plugin.handlers!.onKeyDown!(editor, plugin)(event as any);
@@ -343,9 +341,7 @@ describe('buildHeadingEventHandler / onKeyDown', () => {
     fireModAlt(editor, plugin, H5_KEYCODE, '5');
 
     expect(
-      editor.children.some((n: any) =>
-        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`),
-      ),
+      editor.children.some((n: any) => JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`))
     ).toBe(false);
     expect(trackingHandler).not.toHaveBeenCalled();
   });
@@ -373,9 +369,7 @@ describe('buildHeadingEventHandler / onKeyDown', () => {
     fireModAlt(editor, plugin, H5_KEYCODE, '5');
 
     expect(
-      editor.children.some((n: any) =>
-        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`),
-      ),
+      editor.children.some((n: any) => JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`))
     ).toBe(false);
     expect(trackingHandler).not.toHaveBeenCalled();
   });
@@ -397,13 +391,11 @@ describe('buildHeadingEventHandler / onKeyDown', () => {
     fireModAlt(editor, plugin, H5_KEYCODE, '5');
 
     expect(
-      editor.children.some((n: any) =>
-        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`),
-      ),
+      editor.children.some((n: any) => JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_5}"`))
     ).toBe(true);
     expect(trackingHandler).toHaveBeenCalledWith(
       'insert',
-      expect.objectContaining({ nodeType: BLOCKS.HEADING_5 }),
+      expect.objectContaining({ nodeType: BLOCKS.HEADING_5 })
     );
   });
 
@@ -434,9 +426,7 @@ describe('buildHeadingEventHandler / onKeyDown', () => {
     fireModAlt(editor, plugin, H3_KEYCODE, '3');
 
     expect(
-      editor.children.some((n: any) =>
-        JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_3}"`),
-      ),
+      editor.children.some((n: any) => JSON.stringify(n).includes(`"type":"${BLOCKS.HEADING_3}"`))
     ).toBe(false);
     expect(trackingHandler).not.toHaveBeenCalled();
   });

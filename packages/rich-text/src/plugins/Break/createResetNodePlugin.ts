@@ -1,18 +1,15 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  createResetNodePlugin as createDefaultResetNodePlugin,
-  ResetNodePlugin,
-} from '@udecode/plate-reset-node';
 
-import { PlatePlugin, Value, PlateEditor } from '../../internal/types';
+import { createResetNodePlugin as createDefaultResetNodePlugin } from '../../internal/breaks';
+import { PlatePlugin } from '../../internal/types';
 
 export const createResetNodePlugin = (): PlatePlugin =>
-  createDefaultResetNodePlugin<ResetNodePlugin<Value, PlateEditor>, Value, PlateEditor>({
+  createDefaultResetNodePlugin({
     options: {
-      rules: [],
+      rules: []
     },
     then: (editor) => {
-      const rules = editor.plugins.flatMap((p) => {
+      const rules = editor.contentfulPlugins.flatMap((p) => {
         return (p as PlatePlugin).resetNode || [];
       });
 
@@ -24,7 +21,7 @@ export const createResetNodePlugin = (): PlatePlugin =>
       }
 
       return {
-        options: { rules },
+        options: { rules }
       };
-    },
+    }
   });

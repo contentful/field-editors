@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 
 import { PlateEditor } from '../../../internal/types';
@@ -11,34 +11,34 @@ vi.mock('../../../helpers/editor', async () => {
   return {
     __esModule: true,
     ...actual,
-    focus: vi.fn(),
+    focus: vi.fn()
   };
 });
 
 describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
   it('inserts an embedded entry block for newly created entries from an empty paragraph', async () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.PARAGRAPH,
         data: {},
         isVoid: false,
-        children: [{ text: '' }],
-      },
+        children: [{ text: '' }]
+      }
     ]) as PlateEditor;
 
     editor.selection = {
       anchor: { path: [0, 0], offset: 0 },
-      focus: { path: [0, 0], offset: 0 },
+      focus: { path: [0, 0], offset: 0 }
     };
 
     const sdk: any = {
       field: { locale: 'en-US', validations: [] },
       dialogs: {
-        selectSingleEntry: vi.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } })),
+        selectSingleEntry: vi.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } }))
       },
       navigator: {
-        onSlideInNavigation: vi.fn(() => () => {}),
-      },
+        onSlideInNavigation: vi.fn(() => () => {})
+      }
     };
 
     const logAction = vi.fn();
@@ -49,7 +49,7 @@ describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
   });
 
   it('inserts an embedded entry block when selection is inside a nested list item paragraph', async () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.UL_LIST,
         data: {},
@@ -64,27 +64,27 @@ describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
                 type: BLOCKS.PARAGRAPH,
                 data: {},
                 isVoid: false,
-                children: [{ text: '' }],
-              },
-            ],
-          },
-        ],
-      },
+                children: [{ text: '' }]
+              }
+            ]
+          }
+        ]
+      }
     ]) as PlateEditor;
 
     editor.selection = {
       anchor: { path: [0, 0, 0, 0], offset: 0 },
-      focus: { path: [0, 0, 0, 0], offset: 0 },
+      focus: { path: [0, 0, 0, 0], offset: 0 }
     };
 
     const sdk: any = {
       field: { locale: 'en-US', validations: [] },
       dialogs: {
-        selectSingleEntry: vi.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } })),
+        selectSingleEntry: vi.fn(async () => ({ sys: { id: 'entry-1', type: 'Entry' } }))
       },
       navigator: {
-        onSlideInNavigation: vi.fn(() => () => {}),
-      },
+        onSlideInNavigation: vi.fn(() => () => {})
+      }
     };
 
     const logAction = vi.fn();

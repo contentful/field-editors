@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css, cx } from '@emotion/css';
-import * as Slate from 'slate-react';
+import type * as Slate from 'slate-react';
 
 const baseStyle = css`
   padding: 0;
@@ -38,7 +38,7 @@ const styles = {
         }
       }
     }
-  `,
+  `
 };
 
 function createList(Tag, block: BLOCKS) {

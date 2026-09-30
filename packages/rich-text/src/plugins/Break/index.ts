@@ -1,5 +1,5 @@
-export type { SoftBreakRule, ExitBreakRule } from '@udecode/plate-break';
-export type { ResetNodePluginRule } from '@udecode/plate-reset-node';
+export type { SoftBreakRule, ExitBreakRule } from '../../internal/breaks';
+export type { ResetNodePluginRule } from '../../internal/breaks';
 
 export * from './createSoftBreakPlugin';
 export * from './createExitBreakPlugin';
