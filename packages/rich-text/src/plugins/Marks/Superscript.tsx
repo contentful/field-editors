@@ -41,12 +41,5 @@ export const createSuperscriptPlugin = (): PlatePlugin =>
     component: Superscript,
     handlers: {
       onKeyDown: buildMarkEventHandler(MARKS.SUPERSCRIPT)
-    },
-    deserializeHtml: {
-      rules: [
-        {
-          validNodeName: ['SUP']
-        }
-      ]
     }
   });
