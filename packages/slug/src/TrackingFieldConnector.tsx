@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { type ReactNode, useLayoutEffect, useRef, useState } from 'react';
 
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
 
@@ -16,7 +16,7 @@ interface TrackingFieldConnectorProps<ValueType> {
   defaultLocale: string;
   trackingFieldId?: string;
   isOptionalLocaleWithFallback: boolean;
-  children?: (state: TrackingFieldConnectorState<ValueType>) => React.ReactNode;
+  children?: (state: TrackingFieldConnectorState<ValueType>) => ReactNode;
 }
 
 function getTitleField(sdk: FieldAppSDK, trackingFieldId?: string) {
@@ -28,7 +28,7 @@ function getTitleField(sdk: FieldAppSDK, trackingFieldId?: string) {
 }
 
 export function TrackingFieldConnector<ValueType>(props: TrackingFieldConnectorProps<ValueType>) {
-  const [state, setState] = React.useState<TrackingFieldConnectorState<ValueType>>(() => {
+  const [state, setState] = useState<TrackingFieldConnectorState<ValueType>>(() => {
     const titleField = getTitleField(props.sdk, props.trackingFieldId);
     const entrySys = props.sdk.entry.getSys();
     return {
@@ -37,11 +37,11 @@ export function TrackingFieldConnector<ValueType>(props: TrackingFieldConnectorP
       isSame: titleField ? props.field.id === titleField.id : false
     };
   });
-  const propsRef = React.useRef(props);
+  const propsRef = useRef(props);
   propsRef.current = props;
-  const initialIsSameRef = React.useRef(state.isSame);
+  const initialIsSameRef = useRef(state.isSame);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const initialProps = propsRef.current;
     const unsubscribeSysChanges = initialProps.sdk.entry.onSysChanged((sys) => {
       setState((currentState) => ({

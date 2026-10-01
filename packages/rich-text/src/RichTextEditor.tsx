@@ -59,7 +59,11 @@ type ConnectedRichTextProps = {
   queryClient?: QueryClient;
 };
 
-export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
+// Local saves rerender FieldConnector while Slate's DOM selection update may still
+// be pending. Avoid rerendering the editor with its stale selection in that gap.
+export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEditor(
+  props: ConnectedRichTextProps,
+) {
   const { sdk, onAction, restrictedMarks, withCharValidation } = props;
 
   const id = getContentfulEditorId(sdk);
@@ -119,7 +123,7 @@ export const ConnectedRichTextEditor = (props: ConnectedRichTextProps) => {
       </SdkProvider>
     </EntityProvider>
   );
-};
+});
 
 const RichTextEditor = (props: RichTextProps) => {
   const {

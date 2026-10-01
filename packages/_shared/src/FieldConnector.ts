@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { type ReactNode, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { FieldAPI, ValidationError } from '@contentful/app-sdk';
 import deepEqual from 'fast-deep-equal';
@@ -29,7 +29,7 @@ type FieldConnectorProps<ValueType> = {
   field: FieldAPI;
   isInitiallyDisabled: boolean;
   isDisabled?: boolean;
-  children?: (state: FieldConnectorChildProps<ValueType>) => React.ReactNode;
+  children?: (state: FieldConnectorChildProps<ValueType>) => ReactNode;
   isEmptyValue?: (value: ValueType | null) => boolean;
   isEqualValues?: (value1: ValueType | Nullable, value2: ValueType | Nullable) => boolean;
 } & (
@@ -44,7 +44,7 @@ const defaultIsEmptyValue = (value: unknown) => value === null || value === '';
 const defaultIsEqualValues = (value1: unknown, value2: unknown) => deepEqual(value1, value2);
 
 export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>) {
-  const [state, setState] = React.useState<FieldConnectorState<ValueType>>(() => {
+  const [state, setState] = useState<FieldConnectorState<ValueType>>(() => {
     const initialValue = props.field.getValue();
     return {
       isLocalValueChange: false,
@@ -55,14 +55,14 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
       errors: []
     };
   });
-  const propsRef = React.useRef(props);
+  const propsRef = useRef(props);
   propsRef.current = props;
-  const subscribedFieldRef = React.useRef(props.field);
+  const subscribedFieldRef = useRef(props.field);
 
   const getDebounceDuration = () =>
-    'debounce' in propsRef.current ? (propsRef.current.debounce ?? 300) : 300;
+    'throttle' in propsRef.current ? propsRef.current.throttle : (propsRef.current.debounce ?? 300);
 
-  const triggerSetValueCallbacks = React.useCallback((value: ValueType | Nullable) => {
+  const triggerSetValueCallbacks = useCallback((value: ValueType | Nullable) => {
     return new Promise((resolve, reject) => {
       if ((propsRef.current.isEmptyValue ?? defaultIsEmptyValue)(value ?? null)) {
         propsRef.current.field.removeValue().then(resolve).catch(reject);
@@ -72,12 +72,12 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
     });
   }, []);
 
-  const debouncedTriggerSetValueCallbacks = React.useMemo(
+  const debouncedTriggerSetValueCallbacks = useMemo(
     () => debounce(triggerSetValueCallbacks, getDebounceDuration()),
     [triggerSetValueCallbacks]
   );
 
-  const setValue = React.useCallback(
+  const setValue = useCallback(
     async (value: ValueType | Nullable) => {
       if ((propsRef.current.isEmptyValue ?? defaultIsEmptyValue)(value ?? null)) {
         setState((currentState) => ({ ...currentState, value: undefined }));
@@ -94,7 +94,7 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
     [debouncedTriggerSetValueCallbacks, triggerSetValueCallbacks]
   );
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const field = subscribedFieldRef.current;
     const unsubscribeErrors = field.onSchemaErrorsChanged((errors: ValidationError[]) => {
       setState((currentState) => ({

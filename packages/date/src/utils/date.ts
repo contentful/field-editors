@@ -11,7 +11,10 @@ function startOfTodayOffset(): string {
 function parseUtcOffset(datetimeString: string): string {
   const match = datetimeString.match(ZONE_RX);
   if (!match) return '+00:00';
-  return match[1] === 'Z' ? '+00:00' : match[1];
+  const utcOffset = match[1];
+  if (utcOffset === 'Z') return '+00:00';
+
+  return utcOffset.replace(/^([+-]\d{2})(\d{2})$/, '$1:$2');
 }
 
 function fieldValueToDate(datetimeString: string | null | undefined): Date | null {
