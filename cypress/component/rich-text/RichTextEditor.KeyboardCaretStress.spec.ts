@@ -18,7 +18,8 @@ const press = (key: string, modifiers = 0) => {
     ArrowLeft: 37,
     ArrowRight: 39,
     Backspace: 8,
-    Delete: 46
+    Delete: 46,
+    Enter: 13
   };
   const control = key in codes;
   const code = control ? key : `Key${key.toUpperCase()}`;
@@ -28,13 +29,13 @@ const press = (key: string, modifiers = 0) => {
       Cypress.automation('remote:debugger:protocol', {
         command: 'Input.dispatchKeyEvent',
         params: {
-          type: control && type === 'keyDown' ? 'rawKeyDown' : type,
+          type: control && key !== 'Enter' && type === 'keyDown' ? 'rawKeyDown' : type,
           key,
           code,
           windowsVirtualKeyCode,
           modifiers,
-          ...(!control && !modifiers && type === 'keyDown'
-            ? { text: key, unmodifiedText: key }
+          ...((!control || key === 'Enter') && !modifiers && type === 'keyDown'
+            ? { text: key === 'Enter' ? '\r' : key, unmodifiedText: key === 'Enter' ? '\r' : key }
             : {})
         }
       })
@@ -108,6 +109,18 @@ describe('Rich text native caret under repeated editing', () => {
     cy.tick(600);
     cy.clock().then((clock) => clock.restore());
     cy.then(() => page.expectValue(doc(...values.map(paragraphWithText))));
+  });
+
+  it('distinguishes identical paragraphs when the native caret moves before typing', () => {
+    const page = pendingSelection(paragraphWithText('aSecond paragraph'));
+    press('ArrowUp');
+    expectCaret('aSecond paragraph', 1);
+    press('b');
+    expectCaret('abSecond paragraph', 2);
+    finish(
+      page,
+      doc(paragraphWithText('abSecond paragraph'), paragraphWithText('aSecond paragraph'))
+    );
   });
 
   it('uses the visible caret for horizontal navigation immediately after Up', () => {
@@ -312,4 +325,73 @@ describe('Rich text native caret under repeated editing', () => {
       });
     }
   }
+
+  for (const arrow of ['ArrowUp', 'ArrowDown']) {
+    for (const softBreak of [false, true]) {
+      it(`keeps the caret and next edit after ${arrow} then ${softBreak ? 'Shift+Enter' : 'Enter'}`, () => {
+        const values = ['First paragraph', 'Second paragraph'];
+        const source = arrow === 'ArrowUp' ? 1 : 0;
+        const target = 1 - source;
+        const sdk = createRichTextFakeSdk({ initialValue: doc(...values.map(paragraphWithText)) });
+        mountRichTextEditor({ sdk });
+        const page = new RichTextPage();
+        page.editor.findByText(values[source]).click();
+        page.editor.type('{home}');
+        cy.clock();
+        cy.tick(100);
+        press('a');
+        values[source] = `a${values[source]}`;
+        press(arrow);
+        expectCaret(values[target], 1);
+        press('Enter', softBreak ? 8 : 0);
+        if (softBreak) {
+          expectCaret(values[target].slice(0, 1) + '\n' + values[target].slice(1), 2);
+          values[target] = values[target].slice(0, 1) + '\nb' + values[target].slice(1);
+        } else {
+          expectCaret(values[target].slice(1), 0);
+          values.splice(target, 1, values[target].slice(0, 1), `b${values[target].slice(1)}`);
+        }
+        press('b');
+        finish(page, doc(...values.map(paragraphWithText)));
+      });
+    }
+  }
+
+  it('keeps the caret after Enter, Down and Enter within a wrapped normal paragraph', () => {
+    cy.viewport(1000, 900);
+    const value =
+      'week near the sea. Lisbon and Valencia work well for travelers seeking sunshine and city life. Bergen and Naxos provide access to striking landscapes, while Edinburgh, Kraków and Tallinn are especially rewarding for history lovers.';
+    mountRichTextEditor({
+      sdk: createRichTextFakeSdk({ initialValue: doc(paragraphWithText(value)) })
+    });
+    const page = new RichTextPage();
+    page.editor.invoke('css', 'width', '350px').findByText(value).click('topLeft');
+    page.editor.type('{moveToStart}');
+    cy.clock();
+    cy.tick(100);
+    // The first Enter leaves Slate's caret-update timer pending, as in the video.
+    press('Enter');
+    expectCaret(value, 0);
+    press('ArrowDown');
+    let offset: number;
+    cy.window().should((win) => {
+      expect(win.getSelection()?.anchorNode?.textContent).to.equal(value);
+      offset = win.getSelection()!.anchorOffset;
+      expect(offset).to.be.greaterThan(0);
+    });
+    press('Enter');
+    cy.then(() => expectCaret(value.slice(offset), 0));
+    press('b');
+    cy.tick(600);
+    cy.clock().then((clock) => clock.restore());
+    cy.then(() =>
+      page.expectValue(
+        doc(
+          paragraphWithText(''),
+          paragraphWithText(value.slice(0, offset)),
+          paragraphWithText(`b${value.slice(offset)}`)
+        )
+      )
+    );
+  });
 });
