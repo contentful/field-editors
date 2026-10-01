@@ -1,7 +1,9 @@
 import {
   getEditorWindow,
+  getVoidNode,
   hasEditorTarget,
   isComposing,
+  isEditorFocused,
   select,
   toSlateRange
 } from '@udecode/plate-common';
@@ -21,7 +23,13 @@ const syncSelection = (editor: PlateEditor) => {
   // Slate can ignore selectionchange while an earlier DOM caret update is
   // pending, then use that stale selection for the next edit or navigation.
   const range = toSlateRange(editor, selection, { exactMatch: false, suppressThrow: true });
-  if (range) select(editor, range);
+  // Embedded cards have hidden text placeholders; these are not typing carets.
+  if (
+    range &&
+    !getVoidNode(editor, { at: range.anchor }) &&
+    !getVoidNode(editor, { at: range.focus })
+  )
+    select(editor, range);
 };
 
 export const createSelectionSyncPlugin = (): PlatePlugin => ({
@@ -33,6 +41,12 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
     onKeyDown: (editor) => (event) => {
       if (
         ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(event.key) &&
+        // A focused card is selected independently of the browser's text caret.
+        !(
+          !isEditorFocused(editor) &&
+          editor.selection &&
+          getVoidNode(editor, { at: editor.selection.focus })
+        ) &&
         !event.nativeEvent.isComposing &&
         !isComposing(editor)
       )
