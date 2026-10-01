@@ -42,12 +42,5 @@ export const createSubscriptPlugin = (): PlatePlugin =>
     component: Subscript,
     handlers: {
       onKeyDown: buildMarkEventHandler(MARKS.SUBSCRIPT)
-    },
-    deserializeHtml: {
-      rules: [
-        {
-          validNodeName: ['SUB']
-        }
-      ]
     }
   });

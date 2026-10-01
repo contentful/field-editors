@@ -90,5 +90,14 @@ export const sanitizeHTML = (html: string): string => {
     });
   });
 
+  // Preserve the trailing newline emitted by Google Docs and Safari. Current
+  // Plate otherwise discards this marker, changing the pasted document.
+  doc.querySelectorAll('br.Apple-interchange-newline').forEach((element) => {
+    element.classList.remove('Apple-interchange-newline');
+    const span = doc.createElement('span');
+    element.replaceWith(span);
+    span.append(element);
+  });
+
   return doc.body.innerHTML;
 };

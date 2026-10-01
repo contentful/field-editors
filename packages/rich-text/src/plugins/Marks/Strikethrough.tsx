@@ -40,12 +40,5 @@ export const createStrikethroughPlugin = (): PlatePlugin =>
     component: Strikethrough,
     handlers: {
       onKeyDown: buildMarkEventHandler(MARKS.STRIKETHROUGH)
-    },
-    deserializeHtml: {
-      rules: [
-        {
-          validNodeName: ['S']
-        }
-      ]
     }
   });
