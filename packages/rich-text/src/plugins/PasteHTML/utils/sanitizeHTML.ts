@@ -62,7 +62,7 @@ export const sanitizeHTML = (html: string): string => {
       innerHTML.replace(
         /\s*<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
         '</$1'
-      )
+      ),
   ];
 
   let previous: string;

@@ -25,9 +25,9 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         sys: {
           id: 'published-entry',
           type: 'Link',
-          linkType: 'Entry'
-        }
-      }
+          linkType: 'Entry',
+        },
+      },
     });
 
   beforeEach(() => {
@@ -51,17 +51,17 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             BLOCKS.TABLE_ROW,
             {},
             block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 1')),
-            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2'))
+            block(BLOCKS.TABLE_HEADER_CELL, {}, paragraphWithText('heading 2')),
           ),
           block(
             BLOCKS.TABLE_ROW,
             {},
             block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 1')),
-            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2'))
-          )
+            block(BLOCKS.TABLE_CELL, {}, paragraphWithText('cell 2')),
+          ),
         ),
-        emptyParagraph()
-      )
+        emptyParagraph(),
+      ),
     });
     mountRichTextEditor({ sdk, isInitiallyDisabled: true });
 
@@ -156,8 +156,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             block(BLOCKS.PARAGRAPH, {}, text('some')),
             entryBlock(),
             block(BLOCKS.PARAGRAPH, {}, text(' text.')),
-            emptyParagraph()
-          )
+            emptyParagraph(),
+          ),
         );
       }
 
@@ -181,7 +181,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         .type('some text 3');
 
       const expectedValue = doc(
-        block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3'))
+        block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3')),
       );
 
       richText.expectValue(expectedValue);
@@ -201,7 +201,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
       const expectedValue = doc(
         block(BLOCKS.HEADING_1, {}, text('some text 1\nsome text 2\nsome text 3')),
-        emptyParagraph()
+        emptyParagraph(),
       );
 
       richText.expectValue(expectedValue);
@@ -227,10 +227,10 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             block(
               BLOCKS.LIST_ITEM,
               {},
-              block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', []))
-            )
+              block(BLOCKS.PARAGRAPH, {}, text('some text 1\nsome text 2\nsome text 3', [])),
+            ),
           ),
-          emptyParagraph()
+          emptyParagraph(),
         );
 
         richText.expectValue(expectedValue);
@@ -256,7 +256,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       const docWithoutContent = {
         nodeType: 'document',
         data: {},
-        content: []
+        content: [],
       };
 
       sdk = createRichTextFakeSdk({ initialValue: docWithoutContent });
@@ -286,13 +286,13 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             content: [
               {
                 data: {
-                  uri: 'https://example.com'
+                  uri: 'https://example.com',
                 },
                 content: [],
-                nodeType: 'hyperlink'
-              }
+                nodeType: 'hyperlink',
+              },
             ],
-            nodeType: 'paragraph'
+            nodeType: 'paragraph',
           },
           {
             data: {},
@@ -307,25 +307,25 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
                         data: {},
                         marks: [],
                         value: 'some text',
-                        nodeType: 'text'
+                        nodeType: 'text',
                       },
                       {
                         data: {},
                         marks: [],
                         value: ' more text',
-                        nodeType: 'text'
-                      }
+                        nodeType: 'text',
+                      },
                     ],
-                    nodeType: 'paragraph'
-                  }
+                    nodeType: 'paragraph',
+                  },
                 ],
-                nodeType: 'list-item'
-              }
+                nodeType: 'list-item',
+              },
             ],
-            nodeType: 'unordered-list'
-          }
+            nodeType: 'unordered-list',
+          },
         ],
-        nodeType: 'document'
+        nodeType: 'document',
       };
 
       sdk = createRichTextFakeSdk({ initialValue: exampleDoc });
@@ -387,8 +387,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       [
         'From Resource Block to Headings/Paragraph',
         'resource-block',
-        'crn:contentful:::content:spaces/indifferent/entries/published-entry'
-      ]
+        'crn:contentful:::content:spaces/indifferent/entries/published-entry',
+      ],
     ];
 
     blocks.forEach(([title, blockType, id]) => {
@@ -400,7 +400,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           [BLOCKS.HEADING_3, 'Heading 3', `{${mod}+alt+3}`],
           [BLOCKS.HEADING_4, 'Heading 4', `{${mod}+alt+4}`],
           [BLOCKS.HEADING_5, 'Heading 5', `{${mod}+alt+5}`],
-          [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`]
+          [BLOCKS.HEADING_6, 'Heading 6', `{${mod}+alt+6}`],
         ].forEach(([type]) => {
           it(`should not carry over the "data" property from ${blockType} to ${type}`, () => {
             richText.editor.click();
@@ -436,11 +436,11 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             sys: {
               id: 'published-entry',
               type: 'Link',
-              linkType: 'Entry'
-            }
-          }
+              linkType: 'Entry',
+            },
+          },
         }),
-        block(BLOCKS.PARAGRAPH, {}, text('', []))
+        block(BLOCKS.PARAGRAPH, {}, text('', [])),
       );
 
       cy.getRichTextField().then((field) => {
@@ -458,7 +458,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         richText.editor.type(secondString);
         richText.expectValue({
           ...newDoc,
-          content: [...newDoc.content, block(BLOCKS.PARAGRAPH, {}, text(secondString, []))]
+          content: [...newDoc.content, block(BLOCKS.PARAGRAPH, {}, text(secondString, []))],
         });
       });
     });

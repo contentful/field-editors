@@ -19,5 +19,5 @@ export const createSelectOnBackspacePlugin = (): PlatePlugin => ({
       deleteBackward(unit);
     };
     return editor;
-  }
+  },
 });

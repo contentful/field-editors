@@ -16,7 +16,7 @@ export const onKeyDownList: KeyboardHandler<HotkeyPlugin> =
     if (e.key === 'Tab' && editor.selection) {
       const listSelected = getAboveNode(editor, {
         at: editor.selection,
-        match: { type }
+        match: { type },
       });
 
       if (listSelected) {

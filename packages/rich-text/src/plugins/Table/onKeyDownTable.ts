@@ -9,7 +9,7 @@ import {
   getTableEntries,
   getNextTableCell,
   getPreviousTableCell,
-  onKeyDownTable as defaultKeyDownTable
+  onKeyDownTable as defaultKeyDownTable,
 } from '../../internal/table';
 import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
@@ -66,11 +66,14 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
 
     if (event.key === 'Tab') {
       const entry = getTableEntries(editor, {});
+
       if (!entry) return;
       event.preventDefault();
       const { table, row, cell } = entry;
+
       const isLastCell = isLastChildPath(row as NodeEntry, cell[1]);
       const isLastRow = isLastChildPath(table as NodeEntry, row[1]);
+
       if (!event.shiftKey && isLastRow && isLastCell) {
         addRowBelow(editor);
       } else {
@@ -78,7 +81,7 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
           editor,
           cell,
           cell[1],
-          row
+          row,
         );
         if (nextCell) editor.tf.select(editor.api.start(nextCell[1])!);
       }

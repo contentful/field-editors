@@ -9,10 +9,11 @@ import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
+
 export const ToolbarUnderlineButton = createMarkToolbarButton({
   title: 'Underline',
   mark: MARKS.UNDERLINE,
-  icon: <TextUnderlineIcon />
+  icon: <TextUnderlineIcon />,
 });
 
 export function Underline(props: RenderLeafProps) {
@@ -24,24 +25,24 @@ export const createUnderlinePlugin = (): PlatePlugin =>
     type: MARKS.UNDERLINE,
     component: Underline,
     options: {
-      hotkey: ['mod+u']
+      hotkey: ['mod+u'],
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.UNDERLINE)
+      onKeyDown: buildMarkEventHandler(MARKS.UNDERLINE),
     },
     deserializeHtml: {
       rules: [
         {
-          validNodeName: ['U']
+          validNodeName: ['U'],
         },
         {
           validStyle: {
-            textDecoration: ['underline']
-          }
-        }
+            textDecoration: ['underline'],
+          },
+        },
       ],
       query: (el) => {
         return !someHtmlElement(el, (node) => node.style.textDecoration === 'none');
-      }
-    }
+      },
+    },
   });

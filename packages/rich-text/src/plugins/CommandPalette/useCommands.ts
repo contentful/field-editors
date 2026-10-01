@@ -57,7 +57,7 @@ export function isCommandPromptPluginEnabled(sdk: FieldAppSDK) {
   return {
     inlineAllowed,
     entriesAllowed,
-    assetsAllowed
+    assetsAllowed,
   };
 }
 
@@ -68,7 +68,7 @@ function getCommandPermissions(sdk: FieldAppSDK, editor: PlateEditor) {
   return {
     inlineAllowed,
     entriesAllowed: entriesAllowed && canInsertBlocks,
-    assetsAllowed: assetsAllowed && canInsertBlocks
+    assetsAllowed: assetsAllowed && canInsertBlocks,
   };
 }
 
@@ -96,12 +96,12 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
   const { contentTypes } = useContentTypes(sdk);
   const { inlineAllowed, entriesAllowed, assetsAllowed } = getCommandPermissions(sdk, editor);
   const allowedContentTypesFromValidation = getAllowedContentTypesFromValidation(
-    sdk.field.validations
+    sdk.field.validations,
   );
 
   const filterContentTypesByValidation = (type) =>
     contentTypes.filter(
-      (contentType) => allowedContentTypesFromValidation[type]?.[contentType.sys.id]
+      (contentType) => allowedContentTypesFromValidation[type]?.[contentType.sys.id],
     );
 
   const filteredBlockContentTypes = filterContentTypesByValidation(BLOCKS.EMBEDDED_ENTRY);
@@ -113,16 +113,16 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
   const blockContentTypesToUse = getContentTypeToUse(
     entriesAllowed,
     filteredBlockContentTypes.length > 0,
-    filteredBlockContentTypes
+    filteredBlockContentTypes,
   );
   const inlineContentTypesToUse = getContentTypeToUse(
     inlineAllowed,
     filteredInlineContentTypes.length > 0,
-    filteredInlineContentTypes
+    filteredInlineContentTypes,
   );
 
   const relevantContentTypes = contentTypes.filter(
-    (ct) => blockContentTypesToUse.includes(ct) || inlineContentTypesToUse.includes(ct)
+    (ct) => blockContentTypesToUse.includes(ct) || inlineContentTypesToUse.includes(ct),
   );
 
   const [commands, setCommands] = useState<CommandList>([]);
@@ -139,8 +139,8 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
               setCommands([
                 {
                   id: 'no-results',
-                  label: 'No results'
-                }
+                  label: 'No results',
+                },
               ]);
             } else {
               setCommands(
@@ -156,16 +156,16 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                         insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, ct.entry);
                         select(editor, selection);
                         editor.tracking.onCommandPaletteAction('insert', {
-                          nodeType: BLOCKS.EMBEDDED_ENTRY
+                          nodeType: BLOCKS.EMBEDDED_ENTRY,
                         });
                       }
-                    }
+                    },
                   };
-                })
+                }),
               );
             }
           });
-        }
+        },
       };
     };
 
@@ -180,8 +180,8 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
               setCommands([
                 {
                   id: 'no-results',
-                  label: 'No results'
-                }
+                  label: 'No results',
+                },
               ]);
             } else {
               setCommands(
@@ -195,15 +195,15 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                       insertNodes(editor, inlineNode);
                       editor.insertText('');
                       editor.tracking.onCommandPaletteAction('insert', {
-                        nodeType: INLINES.EMBEDDED_ENTRY
+                        nodeType: INLINES.EMBEDDED_ENTRY,
                       });
-                    }
+                    },
                   };
-                })
+                }),
               );
             }
           });
-        }
+        },
       };
     };
 
@@ -211,10 +211,10 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
       entriesAllowed || inlineAllowed
         ? relevantContentTypes.map((contentType) => {
             const blockEmbedAllowed = blockContentTypesToUse.some(
-              (ct) => ct.sys.id === contentType.sys.id
+              (ct) => ct.sys.id === contentType.sys.id,
             );
             const inlineEmbedAllowed = inlineContentTypesToUse.some(
-              (ct) => ct.sys.id === contentType.sys.id
+              (ct) => ct.sys.id === contentType.sys.id,
             );
 
             const commands: Command[] = [];
@@ -227,7 +227,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
 
             return {
               group: contentType.name,
-              commands: commands
+              commands: commands,
             };
           })
         : [];
@@ -246,8 +246,8 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                   setCommands([
                     {
                       id: 'no-results',
-                      label: 'No results'
-                    }
+                      label: 'No results',
+                    },
                   ]);
                 } else {
                   setCommands(
@@ -265,18 +265,18 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
                             select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {
-                              nodeType: BLOCKS.EMBEDDED_ASSET
+                              nodeType: BLOCKS.EMBEDDED_ASSET,
                             });
                           }
-                        }
+                        },
                       };
-                    })
+                    }),
                   );
                 }
               });
-            }
-          }
-        ]
+            },
+          },
+        ],
       };
       return [...contentTypeCommands, assetCommand];
     }
@@ -291,7 +291,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
     inlineContentTypesToUse,
     sdk,
     editor,
-    query
+    query,
   ]);
 
   /* filter both commands and groups of commands with the user typed query */

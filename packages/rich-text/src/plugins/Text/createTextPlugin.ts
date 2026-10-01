@@ -10,7 +10,7 @@ import {
   getPointAfter,
   isRangeCollapsed,
   queryNode,
-  isText
+  isText,
 } from '../../internal/queries';
 import {
   setSelection,
@@ -18,9 +18,16 @@ import {
   removeNodes,
   splitNodes,
   unhangRange,
-  unsetNodes
+  unsetNodes,
 } from '../../internal/transforms';
-import { PlatePlugin, PlateEditor, Ancestor, Node, Location } from '../../internal/types';
+import {
+  PlatePlugin,
+  PlateEditor,
+  Ancestor,
+  Node,
+  Location,
+  BaseRange,
+} from '../../internal/types';
 
 export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
   return {
@@ -30,20 +37,12 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
       // the start of the next block. Editor.unhangRange helps removing
       // the extra block at the end.
       onMouseUp: (editor) => () => {
-        // Slate throttles selectionchange. Read the completed mouse selection
-        // before un-hanging it, rather than restoring the previous caret.
-        const domSelection = editor.api.getWindow()?.getSelection();
-        const selection =
-          domSelection?.anchorNode && editor.api.hasEditableTarget(domSelection.anchorNode)
-            ? (editor.api.toSlateRange(domSelection, { exactMatch: false, suppressThrow: true }) ??
-              editor.selection)
-            : editor.selection;
-        if (!selection) {
+        if (!editor.selection) {
           return;
         }
 
-        select(editor, unhangRange(editor, selection) ?? selection);
-      }
+        setSelection(editor, unhangRange(editor, editor.selection) as Partial<BaseRange>);
+      },
     },
     withOverrides: (editor) => {
       // Reverts the change made upstream that caused the cursor
@@ -61,7 +60,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
         if (selection && isRangeCollapsed(selection)) {
           const inlinePath = getAboveNode(editor, {
             match: (n) => isInline(editor, n),
-            mode: 'highest'
+            mode: 'highest',
           })?.[1];
 
           if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
@@ -71,7 +70,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
             if (point) {
               setSelection(editor, {
                 anchor: point,
-                focus: point
+                focus: point,
               });
             }
           }
@@ -112,9 +111,9 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
           return !restrictedMarks.some((mark) => {
             return mark in node;
           });
-        }
-      }
-    ]
+        },
+      },
+    ],
   };
 }
 
@@ -125,8 +124,8 @@ function deleteEmptyParagraph(
 ) {
   const entry = getAboveNode(editor, {
     match: {
-      type: TEXT_CONTAINERS
-    }
+      type: TEXT_CONTAINERS,
+    },
   });
 
   if (entry) {
@@ -140,7 +139,7 @@ function deleteEmptyParagraph(
       removeNodes(editor, { at: path });
 
       const prevNode = getPointBefore(editor, editor.selection as Location, {
-        unit
+        unit,
       });
 
       if (prevNode) {
@@ -151,10 +150,10 @@ function deleteEmptyParagraph(
                 BLOCKS.EMBEDDED_ASSET,
                 BLOCKS.EMBEDDED_ENTRY,
                 BLOCKS.EMBEDDED_RESOURCE,
-                BLOCKS.HR
-              ]
+                BLOCKS.HR,
+              ],
             }),
-          at: prevNode
+          at: prevNode,
         });
 
         if (prevCell) {

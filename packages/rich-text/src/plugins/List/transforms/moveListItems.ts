@@ -7,14 +7,14 @@ import {
   isListNested,
   ELEMENT_LIC,
   getListItemEntry,
-  moveListItemUp
+  moveListItemUp,
 } from '../../../internal/list';
 import {
   getNodeEntries,
   getPluginType,
   createPathRef,
   getParentPath,
-  isAncestorPath
+  isAncestorPath,
 } from '../../../internal/queries';
 import { EditorNodesOptions, PlateEditor, Path, PathRef } from '../../../internal/types';
 import { moveListItemDown } from './moveListItemDown';
@@ -31,8 +31,8 @@ export const moveListItems = (
   const _nodes = getNodeEntries(editor, {
     at,
     match: {
-      type: getPluginType(editor, ELEMENT_LIC)
-    }
+      type: getPluginType(editor, ELEMENT_LIC),
+    },
   });
 
   // Get the selected lic

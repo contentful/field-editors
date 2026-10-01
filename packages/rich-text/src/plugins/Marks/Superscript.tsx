@@ -12,19 +12,19 @@ import { buildMarkEventHandler } from './helpers';
 const styles = {
   superscript: css({
     verticalAlign: 'super',
-    fontSize: 'smaller'
-  })
+    fontSize: 'smaller',
+  }),
 };
 
 export const ToolbarSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
   mark: MARKS.SUPERSCRIPT,
-  icon: <TextSuperscriptIcon />
+  icon: <TextSuperscriptIcon />,
 });
 
 export const ToolbarDropdownSuperscriptButton = createMarkToolbarButton({
   title: 'Superscript',
-  mark: MARKS.SUPERSCRIPT
+  mark: MARKS.SUPERSCRIPT,
 });
 
 export function Superscript(props: RenderLeafProps) {
@@ -40,6 +40,6 @@ export const createSuperscriptPlugin = (): PlatePlugin =>
     type: MARKS.SUPERSCRIPT,
     component: Superscript,
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.SUPERSCRIPT)
-    }
+      onKeyDown: buildMarkEventHandler(MARKS.SUPERSCRIPT),
+    },
   });

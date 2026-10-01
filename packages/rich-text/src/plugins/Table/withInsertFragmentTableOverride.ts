@@ -20,8 +20,8 @@ export const withInsertFragmentTableOverride = (editor: PlateEditor) => {
       insertNodes(editor, fragment, {
         removeEmpty: {
           // removes empty paragraph before table
-          exclude: [ELEMENT_DEFAULT]
-        }
+          exclude: [ELEMENT_DEFAULT],
+        },
       });
       return;
     } else {

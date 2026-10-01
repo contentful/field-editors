@@ -1,13 +1,13 @@
 import {
   createExitBreakPlugin as createDefaultExitBreakPlugin,
-  ExitBreakRule
+  ExitBreakRule,
 } from '../../internal/breaks';
 import { PlatePlugin } from '../../internal/types';
 
 export const createExitBreakPlugin = (): PlatePlugin =>
   createDefaultExitBreakPlugin({
     options: {
-      rules: []
+      rules: [],
     },
     then: (editor) => {
       const rules: ExitBreakRule[] = editor.contentfulPlugins.flatMap((p) => {
@@ -15,7 +15,7 @@ export const createExitBreakPlugin = (): PlatePlugin =>
       });
 
       return {
-        options: { rules }
+        options: { rules },
       };
-    }
+    },
   });

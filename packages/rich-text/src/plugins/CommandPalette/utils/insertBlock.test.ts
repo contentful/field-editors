@@ -11,7 +11,7 @@ vi.mock('../../../helpers/editor', async () => {
   return {
     __esModule: true,
     ...actual,
-    focus: vi.fn()
+    focus: vi.fn(),
   };
 });
 
@@ -22,17 +22,17 @@ describe('CommandPalette insertBlock', () => {
         type: BLOCKS.PARAGRAPH,
         data: {},
         isVoid: false,
-        children: [{ text: '' }]
-      }
+        children: [{ text: '' }],
+      },
     ]) as PlateEditor;
 
     editor.selection = {
       anchor: { path: [0, 0], offset: 0 },
-      focus: { path: [0, 0], offset: 0 }
+      focus: { path: [0, 0], offset: 0 },
     };
 
     insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, {
-      sys: { id: 'entry-1', type: 'Entry' }
+      sys: { id: 'entry-1', type: 'Entry' },
     } as any);
 
     expect(editor.children.some((n: any) => n.type === BLOCKS.EMBEDDED_ENTRY)).toBe(true);
@@ -44,17 +44,17 @@ describe('CommandPalette insertBlock', () => {
         type: BLOCKS.PARAGRAPH,
         data: {},
         isVoid: false,
-        children: [{ text: 'hello' }]
-      }
+        children: [{ text: 'hello' }],
+      },
     ]) as PlateEditor;
 
     editor.selection = {
       anchor: { path: [0, 0], offset: 5 },
-      focus: { path: [0, 0], offset: 5 }
+      focus: { path: [0, 0], offset: 5 },
     };
 
     insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, {
-      sys: { id: 'entry-1', type: 'Entry' }
+      sys: { id: 'entry-1', type: 'Entry' },
     } as any);
 
     const containsText = (node: any, text: string): boolean => {

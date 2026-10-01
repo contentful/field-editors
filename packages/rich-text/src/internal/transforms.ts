@@ -15,7 +15,7 @@ import {
   Element,
   SelectionCollapseOptions,
   BasePoint,
-  Location
+  Location,
 } from './types';
 
 /**
@@ -23,7 +23,7 @@ import {
  */
 export const normalize = (
   editor: PlateEditor,
-  options: p.EditorNormalizeOptions = { force: true }
+  options: p.EditorNormalizeOptions = { force: true },
 ) => {
   return p.normalizeEditor(editor, options);
 };
@@ -58,7 +58,7 @@ export const collapseSelection = (editor: PlateEditor, options?: SelectionCollap
 export const setNodes = (
   editor: PlateEditor,
   attrs: Partial<Except<Node, 'children' | 'text'>>,
-  opts?: p.SetNodesOptions<Value>
+  opts?: p.SetNodesOptions<Value>,
 ) => {
   p.setNodes(editor, attrs, opts);
 };
@@ -66,7 +66,7 @@ export const setNodes = (
 export const unsetNodes = (
   editor: PlateEditor,
   props: string | string[],
-  options?: p.UnsetNodesOptions<Value> | undefined
+  options?: p.UnsetNodesOptions<Value> | undefined,
 ) => {
   p.unsetNodes(editor, props, options);
 };
@@ -74,7 +74,7 @@ export const unsetNodes = (
 export const insertNodes = (
   editor: PlateEditor,
   nodes: Node | Node[],
-  opts?: p.InsertNodesOptions
+  opts?: p.InsertNodesOptions,
 ) => {
   return p.insertNodes(editor, nodes, opts);
 };
@@ -94,7 +94,7 @@ export const unwrapNodes = (editor: PlateEditor, options?: p.UnwrapNodesOptions<
 export const wrapNodes = (
   editor: PlateEditor,
   element: Element,
-  options?: p.WrapNodesOptions<Value>
+  options?: p.WrapNodesOptions<Value>,
 ) => {
   return p.wrapNodes(editor, element, options);
 };
@@ -102,7 +102,7 @@ export const wrapNodes = (
 export const toggleNodeType = (
   editor: PlateEditor,
   options: ToggleNodeTypeOptions,
-  editorOptions?: Omit<EditorNodesOptions, 'match'>
+  editorOptions?: Omit<EditorNodesOptions, 'match'>,
 ) => {
   p.toggleNodeType(editor, options, editorOptions);
 };
@@ -114,7 +114,7 @@ export const removeMark = (editor: PlateEditor, type: string, at: BaseRange) => 
 export const unhangRange = (
   editor: PlateEditor,
   range?: BaseRange | null,
-  options?: p.UnhangRangeOptions | undefined
+  options?: p.UnhangRangeOptions | undefined,
 ) => {
   const selection = range ?? editor.selection;
   return selection ? p.unhangRange(editor, selection, options) : undefined;
@@ -146,7 +146,7 @@ export const moveNodes = (editor: PlateEditor, opts: p.MoveNodesOptions<Value>) 
 
 export const deleteFragment = (
   editor: PlateEditor,
-  options?: s.EditorFragmentDeletionOptions | undefined
+  options?: s.EditorFragmentDeletionOptions | undefined,
 ) => {
   return p.deleteFragment(editor, options);
 };
@@ -186,10 +186,7 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
         }
         return endPoint;
       };
-      select(editor, {
-        anchor: clampPoint(savedSelection.anchor),
-        focus: clampPoint(savedSelection.focus)
-      });
+      select(editor, { anchor: clampPoint(savedSelection.anchor), focus: clampPoint(savedSelection.focus) });
     } else if (endPoint) {
       select(editor, endPoint);
     }

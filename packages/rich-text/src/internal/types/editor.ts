@@ -7,7 +7,7 @@ import { DOMRange as SlateReactDomRange } from 'slate-dom';
 import * as sr from 'slate-react';
 import type {
   SelectionMoveOptions as SlateSelectionMoveOptions,
-  SelectionCollapseOptions as SlateSelectionCollapseOptions
+  SelectionCollapseOptions as SlateSelectionCollapseOptions,
 } from 'slate/dist/interfaces/transforms/selection';
 import type { TextInsertTextOptions as SlateTextInsertTextOptions } from 'slate/dist/interfaces/transforms/text';
 

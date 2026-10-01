@@ -20,12 +20,12 @@ export const styles = {
   topRight: css({
     position: 'absolute',
     insetBlockStart: '6px',
-    insetInlineEnd: '5px'
-  })
+    insetInlineEnd: '5px',
+  }),
 };
 
 const getCurrentTableSize = (
-  editor: PlateEditor
+  editor: PlateEditor,
 ): Record<'numRows' | 'numColumns', number> | null => {
   const [table] = getNodeEntryFromSelection(editor, BLOCKS.TABLE);
   return table ? getTableSize(table) : null;
@@ -55,8 +55,8 @@ export const TableActions = () => {
 
     const headerCell = getAboveNode(editor, {
       match: {
-        type: BLOCKS.TABLE_HEADER_CELL
-      }
+        type: BLOCKS.TABLE_HEADER_CELL,
+      },
     });
 
     return !headerCell;
@@ -89,7 +89,7 @@ export const TableActions = () => {
       const actionName = `${type}Table${element === 'Table' ? '' : element}`;
       editor.tracking.onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
     },
-    [editor, isHeaderEnabled, close]
+    [editor, isHeaderEnabled, close],
   );
 
   if (isDisabled) {
