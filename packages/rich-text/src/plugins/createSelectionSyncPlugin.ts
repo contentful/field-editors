@@ -27,6 +27,9 @@ const syncSelection = (editor: PlateEditor) => {
 export const createSelectionSyncPlugin = (): PlatePlugin => ({
   key: 'selectionSync',
   handlers: {
+    onMouseUp: (editor) => () => {
+      if (!isComposing(editor)) syncSelection(editor);
+    },
     onKeyDown: (editor) => (event) => {
       if (
         ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(event.key) &&
