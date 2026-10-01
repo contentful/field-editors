@@ -3,6 +3,7 @@ import { getPluginByType, KEYS } from 'platejs';
 import { expect, it, vi } from 'vitest';
 
 import { Paragraph } from '../../plugins/Paragraph/Paragraph';
+import { sanitizeHTML } from '../../plugins/PasteHTML/utils/sanitizeHTML';
 import { Cell } from '../../plugins/Table/components/Cell';
 import { Table } from '../../plugins/Table/components/Table';
 import { createTestEditor } from '../../test-utils/createTestEditor';
@@ -29,6 +30,22 @@ it('splits a paragraph when inserting a fragment of void blocks', () => {
   ]);
   expect(editor.api.string([0])).toBe('some');
   expect(editor.api.string([2])).toBe(' text.');
+});
+
+it('replaces an empty paragraph when pasting a void block', () => {
+  const { editor } = createTestEditor({});
+  editor.tf.select({ path: [0, 0], offset: 0 });
+  editor.insertFragment([{ type: BLOCKS.HR, isVoid: true, children: [{ text: '' }] }]);
+  expect(editor.children.map((node) => node.type)).toEqual([BLOCKS.HR, BLOCKS.PARAGRAPH]);
+});
+
+it('preserves nodes and marks from HTML copied by the previous editor', () => {
+  const { editor } = createTestEditor({});
+  const html =
+    '<div data-slate-node="element"><strong data-slate-leaf="true"><span data-slate-string="true">bold</span></strong></div>';
+  expect(editor.api.html.deserialize({ element: sanitizeHTML(html) })).toEqual([
+    { type: BLOCKS.PARAGRAPH, children: [{ text: 'bold', bold: true }] }
+  ]);
 });
 
 it('does not register task lists unsupported by the Contentful schema', () => {
@@ -63,4 +80,21 @@ it('handles Enter on a selected embedded block', () => {
     BLOCKS.EMBEDDED_ASSET,
     BLOCKS.PARAGRAPH
   ]);
+});
+
+it('unwraps an empty quote on Backspace', () => {
+  const { editor } = createTestEditor({});
+  const paragraph = () => ({ type: BLOCKS.PARAGRAPH, children: [{ text: '' }] });
+  editor.children = [{ type: BLOCKS.QUOTE, children: [paragraph()] }, paragraph()];
+  editor.tf.select({ path: [0, 0, 0], offset: 0 });
+  const plugin = editor.contentfulPlugins.find((plugin) => plugin.key === 'resetNode')!;
+  plugin.handlers!.onKeyDown(
+    editor,
+    plugin as typeof plugin & { options: any }
+  )({
+    key: 'Backspace',
+    which: 8,
+    preventDefault: vi.fn()
+  });
+  expect(editor.children.map((node) => node.type)).toEqual([BLOCKS.PARAGRAPH, BLOCKS.PARAGRAPH]);
 });

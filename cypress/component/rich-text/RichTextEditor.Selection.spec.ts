@@ -10,7 +10,7 @@ import { paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
-describe('Rich Text selection', () => {
+describe('Rich Text selection', { viewportWidth: 1000, viewportHeight: 2000 }, () => {
   afterEach(() => {
     cy.then(() =>
       Cypress.automation('remote:debugger:protocol', {
@@ -36,17 +36,25 @@ describe('Rich Text selection', () => {
     }
     mount(React.createElement(Parent));
     const richText = new RichTextPage();
-    richText.editor.findByText('First paragraph').realClick({ position: 'left' });
-    cy.realPress('ArrowRight');
-    cy.realPress('ArrowRight');
+    let offset = 0;
+    let editedText = '';
+    richText.editor.findByText('First paragraph').realClick({ scrollBehavior: false });
+    cy.window()
+      .should((win) => {
+        expect(win.getSelection()?.anchorNode?.textContent).to.equal('First paragraph');
+      })
+      .then((win) => {
+        offset = win.getSelection()!.anchorOffset;
+        editedText = 'First paragraph'.slice(0, offset) + 'X' + 'First paragraph'.slice(offset);
+      });
     cy.realType('X');
     cy.wrap(sdk.field).should((field) => {
-      expect(field.getValue()).to.deep.equal(doc(paragraphWithText('FiXrst paragraph')));
+      expect(field.getValue()).to.deep.equal(doc(paragraphWithText(editedText)));
     });
     cy.then(() => rerenderParent());
     cy.window().should((win) => {
-      expect(win.getSelection()?.anchorNode?.textContent).to.equal('FiXrst paragraph');
-      expect(win.getSelection()?.anchorOffset).to.equal(3);
+      expect(win.getSelection()?.anchorNode?.textContent).to.equal(editedText);
+      expect(win.getSelection()?.anchorOffset).to.equal(offset + 1);
     });
     richText.toolbar.undo.click();
     cy.wrap(sdk.field).should((field) => expect(field.getValue()).to.deep.equal(initialValue));
@@ -67,12 +75,17 @@ describe('Rich Text selection', () => {
     [24, 2, 16, 1].forEach((index) => {
       richText.editor
         .findByText(`Paragraph ${index}`, { exact: true })
-        .scrollIntoView()
-        .realClick({ position: 'left' });
+        .realClick({ scrollBehavior: false });
+      cy.window()
+        .should((win) => {
+          expect(win.getSelection()?.anchorNode?.textContent).to.equal(paragraphs[index]);
+        })
+        .then((win) => {
+          const offset = win.getSelection()!.anchorOffset;
+          paragraphs[index] =
+            paragraphs[index].slice(0, offset) + 'x' + paragraphs[index].slice(offset);
+        });
       cy.realType('x');
-      cy.then(() => {
-        paragraphs[index] = `xParagraph ${index}`;
-      });
       cy.wrap(sdk.field).should((field) => {
         expect(field.getValue()).to.deep.equal(doc(...paragraphs.map(paragraphWithText)));
       });
@@ -89,14 +102,15 @@ describe('Rich Text selection', () => {
     const save = cy.spy(field, 'setValue');
     mountRichTextEditor({ sdk });
     const richText = new RichTextPage();
-    richText.editor.findByText('First paragraph').realClick({ position: 'left' });
-    cy.realPress('ArrowRight');
-    cy.realPress('ArrowRight');
-
-    cy.window().should((win) => {
-      expect(win.getSelection()?.anchorNode?.textContent).to.equal('First paragraph');
-      expect(win.getSelection()?.anchorOffset).to.equal(2);
-    });
+    let offset = 0;
+    richText.editor.findByText('First paragraph').realClick({ scrollBehavior: false });
+    cy.window()
+      .should((win) => {
+        expect(win.getSelection()?.anchorNode?.textContent).to.equal('First paragraph');
+      })
+      .then((win) => {
+        offset = win.getSelection()!.anchorOffset;
+      });
 
     const incoming = doc(
       paragraphWithText('First paragraph'),
@@ -107,15 +121,20 @@ describe('Rich Text selection', () => {
     cy.window().should((win) => {
       const selection = win.getSelection();
       expect(selection?.anchorNode?.textContent).to.equal('First paragraph');
-      expect(selection?.anchorOffset).to.equal(2);
+      expect(selection?.anchorOffset).to.equal(offset);
     });
     // Observe the full outgoing debounce interval to catch update feedback loops.
     cy.wait(600);
     cy.then(() => expect(save).not.to.have.been.called);
-    richText.editor.type('X');
+    cy.realType('X');
     cy.wrap(field).should((field) => {
       expect(field.getValue()).to.deep.equal(
-        doc(paragraphWithText('FiXrst paragraph'), paragraphWithText('Changed remotely'))
+        doc(
+          paragraphWithText(
+            'First paragraph'.slice(0, offset) + 'X' + 'First paragraph'.slice(offset)
+          ),
+          paragraphWithText('Changed remotely')
+        )
       );
     });
   });

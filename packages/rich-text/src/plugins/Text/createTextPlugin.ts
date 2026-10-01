@@ -20,14 +20,7 @@ import {
   unhangRange,
   unsetNodes
 } from '../../internal/transforms';
-import {
-  PlatePlugin,
-  PlateEditor,
-  Ancestor,
-  Node,
-  Location,
-  BaseRange
-} from '../../internal/types';
+import { PlatePlugin, PlateEditor, Ancestor, Node, Location } from '../../internal/types';
 
 export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
   return {
@@ -37,11 +30,19 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
       // the start of the next block. Editor.unhangRange helps removing
       // the extra block at the end.
       onMouseUp: (editor) => () => {
-        if (!editor.selection) {
+        // Slate throttles selectionchange. Read the completed mouse selection
+        // before un-hanging it, rather than restoring the previous caret.
+        const domSelection = editor.api.getWindow()?.getSelection();
+        const selection =
+          domSelection?.anchorNode && editor.api.hasEditableTarget(domSelection.anchorNode)
+            ? (editor.api.toSlateRange(domSelection, { exactMatch: false, suppressThrow: true }) ??
+              editor.selection)
+            : editor.selection;
+        if (!selection) {
           return;
         }
 
-        setSelection(editor, unhangRange(editor, editor.selection) as Partial<BaseRange>);
+        select(editor, unhangRange(editor, selection) ?? selection);
       }
     },
     withOverrides: (editor) => {
@@ -65,10 +66,14 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
 
           if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
             const point = getPointAfter(editor, inlinePath);
-            setSelection(editor, {
-              anchor: point,
-              focus: point
-            });
+            // During link editing normalization is suspended, so the trailing
+            // text node may not exist yet. Keep the valid selection in that case.
+            if (point) {
+              setSelection(editor, {
+                anchor: point,
+                focus: point
+              });
+            }
           }
         }
 
