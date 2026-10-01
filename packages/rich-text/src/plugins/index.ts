@@ -5,6 +5,7 @@ import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } f
 import { createCharCounterPlugin } from './CharCounter';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
+import { createSelectionSyncPlugin } from './createSelectionSyncPlugin';
 import { createDeserializeDocxPlugin } from './DeserializeDocx';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
@@ -42,6 +43,7 @@ export const getPlugins = (
   createTrackingPlugin(onAction),
 
   // Global / Global shortcuts
+  createSelectionSyncPlugin(),
   createDragAndDropPlugin(),
   // Enable command palette plugin only, if at least action type is allowed
   ...(Object.values(isCommandPromptPluginEnabled(sdk)).some(Boolean)
