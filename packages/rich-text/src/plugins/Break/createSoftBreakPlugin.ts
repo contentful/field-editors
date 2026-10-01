@@ -1,6 +1,6 @@
 import {
   createSoftBreakPlugin as createDefaultSoftBreakPlugin,
-  SoftBreakRule
+  SoftBreakRule,
 } from '../../internal/breaks';
 import { PlatePlugin } from '../../internal/types';
 
@@ -12,7 +12,7 @@ export const createSoftBreakPlugin = (): PlatePlugin =>
       });
 
       return {
-        options: { rules }
+        options: { rules },
       };
-    }
+    },
   });

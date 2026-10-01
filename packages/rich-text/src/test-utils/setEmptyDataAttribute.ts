@@ -14,7 +14,7 @@ export const setEmptyDataAttribute = (root: PlateEditor) => {
     {
       at: [],
       match: (node) => Element.isElement(node) && !node.data,
-      mode: 'all'
-    }
+      mode: 'all',
+    },
   );
 };

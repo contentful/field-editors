@@ -9,7 +9,7 @@ import { createDeserializeDocxPlugin } from './DeserializeDocx';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
-  createEmbeddedEntryBlockPlugin
+  createEmbeddedEntryBlockPlugin,
 } from './EmbeddedEntityBlock';
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
 import { createEmbeddedResourceBlockPlugin } from './EmbeddedResourceBlock';
@@ -34,7 +34,7 @@ export const getPlugins = (
   sdk: FieldAppSDK,
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[],
-  withCharValidation?: boolean
+  withCharValidation?: boolean,
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -83,5 +83,5 @@ export const getPlugins = (
   createSoftBreakPlugin(),
   createExitBreakPlugin(),
   createResetNodePlugin(),
-  createNormalizerPlugin()
+  createNormalizerPlugin(),
 ];

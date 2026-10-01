@@ -12,7 +12,7 @@ import {
   getNodeEntryFromSelection,
   isBlockSelected,
   moveToTheNextLine,
-  focus
+  focus,
 } from '../../helpers/editor';
 import { getText } from '../../internal/queries';
 import { insertNodes, setNodes, removeNodes } from '../../internal/transforms';
@@ -48,7 +48,7 @@ const styles = {
       -webkit-box-shadow: 0px 0px 5px ${tokens.colorPrimary};
       box-shadow: 0px 0px 5px ${tokens.colorPrimary};
     }
-  `
+  `,
 };
 
 interface ToolbarHrButtonProps {
@@ -81,7 +81,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       type: BLOCKS.HR,
       data: {},
       children: [{ text: '' }],
-      isVoid: true
+      isVoid: true,
     };
 
     const hasText = !!getText(editor, editor.selection.focus.path);
@@ -138,19 +138,19 @@ export const createHrPlugin = (): PlatePlugin => ({
   isElement: true,
   component: Hr,
   handlers: {
-    onKeyDown: withHrEvents
+    onKeyDown: withHrEvents,
   },
   deserializeHtml: {
     rules: [
       {
-        validNodeName: ['HR']
+        validNodeName: ['HR'],
       },
       {
         validAttribute: {
-          'data-void-element': BLOCKS.HR
-        }
-      }
+          'data-void-element': BLOCKS.HR,
+        },
+      },
     ],
-    withoutChildren: true
-  }
+    withoutChildren: true,
+  },
 });

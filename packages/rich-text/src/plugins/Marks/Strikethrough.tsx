@@ -11,19 +11,19 @@ import { buildMarkEventHandler } from './helpers';
 
 const styles = {
   strikethrough: css({
-    textDecoration: 'line-through'
-  })
+    textDecoration: 'line-through',
+  }),
 };
 
 export const ToolbarDropdownStrikethroughButton = createMarkToolbarButton({
   title: 'Strikethrough',
-  mark: MARKS.STRIKETHROUGH
+  mark: MARKS.STRIKETHROUGH,
 });
 
 export const ToolbarStrikethroughButton = createMarkToolbarButton({
   title: 'Strikethrough',
   mark: MARKS.STRIKETHROUGH,
-  icon: <TextStrikethroughIcon />
+  icon: <TextStrikethroughIcon />,
 });
 
 export function Strikethrough(props: RenderLeafProps) {
@@ -39,6 +39,6 @@ export const createStrikethroughPlugin = (): PlatePlugin =>
     type: MARKS.STRIKETHROUGH,
     component: Strikethrough,
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.STRIKETHROUGH)
-    }
+      onKeyDown: buildMarkEventHandler(MARKS.STRIKETHROUGH),
+    },
   });

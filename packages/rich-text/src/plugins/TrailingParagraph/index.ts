@@ -9,13 +9,16 @@ export const createTrailingParagraphPlugin = (): PlatePlugin => ({
     editor.normalizeNode = (entry, options) => {
       if (entry[1].length === 0 && editor.children.at(-1)?.type !== BLOCKS.PARAGRAPH) {
         editor.tf.insertNodes(
-          { type: BLOCKS.PARAGRAPH, children: [{ text: '' }] },
-          { at: [editor.children.length] }
+          {
+            type: BLOCKS.PARAGRAPH,
+            children: [{ text: '' }],
+          },
+          { at: [editor.children.length] },
         );
         return;
       }
       normalizeNode(entry, options);
     };
     return editor;
-  }
+  },
 });

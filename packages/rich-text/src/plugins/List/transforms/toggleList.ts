@@ -18,7 +18,7 @@ import {
   getPluginType,
   getCommonNode,
   getRangeStart,
-  getRangeEnd
+  getRangeEnd,
 } from '../../../internal/queries';
 import { setNodes, wrapNodes } from '../../../internal/transforms';
 import { PlateEditor, Element, Location, NodeEntry } from '../../../internal/types';
@@ -45,7 +45,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
             {
               at: editor.selection,
               match: (n) => listTypes.includes(n.type as string),
-              mode: 'lowest'
+              mode: 'lowest',
             }
           );
         } else {
@@ -57,19 +57,19 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
 
         const nodes = [
           ...getNodeEntries(editor, {
-            match: { type: getPluginType(editor, ELEMENT_DEFAULT) }
-          })
+            match: { type: getPluginType(editor, ELEMENT_DEFAULT) },
+          }),
         ];
 
         const listItem = {
           type: BLOCKS.LIST_ITEM,
           children: [],
-          data: {}
+          data: {},
         };
 
         for (const [, path] of nodes) {
           wrapNodes(editor, listItem, {
-            at: path
+            at: path,
           });
         }
       }
@@ -92,13 +92,13 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
           const startList = findNode(editor, {
             at: getRangeStart(editor.selection),
             match: { type: listTypes },
-            mode: 'lowest'
+            mode: 'lowest',
           });
 
           const endList = findNode(editor, {
             at: getRangeEnd(editor.selection),
             match: { type: listTypes },
-            mode: 'lowest'
+            mode: 'lowest',
           });
 
           if (!startList || !endList) {
@@ -113,7 +113,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
               at: editor.selection,
               match: (n, path) =>
                 listTypes.includes(n.type as string) && path.length >= rangeLength,
-              mode: 'all'
+              mode: 'all',
             }
           );
         } else {
@@ -124,7 +124,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
         const nodes = (
           Array.from(
             getNodeEntries(editor, {
-              mode: 'all'
+              mode: 'all',
             })
           ) as NodeEntry[]
         )
@@ -140,11 +140,11 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
             const listItem = {
               type: BLOCKS.LIST_ITEM,
               children: [],
-              data: {}
+              data: {},
             };
 
             wrapNodes(editor, listItem, {
-              at: n[1]
+              at: n[1],
             });
 
             const list = { type, children: [], data: {} };

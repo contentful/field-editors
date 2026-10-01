@@ -11,7 +11,7 @@ import {
   getCommonNode,
   getNodeTexts,
   getParentPath,
-  getDescendantNodeByPath
+  getDescendantNodeByPath,
 } from '../../internal/queries';
 import { insertNodes } from '../../internal/transforms';
 import { PlateEditor, NodeEntry, Node, Element } from '../../internal/types';
@@ -46,7 +46,7 @@ const trimList = (listRoot: Node): Node[] => {
         ? commonAncestor
         : getCommonNode(listRoot, textEntry[1], commonAncestor[1]),
     // any list item would do, we grab the first one
-    getFirstAncestorOfType(listRoot, textEntries[0])
+    getFirstAncestorOfType(listRoot, textEntries[0]),
   );
 
   return isListRoot(commonAncestorEntry[0])
@@ -91,12 +91,12 @@ export const insertListFragment = (editor: PlateEditor) => {
 
     const liEntry = findNode(editor, {
       match: { type: BLOCKS.LIST_ITEM },
-      mode: 'lowest'
+      mode: 'lowest',
     });
 
     if (liEntry) {
       const nodes = unwrapTextContainerAtStart(
-        trimLiWrapper(fragment.flatMap((node) => trimList(node)))
+        trimLiWrapper(fragment.flatMap((node) => trimList(node))),
       );
 
       let firstBlockIndex = nodes.findIndex((node) => isBlockNode(editor, node));
@@ -113,12 +113,12 @@ export const insertListFragment = (editor: PlateEditor) => {
       // some reason.
       insertNodes(editor, inlines, {
         at: editor.selection,
-        select: true
+        select: true,
       });
 
       return insertNodes(editor, blocks, {
         at: editor.selection,
-        select: true
+        select: true,
       });
     }
 

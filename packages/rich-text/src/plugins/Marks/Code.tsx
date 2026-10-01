@@ -12,19 +12,19 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarCodeButton = createMarkToolbarButton({
   title: 'Code',
   mark: MARKS.CODE,
-  icon: <CodeSimpleIcon />
+  icon: <CodeSimpleIcon />,
 });
 
 export const ToolbarDropdownCodeButton = createMarkToolbarButton({
   title: 'Code',
-  mark: MARKS.CODE
+  mark: MARKS.CODE,
 });
 
 const styles = {
   code: css({
     fontFamily: 'monospace',
-    fontSize: '.9em'
-  })
+    fontSize: '.9em',
+  }),
 };
 
 export function Code(props: RenderLeafProps) {
@@ -46,21 +46,21 @@ export const createCodePlugin = (): PlatePlugin =>
       // The workaround like in packages/rich-text/src/plugins/CommandPalette/onKeyDown.ts is sadly not working here,
       // as `shift+7` is not interpreted as `/` with the `mod` key by the OS.
       // TODO: there are a lot more different keyboard layouts out there
-      hotkey: ['mod+/', 'mod+shift+7']
+      hotkey: ['mod+/', 'mod+shift+7'],
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.CODE)
+      onKeyDown: buildMarkEventHandler(MARKS.CODE),
     },
     deserializeHtml: {
       rules: [
         {
-          validNodeName: ['CODE', 'PRE']
+          validNodeName: ['CODE', 'PRE'],
         },
         {
           validStyle: {
-            fontFamily: ['Consolas', 'monospace']
-          }
-        }
-      ]
-    }
+            fontFamily: ['Consolas', 'monospace'],
+          },
+        },
+      ],
+    },
   });

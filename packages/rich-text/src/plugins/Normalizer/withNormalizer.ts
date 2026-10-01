@@ -30,7 +30,7 @@ export const withNormalizer = (editor: PlateEditor) => {
       // By default we filter elements with given plugin type
       if (!rule.match) {
         rule.match = {
-          type: getPluginType(editor, p.key)
+          type: getPluginType(editor, p.key),
         };
       }
 
@@ -50,7 +50,7 @@ export const withNormalizer = (editor: PlateEditor) => {
 
         rule.transform = createTransformerFromObject({
           default: transformRemove,
-          ...rule.transform
+          ...rule.transform,
         });
       }
 

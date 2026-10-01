@@ -71,7 +71,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation),
-    [sdk, onAction, restrictedMarks, withCharValidation]
+    [sdk, onAction, restrictedMarks, withCharValidation],
   );
 
   const initialValue = useDeepCompareMemo(() => {
@@ -85,7 +85,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
   const editor = React.useMemo(() => createPlateEditor({ id, ...editorOptions.current }), [id]);
   const handleValueChange = React.useMemo(
     () => createOnChangeCallback(props.onChange),
-    [props.onChange]
+    [props.onChange],
   );
   const lastValue = React.useMemo(() => ({ current: editor.children }), [editor]);
   const acceptExternalValue = React.useCallback(() => {
@@ -96,7 +96,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
     () => () => {
       handleValueChange.flush();
     },
-    [handleValueChange]
+    [handleValueChange],
   );
 
   // Force text direction based on editor locale
@@ -108,7 +108,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
     props.maxHeight !== undefined ? css({ maxHeight: props.maxHeight }) : undefined,
     props.isDisabled ? styles.disabled : styles.enabled,
     props.isToolbarHidden && styles.hiddenToolbar,
-    direction === 'rtl' ? styles.rtl : styles.ltr
+    direction === 'rtl' ? styles.rtl : styles.ltr,
   );
 
   return (
@@ -167,7 +167,7 @@ const RichTextEditor = (props: RichTextProps) => {
   } = props;
   const isEmptyValue = React.useCallback(
     (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
-    []
+    [],
   );
   React.useEffect(() => {
     if (!onChange) {

@@ -11,11 +11,11 @@ const createCode: Creator = (_, attrs, children) => {
 };
 
 const createSysLink = (linkType: 'Entry' | 'Asset', id: string) => ({
-  sys: { id, type: 'Link', linkType }
+  sys: { id, type: 'Link', linkType },
 });
 
 const createSysResourceLink = (urn: string) => ({
-  sys: { urn, type: 'ResourceLink', linkType: 'Contentful:Entry' }
+  sys: { urn, type: 'ResourceLink', linkType: 'Contentful:Entry' },
 });
 
 const createHyperlink: Creator = (_, attrs, children) => {
@@ -51,10 +51,10 @@ const createInline: Creator = (_, attrs, children) => {
   return {
     type: INLINES.EMBEDDED_ENTRY,
     data: {
-      target: createSysLink('Entry', attrs.id)
+      target: createSysLink('Entry', attrs.id),
     },
     isVoid: true,
-    children: children.length > 0 ? children : voidChildren
+    children: children.length > 0 ? children : voidChildren,
   };
 };
 
@@ -62,10 +62,10 @@ const createEmbeddedBlock: Creator = (_, attrs, children) => {
   return {
     type: attrs.type === 'Entry' ? BLOCKS.EMBEDDED_ENTRY : BLOCKS.EMBEDDED_ASSET,
     data: {
-      target: createSysLink(attrs.type, attrs.id)
+      target: createSysLink(attrs.type, attrs.id),
     },
     isVoid: true,
-    children: children.length > 0 ? children : voidChildren
+    children: children.length > 0 ? children : voidChildren,
   };
 };
 
@@ -74,7 +74,7 @@ const createHR: Creator = (_, __, children) => {
     type: BLOCKS.HR,
     data: {},
     isVoid: true,
-    children: children.length > 0 ? children : voidChildren
+    children: children.length > 0 ? children : voidChildren,
   };
 };
 
@@ -103,7 +103,7 @@ export const jsx = createHyperscript({
     htd: { type: BLOCKS.TABLE_CELL, data: {} },
     hth: { type: BLOCKS.TABLE_HEADER_CELL, data: {} },
     htr: { type: BLOCKS.TABLE_ROW, data: {} },
-    hul: { type: BLOCKS.UL_LIST, data: {} }
+    hul: { type: BLOCKS.UL_LIST, data: {} },
   },
   creators: {
     hlink: createHyperlink,
@@ -112,6 +112,6 @@ export const jsx = createHyperscript({
     hcode: createCode,
     hinline: createInline,
     hembed: createEmbeddedBlock,
-    hfragment: createFragment
-  }
+    hfragment: createFragment,
+  },
 });

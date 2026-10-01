@@ -14,7 +14,7 @@ export const createVoidsPlugin = (): PlatePlugin => ({
       if (
         fragment.length > 0 &&
         fragment.every(
-          (node) => isElement(node) && editor.api.isBlock(node) && editor.api.isVoid(node)
+          (node) => isElement(node) && editor.api.isBlock(node) && editor.api.isVoid(node),
         )
       ) {
         const block = editor.api.block();
@@ -45,8 +45,8 @@ export const createVoidsPlugin = (): PlatePlugin => ({
       hotkey: 'enter',
       before: true,
       query: {
-        filter: ([node, path]) => isRootLevel(path) && isFirstChildPath(path) && !!node.isVoid
-      }
+        filter: ([node, path]) => isRootLevel(path) && isFirstChildPath(path) && !!node.isVoid,
+      },
     },
     {
       // Inserts a new paragraph on enter when a void element is focused
@@ -55,8 +55,8 @@ export const createVoidsPlugin = (): PlatePlugin => ({
       // to stay in the parent element
       level: -2,
       query: {
-        filter: ([node, path]) => !(isRootLevel(path) && isFirstChildPath(path)) && !!node.isVoid
-      }
-    }
-  ]
+        filter: ([node, path]) => !(isRootLevel(path) && isFirstChildPath(path)) && !!node.isVoid,
+      },
+    },
+  ],
 });

@@ -16,17 +16,17 @@ const addColumn = (
 ) => {
   if (
     someNode(editor, {
-      match: { type: BLOCKS.TABLE }
+      match: { type: BLOCKS.TABLE },
     })
   ) {
     const currentCellItem = getAboveNode(editor, {
       match: {
-        type: [BLOCKS.TABLE_HEADER_CELL, BLOCKS.TABLE_CELL]
-      }
+        type: [BLOCKS.TABLE_HEADER_CELL, BLOCKS.TABLE_CELL],
+      },
     });
 
     const currentTableItem = getAboveNode(editor, {
-      match: { type: BLOCKS.TABLE }
+      match: { type: BLOCKS.TABLE },
     }) as NodeEntry<Element> | undefined;
 
     if (currentCellItem && currentTableItem) {
@@ -44,7 +44,7 @@ const addColumn = (
           {
             at: newCellPath,
             // Select the first cell of the new column
-            select: rowIdx === 0
+            select: rowIdx === 0,
           }
         );
       });

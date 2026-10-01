@@ -6,7 +6,7 @@ import { PlatePlugin } from '../../internal/types';
 export const createResetNodePlugin = (): PlatePlugin =>
   createDefaultResetNodePlugin({
     options: {
-      rules: []
+      rules: [],
     },
     then: (editor) => {
       const rules = editor.contentfulPlugins.flatMap((p) => {
@@ -21,7 +21,7 @@ export const createResetNodePlugin = (): PlatePlugin =>
       }
 
       return {
-        options: { rules }
+        options: { rules },
       };
-    }
+    },
   });

@@ -6,7 +6,7 @@ import {
   cleanDocxListElements,
   cleanDocxQuotes,
   cleanDocxSpans,
-  isDocxContent
+  isDocxContent,
 } from '@platejs/docx';
 
 import { PlatePlugin } from '../../internal';
@@ -18,7 +18,7 @@ import {
   cleanHtmlTextNodes,
   copyBlockMarksToSpanChild,
   postCleanHtml,
-  preCleanHtml
+  preCleanHtml,
 } from '../../internal/plate';
 import { createDeserializeDocxPlugin as originalCreateDeserializeDocxPlugin } from '../../internal/pluginFactories';
 import { cleanHtmlEmptyElements } from './cleanHtmlEmptyElements';
@@ -51,10 +51,10 @@ export const createDeserializeDocxPlugin: () => PlatePlugin = () =>
                 cleanDocxListElements(body);
                 copyBlockMarksToSpanChild(body);
                 return postCleanHtml(body.innerHTML);
-              }
-            }
-          }
-        }
-      }
-    }
+              },
+            },
+          },
+        },
+      },
+    },
   });

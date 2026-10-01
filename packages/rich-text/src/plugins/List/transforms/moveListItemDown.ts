@@ -10,7 +10,7 @@ import {
   getNextPath,
   getPreviousPath,
   getLastChildPath,
-  match
+  match,
 } from '../../../internal/queries';
 import { wrapNodes, moveNodes } from '../../../internal/transforms';
 import { NodeEntry, PlateEditor, Element, Path } from '../../../internal/types';
@@ -51,14 +51,14 @@ export const moveListItemDown = (
       if (!subList) {
         // Create new sub-list
         wrapNodes(editor, { type: listNode.type, children: [], data: {} } as Element, {
-          at: listItemPath
+          at: listItemPath,
         });
       }
 
       // Move the current item to the sub-list
       moveNodes(editor, {
         at: listItemPath,
-        to: newPath
+        to: newPath,
       });
     });
   }
