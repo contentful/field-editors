@@ -25,12 +25,12 @@ export const SIMULATE_BACKSPACE: React.KeyboardEvent = {
 export const onKeyDownResetNode: KeyboardHandler<ResetNodePlugin> =
   (editor, { options }) =>
   (event) => {
+    if (event.defaultPrevented || !editor.selection || !editor.api.isCollapsed()) return;
     for (const rule of options.rules) {
       if ((rule.hotkey && !isHotkey(rule.hotkey, event)) || !rule.predicate(editor)) continue;
-      const entry = editor.api.block({ match: { type: rule.types } });
-      if (!entry) continue;
+      if (!editor.api.some({ match: { type: rule.types } })) continue;
       event.preventDefault();
-      editor.tf.setNodes({ type: rule.defaultType }, { at: entry[1] });
+      editor.tf.setNodes({ type: rule.defaultType });
       rule.onReset?.(editor);
       return true;
     }
