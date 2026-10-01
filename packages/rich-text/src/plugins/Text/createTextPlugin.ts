@@ -1,4 +1,13 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import {
+  getEditorWindow,
+  hasEditorEditableTarget,
+  isComposing,
+  isEditorReadOnly,
+  toDOMRange,
+  toSlateRange
+} from '@udecode/plate-common';
+import { Range } from 'slate';
 
 import {
   getAboveNode,
@@ -10,7 +19,7 @@ import {
   getPointAfter,
   isRangeCollapsed,
   queryNode,
-  isText,
+  isText
 } from '../../internal/queries';
 import {
   setSelection,
@@ -18,7 +27,7 @@ import {
   removeNodes,
   splitNodes,
   unhangRange,
-  unsetNodes,
+  unsetNodes
 } from '../../internal/transforms';
 import {
   PlatePlugin,
@@ -26,23 +35,92 @@ import {
   Ancestor,
   Node,
   Location,
-  BaseRange,
+  BaseRange
 } from '../../internal/types';
 
 export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
   return {
     key: 'TextPlugin',
     handlers: {
+      onKeyDown: (editor) => (event) => {
+        if (
+          isEditorReadOnly(editor) ||
+          isComposing(editor) ||
+          !hasEditorEditableTarget(editor, event.target) ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')
+        ) {
+          return;
+        }
+
+        const nativeSelection = getEditorWindow(editor)?.getSelection();
+        // Selection.modify is not available in every browser.
+        if (!nativeSelection?.isCollapsed || typeof nativeSelection.modify !== 'function') {
+          return;
+        }
+        const before = toSlateRange(editor, nativeSelection, {
+          exactMatch: true,
+          suppressThrow: true
+        });
+        if (!before) {
+          return;
+        }
+
+        // Move the caret and update Slate in one event, before a render can restore the old range.
+        nativeSelection.modify('move', event.key === 'ArrowUp' ? 'backward' : 'forward', 'line');
+        const range = toSlateRange(editor, nativeSelection, {
+          exactMatch: true,
+          suppressThrow: true
+        });
+        if (!range) {
+          const previous = toDOMRange(editor, before);
+          if (previous) {
+            nativeSelection.setBaseAndExtent(
+              previous.startContainer,
+              previous.startOffset,
+              previous.endContainer,
+              previous.endOffset
+            );
+          }
+          return;
+        }
+
+        event.preventDefault();
+        select(editor, range);
+        return true;
+      },
       // Triple selection in a non-Firefox browser undesirably selects
       // the start of the next block. Editor.unhangRange helps removing
       // the extra block at the end.
-      onMouseUp: (editor) => () => {
+      onMouseUp: (editor) => (event) => {
+        // Copy the browser range before a render can restore Slate's delayed selection.
+        // Include expanded ranges so quick typing replaces a double-clicked word.
+        if (
+          !isEditorReadOnly(editor) &&
+          !isComposing(editor) &&
+          hasEditorEditableTarget(editor, event.target) &&
+          event.button === 0
+        ) {
+          const nativeSelection = getEditorWindow(editor)?.getSelection();
+          if (nativeSelection && nativeSelection.rangeCount > 0) {
+            const range = toSlateRange(editor, nativeSelection, {
+              exactMatch: true,
+              suppressThrow: true
+            });
+            if (range && (!editor.selection || !Range.equals(range, editor.selection))) {
+              select(editor, range);
+            }
+          }
+        }
         if (!editor.selection) {
           return;
         }
 
         setSelection(editor, unhangRange(editor, editor.selection) as Partial<BaseRange>);
-      },
+      }
     },
     withOverrides: (editor) => {
       // Reverts the change made upstream that caused the cursor
@@ -60,14 +138,14 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
         if (selection && isRangeCollapsed(selection)) {
           const inlinePath = getAboveNode(editor, {
             match: (n) => isInline(editor, n),
-            mode: 'highest',
+            mode: 'highest'
           })?.[1];
 
           if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
             const point = getPointAfter(editor, inlinePath);
             setSelection(editor, {
               anchor: point,
-              focus: point,
+              focus: point
             });
           }
         }
@@ -100,9 +178,9 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
           return !restrictedMarks.some((mark) => {
             return mark in node;
           });
-        },
-      },
-    ],
+        }
+      }
+    ]
   };
 }
 
@@ -113,8 +191,8 @@ function deleteEmptyParagraph(
 ) {
   const entry = getAboveNode(editor, {
     match: {
-      type: TEXT_CONTAINERS,
-    },
+      type: TEXT_CONTAINERS
+    }
   });
 
   if (entry) {
@@ -128,7 +206,7 @@ function deleteEmptyParagraph(
       removeNodes(editor, { at: path });
 
       const prevNode = getPointBefore(editor, editor.selection as Location, {
-        unit,
+        unit
       });
 
       if (prevNode) {
@@ -139,10 +217,10 @@ function deleteEmptyParagraph(
                 BLOCKS.EMBEDDED_ASSET,
                 BLOCKS.EMBEDDED_ENTRY,
                 BLOCKS.EMBEDDED_RESOURCE,
-                BLOCKS.HR,
-              ],
+                BLOCKS.HR
+              ]
             }),
-          at: prevNode,
+          at: prevNode
         });
 
         if (prevCell) {
