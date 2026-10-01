@@ -62,7 +62,7 @@ export const sanitizeHTML = (html: string): string => {
       innerHTML.replace(
         /\s*<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
         '</$1'
-      ),
+      )
   ];
 
   let previous: string;
@@ -80,6 +80,15 @@ export const sanitizeHTML = (html: string): string => {
   // The div container including attributes and possible linebreaks inside wil be removed
   // TODO: can be removed with plate >= 20
   doc.querySelectorAll('table').forEach(removeTableWrappers);
+
+  // Plate now treats Slate DOM attributes as serialized node properties and
+  // skips tag/style parsing. Older Contentful editors only wrote DOM markers.
+  // Encoded Slate fragments are handled separately by ensureXSlateFragment.
+  doc.querySelectorAll('*').forEach((element) => {
+    element.getAttributeNames().forEach((attribute) => {
+      if (attribute.startsWith('data-slate-')) element.removeAttribute(attribute);
+    });
+  });
 
   return doc.body.innerHTML;
 };

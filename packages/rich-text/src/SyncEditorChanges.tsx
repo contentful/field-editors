@@ -22,6 +22,10 @@ const useAcceptIncomingChanges = (incomingValue: Value | undefined, onValueAppli
     }
 
     lastIncomingValue.current = incomingValue;
+    if (equal(editor.children, incomingValue)) {
+      onValueApplied();
+      return;
+    }
     setEditorValue(editor, incomingValue);
     onValueApplied();
   }, [editor, incomingValue, onValueApplied]);
