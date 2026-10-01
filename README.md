@@ -85,18 +85,18 @@ Canary releases allow you to test changes before they are merged to the main bra
 2. Once the PR is merged to `canary`, CircleCI will automatically:
    - Build all packages
    - Run tests
-   - Create a canary version (e.g., `1.2.3-canary.123.abc1234`)
-   - Publish to npm with the `canary` tag
+   - Create a canary version (e.g., `1.2.3-canary.sha-abc12345.123`)
+   - Publish all packages to npm with the `canary` tag
 3. You can install the canary version in your project:
    ```bash
-   yarn add @contentful/field-editor-reference@canaryversion
+   yarn add @contentful/field-editor-reference@canary
    ```
 
 ### Notes
 
 - Canary releases are temporary and intended for testing only
 - Each merge to the `canary` branch will create a new canary version
-- Canary versions follow the format: `{version}-canary.{prNumber}.{shortSha}`
+- Canary versions follow the format: `{version}-canary.sha-{shortSha}.{commitCount}`
 
 ## Links & related repositories
 
