@@ -1,13 +1,4 @@
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import {
-  getEditorWindow,
-  hasEditorEditableTarget,
-  isComposing,
-  isEditorReadOnly,
-  toDOMRange,
-  toSlateRange
-} from '@udecode/plate-common';
-import { Range } from 'slate';
 
 import {
   getAboveNode,
@@ -42,78 +33,10 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
   return {
     key: 'TextPlugin',
     handlers: {
-      onKeyDown: (editor) => (event) => {
-        if (
-          isEditorReadOnly(editor) ||
-          isComposing(editor) ||
-          !hasEditorEditableTarget(editor, event.target) ||
-          event.altKey ||
-          event.ctrlKey ||
-          event.metaKey ||
-          event.shiftKey ||
-          (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')
-        ) {
-          return;
-        }
-
-        const nativeSelection = getEditorWindow(editor)?.getSelection();
-        // Selection.modify is not available in every browser.
-        if (!nativeSelection?.isCollapsed || typeof nativeSelection.modify !== 'function') {
-          return;
-        }
-        const before = toSlateRange(editor, nativeSelection, {
-          exactMatch: true,
-          suppressThrow: true
-        });
-        if (!before) {
-          return;
-        }
-
-        // Move the caret and update Slate in one event, before a render can restore the old range.
-        nativeSelection.modify('move', event.key === 'ArrowUp' ? 'backward' : 'forward', 'line');
-        const range = toSlateRange(editor, nativeSelection, {
-          exactMatch: true,
-          suppressThrow: true
-        });
-        if (!range) {
-          const previous = toDOMRange(editor, before);
-          if (previous) {
-            nativeSelection.setBaseAndExtent(
-              previous.startContainer,
-              previous.startOffset,
-              previous.endContainer,
-              previous.endOffset
-            );
-          }
-          return;
-        }
-
-        event.preventDefault();
-        select(editor, range);
-        return true;
-      },
       // Triple selection in a non-Firefox browser undesirably selects
       // the start of the next block. Editor.unhangRange helps removing
       // the extra block at the end.
-      onMouseUp: (editor) => (event) => {
-        // Read the browser caret before a render can restore Slate's delayed selection.
-        if (
-          !isEditorReadOnly(editor) &&
-          !isComposing(editor) &&
-          hasEditorEditableTarget(editor, event.target) &&
-          event.button === 0
-        ) {
-          const nativeSelection = getEditorWindow(editor)?.getSelection();
-          if (nativeSelection?.isCollapsed) {
-            const range = toSlateRange(editor, nativeSelection, {
-              exactMatch: true,
-              suppressThrow: true
-            });
-            if (range && (!editor.selection || !Range.equals(range, editor.selection))) {
-              select(editor, range);
-            }
-          }
-        }
+      onMouseUp: (editor) => () => {
         if (!editor.selection) {
           return;
         }

@@ -6,11 +6,12 @@ import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } f
 import { createCharCounterPlugin } from './CharCounter';
 import { createCommandPalettePlugin } from './CommandPalette';
 import { isCommandPromptPluginEnabled } from './CommandPalette/useCommands';
+import { createSelectionSyncPlugin } from './createSelectionSyncPlugin';
 import { createDeserializeDocxPlugin } from './DeserializeDocx';
 import { createDragAndDropPlugin } from './DragAndDrop';
 import {
   createEmbeddedAssetBlockPlugin,
-  createEmbeddedEntryBlockPlugin,
+  createEmbeddedEntryBlockPlugin
 } from './EmbeddedEntityBlock';
 import { createEmbeddedEntityInlinePlugin } from './EmbeddedEntityInline';
 import { createEmbeddedResourceBlockPlugin } from './EmbeddedResourceBlock';
@@ -35,7 +36,7 @@ export const getPlugins = (
   sdk: FieldAppSDK,
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[],
-  withCharValidation?: boolean,
+  withCharValidation?: boolean
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -43,6 +44,7 @@ export const getPlugins = (
   createTrackingPlugin(onAction),
 
   // Global / Global shortcuts
+  createSelectionSyncPlugin(),
   createDragAndDropPlugin(),
   // Enable command palette plugin only, if at least action type is allowed
   ...(Object.values(isCommandPromptPluginEnabled(sdk)).some(Boolean)
@@ -84,11 +86,11 @@ export const getPlugins = (
   createSoftBreakPlugin(),
   createExitBreakPlugin(),
   createResetNodePlugin(),
-  createNormalizerPlugin(),
+  createNormalizerPlugin()
 ];
 
 export const disableCorePlugins: PlateProps['disableCorePlugins'] = {
   // Note: Enabled by default since v9.0.0 but it causes Cypress's
   // .click() command to fail
-  eventEditor: true,
+  eventEditor: true
 };
