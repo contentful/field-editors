@@ -1,10 +1,13 @@
 import {
   getEditorWindow,
+  getNode,
   getVoidNode,
   hasEditorTarget,
+  isCollapsed,
   isComposing,
   isEditorFocused,
   select,
+  toSlateNode,
   toSlateRange
 } from '@udecode/plate-common';
 
@@ -18,6 +21,28 @@ const syncSelection = (editor: PlateEditor) => {
     !hasEditorTarget(editor, selection.focusNode)
   ) {
     return;
+  }
+
+  // When the browser shows the same full text node and offset as Slate,
+  // its caret is already correct. Avoid cloning DOM content in that case.
+  // Partial leaves and placeholder text use the normal range mapping below.
+  if (
+    selection.rangeCount === 1 &&
+    selection.isCollapsed &&
+    editor.selection &&
+    isCollapsed(editor.selection) &&
+    selection.anchorNode?.nodeType === Node.TEXT_NODE &&
+    selection.anchorNode.parentElement?.hasAttribute('data-slate-string') &&
+    selection.anchorOffset === editor.selection.anchor.offset
+  ) {
+    const node = getNode(editor, editor.selection.anchor.path);
+    if (
+      node &&
+      'text' in node &&
+      node.text === selection.anchorNode.textContent &&
+      node === toSlateNode(editor, selection.anchorNode)
+    )
+      return;
   }
 
   // The browser's caret can move before Slate's delayed selection update runs.
@@ -43,8 +68,10 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
       if (!isComposing(editor)) syncSelection(editor);
     },
     onKeyDown: (editor) => (event) => {
+      // Enter can be handled by heading/list/soft-break plugins before a
+      // beforeinput event, so sync its caret before those handlers run too.
       if (
-        ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(event.key) &&
+        ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete', 'Enter'].includes(event.key) &&
         // Clicking a card selects it in Slate, but the browser may still keep
         // its old paragraph caret. While the editor is unfocused, preserve
         // that card selection so Backspace/Delete removes the card. Once the
@@ -65,8 +92,11 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
     },
     onDOMBeforeInput: (editor) => (event) => {
       const input = ('nativeEvent' in event ? event.nativeEvent : event) as InputEvent;
+      // Slate restores the previous selection after a native paragraph break
+      // too; it must already match the visible caret before the break starts.
       if (
-        (input.inputType !== 'insertText' && !input.inputType.startsWith('delete')) ||
+        (!['insertText', 'insertParagraph', 'insertLineBreak'].includes(input.inputType) &&
+          !input.inputType.startsWith('delete')) ||
         input.isComposing ||
         isComposing(editor)
       )
