@@ -20,10 +20,12 @@ const syncSelection = (editor: PlateEditor) => {
     return;
   }
 
-  // Slate can ignore selectionchange while an earlier DOM caret update is
-  // pending, then use that stale selection for the next edit or navigation.
+  // The browser's caret can move before Slate's delayed selection update runs.
+  // Slate may then edit the old paragraph or move the caret back there. Copy
+  // the visible selection before Slate handles the next edit or navigation.
   const range = toSlateRange(editor, selection, { exactMatch: false, suppressThrow: true });
-  // Embedded cards have hidden text placeholders; these are not typing carets.
+  // Embedded cards (Slate "void" nodes) contain hidden text placeholders.
+  // These are not editable text, so keep Slate's own card selection instead.
   if (
     range &&
     !getVoidNode(editor, { at: range.anchor }) &&
@@ -36,12 +38,18 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
   key: 'selectionSync',
   handlers: {
     onMouseUp: (editor) => () => {
+      // Save the clicked caret before a parent rerender can restore Slate's
+      // old selection. Waiting until typing starts would be too late.
       if (!isComposing(editor)) syncSelection(editor);
     },
     onKeyDown: (editor) => (event) => {
       if (
         ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(event.key) &&
-        // A focused card is selected independently of the browser's text caret.
+        // Clicking a card selects it in Slate, but the browser may still keep
+        // its old paragraph caret. While the editor is unfocused, preserve
+        // that card selection so Backspace/Delete removes the card. Once the
+        // editor regains focus, sync again so editing after an arrow key uses
+        // the paragraph caret rather than the previously selected card.
         !(
           !isEditorFocused(editor) &&
           editor.selection &&
