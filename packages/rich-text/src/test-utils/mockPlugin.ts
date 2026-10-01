@@ -5,5 +5,5 @@ import { randomId } from './randomId';
 export const mockPlugin = (p: Partial<PlatePlugin>) =>
   mock<PlatePlugin>({
     ...(p as any),
-    key: p.key || randomId('plugin')
+    key: p.key || randomId('plugin'),
   }) as any;

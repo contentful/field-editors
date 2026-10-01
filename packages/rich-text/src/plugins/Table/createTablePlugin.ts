@@ -7,7 +7,7 @@ import {
   getParentNode,
   getBlockAbove,
   getLastChildPath,
-  getNextPath
+  getNextPath,
 } from '../../internal/queries';
 import {
   ELEMENT_TABLE,
@@ -19,7 +19,7 @@ import {
   withInsertTextTable,
   withSelectionTable,
   withSetFragmentDataTable,
-  withInsertFragmentTable
+  withInsertFragmentTable,
 } from '../../internal/table';
 import { insertNodes } from '../../internal/transforms';
 import { PlatePlugin } from '../../internal/types';
@@ -37,7 +37,7 @@ export const createTablePlugin = (): PlatePlugin =>
   createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {
-      onKeyDown: onKeyDownTable
+      onKeyDown: onKeyDownTable,
     },
     withOverrides: (editor, plugin) => {
       const { normalizeNode } = editor;
@@ -67,7 +67,7 @@ export const createTablePlugin = (): PlatePlugin =>
         component: Table,
         normalizer: [
           {
-            validNode: isNotEmpty
+            validNode: isNotEmpty,
           },
           {
             // Move to root level unless nested
@@ -77,18 +77,18 @@ export const createTablePlugin = (): PlatePlugin =>
               const isNestedTable = !!getBlockAbove(editor, {
                 at: path,
                 match: {
-                  type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL]
-                }
+                  type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL],
+                },
               });
 
               return isRootLevel(path) || isNestedTable;
             },
-            transform: transformLift
+            transform: transformLift,
           },
           {
-            validChildren: CONTAINERS[BLOCKS.TABLE]
-          }
-        ]
+            validChildren: CONTAINERS[BLOCKS.TABLE],
+          },
+        ],
       },
       [ELEMENT_TR]: {
         type: BLOCKS.TABLE_ROW,
@@ -96,11 +96,11 @@ export const createTablePlugin = (): PlatePlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_ROW],
-            transform: transformWrapIn(BLOCKS.TABLE_CELL)
+            transform: transformWrapIn(BLOCKS.TABLE_CELL),
           },
           {
             // Remove empty rows
-            validNode: isNotEmpty
+            validNode: isNotEmpty,
           },
           {
             // Parent must be a table
@@ -108,7 +108,7 @@ export const createTablePlugin = (): PlatePlugin =>
               const parent = getParentNode(editor, path)?.[0];
               return parent && parent.type === BLOCKS.TABLE;
             },
-            transform: transformWrapIn(BLOCKS.TABLE)
+            transform: transformWrapIn(BLOCKS.TABLE),
           },
           {
             // ensure consistent number of cells in each row
@@ -120,11 +120,11 @@ export const createTablePlugin = (): PlatePlugin =>
               const at = getNextPath(getLastChildPath(entry));
 
               insertNodes(editor, createEmptyTableCells(howMany), {
-                at
+                at,
               });
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       [ELEMENT_TH]: {
         type: BLOCKS.TABLE_HEADER_CELL,
@@ -132,9 +132,9 @@ export const createTablePlugin = (): PlatePlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_HEADER_CELL],
-            transform: withInvalidCellChildrenTracking(transformParagraphs)
-          }
-        ]
+            transform: withInvalidCellChildrenTracking(transformParagraphs),
+          },
+        ],
       },
       [ELEMENT_TD]: {
         type: BLOCKS.TABLE_CELL,
@@ -142,9 +142,9 @@ export const createTablePlugin = (): PlatePlugin =>
         normalizer: [
           {
             validChildren: CONTAINERS[BLOCKS.TABLE_CELL],
-            transform: withInvalidCellChildrenTracking(transformParagraphs)
-          }
-        ]
-      }
-    } as Record<string, Partial<PlatePlugin>>
+            transform: withInvalidCellChildrenTracking(transformParagraphs),
+          },
+        ],
+      },
+    } as Record<string, Partial<PlatePlugin>>,
   });

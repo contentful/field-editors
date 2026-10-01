@@ -19,31 +19,31 @@ describe('Soft Break', () => {
       {
         hotkey: 'ctrl+enter',
         query: {
-          allow: 'p'
-        }
+          allow: 'p',
+        },
       },
       {
         hotkey: 'ctrl+enter',
         query: {
-          allow: 'h1'
-        }
-      }
+          allow: 'h1',
+        },
+      },
     ];
 
     const { editor } = createTestEditor({
       input,
       plugins: [
         mockPlugin({
-          softBreak: [rules[0]]
+          softBreak: [rules[0]],
         }),
 
         mockPlugin({}),
 
         mockPlugin({
-          softBreak: [rules[1]]
+          softBreak: [rules[1]],
         }),
-        createSoftBreakPlugin()
-      ]
+        createSoftBreakPlugin(),
+      ],
     });
 
     const outPlugin = editor.contentfulPlugins.find((p) => p.key === KEY_SOFT_BREAK)!;

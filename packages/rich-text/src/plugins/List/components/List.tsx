@@ -38,7 +38,7 @@ const styles = {
         }
       }
     }
-  `
+  `,
 };
 
 function createList(Tag, block: BLOCKS) {

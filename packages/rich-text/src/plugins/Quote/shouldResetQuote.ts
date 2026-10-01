@@ -13,7 +13,7 @@ import { PlateEditor, Ancestor } from '../../internal/types';
 export const shouldResetQuoteOnBackspace = (editor: PlateEditor) => {
   const container = getAboveNode(editor, {
     match: { type: TEXT_CONTAINERS },
-    mode: 'lowest'
+    mode: 'lowest',
   });
 
   if (!container) {
@@ -26,7 +26,7 @@ export const shouldResetQuoteOnBackspace = (editor: PlateEditor) => {
 
   const quote = getBlockAbove(editor, {
     match: { type: BLOCKS.QUOTE },
-    mode: 'lowest'
+    mode: 'lowest',
   });
 
   if (!quote) {

@@ -31,7 +31,7 @@ import { createPlateEditor, type CreatePlateEditorOptions } from './pluginAdapte
  */
 export const normalizeInitialValue = (
   options: CreatePlateEditorOptions,
-  initialValue?: Value
+  initialValue?: Value,
 ): Value => {
   const editor = createPlateEditor(options);
 
@@ -59,7 +59,7 @@ export const selectEditor = (editor: PlateEditor, opts: p.SelectEditorOptions) =
 export const fromDOMPoint = (
   editor: PlateEditor,
   domPoint: [Node /* DOM Node*/, number],
-  opts = { exactMatch: false, suppressThrow: false }
+  opts = { exactMatch: false, suppressThrow: false },
 ): s.BasePoint | null | undefined => {
   return p.toSlatePoint(editor, domPoint, opts);
 };

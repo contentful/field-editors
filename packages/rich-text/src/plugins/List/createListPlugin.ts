@@ -14,7 +14,7 @@ import {
   insertParagraphAsChild,
   normalizeOrphanedListItem,
   firstNodeIsNotList,
-  replaceNodeWithListItems
+  replaceNodeWithListItems,
 } from './utils';
 import { withList } from './withList';
 
@@ -23,51 +23,50 @@ export const createListPlugin = (): PlatePlugin =>
     normalizer: [
       {
         match: {
-          type: [BLOCKS.UL_LIST, BLOCKS.OL_LIST]
+          type: [BLOCKS.UL_LIST, BLOCKS.OL_LIST],
         },
         validChildren: [BLOCKS.LIST_ITEM],
-        transform: transformWrapIn(BLOCKS.LIST_ITEM)
-      }
+        transform: transformWrapIn(BLOCKS.LIST_ITEM),
+      },
     ],
     overrideByKey: {
       [ELEMENT_UL]: {
         type: BLOCKS.UL_LIST,
         component: ListUL,
         handlers: {
-          onKeyDown: onKeyDownList
+          onKeyDown: onKeyDownList,
         },
         // The withList is added on ELEMENT_UL plugin in upstream code
         // so we need to override it here
-        withOverrides: withList
+        withOverrides: withList,
       },
       [ELEMENT_OL]: {
         type: BLOCKS.OL_LIST,
         component: ListOL,
         handlers: {
-          onKeyDown: onKeyDownList
-        }
+          onKeyDown: onKeyDownList,
+        },
       },
       // ELEMENT_LIC is a child of li, Slate does ul > li > lic + ul
       [ELEMENT_LIC]: {
         component: Paragraph,
-        type: BLOCKS.PARAGRAPH
+        type: BLOCKS.PARAGRAPH,
       },
       [ELEMENT_LI]: {
         type: BLOCKS.LIST_ITEM,
         component: ListItem,
-
         normalizer: [
           {
             validNode: hasListAsDirectParent,
-            transform: normalizeOrphanedListItem
+            transform: normalizeOrphanedListItem,
           },
           {
             validNode: isNonEmptyListItem,
-            transform: insertParagraphAsChild
+            transform: insertParagraphAsChild,
           },
           {
             validChildren: LIST_ITEM_BLOCKS,
-            transform: transformParagraphs
+            transform: transformParagraphs,
           },
           {
             validNode: (editor, entry) =>
@@ -75,10 +74,10 @@ export const createListPlugin = (): PlatePlugin =>
             transform: (editor, entry) =>
               replaceNodeWithListItems(
                 editor,
-                entry as Parameters<typeof replaceNodeWithListItems>[1]
-              )
-          }
-        ]
-      }
-    }
+                entry as Parameters<typeof replaceNodeWithListItems>[1],
+              ),
+          },
+        ],
+      },
+    },
   });

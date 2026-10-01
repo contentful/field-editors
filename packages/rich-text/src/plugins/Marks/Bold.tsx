@@ -13,13 +13,13 @@ import { buildMarkEventHandler } from './helpers';
 export const ToolbarBoldButton = createMarkToolbarButton({
   title: 'Bold',
   mark: MARKS.BOLD,
-  icon: <TextBIcon />
+  icon: <TextBIcon />,
 });
 
 const styles = {
   bold: css({
-    fontWeight: 600
-  })
+    fontWeight: 600,
+  }),
 };
 
 export function Bold(props: RenderLeafProps) {
@@ -38,25 +38,25 @@ export const createBoldPlugin = (): PlatePlugin =>
     type: MARKS.BOLD,
     component: Bold,
     options: {
-      hotkey: ['mod+b']
+      hotkey: ['mod+b'],
     },
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.BOLD)
+      onKeyDown: buildMarkEventHandler(MARKS.BOLD),
     },
     deserializeHtml: {
       rules: [
         { validNodeName: ['STRONG', 'B'] },
         {
           validStyle: {
-            fontWeight: ['600', '700', 'bold']
-          }
-        }
+            fontWeight: ['600', '700', 'bold'],
+          },
+        },
       ],
       query: (el) => {
         return (
           !isGoogleBoldWrapper(el) &&
           !someHtmlElement(el, (node) => node.style.fontWeight === 'normal')
         );
-      }
-    }
+      },
+    },
   });

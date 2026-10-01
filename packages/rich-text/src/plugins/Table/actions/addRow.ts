@@ -8,11 +8,11 @@ import { PlateEditor, NodeEntry, Element, Path, Location } from '../../../intern
 const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
   if (
     someNode(editor, {
-      match: { type: BLOCKS.TABLE }
+      match: { type: BLOCKS.TABLE },
     })
   ) {
     const currentRowItem = getAboveNode(editor, {
-      match: { type: BLOCKS.TABLE_ROW }
+      match: { type: BLOCKS.TABLE_ROW },
     }) as NodeEntry<Element> | undefined;
 
     if (currentRowItem) {
@@ -23,12 +23,12 @@ const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => P
         editor,
         getEmptyRowNode(editor, {
           header: false,
-          colCount: currentRowElem.children.length
+          colCount: currentRowElem.children.length,
         }),
         {
           at: nextRowPath,
           // Note: this selects the last cell of the new row
-          select: true
+          select: true,
         }
       );
 

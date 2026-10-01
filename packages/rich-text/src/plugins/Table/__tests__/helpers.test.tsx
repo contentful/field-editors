@@ -16,7 +16,7 @@ test('insertTableAndFocusFirstCell', () => {
   );
 
   const { editor } = createTestEditor({
-    input
+    input,
   });
 
   insertTableAndFocusFirstCell(editor);

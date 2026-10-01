@@ -23,9 +23,9 @@ describe('Exit Break', () => {
         query: {
           allow: 'h1',
           end: true,
-          start: true
-        }
-      }
+          start: true,
+        },
+      },
     ];
 
     const { editor } = createTestEditor({
@@ -34,10 +34,10 @@ describe('Exit Break', () => {
         mockPlugin({}),
 
         mockPlugin({
-          exitBreak: rules
+          exitBreak: rules,
         }),
-        createExitBreakPlugin()
-      ]
+        createExitBreakPlugin(),
+      ],
     });
 
     const outPlugin = editor.contentfulPlugins.find((p) => p.key === KEY_EXIT_BREAK)!;

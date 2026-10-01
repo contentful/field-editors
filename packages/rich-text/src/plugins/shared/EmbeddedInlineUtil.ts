@@ -4,7 +4,7 @@ import isHotkey from 'is-hotkey';
 
 import {
   newEntitySelectorConfigFromRichTextField,
-  newResourceEntitySelectorConfigFromRichTextField
+  newResourceEntitySelectorConfigFromRichTextField,
 } from '../../helpers/config';
 import { focus } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
@@ -15,7 +15,7 @@ import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export function getWithEmbeddedEntryInlineEvents(
   nodeType: INLINES.EMBEDDED_ENTRY | INLINES.EMBEDDED_RESOURCE,
-  sdk: FieldAppSDK
+  sdk: FieldAppSDK,
 ): KeyboardHandler<HotkeyPlugin> {
   return function withEmbeddedEntryInlineEvents(editor, { options: { hotkey } }) {
     return function handleEvent(event) {
@@ -37,8 +37,8 @@ const getLink = (entity) => {
     sys: {
       id: entity.sys.id,
       type: 'Link',
-      linkType: entity.sys.type
-    }
+      linkType: entity.sys.type,
+    },
   };
 };
 
@@ -47,22 +47,22 @@ const createInlineEntryNode = (nodeType, entity) => {
     type: nodeType,
     children: [{ text: '' }],
     data: {
-      target: nodeType === INLINES.EMBEDDED_RESOURCE ? entity : getLink(entity)
-    }
+      target: nodeType === INLINES.EMBEDDED_RESOURCE ? entity : getLink(entity),
+    },
   };
 };
 
 export async function selectEntityAndInsert(
   editor,
   sdk,
-  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
+  logAction: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction'],
 ) {
   const nodeType = INLINES.EMBEDDED_ENTRY;
   logAction('openCreateEmbedDialog', { nodeType });
 
   const config = {
     ...newEntitySelectorConfigFromRichTextField(sdk.field, nodeType),
-    withCreate: true
+    withCreate: true,
   };
   const rteSlide = watchCurrentSlide(sdk.navigator);
   const entry = await sdk.dialogs.selectSingleEntry(config);
@@ -82,7 +82,7 @@ export async function selectEntityAndInsert(
 export async function selectResourceEntityAndInsert(
   editor,
   sdk,
-  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction']
+  logAction: TrackingPluginActions['onToolbarAction'] | TrackingPluginActions['onShortcutAction'],
 ) {
   const nodeType = INLINES.EMBEDDED_RESOURCE;
   logAction('openCreateEmbedDialog', { nodeType });
@@ -90,7 +90,7 @@ export async function selectResourceEntityAndInsert(
   const { dialogs, field } = sdk;
   const config = {
     ...newResourceEntitySelectorConfigFromRichTextField(field, nodeType),
-    withCreate: true
+    withCreate: true,
   };
 
   const { selection } = editor;

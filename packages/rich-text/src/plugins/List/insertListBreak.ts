@@ -12,7 +12,7 @@ import {
   ELEMENT_DEFAULT,
   getPluginType,
   isBlockAboveEmpty,
-  mockPlugin
+  mockPlugin,
 } from '../../internal/plate';
 import { PlateEditor } from '../../internal/types';
 import { insertListItem } from './transforms/insertListItem';
@@ -37,7 +37,7 @@ const listBreak = (editor: PlateEditor): boolean => {
     ) {
       moved = moveListItemUp(editor, {
         list,
-        listItem
+        listItem,
       });
 
       if (moved) return true;
@@ -53,11 +53,11 @@ const listBreak = (editor: PlateEditor): boolean => {
             types: [getPluginType(editor, ELEMENT_LI)],
             defaultType: getPluginType(editor, ELEMENT_DEFAULT),
             predicate: () => !moved && isBlockAboveEmpty(editor),
-            onReset: (_editor) => unwrapList(_editor)
-          }
-        ]
-      }
-    })
+            onReset: (_editor) => unwrapList(_editor),
+          },
+        ],
+      },
+    }),
   )(SIMULATE_BACKSPACE);
   if (didReset) {
     return true;

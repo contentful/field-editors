@@ -10,34 +10,34 @@ import { SdkProvider } from '../../SdkProvider';
 import Toolbar from '../index';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-test-id',
 });
 
 const mockSdk = (marks?: MARKS[]): any => {
   return {
     locales: {
-      default: 'en-US'
+      default: 'en-US',
     },
     entry: {
-      getSys: vi.fn().mockReturnValue({ id: 'entry-id' })
+      getSys: vi.fn().mockReturnValue({ id: 'entry-id' }),
     },
     field: {
       id: 'field-id',
       locale: 'en-US',
       validations: [
         {
-          enabledMarks: marks || Object.values(MARKS)
-        }
-      ]
+          enabledMarks: marks || Object.values(MARKS),
+        },
+      ],
     },
     access: {
-      can: vi.fn().mockResolvedValue(true)
+      can: vi.fn().mockResolvedValue(true),
     },
     parameters: {
       instance: {
-        activeLocales: []
-      }
-    }
+        activeLocales: [],
+      },
+    },
   };
 };
 
@@ -53,7 +53,7 @@ describe('Toolbar', () => {
             <Toolbar isDisabled />
           </ContentfulEditorIdProvider>
         </SdkProvider>
-      </Plate>
+      </Plate>,
     );
     await waitFor(() => {
       expect(getByTestId('toolbar-heading-toggle')).toBeDisabled();
@@ -67,7 +67,7 @@ describe('Toolbar', () => {
         'ul',
         'ol',
         'hr',
-        'table'
+        'table',
       ].forEach((s) => expect(getByTestId(`${s}-toolbar-button`)).toBeDisabled());
       expect(getByTestId('toolbar-entity-dropdown-toggle')).toBeDisabled();
     });
@@ -84,7 +84,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>
+        </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).toBeVisible();
     });
@@ -99,7 +99,7 @@ describe('Toolbar', () => {
               <Toolbar isDisabled />
             </ContentfulEditorIdProvider>
           </SdkProvider>
-        </Plate>
+        </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).not.toBeInTheDocument();
     });

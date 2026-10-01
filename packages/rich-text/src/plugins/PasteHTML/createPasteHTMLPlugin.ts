@@ -45,10 +45,10 @@ export const createPasteHTMLPlugin = (): PlatePlugin => ({
           insertData: {
             format: 'text/html',
             // Perform custom content transformation *before* pasting
-            transformData: sanitizeHTML
-          }
-        }
-      }
-    }
-  }
+            transformData: sanitizeHTML,
+          },
+        },
+      },
+    },
+  },
 });

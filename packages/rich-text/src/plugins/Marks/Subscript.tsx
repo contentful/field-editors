@@ -13,19 +13,19 @@ import { buildMarkEventHandler } from './helpers';
 const styles = {
   subscript: css({
     verticalAlign: 'sub',
-    fontSize: 'smaller'
-  })
+    fontSize: 'smaller',
+  }),
 };
 
 export const ToolbarSubscriptButton = createMarkToolbarButton({
   title: 'Subscript',
   mark: MARKS.SUBSCRIPT,
-  icon: <Icon as={TextSubscriptIcon} viewBox="0 0 23 18" />
+  icon: <Icon as={TextSubscriptIcon} viewBox="0 0 23 18" />,
 });
 
 export const ToolbarDropdownSubscriptButton = createMarkToolbarButton({
   title: 'Subscript',
-  mark: MARKS.SUBSCRIPT
+  mark: MARKS.SUBSCRIPT,
 });
 
 export function Subscript(props: RenderLeafProps) {
@@ -41,6 +41,6 @@ export const createSubscriptPlugin = (): PlatePlugin =>
     type: MARKS.SUBSCRIPT,
     component: Subscript,
     handlers: {
-      onKeyDown: buildMarkEventHandler(MARKS.SUBSCRIPT)
-    }
+      onKeyDown: buildMarkEventHandler(MARKS.SUBSCRIPT),
+    },
   });

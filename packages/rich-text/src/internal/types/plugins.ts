@@ -20,13 +20,14 @@ export type ResetNodePluginRule<E = PlateEditor> = {
   predicate: (editor: E) => boolean;
   onReset?: (editor: E) => void;
 };
+
 export type KeyboardHandler<P = Record<string, unknown>> = (
   editor: PlateEditor,
-  plugin: PlatePlugin & { options: P }
+  plugin: PlatePlugin & { options: P },
 ) => (event: React.KeyboardEvent) => void | boolean;
 export type WithOverride<P = Record<string, unknown>> = (
   editor: PlateEditor,
-  plugin: PlatePlugin & { options: P }
+  plugin: PlatePlugin & { options: P },
 ) => PlateEditor;
 
 /** Contentful's plugin configuration, translated to Plate at the editor boundary. */
