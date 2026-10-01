@@ -35,7 +35,8 @@
     "test": "vitest",
     "test:ci": "vitest run",
     "tsc": "tsc -p ./ --noEmit",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint src",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@contentful/app-sdk": "^4.42.0",
@@ -93,5 +94,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --prune-suppressions",
+      "prettier --write"
+    ]
   }
 }

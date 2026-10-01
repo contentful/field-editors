@@ -22,7 +22,7 @@ export const LinkPopover = ({
   handleRemoveLink,
   children,
   handleCopyLink,
-  isEditorFocused,
+  isEditorFocused
 }: LinkPopoverProps) => {
   const popoverContent = React.useRef<HTMLDivElement | null>(null);
   const [isPopoverContentClicked, setIsPopoverContentClicked] = React.useState(false);
@@ -59,7 +59,6 @@ export const LinkPopover = ({
   // Otherwise the content of the popover will get copied over when users copy text from the rich text editor
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-autofocus -- we don't want to autofocus the popover
     <Popover renderOnlyWhenOpen={false} usePortal={true} autoFocus={false} isOpen={isOpen}>
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Content className={styles.popover}>

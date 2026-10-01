@@ -1,0 +1,86 @@
+{
+  "src/assets/WrappedAssetCard/FetchingWrappedAssetCard.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 3
+    }
+  },
+  "src/assets/WrappedAssetCard/WrappedAssetCard.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/assets/WrappedAssetCard/WrappedAssetLink.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/common/EntityStore.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/common/MultipleReferenceEditor.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 2
+    }
+  },
+  "src/components/CreateEntryLinkButton/CreateEntryLinkButton.spec.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/components/LinkActions/LinkEntityActions.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 2
+    }
+  },
+  "src/components/MissingAssetCard/MissingAssetCard.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/components/MissingEntityCard/MissingEntityCard.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    }
+  },
+  "src/components/ResourceEntityErrorCard/FunctionInvocationErrorCard.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/components/ResourceEntityErrorCard/ResourceEntityErrorCard.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/components/ResourceEntityErrorCard/UnsupportedEntityCard.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/entries/WrappedEntryCard/FetchingWrappedEntryCard.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/entries/WrappedEntryCard/WrappedEntryCard.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 3
+    }
+  },
+  "src/resources/ExternalResourceCard/ExternalResourceCard.tsx": {
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 3
+    }
+  }
+}

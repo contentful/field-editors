@@ -57,6 +57,44 @@ function Root() {
 }
 ```
 
+## Linting
+
+### Ratchet approach
+
+This repo uses a ratchet linter pattern. Each package/app has an `eslint-suppressions.json` file that records the count of known violations per file per rule. ESLint silences those existing violations so they don't block CI or development — but only up to the recorded count. Any new violation of the same rule in the same file still surfaces as an error.
+
+**The suppression files are a baseline that should only ever shrink.** They must never be edited by hand or grown to hide a violation — adding a suppression is always a deliberate engineering decision, made via the commands below, never by manually editing the JSON.
+
+### Commands
+
+Lint all packages (via [Lerna][lerna]'s `--stream`, one process per package):
+
+```bash
+yarn lint
+```
+
+Lint a single package (faster for local development):
+
+```bash
+cd packages/<name>
+yarn lint
+```
+
+### Pre-commit hook
+
+On every commit, the pre-commit hook runs `lint-staged` inside each package via Lerna. It automatically removes stale suppressions (`--prune-suppressions`) for any file you changed. The updated `eslint-suppressions.json` is **not** included in the triggering commit — it appears as a modified file afterwards and must be committed separately (a post-commit hook reminds you of this).
+
+### Introducing a new lint rule
+
+When a new ESLint rule triggers many existing violations across a package, use `--suppress-all` to baseline the current state before the rule becomes an error. Run this from inside the affected package:
+
+```bash
+cd packages/<name>
+npx eslint src --suppress-all
+```
+
+This writes the current violations into that package's `eslint-suppressions.json`. Commit the updated suppression file together with the rule change. From that point on the ratchet applies: existing violations stay suppressed, all new code must comply.
+
 ## Getting started & contributing
 
 ### Requirements
