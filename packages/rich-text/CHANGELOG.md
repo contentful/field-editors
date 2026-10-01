@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.4.3...@contentful/field-editor-rich-text@6.4.4) (2026-10-01)
+
+### Bug Fixes
+
+- **rich-text:** prevent caret jumps during local saves ([#2243](https://github.com/contentful/field-editors/issues/2243)) ([1f1ca06](https://github.com/contentful/field-editors/commit/1f1ca0643e012ccfa2f7068f14da90b15281cb4b))
+
 ## [6.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.4.2...@contentful/field-editor-rich-text@6.4.3) (2026-08-25)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
