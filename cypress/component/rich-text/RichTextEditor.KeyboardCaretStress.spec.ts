@@ -7,7 +7,7 @@ import {
   text
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
-import { paragraphWithText } from './helpers';
+import { entryBlock, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
@@ -277,4 +277,39 @@ describe('Rich text native caret under repeated editing', () => {
     }
     page.expectValue(value);
   });
+
+  for (const arrow of ['ArrowDown', 'ArrowRight']) {
+    for (const key of ['Delete', 'x']) {
+      it(`${arrow} then ${key} preserves the card and edits the paragraph`, () => {
+        const sdk = createRichTextFakeSdk({
+          initialValue: doc(entryBlock(), paragraphWithText('Body text'))
+        });
+        mountRichTextEditor({ sdk });
+        const page = new RichTextPage();
+        page.editor.findByText('Body text').click();
+        page.editor.type('{home}');
+        cy.findByTestId('cf-ui-entry-card').click();
+        page.editor.focus();
+        page.editor.should('be.focused');
+        cy.clock();
+        cy.tick(100);
+        press(arrow);
+        let offset: number;
+        cy.window().should((win) => {
+          expect(win.getSelection()?.anchorNode?.textContent).to.equal('Body text');
+          offset = win.getSelection()!.anchorOffset;
+        });
+        press(key);
+        cy.tick(600);
+        cy.clock().then((clock) => clock.restore());
+        cy.then(() => {
+          const value =
+            key === 'Delete'
+              ? 'Body text'.slice(0, offset) + 'Body text'.slice(offset + 1)
+              : 'Body text'.slice(0, offset) + key + 'Body text'.slice(offset);
+          page.expectValue(doc(entryBlock(), paragraphWithText(value)));
+        });
+      });
+    }
+  }
 });
