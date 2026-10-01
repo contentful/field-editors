@@ -3,11 +3,11 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { BLOCKS } from '@contentful/rich-text-types';
-import { ELEMENT_LIC } from '@udecode/plate-list';
-import { getListItemEntry } from '@udecode/plate-list';
 
 import { withoutNormalizing } from '../../../internal';
 import { ELEMENT_DEFAULT } from '../../../internal/constants';
+import { ELEMENT_LIC } from '../../../internal/list';
+import { getListItemEntry } from '../../../internal/list';
 import {
   findNode,
   getNodeEntries,

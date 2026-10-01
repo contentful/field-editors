@@ -2,9 +2,9 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
+import { HotkeyPlugin } from '../../internal/plate';
 import { getAboveNode } from '../../internal/queries';
 import { KeyboardHandler } from '../../internal/types';
 import { moveListItems } from './transforms/moveListItems';
@@ -31,7 +31,7 @@ export const onKeyDownList: KeyboardHandler<HotkeyPlugin> =
     const hotkeys = Array.isArray(hotkey) ? hotkey : [hotkey];
 
     for (const _hotkey of hotkeys) {
-      if (isHotkey(_hotkey)(e)) {
+      if (type && isHotkey(_hotkey)(e)) {
         toggleList(editor, { type });
       }
     }

@@ -81,5 +81,23 @@ export const sanitizeHTML = (html: string): string => {
   // TODO: can be removed with plate >= 20
   doc.querySelectorAll('table').forEach(removeTableWrappers);
 
+  // Plate now treats Slate DOM attributes as serialized node properties and
+  // skips tag/style parsing. Older Contentful editors only wrote DOM markers.
+  // Encoded Slate fragments are handled separately by ensureXSlateFragment.
+  doc.querySelectorAll('*').forEach((element) => {
+    element.getAttributeNames().forEach((attribute) => {
+      if (attribute.startsWith('data-slate-')) element.removeAttribute(attribute);
+    });
+  });
+
+  // Preserve the trailing newline emitted by Google Docs and Safari. Current
+  // Plate otherwise discards this marker, changing the pasted document.
+  doc.querySelectorAll('br.Apple-interchange-newline').forEach((element) => {
+    element.classList.remove('Apple-interchange-newline');
+    const span = doc.createElement('span');
+    element.replaceWith(span);
+    span.append(element);
+  });
+
   return doc.body.innerHTML;
 };

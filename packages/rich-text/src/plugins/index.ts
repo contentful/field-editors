@@ -1,5 +1,4 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
-import { PlateProps } from '@udecode/plate-common';
 
 import { PlatePlugin } from '../internal/types';
 import { createSoftBreakPlugin, createExitBreakPlugin, createResetNodePlugin } from './Break';
@@ -86,9 +85,3 @@ export const getPlugins = (
   createResetNodePlugin(),
   createNormalizerPlugin(),
 ];
-
-export const disableCorePlugins: PlateProps['disableCorePlugins'] = {
-  // Note: Enabled by default since v9.0.0 but it causes Cypress's
-  // .click() command to fail
-  eventEditor: true,
-};

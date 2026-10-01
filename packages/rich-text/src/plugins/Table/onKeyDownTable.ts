@@ -1,11 +1,16 @@
 import { KeyboardEvent } from 'react';
 
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getTableEntries, onKeyDownTable as defaultKeyDownTable } from '@udecode/plate-table';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { blurEditor } from '../../internal/misc';
 import { getAboveNode, getText, isFirstChild, isLastChildPath } from '../../internal/queries';
+import {
+  getTableEntries,
+  getNextTableCell,
+  getPreviousTableCell,
+  onKeyDownTable as defaultKeyDownTable,
+} from '../../internal/table';
 import { KeyboardHandler, HotkeyPlugin, NodeEntry } from '../../internal/types';
 import { addRowBelow } from './actions';
 
@@ -59,28 +64,31 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
       }
     }
 
-    // Pressing Tab on the last cell creates a new row
-    // Otherwise, jumping between cells is handled in the defaultKeyDownTable
-    if (event.key === 'Tab' && !event.shiftKey) {
-      event.preventDefault();
+    if (event.key === 'Tab') {
       const entry = getTableEntries(editor, {});
 
-      if (entry) {
-        const { table, row, cell } = entry;
+      if (!entry) return;
+      event.preventDefault();
+      const { table, row, cell } = entry;
 
-        const isLastCell = isLastChildPath(row as NodeEntry, cell[1]);
-        const isLastRow = isLastChildPath(table as NodeEntry, row[1]);
+      const isLastCell = isLastChildPath(row as NodeEntry, cell[1]);
+      const isLastRow = isLastChildPath(table as NodeEntry, row[1]);
 
-        if (isLastRow && isLastCell) {
-          addRowBelow(editor);
-
-          // skip default handler
-          return;
-        } else {
-          defaultHandler(event);
-        }
+      if (!event.shiftKey && isLastRow && isLastCell) {
+        addRowBelow(editor);
+      } else {
+        const nextCell = (event.shiftKey ? getPreviousTableCell : getNextTableCell)(
+          editor,
+          cell,
+          cell[1],
+          row,
+        );
+        if (nextCell) editor.tf.select(editor.api.start(nextCell[1])!);
       }
+      return;
     }
+
+    defaultHandler(event);
 
     if (event.key === 'Escape') {
       blurEditor(editor);

@@ -88,10 +88,11 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
   it('has correct keyboard navigation', () => {
     richText.editor.focus();
-    richText.editor.tab({ shift: true });
+    cy.realPress(['Shift', 'Tab']);
     richText.toolbar.embedDropdown.should('have.focus');
-    richText.editor.tab();
-    richText.editor.tab();
+    cy.realPress('Tab');
+    richText.editor.should('have.focus');
+    cy.realPress('Tab');
     richText.editor.should('not.have.focus');
   });
 

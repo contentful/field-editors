@@ -2,9 +2,13 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-import { isListNested, ELEMENT_LIC, getListItemEntry, moveListItemUp } from '@udecode/plate-list';
-
 import { withoutNormalizing } from '../../../internal';
+import {
+  isListNested,
+  ELEMENT_LIC,
+  getListItemEntry,
+  moveListItemUp,
+} from '../../../internal/list';
 import {
   getNodeEntries,
   getPluginType,

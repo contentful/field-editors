@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ResourceLink } from '@contentful/field-editor-reference';
-import { useSelected, useReadOnly } from 'slate-react';
+import { useSelected, useReadOnly } from 'platejs/react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import { Element, findNodePath, removeNodes, RenderElementProps } from '../../internal';

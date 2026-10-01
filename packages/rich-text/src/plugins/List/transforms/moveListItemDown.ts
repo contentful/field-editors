@@ -2,9 +2,8 @@
  * Credit: Modified version of Plate's list plugin
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
-import { getListTypes } from '@udecode/plate-list';
-
 import { withoutNormalizing } from '../../../internal';
+import { getListTypes } from '../../../internal/list';
 import {
   getNodeEntry,
   getNodeChildren,

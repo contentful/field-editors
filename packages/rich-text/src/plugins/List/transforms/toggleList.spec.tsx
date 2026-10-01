@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { BLOCKS } from '@contentful/rich-text-types';
-import { PlateEditor } from '@udecode/plate-common';
 import { describe, it } from 'vitest';
 
+import { PlateEditor } from '../../../internal/plate';
 import { assertOutput, jsx, createTestEditor } from '../../../test-utils';
 import { toggleList } from './toggleList';
 

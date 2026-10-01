@@ -1,5 +1,4 @@
-import { mockPlugin as mock } from '@udecode/plate-common';
-
+import { mockPlugin as mock } from '../internal/plate';
 import { PlatePlugin } from '../internal/types';
 import { randomId } from './randomId';
 

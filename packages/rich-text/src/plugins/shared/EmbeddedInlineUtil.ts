@@ -1,6 +1,5 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import {
@@ -9,6 +8,7 @@ import {
 } from '../../helpers/config';
 import { focus } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
+import { HotkeyPlugin } from '../../internal/plate';
 import { insertNodes, select } from '../../internal/transforms';
 import { KeyboardHandler } from '../../internal/types';
 import { TrackingPluginActions } from '../../plugins/Tracking';

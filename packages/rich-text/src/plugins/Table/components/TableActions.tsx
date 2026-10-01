@@ -4,13 +4,13 @@ import { IconButton, Menu } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { deleteColumn, deleteRow, deleteTable } from '@udecode/plate-table';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
 import { withoutNormalizing } from '../../../internal';
 import { useReadOnly } from '../../../internal/hooks';
 import { getAboveNode } from '../../../internal/queries';
+import { deleteColumn, deleteRow, deleteTable } from '../../../internal/table';
 import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';

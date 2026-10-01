@@ -3,8 +3,8 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
-import { findNode } from '@udecode/plate-common';
 
+import { findNode } from '../../internal/plate';
 import {
   isBlockNode,
   isAncestorPath,

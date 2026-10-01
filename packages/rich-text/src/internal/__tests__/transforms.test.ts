@@ -1,4 +1,4 @@
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it } from 'vitest';
 
 import { select } from '../transforms';
@@ -13,7 +13,7 @@ const paragraph = (text: string): Element => ({
 });
 
 const createEditor = (children: Element[]) =>
-  createSlateEditor('test-editor', {}, children) as PlateEditor;
+  slateJsx('editor', {}, children) as PlateEditor;
 
 describe('setEditorValue', () => {
   it('preserves cursor position when incoming value has the same structure', () => {
