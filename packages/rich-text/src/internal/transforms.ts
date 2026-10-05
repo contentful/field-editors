@@ -1,7 +1,7 @@
-import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
+import * as p from './plate';
 import { getEndPoint, getNodeEntry, isNode, isText } from './queries';
 import {
   PlateEditor,
@@ -14,8 +14,6 @@ import {
   TextInsertTextOptions,
   Element,
   SelectionCollapseOptions,
-  Path,
-  Span,
   BasePoint,
   Location,
 } from './types';
@@ -25,7 +23,7 @@ import {
  */
 export const normalize = (
   editor: PlateEditor,
-  options: s.EditorNormalizeOptions = { force: true },
+  options: p.EditorNormalizeOptions = { force: true },
 ) => {
   return p.normalizeEditor(editor, options);
 };
@@ -49,7 +47,7 @@ export const moveSelection = (editor: PlateEditor, options?: SelectionMoveOption
   return p.moveSelection(editor, options);
 };
 
-export const moveChildren = (editor: PlateEditor, options: p.MoveChildrenOptions<Value>) => {
+export const moveChildren = (editor: PlateEditor, options: p.MoveChildrenOptions) => {
   return p.moveChildren(editor, options);
 };
 
@@ -67,7 +65,7 @@ export const setNodes = (
 
 export const unsetNodes = (
   editor: PlateEditor,
-  props: string | number | (string | number)[],
+  props: string | string[],
   options?: p.UnsetNodesOptions<Value> | undefined,
 ) => {
   p.unsetNodes(editor, props, options);
@@ -115,10 +113,11 @@ export const removeMark = (editor: PlateEditor, type: string, at: BaseRange) => 
 
 export const unhangRange = (
   editor: PlateEditor,
-  range?: Path | BasePoint | BaseRange | Span | null | undefined,
+  range?: BaseRange | null,
   options?: p.UnhangRangeOptions | undefined,
 ) => {
-  return p.unhangRange(editor, range, options);
+  const selection = range ?? editor.selection;
+  return selection ? p.unhangRange(editor, selection, options) : undefined;
 };
 
 export const toggleMark = (editor: PlateEditor, options: p.ToggleMarkOptions) => {
@@ -141,7 +140,7 @@ export const removeNodes = (editor: PlateEditor, opts?: p.RemoveNodesOptions<Val
   p.removeNodes(editor, opts);
 };
 
-export const moveNodes = (editor: PlateEditor, opts?: p.MoveNodesOptions<Value>) => {
+export const moveNodes = (editor: PlateEditor, opts: p.MoveNodesOptions<Value>) => {
   p.moveNodes(editor, opts);
 };
 

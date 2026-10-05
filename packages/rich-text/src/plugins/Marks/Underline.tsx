@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { TextUnderlineIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
-import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '@udecode/plate-basic-marks';
 
+import { createUnderlinePlugin as createDefaultUnderlinePlugin } from '../../internal/pluginFactories';
 import { someHtmlElement } from '../../internal/queries';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';

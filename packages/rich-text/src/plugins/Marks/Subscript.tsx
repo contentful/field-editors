@@ -4,8 +4,8 @@ import { Icon } from '@contentful/f36-icon';
 import { TextSubscriptIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '@udecode/plate-basic-marks';
 
+import { createSubscriptPlugin as createDefaultSubscriptPlugin } from '../../internal/pluginFactories';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
@@ -42,12 +42,5 @@ export const createSubscriptPlugin = (): PlatePlugin =>
     component: Subscript,
     handlers: {
       onKeyDown: buildMarkEventHandler(MARKS.SUBSCRIPT),
-    },
-    deserializeHtml: {
-      rules: [
-        {
-          validNodeName: ['SUB'],
-        },
-      ],
     },
   });

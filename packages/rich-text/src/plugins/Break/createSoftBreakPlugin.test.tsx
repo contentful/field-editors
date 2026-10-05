@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { SoftBreakRule, KEY_SOFT_BREAK } from '@udecode/plate-break';
 import { describe, expect, it } from 'vitest';
 
+import { SoftBreakRule, KEY_SOFT_BREAK } from '../../internal/breaks';
 import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createSoftBreakPlugin } from './createSoftBreakPlugin';
 
@@ -46,7 +46,7 @@ describe('Soft Break', () => {
       ],
     });
 
-    const outPlugin = editor.pluginsByKey[KEY_SOFT_BREAK];
+    const outPlugin = editor.contentfulPlugins.find((p) => p.key === KEY_SOFT_BREAK)!;
 
     expect(outPlugin.options).toEqual({ rules });
   });

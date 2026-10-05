@@ -1,6 +1,5 @@
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
-import { HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import {
@@ -32,6 +31,7 @@ import {
   isAncestorEmpty,
   Ancestor,
 } from '../../internal';
+import { HotkeyPlugin } from '../../internal/plate';
 import { TrackingPluginActions } from '../Tracking';
 
 export function getWithEmbeddedBlockEvents(

@@ -1,14 +1,10 @@
 import { BLOCKS, LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
-import {
-  createListPlugin as createPlateListPlugin,
-  ELEMENT_LI,
-  ELEMENT_UL,
-  ELEMENT_OL,
-  ELEMENT_LIC,
-} from '@udecode/plate-list';
 
 import { transformParagraphs, transformWrapIn } from '../../helpers/transformers';
-import { PlatePlugin, PlateEditor, Value } from '../../internal/types';
+import { ELEMENT_LI, ELEMENT_UL, ELEMENT_OL, ELEMENT_LIC } from '../../internal/list';
+import { createListPlugin as createPlateListPlugin } from '../../internal/pluginFactories';
+import { PlatePlugin } from '../../internal/types';
+import { Paragraph } from '../Paragraph/Paragraph';
 import { ListOL, ListUL } from './components/List';
 import { ListItem } from './components/ListItem';
 import { onKeyDownList } from './onKeyDownList';
@@ -23,7 +19,7 @@ import {
 import { withList } from './withList';
 
 export const createListPlugin = (): PlatePlugin =>
-  createPlateListPlugin<any, Value, PlateEditor>({
+  createPlateListPlugin({
     normalizer: [
       {
         match: {
@@ -53,12 +49,12 @@ export const createListPlugin = (): PlatePlugin =>
       },
       // ELEMENT_LIC is a child of li, Slate does ul > li > lic + ul
       [ELEMENT_LIC]: {
+        component: Paragraph,
         type: BLOCKS.PARAGRAPH,
       },
       [ELEMENT_LI]: {
         type: BLOCKS.LIST_ITEM,
         component: ListItem,
-        // @ts-expect-error
         normalizer: [
           {
             validNode: hasListAsDirectParent,
@@ -73,8 +69,13 @@ export const createListPlugin = (): PlatePlugin =>
             transform: transformParagraphs,
           },
           {
-            validNode: firstNodeIsNotList,
-            transform: replaceNodeWithListItems,
+            validNode: (editor, entry) =>
+              firstNodeIsNotList(editor, entry as Parameters<typeof firstNodeIsNotList>[1]),
+            transform: (editor, entry) =>
+              replaceNodeWithListItems(
+                editor,
+                entry as Parameters<typeof replaceNodeWithListItems>[1],
+              ),
           },
         ],
       },

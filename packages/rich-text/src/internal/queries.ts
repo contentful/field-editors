@@ -2,9 +2,9 @@
  * Re-exporting Plate/Slate queries (aka selectors) to reduce
  * the blast radius of version upgrades
  */
-import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 
+import * as p from './plate';
 import type {
   Value,
   PlateEditor,
@@ -161,7 +161,7 @@ export const getCommonNode = (
   path: s.Path,
   another: s.Path,
 ): NodeEntry => {
-  return p.getCommonNode(root, path, another);
+  return p.getCommonNode(root, path, another) as NodeEntry;
 };
 
 export const getNodeTexts = (
@@ -288,7 +288,7 @@ export const isEndPoint = (
 };
 
 export const isInline = (editor: PlateEditor, value: unknown) => {
-  return p.isInline(editor, value);
+  return isElement(value) && p.isInline(editor, value);
 };
 
 export const queryNode = (entry?: NodeEntry, options?: p.QueryNodeOptions) => {

@@ -16,6 +16,7 @@ declare namespace JSX {
     };
 
     hp: {};
+    hhr: Record<string, never>;
     hquote: {};
     hcode: {};
 

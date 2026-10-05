@@ -3,7 +3,7 @@ import * as React from 'react';
 import tokens from '@contentful/f36-tokens';
 import { TableHeaderCell } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { useSelected } from 'slate-react';
+import { useSelected } from 'platejs/react';
 
 import { RenderElementProps } from '../../../internal/types';
 import { TableActions } from './TableActions';

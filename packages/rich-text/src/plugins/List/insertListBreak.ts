@@ -5,16 +5,16 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+
+import { onKeyDownResetNode, SIMULATE_BACKSPACE } from '../../internal/breaks';
+import { getListItemEntry, moveListItemUp, unwrapList, ELEMENT_LI } from '../../internal/list';
 import {
   ELEMENT_DEFAULT,
   getPluginType,
   isBlockAboveEmpty,
   mockPlugin,
-} from '@udecode/plate-common';
-import { getListItemEntry, moveListItemUp, unwrapList, ELEMENT_LI } from '@udecode/plate-list';
-import { onKeyDownResetNode, ResetNodePlugin, SIMULATE_BACKSPACE } from '@udecode/plate-reset-node';
-
-import { PlateEditor, Value } from '../../internal/types';
+} from '../../internal/plate';
+import { PlateEditor } from '../../internal/types';
 import { insertListItem } from './transforms/insertListItem';
 
 const listBreak = (editor: PlateEditor): boolean => {
@@ -46,7 +46,7 @@ const listBreak = (editor: PlateEditor): boolean => {
 
   const didReset = onKeyDownResetNode(
     editor,
-    mockPlugin<ResetNodePlugin, Value, PlateEditor>({
+    mockPlugin({
       options: {
         rules: [
           {

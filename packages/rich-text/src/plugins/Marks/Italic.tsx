@@ -3,8 +3,8 @@ import * as React from 'react';
 import { TextItalicIcon } from '@contentful/f36-icons';
 import { MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
-import { createItalicPlugin as createDefaultItalicPlugin } from '@udecode/plate-basic-marks';
 
+import { createItalicPlugin as createDefaultItalicPlugin } from '../../internal/pluginFactories';
 import { someHtmlElement } from '../../internal/queries';
 import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';

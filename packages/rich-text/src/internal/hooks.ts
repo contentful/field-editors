@@ -1,18 +1,9 @@
-import * as p from '@udecode/plate-common';
-import * as sr from 'slate-react';
+import { useEditorRef, useEditorState, useReadOnly } from 'platejs/react';
 
-import { PlateEditor, Value } from './types';
+import { PlateEditor } from './types';
 
-export const useReadOnly = sr.useReadOnly;
+export { useReadOnly };
 
-export const usePlateEditorRef = (id?: string) => {
-  return p.useEditorRef<Value, PlateEditor>(id);
-};
+export const usePlateEditorRef = (id?: string) => useEditorRef<PlateEditor>(id);
 
-export const usePlateEditorState = (id?: string) => {
-  return p.useEditorState<Value, PlateEditor>(id);
-};
-
-export const usePlateSelectors = (id?: string) => {
-  return p.usePlateSelectors(id);
-};
+export const usePlateEditorState = (id?: string) => useEditorState<PlateEditor>(id);

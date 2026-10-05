@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 
 import { PlateEditor } from '../../../internal/types';
@@ -17,7 +17,7 @@ vi.mock('../../../helpers/editor', async () => {
 
 describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
   it('inserts an embedded entry block for newly created entries from an empty paragraph', async () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.PARAGRAPH,
         data: {},
@@ -49,7 +49,7 @@ describe('EmbeddedBlockUtil selectEntityAndInsert', () => {
   });
 
   it('inserts an embedded entry block when selection is inside a nested list item paragraph', async () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.UL_LIST,
         data: {},

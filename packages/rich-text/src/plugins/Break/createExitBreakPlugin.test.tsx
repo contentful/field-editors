@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { ExitBreakRule } from '@udecode/plate-break';
-import { KEY_EXIT_BREAK } from '@udecode/plate-break';
 import { describe, expect, it } from 'vitest';
 
+import { ExitBreakRule } from '../../internal/breaks';
+import { KEY_EXIT_BREAK } from '../../internal/breaks';
 import { jsx, createTestEditor, mockPlugin } from '../../test-utils';
 import { createExitBreakPlugin } from './createExitBreakPlugin';
 
@@ -40,7 +40,7 @@ describe('Exit Break', () => {
       ],
     });
 
-    const outPlugin = editor.pluginsByKey[KEY_EXIT_BREAK];
+    const outPlugin = editor.contentfulPlugins.find((p) => p.key === KEY_EXIT_BREAK)!;
     expect(outPlugin.options).toEqual({ rules: expect.arrayContaining(rules) });
   });
 });

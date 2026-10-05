@@ -1,5 +1,5 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { createText } from '@udecode/plate-test-utils';
+import { createText } from 'slate-hyperscript';
 import { createHyperscript, HyperscriptCreators } from 'slate-hyperscript';
 
 type Creator = HyperscriptCreators[0];
