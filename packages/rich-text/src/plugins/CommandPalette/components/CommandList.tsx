@@ -7,7 +7,7 @@ import {
   SectionHeading,
   ScreenReaderOnly,
   Flex,
-  AssetIcon,
+  AssetIcon
 } from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
 import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
@@ -27,7 +27,7 @@ export interface CommandListProps {
 
 const Group = ({
   commandGroup,
-  selectedItem,
+  selectedItem
 }: {
   commandGroup: CommandGroup;
   selectedItem: string;
@@ -47,7 +47,7 @@ const Group = ({
         key={command.id}
         id={command.id}
         className={cx(styles.menuItem, {
-          [styles.menuItemSelected]: command.id === selectedItem,
+          [styles.menuItemSelected]: command.id === selectedItem
         })}
         onClick={command.callback}
       >
@@ -63,7 +63,7 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
     key={command.id}
     id={command.id}
     className={cx(styles.menuItem, {
-      [styles.menuItemSelected]: command.id === selectedItem,
+      [styles.menuItemSelected]: command.id === selectedItem
     })}
     onClick={command.callback}
   >
@@ -83,7 +83,7 @@ const Item = ({ command, selectedItem }: { command: Command; selectedItem: strin
     key={command.id}
     id={command.id}
     className={cx(styles.menuItem, {
-      [styles.menuItemSelected]: command.id === selectedItem,
+      [styles.menuItemSelected]: command.id === selectedItem
     })}
     onClick={command.callback}
   >
@@ -93,7 +93,7 @@ const Item = ({ command, selectedItem }: { command: Command; selectedItem: strin
 
 const CommandListItems = ({
   commandItems,
-  selectedItem,
+  selectedItem
 }: {
   commandItems: CommandItems;
   selectedItem: string;
@@ -117,7 +117,7 @@ const InternalCommandList = ({ query, editor, textContainer }: CommandListProps)
   const sdk = useSdkContext();
   const popoverContainer = React.useRef<HTMLDivElement>(null);
   const popper = usePopper(textContainer, popoverContainer?.current, {
-    placement: 'bottom-start',
+    placement: 'bottom-start'
   });
   const commandItems = useCommands(sdk, query, editor);
   const { selectedItem, isOpen } = useCommandList(commandItems, popoverContainer);
@@ -152,12 +152,7 @@ const InternalCommandList = ({ query, editor, textContainer }: CommandListProps)
           style={popper.styles.popper}
           {...popper.attributes.popper}
         >
-          <Popover
-            isOpen={isOpen}
-            usePortal={false}
-            /* eslint-disable-next-line jsx-a11y/no-autofocus -- we want to keep focus on text input*/
-            autoFocus={false}
-          >
+          <Popover isOpen={isOpen} usePortal={false} autoFocus={false}>
             {/* we need an empty trigger here for the positioning of the menu list */}
             <Popover.Trigger>
               <span />
