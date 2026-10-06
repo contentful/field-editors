@@ -92,7 +92,7 @@ export function WrappedEntryCard({
   React.useEffect(() => {
     let mounted = true;
 
-    if (entry) {
+    if (entry?.sys?.id) {
       getEntryImage(
         {
           entry,
@@ -119,7 +119,13 @@ export function WrappedEntryCard({
     };
   }, [entry, getAsset, contentType, localeCode, defaultLocaleCode]);
 
-  const status = getEntityStatus(entry?.sys, useLocalizedEntityStatus ? localeCode : undefined);
+  if (!entry?.sys?.id) {
+    return (
+      <MissingEntityCard isDisabled={isDisabled} onRemove={onRemove} providerName="Contentful" />
+    );
+  }
+
+  const status = getEntityStatus(entry.sys, useLocalizedEntityStatus ? localeCode : undefined);
 
   if (status === 'deleted') {
     return (

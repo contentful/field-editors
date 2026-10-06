@@ -3,6 +3,12 @@ import { describe, expect, test } from 'vitest';
 import { getEntityStatus, getResolvedImageUrl, type EntitySys } from './entityHelpers';
 
 describe('getEntityStatus', () => {
+  test.each([undefined, null])('rejects missing metadata (%s)', (sys) => {
+    expect(() => getEntityStatus(sys as unknown as EntitySys)).toThrow(
+      new TypeError('Invalid entity metadata object'),
+    );
+  });
+
   function createEntity(
     props: Pick<
       EntitySys,
