@@ -555,17 +555,21 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           const form = richText.forms.hyperlink;
 
           form.linkText.type('dog');
-          form.linkTarget.type('https://zombo.com');
+          form.linkTarget.clear().type('https://zombo.com');
           form.submit.click();
 
           cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
 
-          richText.editor.click().type('{selectall}');
+          cy.get('#field-editor-modal-root').should('not.exist');
+          richText.editor.find('a[href="https://zombo.com"]').should('have.text', 'dog').click();
+          // The popover opens once Slate recognizes the link selection and editor focus.
+          cy.findByTestId('cf-ui-popover-content').should('be.visible');
           cy.findByTestId('hyperlink-toolbar-button').click();
 
           cy.get('@onAction').should('be.calledWithExactly', ...unlink('toolbar-icon'));
 
           cy.get('@onAction').should('have.callCount', 3);
+          richText.editor.find('a').should('not.exist');
         });
 
         it('tracks when converting text to URL hyperlink', () => {
