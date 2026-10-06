@@ -1,19 +1,9 @@
 import type { KeyboardEvent } from 'react';
 
-import {
-  getEditorWindow,
-  getNode,
-  getVoidNode,
-  hasEditorTarget,
-  isCollapsed,
-  isComposing,
-  isEditorFocused,
-  select,
-  toSlateNode,
-  toSlateRange
-} from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
+import { isCollapsed } from '../internal/plate';
+import { getContentfulPlugins } from '../internal/pluginAdapter';
 import { HotkeyPlugin, PlateEditor, PlatePlugin } from '../internal/types';
 
 const caretKeys = ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete', 'Enter'];
@@ -33,34 +23,34 @@ const hasMatchingCaret = (editor: PlateEditor, selection: Selection, anchorNode:
   )
     return false;
 
-  const node = getNode(editor, caret.anchor.path);
+  const node = editor.api.node(caret.anchor.path)?.[0];
   return (
     node &&
     'text' in node &&
     node.text === anchorNode.textContent &&
-    node === toSlateNode(editor, anchorNode)
+    node === editor.api.toSlateNode(anchorNode)
   );
 };
 
 const isEditorShortcut = (editor: PlateEditor, event: KeyboardEvent) => {
   if (!event.metaKey && !event.ctrlKey) return false;
 
-  return editor.plugins.some(({ handlers, options }) => {
-    const { hotkey } = options as HotkeyPlugin;
+  return getContentfulPlugins(editor).some(({ handlers, options }) => {
+    const { hotkey } = (options ?? {}) as HotkeyPlugin;
     return handlers?.onKeyDown && hotkey && isHotkey(hotkey, event);
   });
 };
 
 const syncSelection = (editor: PlateEditor) => {
-  const selection = getEditorWindow(editor)?.getSelection();
+  const selection = editor.api.getWindow()?.getSelection();
   if (!selection) return;
 
   // Read each DOM endpoint once. A caret shares both endpoints, so it also
   // needs only one check that it belongs to this editor.
   const { anchorNode, focusNode } = selection;
   if (
-    !hasEditorTarget(editor, anchorNode) ||
-    (focusNode !== anchorNode && !hasEditorTarget(editor, focusNode))
+    !editor.api.hasTarget(anchorNode) ||
+    (focusNode !== anchorNode && !editor.api.hasTarget(focusNode))
   ) {
     return;
   }
@@ -70,28 +60,30 @@ const syncSelection = (editor: PlateEditor) => {
   // The browser's caret can move before Slate's delayed selection update runs.
   // Slate may then edit the old paragraph or move the caret back there. Copy
   // the visible selection before Slate handles the next edit or navigation.
-  const range = toSlateRange(editor, selection, { exactMatch: false, suppressThrow: true });
+  const range = editor.api.toSlateRange(selection, { exactMatch: false, suppressThrow: true });
   // Embedded cards (Slate "void" nodes) contain hidden text placeholders.
   // These are not editable text, so keep Slate's own card selection instead.
   if (
     !range ||
-    getVoidNode(editor, { at: range.anchor }) ||
-    getVoidNode(editor, { at: range.focus })
+    editor.api.void({ at: range.anchor }) ||
+    editor.api.void({ at: range.focus })
   )
     return;
 
-  select(editor, range);
+  editor.tf.select(range);
 };
 
-export const createSelectionSyncPlugin = (): PlatePlugin => ({
+export const createSelectionSyncPlugin = (isEnabled: () => boolean): PlatePlugin => ({
   key: 'selectionSync',
   handlers: {
     onMouseUp: (editor) => () => {
+      if (!isEnabled()) return;
       // Save the clicked caret before a parent rerender can restore Slate's
       // old selection. Waiting until typing starts would be too late.
-      if (!isComposing(editor)) syncSelection(editor);
+      if (!editor.api.isComposing()) syncSelection(editor);
     },
     onKeyDown: (editor) => (event) => {
+      if (!isEnabled()) return;
       // Formatting shortcuts and Enter run before beforeinput. Give those
       // handlers the visible caret too, without syncing every Up/Down key.
       if (!caretKeys.includes(event.key) && !isEditorShortcut(editor, event)) return;
@@ -100,26 +92,28 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
       // Keep Slate's card selection until the editor regains focus, so
       // Backspace/Delete acts on the card instead of that paragraph.
       if (
-        !isEditorFocused(editor) &&
+        !editor.api.isFocused() &&
         editor.selection &&
-        getVoidNode(editor, { at: editor.selection.focus })
+        editor.api.void({ at: editor.selection.focus })
       )
         return;
 
-      if (event.nativeEvent.isComposing || isComposing(editor)) return;
+      if (event.nativeEvent.isComposing || editor.api.isComposing()) return;
       syncSelection(editor);
     },
     onCompositionStart: (editor) => () => {
-      if (!isComposing(editor)) syncSelection(editor);
+      if (!isEnabled()) return;
+      if (!editor.api.isComposing()) syncSelection(editor);
     },
     onDOMBeforeInput: (editor) => (event) => {
+      if (!isEnabled()) return;
       const input = ('nativeEvent' in event ? event.nativeEvent : event) as InputEvent;
       // Slate restores the previous selection after a native paragraph break
       // too; it must already match the visible caret before the break starts.
       const changesContent =
         ['insertText', 'insertParagraph', 'insertLineBreak'].includes(input.inputType) ||
         input.inputType.startsWith('delete');
-      if (changesContent && !input.isComposing && !isComposing(editor)) syncSelection(editor);
+      if (changesContent && !input.isComposing && !editor.api.isComposing()) syncSelection(editor);
     }
   }
 });

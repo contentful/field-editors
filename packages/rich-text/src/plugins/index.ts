@@ -36,7 +36,7 @@ export const getPlugins = (
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[],
   withCharValidation?: boolean,
-  withSelectionSync = false
+  isSelectionSyncEnabled: () => boolean = () => false
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 
@@ -44,7 +44,7 @@ export const getPlugins = (
   createTrackingPlugin(onAction),
 
   // Global / Global shortcuts
-  ...(withSelectionSync ? [createSelectionSyncPlugin()] : []),
+  createSelectionSyncPlugin(isSelectionSyncEnabled),
   createDragAndDropPlugin(),
   // Enable command palette plugin only, if at least action type is allowed
   ...(Object.values(isCommandPromptPluginEnabled(sdk)).some(Boolean)

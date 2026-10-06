@@ -70,11 +70,17 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
   props: ConnectedRichTextProps,
 ) {
   const { sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync } = props;
+  // Read the current flag in event handlers without recreating the editor
+  // when it changes, which would reset the caret and undo history.
+  const selectionSync = React.useRef(false);
+  selectionSync.current = withSelectionSync === true;
+  const isSelectionSyncEnabled = React.useCallback(() => selectionSync.current, []);
 
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
-    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation, withSelectionSync),
-    [sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync]
+    () =>
+      getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation, isSelectionSyncEnabled),
+    [sdk, onAction, restrictedMarks, withCharValidation, isSelectionSyncEnabled]
   );
 
   const initialValue = useDeepCompareMemo(() => {
