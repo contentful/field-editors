@@ -121,7 +121,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
     return <AssetCard size="default" isLoading />;
   }
 
-  if (status === 'error') {
+  if (status === 'error' || !asset?.sys?.id) {
     return (
       <MissingEntityCard
         isDisabled={props.isDisabled}

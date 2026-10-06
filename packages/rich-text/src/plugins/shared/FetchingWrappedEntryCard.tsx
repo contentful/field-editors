@@ -121,7 +121,7 @@ const InternalFetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) 
     isReference: true,
   });
 
-  const contentTypeId = entry?.sys.contentType.sys.id;
+  const contentTypeId = entry?.sys?.contentType?.sys?.id;
   const { data: contentType } = useContentType(props.sdk, contentTypeId || '', {
     enabled: !!contentTypeId,
   });
@@ -136,7 +136,7 @@ const InternalFetchingWrappedEntryCard = (props: FetchingWrappedEntryCardProps) 
     return <EntryCard isLoading />;
   }
 
-  if (status === 'error') {
+  if (status === 'error' || !entry?.sys?.id) {
     return (
       <MissingEntityCard
         isDisabled={props.isDisabled}
