@@ -23,7 +23,7 @@ const renderLocationEditor = ({
     formatted_address,
     geometry: { location: { lat: () => location.lat, lng: () => location.lng } },
   }));
-  cy.stub(Geocoder.prototype, 'geocode').callsArgWithAsync(1, results);
+  cy.stub(Geocoder.prototype, 'geocode').callsArgWithAsync(1, results).as('geocode');
 
   const [fieldSdk] = createFakeFieldAPI();
   mount(<LocationEditor field={fieldSdk} isInitiallyDisabled={isInitiallyDisabled} />);
@@ -110,6 +110,9 @@ describe('Location Editor', () => {
 
     selectors.getAddressRadio().click();
 
+    cy.get('@geocode').should('be.calledWith', {
+      location: { lat: LOCATION.value.lat, lng: LOCATION.value.lon },
+    });
     selectors.getSearchInput().should('have.value', LOCATION.address);
 
     selectors.getSearchInput().clear();
@@ -125,6 +128,7 @@ describe('Location Editor', () => {
     cy.spy(fieldSdk, 'removeValue').as('removeValue');
 
     selectors.getSearchInput().type(LOCATION.address);
+    cy.get('@geocode').should('be.calledWith', { address: LOCATION.address });
     selectors.getLocationSuggestion().click();
 
     selectors.getCoordinatesRadio().click();
