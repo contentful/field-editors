@@ -42,6 +42,8 @@ type RichTextProps = {
    */
   onChange?: (doc: Contentful.Document) => unknown;
   withCharValidation?: boolean;
+  /** Opt in to synchronizing Slate's selection with the browser caret. Defaults to false. */
+  withSelectionSync?: boolean;
   queryClient?: QueryClient;
 };
 
@@ -58,6 +60,7 @@ type ConnectedRichTextProps = {
   actionsDisabled?: boolean;
   stickyToolbarOffset?: number;
   withCharValidation?: boolean;
+  withSelectionSync?: boolean;
   queryClient?: QueryClient;
 };
 
@@ -66,12 +69,12 @@ type ConnectedRichTextProps = {
 export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEditor(
   props: ConnectedRichTextProps,
 ) {
-  const { sdk, onAction, restrictedMarks, withCharValidation } = props;
+  const { sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync } = props;
 
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
-    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation),
-    [sdk, onAction, restrictedMarks, withCharValidation],
+    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation, withSelectionSync),
+    [sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync]
   );
 
   const initialValue = useDeepCompareMemo(() => {
