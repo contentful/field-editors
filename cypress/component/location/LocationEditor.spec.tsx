@@ -3,27 +3,44 @@ import * as React from 'react';
 import { createFakeFieldAPI } from '@contentful/field-editor-test-utils';
 
 import { LocationEditor } from '../../../packages/location/src';
+import { Geocoder } from '../../fixtures/google-map-react';
+import mapsByAddress from '../../fixtures/maps-by-address.json';
+import mapsByCoordinates from '../../fixtures/maps-by-coordinates.json';
 import { mount } from '../mount';
 
-const renderLocationEditor = (isInitiallyDisabled = false) => {
+type GeocodeFixture = {
+  results: Array<{
+    formatted_address: string;
+    geometry: { location: { lat: number; lng: number } };
+  }>;
+};
+
+const renderLocationEditor = ({
+  isInitiallyDisabled = false,
+  geocodeResponse = { results: [] },
+}: { isInitiallyDisabled?: boolean; geocodeResponse?: GeocodeFixture } = {}) => {
+  const results = geocodeResponse.results.map(({ formatted_address, geometry: { location } }) => ({
+    formatted_address,
+    geometry: { location: { lat: () => location.lat, lng: () => location.lng } },
+  }));
+  cy.stub(Geocoder.prototype, 'geocode').callsArgWithAsync(1, results);
+
   const [fieldSdk] = createFakeFieldAPI();
-  mount(
-    <LocationEditor
-      field={fieldSdk}
-      isInitiallyDisabled={isInitiallyDisabled}
-      parameters={{
-        instance: {
-          googleMapsKey: Cypress.env('googleMapsKey') ?? undefined,
-        },
-        installation: {},
-        invocation: {},
-      }}
-    />
-  );
+  mount(<LocationEditor field={fieldSdk} isInitiallyDisabled={isInitiallyDisabled} />);
   return fieldSdk;
 };
 
 describe('Location Editor', () => {
+  beforeEach(() => {
+    cy.intercept({ hostname: /^maps\.(googleapis|gstatic)\.com$/ }, { forceNetworkError: true }).as(
+      'googleMapsRequests',
+    );
+  });
+
+  afterEach(() => {
+    cy.get('@googleMapsRequests.all').should('have.length', 0);
+  });
+
   const LOCATION = {
     address: 'Max-Urich-Straße 1, 13355 Berlin, Germany',
     value: { lon: 13.38381, lat: 52.53885 },
@@ -75,11 +92,11 @@ describe('Location Editor', () => {
   });
 
   it('should set value after latitude and longitude change', () => {
-    const fieldSdk = renderLocationEditor();
+    const fieldSdk = renderLocationEditor({
+      geocodeResponse: mapsByCoordinates,
+    });
     cy.spy(fieldSdk, 'setValue').as('setValue');
     cy.spy(fieldSdk, 'removeValue').as('removeValue');
-
-    cy.mockGoogleMapsResponse(require('../../fixtures/maps-by-coordinates.json'));
 
     selectors.getCoordinatesRadio().click();
 
@@ -101,11 +118,11 @@ describe('Location Editor', () => {
   });
 
   it('should set value after using search input', () => {
-    const fieldSdk = renderLocationEditor();
+    const fieldSdk = renderLocationEditor({
+      geocodeResponse: mapsByAddress,
+    });
     cy.spy(fieldSdk, 'setValue').as('setValue');
     cy.spy(fieldSdk, 'removeValue').as('removeValue');
-
-    cy.mockGoogleMapsResponse(require('../../fixtures/maps-by-address.json'));
 
     selectors.getSearchInput().type(LOCATION.address);
     selectors.getLocationSuggestion().click();
@@ -124,7 +141,7 @@ describe('Location Editor', () => {
   });
 
   it('should disable all elements if isDisabled is true', () => {
-    renderLocationEditor(true);
+    renderLocationEditor({ isInitiallyDisabled: true });
 
     selectors.getSearchInput().should('be.disabled');
     selectors.getAddressRadio().should('be.disabled');
