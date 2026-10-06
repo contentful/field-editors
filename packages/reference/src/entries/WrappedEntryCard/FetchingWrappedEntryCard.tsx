@@ -134,7 +134,7 @@ export function FetchingWrappedEntryCard(props: EntryCardReferenceEditorProps) {
   }, [entry]);
 
   return React.useMemo(() => {
-    if (status === 'error' || (!isLoadingStatus(status) && !entry?.sys?.id)) {
+    if (status === 'error') {
       const card = (
         <MissingEntityCard
           isDisabled={props.isDisabled}

@@ -20,7 +20,7 @@ import { ScheduleTooltip } from '../ScheduledIconWithTooltip/ScheduleTooltip';
 
 type EntityStatusBadgeProps = Omit<UseScheduledActionsProps, 'entityId'> & {
   status: EntityStatus;
-  entity?: EntryProps | AssetProps | null;
+  entity: EntryProps | AssetProps;
   useLocalizedEntityStatus?: boolean;
   localesStatusMap?: LocalePublishStatusMap;
   activeLocales?: Pick<LocaleProps, 'code'>[];
@@ -42,41 +42,6 @@ export function EntityStatusBadge({
   release,
   ...props
 }: EntityStatusBadgeProps) {
-  if (!entity?.sys?.id) {
-    return <StatusBadge {...props} entityStatus={status} />;
-  }
-
-  return (
-    <LoadedEntityStatusBadge
-      {...props}
-      entityType={entityType}
-      getEntityScheduledActions={getEntityScheduledActions}
-      status={status}
-      useLocalizedEntityStatus={useLocalizedEntityStatus}
-      localesStatusMap={localesStatusMap}
-      activeLocales={activeLocales}
-      entity={entity}
-      releaseStatusMap={releaseStatusMap}
-      releaseEntityStatus={releaseEntityStatus}
-      release={release}
-    />
-  );
-}
-
-// Keep scheduled-action hooks mounted only while a usable entity is available.
-function LoadedEntityStatusBadge({
-  entityType,
-  getEntityScheduledActions,
-  status,
-  useLocalizedEntityStatus,
-  localesStatusMap,
-  activeLocales,
-  entity,
-  releaseStatusMap,
-  releaseEntityStatus,
-  release,
-  ...props
-}: EntityStatusBadgeProps & { entity: EntryProps | AssetProps }) {
   const { isError, isLoading, jobs } = useScheduledActions({
     entityId: entity.sys.id,
     entityType,

@@ -94,7 +94,7 @@ export function FetchingWrappedAssetCard(props: FetchingWrappedAssetCardProps) {
   };
 
   return React.useMemo(() => {
-    if (status === 'error' || (!isLoadingStatus(status) && !asset?.sys?.id)) {
+    if (status === 'error') {
       const card = (
         <MissingAssetCard
           asSquare={props.viewType !== 'link'}

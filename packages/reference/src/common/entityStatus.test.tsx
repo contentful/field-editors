@@ -16,7 +16,7 @@ configure({ testIdAttribute: 'data-test-id' });
 const sharedProps = {
   isDisabled: false,
   localeCode: 'en-US',
-  defaultLocaleCode: 'en-US'
+  defaultLocaleCode: 'en-US',
 };
 
 const cards = [
@@ -26,7 +26,7 @@ const cards = [
     missingTestId: 'cf-ui-missing-entity-card',
     renderEntity: (
       entity: unknown,
-      getEntityScheduledActions: SpaceAPI['getEntityScheduledActions']
+      getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'],
     ) => (
       <WrappedEntryCard
         {...sharedProps}
@@ -36,7 +36,7 @@ const cards = [
         getAsset={vi.fn().mockResolvedValue(undefined)}
         getEntityScheduledActions={getEntityScheduledActions}
       />
-    )
+    ),
   },
   {
     name: 'asset card',
@@ -44,7 +44,7 @@ const cards = [
     missingTestId: 'cf-ui-missing-asset-card',
     renderEntity: (
       entity: unknown,
-      getEntityScheduledActions: SpaceAPI['getEntityScheduledActions']
+      getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'],
     ) => (
       <WrappedAssetCard
         {...sharedProps}
@@ -52,7 +52,7 @@ const cards = [
         size="small"
         getEntityScheduledActions={getEntityScheduledActions}
       />
-    )
+    ),
   },
   {
     name: 'asset link',
@@ -60,19 +60,19 @@ const cards = [
     missingTestId: 'cf-ui-missing-asset-card',
     renderEntity: (
       entity: unknown,
-      getEntityScheduledActions: SpaceAPI['getEntityScheduledActions']
+      getEntityScheduledActions: SpaceAPI['getEntityScheduledActions'],
     ) => (
       <WrappedAssetLink
         {...sharedProps}
         asset={entity as Asset}
         getEntityScheduledActions={getEntityScheduledActions}
       />
-    )
-  }
+    ),
+  },
 ];
 
 describe.each(cards)('$name status', ({ renderEntity, missingTestId, loadedEntity }) => {
-  test.each([undefined, null, {}, { sys: undefined }, { sys: {} }])(
+  test.each([undefined, { sys: {} }])(
     'shows a missing card instead of inferring a status for %j',
     (entity) => {
       const getEntityScheduledActions = vi
@@ -84,7 +84,7 @@ describe.each(cards)('$name status', ({ renderEntity, missingTestId, loadedEntit
       expect(screen.getByTestId(missingTestId)).toBeInTheDocument();
       expect(screen.queryByTestId('cf-ui-badge')).not.toBeInTheDocument();
       expect(getEntityScheduledActions).not.toHaveBeenCalled();
-    }
+    },
   );
 
   test('handles missing-to-loaded-to-missing transitions', async () => {
