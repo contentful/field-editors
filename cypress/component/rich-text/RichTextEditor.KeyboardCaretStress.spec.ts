@@ -22,7 +22,7 @@ const press = (key: string, modifiers = 0) => {
     Enter: 13
   };
   const control = key in codes;
-  const code = control ? key : `Key${key.toUpperCase()}`;
+  const code = control ? key : /^\d$/.test(key) ? `Digit${key}` : `Key${key.toUpperCase()}`;
   const windowsVirtualKeyCode = codes[key] ?? key.toUpperCase().charCodeAt(0);
   ['keyDown', 'keyUp'].forEach((type) => {
     cy.then(() =>
@@ -71,6 +71,16 @@ const finish = (page: RichTextPage, expected: Document) => {
   cy.clock().then((clock) => clock.restore());
   page.expectValue(expected);
 };
+
+const markShortcuts = [
+  ['b', MARKS.BOLD],
+  ['i', MARKS.ITALIC],
+  ['u', MARKS.UNDERLINE]
+] as const;
+const headingShortcuts = [
+  ['3', BLOCKS.HEADING_3],
+  ['5', BLOCKS.HEADING_5]
+] as const;
 
 describe('Rich text native caret under repeated editing', () => {
   afterEach(() => {
@@ -122,6 +132,40 @@ describe('Rich text native caret under repeated editing', () => {
       doc(paragraphWithText('abSecond paragraph'), paragraphWithText('aSecond paragraph'))
     );
   });
+
+  for (const [key, markType] of markShortcuts) {
+    it(`applies ${markType} and types in the destination after Up during a pending selection update`, () => {
+      const page = pendingSelection();
+      press('ArrowUp');
+      expectCaret('First paragraph', 1);
+      press(key, Cypress.platform === 'darwin' ? 4 : 2);
+      press('x');
+      expectCaret('x', 1);
+      finish(
+        page,
+        doc(
+          block(BLOCKS.PARAGRAPH, {}, text('F'), text('x', [mark(markType)]), text('irst paragraph')),
+          paragraphWithText('aSecond paragraph')
+        )
+      );
+    });
+  }
+
+  for (const [key, type] of headingShortcuts) {
+    it(`changes the destination to ${type} after Up during a pending selection update`, () => {
+      const page = pendingSelection();
+      press('ArrowUp');
+      expectCaret('First paragraph', 1);
+      press(key, (Cypress.platform === 'darwin' ? 4 : 2) | 1);
+      expectCaret('First paragraph', 1);
+      press('x');
+      expectCaret('Fxirst paragraph', 2);
+      finish(
+        page,
+        doc(block(type, {}, text('Fxirst paragraph')), paragraphWithText('aSecond paragraph'))
+      );
+    });
+  }
 
   it('uses the visible caret for horizontal navigation immediately after Up', () => {
     const page = pendingSelection();

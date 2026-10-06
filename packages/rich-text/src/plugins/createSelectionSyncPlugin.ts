@@ -10,15 +10,20 @@ import {
   toSlateNode,
   toSlateRange
 } from '@udecode/plate-common';
+import isHotkey from 'is-hotkey';
 
-import { PlateEditor, PlatePlugin } from '../internal/types';
+import { HotkeyPlugin, PlateEditor, PlatePlugin } from '../internal/types';
 
 const syncSelection = (editor: PlateEditor) => {
   const selection = getEditorWindow(editor)?.getSelection();
+  if (!selection) return;
+
+  // Read each DOM endpoint once. A caret shares both endpoints, so it also
+  // needs only one check that it belongs to this editor.
+  const { anchorNode, focusNode } = selection;
   if (
-    !selection ||
-    !hasEditorTarget(editor, selection.anchorNode) ||
-    !hasEditorTarget(editor, selection.focusNode)
+    !hasEditorTarget(editor, anchorNode) ||
+    (focusNode !== anchorNode && !hasEditorTarget(editor, focusNode))
   ) {
     return;
   }
@@ -31,16 +36,16 @@ const syncSelection = (editor: PlateEditor) => {
     selection.isCollapsed &&
     editor.selection &&
     isCollapsed(editor.selection) &&
-    selection.anchorNode?.nodeType === Node.TEXT_NODE &&
-    selection.anchorNode.parentElement?.hasAttribute('data-slate-string') &&
+    anchorNode?.nodeType === Node.TEXT_NODE &&
+    anchorNode.parentElement?.hasAttribute('data-slate-string') &&
     selection.anchorOffset === editor.selection.anchor.offset
   ) {
     const node = getNode(editor, editor.selection.anchor.path);
     if (
       node &&
       'text' in node &&
-      node.text === selection.anchorNode.textContent &&
-      node === toSlateNode(editor, selection.anchorNode)
+      node.text === anchorNode.textContent &&
+      node === toSlateNode(editor, anchorNode)
     )
       return;
   }
@@ -68,10 +73,17 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
       if (!isComposing(editor)) syncSelection(editor);
     },
     onKeyDown: (editor) => (event) => {
-      // Enter can be handled by heading/list/soft-break plugins before a
-      // beforeinput event, so sync its caret before those handlers run too.
+      // Formatting shortcuts and Enter run before beforeinput. Give those
+      // handlers the visible caret too, without syncing every Up/Down key.
       if (
-        ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete', 'Enter'].includes(event.key) &&
+        (['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete', 'Enter'].includes(event.key) ||
+          ((event.metaKey || event.ctrlKey) &&
+            editor.plugins.some(
+              (plugin) => {
+                const { hotkey } = plugin.options as HotkeyPlugin;
+                return plugin.handlers?.onKeyDown && hotkey && isHotkey(hotkey, event);
+              }
+            ))) &&
         // Clicking a card selects it in Slate, but the browser may still keep
         // its old paragraph caret. While the editor is unfocused, preserve
         // that card selection so Backspace/Delete removes the card. Once the
