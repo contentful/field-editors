@@ -73,17 +73,15 @@ const syncSelection = (editor: PlateEditor) => {
   editor.tf.select(range);
 };
 
-export const createSelectionSyncPlugin = (isEnabled: () => boolean): PlatePlugin => ({
+export const createSelectionSyncPlugin = (): PlatePlugin => ({
   key: 'selectionSync',
   handlers: {
     onMouseUp: (editor) => () => {
-      if (!isEnabled()) return;
       // Save the clicked caret before a parent rerender can restore Slate's
       // old selection. Waiting until typing starts would be too late.
       if (!editor.api.isComposing()) syncSelection(editor);
     },
     onKeyDown: (editor) => (event) => {
-      if (!isEnabled()) return;
       // Formatting shortcuts and Enter run before beforeinput. Give those
       // handlers the visible caret too, without syncing every Up/Down key.
       if (!caretKeys.includes(event.key) && !isEditorShortcut(editor, event)) return;
@@ -102,11 +100,9 @@ export const createSelectionSyncPlugin = (isEnabled: () => boolean): PlatePlugin
       syncSelection(editor);
     },
     onCompositionStart: (editor) => () => {
-      if (!isEnabled()) return;
       if (!editor.api.isComposing()) syncSelection(editor);
     },
     onDOMBeforeInput: (editor) => (event) => {
-      if (!isEnabled()) return;
       const input = ('nativeEvent' in event ? event.nativeEvent : event) as InputEvent;
       // Slate restores the previous selection after a native paragraph break
       // too; it must already match the visible caret before the break starts.

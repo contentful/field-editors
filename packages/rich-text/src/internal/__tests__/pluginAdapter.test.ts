@@ -1,7 +1,9 @@
+import type { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { getPluginByType, KEYS } from 'platejs';
 import { expect, it, vi } from 'vitest';
 
+import { getPlugins } from '../../plugins';
 import { Paragraph } from '../../plugins/Paragraph/Paragraph';
 import { sanitizeHTML } from '../../plugins/PasteHTML/utils/sanitizeHTML';
 import { Cell } from '../../plugins/Table/components/Cell';
@@ -98,3 +100,14 @@ it('unwraps an empty quote on Backspace', () => {
   });
   expect(editor.children.map((node) => node.type)).toEqual([BLOCKS.PARAGRAPH, BLOCKS.PARAGRAPH]);
 });
+
+it.each([undefined, false, true])(
+  'registers caret sync only when explicitly enabled (%s)',
+  (enabled) => {
+    const sdk = { field: { validation: [] } } as unknown as FieldAppSDK;
+    const { editor } = createTestEditor({
+      plugins: getPlugins(sdk, vi.fn(), undefined, undefined, enabled)
+    });
+    expect(editor.plugins.selectionSync !== undefined).toBe(enabled === true);
+  }
+);

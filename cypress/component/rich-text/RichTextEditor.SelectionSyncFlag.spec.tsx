@@ -35,14 +35,30 @@ const press = (key: string, modifiers = 0) => {
 
 describe('Rich text selection sync flag', () => {
   for (const enabled of [undefined, false, true]) {
-    it(`uses ${enabled ? 'the visible caret' : 'existing selection behavior'} when the flag is ${String(enabled)}`, () => {
+    it(`uses the initial ${String(enabled)} flag after a prop change`, () => {
       const sdk = createRichTextFakeSdk({
         initialValue: doc(
           paragraphWithText('First paragraph'),
           paragraphWithText('Second paragraph')
         )
       });
-      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} withSelectionSync={enabled} />);
+      const Host = () => {
+        const [withSelectionSync, setWithSelectionSync] = useState(enabled);
+        return (
+          <>
+            <button onClick={() => setWithSelectionSync(!withSelectionSync)}>Toggle flag</button>
+            <RichTextEditor
+              sdk={sdk}
+              isInitiallyDisabled={false}
+              withSelectionSync={withSelectionSync}
+            />
+          </>
+        );
+      };
+      mount(<Host />);
+      // Plugin registration uses the initial flag. A later prop update must
+      // neither replace the editor nor change its selection handling.
+      cy.contains('button', 'Toggle flag').click();
       const page = new RichTextPage();
       page.editor.findByText('Second paragraph').click();
       page.editor.type('{home}');
@@ -86,7 +102,7 @@ describe('Rich text selection sync flag', () => {
     });
   }
 
-  it('preserves editor content and undo history when the flag changes in either direction', () => {
+  it('preserves the caret, content and undo history when the flag prop changes', () => {
     const sdk = createRichTextFakeSdk({ initialValue: doc(paragraphWithText('Body')) });
     const Host = () => {
       const [enabled, setEnabled] = useState(false);

@@ -11,8 +11,9 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```
 
 Pass `withSelectionSync={true}` to opt in to synchronizing the browser caret before editing.
-It defaults to `false`. The host application can pass a feature flag's value through this prop;
-the editor does not need its own feature flag service.
+It defaults to `false`; the plugin is omitted when disabled. Resolve the feature flag before
+mounting the editor. This setting applies when the editor is created, so later changes require
+reopening or remounting the editor.
 
 ## ⚠️ Important: Package Configuration
 
