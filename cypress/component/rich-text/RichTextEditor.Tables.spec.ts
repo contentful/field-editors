@@ -313,7 +313,7 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         });
 
         it('with Tab key at the end', () => {
-          richText.editor.tab();
+          cy.realPress('Tab');
 
           expectTable(
             row(headerWithText('foo'), headerWithText('bar')),

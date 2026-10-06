@@ -1,29 +1,28 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
-import {
-  createTablePlugin as createDefaultTablePlugin,
-  ELEMENT_TABLE,
-  ELEMENT_TD,
-  ELEMENT_TH,
-  ELEMENT_TR,
-  TablePlugin,
-  withDeleteTable,
-  withGetFragmentTable,
-  withInsertTextTable,
-  withSelectionTable,
-  withSetFragmentDataTable,
-  withInsertFragmentTable,
-} from '@udecode/plate-table';
 
 import { isRootLevel } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
+import { createTablePlugin as createDefaultTablePlugin } from '../../internal/pluginFactories';
 import {
   getParentNode,
   getBlockAbove,
   getLastChildPath,
   getNextPath,
 } from '../../internal/queries';
+import {
+  ELEMENT_TABLE,
+  ELEMENT_TD,
+  ELEMENT_TH,
+  ELEMENT_TR,
+  withDeleteTable,
+  withGetFragmentTable,
+  withInsertTextTable,
+  withSelectionTable,
+  withSetFragmentDataTable,
+  withInsertFragmentTable,
+} from '../../internal/table';
 import { insertNodes } from '../../internal/transforms';
-import { PlatePlugin, PlateEditor, Value } from '../../internal/types';
+import { PlatePlugin } from '../../internal/types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
@@ -35,10 +34,9 @@ import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './table
 import { withInsertFragmentTableOverride } from './withInsertFragmentTableOverride';
 
 export const createTablePlugin = (): PlatePlugin =>
-  createDefaultTablePlugin<TablePlugin<Value>, Value, PlateEditor>({
+  createDefaultTablePlugin({
     type: BLOCKS.TABLE,
     handlers: {
-      // @ts-expect-error
       onKeyDown: onKeyDownTable,
     },
     withOverrides: (editor, plugin) => {
@@ -53,7 +51,7 @@ export const createTablePlugin = (): PlatePlugin =>
       editor = withSelectionTable(editor);
       editor = withSetFragmentDataTable(editor);
 
-      // Resets all normalization rules added by @udecode/plate-table as
+      // Resets all normalization rules added by @platejs/table as
       // they conflict with our own
       editor.normalizeNode = normalizeNode;
 

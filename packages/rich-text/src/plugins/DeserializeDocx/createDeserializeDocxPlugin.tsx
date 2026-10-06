@@ -1,4 +1,16 @@
 import {
+  cleanDocxBrComments,
+  cleanDocxEmptyParagraphs,
+  cleanDocxFootnotes,
+  cleanDocxImageElements,
+  cleanDocxListElements,
+  cleanDocxQuotes,
+  cleanDocxSpans,
+  isDocxContent,
+} from '@platejs/docx';
+
+import { PlatePlugin } from '../../internal';
+import {
   KEY_DESERIALIZE_HTML,
   cleanHtmlBrElements,
   cleanHtmlFontElements,
@@ -7,20 +19,8 @@ import {
   copyBlockMarksToSpanChild,
   postCleanHtml,
   preCleanHtml,
-} from '@udecode/plate-common';
-import {
-  cleanDocxBrComments,
-  cleanDocxEmptyParagraphs,
-  cleanDocxFootnotes,
-  cleanDocxImageElements,
-  cleanDocxListElements,
-  cleanDocxQuotes,
-  cleanDocxSpans,
-  createDeserializeDocxPlugin as originalCreateDeserializeDocxPlugin,
-  isDocxContent,
-} from '@udecode/plate-serializer-docx';
-
-import { PlatePlugin } from '../../internal';
+} from '../../internal/plate';
+import { createDeserializeDocxPlugin as originalCreateDeserializeDocxPlugin } from '../../internal/pluginFactories';
 import { cleanHtmlEmptyElements } from './cleanHtmlEmptyElements';
 
 export const createDeserializeDocxPlugin: () => PlatePlugin = () =>

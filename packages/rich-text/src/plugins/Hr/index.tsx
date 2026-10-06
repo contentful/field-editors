@@ -4,7 +4,8 @@ import { MinusIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css, cx } from '@emotion/css';
-import * as Slate from 'slate-react';
+import { useSelected, useFocused } from 'platejs/react';
+import type * as Slate from 'slate-react';
 
 import { useContentfulEditor } from '../../ContentfulEditorProvider';
 import {
@@ -108,8 +109,8 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
 }
 
 export function Hr(props: Slate.RenderLeafProps) {
-  const isSelected = Slate.useSelected();
-  const isFocused = Slate.useFocused();
+  const isSelected = useSelected();
+  const isFocused = useFocused();
 
   return (
     <div

@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
 import { INLINES } from '@contentful/rich-text-types';
-import { AnyObject, HotkeyPlugin } from '@udecode/plate-common';
 import isHotkey from 'is-hotkey';
 
 import { isLinkActive, unwrapLink } from '../../helpers/editor';
 import { transformRemove } from '../../helpers/transformers';
+import { AnyObject, HotkeyPlugin } from '../../internal/plate';
 import { KeyboardHandler, PlatePlugin } from '../../internal/types';
 import { EntityHyperlink } from './components/EntityHyperlink';
 import { ResourceHyperlink } from './components/ResourceHyperlink';

@@ -44,6 +44,12 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
     mountRichTextEditor({ onAction });
   });
 
+  afterEach(() => {
+    // Dialogs use a separate React root and unmount after their closing animation.
+    // Wait for that cleanup so no overlay can block the next test.
+    cy.get('#field-editor-modal-root').should('not.exist');
+  });
+
   describe('Text Pasting', () => {
     it('tracks text pasting', () => {
       richText.editor.click().paste({ 'text/plain': 'Hello World!' });
@@ -256,7 +262,12 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           ...insert('shortcut', { nodeType: type }),
         );
 
-        richText.editor.click().type('{selectall}').type(shortcut);
+        // Headings add a trailing paragraph, so clicking the editor's center can
+        // select that paragraph. Target the heading and wait for Slate's selection.
+        const heading = `h${type.slice(-1)}`;
+        richText.editor.find(heading).should('have.text', 'Heading').click();
+        richText.toolbar.headingsDropdown.should('contain.text', label);
+        richText.editor.find(heading).type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
           ...remove('shortcut', { nodeType: type }),

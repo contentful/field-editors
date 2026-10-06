@@ -1,12 +1,12 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it } from 'vitest';
 
 import { Element, PlateEditor, Path } from '../../internal/types';
 import { extractParagraphs } from '../extractNodes';
 
 const createEditor = (children: Element[]) =>
-  createSlateEditor('test-editor', {}, children) as PlateEditor;
+  slateJsx('editor', {}, children) as PlateEditor;
 
 type Text = {
   text: string;

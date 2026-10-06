@@ -3,8 +3,8 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { LIST_ITEM_BLOCKS } from '@contentful/rich-text-types';
-import { normalizeList, deleteFragmentList, deleteForwardList } from '@udecode/plate-list';
 
+import { normalizeList, deleteFragmentList, deleteForwardList } from '../../internal/list';
 import { WithOverride } from '../../internal/types';
 import { insertListBreak } from './insertListBreak';
 import { insertListFragment } from './insertListFragment';

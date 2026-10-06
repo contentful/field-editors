@@ -57,5 +57,5 @@ test('insertTableAndFocusFirstCell', () => {
     </editor>
   );
 
-  assertOutput({ input, expected });
+  assertOutput({ editor, expected });
 });

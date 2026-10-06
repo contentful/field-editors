@@ -65,10 +65,14 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
 
           if (inlinePath && isEndPoint(editor, selection.anchor, inlinePath)) {
             const point = getPointAfter(editor, inlinePath);
-            setSelection(editor, {
-              anchor: point,
-              focus: point,
-            });
+            // During link editing normalization is suspended, so the trailing
+            // text node may not exist yet. Keep the valid selection in that case.
+            if (point) {
+              setSelection(editor, {
+                anchor: point,
+                focus: point,
+              });
+            }
           }
         }
 
@@ -79,6 +83,13 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
       const { deleteForward, deleteBackward } = editor;
 
       editor.deleteBackward = (unit) => {
+        if (
+          editor.selection &&
+          editor.api.isCollapsed() &&
+          editor.api.isStart(editor.selection.anchor, [])
+        ) {
+          return;
+        }
         deleteEmptyParagraph(unit, editor, deleteBackward);
       };
 

@@ -1,6 +1,6 @@
-import { setNodes } from '@udecode/plate-common';
 import { Element } from 'slate';
 
+import { setNodes } from '../internal/plate';
 import { PlateEditor } from '../internal/types';
 
 /**

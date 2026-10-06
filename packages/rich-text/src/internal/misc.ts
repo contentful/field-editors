@@ -1,21 +1,12 @@
-import * as p from '@udecode/plate-common';
 import * as s from 'slate';
 
+import * as p from './plate';
 import { normalize } from './transforms';
-import type { Value, PlateEditor, Location, PlatePlugin } from './types';
+import type { Value, PlateEditor, Location } from './types';
 
-export type CreatePlateEditorOptions = Omit<
-  p.CreatePlateEditorOptions<Value, PlateEditor>,
-  'plugins'
-> & {
-  plugins?: PlatePlugin[];
-};
-
-export const createPlateEditor = (options: CreatePlateEditorOptions = {}) => {
-  return p.createPlateEditor<Value, PlateEditor>(
-    options as p.CreatePlateEditorOptions<Value, PlateEditor>,
-  );
-};
+export { createPlateEditor } from './pluginAdapter';
+export type { CreatePlateEditorOptions } from './pluginAdapter';
+import { createPlateEditor, type CreatePlateEditorOptions } from './pluginAdapter';
 
 /**
  * The only reason for this helper to exist is to run the initial normalization
@@ -73,11 +64,4 @@ export const fromDOMPoint = (
   return p.toSlatePoint(editor, domPoint, opts);
 };
 
-export const mockPlugin = (plugin?: Partial<PlatePlugin> | undefined) => {
-  return p.mockPlugin(
-    // TODO check if there is a way around this ugly casting
-    plugin as unknown as
-      | Partial<p.PlatePlugin<p.AnyObject, p.Value, p.PlateEditor<p.Value>>>
-      | undefined,
-  );
-};
+export { mockPlugin } from './pluginAdapter';

@@ -1,11 +1,4 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import {
-  ELEMENT_TABLE,
-  ELEMENT_TH,
-  ELEMENT_TD,
-  ELEMENT_TR,
-  getEmptyRowNode,
-} from '@udecode/plate-table';
 
 import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
 import { selectEditor } from '../../internal';
@@ -21,6 +14,13 @@ import {
   getNodeEntries,
   getPreviousPath,
 } from '../../internal/queries';
+import {
+  ELEMENT_TABLE,
+  ELEMENT_TH,
+  ELEMENT_TD,
+  ELEMENT_TR,
+  getEmptyRowNode,
+} from '../../internal/table';
 import { insertNodes, removeNodes, moveNodes } from '../../internal/transforms';
 import { PlateEditor, NodeEntry, Ancestor, Node } from '../../internal/types';
 

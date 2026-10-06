@@ -152,7 +152,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                       removeCommand(editor);
                       if (editor.selection) {
                         const selection = editor.selection;
-                        editor.insertSoftBreak();
+                        editor.insertBreak();
                         insertBlock(editor, BLOCKS.EMBEDDED_ENTRY, ct.entry);
                         select(editor, selection);
                         editor.tracking.onCommandPaletteAction('insert', {
@@ -261,7 +261,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                           removeCommand(editor);
                           if (editor.selection) {
                             const selection = editor.selection;
-                            editor.insertSoftBreak();
+                            editor.insertBreak();
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
                             select(editor, selection);
                             editor.tracking.onCommandPaletteAction('insert', {

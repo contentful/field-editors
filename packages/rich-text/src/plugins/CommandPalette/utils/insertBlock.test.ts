@@ -1,5 +1,5 @@
 import { BLOCKS } from '@contentful/rich-text-types';
-import { createEditor as createSlateEditor } from '@udecode/plate-test-utils';
+import { jsx as slateJsx } from '@platejs/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 
 import { PlateEditor } from '../../../internal/types';
@@ -17,7 +17,7 @@ vi.mock('../../../helpers/editor', async () => {
 
 describe('CommandPalette insertBlock', () => {
   it('inserts an embedded entry block even when selection is in an empty paragraph', () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.PARAGRAPH,
         data: {},
@@ -39,7 +39,7 @@ describe('CommandPalette insertBlock', () => {
   });
 
   it('does not remove existing paragraph text when inserting from a non-empty paragraph', () => {
-    const editor = createSlateEditor('test-editor', {}, [
+    const editor = slateJsx('editor', {}, [
       {
         type: BLOCKS.PARAGRAPH,
         data: {},

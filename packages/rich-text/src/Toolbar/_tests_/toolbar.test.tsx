@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { MARKS } from '@contentful/rich-text-types';
 import { configure, render, waitFor } from '@testing-library/react';
-import { Plate } from '@udecode/plate-common';
 import { describe, expect, it, test, vi } from 'vitest';
 
 import { ContentfulEditorIdProvider, getContentfulEditorId } from '../../ContentfulEditorProvider';
+import { Plate, createPlateEditor } from '../../internal/plate';
 import { SdkProvider } from '../../SdkProvider';
 import Toolbar from '../index';
 
@@ -47,7 +47,7 @@ describe('Toolbar', () => {
     const id = getContentfulEditorId(sdk);
 
     const { getByTestId } = render(
-      <Plate id={id}>
+      <Plate editor={createPlateEditor({ id })}>
         <SdkProvider sdk={sdk}>
           <ContentfulEditorIdProvider value={id}>
             <Toolbar isDisabled />
@@ -78,7 +78,7 @@ describe('Toolbar', () => {
       const sdk = mockSdk([MARKS.BOLD, MARKS.ITALIC, MARKS.SUPERSCRIPT]);
       const id = getContentfulEditorId(sdk);
       const { queryByTestId } = render(
-        <Plate id={id}>
+        <Plate editor={createPlateEditor({ id })}>
           <SdkProvider sdk={sdk}>
             <ContentfulEditorIdProvider value={id}>
               <Toolbar isDisabled />
@@ -93,7 +93,7 @@ describe('Toolbar', () => {
       const sdk = mockSdk([MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT, MARKS.CODE]);
       const id = getContentfulEditorId(sdk);
       const { queryByTestId } = render(
-        <Plate id={id}>
+        <Plate editor={createPlateEditor({ id })}>
           <SdkProvider sdk={sdk}>
             <ContentfulEditorIdProvider value={id}>
               <Toolbar isDisabled />
