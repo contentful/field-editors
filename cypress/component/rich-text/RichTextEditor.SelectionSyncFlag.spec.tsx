@@ -11,27 +11,14 @@ import {
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
 import { mount } from '../mount';
+import {
+  keyModifiers,
+  pauseSelectionUpdates,
+  pressNativeKey,
+  resumeSelectionUpdates
+} from './caretTestUtils';
 import { paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
-
-const press = (key: string, modifiers = 0) => {
-  const isArrow = key === 'ArrowUp';
-  ['keyDown', 'keyUp'].forEach((type) => {
-    cy.then(() =>
-      Cypress.automation('remote:debugger:protocol', {
-        command: 'Input.dispatchKeyEvent',
-        params: {
-          type: isArrow && type === 'keyDown' ? 'rawKeyDown' : type,
-          key,
-          code: isArrow ? key : `Key${key.toUpperCase()}`,
-          windowsVirtualKeyCode: isArrow ? 38 : key.toUpperCase().charCodeAt(0),
-          modifiers,
-          ...(!isArrow && !modifiers && type === 'keyDown' ? { text: key } : {})
-        }
-      })
-    );
-  });
-};
 
 describe('Rich text selection sync flag', () => {
   for (const enabled of [undefined, false, true]) {
@@ -62,18 +49,16 @@ describe('Rich text selection sync flag', () => {
       const page = new RichTextPage();
       page.editor.findByText('Second paragraph').click();
       page.editor.type('{home}');
-      cy.clock();
-      cy.tick(100);
-      press('a');
-      press('ArrowUp');
+      pauseSelectionUpdates();
+      pressNativeKey('a');
+      pressNativeKey('ArrowUp');
       cy.window().should((win) => {
         expect(win.getSelection()?.anchorNode?.textContent).to.equal('First paragraph');
         expect(win.getSelection()?.anchorOffset).to.equal(1);
       });
-      press('b', Cypress.platform === 'darwin' ? 4 : 2);
-      press('x');
-      cy.tick(600);
-      cy.clock().then((clock) => clock.restore());
+      pressNativeKey('b', keyModifiers.command);
+      pressNativeKey('x');
+      resumeSelectionUpdates();
       // Formatting before the pending selection update makes the disabled
       // control reproduce the old jump; enabling inserts at the visible caret.
       page.expectValue(

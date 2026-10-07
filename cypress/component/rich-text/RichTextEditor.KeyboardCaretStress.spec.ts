@@ -7,50 +7,18 @@ import {
   text
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
+import {
+  expectNativeCaret,
+  keyModifiers,
+  pauseSelectionUpdates,
+  pressNativeKey,
+  resumeSelectionUpdates
+} from './caretTestUtils';
 import { entryBlock, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
-const press = (key: string, modifiers = 0) => {
-  const codes = {
-    ArrowUp: 38,
-    ArrowDown: 40,
-    ArrowLeft: 37,
-    ArrowRight: 39,
-    Backspace: 8,
-    Delete: 46,
-    Enter: 13
-  };
-  const control = key in codes;
-  const code = control ? key : /^\d$/.test(key) ? `Digit${key}` : `Key${key.toUpperCase()}`;
-  const windowsVirtualKeyCode = codes[key] ?? key.toUpperCase().charCodeAt(0);
-  ['keyDown', 'keyUp'].forEach((type) => {
-    cy.then(() =>
-      Cypress.automation('remote:debugger:protocol', {
-        command: 'Input.dispatchKeyEvent',
-        params: {
-          type: control && key !== 'Enter' && type === 'keyDown' ? 'rawKeyDown' : type,
-          key,
-          code,
-          windowsVirtualKeyCode,
-          modifiers,
-          ...((!control || key === 'Enter') && !modifiers && type === 'keyDown'
-            ? { text: key === 'Enter' ? '\r' : key, unmodifiedText: key === 'Enter' ? '\r' : key }
-            : {})
-        }
-      })
-    );
-  });
-};
-
-const expectCaret = (value: string, offset?: number) => {
-  cy.window().should((win) => {
-    expect(win.getSelection()?.anchorNode?.textContent).to.equal(value);
-    if (offset !== undefined) expect(win.getSelection()?.anchorOffset).to.equal(offset);
-  });
-};
-
-const pendingSelection = (first = paragraphWithText('First paragraph')) => {
+const mountWithPendingSelection = (first = paragraphWithText('First paragraph')) => {
   const sdk = createRichTextFakeSdk({
     initialValue: doc(first, paragraphWithText('Second paragraph'))
   });
@@ -59,16 +27,14 @@ const pendingSelection = (first = paragraphWithText('First paragraph')) => {
   page.editor.findByText('Second paragraph').click();
   page.editor.type('{home}');
   // Hold Slate’s selection-update timer pending across native browser events.
-  cy.clock();
-  cy.tick(100);
-  press('a');
-  expectCaret('aSecond paragraph', 1);
+  pauseSelectionUpdates();
+  pressNativeKey('a');
+  expectNativeCaret('aSecond paragraph', 1);
   return page;
 };
 
-const finish = (page: RichTextPage, expected: Document) => {
-  cy.tick(600);
-  cy.clock().then((clock) => clock.restore());
+const resumeAndExpectValue = (page: RichTextPage, expected: Document) => {
+  resumeSelectionUpdates();
   page.expectValue(expected);
 };
 
@@ -91,7 +57,7 @@ describe('Rich text native caret under repeated editing', () => {
 
   it('keeps every edit and caret through 50 rapid Up/Down reversals', () => {
     cy.viewport(2000, 900);
-    const page = pendingSelection();
+    const page = mountWithPendingSelection();
     page.editor.invoke('css', 'width', '1800px');
     const values = ['First paragraph', 'aSecond paragraph'];
     let offset: number;
@@ -101,7 +67,7 @@ describe('Rich text native caret under repeated editing', () => {
         [1, 'ArrowDown', 'y']
       ];
       steps.forEach(([index, arrow, letter]) => {
-        press(arrow);
+        pressNativeKey(arrow);
         cy.window().should((win) => {
           expect(win.getSelection()?.anchorNode?.textContent).to.equal(values[index]);
           offset = win.getSelection()!.anchorOffset;
@@ -109,25 +75,24 @@ describe('Rich text native caret under repeated editing', () => {
         cy.then(() => {
           values[index] = values[index].slice(0, offset) + letter + values[index].slice(offset);
         });
-        press(letter);
+        pressNativeKey(letter);
         cy.window().should((win) => {
           expect(win.getSelection()?.anchorNode?.textContent).to.equal(values[index]);
           expect(win.getSelection()?.anchorOffset).to.equal(offset + 1);
         });
       });
     }
-    cy.tick(600);
-    cy.clock().then((clock) => clock.restore());
+    resumeSelectionUpdates();
     cy.then(() => page.expectValue(doc(...values.map(paragraphWithText))));
   });
 
   it('distinguishes identical paragraphs when the native caret moves before typing', () => {
-    const page = pendingSelection(paragraphWithText('aSecond paragraph'));
-    press('ArrowUp');
-    expectCaret('aSecond paragraph', 1);
-    press('b');
-    expectCaret('abSecond paragraph', 2);
-    finish(
+    const page = mountWithPendingSelection(paragraphWithText('aSecond paragraph'));
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('aSecond paragraph', 1);
+    pressNativeKey('b');
+    expectNativeCaret('abSecond paragraph', 2);
+    resumeAndExpectValue(
       page,
       doc(paragraphWithText('abSecond paragraph'), paragraphWithText('aSecond paragraph'))
     );
@@ -135,16 +100,22 @@ describe('Rich text native caret under repeated editing', () => {
 
   for (const [key, markType] of markShortcuts) {
     it(`applies ${markType} and types in the destination after Up during a pending selection update`, () => {
-      const page = pendingSelection();
-      press('ArrowUp');
-      expectCaret('First paragraph', 1);
-      press(key, Cypress.platform === 'darwin' ? 4 : 2);
-      press('x');
-      expectCaret('x', 1);
-      finish(
+      const page = mountWithPendingSelection();
+      pressNativeKey('ArrowUp');
+      expectNativeCaret('First paragraph', 1);
+      pressNativeKey(key, keyModifiers.command);
+      pressNativeKey('x');
+      expectNativeCaret('x', 1);
+      resumeAndExpectValue(
         page,
         doc(
-          block(BLOCKS.PARAGRAPH, {}, text('F'), text('x', [mark(markType)]), text('irst paragraph')),
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            text('F'),
+            text('x', [mark(markType)]),
+            text('irst paragraph')
+          ),
           paragraphWithText('aSecond paragraph')
         )
       );
@@ -153,14 +124,14 @@ describe('Rich text native caret under repeated editing', () => {
 
   for (const [key, type] of headingShortcuts) {
     it(`changes the destination to ${type} after Up during a pending selection update`, () => {
-      const page = pendingSelection();
-      press('ArrowUp');
-      expectCaret('First paragraph', 1);
-      press(key, (Cypress.platform === 'darwin' ? 4 : 2) | 1);
-      expectCaret('First paragraph', 1);
-      press('x');
-      expectCaret('Fxirst paragraph', 2);
-      finish(
+      const page = mountWithPendingSelection();
+      pressNativeKey('ArrowUp');
+      expectNativeCaret('First paragraph', 1);
+      pressNativeKey(key, keyModifiers.command | keyModifiers.alt);
+      expectNativeCaret('First paragraph', 1);
+      pressNativeKey('x');
+      expectNativeCaret('Fxirst paragraph', 2);
+      resumeAndExpectValue(
         page,
         doc(block(type, {}, text('Fxirst paragraph')), paragraphWithText('aSecond paragraph'))
       );
@@ -168,25 +139,28 @@ describe('Rich text native caret under repeated editing', () => {
   }
 
   it('uses the visible caret for horizontal navigation immediately after Up', () => {
-    const page = pendingSelection();
-    press('ArrowUp');
-    expectCaret('First paragraph', 1);
-    press('ArrowLeft');
-    expectCaret('First paragraph', 0);
-    press('b');
-    expectCaret('bFirst paragraph', 1);
-    finish(
+    const page = mountWithPendingSelection();
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('First paragraph', 1);
+    pressNativeKey('ArrowLeft');
+    expectNativeCaret('First paragraph', 0);
+    pressNativeKey('b');
+    expectNativeCaret('bFirst paragraph', 1);
+    resumeAndExpectValue(
       page,
       doc(paragraphWithText('bFirst paragraph'), paragraphWithText('aSecond paragraph'))
     );
   });
 
   it('backspaces in the destination paragraph while the previous selection update is pending', () => {
-    const page = pendingSelection();
-    press('ArrowUp');
-    expectCaret('First paragraph', 1);
-    press('Backspace');
-    finish(page, doc(paragraphWithText('irst paragraph'), paragraphWithText('aSecond paragraph')));
+    const page = mountWithPendingSelection();
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('First paragraph', 1);
+    pressNativeKey('Backspace');
+    resumeAndExpectValue(
+      page,
+      doc(paragraphWithText('irst paragraph'), paragraphWithText('aSecond paragraph'))
+    );
     cy.window().should((win) => {
       const selection = win.getSelection()!;
       const paragraph = selection.anchorNode!.parentElement!.closest(
@@ -201,26 +175,32 @@ describe('Rich text native caret under repeated editing', () => {
   });
 
   it('deletes forward in the destination paragraph while the previous selection update is pending', () => {
-    const page = pendingSelection();
-    press('ArrowUp');
-    expectCaret('First paragraph', 1);
-    press('Delete');
-    expectCaret('Frst paragraph', 1);
-    finish(page, doc(paragraphWithText('Frst paragraph'), paragraphWithText('aSecond paragraph')));
+    const page = mountWithPendingSelection();
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('First paragraph', 1);
+    pressNativeKey('Delete');
+    expectNativeCaret('Frst paragraph', 1);
+    resumeAndExpectValue(
+      page,
+      doc(paragraphWithText('Frst paragraph'), paragraphWithText('aSecond paragraph'))
+    );
   });
 
   it('replaces an expanded native selection after rapid vertical navigation', () => {
-    const page = pendingSelection();
-    press('ArrowUp');
-    expectCaret('First paragraph', 1);
-    press('ArrowRight', 8);
+    const page = mountWithPendingSelection();
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('First paragraph', 1);
+    pressNativeKey('ArrowRight', keyModifiers.shift);
     cy.window().should((win) => {
       expect(win.getSelection()?.anchorNode?.textContent).to.equal('First paragraph');
       expect(win.getSelection()?.toString()).to.equal('i');
     });
-    press('b');
-    expectCaret('Fbrst paragraph', 2);
-    finish(page, doc(paragraphWithText('Fbrst paragraph'), paragraphWithText('aSecond paragraph')));
+    pressNativeKey('b');
+    expectNativeCaret('Fbrst paragraph', 2);
+    resumeAndExpectValue(
+      page,
+      doc(paragraphWithText('Fbrst paragraph'), paragraphWithText('aSecond paragraph'))
+    );
   });
 
   it('preserves bold and plain text when editing across a formatting boundary', () => {
@@ -230,20 +210,19 @@ describe('Rich text native caret under repeated editing', () => {
       text('First', [mark(MARKS.BOLD)]),
       text(' paragraph')
     );
-    const page = pendingSelection(first);
-    press('ArrowUp');
-    expectCaret('First', 1);
-    press('b');
-    expectCaret('Fbirst', 2);
-    for (let index = 0; index < 5; index++) press('ArrowRight');
+    const page = mountWithPendingSelection(first);
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('First', 1);
+    pressNativeKey('b');
+    expectNativeCaret('Fbirst', 2);
+    for (let index = 0; index < 5; index++) pressNativeKey('ArrowRight');
     let offset: number;
     cy.window().should((win) => {
       expect(win.getSelection()?.anchorNode?.textContent).to.equal(' paragraph');
       offset = win.getSelection()!.anchorOffset;
     });
-    press('c');
-    cy.tick(600);
-    cy.clock().then((clock) => clock.restore());
+    pressNativeKey('c');
+    resumeSelectionUpdates();
     cy.then(() =>
       page.expectValue(
         doc(
@@ -260,30 +239,29 @@ describe('Rich text native caret under repeated editing', () => {
   });
 
   it('undoes and redoes the destination edit without changing the source paragraph', () => {
-    const page = pendingSelection();
-    press('ArrowUp');
-    press('b');
-    expectCaret('Fbirst paragraph', 2);
-    finish(
+    const page = mountWithPendingSelection();
+    pressNativeKey('ArrowUp');
+    pressNativeKey('b');
+    expectNativeCaret('Fbirst paragraph', 2);
+    resumeAndExpectValue(
       page,
       doc(paragraphWithText('Fbirst paragraph'), paragraphWithText('aSecond paragraph'))
     );
-    const modifier = Cypress.platform === 'darwin' ? 4 : 2;
-    press('z', modifier);
+    pressNativeKey('z', keyModifiers.command);
     page.expectValue(
       doc(paragraphWithText('First paragraph'), paragraphWithText('aSecond paragraph'))
     );
-    press('z', modifier | 8);
+    pressNativeKey('z', keyModifiers.command | keyModifiers.shift);
     page.expectValue(
       doc(paragraphWithText('Fbirst paragraph'), paragraphWithText('aSecond paragraph'))
     );
-    expectCaret('Fbirst paragraph', 2);
+    expectNativeCaret('Fbirst paragraph', 2);
   });
 
   it('commits IME text after Up without duplicating it or returning to the source paragraph', () => {
-    const page = pendingSelection();
-    press('ArrowUp');
-    expectCaret('First paragraph', 1);
+    const page = mountWithPendingSelection();
+    pressNativeKey('ArrowUp');
+    expectNativeCaret('First paragraph', 1);
     cy.then(() =>
       Cypress.automation('remote:debugger:protocol', {
         command: 'Input.imeSetComposition',
@@ -296,28 +274,31 @@ describe('Rich text native caret under repeated editing', () => {
         params: { text: '日本' }
       })
     );
-    expectCaret('F日本irst paragraph', 3);
-    press('b');
-    expectCaret('F日本birst paragraph', 4);
-    finish(
+    expectNativeCaret('F日本irst paragraph', 3);
+    pressNativeKey('b');
+    expectNativeCaret('F日本birst paragraph', 4);
+    resumeAndExpectValue(
       page,
       doc(paragraphWithText('F日本birst paragraph'), paragraphWithText('aSecond paragraph'))
     );
   });
 
   it('keeps editor content intact when typing into another focused input', () => {
-    const page = pendingSelection();
+    const page = mountWithPendingSelection();
     cy.window().then((win) => {
       const input = win.document.createElement('input');
       input.setAttribute('data-test-id', 'outside-editor');
       win.document.body.appendChild(input);
       input.focus();
     });
-    press('x');
+    pressNativeKey('x');
     cy.findByTestId('outside-editor')
       .should('have.value', 'x')
       .then(($input) => $input.remove());
-    finish(page, doc(paragraphWithText('First paragraph'), paragraphWithText('aSecond paragraph')));
+    resumeAndExpectValue(
+      page,
+      doc(paragraphWithText('First paragraph'), paragraphWithText('aSecond paragraph'))
+    );
   });
 
   it('keeps a read-only editor unchanged under native arrow and text input', () => {
@@ -327,10 +308,10 @@ describe('Rich text native caret under repeated editing', () => {
     const page = new RichTextPage();
     page.editor.should('have.attr', 'contenteditable', 'false').click({ force: true });
     for (let index = 0; index < 10; index++) {
-      press('ArrowUp');
-      press('x');
-      press('ArrowDown');
-      press('y');
+      pressNativeKey('ArrowUp');
+      pressNativeKey('x');
+      pressNativeKey('ArrowDown');
+      pressNativeKey('y');
     }
     page.expectValue(value);
   });
@@ -348,17 +329,15 @@ describe('Rich text native caret under repeated editing', () => {
         cy.findByTestId('cf-ui-entry-card').click();
         page.editor.focus();
         page.editor.should('be.focused');
-        cy.clock();
-        cy.tick(100);
-        press(arrow);
+        pauseSelectionUpdates();
+        pressNativeKey(arrow);
         let offset: number;
         cy.window().should((win) => {
           expect(win.getSelection()?.anchorNode?.textContent).to.equal('Body text');
           offset = win.getSelection()!.anchorOffset;
         });
-        press(key);
-        cy.tick(600);
-        cy.clock().then((clock) => clock.restore());
+        pressNativeKey(key);
+        resumeSelectionUpdates();
         cy.then(() => {
           const value =
             key === 'Delete'
@@ -381,22 +360,21 @@ describe('Rich text native caret under repeated editing', () => {
         const page = new RichTextPage();
         page.editor.findByText(values[source]).click();
         page.editor.type('{home}');
-        cy.clock();
-        cy.tick(100);
-        press('a');
+        pauseSelectionUpdates();
+        pressNativeKey('a');
         values[source] = `a${values[source]}`;
-        press(arrow);
-        expectCaret(values[target], 1);
-        press('Enter', softBreak ? 8 : 0);
+        pressNativeKey(arrow);
+        expectNativeCaret(values[target], 1);
+        pressNativeKey('Enter', softBreak ? keyModifiers.shift : 0);
         if (softBreak) {
-          expectCaret(values[target].slice(0, 1) + '\n' + values[target].slice(1), 2);
+          expectNativeCaret(values[target].slice(0, 1) + '\n' + values[target].slice(1), 2);
           values[target] = values[target].slice(0, 1) + '\nb' + values[target].slice(1);
         } else {
-          expectCaret(values[target].slice(1), 0);
+          expectNativeCaret(values[target].slice(1), 0);
           values.splice(target, 1, values[target].slice(0, 1), `b${values[target].slice(1)}`);
         }
-        press('b');
-        finish(page, doc(...values.map(paragraphWithText)));
+        pressNativeKey('b');
+        resumeAndExpectValue(page, doc(...values.map(paragraphWithText)));
       });
     }
   }
@@ -411,23 +389,21 @@ describe('Rich text native caret under repeated editing', () => {
     const page = new RichTextPage();
     page.editor.invoke('css', 'width', '350px').findByText(value).click('topLeft');
     page.editor.type('{moveToStart}');
-    cy.clock();
-    cy.tick(100);
+    pauseSelectionUpdates();
     // The first Enter leaves Slate's caret-update timer pending, as in the video.
-    press('Enter');
-    expectCaret(value, 0);
-    press('ArrowDown');
+    pressNativeKey('Enter');
+    expectNativeCaret(value, 0);
+    pressNativeKey('ArrowDown');
     let offset: number;
     cy.window().should((win) => {
       expect(win.getSelection()?.anchorNode?.textContent).to.equal(value);
       offset = win.getSelection()!.anchorOffset;
       expect(offset).to.be.greaterThan(0);
     });
-    press('Enter');
-    cy.then(() => expectCaret(value.slice(offset), 0));
-    press('b');
-    cy.tick(600);
-    cy.clock().then((clock) => clock.restore());
+    pressNativeKey('Enter');
+    cy.then(() => expectNativeCaret(value.slice(offset), 0));
+    pressNativeKey('b');
+    resumeSelectionUpdates();
     cy.then(() =>
       page.expectValue(
         doc(

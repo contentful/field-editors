@@ -6,25 +6,9 @@ import { RichTextEditor } from '../../../packages/rich-text/src';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
 import { mount } from '../mount';
+import { pauseSelectionUpdates, pressNativeKey, resumeSelectionUpdates } from './caretTestUtils';
 import { paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
-
-const press = (key: string) => {
-  ['keyDown', 'keyUp'].forEach((type) => {
-    cy.then(() =>
-      Cypress.automation('remote:debugger:protocol', {
-        command: 'Input.dispatchKeyEvent',
-        params: {
-          type,
-          key,
-          code: `Key${key.toUpperCase()}`,
-          windowsVirtualKeyCode: key.toUpperCase().charCodeAt(0),
-          ...(type === 'keyDown' ? { text: key } : {})
-        }
-      })
-    );
-  });
-};
 
 const heading = (type: BLOCKS, value: string) => block(type, {}, text(value));
 
@@ -47,6 +31,7 @@ describe(
           const [, render] = React.useReducer((count) => count + 1, 0);
           return (
             <div
+              role="presentation"
               onMouseUp={(event) => {
                 const selection = event.currentTarget.ownerDocument.getSelection();
                 if (selection?.anchorNode?.textContent === 'Body paragraph') {
@@ -71,9 +56,8 @@ describe(
         page.editor.findByText('Main heading').click();
         page.editor.type('{home}');
         // Keep Slate's previous caret-update timer pending during native clicks.
-        cy.clock();
-        cy.tick(100);
-        press('a');
+        pauseSelectionUpdates();
+        pressNativeKey('a');
         cy.window().should((win) => {
           expect(win.getSelection()?.anchorNode?.textContent).to.equal('aMain heading');
         });
@@ -96,13 +80,12 @@ describe(
           expect(win.getSelection()?.anchorNode?.textContent).to.equal('Body paragraph');
           expect(win.getSelection()?.toString()).to.equal(selected);
         });
-        press('x');
+        pressNativeKey('x');
         cy.window().should((win) => {
           expect(win.getSelection()?.anchorNode?.textContent).to.equal(expected);
           expect(win.getSelection()?.anchorOffset).to.equal(clickCount === 1 ? offset + 1 : 1);
         });
-        cy.tick(600);
-        cy.clock().then((clock) => clock.restore());
+        resumeSelectionUpdates();
         cy.then(() => {
           page.expectValue(
             doc(
