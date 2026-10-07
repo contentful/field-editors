@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+changed_suppressions=$(git diff --name-only -- '**/eslint-suppressions.json')
+if [ -n "$changed_suppressions" ]; then
+  echo ""
+  echo "Reminder: eslint-suppressions.json was updated by --prune-suppressions."
+  echo "Commit these files or CI linting will fail:"
+  echo "$changed_suppressions"
+  echo ""
+fi

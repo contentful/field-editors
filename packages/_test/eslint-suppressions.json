@@ -1,0 +1,17 @@
+{
+  "src/ActionsPlayground.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/createFakeCMAAdapter.ts": {
+    "@typescript-eslint/no-empty-object-type": {
+      "count": 1
+    }
+  },
+  "src/createFakeFieldAPI.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 6
+    }
+  }
+}

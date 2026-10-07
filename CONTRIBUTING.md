@@ -87,12 +87,12 @@ To add a new package: create a new directory under `packages/`. Since Lerna mana
 
 **Linting & Type Checking**
 
-| Command         | Source                                                                              |
-| --------------- | ----------------------------------------------------------------------------------- |
-| `yarn lint`     | `package.json` → `scripts.lint` ("eslint ./ --ext .js,.jsx,.ts,.tsx")               |
-| `yarn lint:md`  | `package.json` → `scripts.lint:md` ("remark --no-stdout --frail _.md _/\*.md")      |
-| `yarn tsc`      | `package.json` → `scripts.tsc` ("lerna run tsc") — per-package `tsc -p ./ --noEmit` |
-| `yarn prettier` | `package.json` → `scripts.prettier` — writes formatting across `.js/.jsx/.ts/.tsx`  |
+| Command         | Source                                                                                                                                                                                                                              |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `yarn lint`     | `package.json` → `scripts.lint` ("lerna run --stream lint") — runs `eslint src` per package/app. See [README.md § Linting](./README.md#linting) for the ratchet/suppression setup — **never** hand-edit `eslint-suppressions.json`. |
+| `yarn lint:md`  | `package.json` → `scripts.lint:md` ("remark --no-stdout --frail _.md _/\*.md")                                                                                                                                                      |
+| `yarn tsc`      | `package.json` → `scripts.tsc` ("lerna run tsc") — per-package `tsc -p ./ --noEmit`                                                                                                                                                 |
+| `yarn prettier` | `package.json` → `scripts.prettier` — writes formatting across `.js/.jsx/.ts/.tsx`                                                                                                                                                  |
 
 **i18n**
 

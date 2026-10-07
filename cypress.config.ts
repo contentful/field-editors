@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress';
 import fs from 'fs';
+import path from 'path';
 import webpack from 'webpack';
 
 const task = {
@@ -53,6 +54,10 @@ export default defineConfig({
       webpackConfig: {
         resolve: {
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'],
+          // Component tests exercise the editor without loading Google's SDK or requiring an API key.
+          alias: {
+            'google-map-react$': path.resolve(__dirname, 'cypress/fixtures/google-map-react.tsx'),
+          },
         },
         // needed to prevent ReferenceErrors
         // cf. https://github.com/webpack/webpack/issues/6693#issuecomment-745688108

@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "6.4.3",
+  "version": "6.6.0",
   "source": "./src/index.tsx",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -35,7 +35,8 @@
     "test": "vitest",
     "test:ci": "vitest run",
     "tsc": "tsc -p ./ --noEmit",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint src",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@contentful/app-sdk": "^4.42.0",
@@ -45,8 +46,8 @@
     "@contentful/f36-icons": "^6.7.1",
     "@contentful/f36-tokens": "^6.1.2",
     "@contentful/f36-utils": "^6.1.0",
-    "@contentful/field-editor-reference": "^8.4.2",
-    "@contentful/field-editor-shared": "^4.5.2",
+    "@contentful/field-editor-reference": "^8.5.0",
+    "@contentful/field-editor-shared": "^4.6.0",
     "@contentful/rich-text-plain-text-renderer": "^17.0.0",
     "@contentful/rich-text-types": "^17.2.5",
     "@emotion/css": "^11.13.5",
@@ -78,7 +79,7 @@
     "react-dom": ">=18.3.1"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^3.1.2",
+    "@contentful/field-editor-test-utils": "^3.2.0",
     "@contentful/rich-text-react-renderer": "^16.0.0",
     "@lingui/core": "5.3.0",
     "@platejs/test-utils": "53.3.10",
@@ -88,5 +89,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --prune-suppressions",
+      "prettier --write"
+    ]
   }
 }
