@@ -11,14 +11,7 @@ export const mountRichTextEditor = (options: MountRichTextEditorOptions = {}): v
   const { sdk, isInitiallyDisabled = false } = options;
   const rtSDK = sdk || createRichTextFakeSdk();
 
-  mount(
-    <RichTextEditor
-      sdk={rtSDK}
-      isInitiallyDisabled={isInitiallyDisabled}
-      withSelectionSync
-      {...options}
-    />
-  );
+  mount(<RichTextEditor sdk={rtSDK} isInitiallyDisabled={isInitiallyDisabled} {...options} />);
 };
 
 export const focusEditorAndType = (richText: RichTextPage, content: string): void => {

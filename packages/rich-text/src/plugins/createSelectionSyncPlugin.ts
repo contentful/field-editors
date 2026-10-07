@@ -1,12 +1,14 @@
 import type { KeyboardEvent } from 'react';
 
 import isHotkey from 'is-hotkey';
+import { IS_NODE_MAP_DIRTY } from 'slate-dom';
 
 import { isCollapsed } from '../internal/plate';
 import { getContentfulPlugins } from '../internal/pluginAdapter';
 import { HotkeyPlugin, PlateEditor, PlatePlugin } from '../internal/types';
 
-const editingKeys = ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete', 'Enter'];
+const editingKeys = ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete', 'Enter', 'Tab'];
+const nodeMapDirty: WeakMap<object, boolean> = IS_NODE_MAP_DIRTY;
 
 const hasMatchingCaret = (editor: PlateEditor, domSelection: Selection) => {
   const caret = editor.selection;
@@ -52,7 +54,8 @@ const isUnfocusedCardSelected = (editor: PlateEditor) =>
 // The browser can move its selection before Slate's delayed update runs.
 // Copy it before editing or a host rerender can restore Slate's old caret.
 const syncSelectionFromDOM = (editor: PlateEditor) => {
-  if (editor.api.isComposing()) return;
+  // DOM points are unreliable while Slate is rebuilding its node references.
+  if (editor.api.isComposing() || nodeMapDirty.get(editor)) return;
 
   const domSelection = editor.api.getWindow()?.getSelection();
   if (!domSelection) return;
@@ -74,9 +77,17 @@ const syncSelectionFromDOM = (editor: PlateEditor) => {
   editor.tf.select(range);
 };
 
+const syncClipboardSelection = (editor: PlateEditor) => () => {
+  if (!isUnfocusedCardSelected(editor)) syncSelectionFromDOM(editor);
+};
+
 export const createSelectionSyncPlugin = (): PlatePlugin => ({
   key: 'selectionSync',
   handlers: {
+    // Paste fires before beforeinput; copy/cut also use Slate's selection directly.
+    onPaste: syncClipboardSelection,
+    onCopy: syncClipboardSelection,
+    onCut: syncClipboardSelection,
     onMouseUp: (editor) => () => syncSelectionFromDOM(editor),
     onKeyDown: (editor) => (event) => {
       // These handlers edit before beforeinput. Up/Down remain browser-native.

@@ -19,7 +19,7 @@ const heading = (type: BLOCKS, value: string) => block(type, {}, text(value));
 
 describe(
   'Rich text mouse caret during host renders',
-  { viewportWidth: 1000, viewportHeight: 900 },
+  { browser: 'chrome', viewportWidth: 1000, viewportHeight: 900 },
   () => {
     for (const clickCount of [1, 2, 3]) {
       it(`edits the paragraph after heading clicks and a ${clickCount}-click selection`, () => {

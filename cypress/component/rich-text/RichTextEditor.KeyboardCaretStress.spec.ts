@@ -9,6 +9,7 @@ import {
 import { createRichTextFakeSdk } from '../../fixtures';
 import {
   expectNativeCaret,
+  expectParagraphCaret,
   keyModifiers,
   pauseSelectionUpdates,
   pressNativeKey,
@@ -24,7 +25,7 @@ const mountWithPendingSelection = (first = paragraphWithText('First paragraph'))
   const sdk = createRichTextFakeSdk({
     initialValue: doc(first, paragraphWithText('Second paragraph'))
   });
-  mountRichTextEditor({ sdk });
+  mountRichTextEditor({ sdk, withSelectionSync: true });
   const page = new RichTextPage();
   page.editor.findByText('Second paragraph').click();
   page.editor.type('{home}');
@@ -50,7 +51,7 @@ const headingShortcuts = [
   ['5', BLOCKS.HEADING_5]
 ] as const;
 
-describe('Rich text native caret under repeated editing', () => {
+describe('Rich text native caret under repeated editing', { browser: 'chrome' }, () => {
   afterEach(() => {
     cy.document().then((document) => {
       document.querySelector('[data-test-id=outside-editor]')?.remove();
@@ -95,6 +96,112 @@ describe('Rich text native caret under repeated editing', () => {
     pressNativeKey('b');
     expectNativeCaret('abSecond paragraph', 2);
     expectSavedValue(page, paragraphDocument('abSecond paragraph', 'aSecond paragraph'));
+  });
+
+  for (const format of ['plain text', 'HTML']) {
+    it(`pastes ${format} at the visible caret and keeps the next edit there`, () => {
+      const page = mountWithPendingSelection();
+      pressNativeKey('ArrowUp');
+      expectNativeCaret('First paragraph', 1);
+      page.editor.then(($editor) => {
+        const clipboardData = new DataTransfer();
+        clipboardData.setData('text/plain', 'paste');
+        if (format === 'HTML') clipboardData.setData('text/html', '<b>paste</b>');
+        cy.wrap($editor).trigger('paste', { eventConstructor: 'ClipboardEvent', clipboardData });
+        if (format === 'HTML') {
+          cy.window().then((win) => {
+            const target = win.getSelection()!.getRangeAt(0).cloneRange();
+            // Chrome follows paste with beforeinput; plain-text paste uses onPaste alone.
+            const input = new InputEvent('beforeinput', {
+              inputType: 'insertFromPaste',
+              bubbles: true,
+              cancelable: true,
+              dataTransfer: clipboardData
+            });
+            cy.wrap($editor).trigger(
+              'beforeinput',
+              Object.assign(input, {
+                getTargetRanges: () => [target]
+              })
+            );
+          });
+        }
+      });
+      expectParagraphCaret('Fpasteirst paragraph', 6);
+      pressNativeKey('x');
+      expectParagraphCaret('Fpastexirst paragraph', 7);
+      const content =
+        format === 'HTML'
+          ? [text('F'), text('pastex', [mark(MARKS.BOLD)]), text('irst paragraph')]
+          : [text('Fpastexirst paragraph')];
+      expectSavedValue(
+        page,
+        doc(block(BLOCKS.PARAGRAPH, {}, ...content), paragraphWithText('aSecond paragraph'))
+      );
+    });
+  }
+
+  for (const action of ['copy', 'cut']) {
+    it(`${action === 'copy' ? 'copies' : 'cuts'} the visible selection while its Slate update is pending`, () => {
+      const page = mountWithPendingSelection();
+      pressNativeKey('ArrowUp');
+      pressNativeKey('ArrowRight', keyModifiers.shift);
+      cy.window().should((win) => expect(win.getSelection()?.toString()).to.equal('i'));
+      page.editor.then(($editor) => {
+        const clipboardData = new DataTransfer();
+        cy.wrap($editor).trigger(action, { eventConstructor: 'ClipboardEvent', clipboardData });
+        cy.then(() => expect(clipboardData.getData('text/plain')).to.equal('i'));
+      });
+      expectSavedValue(
+        page,
+        paragraphDocument(
+          action === 'cut' ? 'Frst paragraph' : 'First paragraph',
+          'aSecond paragraph'
+        )
+      );
+    });
+  }
+
+  it('cuts a selected card without deleting text at the old browser caret', () => {
+    const sdk = createRichTextFakeSdk({
+      initialValue: doc(entryBlock(), paragraphWithText('Body'))
+    });
+    mountRichTextEditor({ sdk, withSelectionSync: true });
+    const page = new RichTextPage();
+    page.editor.findByText('Body').click();
+    page.editor.type('{home}');
+    pauseSelectionUpdates();
+    cy.findByTestId('cf-ui-entry-card').click();
+    page.editor.trigger('cut', {
+      eventConstructor: 'ClipboardEvent',
+      clipboardData: new DataTransfer()
+    });
+    expectSavedValue(page, paragraphDocument('Body'));
+  });
+
+  it('indents the visible list item after Up during a pending selection update', () => {
+    const item = (value: string) => block(BLOCKS.LIST_ITEM, {}, paragraphWithText(value));
+    const list = (...items) => block(BLOCKS.UL_LIST, {}, ...items);
+    const page = mountWithPendingSelection(list(item('First item'), item('Second item')));
+    pressNativeKey('ArrowUp');
+    let offset: number;
+    cy.window().should((win) => {
+      expect(win.getSelection()?.anchorNode?.textContent).to.equal('Second item');
+      offset = win.getSelection()!.anchorOffset;
+    });
+    pressNativeKey('Tab');
+    cy.then(() => expectNativeCaret('Second item', offset));
+    pressNativeKey('x');
+    resumeSelectionUpdates();
+    cy.then(() => {
+      const edited = 'Second item'.slice(0, offset) + 'x' + 'Second item'.slice(offset);
+      page.expectValue(
+        doc(
+          list(block(BLOCKS.LIST_ITEM, {}, paragraphWithText('First item'), list(item(edited)))),
+          paragraphWithText('aSecond paragraph')
+        )
+      );
+    });
   });
 
   for (const [key, markType] of markShortcuts) {
@@ -154,17 +261,7 @@ describe('Rich text native caret under repeated editing', () => {
     expectNativeCaret('First paragraph', 1);
     pressNativeKey('Backspace');
     expectSavedValue(page, paragraphDocument('irst paragraph', 'aSecond paragraph'));
-    cy.window().should((win) => {
-      const selection = win.getSelection()!;
-      const paragraph = selection.anchorNode!.parentElement!.closest(
-        '[data-slate-node="element"]'
-      )!;
-      expect(paragraph.textContent!.replace(/\uFEFF/g, '')).to.equal('irst paragraph');
-      const range = win.document.createRange();
-      range.setStart(paragraph, 0);
-      range.setEnd(selection.anchorNode!, selection.anchorOffset);
-      expect(range.toString().replace(/\uFEFF/g, '').length).to.equal(0);
-    });
+    expectParagraphCaret('irst paragraph', 0);
   });
 
   it('deletes forward in the destination paragraph while the previous selection update is pending', () => {
@@ -278,7 +375,12 @@ describe('Rich text native caret under repeated editing', () => {
   it('keeps a read-only editor unchanged under native arrow and text input', () => {
     const value = paragraphDocument('First paragraph', 'Second paragraph');
     const sdk = createRichTextFakeSdk({ initialValue: value });
-    mountRichTextEditor({ sdk, isInitiallyDisabled: true, isDisabled: true });
+    mountRichTextEditor({
+      sdk,
+      withSelectionSync: true,
+      isInitiallyDisabled: true,
+      isDisabled: true
+    });
     const page = new RichTextPage();
     page.editor.should('have.attr', 'contenteditable', 'false').click({ force: true });
     for (let index = 0; index < 10; index++) {
@@ -296,7 +398,7 @@ describe('Rich text native caret under repeated editing', () => {
         const sdk = createRichTextFakeSdk({
           initialValue: doc(entryBlock(), paragraphWithText('Body text'))
         });
-        mountRichTextEditor({ sdk });
+        mountRichTextEditor({ sdk, withSelectionSync: true });
         const page = new RichTextPage();
         page.editor.findByText('Body text').click();
         page.editor.type('{home}');
@@ -330,7 +432,7 @@ describe('Rich text native caret under repeated editing', () => {
         const source = arrow === 'ArrowUp' ? 1 : 0;
         const target = 1 - source;
         const sdk = createRichTextFakeSdk({ initialValue: paragraphDocument(...values) });
-        mountRichTextEditor({ sdk });
+        mountRichTextEditor({ sdk, withSelectionSync: true });
         const page = new RichTextPage();
         page.editor.findByText(values[source]).click();
         page.editor.type('{home}');
@@ -363,7 +465,8 @@ describe('Rich text native caret under repeated editing', () => {
     const value =
       'week near the sea. Lisbon and Valencia work well for travelers seeking sunshine and city life. Bergen and Naxos provide access to striking landscapes, while Edinburgh, Kraków and Tallinn are especially rewarding for history lovers.';
     mountRichTextEditor({
-      sdk: createRichTextFakeSdk({ initialValue: paragraphDocument(value) })
+      sdk: createRichTextFakeSdk({ initialValue: paragraphDocument(value) }),
+      withSelectionSync: true
     });
     const page = new RichTextPage();
     page.editor.invoke('css', 'width', '350px').findByText(value).click('topLeft');

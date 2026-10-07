@@ -5,7 +5,8 @@ const keyCodes: Record<string, number> = {
   ArrowRight: 39,
   Backspace: 8,
   Delete: 46,
-  Enter: 13
+  Enter: 13,
+  Tab: 9
 };
 
 export const keyModifiers = {
@@ -45,6 +46,18 @@ export const expectNativeCaret = (value: string, offset?: number) => {
   cy.window().should((win) => {
     expect(win.getSelection()?.anchorNode?.textContent).to.equal(value);
     if (offset !== undefined) expect(win.getSelection()?.anchorOffset).to.equal(offset);
+  });
+};
+
+export const expectParagraphCaret = (value: string, offset: number) => {
+  cy.window().should((win) => {
+    const selection = win.getSelection()!;
+    const paragraph = selection.anchorNode!.parentElement!.closest('[data-slate-node="element"]')!;
+    expect(paragraph.textContent!.replace(/\uFEFF/g, '')).to.equal(value);
+    const beforeCaret = win.document.createRange();
+    beforeCaret.setStart(paragraph, 0);
+    beforeCaret.setEnd(selection.anchorNode!, selection.anchorOffset);
+    expect(beforeCaret.toString().replace(/\uFEFF/g, '').length).to.equal(offset);
   });
 };
 
