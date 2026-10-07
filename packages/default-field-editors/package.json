@@ -1,6 +1,6 @@
 {
   "name": "@contentful/default-field-editors",
-  "version": "4.2.6",
+  "version": "4.3.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -33,37 +33,39 @@
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "test": "vitest",
     "test:ci": "vitest run",
-    "tsc": "tsc -p ./ --noEmit"
+    "tsc": "tsc -p ./ --noEmit",
+    "lint": "eslint src",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@contentful/f36-components": "^6.7.1",
     "@contentful/f36-icons": "^6.7.1",
     "@contentful/f36-tokens": "^6.1.2",
-    "@contentful/field-editor-boolean": "^2.2.2",
-    "@contentful/field-editor-checkbox": "^2.2.2",
-    "@contentful/field-editor-date": "^2.2.3",
-    "@contentful/field-editor-dropdown": "^3.2.2",
-    "@contentful/field-editor-json": "^4.3.2",
-    "@contentful/field-editor-list": "^2.2.2",
-    "@contentful/field-editor-location": "^2.2.2",
-    "@contentful/field-editor-markdown": "^2.3.4",
-    "@contentful/field-editor-multiple-line": "^2.2.2",
-    "@contentful/field-editor-number": "^2.2.2",
-    "@contentful/field-editor-radio": "^3.2.2",
-    "@contentful/field-editor-rating": "^2.2.2",
-    "@contentful/field-editor-reference": "^8.4.2",
-    "@contentful/field-editor-rich-text": "^6.4.3",
-    "@contentful/field-editor-shared": "^4.5.2",
-    "@contentful/field-editor-single-line": "^2.2.2",
-    "@contentful/field-editor-slug": "^3.4.2",
-    "@contentful/field-editor-tags": "^2.2.2",
-    "@contentful/field-editor-url": "^2.2.2",
-    "@contentful/field-editor-validation-errors": "^3.1.4",
+    "@contentful/field-editor-boolean": "^2.3.0",
+    "@contentful/field-editor-checkbox": "^2.3.0",
+    "@contentful/field-editor-date": "^2.3.0",
+    "@contentful/field-editor-dropdown": "^3.3.0",
+    "@contentful/field-editor-json": "^4.4.0",
+    "@contentful/field-editor-list": "^2.3.0",
+    "@contentful/field-editor-location": "^2.3.0",
+    "@contentful/field-editor-markdown": "^2.4.0",
+    "@contentful/field-editor-multiple-line": "^2.3.0",
+    "@contentful/field-editor-number": "^2.3.0",
+    "@contentful/field-editor-radio": "^3.3.0",
+    "@contentful/field-editor-rating": "^2.3.0",
+    "@contentful/field-editor-reference": "^8.5.0",
+    "@contentful/field-editor-rich-text": "^6.6.0",
+    "@contentful/field-editor-shared": "^4.6.0",
+    "@contentful/field-editor-single-line": "^2.3.0",
+    "@contentful/field-editor-slug": "^3.5.0",
+    "@contentful/field-editor-tags": "^2.3.0",
+    "@contentful/field-editor-url": "^2.3.0",
+    "@contentful/field-editor-validation-errors": "^3.2.0",
     "@emotion/css": "^11.13.5",
     "contentful-management": "^12.3.0"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^3.1.2"
+    "@contentful/field-editor-test-utils": "^3.2.0"
   },
   "peerDependencies": {
     "react": ">=18.3.1",
@@ -71,5 +73,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --prune-suppressions",
+      "prettier --write"
+    ]
   }
 }

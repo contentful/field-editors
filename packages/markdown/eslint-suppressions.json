@@ -1,0 +1,37 @@
+{
+  "src/MarkdownEditor.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 2
+    }
+  },
+  "src/components/InsertLinkSelector.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 2
+    }
+  },
+  "src/components/MarkdownTextarea/CodeMirrorWrapper.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/components/MarkdownTextarea/MarkdownCommands.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/components/MarkdownTextarea/createMarkdownEditor.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 4
+    }
+  },
+  "src/components/MarkdownToolbar.tsx": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 1
+    }
+  },
+  "src/types.ts": {
+    "@typescript-eslint/no-unsafe-function-type": {
+      "count": 24
+    }
+  }
+}

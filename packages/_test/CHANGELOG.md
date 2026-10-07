@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@3.1.2...@contentful/field-editor-test-utils@3.2.0) (2026-10-01)
+
+### Features
+
+- upgrade eslint to v 9 with ratchet linter and a11y linting ([#2241](https://github.com/contentful/field-editors/issues/2241)) ([4fbd17a](https://github.com/contentful/field-editors/commit/4fbd17adb2a7fa7246b3eeff2435b1d14902d8af))
+
 ## [3.1.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@3.1.1...@contentful/field-editor-test-utils@3.1.2) (2026-07-02)
 
 ### Bug Fixes

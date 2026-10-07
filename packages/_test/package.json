@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-test-utils",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -33,7 +33,9 @@
     "build:esm": "swc src --config-file ../../.swcrc -d dist/esm",
     "test": "vitest",
     "test:ci": "vitest run",
-    "tsc": "tsc -p ./ --noEmit"
+    "tsc": "tsc -p ./ --noEmit",
+    "lint": "eslint src",
+    "lint-staged": "lint-staged"
   },
   "devDependencies": {
     "@contentful/app-sdk": "^4.29.0",
@@ -51,5 +53,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --prune-suppressions",
+      "prettier --write"
+    ]
   }
 }

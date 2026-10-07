@@ -16,7 +16,7 @@
     "clean": "lerna clean",
     "build": "lerna run build --scope=@contentful/**",
     "build:apps": "lerna run build --scope=*-app",
-    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
+    "lint": "lerna run --stream lint",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
     "tsc": "lerna run tsc",
@@ -71,8 +71,10 @@
     "@types/react-dom": "18.3.1",
     "@types/testing-library__cypress": "5.0.13",
     "@types/webpack-env": "1.18.8",
-    "@typescript-eslint/eslint-plugin": "6.19.0",
-    "@typescript-eslint/parser": "6.19.0",
+    "@eslint/eslintrc": "3.3.7",
+    "@eslint/js": "9.39.5",
+    "@typescript-eslint/eslint-plugin": "8.69.0",
+    "@typescript-eslint/parser": "8.69.0",
     "@vitejs/plugin-react-swc": "^3.11.0",
     "@vitest/eslint-plugin": "^1.6.24",
     "ajv": "8.18.0",
@@ -86,7 +88,7 @@
     "cypress-real-events": "^1.15.1",
     "cz-lerna-changelog": "2.0.3",
     "emotion": "10.0.27",
-    "eslint": "8.56.0",
+    "eslint": "9.39.5",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-custom-lingui": "./tools/eslint-plugin-custom-lingui",
     "eslint-plugin-cypress": "3.6.0",
@@ -97,7 +99,7 @@
     "eslint-plugin-lingui": "0.11.0",
     "eslint-plugin-mocha": "10.4.2",
     "eslint-plugin-react": "7.35.0",
-    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-storybook": "10.4.6",
     "eslint-plugin-you-dont-need-lodash-underscore": "6.14.0",
     "git-cz": "4.9.0",
@@ -142,6 +144,9 @@
     "react-dom": "18.3.1",
     "prosemirror-view": "1.39.2",
     "form-data": "4.0.6",
+    "@typescript-eslint/typescript-estree": "8.69.0",
+    "@typescript-eslint/scope-manager": "8.69.0",
+    "@typescript-eslint/utils": "8.69.0",
     "slate-react": "0.127.1"
   },
   "browserslist": {
@@ -153,10 +158,6 @@
     ]
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
     "*.md": [
       "prettier --write"
     ]

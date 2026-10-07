@@ -44,6 +44,12 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
     mountRichTextEditor({ onAction });
   });
 
+  afterEach(() => {
+    // Dialogs use a separate React root and unmount after their closing animation.
+    // Wait for that cleanup so no overlay can block the next test.
+    cy.get('#field-editor-modal-root').should('not.exist');
+  });
+
   describe('Text Pasting', () => {
     it('tracks text pasting', () => {
       richText.editor.click().paste({ 'text/plain': 'Hello World!' });
@@ -256,7 +262,12 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           ...insert('shortcut', { nodeType: type }),
         );
 
-        richText.editor.click().type('{selectall}').type(shortcut);
+        // Headings add a trailing paragraph, so clicking the editor's center can
+        // select that paragraph. Target the heading and wait for Slate's selection.
+        const heading = `h${type.slice(-1)}`;
+        richText.editor.find(heading).should('have.text', 'Heading').click();
+        richText.toolbar.headingsDropdown.should('contain.text', label);
+        richText.editor.find(heading).type(shortcut);
         cy.get('@onAction').should(
           'be.calledWithExactly',
           ...remove('shortcut', { nodeType: type }),
@@ -544,17 +555,21 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
           const form = richText.forms.hyperlink;
 
           form.linkText.type('dog');
-          form.linkTarget.type('https://zombo.com');
+          form.linkTarget.clear().type('https://zombo.com');
           form.submit.click();
 
           cy.get('@onAction').should('be.calledWithExactly', ...insertHyperlink(origin));
 
-          richText.editor.click().type('{selectall}');
+          cy.get('#field-editor-modal-root').should('not.exist');
+          richText.editor.find('a[href="https://zombo.com"]').should('have.text', 'dog').click();
+          // The popover opens once Slate recognizes the link selection and editor focus.
+          cy.findByTestId('cf-ui-popover-content').should('be.visible');
           cy.findByTestId('hyperlink-toolbar-button').click();
 
           cy.get('@onAction').should('be.calledWithExactly', ...unlink('toolbar-icon'));
 
           cy.get('@onAction').should('have.callCount', 3);
+          richText.editor.find('a').should('not.exist');
         });
 
         it('tracks when converting text to URL hyperlink', () => {
