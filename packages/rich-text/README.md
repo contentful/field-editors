@@ -10,6 +10,11 @@ This package contains a React `RichTextEditor` component that is used as the def
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```
 
+Pass `withSelectionSync={true}` to opt in to synchronizing the browser caret before editing.
+It defaults to `false`; the plugin is omitted when disabled. Resolve the feature flag before
+mounting the editor. This setting applies when the editor is created, so later changes require
+reopening or remounting the editor.
+
 ## ⚠️ Important: Package Configuration
 
 Plate 53.3.14 pins `slate-react` to 0.126.4. To use the latest Slate React version tested by this package (0.127.1), update existing overrides in your application as shown below. Package-manager overrides in this repository are not inherited by applications that install the published package.
