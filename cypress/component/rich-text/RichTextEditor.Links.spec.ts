@@ -45,6 +45,20 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
     expectDocumentStructure(['text', text.replace('{selectall}', '')]);
   };
 
+  const selectTextInsideParagraph = (text: string) => {
+    safelyType(`Before ${text} After`);
+    richText.editor.find('[data-slate-string]').then(($span) => {
+      const document = $span[0].ownerDocument;
+      const range = document.createRange();
+      const textNode = $span[0].firstChild!;
+      range.setStart(textNode, 'Before '.length);
+      range.setEnd(textNode, 'Before '.length + text.length);
+      const selection = document.getSelection()!;
+      selection.removeAllRanges();
+      selection.addRange(range);
+    });
+  };
+
   const methods: [string, () => void][] = [
     [
       'using the link toolbar button',
@@ -100,7 +114,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
       });
 
       it('converts text to URL hyperlink', () => {
-        safelyType('My cool website{selectall}');
+        selectTextInsideParagraph('My cool website');
 
         triggerLinkModal();
         const form = richText.forms.hyperlink;
@@ -115,14 +129,14 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         form.submit.click();
 
         expectDocumentStructure(
-          ['text', ''],
+          ['text', 'Before '],
           [INLINES.HYPERLINK, { uri: 'https://zombo.com' }, 'My cool website'],
-          ['text', ''],
+          ['text', ' After'],
         );
       });
 
       it('converts text to entry hyperlink', () => {
-        safelyType('My cool entry{selectall}');
+        selectTextInsideParagraph('My cool entry');
         triggerLinkModal();
         const form = richText.forms.hyperlink;
 
@@ -155,18 +169,18 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         form.submit.click();
 
         expectDocumentStructure(
-          ['text', ''],
+          ['text', 'Before '],
           [
             INLINES.ENTRY_HYPERLINK,
             { target: { sys: { id: 'published-entry', type: 'Link', linkType: 'Entry' } } },
             'My cool entry',
           ],
-          ['text', ''],
+          ['text', ' After'],
         );
       });
 
       it('converts text to resource hyperlink', () => {
-        safelyType('My cool resource{selectall}');
+        selectTextInsideParagraph('My cool resource');
         triggerLinkModal();
         const form = richText.forms.hyperlink;
 
@@ -191,7 +205,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         form.submit.click();
 
         expectDocumentStructure(
-          ['text', ''],
+          ['text', 'Before '],
           [
             INLINES.RESOURCE_HYPERLINK,
             {
@@ -205,12 +219,12 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
             },
             'My cool resource',
           ],
-          ['text', ''],
+          ['text', ' After'],
         );
       });
 
       it('converts text to asset hyperlink', () => {
-        safelyType('My cool asset{selectall}');
+        selectTextInsideParagraph('My cool asset');
 
         triggerLinkModal();
 
@@ -237,13 +251,13 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         form.submit.click();
 
         expectDocumentStructure(
-          ['text', ''],
+          ['text', 'Before '],
           [
             INLINES.ASSET_HYPERLINK,
             { target: { sys: { id: 'published_asset', type: 'Link', linkType: 'Asset' } } },
             'My cool asset',
           ],
-          ['text', ''],
+          ['text', ' After'],
         );
       });
 
