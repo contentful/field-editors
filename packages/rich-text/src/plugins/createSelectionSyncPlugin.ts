@@ -89,6 +89,11 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
     onCopy: syncClipboardSelection,
     onCut: syncClipboardSelection,
     onMouseUp: (editor) => () => syncSelectionFromDOM(editor),
+    onKeyUp: (editor) => (event) => {
+      // Up/Down move the browser caret after keydown. Capture that position
+      // before a host render can restore Slate's still-pending selection.
+      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') syncSelectionFromDOM(editor);
+    },
     onKeyDown: (editor) => (event) => {
       // These handlers edit before beforeinput. Up/Down remain browser-native.
       if (!shouldSyncBeforeKeyDown(editor, event)) return;
