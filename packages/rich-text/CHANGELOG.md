@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.0...@contentful/field-editor-rich-text@6.6.1) (2026-10-07)
+
+### Bug Fixes
+
+- **rich-text:** preserve hyperlinks on selected text ([#2251](https://github.com/contentful/field-editors/issues/2251)) ([5fd0b38](https://github.com/contentful/field-editors/commit/5fd0b38856d8498ca7777fe83ab9fcf3c092ee5c))
+
 # [6.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.5.0...@contentful/field-editor-rich-text@6.6.0) (2026-10-06)
 
 ### Features
