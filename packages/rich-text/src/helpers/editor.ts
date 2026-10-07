@@ -23,7 +23,6 @@ import {
   unwrapNodes,
   insertText,
   wrapNodes,
-  deleteText,
   collapseSelection,
 } from '../internal/transforms';
 import { EditorNodesOptions, ToggleNodeTypeOptions, Node, Path } from '../internal/types';
@@ -205,8 +204,9 @@ export function wrapLink(editor, { text, url, target, type, path }: InsertLinkOp
     insertNodes(editor, link);
   } else {
     wrapNodes(editor, link, { split: true });
-    deleteText(editor);
-    insertText(editor, text);
+    // Replace the selected range inside the link. Deleting first can move the caret
+    // outside it, so the replacement becomes plain text and the empty link is removed.
+    insertText(editor, text, { at: editor.selection ?? undefined });
     collapseSelection(editor, { edge: 'end' });
   }
 }
