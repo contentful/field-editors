@@ -18,6 +18,8 @@ import { entryBlock, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
+const paragraphDocument = (...values: string[]) => doc(...values.map(paragraphWithText));
+
 const mountWithPendingSelection = (first = paragraphWithText('First paragraph')) => {
   const sdk = createRichTextFakeSdk({
     initialValue: doc(first, paragraphWithText('Second paragraph'))
@@ -33,7 +35,7 @@ const mountWithPendingSelection = (first = paragraphWithText('First paragraph'))
   return page;
 };
 
-const resumeAndExpectValue = (page: RichTextPage, expected: Document) => {
+const expectSavedValue = (page: RichTextPage, expected: Document) => {
   resumeSelectionUpdates();
   page.expectValue(expected);
 };
@@ -83,7 +85,7 @@ describe('Rich text native caret under repeated editing', () => {
       });
     }
     resumeSelectionUpdates();
-    cy.then(() => page.expectValue(doc(...values.map(paragraphWithText))));
+    cy.then(() => page.expectValue(paragraphDocument(...values)));
   });
 
   it('distinguishes identical paragraphs when the native caret moves before typing', () => {
@@ -92,10 +94,7 @@ describe('Rich text native caret under repeated editing', () => {
     expectNativeCaret('aSecond paragraph', 1);
     pressNativeKey('b');
     expectNativeCaret('abSecond paragraph', 2);
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('abSecond paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('abSecond paragraph', 'aSecond paragraph'));
   });
 
   for (const [key, markType] of markShortcuts) {
@@ -106,7 +105,7 @@ describe('Rich text native caret under repeated editing', () => {
       pressNativeKey(key, keyModifiers.command);
       pressNativeKey('x');
       expectNativeCaret('x', 1);
-      resumeAndExpectValue(
+      expectSavedValue(
         page,
         doc(
           block(
@@ -131,7 +130,7 @@ describe('Rich text native caret under repeated editing', () => {
       expectNativeCaret('First paragraph', 1);
       pressNativeKey('x');
       expectNativeCaret('Fxirst paragraph', 2);
-      resumeAndExpectValue(
+      expectSavedValue(
         page,
         doc(block(type, {}, text('Fxirst paragraph')), paragraphWithText('aSecond paragraph'))
       );
@@ -146,10 +145,7 @@ describe('Rich text native caret under repeated editing', () => {
     expectNativeCaret('First paragraph', 0);
     pressNativeKey('b');
     expectNativeCaret('bFirst paragraph', 1);
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('bFirst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('bFirst paragraph', 'aSecond paragraph'));
   });
 
   it('backspaces in the destination paragraph while the previous selection update is pending', () => {
@@ -157,10 +153,7 @@ describe('Rich text native caret under repeated editing', () => {
     pressNativeKey('ArrowUp');
     expectNativeCaret('First paragraph', 1);
     pressNativeKey('Backspace');
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('irst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('irst paragraph', 'aSecond paragraph'));
     cy.window().should((win) => {
       const selection = win.getSelection()!;
       const paragraph = selection.anchorNode!.parentElement!.closest(
@@ -180,10 +173,7 @@ describe('Rich text native caret under repeated editing', () => {
     expectNativeCaret('First paragraph', 1);
     pressNativeKey('Delete');
     expectNativeCaret('Frst paragraph', 1);
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('Frst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('Frst paragraph', 'aSecond paragraph'));
   });
 
   it('replaces an expanded native selection after rapid vertical navigation', () => {
@@ -197,10 +187,7 @@ describe('Rich text native caret under repeated editing', () => {
     });
     pressNativeKey('b');
     expectNativeCaret('Fbrst paragraph', 2);
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('Fbrst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('Fbrst paragraph', 'aSecond paragraph'));
   });
 
   it('preserves bold and plain text when editing across a formatting boundary', () => {
@@ -243,18 +230,11 @@ describe('Rich text native caret under repeated editing', () => {
     pressNativeKey('ArrowUp');
     pressNativeKey('b');
     expectNativeCaret('Fbirst paragraph', 2);
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('Fbirst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('Fbirst paragraph', 'aSecond paragraph'));
     pressNativeKey('z', keyModifiers.command);
-    page.expectValue(
-      doc(paragraphWithText('First paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    page.expectValue(paragraphDocument('First paragraph', 'aSecond paragraph'));
     pressNativeKey('z', keyModifiers.command | keyModifiers.shift);
-    page.expectValue(
-      doc(paragraphWithText('Fbirst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    page.expectValue(paragraphDocument('Fbirst paragraph', 'aSecond paragraph'));
     expectNativeCaret('Fbirst paragraph', 2);
   });
 
@@ -277,10 +257,7 @@ describe('Rich text native caret under repeated editing', () => {
     expectNativeCaret('F日本irst paragraph', 3);
     pressNativeKey('b');
     expectNativeCaret('F日本birst paragraph', 4);
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('F日本birst paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('F日本birst paragraph', 'aSecond paragraph'));
   });
 
   it('keeps editor content intact when typing into another focused input', () => {
@@ -295,14 +272,11 @@ describe('Rich text native caret under repeated editing', () => {
     cy.findByTestId('outside-editor')
       .should('have.value', 'x')
       .then(($input) => $input.remove());
-    resumeAndExpectValue(
-      page,
-      doc(paragraphWithText('First paragraph'), paragraphWithText('aSecond paragraph'))
-    );
+    expectSavedValue(page, paragraphDocument('First paragraph', 'aSecond paragraph'));
   });
 
   it('keeps a read-only editor unchanged under native arrow and text input', () => {
-    const value = doc(paragraphWithText('First paragraph'), paragraphWithText('Second paragraph'));
+    const value = paragraphDocument('First paragraph', 'Second paragraph');
     const sdk = createRichTextFakeSdk({ initialValue: value });
     mountRichTextEditor({ sdk, isInitiallyDisabled: true, isDisabled: true });
     const page = new RichTextPage();
@@ -350,12 +324,12 @@ describe('Rich text native caret under repeated editing', () => {
   }
 
   for (const arrow of ['ArrowUp', 'ArrowDown']) {
-    for (const softBreak of [false, true]) {
-      it(`keeps the caret and next edit after ${arrow} then ${softBreak ? 'Shift+Enter' : 'Enter'}`, () => {
+    for (const edit of ['typing', 'Enter', 'Shift+Enter']) {
+      it(`keeps the caret and next edit after ${arrow} then ${edit}`, () => {
         const values = ['First paragraph', 'Second paragraph'];
         const source = arrow === 'ArrowUp' ? 1 : 0;
         const target = 1 - source;
-        const sdk = createRichTextFakeSdk({ initialValue: doc(...values.map(paragraphWithText)) });
+        const sdk = createRichTextFakeSdk({ initialValue: paragraphDocument(...values) });
         mountRichTextEditor({ sdk });
         const page = new RichTextPage();
         page.editor.findByText(values[source]).click();
@@ -363,18 +337,23 @@ describe('Rich text native caret under repeated editing', () => {
         pauseSelectionUpdates();
         pressNativeKey('a');
         values[source] = `a${values[source]}`;
+        expectNativeCaret(values[source], 1);
         pressNativeKey(arrow);
         expectNativeCaret(values[target], 1);
-        pressNativeKey('Enter', softBreak ? keyModifiers.shift : 0);
-        if (softBreak) {
+        if (edit === 'typing') {
+          values[target] = values[target].slice(0, 1) + 'b' + values[target].slice(1);
+        } else if (edit === 'Shift+Enter') {
+          pressNativeKey('Enter', keyModifiers.shift);
           expectNativeCaret(values[target].slice(0, 1) + '\n' + values[target].slice(1), 2);
           values[target] = values[target].slice(0, 1) + '\nb' + values[target].slice(1);
         } else {
+          pressNativeKey('Enter');
           expectNativeCaret(values[target].slice(1), 0);
           values.splice(target, 1, values[target].slice(0, 1), `b${values[target].slice(1)}`);
         }
         pressNativeKey('b');
-        resumeAndExpectValue(page, doc(...values.map(paragraphWithText)));
+        if (edit === 'typing') expectNativeCaret(values[target], 2);
+        expectSavedValue(page, paragraphDocument(...values));
       });
     }
   }
@@ -384,7 +363,7 @@ describe('Rich text native caret under repeated editing', () => {
     const value =
       'week near the sea. Lisbon and Valencia work well for travelers seeking sunshine and city life. Bergen and Naxos provide access to striking landscapes, while Edinburgh, Kraków and Tallinn are especially rewarding for history lovers.';
     mountRichTextEditor({
-      sdk: createRichTextFakeSdk({ initialValue: doc(paragraphWithText(value)) })
+      sdk: createRichTextFakeSdk({ initialValue: paragraphDocument(value) })
     });
     const page = new RichTextPage();
     page.editor.invoke('css', 'width', '350px').findByText(value).click('topLeft');
@@ -405,13 +384,7 @@ describe('Rich text native caret under repeated editing', () => {
     pressNativeKey('b');
     resumeSelectionUpdates();
     cy.then(() =>
-      page.expectValue(
-        doc(
-          paragraphWithText(''),
-          paragraphWithText(value.slice(0, offset)),
-          paragraphWithText(`b${value.slice(offset)}`)
-        )
-      )
+      page.expectValue(paragraphDocument('', value.slice(0, offset), `b${value.slice(offset)}`))
     );
   });
 });

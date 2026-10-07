@@ -6,7 +6,12 @@ import { RichTextEditor } from '../../../packages/rich-text/src';
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
 import { mount } from '../mount';
-import { pauseSelectionUpdates, pressNativeKey, resumeSelectionUpdates } from './caretTestUtils';
+import {
+  expectNativeCaret,
+  pauseSelectionUpdates,
+  pressNativeKey,
+  resumeSelectionUpdates
+} from './caretTestUtils';
 import { paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
 
@@ -58,9 +63,7 @@ describe(
         // Keep Slate's previous caret-update timer pending during native clicks.
         pauseSelectionUpdates();
         pressNativeKey('a');
-        cy.window().should((win) => {
-          expect(win.getSelection()?.anchorNode?.textContent).to.equal('aMain heading');
-        });
+        expectNativeCaret('aMain heading');
         page.editor.findByText('Sub heading').realClick({ x: 20, y: 10, scrollBehavior: false });
         page.editor
           .findByText('Body paragraph')
@@ -68,23 +71,18 @@ describe(
         let expected: string;
         cy.then(() => {
           expect(offset, 'native mouse-up selected the paragraph').to.be.a('number');
-          if (clickCount === 1) {
-            expect(selected).to.equal('');
-            expected = 'Body paragraph'.slice(0, offset) + 'x' + 'Body paragraph'.slice(offset);
-          } else {
-            expect(selected).to.equal(clickCount === 2 ? 'Body' : 'Body paragraph');
-            expected = clickCount === 2 ? 'x paragraph' : 'x';
-          }
+          expect(selected).to.equal(['', 'Body', 'Body paragraph'][clickCount - 1]);
+          expected =
+            'Body paragraph'.slice(0, offset) +
+            'x' +
+            'Body paragraph'.slice(offset + selected.length);
         });
         cy.window().should((win) => {
           expect(win.getSelection()?.anchorNode?.textContent).to.equal('Body paragraph');
           expect(win.getSelection()?.toString()).to.equal(selected);
         });
         pressNativeKey('x');
-        cy.window().should((win) => {
-          expect(win.getSelection()?.anchorNode?.textContent).to.equal(expected);
-          expect(win.getSelection()?.anchorOffset).to.equal(clickCount === 1 ? offset + 1 : 1);
-        });
+        cy.then(() => expectNativeCaret(expected, offset + 1));
         resumeSelectionUpdates();
         cy.then(() => {
           page.expectValue(
