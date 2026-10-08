@@ -8,7 +8,7 @@ export const createVoidsPlugin = (): PlatePlugin => ({
   key: 'VoidsPlugin',
   withOverrides: (editor) => {
     const { insertFragment } = editor;
-    editor.insertFragment = (fragment) => {
+    editor.insertFragment = (fragment, options) => {
       // Slate no longer splits the destination paragraph for a fragment made
       // entirely of void blocks. Preserve Contentful's paste/drop behavior.
       if (
@@ -34,7 +34,7 @@ export const createVoidsPlugin = (): PlatePlugin => ({
         });
         return;
       }
-      insertFragment(fragment);
+      insertFragment(fragment, options);
     };
     return editor;
   },

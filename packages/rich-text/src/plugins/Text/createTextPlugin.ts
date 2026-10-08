@@ -52,12 +52,13 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
       // Related https://github.com/ianstormtaylor/slate/issues/4704
       const { insertText } = editor;
 
-      editor.insertText = (text) => {
+      editor.insertText = (text, options) => {
         const { selection } = editor;
 
         // If the cursor is at the end of an inline, move it outside
-        // before inserting
-        if (selection && isRangeCollapsed(selection)) {
+        // before inserting. Programmatic inserts with `at` target an explicit
+        // location and must not be redirected to the caret.
+        if (!options?.at && selection && isRangeCollapsed(selection)) {
           const inlinePath = getAboveNode(editor, {
             match: (n) => isInline(editor, n),
             mode: 'highest',
@@ -76,7 +77,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
           }
         }
 
-        return insertText(text);
+        return insertText(text, options);
       };
 
       // When pressing delete instead of backspace
