@@ -1,4 +1,6 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import type { Editor } from 'slate';
+import { ELEMENT_TO_NODE } from 'slate-dom';
 
 import {
   block,
@@ -6,7 +8,7 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
-import { mod, openEditLink } from '../../fixtures/utils';
+import { mod } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
 
@@ -40,7 +42,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
   // Type and wait for the text to be persisted
   const safelyType = (text: string) => {
-    richText.editor.type(text);
+    richText.editor.click().should('be.focused').type(text);
 
     expectDocumentStructure(['text', text.replace('{selectall}', '')]);
   };
@@ -57,6 +59,23 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
       selection.removeAllRanges();
       selection.addRange(range);
     });
+
+    // Native selection changes reach Slate asynchronously. Wait before opening the dialog.
+    richText.editor.should(($editor) => {
+      const editor = ELEMENT_TO_NODE.get($editor[0]) as Editor;
+      expect(editor.selection).to.deep.equal({
+        anchor: { path: [0, 0], offset: 'Before '.length },
+        focus: { path: [0, 0], offset: 'Before '.length + text.length },
+      });
+    });
+  };
+
+  const openEditLink = () => {
+    richText.editor.findByTestId('cf-ui-text-link').click();
+    cy.findByTestId('cf-ui-popover-content')
+      .should('be.visible')
+      .findByLabelText('Edit link')
+      .click();
   };
 
   const methods: [string, () => void][] = [
@@ -69,8 +88,8 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
     [
       'using the link keyboard shortcut',
       () => {
-        richText.editor.type(`{${mod}}k`);
-        richText.forms.hyperlink.linkTarget.type('{backspace}'); // Weird Cypress bug where using CMD+K shortcut types a "k" value in the text field that is focused. So, we remove it first.
+        richText.editor.should('be.focused');
+        cy.realPress([mod === 'meta' ? 'Meta' : 'Control', 'K']);
       },
     ],
   ];
@@ -100,15 +119,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
         );
 
         richText.editor.click().type('{selectall}');
-        // TODO: This should just be
-        // ```
-        // triggerLinkModal();
-        // ``
-        // but with the keyboard shortcut, this causes an error in Cypress I
-        // haven't been able to replicate in the editor. As it's not
-        // replicable in "normal" usage we use the toolbar button both places
-        // in this test.
-        cy.findByTestId('hyperlink-toolbar-button').click();
+        triggerLinkModal();
 
         expectDocumentStructure(['text', 'The quick brown fox jumps over the lazy dog']);
       });
@@ -151,8 +162,8 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
         cy.window().then((win) => {
           const options = (win as any).lastSelectSingleEntryOptions;
-          expect(options).to.exist;
-          expect(options.recommendations).to.exist;
+          expect(options).to.be.an('object');
+          expect(options.recommendations).to.be.an('object');
           expect(options.recommendations.searchQuery).to.equal('My cool entry');
         });
         richText.forms.embed.confirm();
@@ -379,7 +390,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
         richText.editor
           .click()
-          .type('{backspace}{backspace}{backspace}{backspace}', { delay: 100 });
+          .type('{moveToEnd}{backspace}{backspace}{backspace}{backspace}', { delay: 100 });
 
         richText.expectValue(undefined);
       });
@@ -395,10 +406,7 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
 
     form.linkType.should('have.value', 'hyperlink');
 
-    cy.get('body').then((body) => {
-      const focusedEl = body[0].ownerDocument.activeElement;
-      expect(focusedEl?.getAttribute('name')).to.eq('linkTarget');
-    });
+    form.linkTarget.should('be.focused');
 
     form.cancel.click();
   });
