@@ -22,7 +22,7 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
 
     case ActionTypes.DELETE_FIELD_GROUP:
       state.fieldGroups = state.fieldGroups.filter(
-        (fieldGroup: FieldGroupType) => fieldGroup.id !== action.groupId
+        (fieldGroup: FieldGroupType) => fieldGroup.id !== action.groupId,
       );
       return state;
 
@@ -78,7 +78,7 @@ const reducer: React.Reducer<AppState, Action> = (state, action) => {
 export const useAppState = (
   fields: FieldType[],
   storageId: string,
-  updatedAt: string | undefined
+  updatedAt: string | undefined,
 ): [React.ReducerState<React.Reducer<AppState, Action>>, React.Dispatch<Action>] => {
   const defaultState = {
     fields,

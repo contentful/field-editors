@@ -16,7 +16,7 @@ export const Field: React.FC<FieldProps> = ({ field, locales }: FieldProps) => {
   const extendedField = field.getForLocale(sdk.locales.default);
   const fieldDetails = sdk.contentType.fields.find(({ id }) => id === extendedField.id);
   const fieldEditorInterface = sdk.editor.editorInterface?.controls?.find(
-    ({ fieldId }) => fieldId === extendedField.id
+    ({ fieldId }) => fieldId === extendedField.id,
   );
   const widgetId = fieldEditorInterface?.widgetId ?? '';
 

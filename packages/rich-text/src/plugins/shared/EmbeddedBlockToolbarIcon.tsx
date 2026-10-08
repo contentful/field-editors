@@ -54,8 +54,7 @@ export function EmbeddedBlockToolbarIcon({
       disabled={isDisabled}
       className={`${baseClass}-list-item`}
       onClick={handleClick}
-      testId={`toolbar-toggle-${nodeType}`}
-    >
+      testId={`toolbar-toggle-${nodeType}`}>
       <Flex alignItems="center" flexDirection="row">
         <Icon
           as={type === 'Asset' ? ImageSquareIcon : EmbeddedBlockIcon}

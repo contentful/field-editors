@@ -67,8 +67,7 @@ export function openDialog<T>(
         position={options.position || 'center'}
         isShown={isShown}
         onClose={onCloseHandler}
-        size={size || '700px'}
-      >
+        size={size || '700px'}>
         {() => (
           <>
             {options.title && (

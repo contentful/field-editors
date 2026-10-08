@@ -77,8 +77,7 @@ export const CreateEntryLinkButton = ({
       onSelect={onSelect}
       testId={testId}
       dropdownSettings={dropdownSettings}
-      customDropdownItems={customDropdownItems}
-    >
+      customDropdownItems={customDropdownItems}>
       {({ isSelecting }) => (
         <Button
           endIcon={hasDropdown ? <CaretDownIcon /> : undefined}
@@ -88,8 +87,7 @@ export const CreateEntryLinkButton = ({
           startIcon={isSelecting ? undefined : plusIcon}
           size="small"
           testId="create-entry-link-button"
-          isLoading={isSelecting}
-        >
+          isLoading={isSelecting}>
           {buttonText}
         </Button>
       )}

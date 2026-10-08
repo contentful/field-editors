@@ -39,7 +39,7 @@ export const sanitizeHTML = (html: string): string => {
   // Parse the HTML string and pipe it through our transformers
   const doc = transformers.reduce(
     (value, cb) => cb(value),
-    new DOMParser().parseFromString(html, 'text/html')
+    new DOMParser().parseFromString(html, 'text/html'),
   );
 
   const replacers: Replacer[] = [
@@ -49,19 +49,19 @@ export const sanitizeHTML = (html: string): string => {
     (innerHtml) =>
       innerHtml.replace(
         /<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)(.*)>\s+<(\/)?(table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
-        '<$1$2$3><$4$5'
+        '<$1$2$3><$4$5',
       ),
     // remove empty elements before the ending block element tag
     (innerHtml) =>
       innerHtml.replace(
         /(?:<[^>^/]*>)\s*(?:<\/[^>]*>)<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
-        '</$1'
+        '</$1',
       ),
     // remove whitespaces before the ending block element tag
     (innerHTML) =>
       innerHTML.replace(
         /\s*<\/(div|p|table|thead|tbody|tr|td|th|caption|col|colgroup|ol|ul|li)/g,
-        '</$1'
+        '</$1',
       ),
   ];
 
@@ -72,7 +72,7 @@ export const sanitizeHTML = (html: string): string => {
 
     doc.body.innerHTML = replacers.reduce(
       (innerHTML, replacer) => replacer(innerHTML),
-      doc.body.innerHTML
+      doc.body.innerHTML,
     );
   } while (doc.body.innerHTML !== previous);
 

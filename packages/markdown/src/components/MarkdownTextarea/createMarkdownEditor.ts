@@ -11,7 +11,7 @@ export function createMarkdownEditor(
     readOnly: boolean;
     fixedHeight?: number | boolean;
     height?: number | string;
-  }
+  },
 ) {
   const editor = CodeMirrorWrapper.create(host, options);
 

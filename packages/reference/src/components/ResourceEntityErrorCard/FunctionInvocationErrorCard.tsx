@@ -24,7 +24,7 @@ export function FunctionInvocationErrorCard({
   appDefinitionId,
   isDisabled,
   isSelected,
-  onRemove
+  onRemove,
 }: FunctionInvocationErrorCardProps) {
   const { status, data } = useResourceProvider(organizationId, appDefinitionId);
 
@@ -39,15 +39,14 @@ export function FunctionInvocationErrorCard({
       isSelected={isSelected}
       onRemove={onRemove}
       customMessage={''}
-      testId="cf-ui-function-invocation-error-card"
-    >
+      testId="cf-ui-function-invocation-error-card">
       <Flex justifyContent="left" alignItems="center">
         <WarningOctagonIcon color={tokens.colorNegative} />
         <Text fontColor="colorNegative">
           &nbsp;
           {t({
             id: 'FieldEditors.Reference.FunctionInvocationErrorCard.ErrorMessage',
-            message: 'Function invocation error.'
+            message: 'Function invocation error.',
           })}
         </Text>
         {status === 'success' && functionId && (
@@ -55,7 +54,7 @@ export function FunctionInvocationErrorCard({
             &nbsp;
             {t({
               id: 'FieldEditors.Reference.FunctionInvocationErrorCard.LogsInfo',
-              message: 'For more information, go to'
+              message: 'For more information, go to',
             })}
             &nbsp;
             <TextLink
@@ -63,11 +62,10 @@ export function FunctionInvocationErrorCard({
               icon={<ArrowSquareOutIcon />}
               target="_blank"
               alignIcon="end"
-              href={functionLink}
-            >
+              href={functionLink}>
               {t({
                 id: 'FieldEditors.Reference.FunctionInvocationErrorCard.FunctionLogs',
-                message: 'function logs'
+                message: 'function logs',
               })}
             </TextLink>
           </Text>

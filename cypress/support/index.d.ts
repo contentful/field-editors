@@ -37,7 +37,7 @@ declare namespace Cypress {
       characterCountAfter?: number;
       characterCountBefore?: number;
       characterCountSelection?: number;
-    }
+    },
   ];
 
   interface ApplicationWindow {

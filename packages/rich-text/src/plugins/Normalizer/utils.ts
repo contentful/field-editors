@@ -10,7 +10,7 @@ export const createValidatorFromTypes =
   };
 
 export const createTransformerFromObject = (
-  transforms: Record<string, NodeTransformer>
+  transforms: Record<string, NodeTransformer>,
 ): NodeTransformer => {
   // A default transformer must always be provided
   const fallback = transforms['default'];

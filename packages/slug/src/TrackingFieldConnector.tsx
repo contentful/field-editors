@@ -34,7 +34,7 @@ export function TrackingFieldConnector<ValueType>(props: TrackingFieldConnectorP
     return {
       titleValue: titleField ? titleField.getValue() : '',
       isPublished: Boolean(entrySys.publishedVersion),
-      isSame: titleField ? props.field.id === titleField.id : false
+      isSame: titleField ? props.field.id === titleField.id : false,
     };
   });
   const propsRef = useRef(props);
@@ -46,7 +46,7 @@ export function TrackingFieldConnector<ValueType>(props: TrackingFieldConnectorP
     const unsubscribeSysChanges = initialProps.sdk.entry.onSysChanged((sys) => {
       setState((currentState) => ({
         ...currentState,
-        isPublished: Boolean(sys.publishedVersion)
+        isPublished: Boolean(sys.publishedVersion),
       }));
     });
 
@@ -72,7 +72,7 @@ export function TrackingFieldConnector<ValueType>(props: TrackingFieldConnectorP
             if (!titleField.getValue(propsRef.current.field.locale)) {
               setState((currentState) => ({ ...currentState, titleValue: value }));
             }
-          }
+          },
         );
       }
     }

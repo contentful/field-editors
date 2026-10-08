@@ -44,7 +44,7 @@ function ConnectedJsonEditor({ initialValue, setValue, disabled }: ConnectedJson
       isValidJson: true,
       undoStack: [],
       redoStack: [],
-      lastUndo: ''
+      lastUndo: '',
     };
   });
   const stateRef = React.useRef(state);
@@ -63,10 +63,10 @@ function ConnectedJsonEditor({ initialValue, setValue, disabled }: ConnectedJson
       throttle((value: string) => {
         setState((currentState) => ({
           ...currentState,
-          undoStack: [...currentState.undoStack, value]
+          undoStack: [...currentState.undoStack, value],
         }));
       }, 400),
-    []
+    [],
   );
 
   const onChange = React.useCallback(
@@ -81,14 +81,14 @@ function ConnectedJsonEditor({ initialValue, setValue, disabled }: ConnectedJson
       setState((latestState) => ({
         ...latestState,
         value,
-        isValidJson: parsed.valid
+        isValidJson: parsed.valid,
       }));
 
       if (parsed.valid) {
         setValueRef.current(parsed.value);
       }
     },
-    [pushUndo]
+    [pushUndo],
   );
 
   const onUndo = React.useCallback(() => {
@@ -111,7 +111,7 @@ function ConnectedJsonEditor({ initialValue, setValue, disabled }: ConnectedJson
       isValidJson: parsedValue.valid,
       undoStack,
       redoStack: [...currentState.redoStack, currentState.value],
-      lastUndo: value
+      lastUndo: value,
     }));
   }, []);
 
@@ -134,7 +134,7 @@ function ConnectedJsonEditor({ initialValue, setValue, disabled }: ConnectedJson
       value,
       isValidJson: parsedValue.valid,
       redoStack,
-      undoStack: [...currentState.undoStack, currentState.value]
+      undoStack: [...currentState.undoStack, currentState.value],
     }));
   }, []);
 

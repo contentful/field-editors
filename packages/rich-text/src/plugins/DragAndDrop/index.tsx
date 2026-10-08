@@ -31,7 +31,7 @@ export function createDragAndDropPlugin(): PlatePlugin {
         const [draggingBlock] = Array.from(
           getNodeEntries(editor, {
             match: (node) => DRAGGABLE_TYPES.includes(node.type as string),
-          })
+          }),
         );
         if (!draggingBlock) return false;
 

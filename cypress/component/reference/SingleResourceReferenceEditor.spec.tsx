@@ -102,7 +102,7 @@ describe('Single resource editor', () => {
         isInitiallyDisabled={true}
         viewType="card"
         sdk={sdk}
-      />
+      />,
     );
 
     findMissingCards().should('have.length', 1);
@@ -124,7 +124,7 @@ describe('Single resource editor', () => {
         viewType="card"
         hasCardEditActions={false}
         sdk={sdk}
-      />
+      />,
     );
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
   });

@@ -11,7 +11,7 @@ import {
   expectParagraphCaret,
   pauseSelectionUpdates,
   pressNativeKey,
-  resumeSelectionUpdates
+  resumeSelectionUpdates,
 } from './caretTestUtils';
 import { paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
@@ -25,8 +25,7 @@ const Host = ({ sdk }: { sdk: ReturnType<typeof createRichTextFakeSdk> }) => {
       role="presentation"
       onKeyUp={(event) => {
         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') render();
-      }}
-    >
+      }}>
       <RichTextEditor
         sdk={sdk}
         isInitiallyDisabled={false}
@@ -40,7 +39,10 @@ const Host = ({ sdk }: { sdk: ReturnType<typeof createRichTextFakeSdk> }) => {
 describe('Rich text keyboard caret during host renders', { browser: 'chrome' }, () => {
   it('keeps the native caret through rapid Up/Down and a host render before typing', () => {
     const sdk = createRichTextFakeSdk({
-      initialValue: doc(paragraphWithText('First paragraph'), paragraphWithText('Second paragraph'))
+      initialValue: doc(
+        paragraphWithText('First paragraph'),
+        paragraphWithText('Second paragraph'),
+      ),
     });
     mount(<Host sdk={sdk} />);
     const page = new RichTextPage();
@@ -59,7 +61,7 @@ describe('Rich text keyboard caret during host renders', { browser: 'chrome' }, 
     expectNativeCaret('Fxirst paragraph', 2);
     resumeSelectionUpdates();
     page.expectValue(
-      doc(paragraphWithText('Fxirst paragraph'), paragraphWithText('aSecond paragraph'))
+      doc(paragraphWithText('Fxirst paragraph'), paragraphWithText('aSecond paragraph')),
     );
   });
 
@@ -67,15 +69,15 @@ describe('Rich text keyboard caret during host renders', { browser: 'chrome' }, 
     const first = 'A wrapped paragraph with enough words to fill several lines. '.repeat(8);
     const heading = block(BLOCKS.HEADING_1, {}, text('Long document'));
     const remaining = Array.from({ length: 300 }, (_, index) =>
-      paragraphWithText(`Paragraph ${index}: ${first}`)
+      paragraphWithText(`Paragraph ${index}: ${first}`),
     );
     const sdk = createRichTextFakeSdk({
       initialValue: doc(
         heading,
         paragraphWithText(first),
         paragraphWithText('Second paragraph'),
-        ...remaining
-      )
+        ...remaining,
+      ),
     });
     mount(<Host sdk={sdk} />);
     const page = new RichTextPage();
@@ -102,8 +104,8 @@ describe('Rich text keyboard caret during host renders', { browser: 'chrome' }, 
           heading,
           paragraphWithText(expected),
           paragraphWithText('aSecond paragraph'),
-          ...remaining
-        )
+          ...remaining,
+        ),
       );
     });
   });

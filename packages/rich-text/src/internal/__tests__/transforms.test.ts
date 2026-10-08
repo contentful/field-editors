@@ -12,8 +12,7 @@ const paragraph = (text: string): Element => ({
   children: [{ text }],
 });
 
-const createEditor = (children: Element[]) =>
-  slateJsx('editor', {}, children) as PlateEditor;
+const createEditor = (children: Element[]) => slateJsx('editor', {}, children) as PlateEditor;
 
 describe('setEditorValue', () => {
   it('preserves cursor position when incoming value has the same structure', () => {

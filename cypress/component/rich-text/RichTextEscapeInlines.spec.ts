@@ -33,8 +33,8 @@ describe('Rich Text Lists', () => {
         {},
         text(''),
         block(INLINES.HYPERLINK, { uri: 'https://example.com' }, text('link')),
-        text('outside the link')
-      )
+        text('outside the link'),
+      ),
     );
 
     richText.expectValue(expectedValue);

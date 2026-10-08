@@ -18,8 +18,7 @@ export const ButtonRedo = () => {
       testId="redo-toolbar-button"
       onClick={onClickHandler}
       isActive={false}
-      isDisabled={editor.history.redos.length === 0}
-    >
+      isDisabled={editor.history.redos.length === 0}>
       <ArrowUUpRightIcon aria-label="Redo" />
     </ToolbarButton>
   );

@@ -221,8 +221,7 @@ export const CreateEntryMenuTrigger = ({
         isOpen={isOpen}
         onClose={closeMenu}
         onOpen={handleMenuOpen}
-        {...menuProps}
-      >
+        {...menuProps}>
         <Menu.Trigger>{children({ isOpen, isSelecting })}</Menu.Trigger>
 
         {isOpen && (
@@ -233,8 +232,7 @@ export const CreateEntryMenuTrigger = ({
               maxHeight: `${maxDropdownHeight}px`,
             }}
             ref={menuListRef}
-            testId="add-entry-menu"
-          >
+            testId="add-entry-menu">
             {Boolean(customDropdownItems) && (
               <>
                 <div className={styles.inputWrapper}>{customDropdownItems}</div>
@@ -284,8 +282,7 @@ export const CreateEntryMenuTrigger = ({
                 <Menu.Item
                   testId="contentType"
                   key={`${get(contentType, 'name')}-${i}`}
-                  onClick={() => handleSelect(contentType)}
-                >
+                  onClick={() => handleSelect(contentType)}>
                   {get(
                     contentType,
                     'name',

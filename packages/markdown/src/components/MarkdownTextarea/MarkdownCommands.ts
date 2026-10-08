@@ -40,7 +40,7 @@ function wrapSelection(editor: EditorInstanceType, marker: string, emptyText: st
         const markerLength = marker.length;
         const textWithoutMarker = selectedText.slice(
           markerLength,
-          selectedText.length - markerLength
+          selectedText.length - markerLength,
         );
         editor.replaceSelectedText(textWithoutMarker);
       } else {
@@ -159,7 +159,7 @@ export function create(editor: EditorInstanceType) {
 function modifySelection(
   editor: EditorInstanceType,
   toggleFn: (editor: EditorInstanceType, listNumber?: number) => void,
-  isList?: boolean
+  isList?: boolean,
 ) {
   return () => {
     editor.usePrimarySelection();
@@ -198,7 +198,7 @@ function forLineIn(
     anchor: CodeMirror.Position;
     head: CodeMirror.Position;
   },
-  cb: Function
+  cb: Function,
 ) {
   // anchor/head depend on selection direction, so min & max have to be used
   const lines = [selection.anchor.line, selection.head.line];

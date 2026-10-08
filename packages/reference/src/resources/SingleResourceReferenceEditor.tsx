@@ -26,8 +26,7 @@ export function SingleResourceReferenceEditor(
       <FieldConnector<ResourceLink<string>>
         debounce={0}
         field={props.sdk.field}
-        isInitiallyDisabled={props.isInitiallyDisabled}
-      >
+        isInitiallyDisabled={props.isInitiallyDisabled}>
         {({ value, disabled }) => {
           return value ? (
             <ResourceCard

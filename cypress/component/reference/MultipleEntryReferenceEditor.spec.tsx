@@ -33,7 +33,7 @@ function asLink<E extends Entity>(entity: E): Link {
 function modifyEntry(entry: Entry, modifier: Record<string, unknown>): Entry {
   const modified = Object.entries(modifier).reduce(
     (entry, [path, value]) => set(entry, path, value),
-    cloneDeep(entry)
+    cloneDeep(entry),
   );
 
   return modified;
@@ -78,7 +78,7 @@ describe('Multiple Reference Editor', () => {
           );
         }}
         sdk={sdk}
-      />
+      />,
     );
 
     findLinkExistingBtn().click();
@@ -110,7 +110,7 @@ describe('Multiple Reference Editor', () => {
           );
         }}
         sdk={sdk}
-      />
+      />,
     );
 
     findLinkExistingBtn().click();
@@ -144,7 +144,7 @@ describe('Multiple Reference Editor', () => {
           );
         }}
         sdk={sdk}
-      />
+      />,
     );
 
     findLinkExistingBtn().click(); // inserts 2 cards
@@ -198,7 +198,7 @@ describe('Multiple Reference Editor', () => {
           return <Note testId="custom-card" title="Custom card" />;
         }}
         sdk={sdk}
-      />
+      />,
     );
 
     cy.findByTestId('custom-card').should('be.visible');
@@ -256,7 +256,7 @@ describe('Multiple Reference Editor', () => {
           return <CombinedLinkActions {...props} />;
         }}
         sdk={sdk}
-      />
+      />,
     );
 
     cy.findByTestId('link-actions-menu-trigger').should('be.visible');
@@ -273,7 +273,7 @@ describe('Multiple Reference Editor', () => {
           return <Note testId="custom-missing-entry-card" title="Custom missing entry card" />;
         }}
         sdk={sdk}
-      />
+      />,
     );
 
     cy.findByTestId('custom-missing-entry-card').should('be.visible');
@@ -362,7 +362,7 @@ describe('Multiple Reference Editor', () => {
         hasCardRemoveActions={false}
         isInitiallyDisabled={true}
         sdk={sdk}
-      />
+      />,
     );
 
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
@@ -380,7 +380,7 @@ describe('Multiple Reference Editor', () => {
         hasCardMoveActions={false}
         isInitiallyDisabled={true}
         sdk={sdk}
-      />
+      />,
     );
 
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').click();
@@ -400,7 +400,7 @@ describe('Multiple Reference Editor', () => {
         hasCardRemoveActions={false}
         isInitiallyDisabled={true}
         sdk={sdk}
-      />
+      />,
     );
 
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');
@@ -430,7 +430,7 @@ describe('Multiple Reference Editor', () => {
           hasCardRemoveActions={false}
           isInitiallyDisabled={false}
           sdk={sdk}
-        />
+        />,
       );
     }
 
@@ -492,7 +492,7 @@ describe('Multiple Reference Editor', () => {
           hasCardRemoveActions={false}
           isInitiallyDisabled={false}
           sdk={sdk}
-        />
+        />,
       );
     }
 

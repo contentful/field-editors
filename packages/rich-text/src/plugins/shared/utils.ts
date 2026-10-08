@@ -1,7 +1,7 @@
 import { EntityLink, EntryLink, ResourceLink } from '@contentful/field-editor-reference';
 
 const isResourceLink = (
-  link: EntityLink | EntryLink | ResourceLink<'Contentful:Entry'>
+  link: EntityLink | EntryLink | ResourceLink<'Contentful:Entry'>,
 ): link is ResourceLink<'Contentful:Entry'> => !!(link as ResourceLink<'Contentful:Entry'>).sys.urn;
 
 export const getLinkEntityId = (link: EntityLink | ResourceLink<'Contentful:Entry'>): string =>

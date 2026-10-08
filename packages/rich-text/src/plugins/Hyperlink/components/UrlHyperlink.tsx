@@ -29,7 +29,7 @@ type UrlHyperlinkProps = {
 
 export function UrlHyperlink(props: UrlHyperlinkProps) {
   const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
-    props.element
+    props.element,
   );
   const uri = props.element.data?.uri;
 
@@ -46,14 +46,12 @@ export function UrlHyperlink(props: UrlHyperlinkProps) {
       handleRemoveLink={() => handleRemoveLink(editor)}
       handleCopyLink={() => handleCopyLink(uri)}
       popoverText={popoverText}
-      isEditorFocused={isEditorFocused}
-    >
+      isEditorFocused={isEditorFocused}>
       <TextLink
         testId="cf-ui-text-link"
         href={uri}
         onClick={(e) => e.preventDefault()}
-        className={styles.hyperlink}
-      >
+        className={styles.hyperlink}>
         {props.children as React.ReactNode}
       </TextLink>
     </LinkPopover>

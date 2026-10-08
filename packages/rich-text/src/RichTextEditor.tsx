@@ -74,7 +74,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
     () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation, withSelectionSync),
-    [sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync]
+    [sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync],
   );
 
   const initialValue = useDeepCompareMemo(() => {
@@ -126,13 +126,11 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
                 if (deepEquals(lastValue.current, value)) return;
                 lastValue.current = value;
                 handleValueChange(value);
-              }}
-            >
+              }}>
               {!props.isToolbarHidden && (
                 <StickyToolbarWrapper
                   isDisabled={props.isDisabled}
-                  offset={props.stickyToolbarOffset}
-                >
+                  offset={props.stickyToolbarOffset}>
                   <Toolbar isDisabled={props.isDisabled} />
                 </StickyToolbarWrapper>
               )}
@@ -186,8 +184,7 @@ const RichTextEditor = (props: RichTextProps) => {
       field={sdk.field}
       isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyValue}
-      isDisabled={isDisabled}
-    >
+      isDisabled={isDisabled}>
       {({ lastRemoteValue, disabled, setValue }) => (
         <ConnectedRichTextEditor
           {...otherProps}

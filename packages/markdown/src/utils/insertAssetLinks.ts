@@ -50,7 +50,7 @@ export function replaceAssetDomain(fileUrl: string) {
 
 function makeAssetLink(
   asset: Asset,
-  { localeCode, fallbackCode, defaultLocaleCode }: Locales
+  { localeCode, fallbackCode, defaultLocaleCode }: Locales,
 ): LinkWithMedia | null {
   const localizedFile = get(asset, ['fields', 'file', localeCode]);
   const fallbackFile = fallbackCode ? get(asset, ['fields', 'file', fallbackCode]) : null;

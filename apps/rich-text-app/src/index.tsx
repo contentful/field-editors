@@ -12,7 +12,7 @@ init((sdk: FieldAppSDK | DialogAppSDK) => {
         <GlobalStyles />
         {renderRichTextDialog(sdk as DialogAppSDK)}
       </>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   } else {
     render(
@@ -20,7 +20,7 @@ init((sdk: FieldAppSDK | DialogAppSDK) => {
         <GlobalStyles />
         <RichTextEditor sdk={sdk as FieldAppSDK} isInitiallyDisabled />
       </>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   }
 });

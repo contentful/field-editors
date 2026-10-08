@@ -25,7 +25,7 @@ init<FieldAppSDK>((sdk) => {
         }}
       />
     </div>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 });
 

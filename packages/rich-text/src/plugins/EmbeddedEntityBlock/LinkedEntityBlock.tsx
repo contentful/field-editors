@@ -74,8 +74,7 @@ export function LinkedEntityBlock(props: LinkedEntityBlockProps) {
           )}
         </>
       }
-      link={element.data.target}
-    >
+      link={element.data.target}>
       {children as React.ReactNode}
     </LinkedBlockWrapper>
   );

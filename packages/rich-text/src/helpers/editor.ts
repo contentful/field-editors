@@ -42,7 +42,7 @@ export function isBlockSelected(editor: PlateEditor, type: string): boolean {
   const [match] = Array.from(
     getNodeEntries(editor, {
       match: (node) => isElement(node) && node.type === type,
-    })
+    }),
   );
   return !!match;
 }
@@ -56,7 +56,7 @@ type NodeType = BLOCKS | INLINES;
 export function getNodeEntryFromSelection(
   editor: PlateEditor,
   nodeTypeOrTypes: NodeType | NodeType[],
-  path?: Path
+  path?: Path,
 ): NodeEntry | [] {
   path = path ?? editor.selection?.focus.path;
   if (!path) return [];
@@ -70,7 +70,7 @@ export function getNodeEntryFromSelection(
 
 export function isNodeTypeSelected(
   editor: PlateEditor | null,
-  nodeType: BLOCKS | INLINES
+  nodeType: BLOCKS | INLINES,
 ): boolean {
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
@@ -107,7 +107,7 @@ export function getElementFromCurrentSelection(editor: PlateEditor) {
        **/
       at: editor.selection,
       match: (node) => isElement(node),
-    })
+    }),
   ).flat() as (Path | Node)[];
 }
 
@@ -119,7 +119,7 @@ export function isList(editor?: PlateEditor) {
   const element = getElementFromCurrentSelection(editor);
 
   return element.some(
-    (element) => isElement(element) && LIST_TYPES.includes(element.type as BLOCKS)
+    (element) => isElement(element) && LIST_TYPES.includes(element.type as BLOCKS),
   );
 }
 
@@ -160,7 +160,7 @@ export function isLinkActive(editor?: PlateEditor | null) {
     getNodeEntries(editor, {
       match: (node) =>
         !isEditor(node) && isElement(node) && LINK_TYPES.includes(node.type as INLINES),
-    })
+    }),
   );
   return !!link;
 }
@@ -267,7 +267,7 @@ export const focus = (editor: PlateEditor) => {
 export function toggleElement(
   editor: PlateEditor,
   options: ToggleNodeTypeOptions,
-  editorOptions?: EditorNodesOptions
+  editorOptions?: EditorNodesOptions,
 ) {
   toggleNodeType(editor, options, editorOptions);
 

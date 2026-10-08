@@ -7,7 +7,6 @@ import { focus } from '../../../helpers/editor';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { insertTableAndFocusFirstCell, isTableActive } from './../helpers';
 
-
 export interface ToolbarTableButtonProps {
   isDisabled: boolean | undefined;
 }
@@ -33,8 +32,7 @@ export function ToolbarTableButton(props: ToolbarTableButtonProps) {
       onClick={handleClick}
       // TODO: active state looks off since the button will be disabled. Do we still need it?
       isActive={!!isActive}
-      isDisabled={props.isDisabled}
-    >
+      isDisabled={props.isDisabled}>
       <TableIcon />
     </ToolbarButton>
   );

@@ -138,8 +138,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       <Grid.Item
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
-        })}
-      >
+        })}>
         <MarkdownTextarea
           mode="zen"
           visible
@@ -176,8 +175,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Hide preview"
           onClick={() => {
             setShowPreview(false);
-          }}
-        >
+          }}>
           <CaretRightIcon color={tokens.gray600} size="tiny" className={styles.icon} />
         </button>
       )}
@@ -187,8 +185,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Show preview"
           onClick={() => {
             setShowPreview(true);
-          }}
-        >
+          }}>
           <CaretLeftIcon color={tokens.gray600} size="tiny" className={styles.icon} />
         </button>
       )}

@@ -163,16 +163,14 @@ function InnerNumberEditor({
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Increment)}
-            onPointerDown={handleControlPointerDown}
-          >
+            onPointerDown={handleControlPointerDown}>
             <CaretUpIcon />
           </button>
           <button
             tabIndex={-1}
             className={styles.control}
             onClick={() => changeValueByStep(StepChangeType.Decrement)}
-            onPointerDown={handleControlPointerDown}
-          >
+            onPointerDown={handleControlPointerDown}>
             <CaretDownIcon />
           </button>
         </div>

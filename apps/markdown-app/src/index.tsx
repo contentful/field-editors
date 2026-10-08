@@ -28,7 +28,7 @@ init((sdk: FieldAppSDK) => {
         <GlobalStyles />
         {renderMarkdownDialog(sdk as any)}
       </>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   } else {
     render(<App sdk={sdk as FieldAppSDK} />, document.getElementById('root'));

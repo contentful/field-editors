@@ -64,8 +64,7 @@ export function TagsEditorContainer({ isInitiallyDisabled, field, id }: TagsEdit
       field={field}
       isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyTagsValue}
-      debounce={0}
-    >
+      debounce={0}>
       {({ disabled, value, errors, setValue }) => {
         const items = value || [];
         return (

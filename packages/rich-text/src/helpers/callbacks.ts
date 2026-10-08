@@ -12,7 +12,7 @@ export const createOnChangeCallback = (handler?: (value: Document) => void) =>
       toContentfulDocument({
         document: document as any,
         schema: schema,
-      }) as any
+      }) as any,
     );
 
     const cleanedDocument = removeInternalMarks(doc as Record<string, any>);

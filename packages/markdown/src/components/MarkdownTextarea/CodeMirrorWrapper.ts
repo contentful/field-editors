@@ -28,7 +28,7 @@ export function create(
     readOnly: boolean;
     fixedHeight?: number | boolean;
     height?: number | string;
-  }
+  },
 ) {
   const { direction, fixedHeight, height, readOnly } = options || {};
 
@@ -181,8 +181,8 @@ export function create(
           // @ts-ignore
           acc[ctrlKey + '-' + key] = value;
         },
-        {}
-      )
+        {},
+      ),
     );
   }
 

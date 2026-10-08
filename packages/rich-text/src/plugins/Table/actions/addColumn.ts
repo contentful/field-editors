@@ -12,7 +12,7 @@ interface AddColumnOptions {
 const addColumn = (
   editor: PlateEditor,
   { header }: AddColumnOptions,
-  getNextCellPath: (currentCellPath: Path) => Path
+  getNextCellPath: (currentCellPath: Path) => Path,
 ) => {
   if (
     someNode(editor, {
@@ -45,7 +45,7 @@ const addColumn = (
             at: newCellPath,
             // Select the first cell of the new column
             select: rowIdx === 0,
-          }
+          },
         );
       });
     }
