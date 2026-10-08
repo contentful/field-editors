@@ -96,12 +96,7 @@ export const WrappedAssetCard = ({
   release,
   onAddToRelease,
 }: WrappedAssetCardProps) => {
-  const status = entityHelpers.getEntityStatus(
-    asset.sys,
-    useLocalizedEntityStatus ? localeCode : undefined,
-  );
-
-  const entityFile = asset.fields.file
+  const entityFile = asset?.fields?.file
     ? asset.fields.file[localeCode] || asset.fields.file[defaultLocaleCode]
     : undefined;
 
@@ -118,6 +113,15 @@ export const WrappedAssetCard = ({
 
     return entityHelpers.getResolvedImageUrl(entityFile.url, { h: 300 });
   }, [entityFile?.url, size]);
+
+  if (!asset?.sys?.id) {
+    return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;
+  }
+
+  const status = entityHelpers.getEntityStatus(
+    asset.sys,
+    useLocalizedEntityStatus ? localeCode : undefined,
+  );
 
   if (status === 'deleted') {
     return <MissingAssetCard asSquare isDisabled={isDisabled} onRemove={onRemove} />;

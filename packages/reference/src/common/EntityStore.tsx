@@ -203,6 +203,17 @@ function handleResourceFetchError(
   throw resourceFetchError;
 }
 
+// Malformed CMA responses become query errors, so every card falls back to its missing state.
+function assertEntityMetadata<E>(entityType: FetchableEntityType, entity: E): E {
+  if (
+    !get(entity, 'sys.id') ||
+    (entityType === 'Entry' && !get(entity, 'sys.contentType.sys.id'))
+  ) {
+    throw new Error('Invalid entity metadata');
+  }
+  return entity;
+}
+
 const isEntityQueryKey = (queryKey: QueryKey): queryKey is EntityQueryKey => {
   return (
     Array.isArray(queryKey) &&
@@ -441,7 +452,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                   environmentId,
                   releaseId,
                 });
-                return entity;
+                return assertEntityMetadata('Entry', entity);
               } catch (error) {
                 // Fallback if the entity is not part of the release yet
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
@@ -451,6 +462,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     environmentId,
                     releaseId: undefined,
                   });
+                  assertEntityMetadata('Entry', currentEntry);
                   currentEntry.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
                   };
@@ -468,7 +480,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                   environmentId,
                   releaseId,
                 });
-                return entity;
+                return assertEntityMetadata('Asset', entity);
               } catch (error) {
                 // Fallback if the entity is not part of the release yet
                 if (isReleaseRequestError(error, spaceId, environmentId)) {
@@ -478,6 +490,7 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     environmentId,
                     releaseId: undefined,
                   });
+                  assertEntityMetadata('Asset', currentAsset);
                   currentAsset.sys.release = {
                     sys: { type: 'Link', linkType: 'Release', id: releaseId! },
                   };
@@ -644,7 +657,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
                     await queryClient.invalidateQueries({ queryKey: query.queryKey });
                     return;
                   }
-                  queryClient.setQueryData(query.queryKey, freshData);
+                  queryClient.setQueryData(
+                    query.queryKey,
+                    assertEntityMetadata(entityType, freshData),
+                  );
                 } catch (error) {
                   // If fetch fails, just invalidate the query
                   await queryClient.invalidateQueries({ queryKey: query.queryKey });
@@ -662,7 +678,10 @@ const [InternalServiceProvider, useFetch, useEntityLoader, useCurrentIds] = cons
           entityId,
           (data: unknown) => {
             const dataReleaseId = get(data, 'sys.release.id');
-            if (dataReleaseId === releaseId) {
+            if (!get(data, 'sys.id')) {
+              // Refetch through getEntity so malformed payloads surface as query errors
+              void queryClient.invalidateQueries({ queryKey });
+            } else if (dataReleaseId === releaseId) {
               queryClient.setQueryData(queryKey, data);
             } else if (releaseId && !dataReleaseId) {
               // Entity was updated but response doesn't include release info

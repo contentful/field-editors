@@ -142,5 +142,13 @@ describe('useLocalePublishStatus', () => {
 
       expect(result.current).toBeUndefined();
     });
+
+    it('returns undefined when entity metadata is missing', () => {
+      const { result } = renderHook(() =>
+        useLocalePublishStatus({ sys: null } as unknown as AssetProps, localesAPI),
+      );
+
+      expect(result.current).toBeUndefined();
+    });
   });
 });

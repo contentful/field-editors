@@ -43,7 +43,7 @@ export function useLocalePublishStatus(
   locales?: Pick<LocalesAPI, 'available' | 'default' | 'names'> | LocaleProps[] | null,
 ): LocalePublishStatusMap | undefined {
   return useMemo(() => {
-    if (entity && locales) {
+    if (entity?.sys && locales) {
       return getLocalePublishStatusMap(entity, locales ? sanitizeLocales(locales) : []);
     }
 
