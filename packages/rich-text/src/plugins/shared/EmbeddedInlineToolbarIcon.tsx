@@ -65,8 +65,7 @@ export function EmbeddedInlineToolbarIcon({
       disabled={isDisabled}
       className="rich-text__entry-link-block-button"
       testId={`toolbar-toggle-${nodeType}`}
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
       <Flex alignItems="center" flexDirection="row">
         <EmbeddedLineIcon
           color={tokens.gray900}

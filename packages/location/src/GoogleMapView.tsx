@@ -10,13 +10,13 @@ import { Coords } from './types';
 const styles = {
   root: css({
     height: '300px',
-    width: '100%'
-  })
+    width: '100%',
+  }),
 };
 
 const BerlinLocation = {
   lat: 52.5018,
-  lng: 13.41115439
+  lng: 13.41115439,
 };
 
 type GoogleMapViewProps = {
@@ -64,7 +64,7 @@ export function GoogleMapView(props: GoogleMapViewProps) {
       position: map.getCenter(),
       cursor: propsRef.current.disabled ? 'not-allowed' : 'auto',
       draggable: !propsRef.current.disabled,
-      visible: Boolean(propsRef.current.location)
+      visible: Boolean(propsRef.current.location),
     });
 
     loadedMaps.event.addListener(map, 'click', (event: any) => {
@@ -76,14 +76,14 @@ export function GoogleMapView(props: GoogleMapViewProps) {
       marker.setVisible(true);
       propsRef.current.onChangeLocation({
         lat: event.latLng.lat(),
-        lng: event.latLng.lng()
+        lng: event.latLng.lng(),
       });
     });
 
     loadedMaps.event.addListener(loadedMarker, 'dragend', (event: any) => {
       propsRef.current.onChangeLocation({
         lat: event.latLng.lat(),
-        lng: event.latLng.lng()
+        lng: event.latLng.lng(),
       });
     });
     pendingLoadedMapsRef.current = loadedMaps;
@@ -99,7 +99,7 @@ export function GoogleMapView(props: GoogleMapViewProps) {
         center={props.location}
         options={{
           scrollwheel: false,
-          mapTypeId: 'roadmap'
+          mapTypeId: 'roadmap',
         }}
         defaultZoom={6}
         yesIWantToUseGoogleMapApiInternals

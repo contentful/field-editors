@@ -36,7 +36,7 @@ export const normalizeOrphanedListItem = (editor: PlateEditor, [, path]: NodeEnt
   wrapNodes(
     editor,
     { type: parentListType || BLOCKS.UL_LIST, children: [], data: {} },
-    { at: path }
+    { at: path },
   );
 };
 

@@ -100,8 +100,7 @@ describe('CreateEntryMenuTrigger general', () => {
     const { getByTestId } = render(
       <CreateEntryMenuTrigger
         {...props}
-        contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}
-      >
+        contentTypes={fill(Array(21), CONTENT_TYPE_3) as ContentType[]}>
         {stub}
       </CreateEntryMenuTrigger>,
     );

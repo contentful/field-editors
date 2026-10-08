@@ -145,8 +145,7 @@ export const Default: Story = {
             <Text as="p" fontColor="gray500" marginTop="spacingXs">
               <InfoIcon size="tiny" /> Custom help text: {helpText}
             </Text>
-          )}
-        >
+          )}>
           <Field sdk={dateSdk} widgetId="datePicker" />
         </FieldWrapper>
         <FieldWrapper sdk={booleanSdk} name="customEditor">

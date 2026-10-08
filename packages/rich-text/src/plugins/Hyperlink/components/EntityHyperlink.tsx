@@ -56,8 +56,7 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
         } else if (target.sys.linkType === 'Asset') {
           sdk.navigator.openAsset(target.sys.id, { slideIn: true });
         }
-      }}
-    >
+      }}>
       {tooltipContent}
     </TextLink>
   );
@@ -68,16 +67,14 @@ export function EntityHyperlink(props: HyperlinkElementProps) {
       handleEditLink={() => handleEditLink(editor, sdk, pathToElement)}
       handleRemoveLink={() => handleRemoveLink(editor)}
       popoverText={popoverText}
-      isEditorFocused={isEditorFocused}
-    >
+      isEditorFocused={isEditorFocused}>
       <Text
         testId="cf-ui-text-link"
         fontColor="blue600"
         fontWeight="fontWeightMedium"
         className={styles.hyperlink}
         data-link-type={target.sys.linkType}
-        data-link-id={target.sys.id}
-      >
+        data-link-id={target.sys.id}>
         {props.children as React.ReactNode}
       </Text>
     </LinkPopover>

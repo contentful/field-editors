@@ -83,8 +83,7 @@ const SortableLink = <T extends { sys: any }>({
     <div
       ref={setNodeRef}
       style={style}
-      className={cx(styles.item, { [styles.isDragging]: isDragging })}
-    >
+      className={cx(styles.item, { [styles.isDragging]: isDragging })}>
       {children({
         items,
         isDisabled,
@@ -144,8 +143,7 @@ export const SortableLinkList = <T extends { sys: any }>({
                 items={items}
                 item={item}
                 isDisabled={isDisabled}
-                index={index}
-              >
+                index={index}>
                 {children}
               </SortableLink>
             );

@@ -10,8 +10,7 @@ export function JsonInvalidStatus() {
     <div
       role="status"
       data-test-id="json-editor.invalid-json"
-      className={css({ marginTop: tokens.spacingS })}
-    >
+      className={css({ marginTop: tokens.spacingS })}>
       <ValidationMessage>
         {t({
           id: 'FieldEditors.Json.JsonInvalidStatus.InvalidJsonMessage',

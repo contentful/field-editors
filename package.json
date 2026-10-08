@@ -23,6 +23,7 @@
     "test:ci": "lerna run test:ci",
     "test:integration": "start-server-and-test storybook http://localhost:9000 cy:run",
     "prettier": "prettier './**/*.{js,jsx,ts,tsx}' --write",
+    "prettier:check": "prettier './**/*.{js,jsx,ts,tsx,md}' --check",
     "cy:open": "TZ=UTC cypress open",
     "cy:open:ct": "TZ=UTC cypress open --component",
     "cy:run": "TZ=UTC cypress run --browser chrome",

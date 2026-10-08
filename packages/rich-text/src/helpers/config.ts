@@ -21,7 +21,7 @@ type EntitySelectorConfig = {
 
 export const newEntitySelectorConfigFromRichTextField = (
   field: FieldAPI,
-  nodeType
+  nodeType,
 ): EntitySelectorConfig => {
   return {
     entityType: getEntityTypeFromRichTextNode(nodeType),

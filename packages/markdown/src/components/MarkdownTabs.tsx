@@ -81,8 +81,7 @@ function MarkdownTabItem(props: {
       role="tab"
       aria-controls={props.name}
       aria-selected={props.isActive === true}
-      data-test-id={props.testId}
-    >
+      data-test-id={props.testId}>
       {props.children}
     </div>
   );
@@ -96,8 +95,7 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         onSelect={props.onSelect}
         isActive={props.active === 'editor'}
         testId="markdown-tab-md"
-        isDisabled={props.enableTab && props.enableTab !== 'editor'}
-      >
+        isDisabled={props.enableTab && props.enableTab !== 'editor'}>
         Editor
       </MarkdownTabItem>
       <MarkdownTabItem
@@ -105,8 +103,7 @@ export function MarkdownTabs(props: MarkdownTabsProps) {
         onSelect={props.onSelect}
         isActive={props.active === 'preview'}
         testId="markdown-tab-preview"
-        isDisabled={props.enableTab && props.enableTab !== 'preview'}
-      >
+        isDisabled={props.enableTab && props.enableTab !== 'preview'}>
         Preview
       </MarkdownTabItem>
     </div>

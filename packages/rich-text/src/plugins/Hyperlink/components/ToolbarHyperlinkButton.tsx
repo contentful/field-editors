@@ -9,7 +9,6 @@ import { useSdkContext } from '../../../SdkProvider';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { addOrEditLink } from '../HyperlinkModal';
 
-
 interface ToolbarHyperlinkButtonProps {
   isDisabled: boolean | undefined;
 }
@@ -38,8 +37,7 @@ export function ToolbarHyperlinkButton(props: ToolbarHyperlinkButtonProps) {
       testId="hyperlink-toolbar-button"
       onClick={handleClick}
       isActive={isActive}
-      isDisabled={props.isDisabled}
-    >
+      isDisabled={props.isDisabled}>
       <LinkSimpleIcon />
     </ToolbarButton>
   );

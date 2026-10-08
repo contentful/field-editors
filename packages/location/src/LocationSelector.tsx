@@ -61,8 +61,7 @@ export function LocationSelector(props: LocationSelectorProps) {
             isChecked={props.view === ViewType.Address}
             onChange={() => {
               props.onChangeView(ViewType.Address);
-            }}
-          >
+            }}>
             Address
           </Radio>
           <Radio
@@ -74,8 +73,7 @@ export function LocationSelector(props: LocationSelectorProps) {
             isChecked={props.view === ViewType.Coordinates}
             onChange={() => {
               props.onChangeView(ViewType.Coordinates);
-            }}
-          >
+            }}>
             Coordinates
           </Radio>
         </Flex>
@@ -142,8 +140,7 @@ export function LocationSelector(props: LocationSelectorProps) {
           className={styles.clearBtn}
           onClick={() => {
             props.onChangeLocation(undefined);
-          }}
-        >
+          }}>
           Clear
         </TextLink>
       </div>

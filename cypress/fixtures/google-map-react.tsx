@@ -12,7 +12,7 @@ export class Geocoder {
 class LatLng {
   constructor(
     private latitude: number,
-    private longitude: number
+    private longitude: number,
   ) {}
 
   lat() {
@@ -32,9 +32,9 @@ function createMaps() {
       setPosition: Cypress.sinon.stub(),
       setVisible: Cypress.sinon.stub(),
       setDraggable: Cypress.sinon.stub(),
-      setCursor: Cypress.sinon.stub()
+      setCursor: Cypress.sinon.stub(),
     }),
-    event: { addListener: Cypress.sinon.stub() }
+    event: { addListener: Cypress.sinon.stub() },
   };
 }
 
@@ -45,14 +45,14 @@ type MapAPI = {
 
 export default function GoogleMapReactMock({
   defaultCenter,
-  onGoogleApiLoaded
+  onGoogleApiLoaded,
 }: {
   defaultCenter: Coords;
   onGoogleApiLoaded: (api: MapAPI) => void;
 }) {
   const [api] = React.useState(() => ({
     maps: createMaps(),
-    map: { getCenter: () => new LatLng(defaultCenter.lat, defaultCenter.lng) }
+    map: { getCenter: () => new LatLng(defaultCenter.lat, defaultCenter.lng) },
   }));
 
   React.useEffect(() => {

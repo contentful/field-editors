@@ -38,8 +38,7 @@ function CharCounter({ checkConstraints }: CharCounterProps) {
     <span
       className={cx({
         [styles.counterInvalid]: !valid,
-      })}
-    >
+      })}>
       {count} characters
     </span>
   );

@@ -187,14 +187,12 @@ export function ReleaseEntityStatusPopover({
       isOpen={releaseStatusMap && isOpen}
       onClose={() => setIsOpen(false)}
       autoFocus={false}
-      placement="bottom-end"
-    >
+      placement="bottom-end">
       <Popover.Trigger>
         <Flex
           aria-label={ariaLabel}
           alignItems="center"
-          className={cx(styles.wrapper, wrapperClass)}
-        >
+          className={cx(styles.wrapper, wrapperClass)}>
           <Badge
             tabIndex={0}
             variant={variant}
@@ -203,8 +201,7 @@ export function ReleaseEntityStatusPopover({
             endIcon={<CaretDownIcon size="tiny" color={icon} />}
             onMouseOver={onMouseEnter}
             onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
+            onMouseLeave={onMouseLeave}>
             {label}
           </Badge>
           {status.secondary && (
@@ -213,8 +210,7 @@ export function ReleaseEntityStatusPopover({
               aria-hidden="true"
               width="4"
               height="18"
-              viewBox="0 0 4 18"
-            >
+              viewBox="0 0 4 18">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -236,8 +232,7 @@ export function ReleaseEntityStatusPopover({
       <Popover.Content
         className={styles.popoverContent}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
+        onMouseLeave={onMouseLeave}>
         {!!releaseStatusMap && (
           <>
             <ReleaseEntityStatusLocalesList

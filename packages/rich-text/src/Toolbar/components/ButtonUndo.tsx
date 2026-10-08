@@ -18,8 +18,7 @@ export const ButtonUndo = () => {
       testId="undo-toolbar-button"
       onClick={onClickHandler}
       isActive={false}
-      isDisabled={editor.history.undos.length === 0}
-    >
+      isDisabled={editor.history.undos.length === 0}>
       <ArrowUUpLeftIcon aria-label="Undo" />
     </ToolbarButton>
   );

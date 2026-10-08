@@ -33,11 +33,11 @@ Read [here](https://www.contentful.com/developers/docs/extensibility/app-framewo
 
 #### `yarn upload-ci`
 
-Similar to `yarn upload` it will upload your app to contentful and activate it. The only difference is   
+Similar to `yarn upload` it will upload your app to contentful and activate it. The only difference is  
 that with this command all required arguments are read from the environment variables, for example when you add
 the upload command to your CI pipeline.
 
-For this command to work, the following environment variables must be set: 
+For this command to work, the following environment variables must be set:
 
 - `CONTENTFUL_ORG_ID` - The ID of your organization
 - `CONTENTFUL_APP_DEF_ID` - The ID of the app to which to add the bundle

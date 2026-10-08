@@ -189,8 +189,7 @@ export function WrappedEntryCard({
                   testId="edit"
                   onClick={() => {
                     onEdit && onEdit();
-                  }}
-                >
+                  }}>
                   Edit
                 </MenuItem>
               ) : null,
@@ -200,8 +199,7 @@ export function WrappedEntryCard({
                   testId="delete"
                   onClick={() => {
                     onRemove && onRemove();
-                  }}
-                >
+                  }}>
                   Remove
                 </MenuItem>
               ) : null,
@@ -211,8 +209,7 @@ export function WrappedEntryCard({
                   testId="add-to-release"
                   onClick={() => {
                     onAddToRelease();
-                  }}
-                >
+                  }}>
                   <PlusIcon size="tiny" />
                   Add to release
                 </MenuItem>
@@ -229,8 +226,7 @@ export function WrappedEntryCard({
                 <MenuItem
                   key="move-bottom"
                   onClick={() => onMoveBottom && onMoveBottom()}
-                  testId="move-bottom"
-                >
+                  testId="move-bottom">
                   Move to bottom
                 </MenuItem>
               ) : null,

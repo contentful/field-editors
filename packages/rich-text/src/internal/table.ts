@@ -13,7 +13,7 @@ export const ELEMENT_TD = KEYS.td;
 export const ELEMENT_TH = KEYS.th;
 const applyOverride = (
   editor: PlateEditor,
-  override: (context: any) => { api?: any; transforms?: any }
+  override: (context: any) => { api?: any; transforms?: any },
 ) => {
   const overrides = override(getEditorPlugin(editor, table.BaseTablePlugin));
   if (overrides.api) {
@@ -46,7 +46,7 @@ export const withSetFragmentDataTable = (editor: PlateEditor) =>
   applyOverride(editor, table.withSetFragmentDataTable);
 export const onKeyDownTable: (
   editor: PlateEditor,
-  plugin: PlatePlugin
+  plugin: PlatePlugin,
 ) => (event: React.KeyboardEvent) => void =
   (editor: PlateEditor, _plugin: PlatePlugin) => (event: React.KeyboardEvent) =>
     onNativeKeyDownTable({ ...getEditorPlugin(editor, table.BaseTablePlugin), event });

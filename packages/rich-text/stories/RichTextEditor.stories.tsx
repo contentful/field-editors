@@ -175,7 +175,6 @@ const DemoRichTextEditor = () => {
     navigator: {
       ...navigator,
       onSlideInNavigation: () => {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function -- .
         return () => {};
       },
     },

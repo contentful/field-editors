@@ -146,5 +146,5 @@ Cypress.Commands.add('getComponentFixtures', () => {
 
 Cypress.on(
   'uncaught:exception',
-  (err) => !err.message.includes('ResizeObserver loop limit exceeded')
+  (err) => !err.message.includes('ResizeObserver loop limit exceeded'),
 );

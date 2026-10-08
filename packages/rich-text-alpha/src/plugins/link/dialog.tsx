@@ -199,8 +199,7 @@ function Modal(props: ModalProps) {
                     setLinkType(event.target.value as LinkType)
                   }
                   testId="link-type-input"
-                  isDisabled={props.readonly}
-                >
+                  isDisabled={props.readonly}>
                   {enabledLinkTypes.map((nodeType) => (
                     <Select.Option key={nodeType} value={nodeType}>
                       {LINK_TYPE_SELECTION_VALUES[nodeType]}
@@ -238,8 +237,7 @@ function Modal(props: ModalProps) {
                   <TextLink
                     testId="entity-selection-link"
                     onClick={resetLinkEntity}
-                    className={styles.removeSelectionLabel}
-                  >
+                    className={styles.removeSelectionLabel}>
                     Remove selection
                   </TextLink>
                 )}
@@ -298,8 +296,7 @@ function Modal(props: ModalProps) {
             onClick={() => props.onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small"
-          >
+            size="small">
             Cancel
           </Button>
           <Button
@@ -308,8 +305,7 @@ function Modal(props: ModalProps) {
             size="small"
             isDisabled={props.readonly || !isLinkComplete()}
             onClick={handleOnSubmit}
-            testId="confirm-cta"
-          >
+            testId="confirm-cta">
             {isEditing ? 'Update' : 'Insert'}
           </Button>
         </ModalControls>

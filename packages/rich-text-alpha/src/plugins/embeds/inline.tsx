@@ -144,8 +144,7 @@ export class EmbeddedEntity extends Node {
           data-entity-id={target.sys.id}
           data-entity-urn={target.sys.urn}
           data-entity-type={target.sys.linkType}
-          ref={ref}
-        >
+          ref={ref}>
           {target.sys.type === 'ResourceLink' ? (
             <FetchingWrappedResourceInlineCard
               sdk={this.sdk}

@@ -23,7 +23,7 @@ export const Default: Story = {
     const isInitiallyDisabled = !!window.localStorage.getItem('initialDisabled');
     const [field, mitt] = createFakeFieldAPI(
       (field) => field,
-      initialValue ? JSON.parse(initialValue) : undefined
+      initialValue ? JSON.parse(initialValue) : undefined,
     );
 
     return (

@@ -5,7 +5,7 @@ import {
   StrikethroughPlugin,
   SubscriptPlugin,
   SuperscriptPlugin,
-  UnderlinePlugin
+  UnderlinePlugin,
 } from '@platejs/basic-nodes/react';
 import { DocxPlugin } from '@platejs/docx';
 import { ListPlugin } from '@platejs/list-classic/react';
@@ -35,15 +35,15 @@ export const createUnderlinePlugin = (config: Partial<PlatePlugin>) =>
 export const createListPlugin = (config: Partial<PlatePlugin>) =>
   fromPlatePlugin(
     ListPlugin.extend({
-      plugins: ListPlugin.plugins.filter((plugin) => plugin.key !== KEYS.taskList)
+      plugins: ListPlugin.plugins.filter((plugin) => plugin.key !== KEYS.taskList),
     }),
-    { ...config, preserveEditorMethods: true }
+    { ...config, preserveEditorMethods: true },
   );
 export const createTablePlugin = (config: Partial<PlatePlugin>) =>
   fromPlatePlugin(TablePlugin.extend({ transformInitialValue: ({ value }) => value }), {
     ...config,
     preserveEditorMethods: true,
-    options: { ...config.options, disableMerge: true }
+    options: { ...config.options, disableMerge: true },
   });
 export const createDeserializeDocxPlugin = (config: Partial<PlatePlugin>) =>
   fromPlatePlugin(toPlatePlugin(DocxPlugin), config);

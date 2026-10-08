@@ -120,7 +120,7 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
 function deleteEmptyParagraph(
   unit: 'character' | 'word' | 'line' | 'block',
   editor: PlateEditor,
-  deleteFunction: Function
+  deleteFunction: Function,
 ) {
   const entry = getAboveNode(editor, {
     match: {

@@ -26,8 +26,7 @@ export function CharCounter(props: CharCounterProps) {
       data-status-code={valid ? null : 'invalid-size'}
       className={cx({
         [styles.invalid]: !valid,
-      })}
-    >
+      })}>
       {t({
         id: 'FieldEditors.Shared.CharCounter.Counter',
         message: plural(count, {

@@ -1,5 +1,5 @@
-import { css } from '@emotion/css';
 import tokens from '@contentful/f36-tokens';
+import { css } from '@emotion/css';
 
 const styles = {
   widthContainer: css({

@@ -120,8 +120,7 @@ export function LinkActions(props: LinkActionsProps) {
               }}
               variant="secondary"
               startIcon={<PlusIcon />}
-              size="small"
-            >
+              size="small">
               {labels.createNew()}
             </Button>
           )}
@@ -137,8 +136,7 @@ export function LinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<LinkSimpleIcon />}
-          size="small"
-        >
+          size="small">
           {labels.linkExisting({ canLinkMultiple: props.canLinkMultiple })}
         </Button>
       )}

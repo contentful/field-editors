@@ -12,7 +12,7 @@ import { SpecialCharacterModalDialog } from './SpecialCharacterModalDialog';
 import { ZenModeModalDialog } from './ZenModeModalDialog';
 
 export const renderMarkdownDialog = (
-  sdk: DialogAppSDK & { parameters: { invocation: MarkdownDialogsParams } }
+  sdk: DialogAppSDK & { parameters: { invocation: MarkdownDialogsParams } },
 ) => {
   const parameters = sdk.parameters.invocation;
   if (parameters.type === MarkdownDialogType.cheatsheet) {
@@ -39,7 +39,7 @@ export const renderMarkdownDialog = (
   } else if (parameters.type === MarkdownDialogType.zenMode) {
     const locale = parameters.locale;
     const initialValue = parameters.initialValue;
-    // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
+
     sdk.window.updateHeight('100%' as any);
     return (
       <ZenModeModalDialog

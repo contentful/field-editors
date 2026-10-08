@@ -2,7 +2,7 @@ import {
   BaseListPlugin,
   withDeleteForwardList,
   withDeleteFragmentList,
-  withNormalizeList
+  withNormalizeList,
 } from '@platejs/list-classic';
 import { KEYS } from 'platejs';
 import { getEditorPlugin } from 'platejs';
@@ -18,7 +18,7 @@ export const ELEMENT_LIC = KEYS.lic;
 export const deleteForwardList = (
   editor: PlateEditor,
   _deleteForward: PlateEditor['deleteForward'],
-  unit: Parameters<PlateEditor['deleteForward']>[0]
+  unit: Parameters<PlateEditor['deleteForward']>[0],
 ) => {
   let handled = true;
   const context = getEditorPlugin(editor, BaseListPlugin);
@@ -28,8 +28,8 @@ export const deleteForwardList = (
       ...context.tf,
       deleteForward: () => {
         handled = false;
-      }
-    }
+      },
+    },
   }).transforms!.deleteForward!(unit);
   return handled;
 };
@@ -42,21 +42,21 @@ export const deleteFragmentList = (editor: PlateEditor) => {
       ...context.tf,
       deleteFragment: () => {
         handled = false;
-      }
-    }
+      },
+    },
   }).transforms!.deleteFragment!();
   return handled;
 };
 export const normalizeList = (
   editor: PlateEditor,
-  options: { validLiChildrenTypes: readonly string[] }
+  options: { validLiChildrenTypes: readonly string[] },
 ) => {
   const context = getEditorPlugin(editor, BaseListPlugin);
   return withNormalizeList({
     ...context,
     getOptions: () => ({
       ...context.getOptions(),
-      validLiChildrenTypes: [...options.validLiChildrenTypes]
-    })
+      validLiChildrenTypes: [...options.validLiChildrenTypes],
+    }),
   }).transforms!.normalizeNode!;
 };

@@ -28,7 +28,7 @@ it('splits a paragraph when inserting a fragment of void blocks', () => {
   expect(editor.children.map((node) => node.type)).toEqual([
     BLOCKS.PARAGRAPH,
     BLOCKS.HR,
-    BLOCKS.PARAGRAPH
+    BLOCKS.PARAGRAPH,
   ]);
   expect(editor.api.string([0])).toBe('some');
   expect(editor.api.string([2])).toBe(' text.');
@@ -46,7 +46,7 @@ it('preserves nodes and marks from HTML copied by the previous editor', () => {
   const html =
     '<div data-slate-node="element"><strong data-slate-leaf="true"><span data-slate-string="true">bold</span></strong></div>';
   expect(editor.api.html.deserialize({ element: sanitizeHTML(html) })).toEqual([
-    { type: BLOCKS.PARAGRAPH, children: [{ text: 'bold', bold: true }] }
+    { type: BLOCKS.PARAGRAPH, children: [{ text: 'bold', bold: true }] },
   ]);
 });
 
@@ -71,16 +71,16 @@ it('handles Enter on a selected embedded block', () => {
   const plugin = editor.contentfulPlugins.find((plugin) => plugin.key === 'exitBreak')!;
   plugin.handlers!.onKeyDown(
     editor,
-    plugin as typeof plugin & { options: any }
+    plugin as typeof plugin & { options: any },
   )({
     key: 'Enter',
     which: 13,
-    preventDefault: vi.fn()
+    preventDefault: vi.fn(),
   });
   expect(editor.children.map((node) => node.type)).toEqual([
     BLOCKS.PARAGRAPH,
     BLOCKS.EMBEDDED_ASSET,
-    BLOCKS.PARAGRAPH
+    BLOCKS.PARAGRAPH,
   ]);
 });
 
@@ -92,11 +92,11 @@ it('unwraps an empty quote on Backspace', () => {
   const plugin = editor.contentfulPlugins.find((plugin) => plugin.key === 'resetNode')!;
   plugin.handlers!.onKeyDown(
     editor,
-    plugin as typeof plugin & { options: any }
+    plugin as typeof plugin & { options: any },
   )({
     key: 'Backspace',
     which: 8,
-    preventDefault: vi.fn()
+    preventDefault: vi.fn(),
   });
   expect(editor.children.map((node) => node.type)).toEqual([BLOCKS.PARAGRAPH, BLOCKS.PARAGRAPH]);
 });
@@ -106,8 +106,8 @@ it.each([undefined, false, true])(
   (enabled) => {
     const sdk = { field: { validation: [] } } as unknown as FieldAppSDK;
     const { editor } = createTestEditor({
-      plugins: getPlugins(sdk, vi.fn(), undefined, undefined, enabled)
+      plugins: getPlugins(sdk, vi.fn(), undefined, undefined, enabled),
     });
     expect(editor.plugins.selectionSync !== undefined).toBe(enabled === true);
-  }
+  },
 );

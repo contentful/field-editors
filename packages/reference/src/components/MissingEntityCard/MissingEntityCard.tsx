@@ -56,8 +56,7 @@ export function MissingEntityCard({
       description={description}
       isSelected={isSelected}
       customActionButton={<CustomActionButton />}
-      testId={testId}
-    >
+      testId={testId}>
       {children}
     </EntryCard>
   );

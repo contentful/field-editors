@@ -6,13 +6,13 @@ const keyCodes: Record<string, number> = {
   Backspace: 8,
   Delete: 46,
   Enter: 13,
-  Tab: 9
+  Tab: 9,
 };
 
 export const keyModifiers = {
   command: Cypress.platform === 'darwin' ? 4 : 2,
   alt: 1,
-  shift: 8
+  shift: 8,
 };
 
 // Dispatch native keys so the browser moves its selection. cy.type() does not
@@ -35,9 +35,9 @@ export const pressNativeKey = (key: string, modifiers = 0) => {
           modifiers,
           ...(insertsText && type === 'keyDown'
             ? { text: insertedText, unmodifiedText: insertedText }
-            : {})
-        }
-      })
+            : {}),
+        },
+      }),
     );
   }
 };

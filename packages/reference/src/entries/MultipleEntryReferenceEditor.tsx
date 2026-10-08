@@ -23,8 +23,7 @@ export function MultipleEntryReferenceEditor(props: ReferenceEditorProps) {
         <SortableLinkList<ReferenceValue>
           {...childrenProps}
           sortingStrategy={verticalListSortingStrategy}
-          updateBeforeSortStart={updateBeforeSortStart}
-        >
+          updateBeforeSortStart={updateBeforeSortStart}>
           {({ items, item, index, isDisabled, DragHandle }) => {
             const lastIndex = items.length - 1;
             return (

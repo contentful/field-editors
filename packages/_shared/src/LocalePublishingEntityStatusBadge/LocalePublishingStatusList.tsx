@@ -13,7 +13,7 @@ import { LocalePublishingStatus } from './LocalePublishingStatus';
 
 function groupAndSortLocales(
   entries: [string, LocalePublishStatusType][],
-  activeLocales?: Pick<LocaleProps, 'code'>[]
+  activeLocales?: Pick<LocaleProps, 'code'>[],
 ) {
   // Group into selected locales (for editing) and non selected
   const { selected, nonSelected } = entries.reduce(
@@ -28,7 +28,7 @@ function groupAndSortLocales(
             nonSelected: [...prev.nonSelected, localeStatusType],
           };
     },
-    { selected: [] as LocalePublishStatusType[], nonSelected: [] as LocalePublishStatusType[] }
+    { selected: [] as LocalePublishStatusType[], nonSelected: [] as LocalePublishStatusType[] },
   );
 
   return {
@@ -67,7 +67,7 @@ export function LocalePublishingStatusList({
       published: prev.published + (status === 'published' ? 1 : 0),
       draft: prev.draft + (status === 'draft' ? 1 : 0),
     }),
-    { published: 0, changed: 0, draft: 0 }
+    { published: 0, changed: 0, draft: 0 },
   );
 
   const { selected, nonSelected } = groupAndSortLocales(entries, activeLocales);

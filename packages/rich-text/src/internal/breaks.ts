@@ -8,7 +8,7 @@ import type {
   KeyboardHandler,
   ExitBreakRule,
   SoftBreakRule,
-  ResetNodePluginRule
+  ResetNodePluginRule,
 } from './types/plugins';
 
 export type { ExitBreakRule, SoftBreakRule, ResetNodePluginRule } from './types/plugins';
@@ -19,7 +19,7 @@ export const SIMULATE_BACKSPACE: React.KeyboardEvent = {
   key: 'Backspace',
   which: 8,
   keyCode: 8,
-  preventDefault() {}
+  preventDefault() {},
 } as React.KeyboardEvent;
 
 export const onKeyDownResetNode: KeyboardHandler<ResetNodePlugin> =
@@ -39,7 +39,7 @@ export const onKeyDownResetNode: KeyboardHandler<ResetNodePlugin> =
 export const createResetNodePlugin = (config: Partial<PlatePlugin>): PlatePlugin => ({
   key: 'resetNode',
   ...config,
-  handlers: { onKeyDown: onKeyDownResetNode }
+  handlers: { onKeyDown: onKeyDownResetNode },
 });
 export const createSoftBreakPlugin = (config: Partial<PlatePlugin>): PlatePlugin => ({
   key: KEY_SOFT_BREAK,
@@ -56,8 +56,8 @@ export const createSoftBreakPlugin = (config: Partial<PlatePlugin>): PlatePlugin
           }
         }
         return undefined;
-      }
-  }
+      },
+  },
 });
 export const createExitBreakPlugin = (config: Partial<PlatePlugin>): PlatePlugin => ({
   key: KEY_EXIT_BREAK,
@@ -83,11 +83,11 @@ export const createExitBreakPlugin = (config: Partial<PlatePlugin>): PlatePlugin
           event.preventDefault();
           editor.tf.insertNodes(
             { type: editor.getType('p'), children: [{ text: '' }] },
-            { at, select: true }
+            { at, select: true },
           );
           return true;
         }
         return undefined;
-      }
-  }
+      },
+  },
 });

@@ -107,8 +107,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
                 setAddress(suggestion.address);
                 props.onChangeLocation(suggestion.location);
                 setSuggestion(null);
-              }}
-            >
+              }}>
               {suggestion.address}
             </Button>
           </Card>
@@ -116,8 +115,7 @@ export function LocationSearchInput(props: LocationSearchInputProps) {
         {hasError && (
           <ValidationMessage
             testId="location-editor-not-found"
-            className={styles.validationMessage}
-          >
+            className={styles.validationMessage}>
             No results found for <strong>{address}</strong>. Please make sure that address is
             spelled correctly.
           </ValidationMessage>

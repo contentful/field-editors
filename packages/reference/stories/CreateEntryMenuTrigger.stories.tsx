@@ -71,8 +71,7 @@ export const Default: Story = {
       <CreateEntryMenuTrigger
         contentTypes={mockContentTypes}
         onSelect={handleSelect}
-        testId="create-entry-menu-default"
-      >
+        testId="create-entry-menu-default">
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add entry
@@ -98,8 +97,7 @@ export const WithSuggestedContentType: Story = {
         contentTypes={mockContentTypes}
         suggestedContentTypeId="blogPost"
         onSelect={handleSelect}
-        testId="create-entry-menu-suggested"
-      >
+        testId="create-entry-menu-suggested">
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add entry
@@ -124,8 +122,7 @@ export const WithSearch: Story = {
       <CreateEntryMenuTrigger
         contentTypes={mockContentTypesWithSearch}
         onSelect={handleSelect}
-        testId="create-entry-menu-search"
-      >
+        testId="create-entry-menu-search">
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add entry
@@ -161,8 +158,7 @@ export const WithCustomDropdownItems: Story = {
               Duplicate last entry
             </Menu.Item>
           </>
-        }
-      >
+        }>
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add entry
@@ -187,8 +183,7 @@ export const SingleContentType: Story = {
       <CreateEntryMenuTrigger
         contentTypes={[mockContentTypes[0]]}
         onSelect={handleSelect}
-        testId="create-entry-menu-single"
-      >
+        testId="create-entry-menu-single">
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add Blog Post
@@ -214,8 +209,7 @@ export const WithCustomLabel: Story = {
         contentTypes={mockContentTypes}
         contentTypesLabel="Available Types"
         onSelect={handleSelect}
-        testId="create-entry-menu-custom-label"
-      >
+        testId="create-entry-menu-custom-label">
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add entry
@@ -245,8 +239,7 @@ export const RightAligned: Story = {
           dropdownSettings={{
             position: 'bottom-right',
             isAutoalignmentEnabled: false,
-          }}
-        >
+          }}>
           {({ isSelecting }) => (
             <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
               Add entry
@@ -284,12 +277,10 @@ export const WithCustomButtonAndSearch: Story = {
             variant="secondary"
             size="small"
             onClick={handleImportTemplate}
-            style={{ width: '-webkit-fill-available', margin: '8px' }}
-          >
+            style={{ width: '-webkit-fill-available', margin: '8px' }}>
             Add existing entry
           </Button>
-        }
-      >
+        }>
         {({ isSelecting }) => (
           <Button startIcon={<PlusIcon />} variant="primary" isLoading={isSelecting}>
             Add entry

@@ -112,8 +112,7 @@ export function SlugEditorFieldStatic(
       {shouldShowDuplicateAsError && (
         <ValidationMessage
           testId="slug-editor-duplicate-error"
-          className={styles.uniqueValidationError}
-        >
+          className={styles.uniqueValidationError}>
           {t({
             id: 'FieldEditors.Slug.SlugEditorField.DuplicateSlugError',
             message: 'This slug has already been published in another entry',
@@ -124,8 +123,7 @@ export function SlugEditorFieldStatic(
         <Note
           variant="warning"
           testId="slug-editor-duplicate-warning"
-          className={styles.uniqueValidationError}
-        >
+          className={styles.uniqueValidationError}>
           {t({
             id: 'FieldEditors.Slug.SlugEditorField.DuplicateSlugWarning',
             message: 'This slug has already been published in another entry.',

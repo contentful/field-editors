@@ -49,7 +49,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
 
   const constraints = ConstraintsUtils.fromFieldValidations(
     field.validations,
-    field.type as 'Text'
+    field.type as 'Text',
   );
   const checkConstraint = ConstraintsUtils.makeChecker(constraints);
   const direction = locales.direction[field.locale] || 'ltr';
@@ -58,8 +58,7 @@ export function MultipleLineEditor(props: MultipleLineEditorProps) {
     <FieldConnector<string>
       field={field}
       isInitiallyDisabled={isInitiallyDisabled}
-      isDisabled={isDisabled}
-    >
+      isDisabled={isDisabled}>
       {({ errors, disabled, value, setValue }) => {
         return (
           <div data-test-id="multiple-line-editor">

@@ -85,9 +85,9 @@ export function useResourceLinkActions({
     isDisabled: false,
     isEmpty: false,
     isFull: false,
-    // eslint-disable-next-line -- hardcoded values to match interface for standard reference field actions
+
     onCreate: async () => {},
-    // eslint-disable-next-line -- hardcoded values to match interface for standard reference field actions
+
     onCreated: () => {},
   };
 }

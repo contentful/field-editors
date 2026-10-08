@@ -7,7 +7,7 @@ import {
   SectionHeading,
   ScreenReaderOnly,
   Flex,
-  AssetIcon
+  AssetIcon,
 } from '@contentful/f36-components';
 import { Portal } from '@contentful/f36-utils';
 import { SharedQueryClientProvider } from '@contentful/field-editor-shared/react-query';
@@ -27,7 +27,7 @@ export interface CommandListProps {
 
 const Group = ({
   commandGroup,
-  selectedItem
+  selectedItem,
 }: {
   commandGroup: CommandGroup;
   selectedItem: string;
@@ -38,8 +38,7 @@ const Group = ({
       marginBottom="spacingS"
       marginTop="spacingS"
       marginLeft="spacingM"
-      marginRight="spacingM"
-    >
+      marginRight="spacingM">
       {commandGroup.group}
     </SectionHeading>
     {commandGroup.commands.map((command: Command) => (
@@ -47,10 +46,9 @@ const Group = ({
         key={command.id}
         id={command.id}
         className={cx(styles.menuItem, {
-          [styles.menuItemSelected]: command.id === selectedItem
+          [styles.menuItemSelected]: command.id === selectedItem,
         })}
-        onClick={command.callback}
-      >
+        onClick={command.callback}>
         {command.label}
       </button>
     ))}
@@ -63,10 +61,9 @@ const Asset = ({ command, selectedItem }: { command: Command; selectedItem: stri
     key={command.id}
     id={command.id}
     className={cx(styles.menuItem, {
-      [styles.menuItemSelected]: command.id === selectedItem
+      [styles.menuItemSelected]: command.id === selectedItem,
     })}
-    onClick={command.callback}
-  >
+    onClick={command.callback}>
     <Flex alignItems="center" gap="spacingS">
       {command.thumbnail ? (
         <img width="30" height="30" src={command.thumbnail} alt="" className={styles.thumbnail} />
@@ -83,17 +80,16 @@ const Item = ({ command, selectedItem }: { command: Command; selectedItem: strin
     key={command.id}
     id={command.id}
     className={cx(styles.menuItem, {
-      [styles.menuItemSelected]: command.id === selectedItem
+      [styles.menuItemSelected]: command.id === selectedItem,
     })}
-    onClick={command.callback}
-  >
+    onClick={command.callback}>
     {command.label}
   </button>
 );
 
 const CommandListItems = ({
   commandItems,
-  selectedItem
+  selectedItem,
 }: {
   commandItems: CommandItems;
   selectedItem: string;
@@ -117,7 +113,7 @@ const InternalCommandList = ({ query, editor, textContainer }: CommandListProps)
   const sdk = useSdkContext();
   const popoverContainer = React.useRef<HTMLDivElement>(null);
   const popper = usePopper(textContainer, popoverContainer?.current, {
-    placement: 'bottom-start'
+    placement: 'bottom-start',
   });
   const commandItems = useCommands(sdk, query, editor);
   const { selectedItem, isOpen } = useCommandList(commandItems, popoverContainer);
@@ -150,8 +146,7 @@ const InternalCommandList = ({ query, editor, textContainer }: CommandListProps)
           ref={popoverContainer}
           className={styles.menuPoper}
           style={popper.styles.popper}
-          {...popper.attributes.popper}
-        >
+          {...popper.attributes.popper}>
           <Popover isOpen={isOpen} usePortal={false} autoFocus={false}>
             {/* we need an empty trigger here for the positioning of the menu list */}
             <Popover.Trigger>
@@ -170,8 +165,7 @@ const InternalCommandList = ({ query, editor, textContainer }: CommandListProps)
                   margin="none"
                   padding="none"
                   spacing="spacingS"
-                  className={styles.footerList}
-                >
+                  className={styles.footerList}>
                   <li>
                     <kbd>↑</kbd>
                     <kbd>↓</kbd> to navigate

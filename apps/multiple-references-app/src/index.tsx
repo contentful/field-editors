@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
+
 import { init } from '@contentful/app-sdk';
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { GlobalStyles } from '@contentful/f36-components';
+import { MultipleEntryReferenceEditor } from '@contentful/field-editor-reference';
 
 init<FieldAppSDK>((sdk) => {
   const fieldSdk = sdk as FieldAppSDK;
@@ -25,7 +26,7 @@ init<FieldAppSDK>((sdk) => {
         }}
       />
     </div>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 });
 

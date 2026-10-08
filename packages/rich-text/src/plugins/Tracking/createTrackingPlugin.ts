@@ -38,33 +38,33 @@ export type RichTextTrackingActionName =
 
 export type RichTextTrackingActionHandler = (
   name: RichTextTrackingActionName,
-  data: Record<string, unknown>
+  data: Record<string, unknown>,
 ) => unknown;
 
 export interface TrackingPluginActions {
   onViewportAction: (
     actionName: RichTextTrackingActionName,
-    data?: Record<string, unknown>
+    data?: Record<string, unknown>,
   ) => ReturnType<RichTextTrackingActionHandler>;
 
   onShortcutAction: (
     actionName: RichTextTrackingActionName,
-    data?: Record<string, unknown>
+    data?: Record<string, unknown>,
   ) => ReturnType<RichTextTrackingActionHandler>;
 
   onShortcutOrViewportAction: (
     actionName: RichTextTrackingActionName,
-    data?: Record<string, unknown>
+    data?: Record<string, unknown>,
   ) => ReturnType<RichTextTrackingActionHandler>;
 
   onToolbarAction: (
     actionName: RichTextTrackingActionName,
-    data?: Record<string, unknown>
+    data?: Record<string, unknown>,
   ) => ReturnType<RichTextTrackingActionHandler>;
 
   onCommandPaletteAction: (
     actionName: RichTextTrackingActionName,
-    data?: Record<string, unknown>
+    data?: Record<string, unknown>,
   ) => ReturnType<RichTextTrackingActionHandler>;
 }
 

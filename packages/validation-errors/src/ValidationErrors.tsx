@@ -125,8 +125,7 @@ function UniquenessError({
               alignIcon="end"
               variant="negative"
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               {entry.title}
             </TextLink>
           ))
@@ -174,8 +173,7 @@ function ValidationErrorsInternal({
             role="status"
             aria-roledescription="field-locale-schema"
             data-error-code={`entry.schema.${error.name}`}
-            className={styles.errorItem}
-          >
+            className={styles.errorItem}>
             <InfoIcon color={tokens.colorNegative} />
             <div className={styles.errorMessage}>
               {errorMessageOverride?.(error.message) ?? error.message}

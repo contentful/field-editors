@@ -11,7 +11,7 @@ import {
   ViewType,
   NullableLocationValue,
   Coords,
-  GeocodeApiResponse
+  GeocodeApiResponse,
 } from './types';
 
 export interface LocationEditorConnectedProps {
@@ -60,7 +60,7 @@ export function LocationEditor({
   setValue,
   googleMapsKey,
   selectedView,
-  setSelectedView
+  setSelectedView,
 }: LocationEditorProps) {
   const [localValue, setLocalValue] = React.useState<Coords | undefined>(() =>
     // if we have only the lon or lat set, we set the other to 0.
@@ -68,9 +68,9 @@ export function LocationEditor({
     value?.lon || value?.lat
       ? {
           lng: value.lon ?? 0,
-          lat: value.lat ?? 0
+          lat: value.lat ?? 0,
         }
-      : undefined
+      : undefined,
   );
   // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
   const [mapsObject, setMapsObject] = React.useState<any>(null);
@@ -91,11 +91,11 @@ export function LocationEditor({
           });
         });
       }, 300),
-    []
+    [],
   );
 
   const onSearchAddress = throttledSearchAddress as (
-    searchValue: string
+    searchValue: string,
   ) => Promise<GeocodeApiResponse>;
 
   const onGetAddressFromLocation = React.useCallback(
@@ -118,11 +118,11 @@ export function LocationEditor({
           },
           () => {
             resolve('');
-          }
+          },
         );
       });
     },
-    []
+    [],
   );
 
   return (
@@ -183,5 +183,5 @@ export function LocationEditorConnected(props: LocationEditorConnectedProps) {
 }
 
 LocationEditorConnected.defaultProps = {
-  isInitiallyDisabled: true
+  isInitiallyDisabled: true,
 };

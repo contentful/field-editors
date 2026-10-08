@@ -27,8 +27,7 @@ export function EmbeddedEntityDropdownButton({
           variant="secondary"
           size="small"
           startIcon={<PlusIcon />}
-          isDisabled={isDisabled}
-        >
+          isDisabled={isDisabled}>
           Embed
         </Button>
       </Menu.Trigger>

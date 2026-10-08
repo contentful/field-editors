@@ -50,9 +50,9 @@ const createEmbeddedEntityPlugin =
 
 export const createEmbeddedEntryBlockPlugin = createEmbeddedEntityPlugin(
   BLOCKS.EMBEDDED_ENTRY,
-  'mod+shift+e'
+  'mod+shift+e',
 );
 export const createEmbeddedAssetBlockPlugin = createEmbeddedEntityPlugin(
   BLOCKS.EMBEDDED_ASSET,
-  'mod+shift+a'
+  'mod+shift+a',
 );

@@ -4,7 +4,7 @@ import {
   block,
   document as doc,
   mark,
-  text
+  text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { createRichTextFakeSdk } from '../../fixtures';
 import {
@@ -13,7 +13,7 @@ import {
   keyModifiers,
   pauseSelectionUpdates,
   pressNativeKey,
-  resumeSelectionUpdates
+  resumeSelectionUpdates,
 } from './caretTestUtils';
 import { entryBlock, paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
@@ -23,7 +23,7 @@ const paragraphDocument = (...values: string[]) => doc(...values.map(paragraphWi
 
 const mountWithPendingSelection = (first = paragraphWithText('First paragraph')) => {
   const sdk = createRichTextFakeSdk({
-    initialValue: doc(first, paragraphWithText('Second paragraph'))
+    initialValue: doc(first, paragraphWithText('Second paragraph')),
   });
   mountRichTextEditor({ sdk, withSelectionSync: true });
   const page = new RichTextPage();
@@ -44,11 +44,11 @@ const expectSavedValue = (page: RichTextPage, expected: Document) => {
 const markShortcuts = [
   ['b', MARKS.BOLD],
   ['i', MARKS.ITALIC],
-  ['u', MARKS.UNDERLINE]
+  ['u', MARKS.UNDERLINE],
 ] as const;
 const headingShortcuts = [
   ['3', BLOCKS.HEADING_3],
-  ['5', BLOCKS.HEADING_5]
+  ['5', BLOCKS.HEADING_5],
 ] as const;
 
 describe('Rich text native caret under repeated editing', { browser: 'chrome' }, () => {
@@ -67,7 +67,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     for (let repeat = 0; repeat < 50; repeat++) {
       const steps: [number, string, string][] = [
         [0, 'ArrowUp', 'x'],
-        [1, 'ArrowDown', 'y']
+        [1, 'ArrowDown', 'y'],
       ];
       steps.forEach(([index, arrow, letter]) => {
         pressNativeKey(arrow);
@@ -116,13 +116,13 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
               inputType: 'insertFromPaste',
               bubbles: true,
               cancelable: true,
-              dataTransfer: clipboardData
+              dataTransfer: clipboardData,
             });
             cy.wrap($editor).trigger(
               'beforeinput',
               Object.assign(input, {
-                getTargetRanges: () => [target]
-              })
+                getTargetRanges: () => [target],
+              }),
             );
           });
         }
@@ -136,7 +136,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
           : [text('Fpastexirst paragraph')];
       expectSavedValue(
         page,
-        doc(block(BLOCKS.PARAGRAPH, {}, ...content), paragraphWithText('aSecond paragraph'))
+        doc(block(BLOCKS.PARAGRAPH, {}, ...content), paragraphWithText('aSecond paragraph')),
       );
     });
   }
@@ -156,15 +156,15 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
         page,
         paragraphDocument(
           action === 'cut' ? 'Frst paragraph' : 'First paragraph',
-          'aSecond paragraph'
-        )
+          'aSecond paragraph',
+        ),
       );
     });
   }
 
   it('cuts a selected card without deleting text at the old browser caret', () => {
     const sdk = createRichTextFakeSdk({
-      initialValue: doc(entryBlock(), paragraphWithText('Body'))
+      initialValue: doc(entryBlock(), paragraphWithText('Body')),
     });
     mountRichTextEditor({ sdk, withSelectionSync: true });
     const page = new RichTextPage();
@@ -174,7 +174,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     cy.findByTestId('cf-ui-entry-card').click();
     page.editor.trigger('cut', {
       eventConstructor: 'ClipboardEvent',
-      clipboardData: new DataTransfer()
+      clipboardData: new DataTransfer(),
     });
     expectSavedValue(page, paragraphDocument('Body'));
   });
@@ -198,8 +198,8 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
       page.expectValue(
         doc(
           list(block(BLOCKS.LIST_ITEM, {}, paragraphWithText('First item'), list(item(edited)))),
-          paragraphWithText('aSecond paragraph')
-        )
+          paragraphWithText('aSecond paragraph'),
+        ),
       );
     });
   });
@@ -220,10 +220,10 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
             {},
             text('F'),
             text('x', [mark(markType)]),
-            text('irst paragraph')
+            text('irst paragraph'),
           ),
-          paragraphWithText('aSecond paragraph')
-        )
+          paragraphWithText('aSecond paragraph'),
+        ),
       );
     });
   }
@@ -239,7 +239,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
       expectNativeCaret('Fxirst paragraph', 2);
       expectSavedValue(
         page,
-        doc(block(type, {}, text('Fxirst paragraph')), paragraphWithText('aSecond paragraph'))
+        doc(block(type, {}, text('Fxirst paragraph')), paragraphWithText('aSecond paragraph')),
       );
     });
   }
@@ -292,7 +292,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
       BLOCKS.PARAGRAPH,
       {},
       text('First', [mark(MARKS.BOLD)]),
-      text(' paragraph')
+      text(' paragraph'),
     );
     const page = mountWithPendingSelection(first);
     pressNativeKey('ArrowUp');
@@ -314,11 +314,11 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
             BLOCKS.PARAGRAPH,
             {},
             text('Fbirst', [mark(MARKS.BOLD)]),
-            text(' paragraph'.slice(0, offset) + 'c' + ' paragraph'.slice(offset))
+            text(' paragraph'.slice(0, offset) + 'c' + ' paragraph'.slice(offset)),
           ),
-          paragraphWithText('aSecond paragraph')
-        )
-      )
+          paragraphWithText('aSecond paragraph'),
+        ),
+      ),
     );
   });
 
@@ -342,14 +342,14 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     cy.then(() =>
       Cypress.automation('remote:debugger:protocol', {
         command: 'Input.imeSetComposition',
-        params: { text: 'に', selectionStart: 1, selectionEnd: 1 }
-      })
+        params: { text: 'に', selectionStart: 1, selectionEnd: 1 },
+      }),
     );
     cy.then(() =>
       Cypress.automation('remote:debugger:protocol', {
         command: 'Input.insertText',
-        params: { text: '日本' }
-      })
+        params: { text: '日本' },
+      }),
     );
     expectNativeCaret('F日本irst paragraph', 3);
     pressNativeKey('b');
@@ -379,7 +379,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
       sdk,
       withSelectionSync: true,
       isInitiallyDisabled: true,
-      isDisabled: true
+      isDisabled: true,
     });
     const page = new RichTextPage();
     page.editor.should('have.attr', 'contenteditable', 'false').click({ force: true });
@@ -396,7 +396,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     for (const key of ['Delete', 'x']) {
       it(`${arrow} then ${key} preserves the card and edits the paragraph`, () => {
         const sdk = createRichTextFakeSdk({
-          initialValue: doc(entryBlock(), paragraphWithText('Body text'))
+          initialValue: doc(entryBlock(), paragraphWithText('Body text')),
         });
         mountRichTextEditor({ sdk, withSelectionSync: true });
         const page = new RichTextPage();
@@ -466,7 +466,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
       'week near the sea. Lisbon and Valencia work well for travelers seeking sunshine and city life. Bergen and Naxos provide access to striking landscapes, while Edinburgh, Kraków and Tallinn are especially rewarding for history lovers.';
     mountRichTextEditor({
       sdk: createRichTextFakeSdk({ initialValue: paragraphDocument(value) }),
-      withSelectionSync: true
+      withSelectionSync: true,
     });
     const page = new RichTextPage();
     page.editor.invoke('css', 'width', '350px').findByText(value).click('topLeft');
@@ -487,7 +487,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     pressNativeKey('b');
     resumeSelectionUpdates();
     cy.then(() =>
-      page.expectValue(paragraphDocument('', value.slice(0, offset), `b${value.slice(offset)}`))
+      page.expectValue(paragraphDocument('', value.slice(0, offset), `b${value.slice(offset)}`)),
     );
   });
 });

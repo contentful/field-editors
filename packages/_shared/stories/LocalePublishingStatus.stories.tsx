@@ -106,7 +106,7 @@ export const Default: StoryObj<StoryArgs> = {
   render: (args) => {
     const { localesStatusMap = {}, ...restArgs } = args;
     const localesStatusMapConverted: Map<string, LocalePublishStatus> = new Map(
-      Object.entries(localesStatusMap)
+      Object.entries(localesStatusMap),
     );
 
     return (

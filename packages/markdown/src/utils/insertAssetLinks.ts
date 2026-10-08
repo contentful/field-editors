@@ -1,7 +1,6 @@
 import get from 'lodash/get';
 import isObject from 'lodash/isObject';
 
-// eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
 type Asset = any;
 
 type LinkWithMedia = {
@@ -50,7 +49,7 @@ export function replaceAssetDomain(fileUrl: string) {
 
 function makeAssetLink(
   asset: Asset,
-  { localeCode, fallbackCode, defaultLocaleCode }: Locales
+  { localeCode, fallbackCode, defaultLocaleCode }: Locales,
 ): LinkWithMedia | null {
   const localizedFile = get(asset, ['fields', 'file', localeCode]);
   const fallbackFile = fallbackCode ? get(asset, ['fields', 'file', fallbackCode]) : null;

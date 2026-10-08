@@ -10,7 +10,7 @@ type CustomizeMockFn = (fieldApi: FieldAPI) => FieldAPI;
 
 export function createFakeFieldAPI<T>(
   customizeMock: CustomizeMockFn = identity,
-  initialValue?: T
+  initialValue?: T,
 ): [FieldAPI, Emitter] {
   const emitter: Emitter = mitt();
 
