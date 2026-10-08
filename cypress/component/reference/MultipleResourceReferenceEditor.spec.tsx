@@ -123,7 +123,7 @@ describe('Multiple resource editor', () => {
         viewType="card"
         hasCardEditActions={false}
         sdk={sdk}
-      />
+      />,
     );
     findLinkExistingBtn().should('be.disabled');
     findDefaultCards().eq(0).findByTestId('cf-ui-card-actions').should('not.exist');

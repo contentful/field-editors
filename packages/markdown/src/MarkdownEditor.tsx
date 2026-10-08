@@ -171,8 +171,7 @@ export function MarkdownEditorConnected(props: MarkdownEditorProps) {
       debounce={300}
       field={props.sdk.field}
       isInitiallyDisabled={props.isInitiallyDisabled}
-      isDisabled={props.isDisabled}
-    >
+      isDisabled={props.isDisabled}>
       {({ value, disabled, setValue, externalReset }) => (
         <MarkdownEditor
           {...props}

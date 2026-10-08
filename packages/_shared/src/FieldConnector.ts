@@ -52,7 +52,7 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
       value: initialValue,
       lastRemoteValue: initialValue,
       disabled: props.isInitiallyDisabled || props.field.getIsDisabled(),
-      errors: []
+      errors: [],
     };
   });
   const propsRef = useRef(props);
@@ -74,7 +74,7 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
 
   const debouncedTriggerSetValueCallbacks = useMemo(
     () => debounce(triggerSetValueCallbacks, getDebounceDuration()),
-    [triggerSetValueCallbacks]
+    [triggerSetValueCallbacks],
   );
 
   const setValue = useCallback(
@@ -91,7 +91,7 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
         await debouncedTriggerSetValueCallbacks(value);
       }
     },
-    [debouncedTriggerSetValueCallbacks, triggerSetValueCallbacks]
+    [debouncedTriggerSetValueCallbacks, triggerSetValueCallbacks],
   );
 
   useLayoutEffect(() => {
@@ -99,20 +99,20 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
     const unsubscribeErrors = field.onSchemaErrorsChanged((errors: ValidationError[]) => {
       setState((currentState) => ({
         ...currentState,
-        errors: errors || []
+        errors: errors || [],
       }));
     });
     const unsubscribeDisabled = field.onIsDisabledChanged((disabled: boolean) => {
       setState((currentState) => ({
         ...currentState,
-        disabled
+        disabled,
       }));
     });
     const unsubscribeValue = field.onValueChanged((value: ValueType | Nullable) => {
       setState((currentState) => {
         const isLocalValueChange = (propsRef.current.isEqualValues ?? defaultIsEqualValues)(
           value,
-          currentState.value
+          currentState.value,
         );
         const lastRemoteValue = isLocalValueChange ? currentState.lastRemoteValue : value;
         const externalReset = currentState.externalReset + (isLocalValueChange ? 0 : 1);
@@ -121,7 +121,7 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
           value,
           lastRemoteValue,
           isLocalValueChange,
-          externalReset
+          externalReset,
         };
       });
     });
@@ -143,7 +143,7 @@ export function FieldConnector<ValueType>(props: FieldConnectorProps<ValueType>)
     ? props.children({
         ...state,
         setValue,
-        disabled: props.isDisabled || state.disabled
+        disabled: props.isDisabled || state.disabled,
       })
     : null;
 }

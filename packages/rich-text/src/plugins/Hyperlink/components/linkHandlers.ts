@@ -8,7 +8,7 @@ import { addOrEditLink } from '../HyperlinkModal';
 export const handleEditLink = (
   editor: PlateEditor,
   sdk: FieldAppSDK,
-  pathToElement: Path | undefined
+  pathToElement: Path | undefined,
 ) => {
   if (!editor || !pathToElement) return;
   addOrEditLink(editor, sdk, editor.tracking.onViewportAction, pathToElement);

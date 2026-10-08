@@ -36,7 +36,7 @@ export const getPlugins = (
   onAction: RichTextTrackingActionHandler,
   restrictedMarks?: string[],
   withCharValidation?: boolean,
-  withSelectionSync = false
+  withSelectionSync = false,
 ): PlatePlugin[] => [
   createDeserializeDocxPlugin(),
 

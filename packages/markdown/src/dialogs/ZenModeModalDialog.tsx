@@ -103,7 +103,6 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
   React.useEffect(() => {
-    // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
     props.sdk?.window?.updateHeight('100%' as any);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);
@@ -138,8 +137,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
       <Grid.Item
         className={cx(styles.editorSplit, {
           [styles.editorSplitFullscreen]: showPreview === false,
-        })}
-      >
+        })}>
         <MarkdownTextarea
           mode="zen"
           visible
@@ -176,8 +174,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Hide preview"
           onClick={() => {
             setShowPreview(false);
-          }}
-        >
+          }}>
           <CaretRightIcon color={tokens.gray600} size="tiny" className={styles.icon} />
         </button>
       )}
@@ -187,8 +184,7 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
           aria-label="Show preview"
           onClick={() => {
             setShowPreview(true);
-          }}
-        >
+          }}>
           <CaretLeftIcon color={tokens.gray600} size="tiny" className={styles.icon} />
         </button>
       )}

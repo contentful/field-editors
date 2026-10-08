@@ -144,8 +144,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
           endIcon={<CaretDownIcon />}
           isDisabled={props.isDisabled}
           onClick={() => someHeadingsEnabled && setOpen(!isOpen)}
-          className={styles.button}
-        >
+          className={styles.button}>
           {LABELS[selected]}
         </Button>
       </Menu.Trigger>
@@ -159,8 +158,7 @@ export function ToolbarHeadingButton(props: ToolbarHeadingButtonProps) {
                   isInitiallyFocused={selected === nodeType}
                   onClick={handleOnSelectItem(nodeType as BLOCKS)}
                   testId={`dropdown-option-${nodeType}`}
-                  disabled={props.isDisabled}
-                >
+                  disabled={props.isDisabled}>
                   <span className={cx(styles.dropdown.root, styles.dropdown[nodeType])}>
                     {LABELS[nodeType]}
                   </span>

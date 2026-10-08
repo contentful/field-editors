@@ -8,7 +8,7 @@ export function useLinkTracking() {
   return {
     onEntityFetchComplete: useCallback(
       () => editor?.tracking.onViewportAction('linkRendered'),
-      [editor]
+      [editor],
     ),
   };
 }

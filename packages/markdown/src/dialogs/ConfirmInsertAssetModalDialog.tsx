@@ -73,8 +73,7 @@ export const ConfirmInsertAssetModalDialog = ({
           testId="confirm-insert-asset"
           onClick={() => onClose(true)}
           variant="positive"
-          size="small"
-        >
+          size="small">
           Confirm
         </Button>
       </ModalControls>

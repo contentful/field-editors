@@ -55,7 +55,7 @@ export const Constraints: Story = {
           validations: [{ size: { min: 3, max: 20 } }],
         };
       },
-      ['test1', 'test2', 'test3']
+      ['test1', 'test2', 'test3'],
     );
     return (
       <>

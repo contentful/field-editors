@@ -4,7 +4,7 @@ const tsPlugin = require('@typescript-eslint/eslint-plugin');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended
+  recommendedConfig: js.configs.recommended,
 });
 
 // Ports packages/.eslintrc.js, applied to every package (mirrors its `extends`/`plugins`/`rules`).
@@ -23,9 +23,9 @@ const packagesConfig = compat
             'eslint-env',
             'exported',
             'global',
-            'globals'
-          ]
-        }
+            'globals',
+          ],
+        },
       ],
       'react/default-props-match-prop-types': 'warn',
       'react/no-unused-prop-types': 'off',
@@ -39,10 +39,10 @@ const packagesConfig = compat
           'ts-expect-error': false,
           'ts-ignore': true,
           'ts-nocheck': true,
-          'ts-check': true
-        }
-      ]
-    }
+          'ts-check': true,
+        },
+      ],
+    },
   })
   .map((config) => ({ ...config, files: ['packages/**'] }));
 
@@ -55,8 +55,8 @@ const packagesTestConfig = compat
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@vitest/expect-expect': 'off',
-      '@vitest/valid-title': 'off'
-    }
+      '@vitest/valid-title': 'off',
+    },
   })
   .map((config) => ({ ...config, files: ['packages/**/*.{spec,test}.{ts,tsx,js,jsx}'] }));
 
@@ -66,8 +66,8 @@ const richTextConfig = compat
     env: { node: true },
     rules: {
       '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: true }],
-      'you-dont-need-lodash-underscore/omit': 'off'
-    }
+      'you-dont-need-lodash-underscore/omit': 'off',
+    },
   })
   .map((config) => ({ ...config, files: ['packages/rich-text/**'] }));
 
@@ -88,8 +88,8 @@ const cypressConfig = compat
       'mocha/no-mocha-arrows': 'off',
       'mocha/no-exclusive-tests': 'error',
       'mocha/no-skipped-tests': 'error',
-      '@typescript-eslint/no-var-requires': 'off'
-    }
+      '@typescript-eslint/no-var-requires': 'off',
+    },
   })
   .map((config) => ({ ...config, files: ['cypress/**'] }));
 
@@ -105,8 +105,8 @@ module.exports = [
       'cypress/plugins/**',
       'cypress/support/**',
       '**/.eslintrc.js',
-      '**/snapshots.js'
-    ]
+      '**/snapshots.js',
+    ],
   },
   ...compat.config(require('./.eslintrc.js')),
   ...packagesConfig,
@@ -118,23 +118,23 @@ module.exports = [
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: __dirname
-      }
-    }
+        tsconfigRootDir: __dirname,
+      },
+    },
   },
   // Story files aren't included in any package's tsconfig.json, so typed linting can't run on them.
   {
     ...tsPlugin.configs['flat/disable-type-checked'],
-    files: ['packages/**/stories/**/*.{ts,tsx}']
+    files: ['packages/**/stories/**/*.{ts,tsx}'],
   },
   // packages/markdown/.eslintrc.js
   {
     files: ['packages/markdown/**'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off'
-    }
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
   },
   ...richTextConfig,
   ...cypressConfig,
-  ...rootConfigFilesConfig
+  ...rootConfigFilesConfig,
 ];

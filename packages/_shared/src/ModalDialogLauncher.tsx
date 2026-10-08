@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as React from 'react';
 import { flushSync } from 'react-dom';
@@ -67,8 +67,7 @@ export function openDialog<T>(
         position={options.position || 'center'}
         isShown={isShown}
         onClose={onCloseHandler}
-        size={size || '700px'}
-      >
+        size={size || '700px'}>
         {() => (
           <>
             {options.title && (

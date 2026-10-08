@@ -77,13 +77,11 @@ function InternalFetchingWrappedInlineEntryCard({
         <MenuItem key="remove" onClick={onRemove} disabled={isDisabled} testId="delete">
           Remove
         </MenuItem>,
-      ]}
-    >
+      ]}>
       <ScheduledIconWithTooltip
         getEntityScheduledActions={getEntityScheduledActions}
         entityType="Entry"
-        entityId={entry.sys.id}
-      >
+        entityId={entry.sys.id}>
         <ClockIcon
           className={styles.scheduledIcon}
           color={tokens.gray600}

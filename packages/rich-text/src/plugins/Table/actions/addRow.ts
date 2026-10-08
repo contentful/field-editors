@@ -29,7 +29,7 @@ const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => P
           at: nextRowPath,
           // Note: this selects the last cell of the new row
           select: true,
-        }
+        },
       );
 
       // Select the first cell in the current row

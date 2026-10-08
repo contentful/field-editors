@@ -34,8 +34,7 @@ export const HeaderCell = (props: RenderElementProps) => {
       // FIXME: figure out what is going wrong with type here
       // @ts-expect-error
       {...(props.element.data as TableHeaderCell['data'])}
-      className={style}
-    >
+      className={style}>
       {isSelected && <TableActions />}
       {props.children}
     </th>

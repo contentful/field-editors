@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import * as React from 'react';
 
 import { Notification } from '@contentful/f36-components';

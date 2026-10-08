@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
-
 import extend from 'lodash/extend';
 import isObject from 'lodash/isObject';
 import max from 'lodash/max';

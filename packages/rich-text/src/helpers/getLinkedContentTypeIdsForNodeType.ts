@@ -33,6 +33,6 @@ export default function getLinkedContentTypeIdsForNodeType(field, nodeType): str
     (v) => find(v, 'nodes'),
     (v) => get(v, ['nodes', nodeType]),
     (v) => find(v, 'linkContentType'),
-    (v) => get(v, 'linkContentType', [])
+    (v) => get(v, 'linkContentType', []),
   )(field.validations);
 }

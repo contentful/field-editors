@@ -18,8 +18,7 @@ export const RichTextPreview = ({ value = '{}' }: Props) => {
             borderRadius: '4px',
             padding: '4px',
             overflowX: 'scroll',
-          }}
-        >
+          }}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line })}>
               {line.map((token, key) => (

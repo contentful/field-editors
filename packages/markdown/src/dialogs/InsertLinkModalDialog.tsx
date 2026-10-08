@@ -114,7 +114,7 @@ export const InsertLinkModal = ({ selectedText, onClose }: InsertLinkModalProps)
 
 export const openInsertLinkDialog = (
   dialogs: DialogsAPI,
-  params: { selectedText?: string }
+  params: { selectedText?: string },
 ): Promise<InsertLinkModalResult> => {
   return dialogs.openCurrent({
     title: 'Insert link',

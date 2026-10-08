@@ -25,7 +25,7 @@ export const setHeader = (editor: PlateEditor, enable?: boolean) => {
       {
         type: enable ? BLOCKS.TABLE_HEADER_CELL : BLOCKS.TABLE_CELL,
       },
-      { at: path }
+      { at: path },
     );
   });
 };

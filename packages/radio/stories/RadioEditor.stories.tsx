@@ -29,7 +29,7 @@ export const Default: Story = {
         type: 'Symbol',
         validations: [{ in: ['test1', 'test2', 'test3', 'test4'] }],
       }),
-      ['test1', 'test2', 'test3']
+      ['test1', 'test2', 'test3'],
     );
     return (
       <div>

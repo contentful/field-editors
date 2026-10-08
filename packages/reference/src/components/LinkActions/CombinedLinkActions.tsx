@@ -62,8 +62,7 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
               onClick={() => {
                 props.onLinkExisting();
               }}
-              isFullWidth
-            >
+              isFullWidth>
               Add existing content
             </Button>
           ) : undefined
@@ -81,8 +80,7 @@ function CombinedEntryLinkActions(props: LinkActionsProps) {
         }}
         variant="secondary"
         startIcon={<LinkSimpleIcon />}
-        size="small"
-      >
+        size="small">
         Add existing content
       </Button>
     );
@@ -105,8 +103,7 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small"
-        >
+          size="small">
           Add existing media
         </Button>
       );
@@ -122,8 +119,7 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           }}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small"
-        >
+          size="small">
           Add media
         </Button>
       );
@@ -141,8 +137,7 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
       }}
       onOpen={() => {
         setOpen(true);
-      }}
-    >
+      }}>
       <Menu.Trigger>
         <Button
           endIcon={<CaretDownIcon />}
@@ -151,8 +146,7 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
           className={styles.action}
           variant="secondary"
           startIcon={<PlusIcon />}
-          size="small"
-        >
+          size="small">
           Add media
         </Button>
       </Menu.Trigger>
@@ -162,16 +156,14 @@ function CombinedAssetLinkActions(props: LinkActionsProps) {
             testId={testIds.linkExisting}
             onClick={() => {
               props.onLinkExisting();
-            }}
-          >
+            }}>
             Add existing media
           </Menu.Item>
           <Menu.Item
             testId={testIds.createAndLink}
             onClick={() => {
               props.onCreate();
-            }}
-          >
+            }}>
             Add new media
           </Menu.Item>
         </Menu.List>

@@ -1,0 +1,89 @@
+import React from 'react';
+
+import { RichTextEditor } from '@contentful/field-editor-rich-text';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+
+import {
+  block,
+  document as doc,
+  inline,
+  text,
+} from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { createRichTextFakeSdk, fixtures } from '../../fixtures';
+import { mount } from '../mount';
+import { RichTextPage } from './RichTextPage';
+
+const hyperlinkTypes = [INLINES.ENTRY_HYPERLINK, INLINES.ASSET_HYPERLINK];
+
+describe('Rich text hyperlinks with unavailable entity metadata', () => {
+  for (const linkType of hyperlinkTypes) {
+    it(`inserts a ${linkType} with missing sys without crashing`, () => {
+      const sdk = createRichTextFakeSdk();
+      const isEntry = linkType === INLINES.ENTRY_HYPERLINK;
+      const selectedEntity = isEntry ? fixtures.entries.published : fixtures.assets.published;
+      cy.stub(sdk.dialogs, isEntry ? 'selectSingleEntry' : 'selectSingleAsset').resolves(
+        selectedEntity,
+      );
+      cy.stub(isEntry ? sdk.cma.entry : sdk.cma.asset, 'get').resolves({});
+      mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+
+      const richText = new RichTextPage();
+      richText.editor.type('Customer link');
+      richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('Customer link'))));
+      richText.editor.type('{selectall}');
+      richText.toolbar.hyperlink.click();
+      const form = richText.forms.hyperlink;
+      form.linkType.select(linkType);
+      form.linkEntityTarget.click();
+
+      cy.findByText('Content missing or inaccessible').should('be.visible');
+      form.submit.should('be.enabled').click();
+      richText.editor.find('[data-link-id]').should('contain.text', 'Customer link');
+      richText.expectValue(
+        doc(
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            text(''),
+            inline(
+              linkType,
+              {
+                target: {
+                  sys: {
+                    type: 'Link',
+                    linkType: isEntry ? 'Entry' : 'Asset',
+                    id: selectedEntity.sys.id,
+                  },
+                },
+              },
+              text('Customer link'),
+            ),
+            text(''),
+          ),
+        ),
+      );
+      richText.editor.should('be.visible');
+    });
+  }
+
+  it('renders an embedded inline entry with missing sys without crashing', () => {
+    const sdk = createRichTextFakeSdk({
+      initialValue: doc(
+        block(
+          BLOCKS.PARAGRAPH,
+          {},
+          text('hello'),
+          inline(INLINES.EMBEDDED_ENTRY, {
+            target: { sys: { id: 'unavailable-entry', type: 'Link', linkType: 'Entry' } },
+          }),
+          text(' world'),
+        ),
+      ),
+    });
+    cy.stub(sdk.cma.entry, 'get').resolves({ sys: {} });
+    mount(<RichTextEditor sdk={sdk} isInitiallyDisabled={false} />);
+
+    cy.findByText('Content missing or inaccessible').should('be.visible');
+    new RichTextPage().editor.should('contain.text', 'hello').and('contain.text', 'world');
+  });
+});

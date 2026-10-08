@@ -25,8 +25,7 @@ export function TagsEditorConstraints(props: TagEditorConstraintsProps) {
       className={css({
         fontStyle: 'italic',
       })}
-      testId="tag-editor-constraints"
-    >
+      testId="tag-editor-constraints">
       {constraintsType === 'min' && (
         <span>
           {t({

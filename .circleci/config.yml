@@ -47,6 +47,7 @@ jobs:
     steps:
       - checkout
       - yarn_install
+      - run: yarn prettier:check
       - run: yarn lint
       - run: yarn build
       - run: yarn tsc

@@ -101,8 +101,7 @@ export function ToolbarHrButton(props: ToolbarHrButtonProps) {
       isDisabled={props.isDisabled}
       onClick={handleOnClick}
       testId="hr-toolbar-button"
-      isActive={isBlockSelected(editor, BLOCKS.HR)}
-    >
+      isActive={isBlockSelected(editor, BLOCKS.HR)}>
       <MinusIcon />
     </ToolbarButton>
   );
@@ -117,13 +116,11 @@ export function Hr(props: Slate.RenderLeafProps) {
       {...props.attributes}
       className={styles.container}
       // COMPAT: To make HR copyable in Safari, we verify this attribute below on `deserialize`
-      data-void-element={BLOCKS.HR}
-    >
+      data-void-element={BLOCKS.HR}>
       <div
         draggable={true}
         // Moving `contentEditable` to this div makes it to be selectable when being the first void element, e.g pressing ctrl + a to select everything
-        contentEditable={false}
-      >
+        contentEditable={false}>
         <hr className={cx(styles.hr, isSelected && isFocused ? styles.hrSelected : undefined)} />
       </div>
       {props.children}

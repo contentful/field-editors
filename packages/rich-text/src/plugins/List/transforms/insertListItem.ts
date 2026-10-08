@@ -98,7 +98,7 @@ export const insertListItem = (editor: PlateEditor): boolean => {
       // Add an empty paragraph to the new li if We will not move some
       // paragraphs over there.
       emptyListItemNode(editor, !shouldSplit),
-      { at: newListItemPath }
+      { at: newListItemPath },
     );
 
     // Move children *after* selection to the new li

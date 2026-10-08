@@ -53,8 +53,7 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
           onRemove={handleRemoveClick}
           onEntityFetchComplete={onEntityFetchComplete}
         />
-      }
-    >
+      }>
       {children as React.ReactNode}
     </LinkedBlockWrapper>
   );

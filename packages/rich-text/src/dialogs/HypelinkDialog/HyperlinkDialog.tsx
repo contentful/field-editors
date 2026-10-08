@@ -10,7 +10,7 @@ import {
   ModalControls,
   Select,
   TextInput,
-  TextLink
+  TextLink,
 } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { EntityProvider } from '@contentful/field-editor-reference';
@@ -24,7 +24,7 @@ import { FetchingWrappedEntryCard } from '../../plugins/shared/FetchingWrappedEn
 export const LINK_TYPES = {
   URI: 'uri',
   ENTRY: 'Entry',
-  ASSET: 'Asset'
+  ASSET: 'Asset',
 } as const;
 
 type LinkType = (typeof LINK_TYPES)[keyof typeof LINK_TYPES];
@@ -103,13 +103,13 @@ function entityToLink(entity: SelectableEntity): EntityLink {
 
 function getInitialState(
   value: HyperlinkValue,
-  allowedHyperlinkTypes: LinkType[]
+  allowedHyperlinkTypes: LinkType[],
 ): HyperlinkDialogState {
   const { text, type, uri, target } = value;
   const isEntityLink = Boolean(target);
   const entityLinks: HyperlinkDialogState['entityLinks'] = {
     [LINK_TYPES.ENTRY]: null,
-    [LINK_TYPES.ASSET]: null
+    [LINK_TYPES.ASSET]: null,
   };
   let linkType = type;
 
@@ -126,7 +126,7 @@ function getInitialState(
     text,
     uri,
     entityLinks,
-    type: linkType
+    type: linkType,
   };
 }
 
@@ -137,7 +137,7 @@ export function HyperlinkDialog({
   entitySelectorConfigs = {},
   allowedHyperlinkTypes = DEFAULT_ALLOWED_HYPERLINK_TYPES,
   hideText = false,
-  onClose
+  onClose,
 }: HyperlinkDialogProps) {
   const [state, setState] = React.useState(() => getInitialState(value, allowedHyperlinkTypes));
 
@@ -146,8 +146,8 @@ export function HyperlinkDialog({
       ...currentState,
       entityLinks: {
         ...currentState.entityLinks,
-        [type]: entity ? entityToLink(entity) : undefined
-      }
+        [type]: entity ? entityToLink(entity) : undefined,
+      },
     }));
   };
 
@@ -194,12 +194,12 @@ export function HyperlinkDialog({
   const resolvedLabels = labels || {
     title: t({
       id: 'FieldEditors.RichText.HyperlinkDialog.DefaultTitle',
-      message: 'Insert link'
+      message: 'Insert link',
     }),
     confirm: t({
       id: 'FieldEditors.RichText.HyperlinkDialog.DefaultConfirm',
-      message: 'Insert link'
-    })
+      message: 'Insert link',
+    }),
   };
 
   const { uri, text, type, entityLinks } = state;
@@ -210,7 +210,7 @@ export function HyperlinkDialog({
         <TextLink as="button" onClick={selectEntry}>
           {t({
             id: 'FieldEditors.RichText.HyperlinkDialog.SelectEntry',
-            message: 'Select entry'
+            message: 'Select entry',
           })}
         </TextLink>
       )}
@@ -218,7 +218,7 @@ export function HyperlinkDialog({
         <TextLink as="button" onClick={selectAsset}>
           {t({
             id: 'FieldEditors.RichText.HyperlinkDialog.SelectAsset',
-            message: 'Select asset'
+            message: 'Select asset',
           })}
         </TextLink>
       )}
@@ -241,11 +241,10 @@ export function HyperlinkDialog({
           <TextLink
             as="button"
             className={css({ marginLeft: tokens.spacingS })}
-            onClick={resetEntity}
-          >
+            onClick={resetEntity}>
             {t({
               id: 'FieldEditors.RichText.HyperlinkDialog.RemoveSelection',
-              message: 'Remove selection'
+              message: 'Remove selection',
             })}
           </TextLink>
         )}
@@ -287,7 +286,7 @@ export function HyperlinkDialog({
                 <FormControl.Label>
                   {t({
                     id: 'FieldEditors.RichText.HyperlinkDialog.LinkText',
-                    message: 'Link text'
+                    message: 'Link text',
                   })}
                 </FormControl.Label>
                 <TextInput
@@ -297,7 +296,7 @@ export function HyperlinkDialog({
                   onChange={(event) =>
                     setState((currentState) => ({
                       ...currentState,
-                      text: event.target.value
+                      text: event.target.value,
                     }))
                   }
                   autoFocus={!isUriInputAutoFocused}
@@ -309,7 +308,7 @@ export function HyperlinkDialog({
                 <FormControl.Label>
                   {t({
                     id: 'FieldEditors.RichText.HyperlinkDialog.LinkType',
-                    message: 'Link type'
+                    message: 'Link type',
                   })}
                 </FormControl.Label>
                 <Select
@@ -317,11 +316,10 @@ export function HyperlinkDialog({
                   onChange={(event) =>
                     setState((currentState) => ({
                       ...currentState,
-                      type: event.target.value as LinkType
+                      type: event.target.value as LinkType,
                     }))
                   }
-                  testId="link-type-select"
-                >
+                  testId="link-type-select">
                   {/* Show the option if the link type is allowed or the current link is of type that is no longer valid */}
                   {allowedHyperlinkTypes.includes(LINK_TYPES.URI) || type === LINK_TYPES.URI ? (
                     <Select.Option value={LINK_TYPES.URI}>
@@ -346,7 +344,7 @@ export function HyperlinkDialog({
                 <FormControl.Label>
                   {t({
                     id: 'FieldEditors.RichText.HyperlinkDialog.LinkTarget',
-                    message: 'Link target'
+                    message: 'Link target',
                   })}
                 </FormControl.Label>
                 <TextInput
@@ -357,7 +355,7 @@ export function HyperlinkDialog({
                   onChange={(event) =>
                     setState((currentState) => ({
                       ...currentState,
-                      uri: event.target.value
+                      uri: event.target.value,
                     }))
                   }
                   autoFocus={isUriInputAutoFocused}
@@ -365,7 +363,7 @@ export function HyperlinkDialog({
                 <FormControl.HelpText>
                   {t({
                     id: 'FieldEditors.RichText.HyperlinkDialog.ProtocolHelpText',
-                    message: 'A protocol may be required, e.g. https://'
+                    message: 'A protocol may be required, e.g. https://',
                   })}
                 </FormControl.HelpText>
               </FormControl>
@@ -380,8 +378,7 @@ export function HyperlinkDialog({
             onClick={() => onClose(null)}
             variant="secondary"
             testId="cancel-cta"
-            size="small"
-          >
+            size="small">
             {t({ id: 'FieldEditors.RichText.HyperlinkDialog.Cancel', message: 'Cancel' })}
           </Button>
           <Button
@@ -390,8 +387,7 @@ export function HyperlinkDialog({
             onClick={handleSubmit}
             isDisabled={!isLinkComplete()}
             testId="confirm-cta"
-            size="small"
-          >
+            size="small">
             {resolvedLabels.confirm}
           </Button>
         </ModalControls>
@@ -402,7 +398,12 @@ export function HyperlinkDialog({
 
 export const openHyperlinkDialog = (
   dialogs: DialogsAPI,
-  { value, showTextInput, allowedHyperlinkTypes, entitySelectorConfigs }: OpenHyperlinkDialogOptions
+  {
+    value,
+    showTextInput,
+    allowedHyperlinkTypes,
+    entitySelectorConfigs,
+  }: OpenHyperlinkDialogOptions,
 ) => {
   const isNew = !(value.uri || value.target);
   const props = {
@@ -410,20 +411,20 @@ export const openHyperlinkDialog = (
       title: isNew
         ? t({
             id: 'FieldEditors.RichText.HyperlinkDialog.InsertHyperlink',
-            message: 'Insert hyperlink'
+            message: 'Insert hyperlink',
           })
         : t({
             id: 'FieldEditors.RichText.HyperlinkDialog.EditHyperlink',
-            message: 'Edit hyperlink'
+            message: 'Edit hyperlink',
           }),
       confirm: isNew
         ? t({ id: 'FieldEditors.RichText.HyperlinkDialog.Insert', message: 'Insert' })
-        : t({ id: 'FieldEditors.RichText.HyperlinkDialog.Update', message: 'Update' })
+        : t({ id: 'FieldEditors.RichText.HyperlinkDialog.Update', message: 'Update' }),
     },
     value,
     hideText: !showTextInput,
     allowedHyperlinkTypes,
-    entitySelectorConfigs
+    entitySelectorConfigs,
   };
 
   return dialogs.openCurrent({
@@ -434,7 +435,7 @@ export const openHyperlinkDialog = (
     allowHeightOverflow: true,
     parameters: {
       type: 'rich-text-hyperlink-dialog',
-      ...props
-    } as SerializedJSONValue
+      ...props,
+    } as SerializedJSONValue,
   });
 };

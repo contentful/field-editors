@@ -26,7 +26,7 @@ export type MoveListItemsOptions = {
 
 export const moveListItems = (
   editor: PlateEditor,
-  { increase = true, at = editor.selection ?? undefined }: MoveListItemsOptions = {}
+  { increase = true, at = editor.selection ?? undefined }: MoveListItemsOptions = {},
 ) => {
   const _nodes = getNodeEntries(editor, {
     at,

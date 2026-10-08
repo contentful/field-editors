@@ -48,8 +48,7 @@ export function LinkedResourceInline(props: LinkedResourceInlineProps) {
           onRemove={handleRemoveClick}
           onEntityFetchComplete={onEntityFetchComplete}
         />
-      }
-    >
+      }>
       {children as React.ReactNode}
     </LinkedInlineWrapper>
   );

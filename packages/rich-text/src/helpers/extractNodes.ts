@@ -9,7 +9,7 @@ function extractNodes(editor: PlateEditor, path: Path, match: NodeMatch) {
       match,
       at: path,
       mode: 'lowest',
-    })
+    }),
   ).map(([node]) => node);
 }
 

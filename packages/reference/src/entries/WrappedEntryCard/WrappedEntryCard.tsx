@@ -92,7 +92,7 @@ export function WrappedEntryCard({
   React.useEffect(() => {
     let mounted = true;
 
-    if (entry) {
+    if (entry?.sys?.id) {
       getEntryImage(
         {
           entry,
@@ -119,7 +119,13 @@ export function WrappedEntryCard({
     };
   }, [entry, getAsset, contentType, localeCode, defaultLocaleCode]);
 
-  const status = getEntityStatus(entry?.sys, useLocalizedEntityStatus ? localeCode : undefined);
+  if (!entry?.sys?.id) {
+    return (
+      <MissingEntityCard isDisabled={isDisabled} onRemove={onRemove} providerName="Contentful" />
+    );
+  }
+
+  const status = getEntityStatus(entry.sys, useLocalizedEntityStatus ? localeCode : undefined);
 
   if (status === 'deleted') {
     return (
@@ -189,8 +195,7 @@ export function WrappedEntryCard({
                   testId="edit"
                   onClick={() => {
                     onEdit && onEdit();
-                  }}
-                >
+                  }}>
                   Edit
                 </MenuItem>
               ) : null,
@@ -200,8 +205,7 @@ export function WrappedEntryCard({
                   testId="delete"
                   onClick={() => {
                     onRemove && onRemove();
-                  }}
-                >
+                  }}>
                   Remove
                 </MenuItem>
               ) : null,
@@ -211,8 +215,7 @@ export function WrappedEntryCard({
                   testId="add-to-release"
                   onClick={() => {
                     onAddToRelease();
-                  }}
-                >
+                  }}>
                   <PlusIcon size="tiny" />
                   Add to release
                 </MenuItem>
@@ -229,8 +232,7 @@ export function WrappedEntryCard({
                 <MenuItem
                   key="move-bottom"
                   onClick={() => onMoveBottom && onMoveBottom()}
-                  testId="move-bottom"
-                >
+                  testId="move-bottom">
                   Move to bottom
                 </MenuItem>
               ) : null,

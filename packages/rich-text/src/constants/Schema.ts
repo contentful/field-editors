@@ -73,7 +73,7 @@ export default {
         ...blocks,
         [nodeType]: { isVoid: true },
       }),
-      {}
+      {},
     ),
 
     // TODO: add list schema

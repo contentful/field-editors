@@ -39,6 +39,10 @@ export interface WrappedAssetLinkProps {
 export const WrappedAssetLink = (props: WrappedAssetLinkProps) => {
   const { className, href, onEdit, onRemove, isDisabled, isClickable = true } = props;
 
+  if (!props.asset?.sys?.id) {
+    return <MissingAssetCard isDisabled={isDisabled} onRemove={onRemove} />;
+  }
+
   const status = entityHelpers.getEntityStatus(
     props.asset.sys,
     props.useLocalizedEntityStatus ? props.localeCode : undefined,

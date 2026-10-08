@@ -10,7 +10,7 @@ import {
   expectNativeCaret,
   pauseSelectionUpdates,
   pressNativeKey,
-  resumeSelectionUpdates
+  resumeSelectionUpdates,
 } from './caretTestUtils';
 import { paragraphWithText } from './helpers';
 import { RichTextPage } from './RichTextPage';
@@ -27,8 +27,8 @@ describe(
           initialValue: doc(
             heading(BLOCKS.HEADING_1, 'Main heading'),
             heading(BLOCKS.HEADING_2, 'Sub heading'),
-            paragraphWithText('Body paragraph')
-          )
+            paragraphWithText('Body paragraph'),
+          ),
         });
         let offset: number;
         let selected: string;
@@ -44,8 +44,7 @@ describe(
                   selected = selection.toString();
                 }
                 render();
-              }}
-            >
+              }}>
               {/* A host rerender can pass a new callback without changing editor content. */}
               <RichTextEditor
                 sdk={sdk}
@@ -89,11 +88,11 @@ describe(
             doc(
               heading(BLOCKS.HEADING_1, 'aMain heading'),
               heading(BLOCKS.HEADING_2, 'Sub heading'),
-              paragraphWithText(expected)
-            )
+              paragraphWithText(expected),
+            ),
           );
         });
       });
     }
-  }
+  },
 );

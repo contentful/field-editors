@@ -44,7 +44,7 @@ export const withNormalizer = (editor: PlateEditor) => {
         if ('validNode' in rule) {
           // I can't think of a use case. Disabled to prevent misuse
           throw new NormalizerError(
-            'conditional transformations are not supported in validNode rules'
+            'conditional transformations are not supported in validNode rules',
           );
         }
 

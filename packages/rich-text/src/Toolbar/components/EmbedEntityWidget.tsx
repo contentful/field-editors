@@ -86,8 +86,7 @@ export const EmbedEntityWidget = ({ isDisabled, canInsertBlocks }: EmbedEntityWi
       isDisabled={isDisabled}
       onClose={onCloseEntityDropdown}
       onToggle={onToggleEntityDropdown}
-      isOpen={isEmbedDropdownOpen}
-    >
+      isOpen={isEmbedDropdownOpen}>
       {actions}
     </EmbeddedEntityDropdownButton>
   ) : null;

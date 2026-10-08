@@ -214,8 +214,7 @@ const MarkdownPreview = React.memo((props: MarkdownPreviewProps) => {
           a: (markdownProps: MarkdownLinkProps) => (
             <MarkdownLink {...markdownProps} Embedly={props.previewComponents?.embedly} />
           ),
-        }}
-      >
+        }}>
         {replaceMailtoAmp(props.value)}
       </ReactMarkdown>
     </div>

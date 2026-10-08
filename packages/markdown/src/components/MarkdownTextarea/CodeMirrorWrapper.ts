@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
-
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/edit/matchbrackets';
 import throttle from 'lodash/throttle';
@@ -28,7 +26,7 @@ export function create(
     readOnly: boolean;
     fixedHeight?: number | boolean;
     height?: number | string;
-  }
+  },
 ) {
   const { direction, fixedHeight, height, readOnly } = options || {};
 
@@ -181,8 +179,8 @@ export function create(
           // @ts-ignore
           acc[ctrlKey + '-' + key] = value;
         },
-        {}
-      )
+        {},
+      ),
     );
   }
 

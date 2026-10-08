@@ -9,7 +9,6 @@ import { PlatePlugin, RenderLeafProps } from '../../internal/types';
 import { createMarkToolbarButton } from './components/MarkToolbarButton';
 import { buildMarkEventHandler } from './helpers';
 
-
 export const ToolbarUnderlineButton = createMarkToolbarButton({
   title: 'Underline',
   mark: MARKS.UNDERLINE,

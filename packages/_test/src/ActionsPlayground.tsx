@@ -73,15 +73,13 @@ function ActionsPlayground(props: ActionsPlaygroundProps) {
         border: `1px solid ${tokens.gray200}`,
         padding: tokens.spacingS,
         marginTop: tokens.spacingXl,
-      })}
-    >
+      })}>
       <div
         className={css({
           height: 150,
           overflowY: 'scroll',
           fontSize: tokens.fontSizeM,
-        })}
-      >
+        })}>
         {state.events.map((log) => (
           <div key={log.id}>
             <div>

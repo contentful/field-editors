@@ -53,7 +53,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('')),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -66,7 +66,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('', []))),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
         );
 
         richText.expectValue(expectedValue);
@@ -79,7 +79,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
 
         const expectedValue = doc(
           block(BLOCKS.QUOTE, {}, block(BLOCKS.PARAGRAPH, {}, text('some text', []))),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
         );
 
         richText.expectValue(expectedValue);
@@ -93,7 +93,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
 
         const expectedValue = doc(
           block(BLOCKS.PARAGRAPH, {}, text('some text', [])),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
         );
 
         richText.expectValue(expectedValue);
@@ -114,9 +114,9 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
             BLOCKS.QUOTE,
             {},
             block(BLOCKS.PARAGRAPH, {}, text('paragraph 1', [])),
-            block(BLOCKS.PARAGRAPH, {}, text('paragraph 2', []))
+            block(BLOCKS.PARAGRAPH, {}, text('paragraph 2', [])),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text('', []))
+          block(BLOCKS.PARAGRAPH, {}, text('', [])),
         );
 
         richText.expectValue(expectedValue);
@@ -158,10 +158,10 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
                   },
                 },
               }),
-              text(' more text')
-            )
+              text(' more text'),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
 
         richText.expectValue(expectedValue);
@@ -196,7 +196,7 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
                     },
                   },
                 },
-                text('resourceHyperlink')
+                text('resourceHyperlink'),
               ),
               text(' and inline resource: '),
               inline(INLINES.EMBEDDED_RESOURCE, {
@@ -208,10 +208,10 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
                   },
                 },
               }),
-              text('')
-            )
+              text(''),
+            ),
           ),
-          block(BLOCKS.PARAGRAPH, {}, text(''))
+          block(BLOCKS.PARAGRAPH, {}, text('')),
         );
         richText.expectValue(expectedValue);
       });

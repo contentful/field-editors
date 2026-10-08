@@ -46,7 +46,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
               at: editor.selection,
               match: (n) => listTypes.includes(n.type as string),
               mode: 'lowest',
-            }
+            },
           );
         } else {
           unwrapList(editor);
@@ -114,7 +114,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
               match: (n, path) =>
                 listTypes.includes(n.type as string) && path.length >= rangeLength,
               mode: 'all',
-            }
+            },
           );
         } else {
           unwrapList(editor);
@@ -125,7 +125,7 @@ export const toggleList = (editor: PlateEditor, { type }: { type: string }) =>
           Array.from(
             getNodeEntries(editor, {
               mode: 'all',
-            })
+            }),
           ) as NodeEntry[]
         )
           .filter(([, path]) => path.length === rootPathLength + 1)

@@ -32,7 +32,7 @@ export const useSortIDs = (items: Items) => {
       const newSortIDs = arrayMove(sortIDs, oldIndex, newIndex);
       setSortIDs(newSortIDs);
     },
-    [sortIDs]
+    [sortIDs],
   );
 
   return { sortIDs, rearrangeSortIDs };

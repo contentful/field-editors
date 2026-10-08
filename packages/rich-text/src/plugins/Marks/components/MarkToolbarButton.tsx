@@ -48,8 +48,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
           className={cx({
             [styles.isActive]: isMarkActive(editor, mark),
           })}
-          testId={`${mark}-toolbar-button`}
-        >
+          testId={`${mark}-toolbar-button`}>
           {title}
         </Menu.Item>
       );
@@ -61,8 +60,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
         testId={`${mark}-toolbar-button`}
         onClick={handleClick}
         isActive={isMarkActive(editor, mark)}
-        isDisabled={isDisabled}
-      >
+        isDisabled={isDisabled}>
         {icon}
       </ToolbarButton>
     );

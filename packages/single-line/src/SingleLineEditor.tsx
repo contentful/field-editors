@@ -88,8 +88,7 @@ export function SingleLineEditor(props: SingleLineEditorProps) {
     <FieldConnector<string>
       field={field}
       isInitiallyDisabled={isInitiallyDisabled}
-      isDisabled={isDisabled}
-    >
+      isDisabled={isDisabled}>
       {({ value, errors, disabled, setValue }) => {
         return (
           <div data-test-id="single-line-editor">
