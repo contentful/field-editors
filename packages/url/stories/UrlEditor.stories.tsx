@@ -36,7 +36,7 @@ export const Custom: Story = {
   render: () => {
     const [field] = createFakeFieldAPI(
       (_) => _,
-      'https://d21buns5ku92am.cloudfront.net/41748/images/347873-Mark_Circular_white_no%20shadow-3d0a86-large-1582585736.png'
+      'https://d21buns5ku92am.cloudfront.net/41748/images/347873-Mark_Circular_white_no%20shadow-3d0a86-large-1582585736.png',
     );
     return (
       <UrlEditor field={field} isInitiallyDisabled={false}>

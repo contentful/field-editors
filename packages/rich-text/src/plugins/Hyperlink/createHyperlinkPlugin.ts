@@ -59,24 +59,24 @@ const getNodeOfType = (type: INLINES) => (el: HTMLElement, node: AnyObject) => (
           uri: el.getAttribute('href'),
         }
       : type === INLINES.RESOURCE_HYPERLINK
-      ? {
-          target: {
-            sys: {
-              urn: el.getAttribute('data-resource-link-urn'),
-              linkType: el.getAttribute('data-resource-link-type'),
-              type: 'ResourceLink',
+        ? {
+            target: {
+              sys: {
+                urn: el.getAttribute('data-resource-link-urn'),
+                linkType: el.getAttribute('data-resource-link-type'),
+                type: 'ResourceLink',
+              },
+            },
+          }
+        : {
+            target: {
+              sys: {
+                id: el.getAttribute('data-link-id'),
+                linkType: el.getAttribute('data-link-type'),
+                type: 'Link',
+              },
             },
           },
-        }
-      : {
-          target: {
-            sys: {
-              id: el.getAttribute('data-link-id'),
-              linkType: el.getAttribute('data-link-type'),
-              type: 'Link',
-            },
-          },
-        },
 });
 
 export const createHyperlinkPlugin = (sdk: FieldAppSDK): PlatePlugin => {

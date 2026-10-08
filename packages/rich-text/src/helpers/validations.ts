@@ -21,7 +21,7 @@ export const VALIDATABLE_NODE_TYPES = ([] as Array<BLOCKS | INLINES>)
 const getRichTextValidation = (field, validationType) =>
   flow(
     (v) => find(v, validationType),
-    (v) => get(v, validationType)
+    (v) => get(v, validationType),
   )(field.validations);
 
 const isFormattingOptionEnabled = (field, validationType, nodeTypeOrMark) => {

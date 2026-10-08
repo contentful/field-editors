@@ -3,7 +3,7 @@ import {
   createPlateEditor as createNativeEditor,
   createPlatePlugin,
   type AnyPlatePlugin,
-  type CreatePlateEditorOptions as NativeEditorOptions
+  type CreatePlateEditorOptions as NativeEditorOptions,
 } from 'platejs/react';
 
 import type { PlateEditor } from './types/editor';
@@ -20,7 +20,7 @@ export type CreatePlateEditorOptions = Omit<
 
 export const fromPlatePlugin = (
   basePlugin: AnyPlatePlugin,
-  config: Partial<PlatePlugin> = {}
+  config: Partial<PlatePlugin> = {},
 ): PlatePlugin => ({
   key: basePlugin.key,
   type: basePlugin.node.type,
@@ -31,16 +31,16 @@ export const fromPlatePlugin = (
   plugins: basePlugin.plugins.map((plugin) => fromPlatePlugin(plugin)),
   ...config,
   options: { ...basePlugin.options, ...config.options },
-  basePlugin
+  basePlugin,
 });
 
 export const mockPlugin = <P extends PlatePlugin = PlatePlugin>(
-  plugin?: Partial<P>
+  plugin?: Partial<P>,
 ): P & { options: any } =>
   ({
     key: 'mock',
     options: {},
-    ...plugin
+    ...plugin,
   }) as P & { options: any };
 
 export const getContentfulPlugins = (editor: PlateEditor): PlatePlugin[] =>
@@ -50,7 +50,7 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
   const descriptors: PlatePlugin[] = [];
   const overrides = Object.assign(
     {},
-    ...(options.plugins ?? []).map((plugin) => plugin.overrideByKey)
+    ...(options.plugins ?? []).map((plugin) => plugin.overrideByKey),
   );
   const collect = (plugin: PlatePlugin): PlatePlugin => {
     const resolved = { ...plugin, ...overrides[plugin.key] };
@@ -69,7 +69,7 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
         isInline: plugin.isInline,
         isVoid: plugin.isVoid,
         isMarkableVoid: plugin.isMarkableVoid,
-        component: plugin.component
+        component: plugin.component,
       },
       options: plugin.options,
       plugins: plugin.plugins?.map(convert),
@@ -77,9 +77,9 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
         Object.entries(plugin.handlers ?? {}).map(([name, handler]) => [
           name,
           ({ editor, event }: any) =>
-            handler(editor, plugin as PlatePlugin & { options: any })(event)
-        ])
-      )
+            handler(editor, plugin as PlatePlugin & { options: any })(event),
+        ]),
+      ),
     };
     let preservedMethods: { api: PlateEditor['api']; transforms: PlateEditor['tf'] } | undefined;
     if (plugin.withOverrides || plugin.then || plugin.preserveEditorMethods) {
@@ -106,9 +106,9 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
           deserializer: {
             ...deserializer,
             ...(query && { query: ({ element }: any) => query(element) }),
-            ...(getNode && { parse: ({ element, node }: any) => getNode(element, node) })
-          }
-        }
+            ...(getNode && { parse: ({ element, node }: any) => getNode(element, node) }),
+          },
+        },
       };
     }
     if (plugin.decorate)
@@ -124,11 +124,11 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
                 transformData: injected.editor?.insertData?.transformData
                   ? ({ data, dataTransfer }: any) =>
                       injected.editor!.insertData!.transformData!(data, { dataTransfer })
-                  : undefined
-              }
-            }
-          ])
-        )
+                  : undefined,
+              },
+            },
+          ]),
+        ),
       };
     }
     const nativePlugin = plugin.basePlugin
@@ -136,8 +136,8 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
           // Native plugins can register shortcuts lazily. Disable them after
           // resolution so Contentful's keyboard handlers remain authoritative.
           shortcuts: Object.fromEntries(
-            Object.keys(resolvedPlugin.shortcuts ?? {}).map((key) => [key, null])
-          )
+            Object.keys(resolvedPlugin.shortcuts ?? {}).map((key) => [key, null]),
+          ),
         }))
       : createPlatePlugin(config);
     return plugin.preserveEditorMethods
@@ -150,7 +150,7 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
     extendEditor: ({ editor }) => {
       (editor as PlateEditor).contentfulPlugins = descriptors;
       return editor;
-    }
+    },
   });
   const { editor: input, normalizeInitialValue, ...nativeOptions } = options;
   return createNativeEditor<Value>({
@@ -160,6 +160,6 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
     nodeId: false,
     chunking: false,
     affinity: false,
-    shouldNormalizeEditor: normalizeInitialValue === true
+    shouldNormalizeEditor: normalizeInitialValue === true,
   }) as PlateEditor;
 };

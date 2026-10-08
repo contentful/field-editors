@@ -110,6 +110,6 @@ export const createSelectionSyncPlugin = (): PlatePlugin => ({
         ['insertText', 'insertParagraph', 'insertLineBreak'].includes(input.inputType) ||
         input.inputType.startsWith('delete');
       if (changesContent && !input.isComposing) syncSelectionFromDOM(editor);
-    }
-  }
+    },
+  },
 });

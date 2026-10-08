@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { EditorDirection } from '../../types';
 import * as CodeMirrorWrapper from './CodeMirrorWrapper';
 import * as Commands from './MarkdownCommands';
@@ -11,7 +9,7 @@ export function createMarkdownEditor(
     readOnly: boolean;
     fixedHeight?: number | boolean;
     height?: number | string;
-  }
+  },
 ) {
   const editor = CodeMirrorWrapper.create(host, options);
 

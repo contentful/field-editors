@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.2...@contentful/field-editor-rich-text@6.6.3) (2026-10-08)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [6.6.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.1...@contentful/field-editor-rich-text@6.6.2) (2026-10-08)
+
+### Bug Fixes
+
+- **rich-text:** preserve caret during rapid navigation [TOL-4580] ([#2245](https://github.com/contentful/field-editors/issues/2245)) ([9e21a9c](https://github.com/contentful/field-editors/commit/9e21a9ce1cb06d5df6729e39e73d47c33f36297f))
+
 ## [6.6.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.0...@contentful/field-editor-rich-text@6.6.1) (2026-10-07)
 
 ### Bug Fixes

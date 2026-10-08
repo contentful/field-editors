@@ -12,7 +12,7 @@ it('converts selected text into a hyperlink', () => {
     wrapLink(editor, {
       text: 'My cool website',
       url: 'https://example.com',
-      type: INLINES.HYPERLINK
+      type: INLINES.HYPERLINK,
     });
   });
   expect(editor.children[0].children).toEqual([
@@ -20,16 +20,16 @@ it('converts selected text into a hyperlink', () => {
     {
       type: INLINES.HYPERLINK,
       data: { uri: 'https://example.com' },
-      children: [{ text: 'My cool website' }]
+      children: [{ text: 'My cool website' }],
     },
-    { text: '' }
+    { text: '' },
   ]);
 });
 
 it('preserves formatting and can undo and redo converting selected text', () => {
   const { editor } = createTestEditor({});
   const original = [
-    { type: BLOCKS.PARAGRAPH, children: [{ text: 'Before bold After', bold: true }] }
+    { type: BLOCKS.PARAGRAPH, children: [{ text: 'Before bold After', bold: true }] },
   ];
   editor.children = original;
   editor.tf.select({ anchor: { path: [0, 0], offset: 7 }, focus: { path: [0, 0], offset: 11 } });
@@ -44,11 +44,11 @@ it('preserves formatting and can undo and redo converting selected text', () => 
         {
           type: INLINES.HYPERLINK,
           data: { uri: 'https://example.com' },
-          children: [{ text: 'bold', bold: true }]
+          children: [{ text: 'bold', bold: true }],
         },
-        { text: ' After', bold: true }
-      ]
-    }
+        { text: ' After', bold: true },
+      ],
+    },
   ];
   expect(editor.children).toEqual(linked);
   editor.tf.undo();
@@ -61,26 +61,26 @@ const linkOptions = [
   { type: INLINES.HYPERLINK, url: 'https://example.com' },
   {
     type: INLINES.ENTRY_HYPERLINK,
-    target: { sys: { id: 'entry-id', type: 'Link', linkType: 'Entry' } }
+    target: { sys: { id: 'entry-id', type: 'Link', linkType: 'Entry' } },
   },
   {
     type: INLINES.ASSET_HYPERLINK,
-    target: { sys: { id: 'asset-id', type: 'Link', linkType: 'Asset' } }
-  }
+    target: { sys: { id: 'asset-id', type: 'Link', linkType: 'Asset' } },
+  },
 ] satisfies Omit<Parameters<typeof wrapLink>[1], 'text'>[];
 
 describe.each(linkOptions)('$type', (options) => {
   it.each([
     { name: 'a forward selection', backward: false, text: 'My cool website' },
     { name: 'a backward selection', backward: true, text: 'My cool website' },
-    { name: 'a changed link label', backward: false, text: 'New label' }
+    { name: 'a changed link label', backward: false, text: 'New label' },
   ])('keeps $name linked without changing surrounding content', ({ backward, text }) => {
     const { editor } = createTestEditor({});
     const existingLink = {
       type: INLINES.HYPERLINK,
       data: { uri: 'https://existing.example' },
       children: [{ text: 'Existing link', data: {} }],
-      isVoid: false
+      isVoid: false,
     };
     editor.children = [
       {
@@ -88,11 +88,11 @@ describe.each(linkOptions)('$type', (options) => {
         children: [
           { text: 'Before My cool website After', data: {} },
           existingLink,
-          { text: '', data: {} }
+          { text: '', data: {} },
         ],
         data: {},
-        isVoid: false
-      }
+        isVoid: false,
+      },
     ];
     const start = { path: [0, 0], offset: 7 };
     const end = { path: [0, 0], offset: 22 };
@@ -104,15 +104,15 @@ describe.each(linkOptions)('$type', (options) => {
       {
         type: options.type,
         data: options.url ? { uri: options.url } : { target: options.target },
-        children: [{ text, data: {} }]
+        children: [{ text, data: {} }],
       },
       { text: ' After', data: {} },
       existingLink,
-      { text: '', data: {} }
+      { text: '', data: {} },
     ]);
     expect(editor.selection).toEqual({
       anchor: { path: [0, 1, 0], offset: text.length },
-      focus: { path: [0, 1, 0], offset: text.length }
+      focus: { path: [0, 1, 0], offset: text.length },
     });
   });
 });

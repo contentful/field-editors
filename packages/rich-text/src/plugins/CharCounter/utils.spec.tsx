@@ -6,7 +6,6 @@ import { describe, expect, it } from 'vitest';
 import { jsx } from '../../test-utils';
 import { getTextContent } from './utils';
 
-
 describe('getTextContent', () => {
   const cases = [
     {

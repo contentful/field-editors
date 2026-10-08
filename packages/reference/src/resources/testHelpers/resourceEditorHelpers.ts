@@ -7,12 +7,12 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
       getValue: vi.fn(() => fieldValue),
       setValue: vi.fn(() => Promise.resolve(undefined)),
       removeValue: vi.fn(),
-      // eslint-disable-next-line -- test helper
+
       onSchemaErrorsChanged: () => {},
-      // eslint-disable-next-line -- test helper
+
       onIsDisabledChanged: () => {},
       getIsDisabled: () => false,
-      // eslint-disable-next-line -- test helper
+
       onValueChanged: () => {},
       ...fieldDefinition,
       locale: 'en',
@@ -47,7 +47,7 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
     },
     space: {
       // @ts-expect-error wait app-sdk version update
-      // eslint-disable-next-line -- test helper
+
       onEntityChanged: () => {},
     },
     // @ts-expect-error

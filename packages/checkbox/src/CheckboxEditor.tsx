@@ -98,8 +98,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
       debounce={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-    >
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {({ disabled, value, setValue }) => {
         const values = value || [];
 
@@ -119,8 +118,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
         return (
           <Form
             testId="checkbox-editor"
-            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}
-          >
+            className={cx(styles.form, direction === 'rtl' ? styles.rightToLeft : '')}>
             {mergedOptions.map((item) => (
               <Box key={item.id} marginBottom="spacingS">
                 <Checkbox
@@ -136,8 +134,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     } else {
                       removeValue(item.value);
                     }
-                  }}
-                >
+                  }}>
                   {item.label}
                 </Checkbox>
                 {item.invalid && (
@@ -151,8 +148,7 @@ export function CheckboxEditor(props: CheckboxEditorProps) {
                     <TextLink
                       as="button"
                       className={styles.removeBtn}
-                      onClick={() => removeValue(item.value)}
-                    >
+                      onClick={() => removeValue(item.value)}>
                       {t({
                         id: 'FieldEditors.Checkbox.CheckboxEditor.RemoveButton',
                         message: 'Remove',

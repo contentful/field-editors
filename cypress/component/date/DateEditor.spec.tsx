@@ -93,7 +93,7 @@ const setupDateEditor = ({
 }) => {
   const [fieldSdk] = createFakeFieldAPI(undefined, initialValue);
   mount(
-    <DateEditor field={fieldSdk} isInitiallyDisabled={initiallyDisabled} parameters={parameters} />
+    <DateEditor field={fieldSdk} isInitiallyDisabled={initiallyDisabled} parameters={parameters} />,
   );
   return fieldSdk;
 };

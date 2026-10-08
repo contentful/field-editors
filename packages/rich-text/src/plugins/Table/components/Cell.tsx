@@ -30,8 +30,7 @@ export const Cell = (props: RenderElementProps) => {
       // FIXME: figure out what is going wrong with type here
       // @ts-expect-error
       {...(props.element.data as TableCell['data'])}
-      className={style}
-    >
+      className={style}>
       {isSelected && <TableActions />}
       {props.children}
     </td>

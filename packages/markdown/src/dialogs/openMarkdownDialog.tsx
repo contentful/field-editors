@@ -20,7 +20,7 @@ export const openMarkdownDialog =
   (
     options: OpenCustomWidgetOptions & {
       parameters?: MarkdownDialogsParams;
-    }
+    },
   ) => {
     if (options.parameters?.type === MarkdownDialogType.cheatsheet) {
       return ModalDialogLauncher.openDialog(options, () => {
@@ -44,7 +44,7 @@ export const openMarkdownDialog =
         options,
         ({ onClose }) => {
           return <EmbedExternalContentModal onClose={onClose} />;
-        }
+        },
       );
     } else if (options.parameters?.type === MarkdownDialogType.confirmInsertAsset) {
       const locale = options.parameters.locale;

@@ -8,7 +8,7 @@ import { TrackingPluginActions } from '../../plugins/Tracking';
 
 export function toggleQuote(
   editor: PlateEditor,
-  logAction?: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction']
+  logAction?: TrackingPluginActions['onShortcutAction'] | TrackingPluginActions['onToolbarAction'],
 ): void {
   if (!editor.selection) return;
 

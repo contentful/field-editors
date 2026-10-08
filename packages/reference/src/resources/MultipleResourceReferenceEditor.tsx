@@ -139,8 +139,7 @@ export function MultipleResourceReferenceEditor(
       <FieldConnector<ResourceLink<string>[]>
         debounce={0}
         field={props.sdk.field}
-        isInitiallyDisabled={props.isInitiallyDisabled}
-      >
+        isInitiallyDisabled={props.isInitiallyDisabled}>
         {({ value, disabled, setValue, externalReset }) => {
           return (
             <ResourceEditor
@@ -149,8 +148,7 @@ export function MultipleResourceReferenceEditor(
               isDisabled={disabled}
               setValue={setValue}
               renderCustomActions={props.renderCustomActions}
-              key={`${externalReset}-list`}
-            >
+              key={`${externalReset}-list`}>
               {(editorProps) => (
                 <SortableLinkList<ResourceLink<string>> {...editorProps}>
                   {({ item, isDisabled, DragHandle, index }) => (
@@ -159,8 +157,7 @@ export function MultipleResourceReferenceEditor(
                       index={index}
                       onMove={editorProps.onMove}
                       onRemoteItemAtIndex={editorProps.onRemoteItemAtIndex}
-                      listLength={value?.length || 0}
-                    >
+                      listLength={value?.length || 0}>
                       {({ onMoveBottom, onMoveTop, onRemove }) => (
                         <ResourceCard
                           key={index}

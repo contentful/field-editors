@@ -200,14 +200,12 @@ export function LocalePublishingPopover({
       isOpen={localesStatusMap && isOpen}
       onClose={() => setIsOpen(false)}
       autoFocus={false}
-      placement="bottom-end"
-    >
+      placement="bottom-end">
       <Popover.Trigger>
         <Flex
           aria-label={ariaLabel}
           alignItems="center"
-          className={cx(styles.wrapper, wrapperClass)}
-        >
+          className={cx(styles.wrapper, wrapperClass)}>
           <EntityStatusBadge
             className={styles.badge}
             testId="entity-state"
@@ -228,8 +226,7 @@ export function LocalePublishingPopover({
               aria-hidden="true"
               width="4"
               height="18"
-              viewBox="0 0 4 18"
-            >
+              viewBox="0 0 4 18">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -251,8 +248,7 @@ export function LocalePublishingPopover({
       <Popover.Content
         className={styles.popoverContent}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
+        onMouseLeave={onMouseLeave}>
         {!!localesStatusMap && (
           <>
             <ScheduledBanner entityId={entity.sys.id} jobs={jobs} />

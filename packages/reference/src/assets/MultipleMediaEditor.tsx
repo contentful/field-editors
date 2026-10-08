@@ -34,8 +34,7 @@ export function MultipleMediaEditor(props: EditorProps) {
           sortingStrategy={
             childrenProps.viewType === 'card' ? rectSortingStrategy : verticalListSortingStrategy
           }
-          className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}
-        >
+          className={cx({ [styles.gridContainer]: childrenProps.viewType === 'card' })}>
           {({ items, item, index, isDisabled, DragHandle }) => (
             <FetchingWrappedAssetCard
               {...childrenProps}

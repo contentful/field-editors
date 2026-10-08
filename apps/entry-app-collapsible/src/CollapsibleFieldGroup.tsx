@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { LocalesAPI } from '@contentful/field-editor-shared';
-import { Field } from './Field';
-import { FieldGroupType, FieldType } from './types';
-import styles from './styles';
-import { Text } from '@contentful/f36-components';
-import { EntryFieldAPI } from '@contentful/app-sdk';
 
+import { EntryFieldAPI } from '@contentful/app-sdk';
+import { Text } from '@contentful/f36-components';
 import { CaretDownIcon, CaretRightIcon } from '@contentful/f36-icons';
+import { LocalesAPI } from '@contentful/field-editor-shared';
+
+import { Field } from './Field';
+import styles from './styles';
+import { FieldGroupType, FieldType } from './types';
 
 interface CollapsibleFieldGroupProps {
   fieldGroup: FieldGroupType;

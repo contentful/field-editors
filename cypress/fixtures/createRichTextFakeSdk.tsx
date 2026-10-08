@@ -44,8 +44,7 @@ function createOpenDialog(component: ReactElement, value: any) {
               onClick={() => onClose(null)}
               variant="secondary"
               testId={`${ID}-cancel-cta`}
-              size="small"
-            >
+              size="small">
               Cancel
             </Button>
             <Button
@@ -53,8 +52,7 @@ function createOpenDialog(component: ReactElement, value: any) {
               variant="positive"
               onClick={() => onClose(value)}
               testId={`${ID}-confirm-cta`}
-              size="small"
-            >
+              size="small">
               Submit
             </Button>
           </ModalControls>
@@ -281,8 +279,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
                     <div style={{ marginTop: 12 }}>
                       <label
                         htmlFor={`${ID}-create-entry-content-type`}
-                        style={{ display: 'block' }}
-                      >
+                        style={{ display: 'block' }}>
                         Create new entry (content type)
                       </label>
                       <select
@@ -310,8 +307,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
                           // Ensure the editor can fetch the created entry by ID.
                           store.set('Entry', createdId, createdEntry);
                           setSelectedEntry(createdEntry);
-                        }}
-                      >
+                        }}>
                         <option value="" disabled>
                           Select a content type
                         </option>
@@ -330,8 +326,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
                     onClick={() => onClose(null)}
                     variant="secondary"
                     testId={`${ID}-cancel-cta`}
-                    size="small"
-                  >
+                    size="small">
                     Cancel
                   </Button>
                   <Button
@@ -339,8 +334,7 @@ export function createRichTextFakeSdk(props?: RichTextFakeSdkProps): FieldAppSDK
                     variant="positive"
                     onClick={() => onClose(selectedEntry)}
                     testId={`${ID}-confirm-cta`}
-                    size="small"
-                  >
+                    size="small">
                     Submit
                   </Button>
                 </ModalControls>

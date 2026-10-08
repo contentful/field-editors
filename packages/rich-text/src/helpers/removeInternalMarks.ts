@@ -8,7 +8,7 @@ export const removeInternalMarks = (document: Record<string, unknown>) => {
     content: (document.content as Record<string, unknown>[]).map((node) => {
       if (node.nodeType === 'text') {
         node.marks = (node.marks as Record<string, unknown>[]).filter(
-          (mark) => !internalMarks.includes(mark.type as string)
+          (mark) => !internalMarks.includes(mark.type as string),
         );
         return node;
       }

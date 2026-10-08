@@ -63,8 +63,7 @@ export function renderAssetInfo(props: { entityFile: File }) {
       key="file-information"
       className={styles.fileInformation.menuItem}
       isDisabled
-      disabled
-    >
+      disabled>
       <dl className={styles.fileInformation.dl}>
         {fileName && (
           <>
@@ -121,8 +120,7 @@ export function renderActions(props: {
         testId="add-to-release"
         onClick={() => {
           onAddToReleaseAction();
-        }}
-      >
+        }}>
         <PlusIcon size="tiny" />
         Add to release
       </MenuItem>
@@ -135,8 +133,7 @@ export function renderActions(props: {
             downloadAsset(entityFile.url);
           }
         }}
-        testId="card-action-download"
-      >
+        testId="card-action-download">
         Download
       </MenuItem>
     ) : null,

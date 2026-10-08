@@ -24,8 +24,7 @@ export const CommandPrompt = (props: RenderLeafProps & { editor: PlateEditor }) 
       ref={(e) => {
         setTextElement(e as HTMLSpanElement);
       }}
-      {...props.attributes}
-    >
+      {...props.attributes}>
       {props.children}
       <CommandList query={query} editor={editor} textContainer={textElement} />
     </span>

@@ -142,8 +142,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
       flexDirection="row"
       testId="toolbar"
       className={styles.toolbar}
-      justifyContent="space-between"
-    >
+      justifyContent="space-between">
       <div className={styles.formattingOptionsWrapper}>
         <ToolbarHeadingButton isDisabled={isDisabled || !canInsertBlocks} />
 

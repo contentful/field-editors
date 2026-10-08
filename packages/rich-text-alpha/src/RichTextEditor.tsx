@@ -35,8 +35,7 @@ export const RichTextEditor = (props: RichTextProps) => {
       debounce={0}
       field={sdk.field}
       isInitiallyDisabled={isInitiallyDisabled}
-      isEmptyValue={isEmptyField}
-    >
+      isEmptyValue={isEmptyField}>
       {({ lastRemoteValue, disabled }) => (
         <Doc
           sdk={sdk}

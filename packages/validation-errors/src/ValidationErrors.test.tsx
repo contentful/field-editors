@@ -1,4 +1,3 @@
-/* eslint-disable @vitest/expect-expect */
 import * as React from 'react';
 
 import { ValidationError } from '@contentful/app-sdk';

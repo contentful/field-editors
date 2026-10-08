@@ -24,7 +24,7 @@ export function useContentfulEditorId(id?: string) {
 
   if (!contextId) {
     throw new Error(
-      'could not find editor id. Please ensure the component is wrapped in <ContentfulEditorIdProvider> '
+      'could not find editor id. Please ensure the component is wrapped in <ContentfulEditorIdProvider> ',
     );
   }
 

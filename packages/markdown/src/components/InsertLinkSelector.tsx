@@ -23,8 +23,7 @@ export const InsertLinkSelector = (props: InsertLinkSelectorProps) => {
         variant="secondary"
         onClick={() => {
           props.onSelectExisting();
-        }}
-      >
+        }}>
         Insert media
       </Button>
     );
@@ -41,8 +40,7 @@ const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
           startIcon={<ImageSquareIcon />}
           testId="markdownEditor.insertMediaDropdownTrigger"
           size="small"
-          variant="secondary"
-        >
+          variant="secondary">
           Insert media
         </Button>
       </Menu.Trigger>
@@ -52,8 +50,7 @@ const MultipleMediaContextMenu = (props: InsertLinkSelectorProps) => {
         </Menu.Item>
         <Menu.Item
           testId="markdownEditor.linkExistingAssets"
-          onClick={() => props.onSelectExisting()}
-        >
+          onClick={() => props.onSelectExisting()}>
           Link existing media
         </Menu.Item>
       </Menu.List>

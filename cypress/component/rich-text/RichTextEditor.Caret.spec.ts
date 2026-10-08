@@ -7,7 +7,10 @@ import { mountRichTextEditor } from './utils';
 describe('Rich text caret during save', () => {
   it('keeps the browser caret when a save precedes the selectionchange event', () => {
     const sdk = createRichTextFakeSdk({
-      initialValue: doc(paragraphWithText('First paragraph'), paragraphWithText('Second paragraph')),
+      initialValue: doc(
+        paragraphWithText('First paragraph'),
+        paragraphWithText('Second paragraph'),
+      ),
     });
     mountRichTextEditor({ sdk });
     const richText = new RichTextPage();

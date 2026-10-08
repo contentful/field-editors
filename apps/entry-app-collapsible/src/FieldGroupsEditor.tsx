@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+
 import { DragHandle } from '@contentful/f36-components';
 import {
   ModalContent,
@@ -10,17 +12,15 @@ import {
   FormControl,
   TextInput,
   Menu,
-  Card
+  Card,
 } from '@contentful/f36-components';
+import { CaretDownIcon, CaretUpIcon, XIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
+import styles from './styles';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
-import styles from './styles';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-
-import { CaretDownIcon, CaretUpIcon, XIcon } from '@contentful/f36-icons';
-
-import tokens from '@contentful/f36-tokens';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];
@@ -57,13 +57,13 @@ const SortableFieldItem = SortableElement<SortableFieldItemProps>(
             dispatch({
               type: ActionTypes.REMOVE_FIELD_FROM_GROUP,
               groupId,
-              fieldKey: field.id
+              fieldKey: field.id,
             })
           }
         />
       </Card>
     );
-  }
+  },
 );
 
 type SortableFieldListProps = { items: FieldType[]; groupId: string };
@@ -75,7 +75,7 @@ const SortableFieldList = SortableContainer<SortableFieldListProps>(
         <SortableFieldItem groupId={groupId} key={`item-${field.id}`} index={index} field={field} />
       ))}
     </ul>
-  )
+  ),
 );
 
 export function FieldGroupsEditor({ fieldGroups, addGroup, onClose }: FieldGroupsEditorProps) {
@@ -123,7 +123,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
   last,
   name,
   fields,
-  groupId
+  groupId,
 }: FieldGroupProps) => {
   const { state, dispatch } = React.useContext(AppContext);
 
@@ -131,7 +131,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
     dispatch({
       type: ActionTypes.RENAME_FIELD_GROUP,
       groupId,
-      name: e.currentTarget.value
+      name: e.currentTarget.value,
     });
 
   const unassignedFields = findUnassignedFields(state);
@@ -141,7 +141,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
       type: ActionTypes.MOVE_FIELD_IN_GROUP,
       groupId,
       oldIndex,
-      newIndex
+      newIndex,
     });
   };
 
@@ -170,11 +170,10 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
                       type: ActionTypes.ADD_FIELD_TO_GROUP,
                       groupId,
                       fieldKey: id,
-                      fieldName: name
+                      fieldName: name,
                     });
                   }}
-                  key={id}
-                >
+                  key={id}>
                   {name}
                 </Menu.Item>
               ))}
@@ -196,8 +195,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
           className={styles.fieldGroupConfigurationTextLink}
           variant="negative"
           icon={<XIcon />}
-          onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}
-        >
+          onClick={() => dispatch({ type: ActionTypes.DELETE_FIELD_GROUP, groupId })}>
           Remove
         </TextLink>
         {!last ? (
@@ -205,8 +203,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
             as="button"
             className={styles.fieldGroupConfigurationTextLink}
             icon={<CaretDownIcon />}
-            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}
-          >
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_DOWN, groupId })}>
             Move down
           </TextLink>
         ) : null}
@@ -215,8 +212,7 @@ const FieldGroupEditor: React.FC<FieldGroupProps> = ({
             as="button"
             className={styles.fieldGroupConfigurationTextLink}
             icon={<CaretUpIcon />}
-            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}
-          >
+            onClick={() => dispatch({ type: ActionTypes.MOVE_FIELD_GROUP_UP, groupId })}>
             Move up
           </TextLink>
         ) : null}

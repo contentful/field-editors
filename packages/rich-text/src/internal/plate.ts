@@ -13,7 +13,7 @@ export {
   usePlateEditor,
   usePlateSet,
   useEditorValue,
-  createPlatePlugin
+  createPlatePlugin,
 } from 'platejs/react';
 export type { TPlateEditor, PlateContentProps, PlateProps } from 'platejs/react';
 export { createPlateEditor, mockPlugin } from './pluginAdapter';
@@ -44,7 +44,7 @@ export const getEditorString = (editor: ContentfulEditor, at?: p.Location) => ed
 export const getNodeEntry = (
   editor: ContentfulEditor,
   at: p.Location,
-  options?: p.EditorNodeOptions
+  options?: p.EditorNodeOptions,
 ) => editor.api.node(at, options);
 export const getNodeEntries = (editor: ContentfulEditor, options?: p.EditorNodesOptions) =>
   editor.api.nodes(options);
@@ -64,7 +64,7 @@ export const isSelectionAtBlockEnd = (editor: ContentfulEditor, options?: p.Edit
 };
 export const isSelectionAtBlockStart = (
   editor: ContentfulEditor,
-  options?: p.EditorAboveOptions
+  options?: p.EditorAboveOptions,
 ) => {
   const block = editor.api.block({ ...options, above: true });
   return !!editor.selection && !!block && editor.api.isStart(editor.selection.anchor, block[1]);
@@ -78,7 +78,7 @@ export const isAncestorEmpty = (editor: ContentfulEditor, node: p.Ancestor) =>
 export const isEndPoint = (
   editor: ContentfulEditor,
   point: p.Point | null | undefined,
-  at: p.Location
+  at: p.Location,
 ) => !!point && editor.api.isEnd(point, at);
 export const isNode = p.NodeApi.isNode;
 export const isText = p.TextApi.isText;
@@ -93,7 +93,7 @@ export const getCommonNode = (root: p.Node, path: p.Path, another: p.Path) =>
   p.NodeApi.common(root, path, another)!;
 export const getChildren = ([node, path]: p.NodeEntry) =>
   Array.from(p.NodeApi.children(node, [])).map(
-    ([child, childPath]) => [child, path.concat(childPath)] as p.NodeEntry
+    ([child, childPath]) => [child, path.concat(childPath)] as p.NodeEntry,
   );
 export const isFirstChild = (path: p.Path) => path[path.length - 1] === 0;
 export const isLastChild = ([parent, path]: p.NodeEntry, childPath: p.Path) =>
@@ -116,7 +116,7 @@ export const focusEditor = (editor: ContentfulEditor, target?: p.Location) => {
 export const blurEditor = (editor: ContentfulEditor) => editor.tf.blur();
 export const selectEditor = (
   editor: ContentfulEditor,
-  { at, edge, focus }: SelectEditorOptions = {}
+  { at, edge, focus }: SelectEditorOptions = {},
 ) => {
   if (at) editor.tf.select(at);
   if (edge) editor.tf.collapse({ edge });
@@ -125,22 +125,22 @@ export const selectEditor = (
 export const toSlatePoint = (
   editor: ContentfulEditor,
   point: [Node, number],
-  options: { exactMatch: boolean; suppressThrow: boolean }
+  options: { exactMatch: boolean; suppressThrow: boolean },
 ) => editor.api.toSlatePoint(point, options);
 export const toggleNodeType = (
   editor: ContentfulEditor,
   { activeType, inactiveType = ELEMENT_DEFAULT }: ToggleNodeTypeOptions,
-  options?: p.EditorNodesOptions
+  options?: p.EditorNodesOptions,
 ) => editor.tf.toggleBlock(activeType, { defaultType: inactiveType, someOptions: options });
 export const removeMark = (editor: ContentfulEditor, { key, at }: { key: string; at?: p.Range }) =>
   editor.tf.removeMarks(key, { at });
 export const toggleMark = (
   editor: ContentfulEditor,
-  options: p.ToggleMarkOptions & { key: string; clear?: string | string[] }
+  options: p.ToggleMarkOptions & { key: string; clear?: string | string[] },
 ) => editor.tf.toggleMark(options.key, { remove: options.clear ?? options.remove });
 export const moveChildren = (
   editor: ContentfulEditor,
-  { at, to, fromStartIndex = 0, match }: MoveChildrenOptions
+  { at, to, fromStartIndex = 0, match }: MoveChildrenOptions,
 ) => {
   const children = Array.from(p.NodeApi.children(editor, at))
     .slice(fromStartIndex)

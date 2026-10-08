@@ -5,8 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { Element, PlateEditor, Path } from '../../internal/types';
 import { extractParagraphs } from '../extractNodes';
 
-const createEditor = (children: Element[]) =>
-  slateJsx('editor', {}, children) as PlateEditor;
+const createEditor = (children: Element[]) => slateJsx('editor', {}, children) as PlateEditor;
 
 type Text = {
   text: string;

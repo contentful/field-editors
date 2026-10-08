@@ -143,8 +143,7 @@ export const CheatsheetModalDialog = () => {
           className={styles.helpLink}
           href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax"
           target="_blank"
-          rel="noopener noreferrer"
-        >
+          rel="noopener noreferrer">
           View the full GitHub-flavored Markdown syntax help (opens in a new window)
         </TextLink>
       </div>

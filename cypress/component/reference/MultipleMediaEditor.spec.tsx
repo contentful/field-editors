@@ -85,7 +85,11 @@ describe('Multiple Media Editor', () => {
     it('is rendered', () => {
       const sdk = createReferenceEditorTestSdk({ validations });
       mount(
-        <MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomActions={renderCustomActions} />
+        <MultipleMediaEditor
+          {...commonProps}
+          sdk={sdk}
+          renderCustomActions={renderCustomActions}
+        />,
       );
 
       findCustomActionsDropdownTrigger().should('exist');
@@ -94,7 +98,11 @@ describe('Multiple Media Editor', () => {
     it('is able to interact through props', () => {
       const sdk = createReferenceEditorTestSdk({ validations });
       mount(
-        <MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomActions={renderCustomActions} />
+        <MultipleMediaEditor
+          {...commonProps}
+          sdk={sdk}
+          renderCustomActions={renderCustomActions}
+        />,
       );
 
       findCustomActionsDropdownTrigger().click();
@@ -105,7 +113,11 @@ describe('Multiple Media Editor', () => {
     it('hides actions when max number of allowed links is reached', () => {
       const sdk = createReferenceEditorTestSdk({ validations });
       mount(
-        <MultipleMediaEditor {...commonProps} sdk={sdk} renderCustomActions={renderCustomActions} />
+        <MultipleMediaEditor
+          {...commonProps}
+          sdk={sdk}
+          renderCustomActions={renderCustomActions}
+        />,
       );
 
       findCustomActionsDropdownTrigger().click();

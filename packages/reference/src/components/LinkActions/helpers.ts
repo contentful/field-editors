@@ -58,7 +58,7 @@ export async function selectMultipleEntities(props: {
   // "min" is 4 and the user wants to insert 2 entities first, then create 2 new ones?
   const min = Math.max(
     (props.editorPermissions.validations.numberOfLinks?.min || 1) - linkCount,
-    1
+    1,
   );
   // TODO: Consider same for max. If e.g. "max" is 4, we disable the button if the
   //  user wants to select 5 but we show no information why the button is disabled.

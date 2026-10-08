@@ -59,8 +59,7 @@ export function ListEditor(props: ListEditorProps) {
       debounce={0}
       isEmptyValue={isEmptyListValue}
       field={field}
-      isInitiallyDisabled={props.isInitiallyDisabled}
-    >
+      isInitiallyDisabled={props.isInitiallyDisabled}>
       {(childProps) => (
         <ListEditorInternal
           {...childProps}

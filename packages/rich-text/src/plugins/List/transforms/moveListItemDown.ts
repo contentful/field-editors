@@ -22,7 +22,7 @@ export interface MoveListItemDownOptions {
 
 export const moveListItemDown = (
   editor: PlateEditor,
-  { list, listItem }: MoveListItemDownOptions
+  { list, listItem }: MoveListItemDownOptions,
 ) => {
   const [listNode] = list;
   const [, listItemPath] = listItem;
@@ -42,7 +42,7 @@ export const moveListItemDown = (
     const [, previousPath] = previousSiblingItem;
 
     const subList = Array.from(getNodeChildren(editor, previousPath)).find(([n, path]) =>
-      match(n, path, { type: getListTypes(editor) })
+      match(n, path, { type: getListTypes(editor) }),
     ) as NodeEntry | undefined;
 
     const newPath = getNextPath(getLastChildPath(subList ?? previousSiblingItem));

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+
 import { FieldAppSDK, DialogAppSDK, init, locations } from '@contentful/app-sdk';
-import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import { GlobalStyles } from '@contentful/f36-components';
+import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 
 init((sdk: FieldAppSDK | DialogAppSDK) => {
   sdk.window.startAutoResizer();
@@ -12,7 +13,7 @@ init((sdk: FieldAppSDK | DialogAppSDK) => {
         <GlobalStyles />
         {renderRichTextDialog(sdk as DialogAppSDK)}
       </>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   } else {
     render(
@@ -20,7 +21,7 @@ init((sdk: FieldAppSDK | DialogAppSDK) => {
         <GlobalStyles />
         <RichTextEditor sdk={sdk as FieldAppSDK} isInitiallyDisabled />
       </>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   }
 });

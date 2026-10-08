@@ -73,8 +73,7 @@ export function FetchingWrappedResourceInlineCard(props: FetchingWrappedResource
         <MenuItem key="remove" onClick={props.onRemove} disabled={props.isDisabled} testId="delete">
           Remove
         </MenuItem>,
-      ]}
-    >
+      ]}>
       <Text>{title}</Text>
     </InlineEntryCard>
   );

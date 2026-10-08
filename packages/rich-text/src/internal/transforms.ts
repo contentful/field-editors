@@ -186,7 +186,10 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
         }
         return endPoint;
       };
-      select(editor, { anchor: clampPoint(savedSelection.anchor), focus: clampPoint(savedSelection.focus) });
+      select(editor, {
+        anchor: clampPoint(savedSelection.anchor),
+        focus: clampPoint(savedSelection.focus),
+      });
     } else if (endPoint) {
       select(editor, endPoint);
     }

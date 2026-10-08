@@ -7,7 +7,7 @@ export type PubsubEmitter = {
 export type OnEntityChanged = (
   entityType: string,
   entityId: string,
-  handler: (data: unknown) => void
+  handler: (data: unknown) => void,
 ) => void;
 
 export function createFakePubsub(): [PubsubEmitter, OnEntityChanged] {
