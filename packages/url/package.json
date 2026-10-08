@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-url",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "@contentful/f36-components": "^6.7.1",
-    "@contentful/field-editor-shared": "^4.6.0"
+    "@contentful/field-editor-shared": "^4.6.1"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^3.2.0"
+    "@contentful/field-editor-test-utils": "^3.2.1"
   },
   "peerDependencies": {
     "react": ">=18.3.1",
