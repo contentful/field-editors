@@ -229,7 +229,7 @@ export function getNextNode(editor: PlateEditor): Element | null {
     return null;
   }
   const descendants = getNodeDescendants(editor, { from: editor.selection.focus.path });
-  // eslint-disable-next-line no-constant-condition -- TODO: explain this disable
+
   while (true) {
     const { done, value } = descendants.next();
     if (done) {

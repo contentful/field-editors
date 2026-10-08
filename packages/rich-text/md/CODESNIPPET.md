@@ -8,7 +8,7 @@ init((sdk) => {
   } else if (sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
     render(
       <RichTextEditor sdk={sdk} isInitiallyDisabled={true} />,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   }
 });

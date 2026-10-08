@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+
 import { DragHandle } from '@contentful/f36-components';
 import {
   ModalContent,
@@ -12,15 +14,13 @@ import {
   Menu,
   Card,
 } from '@contentful/f36-components';
+import { CaretDownIcon, CaretUpIcon, XIcon } from '@contentful/f36-icons';
+import tokens from '@contentful/f36-tokens';
+
 import { findUnassignedFields, AppContext, SDKContext } from './shared';
+import styles from './styles';
 import { FieldType, FieldGroupType } from './types';
 import { ActionTypes } from './types';
-import styles from './styles';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
-
-import { CaretDownIcon, CaretUpIcon, XIcon } from '@contentful/f36-icons';
-
-import tokens from '@contentful/f36-tokens';
 
 interface FieldGroupsEditorProps {
   fieldGroups: FieldGroupType[];

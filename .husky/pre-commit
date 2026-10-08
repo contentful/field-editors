@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn lerna run --stream lint-staged
+yarn lerna run --stream --concurrency 1 lint-staged
 yarn lint-staged

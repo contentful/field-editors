@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 import max from 'lodash/max';
 import min from 'lodash/min';
 import range from 'lodash/range';

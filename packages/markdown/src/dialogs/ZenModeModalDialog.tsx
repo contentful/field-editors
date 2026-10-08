@@ -103,7 +103,6 @@ export const ZenModeModalDialog = (props: ZenModeDialogProps) => {
   const [editor, setEditor] = React.useState<InitializedEditorType | null>(null);
 
   React.useEffect(() => {
-    // eslint-disable-next-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
     props.sdk?.window?.updateHeight('100%' as any);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: Evaluate the dependencies
   }, []);

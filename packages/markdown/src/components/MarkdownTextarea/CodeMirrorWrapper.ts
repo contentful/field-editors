@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-explicit-any */
-
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/edit/matchbrackets';
 import throttle from 'lodash/throttle';

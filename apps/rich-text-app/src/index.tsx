@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+
 import { FieldAppSDK, DialogAppSDK, init, locations } from '@contentful/app-sdk';
-import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 import { GlobalStyles } from '@contentful/f36-components';
+import { RichTextEditor, renderRichTextDialog } from '@contentful/field-editor-rich-text';
 
 init((sdk: FieldAppSDK | DialogAppSDK) => {
   sdk.window.startAutoResizer();

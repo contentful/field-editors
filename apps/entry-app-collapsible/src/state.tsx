@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import produce from 'immer';
+
 import { Action, ActionTypes, FieldType, FieldGroupType, AppState } from './types';
 
 const createId = (): string => {

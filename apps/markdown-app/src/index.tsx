@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+
 import { init, locations } from '@contentful/app-sdk';
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import '@contentful/field-editor-markdown/src/codemirrorImports';
-import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import { GlobalStyles } from '@contentful/f36-components';
+import { MarkdownEditor, renderMarkdownDialog } from '@contentful/field-editor-markdown';
 import 'codemirror/lib/codemirror.css';
 
 interface AppProps {

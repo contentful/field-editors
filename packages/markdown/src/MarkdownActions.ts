@@ -151,7 +151,7 @@ export function createMarkdownActions(props: {
       try {
         const { entity: asset } = (await sdk.navigator.openNewAsset({
           slideIn: { waitForClose: true },
-        })) as any; // eslint-disable-line -- TODO: describe this disable  @typescript-eslint/no-explicit-any
+        })) as any;
 
         const markdownLinks = await insertAssetsWithConfirmation([asset]);
         editor.insert(markdownLinks);
