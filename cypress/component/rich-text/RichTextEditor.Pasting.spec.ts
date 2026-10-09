@@ -7,6 +7,7 @@ import {
   inline,
   mark,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { createRichTextFakeSdk } from '../../fixtures';
 import googleDocs from './document-mocks/googleDocs';
 import msWordOnline from './document-mocks/msWordOnline';
 import paragraphWithoutFormattings from './document-mocks/paragraphWithoutFormattings';
@@ -593,6 +594,52 @@ describe(
     });
 
     describe('Tables', () => {
+      const paragraph = (value: string) => block(BLOCKS.PARAGRAPH, {}, text(value));
+      const table = (rows: string[][]) =>
+        block(
+          BLOCKS.TABLE,
+          {},
+          ...rows.map((cells) =>
+            block(
+              BLOCKS.TABLE_ROW,
+              {},
+              ...cells.map((value) => block(BLOCKS.TABLE_CELL, {}, paragraph(value))),
+            ),
+          ),
+        );
+
+      for (const { name, cells } of [
+        {
+          name: 'rows',
+          cells: [
+            ['A1', 'B1'],
+            ['A2', 'B2'],
+          ],
+        },
+        { name: 'columns', cells: [['A1', 'B1', 'C1']] },
+      ]) {
+        it(`expands table ${name} when pasting a paragraph and a table into a cell`, () => {
+          const initialValue = doc(
+            table([['Old A', 'Old B']]),
+            paragraph('Keep following paragraph'),
+          );
+          const expected = doc(table(cells), paragraph('Keep following paragraph'));
+          mountRichTextEditor({ sdk: createRichTextFakeSdk({ initialValue }) });
+          const html = `<p>Before table</p><table>${cells.map((row) => `<tr>${row.map((value) => `<td>${value}</td>`).join('')}</tr>`).join('')}</table>`;
+
+          richText.editor.find('[data-slate-string]').contains('Old A').click();
+          richText.editor.paste({ 'text/html': html });
+          richText.expectValue(expected);
+
+          richText.toolbar.undo.click();
+          richText.expectValue(initialValue);
+          richText.toolbar.redo.click();
+          richText.expectValue(expected);
+          richText.editor.type('{moveToEnd}!');
+          richText.expectValue(doc(table(cells), paragraph('Keep following paragraph!')));
+        });
+      }
+
       it('Google Docs', () => {
         richText.editor.click().paste({
           'text/html':
