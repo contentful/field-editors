@@ -149,6 +149,11 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
     priority: 10000,
     extendEditor: ({ editor }) => {
       (editor as PlateEditor).contentfulPlugins = descriptors;
+      // Plate resolves a throwaway plugin (lodash deep-merge) for every lookup
+      // of an unregistered key, e.g. the list normalizer's `taskList` on every
+      // element. Its type is always the key itself, so skip the resolution.
+      const { getType } = editor;
+      editor.getType = (key) => (editor.plugins[key] ? getType(key) : key);
       return editor;
     },
   });

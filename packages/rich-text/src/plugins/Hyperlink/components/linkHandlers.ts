@@ -2,15 +2,13 @@ import { FieldAppSDK } from '@contentful/app-sdk';
 import { Notification } from '@contentful/f36-components';
 
 import { unwrapLink } from '../../../helpers/editor';
-import { Path, PlateEditor } from '../../../internal/types';
+import { findNodePath } from '../../../internal/queries';
+import { Element, PlateEditor } from '../../../internal/types';
 import { addOrEditLink } from '../HyperlinkModal';
 
-export const handleEditLink = (
-  editor: PlateEditor,
-  sdk: FieldAppSDK,
-  pathToElement: Path | undefined,
-) => {
-  if (!editor || !pathToElement) return;
+export const handleEditLink = (editor: PlateEditor, sdk: FieldAppSDK, element: Element) => {
+  const pathToElement = editor && findNodePath(editor, element);
+  if (!pathToElement) return;
   addOrEditLink(editor, sdk, editor.tracking.onViewportAction, pathToElement);
 };
 

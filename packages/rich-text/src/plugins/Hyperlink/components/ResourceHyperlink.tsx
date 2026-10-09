@@ -29,9 +29,7 @@ export type ResourceHyperlinkProps = {
 };
 
 export function ResourceHyperlink(props: ResourceHyperlinkProps) {
-  const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
-    props.element,
-  );
+  const { editor, sdk, isLinkFocused, isEditorFocused } = useHyperlinkCommon(props.element);
   const { onEntityFetchComplete } = useLinkTracking();
   const { target } = props.element.data;
 
@@ -50,7 +48,7 @@ export function ResourceHyperlink(props: ResourceHyperlinkProps) {
   return (
     <LinkPopover
       isLinkFocused={isLinkFocused}
-      handleEditLink={() => handleEditLink(editor, sdk, pathToElement)}
+      handleEditLink={() => handleEditLink(editor, sdk, props.element)}
       handleRemoveLink={() => handleRemoveLink(editor)}
       popoverText={popoverText}
       isEditorFocused={isEditorFocused}>
