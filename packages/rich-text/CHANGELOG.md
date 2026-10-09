@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.4...@contentful/field-editor-rich-text@6.6.5) (2026-10-09)
+
+### Bug Fixes
+
+- **rich-text:** restore table expansion when pasting into a table ([#2259](https://github.com/contentful/field-editors/issues/2259)) ([17289b4](https://github.com/contentful/field-editors/commit/17289b4dcf2b0b96d07999c2fb97533e33c4e743))
+
 ## [6.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.3...@contentful/field-editor-rich-text@6.6.4) (2026-10-09)
 
 ### Bug Fixes
