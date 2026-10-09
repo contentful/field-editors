@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.3...@contentful/field-editor-rich-text@6.6.4) (2026-10-09)
+
+### Bug Fixes
+
+- **rich-text:** prevent runaway normalization on Windows paste ([#2258](https://github.com/contentful/field-editors/issues/2258)) ([22f519c](https://github.com/contentful/field-editors/commit/22f519ce5f4ad66702d7e05f816254697cf7295b))
+
 ## [6.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.2...@contentful/field-editor-rich-text@6.6.3) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text
