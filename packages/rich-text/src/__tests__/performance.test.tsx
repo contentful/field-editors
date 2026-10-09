@@ -10,7 +10,7 @@ import { act, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { newReferenceEditorFakeSdk } from '../__fixtures__/FakeSdk';
-import { entries } from '../__fixtures__/fixtures';
+import { entries, resources } from '../__fixtures__/fixtures';
 import { toSlateDoc } from '../helpers/toSlateDoc';
 import { PlateEditor } from '../internal/types';
 import { createTestEditor } from '../test-utils';
@@ -40,17 +40,33 @@ vi.mock('../plugins/Hyperlink/components/useHyperlinkCommon', async (importOrigi
   };
 });
 
-const embedRenders: unknown[] = [];
-vi.mock('../plugins/EmbeddedEntityBlock/LinkedEntityBlock', async (importOriginal) => {
-  const mod =
-    await importOriginal<typeof import('../plugins/EmbeddedEntityBlock/LinkedEntityBlock')>();
-  return {
-    LinkedEntityBlock: (props) => {
-      embedRenders.push(props.element);
-      return mod.LinkedEntityBlock(props);
-    },
+// Renders per embed node type. vi.mock is hoisted, so it can't run in a loop
+// and the shared helper must be hoisted with it.
+const { embedRenders, countRenders } = vi.hoisted(() => {
+  const embedRenders: Record<string, number> = {};
+  const countRenders = async (importOriginal: () => Promise<unknown>, name: string) => {
+    const Component = ((await importOriginal()) as Record<string, (props) => unknown>)[name];
+    return {
+      [name]: (props) => {
+        embedRenders[props.element.type] = (embedRenders[props.element.type] ?? 0) + 1;
+        return Component(props);
+      },
+    };
   };
+  return { embedRenders, countRenders };
 });
+vi.mock('../plugins/EmbeddedEntityBlock/LinkedEntityBlock', (io) =>
+  countRenders(io, 'LinkedEntityBlock'),
+);
+vi.mock('../plugins/EmbeddedEntityInline/LinkedEntityInline', (io) =>
+  countRenders(io, 'LinkedEntityInline'),
+);
+vi.mock('../plugins/EmbeddedResourceBlock/LinkedResourceBlock', (io) =>
+  countRenders(io, 'LinkedResourceBlock'),
+);
+vi.mock('../plugins/EmbeddedResourceInline/LinkedResourceInline', (io) =>
+  countRenders(io, 'LinkedResourceInline'),
+);
 
 // Imported after the mocks are registered
 const { ConnectedRichTextEditor } = await import('../RichTextEditor');
@@ -61,19 +77,33 @@ const KEYSTROKES = PERF ? 100 : 10;
 
 const text = (value: string) => ({ nodeType: 'text', value, marks: [], data: {} });
 
-// Paragraphs with a hyperlink each, plus an embedded entry every 10 blocks
+const entryLink = { sys: { id: entries.published.sys.id, type: 'Link', linkType: 'Entry' } };
+const resourceLink = {
+  sys: { urn: resources.published.sys.urn, type: 'ResourceLink', linkType: 'Contentful:Entry' },
+};
+const embed = (nodeType: string, target: unknown) => ({
+  nodeType,
+  data: { target },
+  content: [],
+});
+
+const EMBED_TYPES = [
+  BLOCKS.EMBEDDED_ENTRY,
+  BLOCKS.EMBEDDED_RESOURCE,
+  INLINES.EMBEDDED_ENTRY,
+  INLINES.EMBEDDED_RESOURCE,
+];
+
+// Paragraphs with a hyperlink each. Every 10th block is an embedded entry or
+// resource block; every other paragraph also has an inline entry or resource.
 const makeDoc = (n: number) => ({
   nodeType: BLOCKS.DOCUMENT,
   data: {},
   content: Array.from({ length: n }, (_, i) =>
     i % 10 === 5
-      ? {
-          nodeType: BLOCKS.EMBEDDED_ENTRY,
-          data: {
-            target: { sys: { id: entries.published.sys.id, type: 'Link', linkType: 'Entry' } },
-          },
-          content: [],
-        }
+      ? i % 20 === 5
+        ? embed(BLOCKS.EMBEDDED_ENTRY, entryLink)
+        : embed(BLOCKS.EMBEDDED_RESOURCE, resourceLink)
       : {
           nodeType: BLOCKS.PARAGRAPH,
           data: {},
@@ -85,6 +115,14 @@ const makeDoc = (n: number) => ({
               content: [text('a link')],
             },
             text(' trailing text.'),
+            ...(i % 2 === 1
+              ? [
+                  i % 4 === 1
+                    ? embed(INLINES.EMBEDDED_ENTRY, entryLink)
+                    : embed(INLINES.EMBEDDED_RESOURCE, resourceLink),
+                  text(''),
+                ]
+              : []),
           ],
         },
   ),
@@ -116,13 +154,18 @@ describe('rich text performance', () => {
       await new Promise((resolve) => setTimeout(resolve, 50));
     });
 
+    // Guards against a broken fixture making the zero-render assertion vacuous
+    for (const type of EMBED_TYPES) {
+      expect(embedRenders[type], `${type} rendered at mount`).toBeGreaterThan(0);
+    }
+
     const editor = editors.at(-1)!;
     editor.tf.select({ path: [0, 0], offset: 3 });
     await act(async () => {});
 
     commits = 0;
     hyperlinkRenders.length = 0;
-    embedRenders.length = 0;
+    for (const type of EMBED_TYPES) embedRenders[type] = 0;
     const start = performance.now();
     for (let i = 0; i < KEYSTROKES; i++) {
       await act(async () => {
@@ -134,13 +177,15 @@ describe('rich text performance', () => {
     expect(container.textContent).toContain(`Par${'x'.repeat(KEYSTROKES)}agraph 0`);
     report(
       `${BLOCK_COUNT} blocks: ${(elapsed / KEYSTROKES).toFixed(2)}ms/keystroke, ` +
-        `${commits / KEYSTROKES} commits/keystroke, ${hyperlinkRenders.length} link renders, ${embedRenders.length} embed renders`,
+        `${commits / KEYSTROKES} commits/keystroke, ${hyperlinkRenders.length} link renders, embed renders ${JSON.stringify(embedRenders)}`,
     );
-    // Before subscribing links/embeds to the full editor state was fixed,
-    // every keystroke caused one commit per link and embed (~65 here).
-    expect(commits / KEYSTROKES).toBeLessThan(25);
     expect(hyperlinkRenders).toHaveLength(0);
-    expect(embedRenders).toHaveLength(0);
+    for (const type of EMBED_TYPES) {
+      expect(embedRenders[type], `${type} re-renders while typing`).toBe(0);
+    }
+    // Before links/embeds stopped subscribing to the full editor state, every
+    // keystroke caused one commit per link and embed.
+    expect(commits / KEYSTROKES).toBeLessThan(25);
   }, 120000);
 
   it('normalizing does not resolve unregistered plugins', () => {
