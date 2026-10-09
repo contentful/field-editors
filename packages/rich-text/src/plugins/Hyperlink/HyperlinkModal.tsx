@@ -16,6 +16,7 @@ import { EntityProvider, Link } from '@contentful/field-editor-reference';
 import { FieldAppSDK, ModalDialogLauncher } from '@contentful/field-editor-shared';
 import { INLINES, ResourceLink } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
+import equal from 'fast-deep-equal';
 
 import { focus, getNodeEntryFromSelection, insertLink, LINK_TYPES } from '../../helpers/editor';
 import getAllowedResourcesForNodeType from '../../helpers/getAllowedResourcesForNodeType';
@@ -356,6 +357,14 @@ export async function addOrEditLink(
 
   const selectionAfterFocus =
     targetPath ?? (selectionBeforeBlur as NonNullable<typeof selectionBeforeBlur>);
+  // External updates (setEditorValue) can replace the document while the dialog
+  // is open. Only restore the saved location if the blocks it covers are unchanged.
+  const blockIndexes = targetPath
+    ? [targetPath[0]]
+    : [selectionBeforeBlur!.anchor.path[0], selectionBeforeBlur!.focus.path[0]];
+  const targetBlocks = () =>
+    editor.children.slice(Math.min(...blockIndexes), Math.max(...blockIndexes) + 1);
+  const blocksBeforeDialog = targetBlocks();
 
   const currentLinkText = linkText || (editor.selection ? getText(editor, editor.selection) : '');
   const isEditing = Boolean(node && path);
@@ -384,9 +393,10 @@ export async function addOrEditLink(
       );
     },
   );
-  select(editor, selectionAfterFocus);
+  const isTargetUnchanged = equal(targetBlocks(), blocksBeforeDialog);
+  if (isTargetUnchanged) select(editor, selectionAfterFocus);
 
-  if (!data) {
+  if (!data || !isTargetUnchanged) {
     focus(editor);
     logAction(isEditing ? 'cancelEditHyperlinkDialog' : 'cancelCreateHyperlinkDialog');
     return;
