@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSelected, useReadOnly } from 'platejs/react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../../ContentfulEditorProvider';
 import { Element, findNodePath, removeNodes, RenderElementProps } from '../../internal';
 import { useSdkContext } from '../../SdkProvider';
 import { useLinkTracking } from '../links-tracking';
@@ -29,7 +29,7 @@ export function LinkedResourceBlock(props: LinkedResourceBlockProps) {
   const { attributes, children, element } = props;
   const { onEntityFetchComplete } = useLinkTracking();
   const isSelected = useSelected();
-  const editor = useContentfulEditor();
+  const editor = useContentfulEditorRef();
   const sdk = useSdkContext();
   const isDisabled = useReadOnly();
   const link = element.data.target.sys;

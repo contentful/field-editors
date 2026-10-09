@@ -28,9 +28,7 @@ type UrlHyperlinkProps = {
 };
 
 export function UrlHyperlink(props: UrlHyperlinkProps) {
-  const { editor, sdk, isLinkFocused, pathToElement, isEditorFocused } = useHyperlinkCommon(
-    props.element,
-  );
+  const { editor, sdk, isLinkFocused, isEditorFocused } = useHyperlinkCommon(props.element);
   const uri = props.element.data?.uri;
 
   const popoverText = (
@@ -42,7 +40,7 @@ export function UrlHyperlink(props: UrlHyperlinkProps) {
   return (
     <LinkPopover
       isLinkFocused={isLinkFocused}
-      handleEditLink={() => handleEditLink(editor, sdk, pathToElement)}
+      handleEditLink={() => handleEditLink(editor, sdk, props.element)}
       handleRemoveLink={() => handleRemoveLink(editor)}
       handleCopyLink={() => handleCopyLink(uri)}
       popoverText={popoverText}
