@@ -46,6 +46,16 @@ describe(
     });
 
     describe('text', () => {
+      it('pastes Windows plain text without duplication and remains editable', () => {
+        richText.editor.click().paste({ 'text/plain': 'First\r\nSecond' });
+
+        richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('First\nSecond'))));
+
+        richText.editor.type('!');
+
+        richText.expectValue(doc(block(BLOCKS.PARAGRAPH, {}, text('First\nSecond!'))));
+      });
+
       it('supports pasting of links within text', () => {
         richText.editor.click().paste({
           'text/html':
