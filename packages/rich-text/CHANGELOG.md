@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.5...@contentful/field-editor-rich-text@6.6.6) (2026-10-11)
+
+### Bug Fixes
+
+- **rich-text:** keep hyperlink dialog targets across external updates ([#2260](https://github.com/contentful/field-editors/issues/2260)) ([adac18d](https://github.com/contentful/field-editors/commit/adac18d9a7a4e0204aa737896f6b8916ecca0361))
+
 ## [6.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.4...@contentful/field-editor-rich-text@6.6.5) (2026-10-09)
 
 ### Bug Fixes
