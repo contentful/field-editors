@@ -4,10 +4,12 @@ import { Menu } from '@contentful/f36-components';
 import tokens from '@contentful/f36-tokens';
 import { MARKS } from '@contentful/rich-text-types';
 import { css, cx } from '@emotion/css';
+import { useEditorSelector } from 'platejs/react';
 
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../../../ContentfulEditorProvider';
 import { focus } from '../../../helpers/editor';
 import { isMarkActive } from '../../../internal/queries';
+import { PlateEditor } from '../../../internal/types';
 import { ToolbarButton } from '../../shared/ToolbarButton';
 import { toggleMarkAndDeactivateConflictingMarks } from '../helpers';
 
@@ -26,7 +28,8 @@ const styles = {
 
 export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
   const Mark = ({ isDisabled }: { isDisabled?: boolean }) => {
-    const editor = useContentfulEditor();
+    const editor = useContentfulEditorRef();
+    const isActive = useEditorSelector((editor: PlateEditor) => isMarkActive(editor, mark), []);
 
     const handleClick = React.useCallback(() => {
       if (!editor?.selection) return;
@@ -46,7 +49,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
           onClick={handleClick}
           disabled={isDisabled}
           className={cx({
-            [styles.isActive]: isMarkActive(editor, mark),
+            [styles.isActive]: isActive,
           })}
           testId={`${mark}-toolbar-button`}>
           {title}
@@ -59,7 +62,7 @@ export const createMarkToolbarButton = ({ mark, title, icon }: MarkOptions) => {
         title={title}
         testId={`${mark}-toolbar-button`}
         onClick={handleClick}
-        isActive={isMarkActive(editor, mark)}
+        isActive={isActive}
         isDisabled={isDisabled}>
         {icon}
       </ToolbarButton>

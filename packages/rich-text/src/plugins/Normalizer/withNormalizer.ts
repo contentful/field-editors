@@ -81,7 +81,7 @@ export const withNormalizer = (editor: PlateEditor) => {
   editor.normalizeNode = (rawEntry) => {
     const entry = rawEntry as NodeEntry;
     const [node, path] = entry;
-    const children = getChildren(entry);
+    let children: NodeEntry[] | undefined;
 
     // The order of validNode rules Vs validChildren doesn't matter. Slate
     // will always perform normalization in a depth-first fashion.
@@ -101,6 +101,7 @@ export const withNormalizer = (editor: PlateEditor) => {
         // It can not be an array since we enforced it earlier
         const isValidChild = rule.validChildren as NodeValidator;
 
+        children ??= getChildren(entry);
         const invalidChildEntry = children.find((entry) => !isValidChild(editor, entry));
 
         if (invalidChildEntry) {

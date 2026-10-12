@@ -1,12 +1,18 @@
 import React from 'react';
 
 import { ArrowUUpRightIcon } from '@contentful/f36-icons';
+import { useEditorSelector } from 'platejs/react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../../ContentfulEditorProvider';
+import { PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
 
 export const ButtonRedo = () => {
-  const editor = useContentfulEditor();
+  const editor = useContentfulEditorRef();
+  const isDisabled = useEditorSelector(
+    (editor: PlateEditor) => editor.history.redos.length === 0,
+    [],
+  );
 
   const onClickHandler = () => {
     editor.redo('toolbar');
@@ -18,7 +24,7 @@ export const ButtonRedo = () => {
       testId="redo-toolbar-button"
       onClick={onClickHandler}
       isActive={false}
-      isDisabled={editor.history.redos.length === 0}>
+      isDisabled={isDisabled}>
       <ArrowUUpRightIcon aria-label="Redo" />
     </ToolbarButton>
   );
