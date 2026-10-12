@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.6...@contentful/field-editor-rich-text@6.6.7) (2026-10-12)
+
+### Performance Improvements
+
+- **rich-text:** stop re-rendering links and embeds on every keystroke ([#2261](https://github.com/contentful/field-editors/issues/2261)) ([142b81c](https://github.com/contentful/field-editors/commit/142b81caca27cf0fce7e6e51a5cb5ec33112ba3c))
+
 ## [6.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.5...@contentful/field-editor-rich-text@6.6.6) (2026-10-11)
 
 ### Bug Fixes
