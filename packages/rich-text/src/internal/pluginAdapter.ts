@@ -149,6 +149,9 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
     priority: 10000,
     extendEditor: ({ editor }) => {
       (editor as PlateEditor).contentfulPlugins = descriptors;
+      // Skip Plate's slow lookup of unregistered keys like `taskList`
+      const { getType } = editor;
+      editor.getType = (key) => (editor.plugins[key] ? getType(key) : key);
       return editor;
     },
   });

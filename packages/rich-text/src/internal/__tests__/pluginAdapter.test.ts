@@ -1,6 +1,6 @@
 import type { FieldAppSDK } from '@contentful/app-sdk';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { getPluginByType, KEYS } from 'platejs';
+import { getPluginByType, getPluginType, KEYS } from 'platejs';
 import { expect, it, vi } from 'vitest';
 
 import { getPlugins } from '../../plugins';
@@ -53,6 +53,15 @@ it('preserves nodes and marks from HTML copied by the previous editor', () => {
 it('does not register task lists unsupported by the Contentful schema', () => {
   const { editor } = createTestEditor({});
   expect(editor.plugins[KEYS.taskList]).toBeUndefined();
+});
+
+// Guards the getType shortcut in createPlateEditor
+it('resolves plugin types the same way as Plate', () => {
+  const { editor } = createTestEditor({});
+  const keys = [KEYS.taskList, 'unregistered-key', KEYS.ulClassic, KEYS.p];
+  expect(keys.map((key) => editor.getType(key))).toEqual(
+    keys.map((key) => getPluginType(editor, key)),
+  );
 });
 
 it('uses Contentful keyboard handlers without registering native shortcuts', () => {
