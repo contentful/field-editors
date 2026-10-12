@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
 
 import { FieldAppSDK } from '@contentful/app-sdk';
+import { useEditorSelector } from 'platejs/react';
 
-import { useContentfulEditor } from '../../../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../../../ContentfulEditorProvider';
 import { findNodePath, isChildPath } from '../../../internal/queries';
+import { PlateEditor } from '../../../internal/types';
 import { useSdkContext } from '../../../SdkProvider';
 
 export function useHyperlinkCommon(element) {
-  const editor = useContentfulEditor();
+  const editor = useContentfulEditorRef();
   const sdk: FieldAppSDK = useSdkContext();
-  const focus = editor.selection?.focus;
-  const pathToElement = findNodePath(editor, element);
-  const isLinkFocused = pathToElement && focus && isChildPath(focus.path, pathToElement);
+  // Re-render only when focus changes, not on every edit
+  const isLinkFocused = useEditorSelector(
+    (editor: PlateEditor) => {
+      const focus = editor.selection?.focus;
+      const pathToElement = focus && findNodePath(editor, element);
+      return !!pathToElement && isChildPath(focus.path, pathToElement);
+    },
+    [element],
+  );
   const [isEditorFocused, setIsEditorFocused] = useState(false);
 
   useEffect(() => {
@@ -36,5 +44,5 @@ export function useHyperlinkCommon(element) {
     };
   }, [editor]);
 
-  return { editor, sdk, isLinkFocused, pathToElement, isEditorFocused };
+  return { editor, sdk, isLinkFocused, isEditorFocused };
 }

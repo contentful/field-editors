@@ -3,7 +3,7 @@ import * as React from 'react';
 import { EntryLink } from '@contentful/field-editor-reference';
 import { useReadOnly, useSelected } from 'platejs/react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../../ContentfulEditorProvider';
 import { focus } from '../../helpers/editor';
 import { findNodePath } from '../../internal/queries';
 import { removeNodes } from '../../internal/transforms';
@@ -27,7 +27,7 @@ export function LinkedEntityInline(props: LinkedEntityInlineProps) {
   const { attributes, children, element } = props;
   const { onEntityFetchComplete } = useLinkTracking();
   const isSelected = useSelected();
-  const editor = useContentfulEditor();
+  const editor = useContentfulEditorRef();
   const sdk = useSdkContext();
   const isDisabled = useReadOnly();
   const { id: entryId } = element.data.target.sys;
