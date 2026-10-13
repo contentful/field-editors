@@ -12,7 +12,7 @@
     "@contentful/field-editor-shared": "^4.5.1",
     "@contentful/field-editor-single-line": "^2.2.1",
     "@emotion/css": "^11.13.5",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-sortable-hoc": "^2.0.0"
