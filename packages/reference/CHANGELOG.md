@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.2...@contentful/field-editor-reference@8.5.3) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency constate to ^3.3.3 ([#2240](https://github.com/contentful/field-editors/issues/2240)) ([2e307f2](https://github.com/contentful/field-editors/commit/2e307f2dfe3600e1178540705ee6b891eb66d9b7))
+
 ## [8.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.1...@contentful/field-editor-reference@8.5.2) (2026-10-13)
 
 ### Bug Fixes
