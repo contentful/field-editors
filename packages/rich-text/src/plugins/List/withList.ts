@@ -20,10 +20,10 @@ export const withList: WithOverride = (editor) => {
     deleteForward(unit);
   };
 
-  editor.deleteFragment = () => {
+  editor.deleteFragment = (options) => {
     if (deleteFragmentList(editor)) return;
 
-    deleteFragment();
+    deleteFragment(options);
   };
 
   editor.insertBreak = insertListBreak(editor);

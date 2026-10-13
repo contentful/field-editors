@@ -1,12 +1,18 @@
 import React from 'react';
 
 import { ArrowUUpLeftIcon } from '@contentful/f36-icons';
+import { useEditorSelector } from 'platejs/react';
 
-import { useContentfulEditor } from '../../ContentfulEditorProvider';
+import { useContentfulEditorRef } from '../../ContentfulEditorProvider';
+import { PlateEditor } from '../../internal/types';
 import { ToolbarButton } from '../../plugins/shared/ToolbarButton';
 
 export const ButtonUndo = () => {
-  const editor = useContentfulEditor();
+  const editor = useContentfulEditorRef();
+  const isDisabled = useEditorSelector(
+    (editor: PlateEditor) => editor.history.undos.length === 0,
+    [],
+  );
 
   const onClickHandler = () => {
     editor.undo('toolbar');
@@ -18,7 +24,7 @@ export const ButtonUndo = () => {
       testId="undo-toolbar-button"
       onClick={onClickHandler}
       isActive={false}
-      isDisabled={editor.history.undos.length === 0}>
+      isDisabled={isDisabled}>
       <ArrowUUpLeftIcon aria-label="Undo" />
     </ToolbarButton>
   );

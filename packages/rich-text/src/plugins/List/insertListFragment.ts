@@ -84,7 +84,7 @@ const unwrapTextContainerAtStart = (nodes: Node[]): Node[] => {
 export const insertListFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
 
-  return (fragment: Node[]) => {
+  return (fragment: Node[], options?: Parameters<PlateEditor['insertFragment']>[1]) => {
     if (!editor.selection) {
       return;
     }
@@ -124,6 +124,6 @@ export const insertListFragment = (editor: PlateEditor) => {
 
     const filtered = isListRoot(fragment[0]) ? [{ text: '' }, ...fragment] : fragment;
 
-    return insertFragment(filtered);
+    return insertFragment(filtered, options);
   };
 };

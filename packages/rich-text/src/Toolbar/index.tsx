@@ -6,11 +6,12 @@ import { DotsThreeIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
+import { useEditorSelector } from 'platejs/react';
 
-import { useContentfulEditor } from '../ContentfulEditorProvider';
 import { isNodeTypeSelected } from '../helpers/editor';
 import { isMarkEnabled, isNodeTypeEnabled } from '../helpers/validations';
 import { isMarkActive } from '../internal/queries';
+import { PlateEditor } from '../internal/types';
 import { ToolbarHeadingButton } from '../plugins/Heading';
 import { ToolbarHrButton } from '../plugins/Hr';
 import { ToolbarHyperlinkButton } from '../plugins/Hyperlink';
@@ -79,8 +80,10 @@ const styles = {
 const dropdownMarks = [MARKS.SUPERSCRIPT, MARKS.SUBSCRIPT, MARKS.CODE, MARKS.STRIKETHROUGH];
 
 const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean }) => {
-  const editor = useContentfulEditor();
-  const isActive = editor && dropdownMarks.some((mark) => isMarkActive(editor, mark));
+  const isActive = useEditorSelector(
+    (editor: PlateEditor) => dropdownMarks.some((mark) => isMarkActive(editor, mark)),
+    [],
+  );
 
   return (
     <Menu>
@@ -117,12 +120,20 @@ const Dropdown = ({ sdk, isDisabled }: { sdk: FieldAppSDK; isDisabled?: boolean 
 
 const Toolbar = ({ isDisabled }: ToolbarProps) => {
   const sdk = useSdkContext();
-  const editor = useContentfulEditor();
-  const canInsertBlocks = !isNodeTypeSelected(editor, BLOCKS.TABLE);
+  const canInsertBlocks = useEditorSelector(
+    (editor: PlateEditor) => !isNodeTypeSelected(editor, BLOCKS.TABLE),
+    [],
+  );
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
-  const isListSelected =
-    isNodeTypeSelected(editor, BLOCKS.UL_LIST) || isNodeTypeSelected(editor, BLOCKS.OL_LIST);
-  const isBlockquoteSelected = isNodeTypeSelected(editor, BLOCKS.QUOTE);
+  const isListSelected = useEditorSelector(
+    (editor: PlateEditor) =>
+      isNodeTypeSelected(editor, BLOCKS.UL_LIST) || isNodeTypeSelected(editor, BLOCKS.OL_LIST),
+    [],
+  );
+  const isBlockquoteSelected = useEditorSelector(
+    (editor: PlateEditor) => isNodeTypeSelected(editor, BLOCKS.QUOTE),
+    [],
+  );
   const shouldDisableTables =
     isDisabled || !canInsertBlocks || isListSelected || isBlockquoteSelected;
 

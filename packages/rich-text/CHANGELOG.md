@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.7...@contentful/field-editor-rich-text@6.6.8) (2026-10-13)
+
+### Performance Improvements
+
+- **rich-text:** narrow toolbar subscriptions and skip idle editor work ([#2262](https://github.com/contentful/field-editors/issues/2262)) ([171d95b](https://github.com/contentful/field-editors/commit/171d95b98972a15419d3f0af3e309839f9f7ce3d))
+
+## [6.6.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.6...@contentful/field-editor-rich-text@6.6.7) (2026-10-12)
+
+### Performance Improvements
+
+- **rich-text:** stop re-rendering links and embeds on every keystroke ([#2261](https://github.com/contentful/field-editors/issues/2261)) ([142b81c](https://github.com/contentful/field-editors/commit/142b81caca27cf0fce7e6e51a5cb5ec33112ba3c))
+
+## [6.6.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.5...@contentful/field-editor-rich-text@6.6.6) (2026-10-11)
+
+### Bug Fixes
+
+- **rich-text:** keep hyperlink dialog targets across external updates ([#2260](https://github.com/contentful/field-editors/issues/2260)) ([adac18d](https://github.com/contentful/field-editors/commit/adac18d9a7a4e0204aa737896f6b8916ecca0361))
+
+## [6.6.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.4...@contentful/field-editor-rich-text@6.6.5) (2026-10-09)
+
+### Bug Fixes
+
+- **rich-text:** restore table expansion when pasting into a table ([#2259](https://github.com/contentful/field-editors/issues/2259)) ([17289b4](https://github.com/contentful/field-editors/commit/17289b4dcf2b0b96d07999c2fb97533e33c4e743))
+
+## [6.6.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.3...@contentful/field-editor-rich-text@6.6.4) (2026-10-09)
+
+### Bug Fixes
+
+- **rich-text:** prevent runaway normalization on Windows paste ([#2258](https://github.com/contentful/field-editors/issues/2258)) ([22f519c](https://github.com/contentful/field-editors/commit/22f519ce5f4ad66702d7e05f816254697cf7295b))
+
 ## [6.6.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.2...@contentful/field-editor-rich-text@6.6.3) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text

@@ -116,3 +116,36 @@ describe.each(linkOptions)('$type', (options) => {
     });
   });
 });
+
+it('replaces the label of an existing link', () => {
+  const { editor } = createTestEditor({});
+  editor.children = [
+    {
+      type: BLOCKS.PARAGRAPH,
+      children: [
+        { text: '' },
+        {
+          type: INLINES.HYPERLINK,
+          data: { uri: 'https://old.example' },
+          children: [{ text: 'old' }],
+        },
+        { text: '' },
+      ],
+    },
+  ];
+  editor.tf.select({ path: [0, 1, 0], offset: 1 });
+  editor.tf.withoutNormalizing(() => {
+    wrapLink(editor, {
+      type: INLINES.HYPERLINK,
+      url: 'https://new.example',
+      text: 'new',
+      path: [0, 1],
+    });
+  });
+
+  expect(editor.children[0].children[1]).toEqual({
+    type: INLINES.HYPERLINK,
+    data: { uri: 'https://new.example' },
+    children: [{ text: 'new' }],
+  });
+});

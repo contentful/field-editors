@@ -1,6 +1,11 @@
 import * as table from '@platejs/table';
 import { onKeyDownTable as onNativeKeyDownTable } from '@platejs/table/react';
-import { KEYS, assignLegacyApi, assignLegacyTransforms } from 'platejs';
+import {
+  KEYS,
+  assignLegacyApi,
+  assignLegacyTransforms,
+  getEditorPlugin as getSlateEditorPlugin,
+} from 'platejs';
 import { getEditorPlugin } from 'platejs/react';
 
 import type { PlateEditor } from './types/editor';
@@ -36,8 +41,17 @@ export const withDeleteTable = (editor: PlateEditor) => {
 };
 export const withGetFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) =>
   applyOverride(editor, table.withGetFragmentTable);
-export const withInsertFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) =>
-  applyOverride(editor, table.withInsertFragmentTable);
+export const withInsertFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) => {
+  const { insertFragment } = editor;
+  editor.insertFragment = (fragment) => {
+    // Plate registers row/column insertion after our legacy overrides. Resolve
+    // its paste handler here so it captures those methods once they exist.
+    const context = getSlateEditorPlugin(editor, table.BaseTablePlugin);
+    table.withInsertFragmentTable({ ...context, tf: { ...context.tf, insertFragment } }).transforms!
+      .insertFragment!(fragment);
+  };
+  return editor;
+};
 export const withInsertTextTable = (editor: PlateEditor, _plugin?: PlatePlugin) =>
   applyOverride(editor, table.withInsertTextTable);
 export const withSelectionTable = (editor: PlateEditor) =>

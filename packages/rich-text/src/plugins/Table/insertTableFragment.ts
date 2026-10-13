@@ -41,7 +41,7 @@ const trimUnnecessaryTableWrapper = (node: Node): Node[] => {
 export const insertTableFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
 
-  return (fragments: Node[]) => {
+  return (fragments: Node[], options?: Parameters<PlateEditor['insertFragment']>[1]) => {
     if (!editor.selection) {
       return;
     }
@@ -59,6 +59,6 @@ export const insertTableFragment = (editor: PlateEditor) => {
       insertEmptyParagraph(editor);
     }
 
-    return insertFragment(fragments);
+    return insertFragment(fragments, options);
   };
 };

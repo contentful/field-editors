@@ -8,6 +8,7 @@ import {
   inline,
   text,
 } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { createRichTextFakeSdk } from '../../fixtures';
 import { mod } from '../../fixtures/utils';
 import { RichTextPage } from './RichTextPage';
 import { mountRichTextEditor } from './utils';
@@ -409,5 +410,69 @@ describe('Rich Text Editor - Links', { viewportHeight: 2000, viewportWidth: 1000
     form.linkTarget.should('be.focused');
 
     form.cancel.click();
+  });
+
+  describe('with external updates while the dialog is open', () => {
+    const paragraph = (value: string) => block(BLOCKS.PARAGRAPH, {}, text(value));
+
+    for (const action of ['submit', 'cancel'] as const) {
+      it(`preserves replacement content and continues editing after ${action}`, () => {
+        const sdk = createRichTextFakeSdk({
+          initialValue: doc(paragraph('first'), paragraph('second'), paragraph('link')),
+        });
+        mountRichTextEditor({ sdk });
+        richText.editor.find('[data-slate-string]').contains('link').click();
+        richText.editor.should(($editor) => {
+          const editor = ELEMENT_TO_NODE.get($editor[0]) as Editor;
+          expect(editor.selection?.anchor.path).to.deep.equal([2, 0]);
+        });
+        richText.toolbar.hyperlink.click();
+        richText.forms.hyperlink.linkText.clear().type('link');
+        richText.forms.hyperlink.linkTarget.type('https://example.com');
+
+        // External field updates can arrive while the user fills in a link dialog.
+        cy.getRichTextField().then((field) => field.setValue(doc(paragraph('replacement'))));
+        richText.editor.should('contain.text', 'replacement');
+        richText.forms.hyperlink[action].click();
+        cy.get('#field-editor-modal-root').should('not.exist');
+        richText.expectValue(doc(paragraph('replacement')));
+
+        richText.editor.click().type('{moveToEnd}!');
+        richText.expectValue(doc(paragraph('replacement!')));
+      });
+    }
+
+    it('applies the link when an external update changes another paragraph', () => {
+      const sdk = createRichTextFakeSdk({
+        initialValue: doc(paragraph('first'), paragraph('link')),
+      });
+      mountRichTextEditor({ sdk });
+      richText.editor.find('[data-slate-string]').contains('link').click();
+      richText.editor.then(($editor) => {
+        const editor = ELEMENT_TO_NODE.get($editor[0]) as Editor;
+        editor.select({ anchor: { path: [1, 0], offset: 0 }, focus: { path: [1, 0], offset: 4 } });
+      });
+      richText.toolbar.hyperlink.click();
+      richText.forms.hyperlink.linkTarget.type('https://example.com');
+
+      cy.getRichTextField().then((field) =>
+        field.setValue(doc(paragraph('first!'), paragraph('link'))),
+      );
+      richText.editor.should('contain.text', 'first!');
+      richText.forms.hyperlink.submit.click();
+      cy.get('#field-editor-modal-root').should('not.exist');
+      richText.expectValue(
+        doc(
+          paragraph('first!'),
+          block(
+            BLOCKS.PARAGRAPH,
+            {},
+            text(''),
+            inline(INLINES.HYPERLINK, { uri: 'https://example.com' }, text('link')),
+            text(''),
+          ),
+        ),
+      );
+    });
   });
 });

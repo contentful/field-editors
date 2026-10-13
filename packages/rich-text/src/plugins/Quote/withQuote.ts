@@ -8,7 +8,7 @@ import { WithOverride } from '../../internal/types';
 export const withQuote: WithOverride = (editor) => {
   const { insertFragment } = editor;
 
-  editor.insertFragment = (fragment) => {
+  editor.insertFragment = (fragment, options) => {
     const startingNode = fragment.length && fragment[0];
     const startsWithBlockquote =
       Element.isElement(startingNode) && startingNode.type === BLOCKS.QUOTE;
@@ -45,7 +45,7 @@ export const withQuote: WithOverride = (editor) => {
       }
     }
 
-    insertFragment(fragment);
+    insertFragment(fragment, options);
   };
 
   return editor;
