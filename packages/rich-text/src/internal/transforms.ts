@@ -1,3 +1,4 @@
+import equal from 'fast-deep-equal';
 import * as s from 'slate';
 import { Except } from 'type-fest';
 
@@ -164,14 +165,33 @@ export const setEditorValue = (editor: PlateEditor, nodes?: Node[]): void => {
   // Replaces editor content while keeping change history
   withoutNormalizing(editor, () => {
     const children = [...editor.children];
-    children.forEach((node) => editor.apply({ type: 'remove_node', path: [0], node }));
+    const nextChildren = nodes ? (isNode(nodes) ? [nodes] : nodes) : [];
 
-    if (nodes) {
-      const nodesArray = isNode(nodes) ? [nodes] : nodes;
-      nodesArray.forEach((node, i) => {
-        editor.apply({ type: 'insert_node', path: [i], node });
-      });
+    // Only replace the changed blocks between unchanged leading and trailing
+    // ones. Replacing every block re-normalizes and re-renders the whole document.
+    let start = 0;
+    while (
+      start < children.length &&
+      start < nextChildren.length &&
+      equal(children[start], nextChildren[start])
+    ) {
+      start++;
     }
+    let end = 0;
+    while (
+      end < children.length - start &&
+      end < nextChildren.length - start &&
+      equal(children[children.length - 1 - end], nextChildren[nextChildren.length - 1 - end])
+    ) {
+      end++;
+    }
+
+    children
+      .slice(start, children.length - end)
+      .forEach((node) => editor.apply({ type: 'remove_node', path: [start], node }));
+    nextChildren.slice(start, nextChildren.length - end).forEach((node, i) => {
+      editor.apply({ type: 'insert_node', path: [start + i], node });
+    });
 
     // Restore the prior selection, clamping to valid bounds in the new content.
     // Without this, every external value update (e.g. autosave round-trip) moves the
