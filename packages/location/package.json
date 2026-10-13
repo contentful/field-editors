@@ -41,7 +41,7 @@
     "@contentful/field-editor-shared": "^4.6.1",
     "@emotion/css": "^11.13.5",
     "@types/google-map-react": "2.1.10",
-    "google-map-react": "2.2.1",
+    "google-map-react": "2.2.5",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
