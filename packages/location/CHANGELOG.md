@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@2.3.1...@contentful/field-editor-location@2.3.2) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency google-map-react to v2.2.5 ([#2267](https://github.com/contentful/field-editors/issues/2267)) ([0cc6e27](https://github.com/contentful/field-editors/commit/0cc6e27d90f21df3a029c3767ae66b0f7771ccac))
+
 ## [2.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-location@2.3.0...@contentful/field-editor-location@2.3.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-location
