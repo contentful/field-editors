@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.1...@contentful/field-editor-reference@8.5.2) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency @contentful/mimetype to ^2.6.5 ([#2225](https://github.com/contentful/field-editors/issues/2225)) ([09e100b](https://github.com/contentful/field-editors/commit/09e100b560a1155ec66b851230241d6799c24c30))
+
 ## [8.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.0...@contentful/field-editor-reference@8.5.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-reference
