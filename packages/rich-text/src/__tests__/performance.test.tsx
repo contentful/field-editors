@@ -87,8 +87,8 @@ describe('rich text performance', () => {
     }
 
     expect(container.textContent).toContain(`Par${'x'.repeat(KEYSTROKES)}agraph 0`);
-    // 16 today; re-rendering links or embeds pushes this past 20
-    expect(commits / KEYSTROKES).toBeLessThanOrEqual(18);
+    // 9 today; re-rendering the toolbar, links or embeds pushes this to 16+
+    expect(commits / KEYSTROKES).toBeLessThanOrEqual(11);
   }, 120000);
 
   it('normalizing does not resolve unregistered plugins', () => {

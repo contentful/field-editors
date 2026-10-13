@@ -59,7 +59,7 @@ export const LinkPopover = ({
   // Otherwise the content of the popover will get copied over when users copy text from the rich text editor
 
   return (
-    <Popover renderOnlyWhenOpen={false} usePortal={true} autoFocus={false} isOpen={isOpen}>
+    <Popover usePortal={true} autoFocus={false} isOpen={isOpen}>
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Content className={styles.popover}>
         <Flex
