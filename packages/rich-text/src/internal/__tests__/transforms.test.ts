@@ -68,3 +68,39 @@ describe('setEditorValue', () => {
     });
   });
 });
+
+describe('setEditorValue diffing', () => {
+  const texts = (editor: PlateEditor) =>
+    editor.children.map((n) => (n.children[0] as { text: string }).text);
+  const cases: [string, string[], string[]][] = [
+    ['changes one block', ['a', 'b', 'c'], ['a', 'x', 'c']],
+    ['inserts a block', ['a', 'b'], ['a', 'x', 'b']],
+    ['removes a block', ['a', 'b', 'c'], ['a', 'c']],
+    ['replaces everything', ['a', 'b'], ['x', 'y', 'z']],
+    ['handles repeated blocks', ['a', 'a', 'a'], ['a', 'a']],
+    ['is a no-op for equal values', ['a', 'b'], ['a', 'b']],
+  ];
+
+  it.each(cases)('%s', (_, before, after) => {
+    const editor = createEditor(before.map(paragraph));
+    setEditorValue(editor, after.map(paragraph));
+    expect(texts(editor)).toEqual(after);
+  });
+
+  it('keeps unchanged blocks and only applies operations for changed ones', () => {
+    const editor = createEditor(['a', 'b', 'c', 'd'].map(paragraph));
+    const [first, , , last] = editor.children;
+    const ops: string[] = [];
+    const { apply } = editor;
+    editor.apply = (op) => {
+      if (op.type !== 'set_selection') ops.push(`${op.type}:${op.path.join('.')}`);
+      apply(op);
+    };
+
+    setEditorValue(editor, ['a', 'x', 'c', 'd'].map(paragraph));
+
+    expect(ops).toEqual(['remove_node:1', 'insert_node:1']);
+    expect(editor.children[0]).toBe(first);
+    expect(editor.children[3]).toBe(last);
+  });
+});
