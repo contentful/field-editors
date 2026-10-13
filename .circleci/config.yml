@@ -44,6 +44,9 @@ commands:
 jobs:
   lint:
     executor: linux-node
+    environment:
+      # Avoid Yarn Classic's V8 cache deserialization crashes in parallel tasks.
+      DISABLE_V8_COMPILE_CACHE: '1'
     steps:
       - checkout
       - yarn_install
@@ -53,6 +56,9 @@ jobs:
       - run: yarn tsc
   unit-tests:
     executor: linux-node
+    environment:
+      # Avoid Yarn Classic's V8 cache deserialization crashes in parallel tasks.
+      DISABLE_V8_COMPILE_CACHE: '1'
     steps:
       - checkout
       - yarn_install
