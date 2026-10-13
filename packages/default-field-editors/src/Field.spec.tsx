@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { SingleEntryReferenceEditor } from '@contentful/field-editor-reference';
+import {
+  MultipleResourceReferenceEditor,
+  SingleEntryReferenceEditor,
+  SingleResourceReferenceEditor,
+} from '@contentful/field-editor-reference';
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
 import { createFakeFieldAPI, createFakeLocalesAPI } from '@contentful/field-editor-test-utils';
 import { cleanup, configure, render } from '@testing-library/react';
@@ -19,6 +23,8 @@ vi.mock('@contentful/field-editor-reference', async () => {
   return {
     ...actual,
     SingleEntryReferenceEditor: vi.fn(() => <div>mock</div>),
+    SingleResourceReferenceEditor: vi.fn(() => <div>mock</div>),
+    MultipleResourceReferenceEditor: vi.fn(() => <div>mock</div>),
   };
 });
 
@@ -76,6 +82,20 @@ describe('Field', () => {
       onAction: options.entryLinkEditor.onAction,
       renderCustomCard: options.entryLinkEditor.renderCustomCard,
     } as Partial<Parameters<typeof SingleEntryReferenceEditor>[0]>);
+  });
+
+  it.each([
+    ['resourceLinkEditor', SingleResourceReferenceEditor],
+    ['resourceLinksEditor', MultipleResourceReferenceEditor],
+  ])('renders %s with a web app entry link', (widgetId, Editor) => {
+    const sdk = { ...getSdk(), hostnames: { webapp: 'app.contentful.com' } } as any;
+
+    render(<Field sdk={sdk} isInitiallyDisabled={false} widgetId={widgetId} />);
+
+    const { getEntryRouteHref } = (Editor as unknown as Mock).mock.calls[0][0];
+    expect(getEntryRouteHref({ spaceId: 's', environmentId: 'e', entryId: 'x' })).toBe(
+      'https://app.contentful.com/spaces/s/environments/e/entries/x',
+    );
   });
 
   it('re-renders single field editor when locale changes', () => {

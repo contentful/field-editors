@@ -15,8 +15,10 @@ import { RatingEditor } from '@contentful/field-editor-rating';
 import {
   MultipleEntryReferenceEditor,
   MultipleMediaEditor,
+  MultipleResourceReferenceEditor,
   SingleEntryReferenceEditor,
   SingleMediaEditor,
+  SingleResourceReferenceEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import type { FieldAppSDK } from '@contentful/field-editor-shared';
@@ -39,6 +41,13 @@ type FieldProps = {
   ) => JSX.Element | false;
   getOptions?: (widgetId: WidgetType, sdk: FieldAppSDK) => EditorOptions;
 };
+
+const resourceEditorProps = (
+  sdk: FieldAppSDK,
+): Pick<Parameters<typeof SingleResourceReferenceEditor>[0], 'getEntryRouteHref'> => ({
+  getEntryRouteHref: ({ spaceId, environmentId, entryId }) =>
+    `https://${sdk.hostnames.webapp}/spaces/${spaceId}/environments/${environmentId}/entries/${entryId}`,
+});
 
 const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
   multipleLine: [MultipleLineEditor],
@@ -63,6 +72,8 @@ const widgetComponents: Record<string, [React.ComponentType<any>, any?]> = {
   assetLinkEditor: [SingleMediaEditor, { viewType: 'link' }],
   assetLinksEditor: [MultipleMediaEditor, { viewType: 'link' }],
   assetGalleryEditor: [MultipleMediaEditor, { viewType: 'card' }],
+  resourceLinkEditor: [SingleResourceReferenceEditor, resourceEditorProps],
+  resourceLinksEditor: [MultipleResourceReferenceEditor, resourceEditorProps],
   richTextEditor: [RichTextEditor],
   markdown: [MarkdownEditor],
 };
@@ -108,7 +119,7 @@ export const Field: React.FC<FieldProps> = (props: FieldProps) => {
     locales,
     isInitiallyDisabled,
     parameters: referenceEditorParams,
-    ...widgetStaticProps,
+    ...(typeof widgetStaticProps === 'function' ? widgetStaticProps(sdk) : widgetStaticProps),
     // @ts-expect-error
     ...options[widgetId],
   };

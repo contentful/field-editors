@@ -13,8 +13,10 @@ import { RatingEditor } from '@contentful/field-editor-rating';
 import {
   MultipleEntryReferenceEditor,
   MultipleMediaEditor,
+  MultipleResourceReferenceEditor,
   SingleEntryReferenceEditor,
   SingleMediaEditor,
+  SingleResourceReferenceEditor,
 } from '@contentful/field-editor-reference';
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 import { SingleLineEditor } from '@contentful/field-editor-single-line';
@@ -45,6 +47,8 @@ export type WidgetType =
   | 'assetLinkEditor'
   | 'assetLinksEditor'
   | 'assetGalleryEditor'
+  | 'resourceLinkEditor'
+  | 'resourceLinksEditor'
   | 'richTextEditor'
   | 'markdown'
   | string;
@@ -72,6 +76,8 @@ export type EditorOptions = {
   assetLinkEditor?: Partial<Parameters<typeof SingleMediaEditor>[0]>;
   assetLinksEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
   assetGalleryEditor?: Partial<Parameters<typeof MultipleMediaEditor>[0]>;
+  resourceLinkEditor?: Partial<Parameters<typeof SingleResourceReferenceEditor>[0]>;
+  resourceLinksEditor?: Partial<Parameters<typeof MultipleResourceReferenceEditor>[0]>;
   richTextEditor?: Partial<Parameters<typeof RichTextEditor>[0]>;
   markdown?: Partial<Parameters<typeof MarkdownEditor>[0]>;
 };
