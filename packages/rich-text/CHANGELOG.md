@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.7...@contentful/field-editor-rich-text@6.6.8) (2026-10-13)
+
+### Performance Improvements
+
+- **rich-text:** narrow toolbar subscriptions and skip idle editor work ([#2262](https://github.com/contentful/field-editors/issues/2262)) ([171d95b](https://github.com/contentful/field-editors/commit/171d95b98972a15419d3f0af3e309839f9f7ce3d))
+
 ## [6.6.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.6...@contentful/field-editor-rich-text@6.6.7) (2026-10-12)
 
 ### Performance Improvements
