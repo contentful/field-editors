@@ -161,7 +161,9 @@ export const createPlateEditor = (options: CreatePlateEditorOptions = {}): Plate
     ...(input && { value: input.children, selection: input.selection }),
     plugins: [setup, ...plugins.map(convert)],
     nodeId: false,
-    chunking: false,
+    // Skip re-rendering unchanged blocks on large documents. No chunk wrapper DOM,
+    // so selection, scrolling and find-in-page behave as before.
+    chunking: { contentVisibilityAuto: false },
     affinity: false,
     shouldNormalizeEditor: normalizeInitialValue === true,
   }) as PlateEditor;
