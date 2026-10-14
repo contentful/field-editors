@@ -54,7 +54,7 @@
     "prosemirror-commands": "^1.7.2",
     "prosemirror-dev-toolkit": "^1.1.8",
     "prosemirror-dropcursor": "^1.8.4",
-    "prosemirror-gapcursor": "^1.4.0",
+    "prosemirror-gapcursor": "^1.4.1",
     "prosemirror-history": "^1.5.1",
     "prosemirror-keymap": "^1.2.3",
     "prosemirror-model": "^1.25.12",
