@@ -7234,12 +7234,12 @@
   dependencies:
     react-compiler-runtime "^1.0.0"
 
-"@platejs/core@^53.3.14":
-  version "53.3.14"
-  resolved "https://registry.yarnpkg.com/@platejs/core/-/core-53.3.14.tgz#c5c132cee253f58b7ea2dc2b1099fab0cdc64252"
-  integrity sha512-83VuifO12si97gyKpu3aA9IoN1AyZ7P3CzUqLq9uTCImAIFvdukZZTuNELNKEs27/47nJ+lWHJcUtFHQtH7Dzw==
+"@platejs/core@^53.3.15":
+  version "53.3.15"
+  resolved "https://registry.yarnpkg.com/@platejs/core/-/core-53.3.15.tgz#7fe542d4c87247e4e74c1377d9a9cbbe374959f8"
+  integrity sha512-Id9sZUz0h03ljBBS7WAUoRWWxmlK1hhPc9S9UKvbIH1yYnzO1gHwAKCOUoeSyNJNgLgtWtEKXpqQM+J/xWZaRA==
   dependencies:
-    "@platejs/slate" "53.3.10"
+    "@platejs/slate" "53.3.15"
     "@udecode/react-hotkeys" "52.0.11"
     "@udecode/react-utils" "52.3.4"
     "@udecode/utils" "52.3.4"
@@ -7254,8 +7254,8 @@
     react-compiler-runtime "^1.0.0"
     slate "0.126.2"
     slate-dom "0.126.0"
-    slate-hyperscript "0.125.0"
-    slate-react "0.126.4"
+    slate-hyperscript "0.127.0"
+    slate-react "0.127.1"
     use-deep-compare "^1.3.0"
     zustand "^5.0.5"
     zustand-x "6.2.1"
@@ -7283,10 +7283,22 @@
   dependencies:
     react-compiler-runtime "^1.0.0"
 
-"@platejs/slate@53.3.10", "@platejs/slate@^53.3.10":
+"@platejs/slate@53.3.10":
   version "53.3.10"
   resolved "https://registry.yarnpkg.com/@platejs/slate/-/slate-53.3.10.tgz#9f1afd5daacf3d9972f6b524804b7c834394333c"
   integrity sha512-VRf6hznFlRrap2S1KSjmzy2p+brxiEGaMckxmzUy/5w19wPlL22xjv4628caqo/AHOgqahV9j049EeS7Z3laCQ==
+  dependencies:
+    "@udecode/utils" "^52.3.4"
+    is-plain-object "^5.0.0"
+    lodash "^4.17.21"
+    scroll-into-view-if-needed "^3.1.0"
+    slate "0.126.2"
+    slate-dom "0.126.0"
+
+"@platejs/slate@53.3.15", "@platejs/slate@^53.3.15":
+  version "53.3.15"
+  resolved "https://registry.yarnpkg.com/@platejs/slate/-/slate-53.3.15.tgz#df81478efc3a2590138daec4c5a2e85efdc2b8a6"
+  integrity sha512-gYgenSruH87z3zG+Llt//U65kRrLwEtw90hCn+5gfimhaZDi6YxJQ4vOui6Da6XVcgzY4WjwGP9DEmgmIrWjVA==
   dependencies:
     "@udecode/utils" "^52.3.4"
     is-plain-object "^5.0.0"
@@ -7313,13 +7325,13 @@
     slate "0.126.2"
     slate-hyperscript "0.125.0"
 
-"@platejs/utils@^53.3.14":
-  version "53.3.14"
-  resolved "https://registry.yarnpkg.com/@platejs/utils/-/utils-53.3.14.tgz#2d4e9b71ecf7fc869c5c928c76f1724c03564096"
-  integrity sha512-J2fQEpKddli/yCwG36vec0xdGbNC8otSJVHFaVvV36IQFxoC4jhpGzXoUScGOE7Oycl3/uhOK8vvNlrDvki3rg==
+"@platejs/utils@^53.3.15":
+  version "53.3.15"
+  resolved "https://registry.yarnpkg.com/@platejs/utils/-/utils-53.3.15.tgz#149a442973e430ba0ced6c51ed170381d5753cd2"
+  integrity sha512-mYWOeUrvc8m0N6B6Cca1iYQW8KmLerE2vl+S7t6ciYu8+4iR8/+5SWV1ySMqsas4HFjrXapgZKIbrXIth0RYzg==
   dependencies:
-    "@platejs/core" "^53.3.14"
-    "@platejs/slate" "^53.3.10"
+    "@platejs/core" "^53.3.15"
+    "@platejs/slate" "^53.3.15"
     "@udecode/react-utils" "^52.3.4"
     "@udecode/utils" "^52.3.4"
     clsx "^2.1.1"
@@ -21620,14 +21632,14 @@ pkijs@^3.3.3:
     pvutils "^1.1.3"
     tslib "^2.8.1"
 
-platejs@53.3.14:
-  version "53.3.14"
-  resolved "https://registry.yarnpkg.com/platejs/-/platejs-53.3.14.tgz#dafa7bb8a6b14313c19d315303f320b82cb753db"
-  integrity sha512-i4snmz0pJm2fJQDi3IEbCVkh+EVtXexJul0Cafo3XLgwMz7YUx1avbQJXvO+4Fa03nUg4u+Ac8a2IaP0SDD9ZA==
+platejs@53.3.15:
+  version "53.3.15"
+  resolved "https://registry.yarnpkg.com/platejs/-/platejs-53.3.15.tgz#2a15444638a22cc952679fbd559e598f0a8db7a7"
+  integrity sha512-i+K+wiI2ytBZ4ZJ2QiSamNkc0sAMQ2kRr11XJijGapeA00OUKNp+RtWh5yc+LNm7k+1eWF0O1QNwEP0x/mOXuA==
   dependencies:
-    "@platejs/core" "^53.3.14"
-    "@platejs/slate" "^53.3.10"
-    "@platejs/utils" "^53.3.14"
+    "@platejs/core" "^53.3.15"
+    "@platejs/slate" "^53.3.15"
+    "@platejs/utils" "^53.3.15"
     "@udecode/react-hotkeys" "^52.0.11"
     "@udecode/react-utils" "^52.3.4"
     "@udecode/utils" "^52.3.4"
@@ -24568,7 +24580,7 @@ slate-hyperscript@0.127.0:
   resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.127.0.tgz#a9d4998a144bde2742b9e9fdfc571a03f7256cfb"
   integrity sha512-siQu4q4irgKKIpPcFz4xuzLTxzfdQ00MfPAg+NFOEBwUcz2ybvlRgozd+J3CqonZgpzPR2VID3LsQyqJ0GgQpQ==
 
-slate-react@0.126.4, slate-react@0.127.1:
+slate-react@0.127.1:
   version "0.127.1"
   resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.127.1.tgz#f34282de9f76c9810d4b2dcb7e8ad98610cc394c"
   integrity sha512-ZiLJEEfKeAuRCOK7M7NAEA/lwhoCecikDWMQj6zbOJCKmZtIv4+7wdwmB2w3gZfrjVNmZWKbaP4zHORILVvc5g==
