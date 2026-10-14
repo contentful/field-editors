@@ -18,6 +18,11 @@
       "postUpdateOptions": ["yarnDedupeHighest"]
     },
     {
+      "description": "Deduplicate CodeMirror updates to keep shared runtime instances aligned",
+      "matchPackageNames": ["@codemirror/**"],
+      "postUpdateOptions": ["yarnDedupeHighest"]
+    },
+    {
       "matchPackageNames": ["prosemirror-*", "@handlewithcare/react-prosemirror"],
       "groupName": "prosemirror"
     },
