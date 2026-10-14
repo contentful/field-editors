@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.6...@contentful/field-editor-rich-text-alpha@0.7.7) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency prosemirror-history to ^1.5.1 ([#2274](https://github.com/contentful/field-editors/issues/2274)) ([f0ee127](https://github.com/contentful/field-editors/commit/f0ee1272d81fb2e5e6e06a266f3818e25f2c4b01))
+- **deps:** update dependency prosemirror-model to ^1.25.12 ([#2275](https://github.com/contentful/field-editors/issues/2275)) ([a2dc645](https://github.com/contentful/field-editors/commit/a2dc6456e9ba97bedd623dfeaee22a031bcb9f98))
+
 ## [0.7.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.5...@contentful/field-editor-rich-text-alpha@0.7.6) (2026-10-14)
 
 ### Bug Fixes
