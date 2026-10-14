@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.11...@contentful/field-editor-rich-text@6.6.12) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency lodash to ^4.18.1 ([#2268](https://github.com/contentful/field-editors/issues/2268)) ([7e471ca](https://github.com/contentful/field-editors/commit/7e471ca350c3dd75257cd1d35b9caf9bd2ee5821))
+
 ## [6.6.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.10...@contentful/field-editor-rich-text@6.6.11) (2026-10-13)
 
 ### Bug Fixes
