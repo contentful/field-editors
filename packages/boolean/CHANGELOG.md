@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@2.3.2...@contentful/field-editor-boolean@2.3.3) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency nanoid to ^3.3.20 ([#2269](https://github.com/contentful/field-editors/issues/2269)) ([a88fb92](https://github.com/contentful/field-editors/commit/a88fb92ae1565cace938e00e57a33ace14b8d031))
+
 ## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-boolean@2.3.1...@contentful/field-editor-boolean@2.3.2) (2026-10-14)
 
 ### Bug Fixes
