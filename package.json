@@ -83,7 +83,7 @@
     "concurrently": "8.0.1",
     "contentful-cli": "3.3.8",
     "contentful-management": "12.3.0",
-    "cypress": "^15.18.0",
+    "cypress": "^15.21.1",
     "cypress-axe": "^1.7.0",
     "cypress-plugin-tab": "1.0.5",
     "cypress-real-events": "^1.15.1",
