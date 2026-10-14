@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.5...@contentful/field-editor-rich-text-alpha@0.7.6) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency prosemirror-dropcursor to ^1.8.4 ([#2273](https://github.com/contentful/field-editors/issues/2273)) ([413b1b4](https://github.com/contentful/field-editors/commit/413b1b40660e94101ddd2a7a57b300f68508b9b5))
+
 ## [0.7.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.4...@contentful/field-editor-rich-text-alpha@0.7.5) (2026-10-14)
 
 ### Bug Fixes
