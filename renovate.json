@@ -10,6 +10,20 @@
       "matchPackageNames": ["@lingui/react", "@lingui/core", "@lingui/cli", "@lingui/swc-plugin"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "lingui"
+    },
+    {
+      "description": "Keep Vite and Vitest updates together and deduplicate their Yarn lockfile",
+      "matchPackageNames": ["vite", "vitest"],
+      "groupName": "vite and vitest",
+      "postUpdateOptions": ["yarnDedupeHighest"]
+    },
+    {
+      "matchPackageNames": ["prosemirror-*", "@handlewithcare/react-prosemirror"],
+      "groupName": "prosemirror"
+    },
+    {
+      "matchPackageNames": ["platejs", "@platejs/**", "@udecode/plate*"],
+      "groupName": "plate"
     }
   ]
 }
