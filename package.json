@@ -78,7 +78,7 @@
     "@typescript-eslint/parser": "8.69.0",
     "@vitejs/plugin-react-swc": "^3.11.0",
     "@vitest/eslint-plugin": "^1.6.24",
-    "ajv": "8.18.0",
+    "ajv": "8.20.0",
     "axe-core": "^4.12.1",
     "concurrently": "8.0.1",
     "contentful-cli": "3.3.8",
