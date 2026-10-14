@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@4.4.1...@contentful/field-editor-json@4.4.2) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency lodash to ^4.18.1 ([#2268](https://github.com/contentful/field-editors/issues/2268)) ([7e471ca](https://github.com/contentful/field-editors/commit/7e471ca350c3dd75257cd1d35b9caf9bd2ee5821))
+
 ## [4.4.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@4.4.0...@contentful/field-editor-json@4.4.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-json

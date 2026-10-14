@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@2.3.2...@contentful/field-editor-checkbox@2.3.3) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency nanoid to ^3.3.20 ([#2269](https://github.com/contentful/field-editors/issues/2269)) ([a88fb92](https://github.com/contentful/field-editors/commit/a88fb92ae1565cace938e00e57a33ace14b8d031))
+
+## [2.3.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@2.3.1...@contentful/field-editor-checkbox@2.3.2) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency lodash to ^4.18.1 ([#2268](https://github.com/contentful/field-editors/issues/2268)) ([7e471ca](https://github.com/contentful/field-editors/commit/7e471ca350c3dd75257cd1d35b9caf9bd2ee5821))
+
 ## [2.3.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-checkbox@2.3.0...@contentful/field-editor-checkbox@2.3.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-checkbox

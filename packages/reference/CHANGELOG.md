@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.3...@contentful/field-editor-reference@8.5.4) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency lodash to ^4.18.1 ([#2268](https://github.com/contentful/field-editors/issues/2268)) ([7e471ca](https://github.com/contentful/field-editors/commit/7e471ca350c3dd75257cd1d35b9caf9bd2ee5821))
+
+## [8.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.2...@contentful/field-editor-reference@8.5.3) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency constate to ^3.3.3 ([#2240](https://github.com/contentful/field-editors/issues/2240)) ([2e307f2](https://github.com/contentful/field-editors/commit/2e307f2dfe3600e1178540705ee6b891eb66d9b7))
+
+## [8.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.1...@contentful/field-editor-reference@8.5.2) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency @contentful/mimetype to ^2.6.5 ([#2225](https://github.com/contentful/field-editors/issues/2225)) ([09e100b](https://github.com/contentful/field-editors/commit/09e100b560a1155ec66b851230241d6799c24c30))
+
 ## [8.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.0...@contentful/field-editor-reference@8.5.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

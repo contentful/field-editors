@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.7...@contentful/field-editor-rich-text-alpha@0.7.8) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency prosemirror-view to v1.42.3 [security] ([#2248](https://github.com/contentful/field-editors/issues/2248)) ([04e1826](https://github.com/contentful/field-editors/commit/04e1826c14874ff210e1a3c28a8bea21f6859632))
+
+## [0.7.7](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.6...@contentful/field-editor-rich-text-alpha@0.7.7) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency prosemirror-history to ^1.5.1 ([#2274](https://github.com/contentful/field-editors/issues/2274)) ([f0ee127](https://github.com/contentful/field-editors/commit/f0ee1272d81fb2e5e6e06a266f3818e25f2c4b01))
+- **deps:** update dependency prosemirror-model to ^1.25.12 ([#2275](https://github.com/contentful/field-editors/issues/2275)) ([a2dc645](https://github.com/contentful/field-editors/commit/a2dc6456e9ba97bedd623dfeaee22a031bcb9f98))
+
+## [0.7.6](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.5...@contentful/field-editor-rich-text-alpha@0.7.6) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency prosemirror-dropcursor to ^1.8.4 ([#2273](https://github.com/contentful/field-editors/issues/2273)) ([413b1b4](https://github.com/contentful/field-editors/commit/413b1b40660e94101ddd2a7a57b300f68508b9b5))
+
+## [0.7.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.4...@contentful/field-editor-rich-text-alpha@0.7.5) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency prosemirror-commands to ^1.7.2 ([#2272](https://github.com/contentful/field-editors/issues/2272)) ([cd156c8](https://github.com/contentful/field-editors/commit/cd156c81be8b0d03288d31ef1bf695fc278cff6e))
+
+## [0.7.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.3...@contentful/field-editor-rich-text-alpha@0.7.4) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency lodash to ^4.18.1 ([#2268](https://github.com/contentful/field-editors/issues/2268)) ([7e471ca](https://github.com/contentful/field-editors/commit/7e471ca350c3dd75257cd1d35b9caf9bd2ee5821))
+
+## [0.7.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.2...@contentful/field-editor-rich-text-alpha@0.7.3) (2026-10-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text-alpha
+
+## [0.7.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.1...@contentful/field-editor-rich-text-alpha@0.7.2) (2026-10-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text-alpha
+
 ## [0.7.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.0...@contentful/field-editor-rich-text-alpha@0.7.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-rich-text-alpha

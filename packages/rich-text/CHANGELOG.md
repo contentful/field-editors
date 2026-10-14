@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.11...@contentful/field-editor-rich-text@6.6.12) (2026-10-14)
+
+### Bug Fixes
+
+- **deps:** update dependency lodash to ^4.18.1 ([#2268](https://github.com/contentful/field-editors/issues/2268)) ([7e471ca](https://github.com/contentful/field-editors/commit/7e471ca350c3dd75257cd1d35b9caf9bd2ee5821))
+
+## [6.6.11](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.10...@contentful/field-editor-rich-text@6.6.11) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency constate to ^3.3.3 ([#2240](https://github.com/contentful/field-editors/issues/2240)) ([2e307f2](https://github.com/contentful/field-editors/commit/2e307f2dfe3600e1178540705ee6b891eb66d9b7))
+
+## [6.6.10](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.9...@contentful/field-editor-rich-text@6.6.10) (2026-10-13)
+
+**Note:** Version bump only for package @contentful/field-editor-rich-text
+
+## [6.6.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.8...@contentful/field-editor-rich-text@6.6.9) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency @popperjs/core to ^2.11.8 ([#2226](https://github.com/contentful/field-editors/issues/2226)) ([efcff33](https://github.com/contentful/field-editors/commit/efcff33d68269db87f9bb034dbc1a72eda987e73))
+
 ## [6.6.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.7...@contentful/field-editor-rich-text@6.6.8) (2026-10-13)
 
 ### Performance Improvements

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@3.5.2...@contentful/field-editor-slug@3.5.3) (2026-10-14)
+
+**Note:** Version bump only for package @contentful/field-editor-slug
+
+## [3.5.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@3.5.1...@contentful/field-editor-slug@3.5.2) (2026-10-13)
+
+### Bug Fixes
+
+- **deps:** update dependency @types/speakingurl to ^13.0.6 ([#2239](https://github.com/contentful/field-editors/issues/2239)) ([83b0603](https://github.com/contentful/field-editors/commit/83b0603cccfce6773a2b0b51097b886ff3291339))
+
 ## [3.5.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-slug@3.5.0...@contentful/field-editor-slug@3.5.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-slug
