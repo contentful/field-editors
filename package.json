@@ -81,7 +81,7 @@
     "ajv": "8.20.0",
     "axe-core": "^4.14.0",
     "concurrently": "8.2.2",
-    "contentful-cli": "3.3.8",
+    "contentful-cli": "3.10.4",
     "contentful-management": "12.3.0",
     "cypress": "^15.21.1",
     "cypress-axe": "^1.7.0",
