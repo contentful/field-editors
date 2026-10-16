@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.4](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@2.4.3...@contentful/field-editor-markdown@2.4.4) (2026-10-16)
+
+**Note:** Version bump only for package @contentful/field-editor-markdown
+
 ## [2.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-markdown@2.4.2...@contentful/field-editor-markdown@2.4.3) (2026-10-14)
 
 ### Bug Fixes

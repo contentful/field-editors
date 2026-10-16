@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.12...@contentful/field-editor-rich-text@6.6.13) (2026-10-16)
+
+### Bug Fixes
+
+- **deps:** update contentful-rich-text monorepo ([#2299](https://github.com/contentful/field-editors/issues/2299)) ([7b8c315](https://github.com/contentful/field-editors/commit/7b8c315f966e502f9f2162f29d12e6be6244de05))
+- **deps:** update dependency platejs to v53.3.15 ([#2270](https://github.com/contentful/field-editors/issues/2270)) ([3026d7e](https://github.com/contentful/field-editors/commit/3026d7ed2dbd46e9fb99c4c3bb055705f6efe783))
+
 ## [6.6.12](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.11...@contentful/field-editor-rich-text@6.6.12) (2026-10-14)
 
 ### Bug Fixes

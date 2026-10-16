@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.3](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@4.4.2...@contentful/field-editor-json@4.4.3) (2026-10-16)
+
+### Bug Fixes
+
+- **deps:** update codemirror ([#2223](https://github.com/contentful/field-editors/issues/2223)) ([e463cb0](https://github.com/contentful/field-editors/commit/e463cb03b31010e614341037396296384ddb38a1))
+
 ## [4.4.2](https://github.com/contentful/field-editors/compare/@contentful/field-editor-json@4.4.1...@contentful/field-editor-json@4.4.2) (2026-10-14)
 
 ### Bug Fixes

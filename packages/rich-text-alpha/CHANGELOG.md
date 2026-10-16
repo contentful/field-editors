@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.8...@contentful/field-editor-rich-text-alpha@0.7.9) (2026-10-16)
+
+### Bug Fixes
+
+- **deps:** update contentful-rich-text monorepo ([#2299](https://github.com/contentful/field-editors/issues/2299)) ([7b8c315](https://github.com/contentful/field-editors/commit/7b8c315f966e502f9f2162f29d12e6be6244de05))
+- **deps:** update dependency prosemirror-gapcursor to ^1.4.1 ([#2276](https://github.com/contentful/field-editors/issues/2276)) ([7600c44](https://github.com/contentful/field-editors/commit/7600c44048f4c2993be4635ff2ce2e9d22222e4f))
+
 ## [0.7.8](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.7...@contentful/field-editor-rich-text-alpha@0.7.8) (2026-10-14)
 
 ### Bug Fixes
