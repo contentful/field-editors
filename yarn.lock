@@ -7430,18 +7430,6 @@
   dependencies:
     react-compiler-runtime "^1.0.0"
 
-"@platejs/slate@53.3.10":
-  version "53.3.10"
-  resolved "https://registry.yarnpkg.com/@platejs/slate/-/slate-53.3.10.tgz#9f1afd5daacf3d9972f6b524804b7c834394333c"
-  integrity sha512-VRf6hznFlRrap2S1KSjmzy2p+brxiEGaMckxmzUy/5w19wPlL22xjv4628caqo/AHOgqahV9j049EeS7Z3laCQ==
-  dependencies:
-    "@udecode/utils" "^52.3.4"
-    is-plain-object "^5.0.0"
-    lodash "^4.17.21"
-    scroll-into-view-if-needed "^3.1.0"
-    slate "0.126.2"
-    slate-dom "0.126.0"
-
 "@platejs/slate@53.3.15", "@platejs/slate@^53.3.15":
   version "53.3.15"
   resolved "https://registry.yarnpkg.com/@platejs/slate/-/slate-53.3.15.tgz#df81478efc3a2590138daec4c5a2e85efdc2b8a6"
@@ -7463,14 +7451,14 @@
     lodash "^4.17.21"
     react-compiler-runtime "^1.0.0"
 
-"@platejs/test-utils@53.3.10":
-  version "53.3.10"
-  resolved "https://registry.yarnpkg.com/@platejs/test-utils/-/test-utils-53.3.10.tgz#16cd6fd325df809392a83c61f5d5e68b41b0c722"
-  integrity sha512-CduKncdMpTQiLktysaN9r8m8+lq005PtPscBpQJGU3Y6HYnlpwamZNhUFC85d7waALtrjRhXHfhiUfRJy8okDg==
+"@platejs/test-utils@53.3.15":
+  version "53.3.15"
+  resolved "https://registry.yarnpkg.com/@platejs/test-utils/-/test-utils-53.3.15.tgz#1ccf5a64b1e7358a4aeb0f9cbbd7b8a8d28946e9"
+  integrity sha512-Pzss323UudqkPMqAbUyFCIV96rnd5zJzbOjDkifWH57U0VNbeDxGYBnJ3pWJk+n/VIWFBE+Kwfi34MoHFzr+DA==
   dependencies:
-    "@platejs/slate" "53.3.10"
+    "@platejs/slate" "53.3.15"
     slate "0.126.2"
-    slate-hyperscript "0.125.0"
+    slate-hyperscript "0.127.0"
 
 "@platejs/utils@^53.3.15":
   version "53.3.15"
@@ -24566,11 +24554,6 @@ slate-history@0.113.1:
   integrity sha512-J9NSJ+UG2GxoW0lw5mloaKcN0JI0x2IA5M5FxyGiInpn+QEutxT1WK7S/JneZCMFJBoHs1uu7S7e6pxQjubHmQ==
   dependencies:
     is-plain-object "^5.0.0"
-
-slate-hyperscript@0.125.0:
-  version "0.125.0"
-  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.125.0.tgz#8564a0f640cd54559790329d18c247b754bce7bf"
-  integrity sha512-tH6AYvTrTnSdUo+L5cUvqcHRzQ3muEkcSEN7APM9NtEdWk9L7lqEbmpyeKfv7oyzCUW2WbR/lPhlnOSu8/jUcA==
 
 slate-hyperscript@0.127.0:
   version "0.127.0"
