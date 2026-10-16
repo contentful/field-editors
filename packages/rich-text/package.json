@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@contentful/app-sdk": "^4.42.0",
-    "@contentful/contentful-slatejs-adapter": "^16.1.6",
+    "@contentful/contentful-slatejs-adapter": "^16.2.2",
     "@contentful/f36-components": "^6.7.1",
     "@contentful/f36-icon": "^6.7.1",
     "@contentful/f36-icons": "^6.7.1",
@@ -48,8 +48,8 @@
     "@contentful/f36-utils": "^6.1.0",
     "@contentful/field-editor-reference": "^8.5.4",
     "@contentful/field-editor-shared": "^4.6.2",
-    "@contentful/rich-text-plain-text-renderer": "^17.0.0",
-    "@contentful/rich-text-types": "^17.2.5",
+    "@contentful/rich-text-plain-text-renderer": "^17.2.1",
+    "@contentful/rich-text-types": "^17.2.7",
     "@emotion/css": "^11.13.5",
     "@platejs/basic-nodes": "53.0.0",
     "@platejs/docx": "53.0.0",
@@ -80,7 +80,7 @@
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^3.2.1",
-    "@contentful/rich-text-react-renderer": "^16.0.0",
+    "@contentful/rich-text-react-renderer": "^16.2.2",
     "@lingui/core": "5.3.0",
     "@platejs/test-utils": "53.3.15",
     "@types/is-hotkey": "^0.1.10",
