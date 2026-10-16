@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  vault: contentful/vault@1
+  vault: contentful/vault@1.30.5
 
 executors:
   linux-node:
