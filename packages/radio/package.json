@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^3.2.1",
-    "@lingui/core": "5.3.0",
+    "@lingui/core": "5.9.5",
     "contentful-management": "^12.3.0"
   },
   "peerDependencies": {

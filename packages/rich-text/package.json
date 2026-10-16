@@ -81,7 +81,7 @@
   "devDependencies": {
     "@contentful/field-editor-test-utils": "^3.2.1",
     "@contentful/rich-text-react-renderer": "^16.2.2",
-    "@lingui/core": "5.3.0",
+    "@lingui/core": "5.9.5",
     "@platejs/test-utils": "53.3.15",
     "@types/is-hotkey": "^0.1.10",
     "prism-react-renderer": "2.4.1",
