@@ -5,11 +5,7 @@ import { INLINES } from '@contentful/rich-text-types';
 import { cancelFakeDialog, confirmFakeDialog } from '../../fixtures';
 
 export type EmbedType =
-  | 'entry-block'
-  | 'asset-block'
-  | 'resource-block'
-  | 'entry-inline'
-  | 'resource-inline';
+  'entry-block' | 'asset-block' | 'resource-block' | 'entry-inline' | 'resource-inline';
 
 export class RichTextPage {
   get editor() {
