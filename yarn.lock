@@ -3525,10 +3525,10 @@
     open "^8.0.5"
     ora "^5.4.0"
 
-"@contentful/app-sdk@4.54.0", "@contentful/app-sdk@^4.17.1", "@contentful/app-sdk@^4.29.0", "@contentful/app-sdk@^4.42.0", "@contentful/app-sdk@^4.45.0":
-  version "4.54.0"
-  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.54.0.tgz#6f1dd14b8e23eccb19436797716bfcc5eea98fdd"
-  integrity sha512-jKeBeX3soas72resUNRnWP3rTurFCzZ/47I0v+6/a9JoKojYTd8eXMGMRZ8KmGuo8GIle5PNB7ublMVMJumscg==
+"@contentful/app-sdk@4.75.0", "@contentful/app-sdk@^4.75.0":
+  version "4.75.0"
+  resolved "https://registry.yarnpkg.com/@contentful/app-sdk/-/app-sdk-4.75.0.tgz#0ce3a5913c39d8893a376a1062d7a3a417bcc014"
+  integrity sha512-eKARxXkulrr8HwzOmIj5Fd43TUvKy+pwiXQ4A7yUbFS1E+LZSEM0PTzpywyN56uw49ld6gO3XQU9RIwIxHyXIA==
   dependencies:
     contentful-management "^12.3.1"
 
