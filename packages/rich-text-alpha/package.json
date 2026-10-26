@@ -38,7 +38,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@contentful/app-sdk": "^4.42.0",
+    "@contentful/app-sdk": "^4.76.0",
     "@contentful/f36-components": "^6.7.1",
     "@contentful/f36-icons": "^6.7.1",
     "@contentful/f36-tokens": "^6.1.2",
