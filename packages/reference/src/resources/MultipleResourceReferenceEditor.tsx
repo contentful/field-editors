@@ -6,6 +6,7 @@ import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import noop from 'lodash/noop';
 
+import { CustomCardRenderer } from '../common/customCardTypes';
 import { EntityProvider } from '../common/EntityStore';
 import { ReferenceEditorProps } from '../common/ReferenceEditor';
 import { SortableLinkList } from '../common/SortableLinkList';
@@ -68,10 +69,18 @@ function ResourceEditor(props: EditorProps) {
     parameters: props.parameters,
   });
 
+  const { renderCustomCard } = props;
+  const customCardRenderer = useCallback<CustomCardRenderer>(
+    (cardProps, _, renderDefaultCard) =>
+      renderCustomCard ? renderCustomCard(cardProps, linkActionsProps, renderDefaultCard) : false,
+    [renderCustomCard, linkActionsProps],
+  );
+
   return (
     <>
       {props.children({
         ...props,
+        renderCustomCard: renderCustomCard && customCardRenderer,
         items,
         onSortStart,
         onSortEnd,
@@ -171,6 +180,7 @@ export function MultipleResourceReferenceEditor(
                           onMoveBottom={onMoveBottom}
                           onRemove={onRemove}
                           getEntryRouteHref={props.getEntryRouteHref}
+                          renderCustomCard={editorProps.renderCustomCard}
                         />
                       )}
                     </WithPerItemCallbacks>

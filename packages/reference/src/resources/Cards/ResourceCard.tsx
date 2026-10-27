@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { EntryCard } from '@contentful/f36-components';
 import { SetRequired } from 'type-fest';
 
+import { CustomCardRenderer } from '../../common/customCardTypes';
 import { isContentfulResourceInfo, useResource } from '../../common/EntityStore';
 import { ResourceEntityErrorCard } from '../../components';
 import { RenderDragFn, ResourceLink } from '../../types';
@@ -18,6 +19,7 @@ type ResourceCardProps = {
   isDisabled: boolean;
   renderDragHandle?: RenderDragFn;
   getEntryRouteHref: (entryRoute: EntryRoute) => string;
+  renderCustomCard?: CustomCardRenderer;
 } & CardActionsHandlers;
 
 function ResourceCardSkeleton() {

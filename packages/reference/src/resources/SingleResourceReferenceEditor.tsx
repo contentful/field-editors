@@ -21,6 +21,8 @@ export function SingleResourceReferenceEditor(
     parameters: props.parameters,
   });
 
+  const { renderCustomCard } = props;
+
   return (
     <EntityProvider sdk={props.sdk}>
       <FieldConnector<ResourceLink<string>>
@@ -36,6 +38,11 @@ export function SingleResourceReferenceEditor(
               referencingEntryId={props.sdk.ids.entry}
               isDisabled={disabled}
               getEntryRouteHref={props.getEntryRouteHref}
+              renderCustomCard={
+                renderCustomCard &&
+                ((cardProps, _, renderDefaultCard) =>
+                  renderCustomCard(cardProps, linkActionsProps, renderDefaultCard))
+              }
             />
           ) : (
             <CombinedLinkEntityActions

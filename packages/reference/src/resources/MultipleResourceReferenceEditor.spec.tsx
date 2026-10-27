@@ -167,6 +167,66 @@ describe('Multiple resource editor', () => {
       }
     });
 
+    it('renders a custom card for every value', async () => {
+      const { entryLinks, entryInfos } = generateMultipleTestResources();
+      mockedResources = {};
+      for (const [spaceId, link] of Object.entries(entryLinks)) {
+        mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
+      }
+
+      const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+      render(
+        <MultipleResourceReferenceEditor
+          isInitiallyDisabled={false}
+          sdk={sdk}
+          hasCardEditActions={true}
+          viewType="card"
+          apiUrl="test-contentful"
+          getEntryRouteHref={() => ''}
+          // @ts-expect-error unused...
+          parameters={{}}
+          renderCustomCard={({ entity, contentType }) => (
+            <div data-testid="custom-card">
+              {entity.sys.space.sys.id}:{contentType?.sys.id}
+            </div>
+          )}
+        />,
+      );
+
+      const customCards = await screen.findAllByTestId('custom-card');
+      expect(customCards.map((card) => card.textContent)).toEqual([
+        'space-a:xTestCT',
+        'space-b:xTestCT',
+        'space-c:xTestCT',
+      ]);
+      expect(screen.queryByText('An entry in Space A')).not.toBeInTheDocument();
+    });
+
+    it('renders the default card when the custom card renderer returns false', async () => {
+      const { entryLinks, entryInfos } = generateMultipleTestResources();
+      mockedResources = {};
+      for (const [spaceId, link] of Object.entries(entryLinks)) {
+        mockedResources[`${link.sys.linkType}.${link.sys.urn}`] = entryInfos[spaceId];
+      }
+
+      const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, Object.values(entryLinks));
+      render(
+        <MultipleResourceReferenceEditor
+          isInitiallyDisabled={false}
+          sdk={sdk}
+          hasCardEditActions={true}
+          viewType="card"
+          apiUrl="test-contentful"
+          getEntryRouteHref={() => ''}
+          // @ts-expect-error unused...
+          parameters={{}}
+          renderCustomCard={() => false}
+        />,
+      );
+
+      await expectEntryCard('An entry in Space A', 'Space A');
+    });
+
     describe('card actions', () => {
       it('should have a move to top button', async () => {
         const { entryLinks, entryInfos } = generateMultipleTestResources();

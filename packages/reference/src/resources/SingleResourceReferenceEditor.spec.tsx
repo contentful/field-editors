@@ -180,4 +180,42 @@ describe('Single resource editor', () => {
     const linkExistingBtn = screen.queryByText('Add existing content');
     expect(linkExistingBtn).not.toBeInTheDocument();
   });
+
+  it('renders a custom card when the value is set', async () => {
+    const sdk: FieldAppSDK = mockSdkForField(fieldDefinition, {
+      sys: {
+        type: 'Link',
+        linkType: 'Contentful:Entry',
+        urn: 'crn:test:::content:spaces/x-space/entries/linkedEntryId',
+      },
+    });
+
+    mockedResources[`Contentful:Entry.crn:test:::content:spaces/x-space/entries/linkedEntryId`] =
+      createFakeEntryResource({
+        title: 'Title of linked entry',
+        id: 'linkedEntryId',
+        space: {
+          id: 'x-space',
+          name: 'X Space',
+        },
+      });
+
+    render(
+      <SingleResourceReferenceEditor
+        isInitiallyDisabled={false}
+        sdk={sdk}
+        hasCardEditActions={true}
+        viewType="card"
+        apiUrl="test-contentful"
+        getEntryRouteHref={vi.fn()}
+        // @ts-expect-error unused...
+        parameters={{}}
+        renderCustomCard={({ entity }) => <div data-testid="custom-card">{entity.sys.id}</div>}
+      />,
+    );
+
+    const customCard = await screen.findByTestId('custom-card');
+    expect(customCard.textContent).toBe('linkedEntryId');
+    expect(screen.queryByText('Title of linked entry')).not.toBeInTheDocument();
+  });
 });
