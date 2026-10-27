@@ -80,24 +80,15 @@ export function ContentfulEntryCard({
     const cardProps = { ...sharedCardProps, ...props };
     return (
       <WrappedEntryCard
+        {...cardProps}
         entry={cardProps.entity as Entry}
-        isDisabled={cardProps.isDisabled}
+        entryUrl={cardProps.entityUrl}
         hasCardEditActions={false}
-        contentType={cardProps.contentType}
-        localeCode={cardProps.localeCode}
-        defaultLocaleCode={cardProps.defaultLocaleCode}
-        size={cardProps.size}
+        hasCardRemoveActions={Boolean(cardProps.onRemove)}
         getAsset={resolveAsset}
         getEntityScheduledActions={resolveScheduledActions}
         spaceName={info.space.name}
-        renderDragHandle={cardProps.renderDragHandle}
         isClickable={true}
-        onEdit={cardProps.onEdit}
-        hasCardRemoveActions={Boolean(cardProps.onRemove)}
-        onRemove={cardProps.onRemove}
-        onMoveBottom={cardProps.onMoveBottom}
-        onMoveTop={cardProps.onMoveTop}
-        entryUrl={cardProps.entityUrl}
       />
     );
   }
