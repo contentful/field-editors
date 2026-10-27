@@ -20,6 +20,11 @@ export interface ReferenceEditorProps {
   hasCardRemoveActions?: boolean;
   sdk: FieldAppSDK;
   viewType: ViewType;
+  /**
+   * Renders a custom card for each linked entity. Return `false` to render the default card.
+   * In resource reference editors, this only applies to Contentful resources; external
+   * resources always render the default card.
+   */
   renderCustomCard?: CustomCardRenderer;
   renderCustomActions?: (props: CustomActionProps) => React.ReactElement;
   renderCustomMissingEntityCard?: RenderCustomMissingEntityCard;
