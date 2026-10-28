@@ -40,8 +40,12 @@ export function useResourceLinkActions({
 
   const multiple = field.type === 'Array';
   const referencingEntryId = sdk.ids.entry;
-  // @ts-expect-error wait for update of app-sdk version
-  const allowedResources = field.allowedResources;
+  // app-sdk does not expose `allowedResources` on the field API inside app iframes,
+  // so fall back to the field definition on the content type
+  const allowedResources =
+    // @ts-expect-error wait for update of app-sdk version
+    field.allowedResources ??
+    sdk.contentType?.fields?.find((f) => f.id === field.id)?.allowedResources;
   const onLinkExisting = useMemo(() => {
     const promptSelection = multiple
       ? async (): Promise<ResourceLink<'Contentful:Entry'>[]> =>

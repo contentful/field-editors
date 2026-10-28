@@ -95,6 +95,29 @@ describe('Multiple resource editor', () => {
     });
   });
 
+  it('falls back to the content type field for allowedResources', async () => {
+    const { allowedResources, ...fieldWithoutAllowedResources } = fieldDefinition;
+    const sdk: FieldAppSDK = mockSdkForField(fieldWithoutAllowedResources);
+    // @ts-expect-error partial content type
+    sdk.contentType = { fields: [{ id: fieldDefinition.id, allowedResources }] };
+    render(
+      <MultipleResourceReferenceEditor
+        isInitiallyDisabled={false}
+        sdk={sdk}
+        hasCardEditActions={true}
+        viewType="card"
+        // @ts-expect-error unused...
+        parameters={{}}
+      />,
+    );
+
+    userEvent.click(await screen.findByText('Add existing content'));
+
+    // @ts-expect-error wait app-sdk version update
+    const dialogFn = sdk.dialogs.selectMultipleResourceEntities;
+    expect(dialogFn.mock.calls[0][0].allowedResources).toEqual(allowedResources);
+  });
+
   it('hides the action button when insufficient permissions', async () => {
     mockedUseEditorPermissions.mockImplementation(() => ({ canLinkEntity: false }));
 
