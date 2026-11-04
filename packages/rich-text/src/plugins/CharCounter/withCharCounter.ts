@@ -29,6 +29,7 @@ export const withCharCounter = (editor: PlateEditor) => {
   editor.apply = (op) => {
     apply(op);
 
+    // Asynchronously redo the character count
     if (op.type !== 'set_selection') {
       recount();
     }
