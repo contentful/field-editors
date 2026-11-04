@@ -4,7 +4,9 @@ import tokens from '@contentful/f36-tokens';
 import { CharValidation, ConstraintsUtils } from '@contentful/field-editor-shared';
 import { css, cx } from '@emotion/css';
 
-import { usePlateEditorState } from './internal/hooks';
+import { useEditorPluginOptions, usePlateEditorRef } from './internal/hooks';
+import type { PlateEditor } from './internal/types';
+import type { CharCounterConfig } from './plugins/CharCounter/withCharCounter';
 import { useSdkContext } from './SdkProvider';
 
 const styles = {
@@ -25,13 +27,25 @@ interface CharCounterProps {
 }
 
 function CharCounter({ checkConstraints }: CharCounterProps) {
-  const editor = usePlateEditorState();
+  const editor = usePlateEditorRef();
 
   if (!editor.getCharacterCount) {
     return null;
   }
 
-  const count = editor.getCharacterCount();
+  return <SubscribedCharCounter editor={editor} checkConstraints={checkConstraints} />;
+}
+
+function SubscribedCharCounter({
+  editor,
+  checkConstraints,
+}: CharCounterProps & { editor: PlateEditor }) {
+  const count =
+    useEditorPluginOptions<CharCounterConfig, number | undefined>(
+      editor,
+      { key: 'char-counter' },
+      (state) => state.count,
+    ) ?? editor.getCharacterCount();
   const valid = checkConstraints(count);
 
   return (

@@ -1,8 +1,8 @@
-import { useEditorRef, useEditorState, useReadOnly } from 'platejs/react';
+import { useEditorRef, useEditorState } from 'platejs/react';
 
 import { PlateEditor } from './types';
 
-export { useReadOnly };
+export { useReadOnly, useEditorPluginOptions } from 'platejs/react';
 
 export const usePlateEditorRef = (id?: string) => useEditorRef<PlateEditor>(id);
 

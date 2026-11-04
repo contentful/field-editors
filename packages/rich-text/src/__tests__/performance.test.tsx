@@ -59,37 +59,49 @@ const makeDoc = (n: number) =>
   );
 
 describe('rich text performance', () => {
-  it('typing only re-renders what changed', async () => {
-    const [baseSdk] = newReferenceEditorFakeSdk();
-    const sdk = {
-      ...baseSdk,
-      entry: { getSys: () => ({ id: 'perf-entry' }) },
-      locales: { ...baseSdk.locales, direction: {} },
-      access: { can: async () => true },
-      parameters: { instance: {} },
-    } as unknown as typeof baseSdk;
+  it.each([false, true])(
+    'typing only re-renders what changed (counter: %s)',
+    async (withCharValidation) => {
+      const [baseSdk] = newReferenceEditorFakeSdk();
+      const sdk = {
+        ...baseSdk,
+        cma: {
+          ...baseSdk.cma,
+          scheduledActions: { getMany: async () => ({ items: [] }) },
+        },
+        entry: { getSys: () => ({ id: 'perf-entry' }) },
+        locales: { ...baseSdk.locales, direction: {} },
+        access: { can: async () => true },
+        parameters: { instance: {} },
+      } as unknown as typeof baseSdk;
 
-    let commits = 0;
-    const { container } = render(
-      <React.Profiler id="rte" onRender={() => commits++}>
-        <ConnectedRichTextEditor sdk={sdk} value={makeDoc(BLOCK_COUNT) as never} />
-      </React.Profiler>,
-    );
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 50));
-    });
-
-    commits = 0;
-    for (let i = 0; i < KEYSTROKES; i++) {
+      let commits = 0;
+      const { container } = render(
+        <React.Profiler id="rte" onRender={() => commits++}>
+          <ConnectedRichTextEditor
+            sdk={sdk}
+            value={makeDoc(BLOCK_COUNT) as never}
+            withCharValidation={withCharValidation}
+          />
+        </React.Profiler>,
+      );
       await act(async () => {
-        editor.tf.insertText('x', { at: { path: [0, 0], offset: 3 } });
+        await new Promise((resolve) => setTimeout(resolve, 50));
       });
-    }
 
-    expect(container.textContent).toContain(`Par${'x'.repeat(KEYSTROKES)}agraph 0`);
-    // 9 today; re-rendering the toolbar, links or embeds pushes this to 16+
-    expect(commits / KEYSTROKES).toBeLessThanOrEqual(11);
-  }, 120000);
+      commits = 0;
+      for (let i = 0; i < KEYSTROKES; i++) {
+        await act(async () => {
+          editor.tf.insertText('x', { at: { path: [0, 0], offset: 3 } });
+        });
+      }
+
+      expect(container.textContent).toContain(`Par${'x'.repeat(KEYSTROKES)}agraph 0`);
+      // 9 today; re-rendering the toolbar, links or embeds pushes this to 16+
+      expect(commits / KEYSTROKES).toBeLessThanOrEqual(11);
+    },
+    120000,
+  );
 
   it('normalizing does not resolve unregistered plugins', () => {
     const { editor } = createTestEditor({});
