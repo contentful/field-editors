@@ -22,6 +22,7 @@ import { RichTextTrackingActionHandler } from './plugins/Tracking';
 import { styles } from './RichTextEditor.styles';
 import { SdkProvider } from './SdkProvider';
 import { SyncEditorChanges } from './SyncEditorChanges';
+import { SyncNativeSelection } from './SyncNativeSelection';
 import Toolbar from './Toolbar';
 import StickyToolbarWrapper from './Toolbar/components/StickyToolbarWrapper';
 
@@ -138,6 +139,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
                 incomingValue={initialValue}
                 onValueApplied={acceptExternalValue}
               />
+              {editor.plugins.selectionSync && <SyncNativeSelection editor={editor} />}
               <PlateContent
                 id={id}
                 className={classNames}
