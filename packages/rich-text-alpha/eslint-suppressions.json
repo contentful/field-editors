@@ -1,7 +1,2 @@
 {
-  "src/plugins/embeds/inline.tsx": {
-    "react/prop-types": {
-      "count": 14
-    }
-  }
 }
