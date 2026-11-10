@@ -42,8 +42,6 @@ type RichTextProps = {
    */
   onChange?: (doc: Contentful.Document) => unknown;
   withCharValidation?: boolean;
-  /** @deprecated Caret syncing is always enabled; this prop has no effect. */
-  withSelectionSync?: boolean;
   queryClient?: QueryClient;
 };
 
