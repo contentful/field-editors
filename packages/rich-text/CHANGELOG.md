@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.13...@contentful/field-editor-rich-text@6.6.14) (2026-11-10)
+
+### Bug Fixes
+
+- **rich-text:** always sync the browser caret before editing [TOL-4580] ([#2310](https://github.com/contentful/field-editors/issues/2310)) ([4d27bd8](https://github.com/contentful/field-editors/commit/4d27bd85b77885305f141efdc6a06d8ab8665a9c))
+
 ## [6.6.13](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.12...@contentful/field-editor-rich-text@6.6.13) (2026-11-05)
 
 ### Bug Fixes
