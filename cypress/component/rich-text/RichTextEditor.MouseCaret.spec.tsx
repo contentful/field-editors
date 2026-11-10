@@ -46,12 +46,7 @@ describe(
                 render();
               }}>
               {/* A host rerender can pass a new callback without changing editor content. */}
-              <RichTextEditor
-                sdk={sdk}
-                isInitiallyDisabled={false}
-                withSelectionSync
-                onAction={() => undefined}
-              />
+              <RichTextEditor sdk={sdk} isInitiallyDisabled={false} onAction={() => undefined} />
             </div>
           );
         };

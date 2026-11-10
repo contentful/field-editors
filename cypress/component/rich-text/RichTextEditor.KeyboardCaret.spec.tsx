@@ -26,12 +26,7 @@ const Host = ({ sdk }: { sdk: ReturnType<typeof createRichTextFakeSdk> }) => {
       onKeyUp={(event) => {
         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') render();
       }}>
-      <RichTextEditor
-        sdk={sdk}
-        isInitiallyDisabled={false}
-        withSelectionSync
-        onAction={() => undefined}
-      />
+      <RichTextEditor sdk={sdk} isInitiallyDisabled={false} onAction={() => undefined} />
     </div>
   );
 };

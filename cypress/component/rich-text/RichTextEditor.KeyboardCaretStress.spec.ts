@@ -25,7 +25,7 @@ const mountWithPendingSelection = (first = paragraphWithText('First paragraph'))
   const sdk = createRichTextFakeSdk({
     initialValue: doc(first, paragraphWithText('Second paragraph')),
   });
-  mountRichTextEditor({ sdk, withSelectionSync: true });
+  mountRichTextEditor({ sdk });
   const page = new RichTextPage();
   page.editor.findByText('Second paragraph').click();
   page.editor.type('{home}');
@@ -166,7 +166,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     const sdk = createRichTextFakeSdk({
       initialValue: doc(entryBlock(), paragraphWithText('Body')),
     });
-    mountRichTextEditor({ sdk, withSelectionSync: true });
+    mountRichTextEditor({ sdk });
     const page = new RichTextPage();
     page.editor.findByText('Body').click();
     page.editor.type('{home}');
@@ -377,7 +377,6 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
     const sdk = createRichTextFakeSdk({ initialValue: value });
     mountRichTextEditor({
       sdk,
-      withSelectionSync: true,
       isInitiallyDisabled: true,
       isDisabled: true,
     });
@@ -398,7 +397,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
         const sdk = createRichTextFakeSdk({
           initialValue: doc(entryBlock(), paragraphWithText('Body text')),
         });
-        mountRichTextEditor({ sdk, withSelectionSync: true });
+        mountRichTextEditor({ sdk });
         const page = new RichTextPage();
         page.editor.findByText('Body text').click();
         page.editor.type('{home}');
@@ -432,7 +431,7 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
         const source = arrow === 'ArrowUp' ? 1 : 0;
         const target = 1 - source;
         const sdk = createRichTextFakeSdk({ initialValue: paragraphDocument(...values) });
-        mountRichTextEditor({ sdk, withSelectionSync: true });
+        mountRichTextEditor({ sdk });
         const page = new RichTextPage();
         page.editor.findByText(values[source]).click();
         page.editor.type('{home}');
@@ -466,7 +465,6 @@ describe('Rich text native caret under repeated editing', { browser: 'chrome' },
       'week near the sea. Lisbon and Valencia work well for travelers seeking sunshine and city life. Bergen and Naxos provide access to striking landscapes, while Edinburgh, Kraków and Tallinn are especially rewarding for history lovers.';
     mountRichTextEditor({
       sdk: createRichTextFakeSdk({ initialValue: paragraphDocument(value) }),
-      withSelectionSync: true,
     });
     const page = new RichTextPage();
     page.editor.invoke('css', 'width', '350px').findByText(value).click('topLeft');

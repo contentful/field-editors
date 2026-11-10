@@ -110,13 +110,8 @@ it('unwraps an empty quote on Backspace', () => {
   expect(editor.children.map((node) => node.type)).toEqual([BLOCKS.PARAGRAPH, BLOCKS.PARAGRAPH]);
 });
 
-it.each([undefined, false, true])(
-  'registers caret sync only when explicitly enabled (%s)',
-  (enabled) => {
-    const sdk = { field: { validation: [] } } as unknown as FieldAppSDK;
-    const { editor } = createTestEditor({
-      plugins: getPlugins(sdk, vi.fn(), undefined, undefined, enabled),
-    });
-    expect(editor.plugins.selectionSync !== undefined).toBe(enabled === true);
-  },
-);
+it('always registers caret sync', () => {
+  const sdk = { field: { validation: [] } } as unknown as FieldAppSDK;
+  const { editor } = createTestEditor({ plugins: getPlugins(sdk, vi.fn()) });
+  expect(editor.plugins.selectionSync).toBeDefined();
+});
