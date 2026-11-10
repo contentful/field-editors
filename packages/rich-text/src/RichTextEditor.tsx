@@ -42,8 +42,6 @@ type RichTextProps = {
    */
   onChange?: (doc: Contentful.Document) => unknown;
   withCharValidation?: boolean;
-  /** Enable caret syncing at editor creation. Defaults to false; remount to change it. */
-  withSelectionSync?: boolean;
   queryClient?: QueryClient;
 };
 
@@ -60,7 +58,6 @@ type ConnectedRichTextProps = {
   actionsDisabled?: boolean;
   stickyToolbarOffset?: number;
   withCharValidation?: boolean;
-  withSelectionSync?: boolean;
   queryClient?: QueryClient;
 };
 
@@ -69,12 +66,12 @@ type ConnectedRichTextProps = {
 export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEditor(
   props: ConnectedRichTextProps,
 ) {
-  const { sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync } = props;
+  const { sdk, onAction, restrictedMarks, withCharValidation } = props;
 
   const id = getContentfulEditorId(sdk);
   const plugins = React.useMemo(
-    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation, withSelectionSync),
-    [sdk, onAction, restrictedMarks, withCharValidation, withSelectionSync],
+    () => getPlugins(sdk, onAction ?? noop, restrictedMarks, withCharValidation),
+    [sdk, onAction, restrictedMarks, withCharValidation],
   );
 
   const initialValue = useDeepCompareMemo(() => {
