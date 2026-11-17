@@ -4,10 +4,10 @@ Please take a moment to review this document in order to make the contribution p
 
 ## 1. Prerequisites
 
-| Tool    | Version                 | Notes                                                                                                                                                            |
-| ------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Node.js | `>=20`                  | `package.json` → `engines.node`; `.nvmrc` pins `v22`; `package.json` → `volta.node` pins `22`. Use `nvm use` to match `.nvmrc`.                                  |
-| Yarn    | `>=1.21.1` (Classic/v1) | `package.json` → `engines.yarn`; `volta.yarn` pins `1.21.1`. No `packageManager` field is set — see § File-Level Guidance / Notable Findings for the drift flag. |
+| Tool    | Version             | Notes                                                                                                                                             |
+| ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Node.js | `>=20`              | `package.json` → `engines.node`; `.nvmrc` pins `v22`; `package.json` → `volta.node` pins `22`. Use `nvm use` to match `.nvmrc`.                   |
+| Yarn    | `>=4.18.1` (Yarn 4) | `package.json` → `packageManager` and `engines.yarn`. Run `corepack enable` once so `yarn` resolves to that version (Volta cannot manage Yarn 4). |
 
 No `.npmrc` registry token is required for local development beyond what's already in `.npmrc` (`ignore-scripts=true`). CI jobs write a job-local `.npmrc` with a `GITHUB_PACKAGES_*_TOKEN` to publish/install from the private `@contentful` npm scope — not needed for local package installs of public dependencies.
 

@@ -25,3 +25,6 @@ snapshots.js
 claude.md
 .worktrees
 tmp/
+
+# Yarn local install state
+.yarn/
