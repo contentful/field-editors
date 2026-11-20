@@ -138,6 +138,80 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
       );
     });
 
+    it('deletes an empty table with Backspace at the start of its first cell', () => {
+      insertTable();
+
+      richText.editor.find('th').first().click();
+      cy.realPress('Backspace');
+
+      richText.editor.find('table').should('not.exist');
+      richText.expectValue(undefined);
+
+      richText.toolbar.undo.click();
+      richText.editor.find('table').should('exist');
+      richText.toolbar.redo.click();
+      richText.editor.find('table').should('not.exist');
+
+      richText.editor.type('continued');
+      richText.getValue().then((value) => expect(value).not.to.be.undefined);
+    });
+
+    it('deletes an empty table with Backspace at the start of the following paragraph', () => {
+      insertTable();
+
+      richText.editor.children('[data-slate-node="element"]').last().click();
+      cy.realPress('Backspace');
+
+      richText.editor.find('table').should('not.exist');
+      richText.expectValue(undefined);
+
+      richText.toolbar.undo.click();
+      richText.editor.find('table').should('exist');
+      richText.toolbar.redo.click();
+      richText.editor.find('table').should('not.exist');
+
+      richText.editor.type('continued');
+      richText.getValue().then((value) => expect(value).not.to.be.undefined);
+    });
+
+    it('keeps an empty table before the first cell of a later populated table', () => {
+      insertTable();
+      richText.editor.children('[data-slate-node="element"]').last().click();
+      richText.toolbar.table.click();
+
+      richText.editor.find('table').should('have.length', 2);
+      richText.editor.find('table').last().find('th').first().click().type('x');
+      cy.realPress('ArrowLeft');
+      cy.realPress('Backspace');
+
+      richText.editor.find('table').should('have.length', 2);
+      richText.editor.find('table').last().find('th').first().should('contain.text', 'x');
+    });
+
+    it('keeps an empty table when Backspace is pressed at a non-first empty cell', () => {
+      insertTable();
+
+      richText.editor.find('th').eq(1).click();
+      cy.realPress('Backspace');
+
+      richText.editor.find('table').should('exist');
+      richText.editor.find('th').should('have.length', 2);
+      richText.editor.find('td').should('have.length', 2);
+      richText.getValue().then((value) => expect(value).not.to.be.undefined);
+    });
+
+    it('keeps an empty table when Backspace is pressed at a non-first empty body cell', () => {
+      insertTable();
+
+      richText.editor.find('td').eq(1).click();
+      cy.realPress('Backspace');
+
+      richText.editor.find('table').should('exist');
+      richText.editor.find('th').should('have.length', 2);
+      richText.editor.find('td').should('have.length', 2);
+      richText.getValue().then((value) => expect(value).not.to.be.undefined);
+    });
+
     it('disables block element toolbar buttons when selected', () => {
       insertTable();
 

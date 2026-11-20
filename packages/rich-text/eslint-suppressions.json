@@ -29,11 +29,6 @@
       "count": 1
     }
   },
-  "src/plugins/Text/createTextPlugin.ts": {
-    "@typescript-eslint/no-unsafe-function-type": {
-      "count": 1
-    }
-  },
   "src/test-utils/hyperscript.d.ts": {
     "@typescript-eslint/no-empty-object-type": {
       "count": 20

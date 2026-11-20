@@ -1,6 +1,6 @@
 /* eslint-disable mocha/no-setup-in-describe */
 
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 
 import { block, document as doc, text } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import { mod } from '../../fixtures/utils';
@@ -76,6 +76,35 @@ describe('Rich Text Editor - Headings', { viewportHeight: 2000, viewportWidth: 1
 
         richText.expectValue(expectedValue);
       });
+
+      if (type !== BLOCKS.PARAGRAPH) {
+        it('removes an empty heading with an additional Backspace', () => {
+          richText.editor.click().type('x');
+          richText.toolbar.toggleHeading(type);
+
+          cy.realPress('Backspace');
+          richText.editor.find(`h${HEADINGS.indexOf(type) + 1}`).should('exist');
+
+          cy.realPress('Backspace');
+          richText.editor.find(`h${HEADINGS.indexOf(type) + 1}`).should('not.exist');
+          richText.expectValue(undefined);
+        });
+      }
+
+      if (type === BLOCKS.HEADING_1) {
+        it('removes an empty heading after a table with Backspace', () => {
+          richText.editor.click();
+          richText.toolbar.table.click();
+          richText.editor.children('[data-slate-node="element"]').last().click();
+          richText.toolbar.toggleHeading(type);
+          richText.editor.find('h1').click();
+
+          cy.realPress('Backspace');
+
+          richText.editor.find('table').should('exist');
+          richText.editor.find('h1').should('not.exist');
+        });
+      }
 
       if (shortcut) {
         it(`allows writing ${label} (${type}) via hotkeys ${shortcut}`, () => {

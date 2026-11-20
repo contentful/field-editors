@@ -1,10 +1,39 @@
 /** @jsx jsx */
 
-import { describe, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { jsx, assertOutput, createTestEditor } from '../../../test-utils';
 
 describe('delete backward', () => {
+  test('removes an empty heading after a table while keeping the table', () => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      {
+        type: 'table',
+        children: [
+          {
+            type: 'table-row',
+            children: [
+              {
+                type: 'table-cell',
+                children: [{ type: 'paragraph', children: [{ text: 'cell' }] }],
+              },
+            ],
+          },
+        ],
+      },
+      { type: 'heading-1', children: [{ text: '' }] },
+      { type: 'paragraph', children: [{ text: '' }] },
+    ];
+    editor.tf.select({ path: [1, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children[0].type).toBe('table');
+    expect(editor.children.some((node) => node.type === 'heading-1')).toBe(false);
+    expect(editor.selection?.anchor.path).toEqual([1, 0]);
+  });
+
   const tests = [
     {
       title: 'deletes a character of the text inside li',
@@ -160,6 +189,34 @@ describe('delete forward', () => {
             p1
           </hp>
         </hquote>
+      ),
+    },
+    {
+      title: 'deletes the empty paragraph after a table with Delete',
+      input: (
+        <fragment>
+          <htable>
+            <htr>
+              <htd>
+                <hp>cell</hp>
+              </htd>
+            </htr>
+          </htable>
+          <hp>
+            <cursor />
+          </hp>
+        </fragment>
+      ),
+      expected: (
+        <fragment>
+          <htable>
+            <htr>
+              <htd>
+                <hp>cell</hp>
+              </htd>
+            </htr>
+          </htable>
+        </fragment>
       ),
     },
   ];

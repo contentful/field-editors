@@ -109,19 +109,25 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
         richText.expectValue(expectedValue);
       });
 
-      // FIX: Broken, it's impossible to delete the list. Fix or adjust the test
-      // eslint-disable-next-line mocha/no-skipped-tests
-      it.skip('backspace on empty li at the beginning of doc should remove it', () => {
+      it('backspace on an empty list item at the beginning of the document removes the list', () => {
         const { editor } = richText;
         editor.click();
 
         test.getList().click();
 
-        editor.click().type('{backspace}');
+        editor.find('li').first().click();
+        cy.realPress('Backspace');
 
-        const expectedValue = doc(emptyParagraph(), emptyParagraph());
+        richText.editor.find('ul, ol').should('not.exist');
+        richText.expectValue(undefined);
 
-        richText.expectValue(expectedValue);
+        richText.toolbar.undo.click();
+        richText.editor.find('ul, ol').should('exist');
+        richText.toolbar.redo.click();
+        richText.editor.find('ul, ol').should('not.exist');
+
+        richText.editor.type('continued');
+        richText.getValue().then((value) => expect(value).not.to.be.undefined);
       });
 
       it('backspace on an empty nested list item should remove it', () => {
@@ -146,7 +152,7 @@ describe('Rich Text Lists', { viewportHeight: 1000, viewportWidth: 2000 }, () =>
         richText.expectValue(expectedValue);
       });
 
-      // FIX: Broken, it's impossible to delete the list. Fix or adjust the test
+      // FIX: Broken, skipping for now
       // eslint-disable-next-line mocha/no-skipped-tests
       it.skip('backspace at the start of li should reset the item', () => {
         const { editor } = richText;
