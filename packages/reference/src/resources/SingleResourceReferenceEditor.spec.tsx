@@ -79,8 +79,7 @@ describe('Single resource editor', () => {
     expect(button).toBeDefined();
     fireEvent.click(button);
 
-    // @ts-expect-error wait app-sdk version update
-    const dialogFn = sdk.dialogs.selectSingleResourceEntity;
+    const dialogFn = vi.mocked(sdk.dialogs.selectSingleResourceEntity);
     expect(dialogFn).toHaveBeenCalledTimes(1);
     const options = dialogFn.mock.calls[0][0];
     expect(options).toEqual({

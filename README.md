@@ -40,6 +40,12 @@ Also this repository contains shared packages that simplify development and test
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
 
+### App SDK compatibility
+
+Field-editor dependency ranges accept App SDK v4 and v5, preserving each package's existing v4 minimum and adding `^5.0.0`. Development uses `5.2.0`; typechecks also cover `4.76.1`. This does not establish source-build compatibility with every older v4 release.
+
+Hosts using v5 can deduplicate the rich-text editor's SDK dependency with their own installation. Keep SDK and Contentful Management dependencies aligned: separately installed SDK versions can still have incompatible TypeScript declarations. These ranges become available to consuming applications after the field-editor packages are published and their versions are updated.
+
 ### Styles
 
 To achieve the same field editor look as in the Contentful UI, you need to render `GlobalStyled` component.

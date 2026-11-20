@@ -2,7 +2,7 @@ export * as ModalDialogLauncher from './ModalDialogLauncher';
 export * as ConstraintsUtils from './utils/constraints';
 export * as entityHelpers from './utils/entityHelpers';
 
-export {
+export type {
   AccessAPI,
   AppConfigAPI,
   BaseAppSDK,

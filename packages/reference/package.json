@@ -57,14 +57,14 @@
     "truncate": "^3.0.0"
   },
   "devDependencies": {
-    "@contentful/app-sdk": "^4.42.0",
+    "@contentful/app-sdk": "^5.2.0",
     "@contentful/field-editor-test-utils": "^3.2.1",
     "@lingui/core": "5.9.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^13.1.9"
   },
   "peerDependencies": {
-    "@contentful/app-sdk": "^4.41.2",
+    "@contentful/app-sdk": "^4.41.2 || ^5.0.0",
     "@lingui/core": "^5.3.0",
     "react": ">=18.3.1",
     "react-dom": ">=18.3.1"

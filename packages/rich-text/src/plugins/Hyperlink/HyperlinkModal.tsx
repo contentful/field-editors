@@ -149,11 +149,15 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       locale: props.sdk.field.locale,
       referencingEntryId: props.sdk.ids.entry,
     };
-    // @ts-expect-error wait for update of app-sdk version
     const entityLink = await props.sdk.dialogs.selectSingleResourceEntity(options);
-    if (entityLink) {
+    if (entityLink?.sys.linkType === 'Contentful:Entry') {
       setLinkTarget('');
-      setLinkEntity(entityLink);
+      setLinkEntity({
+        sys: {
+          ...entityLink.sys,
+          linkType: 'Contentful:Entry',
+        },
+      });
     }
   }
 
