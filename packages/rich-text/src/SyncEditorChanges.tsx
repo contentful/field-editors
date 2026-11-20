@@ -6,35 +6,36 @@ import { usePlateEditorRef } from './internal/hooks';
 import { setEditorValue } from './internal/transforms';
 import { PlateEditor, Value } from './internal/types';
 
-/**
- * A hook responsible for keeping the editor state in sync with incoming
- * changes (aka. external updates
- */
-const useAcceptIncomingChanges = (incomingValue: Value | undefined, onValueApplied: () => void) => {
-  const editor = usePlateEditorRef() as PlateEditor;
-
-  // Cache latest editor value to avoid unnecessary updates
-  const lastIncomingValue = React.useRef(incomingValue);
-
-  React.useEffect(() => {
-    if (equal(lastIncomingValue.current, incomingValue)) {
-      return;
-    }
-
-    lastIncomingValue.current = incomingValue;
-    setEditorValue(editor, incomingValue);
-    onValueApplied();
-  }, [editor, incomingValue, onValueApplied]);
-};
-
 export type SyncEditorStateProps = {
   incomingValue?: Value;
+  externalReset?: number;
   onValueApplied: () => void;
 };
 
 /** Applies external field updates to the existing editor instance. */
-export const SyncEditorChanges = ({ incomingValue, onValueApplied }: SyncEditorStateProps) => {
-  useAcceptIncomingChanges(incomingValue, onValueApplied);
+export const SyncEditorChanges = ({
+  incomingValue,
+  externalReset = 0,
+  onValueApplied,
+}: SyncEditorStateProps) => {
+  const editor = usePlateEditorRef() as PlateEditor;
+  const lastUpdate = React.useRef({ incomingValue, externalReset });
+
+  React.useEffect(() => {
+    // Local edits can diverge before an external update repeats the previous value.
+    if (
+      lastUpdate.current.externalReset === externalReset &&
+      equal(lastUpdate.current.incomingValue, incomingValue)
+    ) {
+      return;
+    }
+
+    lastUpdate.current = { incomingValue, externalReset };
+    if (!equal(editor.children, incomingValue)) {
+      setEditorValue(editor, incomingValue);
+    }
+    onValueApplied();
+  }, [editor, incomingValue, externalReset, onValueApplied]);
 
   return null;
 };
