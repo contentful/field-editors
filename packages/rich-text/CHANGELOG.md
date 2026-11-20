@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.14...@contentful/field-editor-rich-text@6.6.15) (2026-11-20)
+
+### Bug Fixes
+
+- **rich-text:** clear empty paragraph and list values [ES-951] ([#2312](https://github.com/contentful/field-editors/issues/2312)) ([98c962e](https://github.com/contentful/field-editors/commit/98c962ecfdc8d39bbce7fd739795f8b69a6ebac2))
+
 ## [6.6.14](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.13...@contentful/field-editor-rich-text@6.6.14) (2026-11-10)
 
 ### Bug Fixes
