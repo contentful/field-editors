@@ -1,4 +1,4 @@
-import { BLOCKS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
+import { BLOCKS, HEADINGS, TEXT_CONTAINERS } from '@contentful/rich-text-types';
 
 import {
   getAboveNode,
@@ -84,18 +84,26 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
       const { deleteForward, deleteBackward } = editor;
 
       editor.deleteBackward = (unit) => {
+        const headingEntry = editor.selection
+          ? getAboveNode(editor, { match: { type: HEADINGS } })
+          : undefined;
+        const isEmptyRootHeading =
+          headingEntry?.[1].length === 1 && isAncestorEmpty(editor, headingEntry[0] as Ancestor);
         if (
           editor.selection &&
           editor.api.isCollapsed() &&
-          editor.api.isStart(editor.selection.anchor, [])
+          editor.api.isStart(editor.selection.anchor, []) &&
+          !getAboveNode(editor, { match: { type: BLOCKS.LIST_ITEM } }) &&
+          !getAboveNode(editor, { match: { type: BLOCKS.TABLE } }) &&
+          !isEmptyRootHeading
         ) {
           return;
         }
-        deleteEmptyParagraph(unit, editor, deleteBackward);
+        deleteEmptyParagraph(unit, editor, deleteBackward, true);
       };
 
       editor.deleteForward = (unit) => {
-        deleteEmptyParagraph(unit, editor, deleteForward);
+        deleteEmptyParagraph(unit, editor, deleteForward, false);
       };
 
       fixPasteAsPlainText(editor);
@@ -121,7 +129,8 @@ export function createTextPlugin(restrictedMarks: string[] = []): PlatePlugin {
 function deleteEmptyParagraph(
   unit: 'character' | 'word' | 'line' | 'block',
   editor: PlateEditor,
-  deleteFunction: Function,
+  deleteFunction: (unit: 'character' | 'word' | 'line' | 'block') => void,
+  isBackward: boolean,
 ) {
   const entry = getAboveNode(editor, {
     match: {
@@ -136,7 +145,13 @@ function deleteEmptyParagraph(
     const isRootLevel = path.length === 1;
     const hasSiblings = editor.children.length > 1; // prevent editor from losing focus
 
-    if (isTextEmpty && isRootLevel && hasSiblings) {
+    const previousRootNode = path.length === 1 && path[0] > 0 ? editor.children[path[0] - 1] : null;
+    const isAfterTable =
+      isBackward &&
+      paragraphOrHeading.type === BLOCKS.PARAGRAPH &&
+      previousRootNode?.type === BLOCKS.TABLE;
+
+    if (isTextEmpty && isRootLevel && hasSiblings && !isAfterTable) {
       removeNodes(editor, { at: path });
 
       const prevNode = getPointBefore(editor, editor.selection as Location, {

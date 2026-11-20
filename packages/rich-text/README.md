@@ -12,7 +12,9 @@ import { RichTextEditor } from '@contentful/field-editor-rich-text';
 
 ## Clearing a field
 
-When an edit leaves only empty paragraphs or list items, the editor removes the locale's field value. Blank paragraphs within documents containing text or other content are preserved, as are whitespace, embedded entities, horizontal rules, and tables.
+When an edit leaves only empty paragraphs or list items, the editor removes the locale's field value. Blank paragraphs within documents containing content are preserved. Whitespace, embedded entities, horizontal rules, and tables count as content.
+
+Backspace removes a wholly empty list at its start. It removes a wholly empty table from the start of its first cell or the paragraph immediately after it. A heading keeps its formatting when its final character is deleted; pressing Backspace again removes the empty heading and returns to normal text.
 
 ## ⚠️ Important: Package Configuration
 
