@@ -61,7 +61,7 @@
     "@contentful/field-editor-test-utils": "^3.2.1",
     "@lingui/core": "5.9.5",
     "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^13.1.9"
+    "@testing-library/user-event": "^13.5.0"
   },
   "peerDependencies": {
     "@contentful/app-sdk": "^4.41.2",
