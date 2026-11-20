@@ -14,6 +14,7 @@ import { CharConstraints } from './CharConstraints';
 import { ContentfulEditorIdProvider, getContentfulEditorId } from './ContentfulEditorProvider';
 import { defaultScrollSelectionIntoView } from './editor-overrides';
 import { createOnChangeCallback } from './helpers/callbacks';
+import { isEmptyRichTextDocument } from './helpers/isEmptyRichTextDocument';
 import { toSlateDoc } from './helpers/toSlateDoc';
 import { PlateContent, Plate, PlateContentProps } from './internal/plate';
 import { createPlateEditor } from './internal/pluginAdapter';
@@ -163,10 +164,7 @@ const RichTextEditor = (props: RichTextProps) => {
     queryClient,
     ...otherProps
   } = props;
-  const isEmptyValue = React.useCallback(
-    (value) => !value || deepEquals(value, Contentful.EMPTY_DOCUMENT),
-    [],
-  );
+  const isEmptyValue = React.useCallback((value) => !value || isEmptyRichTextDocument(value), []);
   React.useEffect(() => {
     if (!onChange) {
       return;

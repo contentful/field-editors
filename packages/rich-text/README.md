@@ -10,6 +10,10 @@ This package contains a React `RichTextEditor` component that is used as the def
 import { RichTextEditor } from '@contentful/field-editor-rich-text';
 ```
 
+## Clearing a field
+
+When an edit leaves only empty paragraphs or list items, the editor removes the locale's field value. Blank paragraphs within documents containing text or other content are preserved, as are whitespace, embedded entities, horizontal rules, and tables.
+
 ## ⚠️ Important: Package Configuration
 
 Plate 53.3.14 pins `slate-react` to 0.126.4. To use the latest Slate React version tested by this package (0.127.1), update existing overrides in your application as shown below. Package-manager overrides in this repository are not inherited by applications that install the published package.
