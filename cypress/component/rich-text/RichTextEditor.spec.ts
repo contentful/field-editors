@@ -411,7 +411,12 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
             richText.toolbar.toggleHeading(type);
 
-            richText.expectValue(doc(block(type, {}, text('')), emptyParagraph()));
+            const expectedValue =
+              type === BLOCKS.PARAGRAPH
+                ? undefined
+                : doc(block(type, {}, text('')), emptyParagraph());
+
+            richText.expectValue(expectedValue);
           });
         });
       });

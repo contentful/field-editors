@@ -49,14 +49,12 @@ describe('Rich Text Editor - Quotes', { viewportHeight: 2000, viewportWidth: 100
 
         toggleQuote();
 
+        richText.editor.find('blockquote').should('exist');
+
         richText.editor.type('{backspace}');
 
-        const expectedValue = doc(
-          block(BLOCKS.PARAGRAPH, {}, text('')),
-          block(BLOCKS.PARAGRAPH, {}, text('')),
-        );
-
-        richText.expectValue(expectedValue);
+        richText.expectValue(undefined);
+        richText.editor.find('blockquote').should('not.exist');
       });
 
       it('should add a block quote when clicking followed by a trailing empty paragraph', () => {
