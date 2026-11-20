@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.15...@contentful/field-editor-rich-text@6.6.16) (2026-11-20)
+
+### Bug Fixes
+
+- **rich-text:** allow Backspace to remove empty blocks [ES-951] ([#2313](https://github.com/contentful/field-editors/issues/2313)) ([08f4810](https://github.com/contentful/field-editors/commit/08f48105eddd2a959614ebf16ee9cfcbb53dc8e4))
+
 ## [6.6.15](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.14...@contentful/field-editor-rich-text@6.6.15) (2026-11-20)
 
 ### Bug Fixes
