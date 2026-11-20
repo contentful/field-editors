@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editors",
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.18.1+sha512.b2e1e7524f654f2749d32b4ebcb4622473cb5bcbc485df2007e12a154e50162a4d795526768bc5f5b8f81717bfd79deb2472813d86fb5ae2eb551fa9c872b08f",
   "private": true,
   "version": "1.0.0",
   "description": "React components and apps for building Contentful entry editor",
@@ -14,8 +14,8 @@
     "start": "yarn storybook",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "build": "lerna run build --scope=@contentful/**",
-    "build:apps": "lerna run build --scope=*-app",
+    "build": "lerna run build --scope='@contentful/**'",
+    "build:apps": "lerna run build --scope='*-app'",
     "lint": "lerna run --stream lint",
     "lint:md": "remark --no-stdout --frail *.md */*.md",
     "watch": "lerna run --stream watch",
@@ -31,7 +31,7 @@
     "storybook": "storybook dev -p 9000",
     "build-storybook": "storybook build -o dist",
     "cm": "git-cz",
-    "prepare": "husky install",
+    "postinstall": "husky install",
     "upload-translation-keys": "node ./tools/extract-new-translation-keys/extract-new-translation-keys.mjs",
     "extract-translation-keys": "lingui extract"
   },
@@ -55,6 +55,8 @@
     "@contentful/f36-components": "^5.4.1",
     "@contentful/f36-tokens": "^5.1.0",
     "@cypress/react": "8.0.2",
+    "@eslint/eslintrc": "3.3.7",
+    "@eslint/js": "9.39.5",
     "@lingui/cli": "5.9.5",
     "@lingui/react": "5.9.5",
     "@lingui/swc-plugin": "5.11.0",
@@ -72,8 +74,6 @@
     "@types/react-dom": "18.3.7",
     "@types/testing-library__cypress": "5.0.13",
     "@types/webpack-env": "1.18.8",
-    "@eslint/eslintrc": "3.3.7",
-    "@eslint/js": "9.39.5",
     "@typescript-eslint/eslint-plugin": "8.69.0",
     "@typescript-eslint/parser": "8.69.0",
     "@vitejs/plugin-react-swc": "^3.11.0",
@@ -185,7 +185,7 @@
   },
   "engines": {
     "node": ">=20",
-    "yarn": ">=1.22.22"
+    "yarn": ">=4.18.1"
   },
   "config": {
     "commitizen": {
@@ -193,10 +193,14 @@
     }
   },
   "volta": {
-    "node": "22",
-    "yarn": "1.22.22"
+    "node": "22"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "dependenciesMeta": {
+    "cypress@15.21.1": {
+      "built": true
+    }
   }
 }
