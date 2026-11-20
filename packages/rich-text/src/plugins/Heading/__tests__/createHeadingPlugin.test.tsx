@@ -1,10 +1,46 @@
 /* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, HEADINGS } from '@contentful/rich-text-types';
 import { describe, expect, it, vi } from 'vitest';
 
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
 import { createHeadingPlugin } from '../createHeadingPlugin';
+
+describe('backward deletion', () => {
+  it.each(HEADINGS)(
+    'keeps a non-empty %s when Backspace is pressed at the document start',
+    (type) => {
+      const { editor } = createTestEditor({});
+      editor.children = [
+        { type, children: [{ text: 'x' }] },
+        { type: BLOCKS.PARAGRAPH, children: [{ text: '' }] },
+      ];
+      editor.tf.select({ path: [0, 0], offset: 0 });
+
+      editor.deleteBackward('character');
+
+      expect(editor.children[0]).toMatchObject({ type, children: [{ text: 'x' }] });
+    },
+  );
+
+  it.each(HEADINGS)('removes an empty %s on an additional Backspace', (type) => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      { type, children: [{ text: 'x' }] },
+      { type: BLOCKS.PARAGRAPH, children: [{ text: '' }] },
+    ];
+    editor.tf.select({ path: [0, 0], offset: 1 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children[0]).toMatchObject({ type, children: [{ text: '' }] });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children[0].type).toBe(BLOCKS.PARAGRAPH);
+    expect(editor.selection?.anchor.path).toEqual([0, 0]);
+  });
+});
 
 describe('normalization', () => {
   it('can contain inline entries & hyperlinks', () => {

@@ -4,7 +4,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 
 import { insertEmptyParagraph } from '../../helpers/editor';
 import { blurEditor } from '../../internal/misc';
-import { getAboveNode, getText, isFirstChild, isLastChildPath } from '../../internal/queries';
+import { getAboveNode, isLastChildPath } from '../../internal/queries';
 import {
   getTableEntries,
   getNextTableCell,
@@ -42,25 +42,6 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
         event.preventDefault();
         event.stopPropagation();
         return;
-      }
-    }
-
-    // TODO clean this up
-    if (event.key === 'Backspace') {
-      const entry = getTableEntries(editor, {});
-
-      if (entry) {
-        const { table, row, cell } = entry;
-
-        const cellText = getText(editor, cell[1]);
-        const isFirstCell = isFirstChild(row[1]);
-        const isFirstRow = isFirstChild(table[1]);
-
-        if (isFirstCell && isFirstRow && !cellText) {
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
       }
     }
 

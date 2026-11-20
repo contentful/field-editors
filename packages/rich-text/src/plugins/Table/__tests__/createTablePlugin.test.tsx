@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { describe, expect, it } from 'vitest';
 
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
@@ -437,6 +437,190 @@ describe('paste', () => {
     expect(editor.children).toMatchObject([
       table([['Before pasted after', 'Keep cell']]),
       paragraph('Keep following paragraph'),
+    ]);
+  });
+});
+
+describe('backward deletion', () => {
+  const paragraph = (value = '') => ({ type: BLOCKS.PARAGRAPH, children: [{ text: value }] });
+  const emptyTable = {
+    type: BLOCKS.TABLE,
+    children: [
+      {
+        type: BLOCKS.TABLE_ROW,
+        children: [
+          { type: BLOCKS.TABLE_HEADER_CELL, children: [paragraph()] },
+          { type: BLOCKS.TABLE_HEADER_CELL, children: [paragraph()] },
+        ],
+      },
+      {
+        type: BLOCKS.TABLE_ROW,
+        children: [
+          { type: BLOCKS.TABLE_CELL, children: [paragraph()] },
+          { type: BLOCKS.TABLE_CELL, children: [paragraph()] },
+        ],
+      },
+    ],
+  };
+
+  it('removes an empty table when Backspace is pressed at the start of its first cell', () => {
+    const { editor } = createTestEditor({});
+    editor.children = [emptyTable, paragraph()];
+    editor.tf.select({ path: [0, 0, 0, 0, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([paragraph()]);
+    expect(editor.selection?.anchor.path).toEqual([0, 0]);
+  });
+
+  it('removes an empty table when Backspace is pressed at the start of the following paragraph', () => {
+    const { editor } = createTestEditor({});
+    editor.children = [emptyTable, paragraph()];
+    editor.tf.select({ path: [1, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([paragraph()]);
+    expect(editor.selection?.anchor.path).toEqual([0, 0]);
+  });
+
+  it('keeps a populated table when Backspace is pressed at the start of its first cell', () => {
+    const { editor } = createTestEditor({});
+    const populatedTable = {
+      ...emptyTable,
+      children: emptyTable.children.map((row, rowIndex) => ({
+        ...row,
+        children: row.children.map((cell, cellIndex) =>
+          rowIndex === 0 && cellIndex === 0 ? { ...cell, children: [paragraph('content')] } : cell,
+        ),
+      })),
+    };
+    editor.children = [populatedTable, paragraph()];
+    editor.tf.select({ path: [0, 0, 0, 0, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([populatedTable, paragraph()]);
+  });
+
+  it('does not remove the empty table before a populated table', () => {
+    const { editor } = createTestEditor({});
+    const populatedTable = {
+      ...emptyTable,
+      children: emptyTable.children.map((row, rowIndex) => ({
+        ...row,
+        children: row.children.map((cell, cellIndex) =>
+          rowIndex === 0 && cellIndex === 0 ? { ...cell, children: [paragraph('content')] } : cell,
+        ),
+      })),
+    };
+    editor.children = [emptyTable, populatedTable, paragraph()];
+    editor.tf.select({ path: [1, 0, 0, 0, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([emptyTable, populatedTable, paragraph()]);
+  });
+
+  it.each([
+    {
+      title: 'whitespace in another cell',
+      table: {
+        ...emptyTable,
+        children: emptyTable.children.map((row, rowIndex) => ({
+          ...row,
+          children: row.children.map((cell, cellIndex) =>
+            rowIndex === 1 && cellIndex === 1 ? { ...cell, children: [paragraph(' ')] } : cell,
+          ),
+        })),
+      },
+    },
+    {
+      title: 'an embedded inline in another cell',
+      table: {
+        ...emptyTable,
+        children: emptyTable.children.map((row, rowIndex) => ({
+          ...row,
+          children: row.children.map((cell, cellIndex) =>
+            rowIndex === 1 && cellIndex === 1
+              ? {
+                  ...cell,
+                  children: [
+                    {
+                      type: BLOCKS.PARAGRAPH,
+                      children: [
+                        {
+                          type: INLINES.EMBEDDED_ENTRY,
+                          data: { target: {} },
+                          children: [{ text: '' }],
+                        },
+                      ],
+                    },
+                  ],
+                }
+              : cell,
+          ),
+        })),
+      },
+    },
+  ])('keeps a table with $title', ({ table }) => {
+    const { editor } = createTestEditor({});
+    editor.children = [table, paragraph()];
+    editor.tf.select({ path: [0, 0, 0, 0, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([table, paragraph()]);
+  });
+
+  it('keeps a table when Backspace is pressed inside a non-first cell', () => {
+    const { editor } = createTestEditor({});
+    const populatedTable = {
+      ...emptyTable,
+      children: emptyTable.children.map((row, rowIndex) => ({
+        ...row,
+        children: row.children.map((cell, cellIndex) =>
+          rowIndex === 0 && cellIndex === 1 ? { ...cell, children: [paragraph('x')] } : cell,
+        ),
+      })),
+    };
+    editor.children = [populatedTable, paragraph()];
+    editor.tf.select({ path: [0, 0, 1, 0, 0], offset: 1 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([emptyTable, paragraph()]);
+  });
+
+  it('keeps an unselected preceding table when a range in the following paragraph is deleted', () => {
+    const { editor } = createTestEditor({});
+    editor.children = [emptyTable, paragraph('selected')];
+    editor.tf.select({
+      anchor: { path: [1, 0], offset: 0 },
+      focus: { path: [1, 0], offset: 8 },
+    });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children[0]).toMatchObject(emptyTable);
+  });
+
+  it('keeps an empty table before a heading when Backspace is pressed in the heading', () => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      emptyTable,
+      { type: BLOCKS.HEADING_1, children: [{ text: 'content' }] },
+      paragraph(),
+    ];
+    editor.tf.select({ path: [1, 0], offset: 0 });
+
+    editor.deleteBackward('character');
+
+    expect(editor.children).toMatchObject([
+      emptyTable,
+      { type: BLOCKS.HEADING_1, children: [{ text: 'content' }] },
+      paragraph(),
     ]);
   });
 });

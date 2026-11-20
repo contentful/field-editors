@@ -16,6 +16,7 @@ export const ELEMENT_TABLE = KEYS.table;
 export const ELEMENT_TR = KEYS.tr;
 export const ELEMENT_TD = KEYS.td;
 export const ELEMENT_TH = KEYS.th;
+
 const applyOverride = (
   editor: PlateEditor,
   override: (context: any) => { api?: any; transforms?: any },
