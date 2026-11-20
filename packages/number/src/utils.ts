@@ -5,8 +5,7 @@ type RangeValidation = { min?: number; max?: number };
 export const getRangeFromField = (field: FieldAPI): RangeValidation => {
   const validations = field.validations || [];
   const result = validations.find((validation) => (validation as any).range) as
-    | { range: RangeValidation }
-    | undefined;
+    { range: RangeValidation } | undefined;
   return result ? result.range : {};
 };
 
