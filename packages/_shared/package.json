@@ -48,7 +48,7 @@
     "@contentful/field-editor-test-utils": "^3.2.1",
     "@lingui/core": "5.9.5",
     "@tanstack/react-query": "^4.3.9",
-    "@testing-library/react": "16.3.0"
+    "@testing-library/react": "16.3.3"
   },
   "dependencies": {
     "@contentful/f36-components": "^6.7.1",
