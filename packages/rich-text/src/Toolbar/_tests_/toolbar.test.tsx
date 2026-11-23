@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MARKS } from '@contentful/rich-text-types';
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { configure, render, waitFor } from '@testing-library/react';
 import { describe, expect, it, test, vi } from 'vitest';
 
@@ -102,6 +102,70 @@ describe('Toolbar', () => {
         </Plate>,
       );
       expect(queryByTestId('dropdown-toolbar-button')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('lists in tables', () => {
+    const renderWithCursorIn = (cellType: BLOCKS.TABLE_CELL | BLOCKS.TABLE_HEADER_CELL) => {
+      const sdk = mockSdk();
+      const id = getContentfulEditorId(sdk);
+      const editor = createPlateEditor({
+        id,
+        value: [
+          {
+            type: BLOCKS.TABLE,
+            data: {},
+            children: [
+              {
+                type: BLOCKS.TABLE_ROW,
+                data: {},
+                children: [
+                  {
+                    type: cellType,
+                    data: {},
+                    children: [{ type: BLOCKS.PARAGRAPH, data: {}, children: [{ text: 'cell' }] }],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      editor.selection = {
+        anchor: { path: [0, 0, 0, 0, 0], offset: 0 },
+        focus: { path: [0, 0, 0, 0, 0], offset: 0 },
+      };
+
+      return render(
+        <Plate editor={editor}>
+          <SdkProvider sdk={sdk}>
+            <ContentfulEditorIdProvider value={id}>
+              <Toolbar />
+            </ContentfulEditorIdProvider>
+          </SdkProvider>
+        </Plate>,
+      );
+    };
+
+    it('enables the list buttons inside a table cell', async () => {
+      const { getByTestId } = renderWithCursorIn(BLOCKS.TABLE_CELL);
+
+      await waitFor(() => {
+        expect(getByTestId('ul-toolbar-button')).toBeEnabled();
+        expect(getByTestId('ol-toolbar-button')).toBeEnabled();
+        // other block-level formatting stays unavailable in tables
+        expect(getByTestId('quote-toolbar-button')).toBeDisabled();
+        expect(getByTestId('table-toolbar-button')).toBeDisabled();
+      });
+    });
+
+    it('disables the list buttons inside a table header cell', async () => {
+      const { getByTestId } = renderWithCursorIn(BLOCKS.TABLE_HEADER_CELL);
+
+      await waitFor(() => {
+        expect(getByTestId('ul-toolbar-button')).toBeDisabled();
+        expect(getByTestId('ol-toolbar-button')).toBeDisabled();
+      });
     });
   });
 });
