@@ -1,9 +1,9 @@
-import { getNodeEntry, getStartPoint } from '../../../internal/queries';
+import { getStartPoint } from '../../../internal/queries';
 import { getEmptyCellNode } from '../../../internal/table';
-import { insertNodes, select, setNodes, withoutNormalizing } from '../../../internal/transforms';
-import { Element, Path, PlateEditor } from '../../../internal/types';
-import { getInsertIndex, spanData } from '../grid';
-import { CurrentCell, getCurrentCell } from './mergeCells';
+import { insertNodes, select, withoutNormalizing } from '../../../internal/transforms';
+import { Path, PlateEditor } from '../../../internal/types';
+import { getInsertIndex } from '../grid';
+import { CurrentCell, getCurrentCell, getSlotCell, getSlotPath, setSpan } from './spanUtils';
 
 interface AddColumnOptions {
   header?: boolean;
@@ -22,7 +22,7 @@ const addColumn = (
   const current = getCurrentCell(editor, { atAnchor: true });
   if (!current) return;
 
-  const { tablePath, grid } = current;
+  const { table, tablePath, grid } = current;
   const line = getLine(current);
 
   withoutNormalizing(editor, () => {
@@ -35,18 +35,10 @@ const addColumn = (
       if (slot && slot.origin[1] < line) {
         // Crossing cell: extend it once, from its origin row
         if (slot.origin[0] === r) {
-          const cellPath = [...tablePath, slot.rowIndex, slot.cellIndex];
-          const [cell] = getNodeEntry(editor, cellPath) as [Element, unknown];
-          setNodes(
-            editor,
-            {
-              data: spanData(cell.data as object | undefined, {
-                colspan: slot.colspan + 1,
-                rowspan: slot.rowspan,
-              }),
-            },
-            { at: cellPath },
-          );
+          setSpan(editor, getSlotPath(tablePath, slot), getSlotCell(table, slot), {
+            colspan: slot.colspan + 1,
+            rowspan: slot.rowspan,
+          });
         }
         continue;
       }

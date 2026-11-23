@@ -9,7 +9,7 @@ import {
 } from 'platejs';
 import { getEditorPlugin } from 'platejs/react';
 
-import { getTableGrid } from '../plugins/Table/grid';
+import { getTableGrid, hasSpans } from '../plugins/Table/grid';
 import { getAboveNode } from './queries';
 import type { Element } from './types';
 import type { PlateEditor } from './types/editor';
@@ -50,10 +50,7 @@ export const withGetFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin)
 const isInSpanTable = (editor: PlateEditor): boolean => {
   const tableEntry = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
   if (!tableEntry) return false;
-  const grid = getTableGrid(tableEntry[0] as Element);
-  return grid.slots.some((row) =>
-    row.some((slot) => slot && (slot.colspan > 1 || slot.rowspan > 1)),
-  );
+  return hasSpans(getTableGrid(tableEntry[0] as Element));
 };
 
 export const withInsertFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) => {

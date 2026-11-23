@@ -1,28 +1,21 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import {
-  getAboveNode,
-  getEndPoint,
-  getNodeEntry,
-  isElement,
-  isText,
-} from '../../../internal/queries';
-import {
-  moveNodes,
-  removeNodes,
-  select,
-  setNodes,
-  withoutNormalizing,
-} from '../../../internal/transforms';
+import { getEndPoint, getNodeEntry, isElement, isText } from '../../../internal/queries';
+import { moveNodes, removeNodes, select, withoutNormalizing } from '../../../internal/transforms';
 import { Element, Path, PlateEditor } from '../../../internal/types';
-import { GridSlot, TableGrid, getCellSlot, getTableGrid, spanData } from '../grid';
+import { GridSlot, getTableGrid } from '../grid';
 import { isTableHeaderEnabled } from '../helpers';
-import { getEmptiedRows } from './spanUtils';
+import {
+  CurrentCell,
+  getCurrentCell,
+  getEmptiedRows,
+  getSlotCell,
+  getSlotPath,
+  setSpan,
+} from './spanUtils';
 
 /** A block of cells in grid coordinates */
 export type CellRect = { row: number; col: number; rowspan: number; colspan: number };
-
-export type CurrentCell = { tablePath: Path; grid: TableGrid; slot: GridSlot };
 
 const isEmptyCell = (cell: Element): boolean => {
   if (cell.children.length !== 1) return false;
@@ -35,12 +28,6 @@ const isEmptyCell = (cell: Element): boolean => {
     child.children[0].text === ''
   );
 };
-
-const cellPath = (tablePath: Path, slot: GridSlot): Path => [
-  ...tablePath,
-  slot.rowIndex,
-  slot.cellIndex,
-];
 
 /**
  * Merges every cell inside `rect` into the cell at its top-left corner.
@@ -62,9 +49,8 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
   const [target, ...others] = slots;
   if (!target) return;
 
-  const targetPath = cellPath(tablePath, target);
-  const cellAt = (slot: GridSlot) =>
-    (table.children[slot.rowIndex] as Element).children[slot.cellIndex] as Element;
+  const targetPath = getSlotPath(tablePath, target);
+  const cellAt = (slot: GridSlot) => getSlotCell(table, slot);
   const targetWasEmpty = isEmptyCell(cellAt(target));
 
   // Rows inside the rect left without cells of their own are removed too:
@@ -75,16 +61,10 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
     // Cell paths are still those of the snapshot: nothing has been removed yet
     for (const [slot, loss] of rowspanLoss) {
       if (slot === target) continue;
-      setNodes(
-        editor,
-        {
-          data: spanData(cellAt(slot).data as object | undefined, {
-            colspan: slot.colspan,
-            rowspan: slot.rowspan - loss,
-          }),
-        },
-        { at: cellPath(tablePath, slot) },
-      );
+      setSpan(editor, getSlotPath(tablePath, slot), cellAt(slot), {
+        colspan: slot.colspan,
+        rowspan: slot.rowspan - loss,
+      });
     }
 
     // The target precedes every other cell in document order, so moving
@@ -94,7 +74,7 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
     for (const slot of others) {
       const cell = cellAt(slot);
       if (isEmptyCell(cell)) continue;
-      const fromPath = cellPath(tablePath, slot);
+      const fromPath = getSlotPath(tablePath, slot);
       for (let i = 0; i < cell.children.length; i++) {
         moveNodes(editor, { at: [...fromPath, 0], to: [...targetPath, targetLength++] });
       }
@@ -107,23 +87,17 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
       .sort((a, b) => b.rowIndex - a.rowIndex || b.cellIndex - a.cellIndex)
       .forEach((slot) => {
         if (!emptiedRows.includes(slot.rowIndex)) {
-          removeNodes(editor, { at: cellPath(tablePath, slot) });
+          removeNodes(editor, { at: getSlotPath(tablePath, slot) });
         } else if (!removedRows.has(slot.rowIndex)) {
           removedRows.add(slot.rowIndex);
           removeNodes(editor, { at: [...tablePath, slot.rowIndex] });
         }
       });
 
-    setNodes(
-      editor,
-      {
-        data: spanData(cellAt(target).data as object | undefined, {
-          colspan: rect.colspan,
-          rowspan: rect.rowspan - emptiedRows.length,
-        }),
-      },
-      { at: targetPath },
-    );
+    setSpan(editor, targetPath, cellAt(target), {
+      colspan: rect.colspan,
+      rowspan: rect.rowspan - emptiedRows.length,
+    });
 
     if (targetWasEmpty && received) {
       removeNodes(editor, { at: [...targetPath, 0] });
@@ -133,35 +107,6 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
     if (end) select(editor, end);
   });
 }
-
-type GetCurrentCellOptions = {
-  /**
-   * Resolve the cell at the selection's anchor, so a selection across
-   * several cells still has one. Without it, such a selection has no current cell.
-   */
-  atAnchor?: boolean;
-};
-
-export const getCurrentCell = (
-  editor: PlateEditor,
-  { atAnchor = false }: GetCurrentCellOptions = {},
-): CurrentCell | undefined => {
-  const at = atAnchor ? editor.selection?.anchor : undefined;
-  const cellEntry = getAboveNode(editor, {
-    at,
-    match: { type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL] },
-  });
-  const tableEntry = getAboveNode(editor, { at, match: { type: BLOCKS.TABLE } });
-  if (!cellEntry || !tableEntry) return undefined;
-
-  const [, path] = cellEntry;
-  const [table, tablePath] = tableEntry;
-  if (path.length !== tablePath.length + 2) return undefined;
-
-  const grid = getTableGrid(table as Element);
-  const slot = getCellSlot(grid, path[path.length - 2], path[path.length - 1]);
-  return { tablePath, grid, slot };
-};
 
 const getRightNeighbour = ({ grid, slot }: CurrentCell): GridSlot | undefined => {
   const [row, col] = slot.origin;

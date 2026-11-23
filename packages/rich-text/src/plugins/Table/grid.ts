@@ -73,6 +73,10 @@ export function getTableGrid(table: Element): TableGrid {
   return { slots: dense, width, height };
 }
 
+/** Whether any cell in the grid spans more than one row or column */
+export const hasSpans = (grid: TableGrid): boolean =>
+  grid.slots.some((row) => row.some((slot) => slot && (slot.colspan > 1 || slot.rowspan > 1)));
+
 export function getCellSlot(grid: TableGrid, rowIndex: number, cellIndex: number): GridSlot {
   for (const slot of grid.slots[rowIndex]) {
     if (slot && slot.rowIndex === rowIndex && slot.cellIndex === cellIndex) return slot;

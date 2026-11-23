@@ -1,9 +1,9 @@
-import { getNodeEntry, getStartPoint } from '../../../internal/queries';
+import { getStartPoint } from '../../../internal/queries';
 import { getEmptyRowNode } from '../../../internal/table';
-import { insertNodes, select, setNodes, withoutNormalizing } from '../../../internal/transforms';
-import { Element, PlateEditor } from '../../../internal/types';
-import { GridSlot, spanData } from '../grid';
-import { CurrentCell, getCurrentCell } from './mergeCells';
+import { insertNodes, select, withoutNormalizing } from '../../../internal/transforms';
+import { PlateEditor } from '../../../internal/types';
+import { GridSlot } from '../grid';
+import { CurrentCell, getCurrentCell, getSlotCell, getSlotPath, setSpan } from './spanUtils';
 
 /**
  * Inserts a row at grid row `line` (the current cell's top edge for "above",
@@ -14,7 +14,7 @@ const addRow = (editor: PlateEditor, getLine: (current: CurrentCell) => number) 
   const current = getCurrentCell(editor, { atAnchor: true });
   if (!current) return;
 
-  const { tablePath, grid } = current;
+  const { table, tablePath, grid } = current;
   // Clamp in case an unnormalized rowspan runs past the last row
   const line = Math.min(getLine(current), grid.height);
 
@@ -31,18 +31,10 @@ const addRow = (editor: PlateEditor, getLine: (current: CurrentCell) => number) 
 
   withoutNormalizing(editor, () => {
     for (const slot of crossing) {
-      const cellPath = [...tablePath, slot.rowIndex, slot.cellIndex];
-      const [cell] = getNodeEntry(editor, cellPath) as [Element, unknown];
-      setNodes(
-        editor,
-        {
-          data: spanData(cell.data as object | undefined, {
-            colspan: slot.colspan,
-            rowspan: slot.rowspan + 1,
-          }),
-        },
-        { at: cellPath },
-      );
+      setSpan(editor, getSlotPath(tablePath, slot), getSlotCell(table, slot), {
+        colspan: slot.colspan,
+        rowspan: slot.rowspan + 1,
+      });
     }
 
     insertNodes(
