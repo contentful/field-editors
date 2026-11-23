@@ -3,6 +3,7 @@
  * See: https://github.com/udecode/plate/blob/main/packages/nodes/list
  */
 import { TEXT_CONTAINERS, BLOCKS } from '@contentful/rich-text-types';
+import { Range } from 'slate';
 
 import { findNode } from '../../internal/plate';
 import {
@@ -13,7 +14,7 @@ import {
   getParentPath,
   getDescendantNodeByPath,
 } from '../../internal/queries';
-import { insertNodes } from '../../internal/transforms';
+import { insertNodes, removeNodes } from '../../internal/transforms';
 import { PlateEditor, NodeEntry, Node, Element } from '../../internal/types';
 
 const getFirstAncestorOfType = (root: Node, entry: NodeEntry): NodeEntry => {
@@ -55,6 +56,22 @@ const trimList = (listRoot: Node): Node[] => {
 };
 
 /**
+ * `trimList` returns the list root's items, which drops the root's list type.
+ * When the trimmed nodes are exactly that root's items, put them back under a
+ * root of the same type so an ordered list is not pasted as an unordered one.
+ */
+const keepListRootType = (root: Node, trimmed: Node[]): Node[] => {
+  const rootChildren = (root as Element).children as Node[] | undefined;
+  const isRootItems =
+    isListRoot(root) &&
+    !!rootChildren &&
+    trimmed.length === rootChildren.length &&
+    trimmed.every((node, index) => node === rootChildren[index]);
+
+  return isRootItems ? [{ ...root, children: trimmed }] : trimmed;
+};
+
+/**
  * Removes leading li when pasting a single li with a single child.
  */
 const trimLiWrapper = (nodes: Node[]): Node[] => {
@@ -81,11 +98,48 @@ const unwrapTextContainerAtStart = (nodes: Node[]): Node[] => {
   return nodes;
 };
 
+/**
+ * Replaces top-level blocks that the selection covers completely with a pasted list.
+ * The list lands at top level, so its type is kept and no empty wrapper item remains.
+ *
+ * @returns true when the replacement was applied.
+ */
+const replaceWholeBlocksWithList = (editor: PlateEditor, fragment: Node[]): boolean => {
+  const selection = editor.selection;
+  if (!selection || Range.isCollapsed(selection) || fragment.length !== 1) {
+    return false;
+  }
+  if (!isListRoot(fragment[0])) {
+    return false;
+  }
+
+  const [from, to] = Range.edges(selection);
+  const startIndex = from.path[0];
+  const endIndex = to.path[0];
+  const coversWholeBlocks =
+    editor.api.isStart(from, [startIndex]) && editor.api.isEnd(to, [endIndex]);
+  if (!coversWholeBlocks) {
+    return false;
+  }
+
+  // Insert after the selected blocks first, then remove them, so the document never empties.
+  insertNodes(editor, fragment, { at: [endIndex + 1] });
+  for (let index = endIndex; index >= startIndex; index--) {
+    removeNodes(editor, { at: [index] });
+  }
+  editor.tf.select(editor.api.end([startIndex]));
+  return true;
+};
+
 export const insertListFragment = (editor: PlateEditor) => {
   const { insertFragment } = editor;
 
   return (fragment: Node[], options?: Parameters<PlateEditor['insertFragment']>[1]) => {
     if (!editor.selection) {
+      return;
+    }
+
+    if (replaceWholeBlocksWithList(editor, fragment)) {
       return;
     }
 
@@ -95,8 +149,15 @@ export const insertListFragment = (editor: PlateEditor) => {
     });
 
     if (liEntry) {
+      // A collapsed cursor keeps the surrounding list's type; only replacing a selection keeps the pasted type.
+      const isReplacingSelection = !editor.api.isCollapsed();
       const nodes = unwrapTextContainerAtStart(
-        trimLiWrapper(fragment.flatMap((node) => trimList(node))),
+        trimLiWrapper(
+          fragment.flatMap((node) => {
+            const trimmed = trimList(node);
+            return isReplacingSelection ? keepListRootType(node, trimmed) : trimmed;
+          }),
+        ),
       );
 
       let firstBlockIndex = nodes.findIndex((node) => isBlockNode(editor, node));
