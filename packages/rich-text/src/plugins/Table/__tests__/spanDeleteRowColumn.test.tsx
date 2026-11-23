@@ -438,6 +438,68 @@ describe('deleting rows and columns around merged cells', () => {
     }
   });
 
+  it('delete row with a selection across cells of a span table uses the anchor cell', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{ rowspan: 2 }}>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>
+                <anchor />C
+              </hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>D</hp>
+            </htd>
+            <htd>
+              <hp>
+                E<focus />
+              </hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+    const expected = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{}}>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>D</hp>
+            </htd>
+            <htd>
+              <hp>E</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    deleteRow(editor);
+    assertOutput({ editor, expected });
+  });
+
   it('undo restores the table after delete row', () => {
     const input = (
       <editor>

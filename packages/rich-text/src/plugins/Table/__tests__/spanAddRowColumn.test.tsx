@@ -683,5 +683,179 @@ describe('adding rows and columns around merged cells', () => {
       addColumnRight(editor, { header: false });
       assertOutput({ editor, expected });
     });
+
+    it('add row below with a selection across cells uses the anchor cell', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>
+                  <anchor />A
+                </hp>
+              </htd>
+              <htd>
+                <hp>
+                  B<focus />
+                </hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>C</hp>
+              </htd>
+              <htd>
+                <hp>D</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>A</hp>
+              </htd>
+              <htd>
+                <hp>B</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>{emptyWithCursor}</htd>
+              <htd>{empty}</htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>C</hp>
+              </htd>
+              <htd>
+                <hp>D</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+
+      const { editor } = createTestEditor({ input });
+      addRowBelow(editor);
+      assertOutput({ editor, expected });
+    });
+
+    it('add column right with a selection across cells uses the anchor cell', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>
+                  <anchor />A
+                </hp>
+              </htd>
+              <htd>
+                <hp>B</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>C</hp>
+              </htd>
+              <htd>
+                <hp>
+                  D<focus />
+                </hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>A</hp>
+              </htd>
+              <htd>{emptyWithCursor}</htd>
+              <htd>
+                <hp>B</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>C</hp>
+              </htd>
+              <htd>{empty}</htd>
+              <htd>
+                <hp>D</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+
+      const { editor } = createTestEditor({ input });
+      addColumnRight(editor, { header: false });
+      assertOutput({ editor, expected });
+    });
+  });
+
+  it('add row below with a selection across cells of a span table uses the anchor cell', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{ rowspan: 2 }}>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>
+                <anchor />B
+              </hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>
+                C<focus />
+              </hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+    const expected = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{ rowspan: 3 }}>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>{emptyWithCursor}</htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>C</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    addRowBelow(editor);
+    assertOutput({ editor, expected });
   });
 });

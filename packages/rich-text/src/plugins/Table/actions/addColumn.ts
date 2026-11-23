@@ -19,7 +19,7 @@ const addColumn = (
   { header }: AddColumnOptions,
   getLine: (current: CurrentCell) => number,
 ) => {
-  const current = getCurrentCell(editor);
+  const current = getCurrentCell(editor, { atAnchor: true });
   if (!current) return;
 
   const { tablePath, grid } = current;

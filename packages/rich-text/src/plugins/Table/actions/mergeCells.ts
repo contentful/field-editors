@@ -134,11 +134,24 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
   });
 }
 
-export const getCurrentCell = (editor: PlateEditor): CurrentCell | undefined => {
+type GetCurrentCellOptions = {
+  /**
+   * Resolve the cell at the selection's anchor, so a selection across
+   * several cells still has one. Without it, such a selection has no current cell.
+   */
+  atAnchor?: boolean;
+};
+
+export const getCurrentCell = (
+  editor: PlateEditor,
+  { atAnchor = false }: GetCurrentCellOptions = {},
+): CurrentCell | undefined => {
+  const at = atAnchor ? editor.selection?.anchor : undefined;
   const cellEntry = getAboveNode(editor, {
+    at,
     match: { type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL] },
   });
-  const tableEntry = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
+  const tableEntry = getAboveNode(editor, { at, match: { type: BLOCKS.TABLE } });
   if (!cellEntry || !tableEntry) return undefined;
 
   const [, path] = cellEntry;

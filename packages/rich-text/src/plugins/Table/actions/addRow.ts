@@ -11,7 +11,7 @@ import { CurrentCell, getCurrentCell } from './mergeCells';
  * instead of getting new cells.
  */
 const addRow = (editor: PlateEditor, getLine: (current: CurrentCell) => number) => {
-  const current = getCurrentCell(editor);
+  const current = getCurrentCell(editor, { atAnchor: true });
   if (!current) return;
 
   const { tablePath, grid } = current;

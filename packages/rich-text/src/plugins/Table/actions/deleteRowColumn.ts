@@ -36,7 +36,7 @@ const getTarget = (
       return undefined;
     }
   }
-  return getCurrentCell(editor);
+  return getCurrentCell(editor, { atAnchor: true });
 };
 
 /**
