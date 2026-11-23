@@ -513,13 +513,49 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           );
         });
 
+        it('adds a row below through a rowspan', () => {
+          // the header row cannot merge down, so add a body row first
+          doAction('Add row below');
+          cy.findByText('baz').click();
+          clickItem(mergeTestId.down);
+          cy.findByText('quux').click();
+          doAction('Add row below');
+
+          // the new row sits inside the rowspan, which grows instead of getting a cell
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(
+              block(BLOCKS.TABLE_CELL, { rowspan: 3 }, paragraphWithText('baz')),
+              cellWithText('quux'),
+            ),
+            row(emptyCell()),
+            row(emptyCell()),
+          );
+        });
+
+        it('deletes a column through a colspan', () => {
+          doAction('Add column right');
+          focusFirstCell();
+          clickItem(mergeTestId.right);
+          clickItem(mergeTestId.right);
+          cy.findByText('quux').click();
+          doAction('Delete column');
+
+          // the colspan shrinks instead of losing its content
+          expectTable(
+            row(mergedHeader({ colspan: 2 }, paragraphWithText('foo'), paragraphWithText('bar'))),
+            row(cellWithText('baz'), emptyCell()),
+          );
+        });
+
         it('disables Merge right in the last column', () => {
-          // the cursor is in the last cell after inserting the example data
+          cy.findByText('quux').click();
           cy.findByTestId('cf-table-actions-button').click();
           cy.findByTestId(mergeTestId.right).should('be.disabled');
         });
 
         it('disables Split cell on a plain cell', () => {
+          cy.findByText('baz').click();
           cy.findByTestId('cf-table-actions-button').click();
           cy.findByTestId(mergeTestId.split).should('be.disabled');
         });
