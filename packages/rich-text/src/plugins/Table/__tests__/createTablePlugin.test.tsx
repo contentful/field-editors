@@ -3,7 +3,9 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { describe, expect, it } from 'vitest';
 
+import { Element } from '../../../internal/types';
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
+import { getTableGrid } from '../grid';
 
 describe('normalization', () => {
   describe('Table', () => {
@@ -438,6 +440,85 @@ describe('paste', () => {
       table([['Before pasted after', 'Keep cell']]),
       paragraph('Keep following paragraph'),
     ]);
+  });
+});
+
+describe('paste into a table with merged cells', () => {
+  const paragraph = (value: string) => ({ type: BLOCKS.PARAGRAPH, children: [{ text: value }] });
+  const cell = (value: string, data: Record<string, unknown> = {}) => ({
+    type: BLOCKS.TABLE_CELL,
+    data,
+    children: [paragraph(value)],
+  });
+  const row = (...cells: ReturnType<typeof cell>[]) => ({
+    type: BLOCKS.TABLE_ROW,
+    children: cells,
+  });
+  const table = (...rows: ReturnType<typeof row>[]) => ({ type: BLOCKS.TABLE, children: rows });
+
+  // [A colspan 2], [B, C] with the cursor in B
+  const createSpanTableEditor = () => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      table(row(cell('A', { colspan: 2 })), row(cell('B'), cell('C'))),
+      paragraph('Keep following paragraph'),
+    ];
+    editor.tf.select({ path: [0, 1, 0, 0, 0], offset: 1 });
+    return editor;
+  };
+
+  // Every grid slot is covered by exactly one cell and every row has a cell of its own
+  const expectValidGrid = (node: unknown) => {
+    const grid = getTableGrid(node as Element);
+    expect(grid.width).toBeGreaterThan(0);
+    grid.slots.forEach((slots, r) => {
+      expect(slots.every(Boolean)).toBe(true);
+      expect(slots.some((slot) => slot!.origin[0] === r)).toBe(true);
+    });
+  };
+
+  it('pasting a cell block leaves a valid grid', () => {
+    const editor = createSpanTableEditor();
+
+    editor.insertFragment([table(row(cell('x'), cell('y')))]);
+
+    const tables = editor.children.filter((node) => node.type === BLOCKS.TABLE);
+    expect(tables.length).toBeGreaterThan(0);
+    tables.forEach(expectValidGrid);
+    expect(editor.children[0]).toMatchObject(
+      table(
+        row(cell('A', { colspan: 2 })),
+        row(
+          { ...cell('B'), children: [paragraph('B'), paragraph('x'), paragraph('y')] },
+          cell('C'),
+        ),
+      ),
+    );
+  });
+
+  it('pasting a paragraph and a table does not throw and leaves a valid grid', () => {
+    const editor = createSpanTableEditor();
+
+    expect(() =>
+      editor.insertFragment([paragraph('pre'), table(row(cell('x'), cell('y'), cell('z')))]),
+    ).not.toThrow();
+
+    const tables = editor.children.filter((node) => node.type === BLOCKS.TABLE);
+    expect(tables.length).toBeGreaterThan(0);
+    tables.forEach(expectValidGrid);
+    // The pasted cells' content lands in B as paragraphs; the table structure is untouched
+    expect(editor.children[0]).toMatchObject(
+      table(
+        row(cell('A', { colspan: 2 })),
+        row(
+          {
+            ...cell('Bpre'),
+            children: [paragraph('Bpre'), paragraph('x'), paragraph('y'), paragraph('z')],
+          },
+          cell('C'),
+        ),
+      ),
+    );
   });
 });
 
