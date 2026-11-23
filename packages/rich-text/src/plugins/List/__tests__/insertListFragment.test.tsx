@@ -217,8 +217,8 @@ describe('insert fragment', () => {
   }
 });
 
-// ES-959: pasting an ordered list over existing content must keep it ordered.
-describe('insert ordered list fragment over a selection (ES-959)', () => {
+// Pasting an ordered list over existing content must keep it ordered.
+describe('insert ordered list fragment over a selection', () => {
   const orderedFragment = (
     <fragment>
       <hol>

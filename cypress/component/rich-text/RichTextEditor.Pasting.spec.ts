@@ -163,7 +163,7 @@ describe(
         richText.expectValue(expectedValue);
       });
 
-      it('keeps a pasted ordered list when it replaces an existing list (ES-959)', () => {
+      it('keeps a pasted ordered list when it replaces an existing list', () => {
         richText.editor.click().paste({
           'text/html': '<ul><li>old one</li><li>old two</li></ul>',
         });
