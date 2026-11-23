@@ -27,7 +27,13 @@ import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
 import { Table } from './components/Table';
-import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
+import {
+  cleanSpans,
+  createEmptyTableCells,
+  getNoOfMissingTableCellsInRow,
+  hasValidSpans,
+  isNotEmpty,
+} from './helpers';
 import { insertTableFragment } from './insertTableFragment';
 import { onKeyDownTable } from './onKeyDownTable';
 import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
@@ -86,6 +92,11 @@ export const createTablePlugin = (): PlatePlugin =>
               return isRootLevel(path) || isNestedTable;
             },
             transform: transformLift,
+          },
+          {
+            // Span data must be canonical and within the table's bounds
+            validNode: hasValidSpans,
+            transform: cleanSpans,
           },
           {
             validChildren: CONTAINERS[BLOCKS.TABLE],

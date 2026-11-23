@@ -27,6 +27,7 @@ import {
 } from '../internal/transforms';
 import { EditorNodesOptions, ToggleNodeTypeOptions, Node, Path } from '../internal/types';
 import { Element, PlateEditor } from '../internal/types';
+import { getTableGrid } from '../plugins/Table/grid';
 import { IS_SAFARI } from './environment';
 
 export const LINK_TYPES: INLINES[] = [
@@ -149,9 +150,7 @@ export function isList(editor?: PlateEditor) {
 export function getTableSize(table: Element): Record<'numRows' | 'numColumns', number> | null {
   const numRows = table.children.length;
   if (!numRows) return null;
-  const [firstRow] = table.children;
-  const numColumns = (firstRow as Element).children?.length;
-  return { numRows, numColumns };
+  return { numRows, numColumns: getTableGrid(table).width };
 }
 
 interface InsertLinkOptions {

@@ -16,12 +16,19 @@ export type TableGrid = {
   height: number;
 };
 
-const toSpanValue = (value: unknown): number =>
-  typeof value === 'number' && Number.isInteger(value) && value >= 1 ? value : 1;
+// HTML spec maxima, so crafted content cannot make the grid allocate unbounded slots
+export const MAX_COLSPAN = 1000;
+export const MAX_ROWSPAN = 65534;
+
+const toSpanValue = (value: unknown, max: number): number =>
+  typeof value === 'number' && Number.isInteger(value) && value >= 1 ? Math.min(value, max) : 1;
 
 export function getSpan(cell: Element): Span {
   const data = (cell.data ?? {}) as { colspan?: unknown; rowspan?: unknown };
-  return { colspan: toSpanValue(data.colspan), rowspan: toSpanValue(data.rowspan) };
+  return {
+    colspan: toSpanValue(data.colspan, MAX_COLSPAN),
+    rowspan: toSpanValue(data.rowspan, MAX_ROWSPAN),
+  };
 }
 
 export function spanData(data: object | undefined, span: Span): object {

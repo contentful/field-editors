@@ -21,8 +21,9 @@ import {
   ELEMENT_TR,
   getEmptyRowNode,
 } from '../../internal/table';
-import { insertNodes, removeNodes, moveNodes } from '../../internal/transforms';
-import { PlateEditor, NodeEntry, Ancestor, Node } from '../../internal/types';
+import { insertNodes, removeNodes, moveNodes, setNodes } from '../../internal/transforms';
+import { PlateEditor, NodeEntry, Ancestor, Node, Element } from '../../internal/types';
+import { getSpan, getTableGrid, spanData } from './grid';
 
 export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
   const table = {
@@ -113,12 +114,54 @@ export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, rowEntry: Nod
     throw new Error('table rows must be wrapped in a table node');
   }
 
-  // The longest table row determines its width
-  const tableWidth = Math.max(...getChildren(parent).map((entry) => getChildren(entry).length));
+  const grid = getTableGrid(parent[0] as Element);
+  const rowIndex = rowPath[rowPath.length - 1];
+  // Slots include those covered by rowspans from rows above
+  const occupied = grid.slots[rowIndex].filter(Boolean).length;
 
-  const rowWidth = getChildren(rowEntry).length;
+  return grid.width - occupied;
+};
 
-  return tableWidth - rowWidth;
+const hasCleanSpanData = (cell: Element, maxRowspan: number): boolean => {
+  const span = getSpan(cell);
+  const expected = spanData(cell.data as object | undefined, {
+    colspan: span.colspan,
+    rowspan: Math.min(span.rowspan, maxRowspan),
+  });
+  const data = (cell.data ?? {}) as Record<string, unknown>;
+  const keys = Object.keys(data);
+  return (
+    keys.length === Object.keys(expected).length &&
+    keys.every((key) => data[key] === (expected as Record<string, unknown>)[key])
+  );
+};
+
+/** True when every cell's span data is canonical and no rowspan passes the last row */
+export const hasValidSpans = (_: PlateEditor, [table]: NodeEntry): boolean => {
+  const rows = (table as Element).children as Element[];
+  return rows.every((row, rowIndex) =>
+    (row.children as Element[]).every((cell) => hasCleanSpanData(cell, rows.length - rowIndex)),
+  );
+};
+
+export const cleanSpans = (editor: PlateEditor, [table, tablePath]: NodeEntry): void => {
+  const rows = (table as Element).children as Element[];
+  rows.forEach((row, rowIndex) => {
+    (row.children as Element[]).forEach((cell, cellIndex) => {
+      if (hasCleanSpanData(cell, rows.length - rowIndex)) return;
+      const span = getSpan(cell);
+      setNodes(
+        editor,
+        {
+          data: spanData(cell.data as object | undefined, {
+            colspan: span.colspan,
+            rowspan: Math.min(span.rowspan, rows.length - rowIndex),
+          }),
+        },
+        { at: [...tablePath, rowIndex, cellIndex] },
+      );
+    });
+  });
 };
 
 export const createEmptyTableCells = (count: number): Node[] => {

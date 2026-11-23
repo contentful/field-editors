@@ -61,6 +61,13 @@ describe('getSpan', () => {
     },
   );
 
+  it('caps spans at the HTML maximums', () => {
+    expect(getSpan({ data: { colspan: 5000, rowspan: 100000 } } as any)).toEqual({
+      colspan: 1000,
+      rowspan: 65534,
+    });
+  });
+
   it('reads valid spans', () => {
     expect(getSpan({ data: { colspan: 2, rowspan: 3 } } as any)).toEqual({
       colspan: 2,
