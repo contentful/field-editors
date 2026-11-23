@@ -163,6 +163,40 @@ describe(
         richText.expectValue(expectedValue);
       });
 
+      it('keeps a pasted ordered list when it replaces an existing list', () => {
+        richText.editor.click().paste({
+          'text/html': '<ul><li>old one</li><li>old two</li></ul>',
+        });
+
+        richText.editor.type('{selectall}');
+        cy.window().should((win) => {
+          const selectedText = win.getSelection()?.toString();
+          expect(selectedText).to.contain('old one');
+          expect(selectedText).to.contain('old two');
+        });
+        // Slate throttles selection changes; allow the editor to receive select-all before pasting.
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(200);
+
+        richText.editor.paste({
+          'text/html': `<meta charset="utf-8"><b id="docs-internal-guid-list" style="font-weight:normal">
+            <ol><li style="list-style-type:decimal"><p>new one</p></li>
+            <li style="list-style-type:decimal"><p>new two</p></li></ol></b>`,
+        });
+
+        const expectedValue = doc(
+          block(
+            'ordered-list',
+            {},
+            block('list-item', {}, block('paragraph', {}, text('new one'))),
+            block('list-item', {}, block('paragraph', {}, text('new two'))),
+          ),
+          block('paragraph', {}, text()),
+        );
+
+        richText.expectValue(expectedValue);
+      });
+
       it('MS Word - does not remove space around link in list surrounded by text with background color', () => {
         richText.editor.click().paste({
           'text/plain': 'One list item \n\nA list item with a background colors ',
