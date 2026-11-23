@@ -4,6 +4,7 @@ import { IconButton, Menu } from '@contentful/f36-components';
 import { CaretDownIcon } from '@contentful/f36-icons';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
+import { t } from '@lingui/core/macro';
 
 import { useContentfulEditor } from '../../../ContentfulEditorProvider';
 import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor';
@@ -18,9 +19,15 @@ import {
   addColumnRight,
   addRowAbove,
   addRowBelow,
+  canMergeDown,
+  canMergeRight,
+  canSplitCell,
   deleteColumn,
   deleteRow,
+  mergeCellDown,
+  mergeCellRight,
   setHeader,
+  splitCell,
 } from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
 
@@ -70,6 +77,17 @@ export const TableActions = () => {
     return !headerCell;
   }, [editor]);
 
+  // Recomputed whenever the menu opens, as the selection changes between openings.
+  const { canMergeRightNow, canMergeDownNow, canSplitNow } = React.useMemo(
+    () => ({
+      canMergeRightNow: !!editor && canMergeRight(editor),
+      canMergeDownNow: !!editor && canMergeDown(editor),
+      canSplitNow: !!editor && canSplitCell(editor),
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- isOpen only forces a recompute on open
+    [editor, isOpen],
+  );
+
   const toggleHeader = React.useCallback(() => {
     close();
 
@@ -84,19 +102,24 @@ export const TableActions = () => {
   }, [editor, close, isHeaderEnabled]);
 
   const action = React.useCallback(
-    (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
-      if (!editor?.selection) return;
-      close();
+    (
+      cb: TableAction,
+      type: 'insert' | 'remove' | 'merge' | 'split',
+      element: 'Table' | 'Row' | 'Column' | 'CellRight' | 'CellDown' | 'Cell',
+    ) =>
+      () => {
+        if (!editor?.selection) return;
+        close();
 
-      const tableSize = getCurrentTableSize(editor);
+        const tableSize = getCurrentTableSize(editor);
 
-      withoutNormalizing(editor, () => {
-        cb(editor, { header: isHeaderEnabled });
-      });
-      // Tracking
-      const actionName = `${type}Table${element === 'Table' ? '' : element}`;
-      editor.tracking.onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
-    },
+        withoutNormalizing(editor, () => {
+          cb(editor, { header: isHeaderEnabled });
+        });
+        // Tracking
+        const actionName = `${type}Table${element === 'Table' ? '' : element}`;
+        editor.tracking.onViewportAction(actionName as RichTextTrackingActionName, { tableSize });
+      },
     [editor, isHeaderEnabled, close],
   );
 
@@ -130,6 +153,25 @@ export const TableActions = () => {
         <Menu.Item onClick={action(addRowBelow, 'insert', 'Row')}>Add row below</Menu.Item>
         <Menu.Item onClick={action(addColumnLeft, 'insert', 'Column')}>Add column left</Menu.Item>
         <Menu.Item onClick={action(addColumnRight, 'insert', 'Column')}>Add column right</Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+          testId="cf-table-actions-merge-right"
+          onClick={action(mergeCellRight, 'merge', 'CellRight')}
+          disabled={!canMergeRightNow}>
+          {t({ id: 'FieldEditors.RichText.Table.MergeRight', message: 'Merge right' })}
+        </Menu.Item>
+        <Menu.Item
+          testId="cf-table-actions-merge-down"
+          onClick={action(mergeCellDown, 'merge', 'CellDown')}
+          disabled={!canMergeDownNow}>
+          {t({ id: 'FieldEditors.RichText.Table.MergeDown', message: 'Merge down' })}
+        </Menu.Item>
+        <Menu.Item
+          testId="cf-table-actions-split-cell"
+          onClick={action(splitCell, 'split', 'Cell')}
+          disabled={!canSplitNow}>
+          {t({ id: 'FieldEditors.RichText.Table.SplitCell', message: 'Split cell' })}
+        </Menu.Item>
         <Menu.Divider />
         <Menu.Item onClick={toggleHeader}>
           {isHeaderEnabled ? 'Disable table header' : 'Enable table header'}

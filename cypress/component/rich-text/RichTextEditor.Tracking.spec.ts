@@ -363,6 +363,19 @@ describe('Rich Text Editor - Tracking', { viewportHeight: 2000, viewportWidth: 1
         insertTableWithExampleData();
       });
 
+      it('tracks merge right', () => {
+        cy.findByText('foo').click();
+        cy.findByTestId('cf-table-actions-button').click();
+        cy.findByTestId('cf-table-actions-merge-right').click({ force: true });
+
+        cy.get('@onAction').should(
+          'be.calledWithExactly',
+          ...action('mergeTableCellRight', 'viewport-interaction', {
+            tableSize: { numColumns: 2, numRows: 2 },
+          }),
+        );
+      });
+
       it('adds row above', () => {
         doAction('Add row above');
 

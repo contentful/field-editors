@@ -16,6 +16,9 @@ export type RichTextTrackingActionName =
   | 'removeTable'
   | 'removeTableRow'
   | 'removeTableColumn'
+  | 'mergeTableCellRight'
+  | 'mergeTableCellDown'
+  | 'splitTableCell'
   // Copy & Paste
   | 'paste'
   | 'invalidTablePaste'
