@@ -62,7 +62,7 @@ declare namespace JSX {
 
     htable: {};
     htr: {};
-    htd: {};
-    hth: {};
+    htd: { data?: { colspan?: number; rowspan?: number }; children?: unknown };
+    hth: { data?: { colspan?: number; rowspan?: number }; children?: unknown };
   }
 }
