@@ -1,3 +1,4 @@
+import { isElement } from '../../internal/queries';
 import { Element } from '../../internal/types';
 
 export type Span = { colspan: number; rowspan: number };
@@ -48,7 +49,9 @@ export function getTableGrid(table: Element): TableGrid {
   const slots: (GridSlot | undefined)[][] = rows.map(() => []);
 
   rows.forEach((row, rowIndex) => {
+    if (!isElement(row) || !Array.isArray(row.children)) return;
     (row.children as Element[]).forEach((cell, cellIndex) => {
+      if (!isElement(cell)) return;
       const { colspan, rowspan } = getSpan(cell);
       let col = 0;
       while (slots[rowIndex][col]) col++;

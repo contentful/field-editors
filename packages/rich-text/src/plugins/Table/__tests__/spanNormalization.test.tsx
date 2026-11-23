@@ -315,6 +315,26 @@ describe('table normalization with spans', () => {
   });
 });
 
+describe('malformed tables', () => {
+  it('normalizes a table with a stray text child without throwing', () => {
+    const input = (
+      <editor>
+        <htable>
+          stray
+          <htr>
+            <htd>
+              <hp>A</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+    const { normalize } = createTestEditor({ input });
+    expect(() => normalize()).not.toThrow();
+  });
+});
+
 describe('getTableSize', () => {
   it('uses the grid width', () => {
     const cell = (data = {}): any => ({ type: 'table-cell', data, children: [] });

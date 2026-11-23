@@ -122,42 +122,47 @@ export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, rowEntry: Nod
   return grid.width - occupied;
 };
 
-const hasCleanSpanData = (cell: Element, maxRowspan: number): boolean => {
+const canonicalSpanData = (cell: Element, maxRowspan: number): Record<string, unknown> => {
   const span = getSpan(cell);
-  const expected = spanData(cell.data as object | undefined, {
+  return spanData(cell.data as object | undefined, {
     colspan: span.colspan,
     rowspan: Math.min(span.rowspan, maxRowspan),
-  });
+  }) as Record<string, unknown>;
+};
+
+const hasCanonicalSpanData = (cell: Element, maxRowspan: number): boolean => {
+  const expected = canonicalSpanData(cell, maxRowspan);
   const data = (cell.data ?? {}) as Record<string, unknown>;
   const keys = Object.keys(data);
   return (
-    keys.length === Object.keys(expected).length &&
-    keys.every((key) => data[key] === (expected as Record<string, unknown>)[key])
+    keys.length === Object.keys(expected).length && keys.every((key) => data[key] === expected[key])
   );
 };
 
 /** True when every cell's span data is canonical and no rowspan passes the last row */
 export const hasValidSpans = (_: PlateEditor, [table]: NodeEntry): boolean => {
-  const rows = (table as Element).children as Element[];
-  return rows.every((row, rowIndex) =>
-    (row.children as Element[]).every((cell) => hasCleanSpanData(cell, rows.length - rowIndex)),
+  const rows = (table as Element).children;
+  return rows.every(
+    (row, rowIndex) =>
+      !isElement(row) ||
+      !Array.isArray(row.children) ||
+      row.children.every(
+        (cell) => !isElement(cell) || hasCanonicalSpanData(cell, rows.length - rowIndex),
+      ),
   );
 };
 
 export const cleanSpans = (editor: PlateEditor, [table, tablePath]: NodeEntry): void => {
-  const rows = (table as Element).children as Element[];
+  const rows = (table as Element).children;
   rows.forEach((row, rowIndex) => {
-    (row.children as Element[]).forEach((cell, cellIndex) => {
-      if (hasCleanSpanData(cell, rows.length - rowIndex)) return;
-      const span = getSpan(cell);
+    if (!isElement(row) || !Array.isArray(row.children)) return;
+    row.children.forEach((cell, cellIndex) => {
+      if (!isElement(cell)) return;
+      const maxRowspan = rows.length - rowIndex;
+      if (hasCanonicalSpanData(cell, maxRowspan)) return;
       setNodes(
         editor,
-        {
-          data: spanData(cell.data as object | undefined, {
-            colspan: span.colspan,
-            rowspan: Math.min(span.rowspan, rows.length - rowIndex),
-          }),
-        },
+        { data: canonicalSpanData(cell, maxRowspan) },
         { at: [...tablePath, rowIndex, cellIndex] },
       );
     });
