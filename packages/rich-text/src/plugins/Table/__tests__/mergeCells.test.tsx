@@ -416,6 +416,222 @@ describe('merging table cells', () => {
     assertOutput({ editor, expected });
   });
 
+  it('removes a row emptied by merging down and keeps the rows below in their columns', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>C</hp>
+            </htd>
+            <htd>
+              <hp>D</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const expected = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{}}>
+              <hp>A</hp>
+              <hp>C</hp>
+            </htd>
+            <htd data={{}}>
+              <hp>B</hp>
+              <hp>
+                D<cursor />
+              </hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    editor.tf.select(editor.api.end([0, 0, 0])!);
+    mergeCellDown(editor);
+    editor.tf.select(editor.api.end([0, 0, 1])!);
+    mergeCellDown(editor);
+
+    assertOutput({ editor, expected });
+  });
+
+  it('shrinks a rowspan outside the merge that crosses the emptied row', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+            <htd data={{ rowspan: 3 }}>
+              <hp>X</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>C</hp>
+            </htd>
+            <htd>
+              <hp>D</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const expected = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{}}>
+              <hp>A</hp>
+              <hp>C</hp>
+            </htd>
+            <htd data={{}}>
+              <hp>B</hp>
+              <hp>
+                D<cursor />
+              </hp>
+            </htd>
+            <htd data={{ rowspan: 2 }}>
+              <hp>X</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    editor.tf.select(editor.api.end([0, 0, 0])!);
+    mergeCellDown(editor);
+    editor.tf.select(editor.api.end([0, 0, 1])!);
+    mergeCellDown(editor);
+
+    assertOutput({ editor, expected });
+  });
+
+  it('removes the emptied row of a full-width 2x2 merge above another row', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>C</hp>
+            </htd>
+            <htd>
+              <hp>D</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const expected = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{ colspan: 2 }}>
+              <hp>A</hp>
+              <hp>B</hp>
+              <hp>C</hp>
+              <hp>
+                D<cursor />
+              </hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    editor.tf.select(editor.api.end([0, 0, 0])!);
+    mergeCellRight(editor);
+    editor.tf.select(editor.api.end([0, 1, 0])!);
+    mergeCellRight(editor);
+    editor.tf.select(editor.api.end([0, 0, 0])!);
+    mergeCellDown(editor);
+
+    assertOutput({ editor, expected });
+  });
+
   describe('canMergeRight', () => {
     it('is false in the last column', () => {
       const input = (

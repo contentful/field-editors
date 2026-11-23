@@ -9,15 +9,12 @@ import { moveNodes, removeNodes, setNodes, withoutNormalizing } from '../../../i
 import { Element, Path, PlateEditor } from '../../../internal/types';
 import { GridSlot, Span, getInsertIndex, getTableGrid, spanData } from '../grid';
 import { CurrentCell, getCurrentCell } from './mergeCells';
+import { getEmptiedRows, uniqueSlots } from './spanUtils';
 
 const setSpan = (editor: PlateEditor, cellPath: Path, span: Span) => {
   const [cell] = getNodeEntry(editor, cellPath) as [Element, Path];
   setNodes(editor, { data: spanData(cell.data as object | undefined, span) }, { at: cellPath });
 };
-
-/** Unique cells covering grid row `row` (or column `col`), in grid order */
-const uniqueSlots = (slots: (GridSlot | undefined)[]): GridSlot[] =>
-  slots.filter((slot, i): slot is GridSlot => !!slot && slots.indexOf(slot) === i);
 
 /**
  * The cell the action applies to. A selection spanning several cells in a
@@ -105,25 +102,12 @@ export const deleteColumn = (editor: PlateEditor): void => {
   const cells = uniqueSlots(grid.slots.map((row) => row[col]));
   const removed = cells.filter((cell) => cell.colspan === 1);
 
-  // A row whose only own cells are removed would be left empty
-  const emptiedRows = grid.slots
-    .map((rowSlots, r) => {
-      const own = uniqueSlots(rowSlots).filter((cell) => cell.origin[0] === r);
-      return own.length > 0 && own.every((cell) => removed.includes(cell)) ? r : -1;
-    })
-    .filter((r) => r >= 0);
+  // Rows whose only own cells are removed go with them
+  const { rows: emptiedRows, rowspanLoss } = getEmptiedRows(grid, removed);
 
   if (emptiedRows.length === grid.height) {
     removeNodes(editor, { at: tablePath });
     return;
-  }
-
-  // Cells crossing an emptied row lose that row
-  const rowspanLoss = new Map<GridSlot, number>();
-  for (const r of emptiedRows) {
-    for (const cell of uniqueSlots(grid.slots[r])) {
-      if (cell.origin[0] < r) rowspanLoss.set(cell, (rowspanLoss.get(cell) ?? 0) + 1);
-    }
   }
 
   withoutNormalizing(editor, () => {

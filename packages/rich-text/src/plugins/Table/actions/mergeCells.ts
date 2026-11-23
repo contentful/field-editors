@@ -17,6 +17,7 @@ import {
 import { Element, Path, PlateEditor } from '../../../internal/types';
 import { GridSlot, TableGrid, getCellSlot, getTableGrid, spanData } from '../grid';
 import { isTableHeaderEnabled } from '../helpers';
+import { getEmptiedRows } from './spanUtils';
 
 /** A block of cells in grid coordinates */
 export type CellRect = { row: number; col: number; rowspan: number; colspan: number };
@@ -66,7 +67,26 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
     (table.children[slot.rowIndex] as Element).children[slot.cellIndex] as Element;
   const targetWasEmpty = isEmptyCell(cellAt(target));
 
+  // Rows inside the rect left without cells of their own are removed too:
+  // the target spans that many fewer rows, and cells crossing them shrink
+  const { rows: emptiedRows, rowspanLoss } = getEmptiedRows(grid, others);
+
   withoutNormalizing(editor, () => {
+    // Cell paths are still those of the snapshot: nothing has been removed yet
+    for (const [slot, loss] of rowspanLoss) {
+      if (slot === target) continue;
+      setNodes(
+        editor,
+        {
+          data: spanData(cellAt(slot).data as object | undefined, {
+            colspan: slot.colspan,
+            rowspan: slot.rowspan - loss,
+          }),
+        },
+        { at: cellPath(tablePath, slot) },
+      );
+    }
+
     // The target precedes every other cell in document order, so moving
     // content out of the others never shifts the target's or their paths.
     let targetLength = cellAt(target).children.length;
@@ -82,16 +102,24 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
     }
 
     // Bottom row first, rightmost cell first, so earlier paths stay valid
+    const removedRows = new Set<number>();
     [...others]
       .sort((a, b) => b.rowIndex - a.rowIndex || b.cellIndex - a.cellIndex)
-      .forEach((slot) => removeNodes(editor, { at: cellPath(tablePath, slot) }));
+      .forEach((slot) => {
+        if (!emptiedRows.includes(slot.rowIndex)) {
+          removeNodes(editor, { at: cellPath(tablePath, slot) });
+        } else if (!removedRows.has(slot.rowIndex)) {
+          removedRows.add(slot.rowIndex);
+          removeNodes(editor, { at: [...tablePath, slot.rowIndex] });
+        }
+      });
 
     setNodes(
       editor,
       {
         data: spanData(cellAt(target).data as object | undefined, {
           colspan: rect.colspan,
-          rowspan: rect.rowspan,
+          rowspan: rect.rowspan - emptiedRows.length,
         }),
       },
       { at: targetPath },
