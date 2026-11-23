@@ -3,7 +3,7 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { describe, expect, it } from 'vitest';
 
-import { Element } from '../../../internal/types';
+import { Element, PlateEditor } from '../../../internal/types';
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
 import { getTableGrid } from '../grid';
 
@@ -519,6 +519,54 @@ describe('paste into a table with merged cells', () => {
         ),
       ),
     );
+  });
+
+  // [A colspan 2], [B, C], [D, E] with B to E selected
+  const createMultiCellSelection = (spans: boolean) => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      table(
+        spans ? row(cell('A', { colspan: 2 })) : row(cell('A'), cell('A2')),
+        row(cell('B'), cell('C')),
+        row(cell('D'), cell('E')),
+      ),
+      paragraph('Keep following paragraph'),
+    ];
+    editor.tf.select({
+      anchor: { path: [0, 1, 0, 0, 0], offset: 0 },
+      focus: { path: [0, 2, 1, 0, 0], offset: 1 },
+    });
+    return editor;
+  };
+
+  it('pasting a paragraph over a multi-cell selection keeps every row', () => {
+    const editor = createMultiCellSelection(true);
+
+    editor.insertFragment([paragraph('X')]);
+
+    // Same as Plate in a span-free table: each selected cell gets the paragraph
+    expect(editor.children[0]).toMatchObject(
+      table(row(cell('A', { colspan: 2 })), row(cell('X'), cell('X')), row(cell('X'), cell('X'))),
+    );
+    expectValidGrid(editor.children[0]);
+  });
+
+  it.each([
+    ['typing a character', (editor: PlateEditor) => editor.insertText('X')],
+    ['Backspace', (editor: PlateEditor) => editor.deleteBackward('character')],
+    ['Delete', (editor: PlateEditor) => editor.deleteForward('character')],
+    ['deleting the selection', (editor: PlateEditor) => editor.deleteFragment()],
+  ])('%s over a multi-cell selection matches a span-free table', (_, action) => {
+    const editor = createMultiCellSelection(true);
+    const spanFree = createMultiCellSelection(false);
+
+    action(editor);
+    action(spanFree);
+
+    expect((editor.children[0] as Element).children.slice(1)).toEqual(
+      (spanFree.children[0] as Element).children.slice(1),
+    );
+    expectValidGrid(editor.children[0]);
   });
 });
 

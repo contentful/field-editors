@@ -46,8 +46,13 @@ export const withDeleteTable = (editor: PlateEditor) => {
 };
 export const withGetFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) =>
   applyOverride(editor, table.withGetFragmentTable);
-// Plate's paste handler inserts by child index, which breaks tables with merged cells
-const isInSpanTable = (editor: PlateEditor): boolean => {
+// Plate pastes table fragments by child index, which breaks tables with merged
+// cells. Its handling of other fragments is span-safe and stays in place.
+const isTablePasteIntoSpanTable = (
+  editor: PlateEditor,
+  fragment: Parameters<PlateEditor['insertFragment']>[0],
+): boolean => {
+  if (!fragment.some((node) => (node as Element).type === BLOCKS.TABLE)) return false;
   const tableEntry = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
   if (!tableEntry) return false;
   return hasSpans(getTableGrid(tableEntry[0] as Element));
@@ -56,7 +61,7 @@ const isInSpanTable = (editor: PlateEditor): boolean => {
 export const withInsertFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) => {
   const { insertFragment } = editor;
   editor.insertFragment = (fragment) => {
-    if (isInSpanTable(editor)) {
+    if (isTablePasteIntoSpanTable(editor, fragment)) {
       insertFragment(fragment);
       return;
     }
