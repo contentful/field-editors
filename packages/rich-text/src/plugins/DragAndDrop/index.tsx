@@ -20,7 +20,9 @@ export function createDragAndDropPlugin(): PlatePlugin {
    * TODO: looking up for html nodes is not the best solution and it won't scale but it works fine for our current cases/elements
    */
   const ON_DROP_ALLOWED_TYPES = {
-    TABLE: [INLINES.EMBEDDED_ENTRY, INLINES.EMBEDDED_RESOURCE],
+    TABLE: [INLINES.EMBEDDED_ENTRY, INLINES.EMBEDDED_RESOURCE, BLOCKS.EMBEDDED_ASSET],
+    // Table header cells only accept paragraphs, so assets can only be dropped in body cells
+    TH: [INLINES.EMBEDDED_ENTRY, INLINES.EMBEDDED_RESOURCE],
   };
 
   return {

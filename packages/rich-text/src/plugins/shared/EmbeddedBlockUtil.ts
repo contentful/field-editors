@@ -7,10 +7,12 @@ import {
   newResourceEntitySelectorConfigFromRichTextField,
 } from '../../helpers/config';
 import {
+  canInsertEmbeddedAssetBlock,
   focus,
   getAncestorPathFromSelection,
   getNodeEntryFromSelection,
   insertEmptyParagraph,
+  isNodeTypeSelected,
   moveToTheNextChar,
 } from '../../helpers/editor';
 import { watchCurrentSlide } from '../../helpers/sdkNavigatorSlideIn';
@@ -30,6 +32,12 @@ import {
   getNodeEntries,
   isAncestorEmpty,
   Ancestor,
+  getParentNode,
+  getNextPath,
+  getStartPoint,
+  select,
+  Path,
+  Node,
 } from '../../internal';
 import { HotkeyPlugin } from '../../internal/plate';
 import { TrackingPluginActions } from '../Tracking';
@@ -55,6 +63,10 @@ export function getWithEmbeddedBlockEvents(
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
+        if (nodeType === BLOCKS.EMBEDDED_ASSET && !canInsertEmbeddedAssetBlock(editor)) {
+          return;
+        }
+
         if (nodeType === BLOCKS.EMBEDDED_RESOURCE) {
           selectResourceEntityAndInsert(sdk, editor, editor.tracking.onShortcutAction);
         } else {
@@ -82,6 +94,9 @@ export async function selectEntityAndInsert(
   const entity = await selectEntity(config);
 
   if (!entity) {
+    logAction('cancelCreateEmbedDialog', { nodeType });
+  } else if (nodeType === BLOCKS.EMBEDDED_ASSET && !canInsertEmbeddedAssetBlock(editor)) {
+    // The selection moved to a place where assets are not allowed while the dialog was open
     logAction('cancelCreateEmbedDialog', { nodeType });
   } else {
     insertBlock(editor, nodeType, entity);
@@ -129,6 +144,13 @@ function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
     return;
   }
 
+  // Inside a table cell the following sibling is checked locally, as the cell is
+  // usually not the last node of the document
+  if (getAboveNode(editor, { match: { type: BLOCKS.TABLE_CELL } })) {
+    ensureFollowingParagraphInCell(editor, entityBlock[1]);
+    return;
+  }
+
   const level = entityBlock[1].length - 1;
   const lastNode = getLastNodeByLevel(editor, level);
 
@@ -143,6 +165,25 @@ function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   }
 
   moveToTheNextChar(editor);
+}
+
+function ensureFollowingParagraphInCell(editor: PlateEditor, blockPath: Path) {
+  const cell = getParentNode(editor, blockPath)?.[0] as Ancestor | undefined;
+  const nextSibling = cell?.children[blockPath[blockPath.length - 1] + 1] as Node | undefined;
+  const nextPath = getNextPath(blockPath);
+
+  if (!nextSibling || !(TEXT_CONTAINERS as string[]).includes(nextSibling.type as string)) {
+    insertNodes(
+      editor,
+      { type: BLOCKS.PARAGRAPH, children: [{ text: '' }], data: {}, isVoid: false },
+      { at: nextPath },
+    );
+  }
+
+  const start = getStartPoint(editor, nextPath);
+  if (start) {
+    select(editor, start);
+  }
 }
 
 const getLink = (entity) => {
@@ -176,8 +217,15 @@ function insertBlock(editor: PlateEditor, nodeType: string, entity) {
     return;
   }
 
+  // Inside a table cell the block goes next to its sibling paragraphs and never replaces
+  // an empty paragraph before the table
+  const isInTable = isNodeTypeSelected(editor, BLOCKS.TABLE);
+
   insertNodes(editor, linkedEntityBlock);
-  replaceEmptyParagraphWithBlock(editor);
+
+  if (!isInTable) {
+    replaceEmptyParagraphWithBlock(editor);
+  }
 }
 
 export function replaceEmptyParagraphWithBlock(editor: PlateEditor) {

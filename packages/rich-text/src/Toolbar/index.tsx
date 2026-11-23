@@ -8,7 +8,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
 import { useEditorSelector } from 'platejs/react';
 
-import { isNodeTypeSelected } from '../helpers/editor';
+import { canInsertEmbeddedAssetBlock, isNodeTypeSelected } from '../helpers/editor';
 import { isMarkEnabled, isNodeTypeEnabled } from '../helpers/validations';
 import { isMarkActive } from '../internal/queries';
 import { PlateEditor } from '../internal/types';
@@ -124,6 +124,10 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
     (editor: PlateEditor) => !isNodeTypeSelected(editor, BLOCKS.TABLE),
     [],
   );
+  const canInsertAssetBlocks = useEditorSelector(
+    (editor: PlateEditor) => canInsertEmbeddedAssetBlock(editor),
+    [],
+  );
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
   const isListSelected = useEditorSelector(
     (editor: PlateEditor) =>
@@ -206,7 +210,11 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
         )}
       </div>
       <div className={styles.embedActionsWrapper}>
-        <EmbedEntityWidget isDisabled={isDisabled} canInsertBlocks={canInsertBlocks} />
+        <EmbedEntityWidget
+          isDisabled={isDisabled}
+          canInsertBlocks={canInsertBlocks}
+          canInsertAssetBlocks={canInsertAssetBlocks}
+        />
       </div>
     </Flex>
   );

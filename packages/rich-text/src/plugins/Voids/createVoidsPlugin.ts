@@ -3,12 +3,20 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { isRootLevel } from '../../helpers/editor';
 import { isFirstChildPath, isElement } from '../../internal/queries';
 import { PlatePlugin } from '../../internal/types';
+import { withoutAssetsInTableHeader } from '../Table/helpers';
 
 export const createVoidsPlugin = (): PlatePlugin => ({
   key: 'VoidsPlugin',
   withOverrides: (editor) => {
     const { insertFragment } = editor;
     editor.insertFragment = (fragment, options) => {
+      // Table header cells only accept paragraphs: assets are refused there
+      fragment = withoutAssetsInTableHeader(editor, fragment);
+
+      if (fragment.length === 0) {
+        return;
+      }
+
       // Slate no longer splits the destination paragraph for a fragment made
       // entirely of void blocks. Preserve Contentful's paste/drop behavior.
       if (

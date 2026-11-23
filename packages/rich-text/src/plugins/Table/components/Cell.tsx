@@ -19,6 +19,12 @@ const style = css`
   div:last-child {
     margin-bottom: 0;
   }
+
+  /* an embedded asset card is the last child of its cell: no extra space below it */
+  > div[data-entity-type]:last-child {
+    margin-bottom: 0 !important;
+    max-width: 100%;
+  }
 `;
 
 export const Cell = (props: RenderElementProps) => {

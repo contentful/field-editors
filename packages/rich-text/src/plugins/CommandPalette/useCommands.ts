@@ -4,7 +4,7 @@ import type { FieldAppSDK } from '@contentful/app-sdk';
 import { useContentTypes } from '@contentful/field-editor-shared/react-query';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
-import { isNodeTypeSelected } from '../../helpers/editor';
+import { canInsertEmbeddedAssetBlock, isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { getRange, getAboveNode } from '../../internal/queries';
 import { select, insertNodes, deleteText, removeMark } from '../../internal/transforms';
@@ -68,7 +68,7 @@ function getCommandPermissions(sdk: FieldAppSDK, editor: PlateEditor) {
   return {
     inlineAllowed,
     entriesAllowed: entriesAllowed && canInsertBlocks,
-    assetsAllowed: assetsAllowed && canInsertBlocks,
+    assetsAllowed: assetsAllowed && canInsertEmbeddedAssetBlock(editor),
   };
 }
 

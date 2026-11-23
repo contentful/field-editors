@@ -1,6 +1,10 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { isBlockSelected, getAncestorPathFromSelection } from '../../helpers/editor';
+import {
+  isBlockSelected,
+  getAncestorPathFromSelection,
+  isNodeTypeSelected,
+} from '../../helpers/editor';
 import { selectEditor } from '../../internal';
 import {
   getBlockAbove,
@@ -73,6 +77,43 @@ export function isTableHeaderEnabled(editor: PlateEditor) {
   return getChildren(firstRow).every(([node]) => {
     return node.type === BLOCKS.TABLE_HEADER_CELL;
   });
+}
+
+/**
+ * Whether any node below the given node (for example a table row) is an embedded asset block.
+ */
+export function hasEmbeddedAsset(node: Node): boolean {
+  const children = (node as Ancestor).children ?? [];
+
+  return children.some(
+    (child) => (child as Node).type === BLOCKS.EMBEDDED_ASSET || hasEmbeddedAsset(child as Node),
+  );
+}
+
+/**
+ * Whether the first row of the table around the selection contains an embedded asset,
+ * in which case it cannot be turned into a table header.
+ */
+export function isTableHeaderBlockedByAssets(editor: PlateEditor): boolean {
+  const tableItem = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
+  const firstRow = tableItem && getChildren(tableItem)[0];
+
+  return !!firstRow && hasEmbeddedAsset(firstRow[0]);
+}
+
+/**
+ * Table header cells only accept paragraphs, so embedded assets in a fragment
+ * that is about to be inserted in one are left out.
+ */
+export function withoutAssetsInTableHeader<N extends Node>(
+  editor: PlateEditor,
+  fragment: N[],
+): N[] {
+  if (!isNodeTypeSelected(editor, BLOCKS.TABLE_HEADER_CELL)) {
+    return fragment;
+  }
+
+  return fragment.filter((node) => node.type !== BLOCKS.EMBEDDED_ASSET);
 }
 
 export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
