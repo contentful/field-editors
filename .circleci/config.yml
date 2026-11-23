@@ -26,14 +26,40 @@ cache-key: &cache-key
   key: v2-dependency-cache-primary-{{ arch }}-yarn-packages-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
 commands:
+  enable_corepack:
+    steps:
+      - run:
+          name: Enable Corepack
+          # Makes `yarn` resolve to the version declared in `packageManager`. Installed into the user
+          # prefix because the image's global bin directory is not writable, and the directory is
+          # created first because it does not exist for the root user of the cypress image.
+          command: |
+            mkdir -p "$HOME/.local/bin"
+            corepack enable --install-directory "$HOME/.local/bin"
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$BASH_ENV"
+
   yarn_install:
+    parameters:
+      # Dependency build scripts are disabled by default (`enableScripts: false`). Only the packages
+      # allowed in `dependenciesMeta` (the Cypress binary) build, and only when this is true.
+      build-scripts:
+        type: boolean
+        default: false
     steps:
       - restore_cache: *cache-key
-      - run: yarn install --prefer-offline --pure-lockfile
+      - enable_corepack
+      - when:
+          condition: << parameters.build-scripts >>
+          steps:
+            - run: yarn install --immutable
+      - unless:
+          condition: << parameters.build-scripts >>
+          steps:
+            - run: yarn install --immutable --mode=skip-build
       - save_cache:
           <<: *cache-key
           paths:
-            - ~/.cache/yarn
+            - ~/.yarn/berry/cache
   yarn_serve:
     steps:
       - run:
@@ -44,9 +70,6 @@ commands:
 jobs:
   lint:
     executor: linux-node
-    environment:
-      # Avoid Yarn Classic's V8 cache deserialization crashes in parallel tasks.
-      DISABLE_V8_COMPILE_CACHE: '1'
     steps:
       - checkout
       - yarn_install
@@ -56,9 +79,6 @@ jobs:
       - run: yarn tsc
   unit-tests:
     executor: linux-node
-    environment:
-      # Avoid Yarn Classic's V8 cache deserialization crashes in parallel tasks.
-      DISABLE_V8_COMPILE_CACHE: '1'
     steps:
       - checkout
       - yarn_install
@@ -72,7 +92,9 @@ jobs:
     executor: linux-cypress
     steps:
       - checkout
-      - yarn_install
+      # Downloads the Cypress binary (the only dependency build script that is allowed).
+      - yarn_install:
+          build-scripts: true
       - run: yarn build
       - run:
           name: Run cypress component tests

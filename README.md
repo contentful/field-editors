@@ -100,7 +100,7 @@ This writes the current violations into that package's `eslint-suppressions.json
 ### Requirements
 
 - Node.js: `>=20`
-- Yarn: `>=1.21.1`
+- Yarn: `>=4.18.1`, declared in `packageManager`. Run `corepack enable` once so `yarn` resolves to that version.
 
 To install all dependencies and build all packages run the following commands from the root of the project.
 
