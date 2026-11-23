@@ -21,7 +21,7 @@ import { isTableHeaderEnabled } from '../helpers';
 /** A block of cells in grid coordinates */
 export type CellRect = { row: number; col: number; rowspan: number; colspan: number };
 
-type CurrentCell = { tablePath: Path; grid: TableGrid; slot: GridSlot };
+export type CurrentCell = { tablePath: Path; grid: TableGrid; slot: GridSlot };
 
 const isEmptyCell = (cell: Element): boolean => {
   if (cell.children.length !== 1) return false;
@@ -106,7 +106,7 @@ export function mergeCellBlock(editor: PlateEditor, tablePath: Path, rect: CellR
   });
 }
 
-const getCurrentCell = (editor: PlateEditor): CurrentCell | undefined => {
+export const getCurrentCell = (editor: PlateEditor): CurrentCell | undefined => {
   const cellEntry = getAboveNode(editor, {
     match: { type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL] },
   });
