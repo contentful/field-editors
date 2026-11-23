@@ -141,15 +141,10 @@ function Modal(props: ModalProps) {
       referencingEntryId: sdk.ids.entry,
     });
 
-    if (entityLink?.sys.linkType === 'Contentful:Entry') {
+    if (entityLink) {
       setHyperlink({
         uri: null,
-        target: {
-          sys: {
-            ...entityLink.sys,
-            linkType: 'Contentful:Entry',
-          },
-        },
+        target: entityLink as ResourceLink,
       });
     }
   }

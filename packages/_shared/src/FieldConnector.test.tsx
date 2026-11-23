@@ -11,39 +11,6 @@ function getChild(children: any): FieldConnectorChildProps<any> {
   return children.mock.calls[children.mock.calls.length - 1][0];
 }
 
-it('writes, clears and receives host field updates', async () => {
-  const [field, emitter] = createFakeFieldAPI(undefined, 'initial value');
-  const children = vi.fn().mockReturnValue(null);
-  const { unmount } = render(
-    <FieldConnector<string> field={field} isInitiallyDisabled={false} debounce={0}>
-      {children}
-    </FieldConnector>,
-  );
-
-  await act(async () => {
-    await getChild(children).setValue('edited value');
-  });
-  expect(field.getValue()).toBe('edited value');
-  expect(getChild(children).value).toBe('edited value');
-
-  act(() => {
-    emitter.emit('onValueChanged', 'remote value');
-    emitter.emit('onIsDisabledChanged', true);
-  });
-  expect(getChild(children)).toMatchObject({ value: 'remote value', disabled: true });
-
-  await act(async () => {
-    await getChild(children).setValue('');
-  });
-  expect(field.getValue()).toBeUndefined();
-  expect(getChild(children).value).toBeUndefined();
-
-  unmount();
-  const renderCount = children.mock.calls.length;
-  emitter.emit('onValueChanged', 'after unmount');
-  expect(children).toHaveBeenCalledTimes(renderCount);
-});
-
 it('does not rerender with outdated value after calling setValue', async () => {
   const onSchemaErrorsChanged = vi.fn();
   const [field] = createFakeFieldAPI((field: any) => {

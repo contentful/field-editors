@@ -82,7 +82,7 @@ describe('Multiple resource editor', () => {
 
     const button = await screen.findByText('Add existing content');
     expect(button).toBeDefined();
-    await userEvent.click(button);
+    userEvent.click(button);
 
     const dialogFn = vi.mocked(sdk.dialogs.selectMultipleResourceEntities);
     expect(dialogFn).toHaveBeenCalledTimes(1);

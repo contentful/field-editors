@@ -150,14 +150,9 @@ export function HyperlinkModal(props: HyperlinkModalProps) {
       referencingEntryId: props.sdk.ids.entry,
     };
     const entityLink = await props.sdk.dialogs.selectSingleResourceEntity(options);
-    if (entityLink?.sys.linkType === 'Contentful:Entry') {
+    if (entityLink) {
       setLinkTarget('');
-      setLinkEntity({
-        sys: {
-          ...entityLink.sys,
-          linkType: 'Contentful:Entry',
-        },
-      });
+      setLinkEntity(entityLink as ResourceLink);
     }
   }
 
