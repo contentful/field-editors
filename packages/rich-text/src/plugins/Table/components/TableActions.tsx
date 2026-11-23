@@ -10,10 +10,18 @@ import { getNodeEntryFromSelection, getTableSize } from '../../../helpers/editor
 import { withoutNormalizing } from '../../../internal';
 import { useReadOnly } from '../../../internal/hooks';
 import { getAboveNode } from '../../../internal/queries';
-import { deleteColumn, deleteRow, deleteTable } from '../../../internal/table';
+import { deleteTable } from '../../../internal/table';
 import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
-import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';
+import {
+  addColumnLeft,
+  addColumnRight,
+  addRowAbove,
+  addRowBelow,
+  deleteColumn,
+  deleteRow,
+  setHeader,
+} from '../actions';
 import { isTableHeaderEnabled } from '../helpers';
 
 export const styles = {
