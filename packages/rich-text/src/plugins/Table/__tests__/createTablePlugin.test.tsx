@@ -656,6 +656,26 @@ describe('paste with embedded assets', () => {
     expect(cellTypes(editor, 0, 0)).toEqual([BLOCKS.PARAGRAPH]);
   });
 
+  it('refuses to paste an asset when the selection starts in a header cell and ends in a body cell', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [
+      table(
+        row(BLOCKS.TABLE_HEADER_CELL, [paragraph('header')]),
+        row(BLOCKS.TABLE_CELL, [paragraph('body')]),
+      ),
+      paragraph('following'),
+    ];
+    editor.tf.select({
+      anchor: { path: [0, 0, 0, 0, 0], offset: 3 },
+      focus: { path: [0, 1, 0, 0, 0], offset: 2 },
+    });
+
+    editor.insertFragment([asset('asset-1')]);
+    normalize();
+
+    expect(JSON.stringify(editor.children)).not.toContain(BLOCKS.EMBEDDED_ASSET);
+  });
+
   it('keeps the pasted text and refuses the asset when pasting both into a header cell', () => {
     const { editor, normalize } = createTestEditor({});
     editor.children = [

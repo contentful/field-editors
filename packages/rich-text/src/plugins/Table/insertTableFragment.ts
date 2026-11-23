@@ -48,6 +48,7 @@ export const insertTableFragment = (editor: PlateEditor) => {
 
     fragments = fragments.flatMap(trimUnnecessaryTableWrapper);
 
+    // The Voids plugin also filters, as it handles fragments made only of voids before this override
     fragments = withoutAssetsInTableHeader(editor, fragments);
 
     if (fragments.length === 0) {

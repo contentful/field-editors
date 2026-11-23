@@ -259,7 +259,7 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                         asset: true,
                         callback: () => {
                           removeCommand(editor);
-                          if (editor.selection) {
+                          if (editor.selection && canInsertEmbeddedAssetBlock(editor)) {
                             const selection = editor.selection;
                             editor.insertBreak();
                             insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);

@@ -3,7 +3,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import {
   isBlockSelected,
   getAncestorPathFromSelection,
-  isNodeTypeSelected,
+  getNodeEntryFromSelection,
 } from '../../helpers/editor';
 import { selectEditor } from '../../internal';
 import {
@@ -109,7 +109,15 @@ export function withoutAssetsInTableHeader<N extends Node>(
   editor: PlateEditor,
   fragment: N[],
 ): N[] {
-  if (!isNodeTypeSelected(editor, BLOCKS.TABLE_HEADER_CELL)) {
+  // The fragment replaces the whole selection, so either end in a header cell counts
+  const selection = editor.selection;
+  const isInHeader = selection
+    ? [selection.anchor.path, selection.focus.path].some(
+        (path) => getNodeEntryFromSelection(editor, BLOCKS.TABLE_HEADER_CELL, path)[0],
+      )
+    : false;
+
+  if (!isInHeader) {
     return fragment;
   }
 

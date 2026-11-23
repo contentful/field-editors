@@ -74,11 +74,15 @@ export const TableActions = () => {
       return;
     }
 
+    if (isEnableHeaderBlocked) {
+      return;
+    }
+
     const value = !isHeaderEnabled;
 
     setHeaderEnabled(value);
     setHeader(editor, value);
-  }, [editor, close, isHeaderEnabled]);
+  }, [editor, close, isHeaderEnabled, isEnableHeaderBlocked]);
 
   const action = React.useCallback(
     (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
