@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.16...@contentful/field-editor-rich-text@6.6.17) (2026-11-23)
+
+### Bug Fixes
+
+- **rich-text:** keep pasted ordered list type when replacing list content [ES-959] ([#2315](https://github.com/contentful/field-editors/issues/2315)) ([3ff6fcc](https://github.com/contentful/field-editors/commit/3ff6fccc78a724ca5188e3100d8ea211eef9d1bb))
+
 ## [6.6.16](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.15...@contentful/field-editor-rich-text@6.6.16) (2026-11-20)
 
 ### Bug Fixes
