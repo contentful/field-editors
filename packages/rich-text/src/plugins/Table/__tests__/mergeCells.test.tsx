@@ -472,6 +472,42 @@ describe('merging table cells', () => {
       expect(canMergeRight(editor)).toBe(false);
     });
 
+    it('is false when the right neighbour has the same rowspan but a different origin row', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>P</hp>
+              </htd>
+              <htd data={{ rowspan: 2 }}>
+                <hp>N</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd data={{ rowspan: 2 }}>
+                <hp>
+                  Q<cursor />
+                </hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>R</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+
+      // Valid content: normalization leaves it unchanged
+      assertOutput({ input, expected: input });
+
+      const { editor } = createTestEditor({ input });
+      expect(canMergeRight(editor)).toBe(false);
+    });
+
     it('is true for a neighbour with the same top row and rowspan', () => {
       const input = (
         <editor>
@@ -586,6 +622,40 @@ describe('merging table cells', () => {
       expect(canMergeDown(editor)).toBe(false);
     });
 
+    it('is false when the cell below has the same colspan but a different origin column', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>P</hp>
+              </htd>
+              <htd data={{ colspan: 2 }}>
+                <hp>
+                  Q<cursor />
+                </hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd data={{ colspan: 2 }}>
+                <hp>N</hp>
+              </htd>
+              <htd>
+                <hp>R</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+
+      // Valid content: normalization leaves it unchanged
+      assertOutput({ input, expected: input });
+
+      const { editor } = createTestEditor({ input });
+      expect(canMergeDown(editor)).toBe(false);
+    });
+
     it('is true for a cell below with the same left column and colspan', () => {
       const input = (
         <editor>
@@ -610,6 +680,44 @@ describe('merging table cells', () => {
       const { editor } = createTestEditor({ input });
       expect(canMergeDown(editor)).toBe(true);
     });
+  });
+
+  it('canMergeRight and canMergeDown are false outside a table', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>C</hp>
+            </htd>
+            <htd>
+              <hp>D</hp>
+            </htd>
+          </htr>
+        </htable>
+        <hp>
+          outside
+          <cursor />
+        </hp>
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    expect(canMergeRight(editor)).toBe(false);
+    expect(canMergeDown(editor)).toBe(false);
+
+    const before = editor.children;
+    mergeCellRight(editor);
+    mergeCellDown(editor);
+    expect(editor.children).toBe(before);
   });
 
   it('undo restores the original table', () => {
@@ -686,5 +794,43 @@ describe('merging table cells', () => {
     expect(visited[2][0]).toBe(0);
     expect(visited[2][1]).toBe(2);
     expect(new Set(visited.map((p) => p.join())).size).toBe(3);
+  });
+
+  it('Tab visits every cell in a rowspan layout', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{ rowspan: 2 }}>
+              <hp>
+                A<cursor />
+              </hp>
+            </htd>
+            <htd>
+              <hp>X</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>Y</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    const visited: number[][] = [];
+    // Two Tabs: a third from the last cell would add a row below
+    for (let i = 0; i < 2; i++) {
+      fireTab(editor);
+      visited.push(editor.selection!.anchor.path.slice(0, 3));
+    }
+
+    expect(visited).toEqual([
+      [0, 0, 1],
+      [0, 1, 0],
+    ]);
   });
 });
