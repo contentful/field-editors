@@ -445,6 +445,78 @@ describe('adding rows and columns around merged cells', () => {
       assertOutput({ editor, expected });
     });
 
+    it('add column right through a cell spanning two rows and columns extends it once', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd data={{ colspan: 2, rowspan: 2 }}>
+                <hp>A</hp>
+              </htd>
+              <htd>
+                <hp>B</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>C</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>
+                  D<cursor />
+                </hp>
+              </htd>
+              <htd>
+                <hp>E</hp>
+              </htd>
+              <htd>
+                <hp>F</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd data={{ colspan: 3, rowspan: 2 }}>
+                <hp>A</hp>
+              </htd>
+              <htd>
+                <hp>B</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>C</hp>
+              </htd>
+            </htr>
+            <htr>
+              <htd>
+                <hp>D</hp>
+              </htd>
+              <htd>{emptyWithCursor}</htd>
+              <htd>
+                <hp>E</hp>
+              </htd>
+              <htd>
+                <hp>F</hp>
+              </htd>
+            </htr>
+          </htable>
+          {empty}
+        </editor>
+      );
+
+      const { editor } = createTestEditor({ input });
+      addColumnRight(editor, { header: false });
+      assertOutput({ editor, expected });
+    });
+
     it('add column with header enabled', () => {
       const input = (
         <editor>
