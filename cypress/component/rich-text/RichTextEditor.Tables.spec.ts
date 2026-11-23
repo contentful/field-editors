@@ -373,6 +373,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
 
         richText.toolbar.embedDropdown.click();
 
+        // the dropdown is open, but the asset is not offered
+        cy.findByTestId('toolbar-toggle-embedded-entry-inline').should('be.visible');
         cy.findByTestId('toolbar-toggle-embedded-asset-block').should('not.exist');
       });
 
@@ -429,9 +431,11 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         it('ignores the keyboard shortcut in a header cell', () => {
           insertTable();
           richText.editor.type(`{${mod}+shift+a}`);
+          // the editor is still focused and typing works
+          richText.editor.type('x');
 
           cy.findByTestId('fake-dialog-confirm-cta').should('not.exist');
-          expectTable(row(emptyHeader(), emptyHeader()), row(emptyCell(), emptyCell()));
+          expectTable(row(headerWithText('x'), emptyHeader()), row(emptyCell(), emptyCell()));
         });
 
         it('embeds an asset with the command palette in a body cell', () => {
@@ -458,6 +462,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           insertTable();
           richText.editor.type('/');
 
+          // the "/" was typed in the header cell, and no asset command is offered
+          expectTable(row(headerWithText('/'), emptyHeader()), row(emptyCell(), emptyCell()));
           cy.findByText('Embed Asset').should('not.exist');
         });
       });
@@ -499,6 +505,8 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             const [tableNode] = value.content;
             const headerCells = tableNode.content[0].content;
 
+            // the asset stays where it was, below the table
+            expect(nodeTypes(value.content)).to.include(BLOCKS.EMBEDDED_ASSET);
             headerCells.forEach((headerCell) => {
               expect(nodeTypes(headerCell.content)).to.not.include(BLOCKS.EMBEDDED_ASSET);
             });
