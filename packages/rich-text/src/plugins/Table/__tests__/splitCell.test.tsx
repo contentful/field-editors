@@ -222,6 +222,58 @@ describe('splitting table cells', () => {
     assertOutput({ editor, expected });
   });
 
+  it('splits a header cell spanning into the body with body cells below the header row', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <hth data={{ rowspan: 2 }}>
+              <hp>
+                A<cursor />
+              </hp>
+            </hth>
+            <hth>
+              <hp>B</hp>
+            </hth>
+          </htr>
+          <htr>
+            <htd>
+              <hp>C</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+    const expected = (
+      <editor>
+        <htable>
+          <htr>
+            <hth data={{}}>
+              <hp>
+                A<cursor />
+              </hp>
+            </hth>
+            <hth>
+              <hp>B</hp>
+            </hth>
+          </htr>
+          <htr>
+            <htd data={{}}>{empty}</htd>
+            <htd>
+              <hp>C</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+
+    const { editor } = createTestEditor({ input });
+    splitCell(editor);
+    assertOutput({ editor, expected });
+  });
+
   it('canSplitCell is false on a 1x1 cell and split is a no-op', () => {
     const input = (
       <editor>
