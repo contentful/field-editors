@@ -56,6 +56,9 @@ export function getTableGrid(table: Element): TableGrid {
       let col = 0;
       while (slots[rowIndex][col]) col++;
       const slot: GridSlot = { rowIndex, cellIndex, origin: [rowIndex, col], colspan, rowspan };
+      // Malformed overlapping spans (this cell's area running into slots another
+      // cell already owns, e.g. a colspan into a rowspan from above) resolve
+      // last-writer-wins. They are not repaired here.
       for (let r = rowIndex; r < Math.min(rowIndex + rowspan, height); r++) {
         for (let c = col; c < col + colspan; c++) {
           slots[r][c] = slot;
