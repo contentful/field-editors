@@ -1,61 +1,72 @@
-import { BLOCKS } from '@contentful/rich-text-types';
-
-import { getAboveNode, getNextPath, someNode } from '../../../internal/queries';
+import { getNodeEntry, getStartPoint } from '../../../internal/queries';
 import { getEmptyCellNode } from '../../../internal/table';
-import { insertNodes } from '../../../internal/transforms';
-import { PlateEditor, Path, Element, NodeEntry } from '../../../internal/types';
+import { insertNodes, select, setNodes, withoutNormalizing } from '../../../internal/transforms';
+import { Element, Path, PlateEditor } from '../../../internal/types';
+import { getInsertIndex, spanData } from '../grid';
+import { CurrentCell, getCurrentCell } from './mergeCells';
 
 interface AddColumnOptions {
   header?: boolean;
 }
 
+/**
+ * Inserts a column at grid column `line` (the current cell's left edge for
+ * "left", its right edge for "right"). Cells crossing the line grow by one
+ * column instead of getting new cells.
+ */
 const addColumn = (
   editor: PlateEditor,
   { header }: AddColumnOptions,
-  getNextCellPath: (currentCellPath: Path) => Path,
+  getLine: (current: CurrentCell) => number,
 ) => {
-  if (
-    someNode(editor, {
-      match: { type: BLOCKS.TABLE },
-    })
-  ) {
-    const currentCellItem = getAboveNode(editor, {
-      match: {
-        type: [BLOCKS.TABLE_HEADER_CELL, BLOCKS.TABLE_CELL],
-      },
-    });
+  const current = getCurrentCell(editor);
+  if (!current) return;
 
-    const currentTableItem = getAboveNode(editor, {
-      match: { type: BLOCKS.TABLE },
-    }) as NodeEntry<Element> | undefined;
+  const { tablePath, grid } = current;
+  const line = getLine(current);
 
-    if (currentCellItem && currentTableItem) {
-      const nextCellPath = getNextCellPath(currentCellItem[1]);
-      const newCellPath = nextCellPath.slice();
-      const replacePathPos = newCellPath.length - 2;
+  withoutNormalizing(editor, () => {
+    let topNewCellPath: Path | undefined;
 
-      currentTableItem[0].children.forEach((_, rowIdx) => {
-        newCellPath[replacePathPos] = rowIdx;
+    // Bottom row first so row paths stay valid; positions come from the pre-insert grid
+    for (let r = grid.height - 1; r >= 0; r--) {
+      const slot = grid.slots[r]?.[line];
 
-        insertNodes(
-          editor,
+      if (slot && slot.origin[1] < line) {
+        // Crossing cell: extend it once, from its origin row
+        if (slot.origin[0] === r) {
+          const cellPath = [...tablePath, slot.rowIndex, slot.cellIndex];
+          const [cell] = getNodeEntry(editor, cellPath) as [Element, unknown];
+          setNodes(
+            editor,
+            {
+              data: spanData(cell.data as object | undefined, {
+                colspan: slot.colspan + 1,
+                rowspan: slot.rowspan,
+              }),
+            },
+            { at: cellPath },
+          );
+        }
+        continue;
+      }
 
-          getEmptyCellNode(editor, { header: header && rowIdx === 0 }),
-          {
-            at: newCellPath,
-            // Select the first cell of the new column
-            select: rowIdx === 0,
-          },
-        );
+      topNewCellPath = [...tablePath, r, getInsertIndex(grid, r, line)];
+      insertNodes(editor, getEmptyCellNode(editor, { header: header && r === 0 }), {
+        at: topNewCellPath,
       });
     }
-  }
+
+    // Select the top cell of the new column
+    const start = topNewCellPath && getStartPoint(editor, topNewCellPath);
+    if (start) select(editor, start);
+  });
 };
 
 export const addColumnRight = (editor: PlateEditor, options: AddColumnOptions) => {
-  addColumn(editor, options, (currentCellPath) => getNextPath(currentCellPath));
+  addColumn(editor, options, ({ slot }) => slot.origin[1] + slot.colspan);
 };
 
 export const addColumnLeft = (editor: PlateEditor, options: AddColumnOptions) => {
-  addColumn(editor, options, (currentCellPath) => currentCellPath);
+  addColumn(editor, options, ({ slot }) => slot.origin[1]);
 };
