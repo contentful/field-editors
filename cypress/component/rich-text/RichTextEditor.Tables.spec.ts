@@ -458,6 +458,24 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           });
         });
 
+        it('embeds an asset with the command palette using the keyboard in a body cell', () => {
+          insertTable();
+          cy.realPress('ArrowRight');
+          cy.realPress('ArrowRight');
+          // filtered, so that "Embed Asset" is the highlighted item the Enter key confirms
+          richText.editor.type('/asset');
+          getCommandList().findByText('Embed Asset').should('exist');
+          richText.editor.type('{enter}');
+          getCommandList().findByText('test').should('exist');
+          richText.editor.type('{enter}');
+
+          richText.getValue().then((value) => {
+            const bodyCell = value.content[0].content[1].content[0];
+
+            expect(bodyCell.content.map((node) => node.nodeType)).to.include(BLOCKS.EMBEDDED_ASSET);
+          });
+        });
+
         it('does not offer the command palette asset in a header cell', () => {
           insertTable();
           richText.editor.type('/');
