@@ -52,7 +52,7 @@
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.7",
+    "@babel/core": "^7.29.13",
     "@contentful/app-sdk": "^5.2.0",
     "@contentful/field-editor-test-utils": "^3.3.0",
     "@lingui/core": "5.9.5",
