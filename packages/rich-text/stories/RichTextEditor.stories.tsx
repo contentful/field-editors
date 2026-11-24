@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import { FieldAPI, FieldAppSDK } from '@contentful/app-sdk';
-import { IconButton } from '@contentful/f36-components';
+import { Button, IconButton, Paragraph } from '@contentful/f36-components';
 import { CopySimpleIcon } from '@contentful/f36-icons';
 import tokens from '@contentful/f36-tokens';
 import {
@@ -15,11 +15,13 @@ import {
 } from '@contentful/field-editor-test-utils';
 import { ValidationErrors } from '@contentful/field-editor-validation-errors';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
+import { BLOCKS, MARKS, validateRichTextDocument } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
+import { t } from '@lingui/core/macro';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { assets, contentTypes, entries, locales, spaces } from '../src/__fixtures__/fixtures';
+import { block, document, text } from '../src/helpers/nodeFactory';
 import RichTextEditor from '../src/RichTextEditor';
 import { RichTextPreview } from './RichTextPreview';
 
@@ -304,4 +306,30 @@ export const Default: Story = {
   render: () => {
     return <DemoRichTextEditor />;
   },
+};
+
+export const RepeatedExternalValue: Story = {
+  render: () => (
+    <>
+      <Paragraph>
+        {t({
+          id: 'FieldEditors.RichText.RepeatedExternalValue.Instructions',
+          message:
+            'Apply the translation, select and delete its text in the editor, then wait for removeValue in the action log. Apply the translation again: it should reappear without reloading.',
+        })}
+      </Paragraph>
+      <Button
+        onClick={() =>
+          window.richTextField.setValue(
+            document(block(BLOCKS.PARAGRAPH, {}, text('Dies ist die Übersetzung.'))),
+          )
+        }>
+        {t({
+          id: 'FieldEditors.RichText.RepeatedExternalValue.Apply',
+          message: 'Apply external translation',
+        })}
+      </Button>
+      <DemoRichTextEditor />
+    </>
+  ),
 };

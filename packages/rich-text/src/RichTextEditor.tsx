@@ -47,6 +47,7 @@ type RichTextProps = {
 };
 
 type ConnectedRichTextProps = {
+  externalReset?: number;
   sdk: FieldAppSDK;
   onAction?: RichTextTrackingActionHandler;
   onChange?: (doc: Contentful.Document) => unknown;
@@ -134,6 +135,7 @@ export const ConnectedRichTextEditor = React.memo(function ConnectedRichTextEdit
               )}
               <SyncEditorChanges
                 incomingValue={initialValue}
+                externalReset={props.externalReset}
                 onValueApplied={acceptExternalValue}
               />
               <PlateContent
@@ -180,11 +182,12 @@ const RichTextEditor = (props: RichTextProps) => {
       isInitiallyDisabled={isInitiallyDisabled}
       isEmptyValue={isEmptyValue}
       isDisabled={isDisabled}>
-      {({ lastRemoteValue, disabled, setValue }) => (
+      {({ lastRemoteValue, externalReset, disabled, setValue }) => (
         <ConnectedRichTextEditor
           {...otherProps}
           key={`rich-text-editor-${id}`}
           value={lastRemoteValue}
+          externalReset={externalReset}
           sdk={sdk}
           onAction={onAction}
           isDisabled={disabled}
