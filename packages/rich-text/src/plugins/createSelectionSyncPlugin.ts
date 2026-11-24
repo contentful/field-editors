@@ -53,7 +53,7 @@ const isUnfocusedCardSelected = (editor: PlateEditor) =>
 
 // The browser can move its selection before Slate's delayed update runs.
 // Copy it before editing or a host rerender can restore Slate's old caret.
-const syncSelectionFromDOM = (editor: PlateEditor) => {
+export const syncSelectionFromDOM = (editor: PlateEditor) => {
   // DOM points are unreliable while Slate is rebuilding its node references.
   if (editor.api.isComposing() || nodeMapDirty.get(editor)) return;
 
