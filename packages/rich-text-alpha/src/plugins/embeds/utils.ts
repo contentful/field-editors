@@ -1,5 +1,5 @@
-import type { FieldAppSDK } from '@contentful/app-sdk';
-import { INLINES, Link, ResourceHyperlink, BLOCKS } from '@contentful/rich-text-types';
+import type { Asset, Entry, FieldAppSDK } from '@contentful/app-sdk';
+import { INLINES, Link, ResourceLink, BLOCKS } from '@contentful/rich-text-types';
 
 import {
   getAllowedResourcesForNodeType,
@@ -19,7 +19,7 @@ export interface SelectOptions {
 export async function select({
   sdk,
   nodeType,
-}: SelectOptions): Promise<Link | ResourceHyperlink | null> {
+}: SelectOptions): Promise<Link | ResourceLink | null> {
   const { field, dialogs } = sdk;
 
   const dialogOptions: Record<string, unknown> = {
@@ -38,11 +38,10 @@ export async function select({
 
   const open =
     nodeType === INLINES.EMBEDDED_ENTRY || nodeType === BLOCKS.EMBEDDED_ENTRY
-      ? dialogs.selectSingleEntry
+      ? dialogs.selectSingleEntry<Entry>
       : nodeType === BLOCKS.EMBEDDED_ASSET
-        ? dialogs.selectSingleAsset
-        : // @ts-expect-error wait for update of app-sdk version
-          dialogs.selectSingleResourceEntity;
+        ? dialogs.selectSingleAsset<Asset>
+        : dialogs.selectSingleResourceEntity;
 
   const entityOrLink = await open(dialogOptions);
   if (!entityOrLink) {
@@ -54,14 +53,15 @@ export async function select({
     nodeType === BLOCKS.EMBEDDED_ENTRY ||
     nodeType === BLOCKS.EMBEDDED_ASSET
   ) {
+    const entity = entityOrLink as Entry | Asset;
     return {
       sys: {
-        id: entityOrLink.sys.id,
+        id: entity.sys.id,
         type: 'Link',
-        linkType: entityOrLink.sys.type,
+        linkType: entity.sys.type,
       },
     } as Link;
   }
 
-  return entityOrLink as ResourceHyperlink;
+  return entityOrLink as ResourceLink;
 }

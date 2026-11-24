@@ -18,23 +18,26 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
       locale: 'en',
     },
     dialogs: {
-      // @ts-expect-error wait app-sdk version update
-      selectSingleResourceEntity: vi.fn().mockResolvedValue({
-        sys: {
-          type: 'ResourceLink',
-          linkType: 'Contentful:Entry',
-          urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
-        },
-      }),
-      selectMultipleResourceEntities: vi.fn().mockResolvedValue([
-        {
+      selectSingleResourceEntity: vi
+        .fn<FieldAppSDK['dialogs']['selectSingleResourceEntity']>()
+        .mockResolvedValue({
           sys: {
             type: 'ResourceLink',
             linkType: 'Contentful:Entry',
             urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
           },
-        },
-      ]),
+        }),
+      selectMultipleResourceEntities: vi
+        .fn<FieldAppSDK['dialogs']['selectMultipleResourceEntities']>()
+        .mockResolvedValue([
+          {
+            sys: {
+              type: 'ResourceLink',
+              linkType: 'Contentful:Entry',
+              urn: 'crn:contentful:::content:spaces/space-id/entries/example-entity-urn',
+            },
+          },
+        ]),
     },
     ids: {
       space: 'myTestSpace',
@@ -46,15 +49,12 @@ export function mockSdkForField(fieldDefinition: any, fieldValue?: any): FieldAp
       contentType: 'testCT',
     },
     space: {
-      // @ts-expect-error wait app-sdk version update
-
       onEntityChanged: () => {},
     },
-    // @ts-expect-error
     navigator: {
       onSlideInNavigation: () => () => ({}),
     },
-  };
+  } as unknown as FieldAppSDK;
 }
 
 type FakeEntryResource = { title: string; id: string; space: { id: string; name: string } };

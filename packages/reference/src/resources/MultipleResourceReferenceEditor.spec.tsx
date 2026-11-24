@@ -84,8 +84,7 @@ describe('Multiple resource editor', () => {
     expect(button).toBeDefined();
     userEvent.click(button);
 
-    // @ts-expect-error wait app-sdk version update
-    const dialogFn = sdk.dialogs.selectMultipleResourceEntities;
+    const dialogFn = vi.mocked(sdk.dialogs.selectMultipleResourceEntities);
     expect(dialogFn).toHaveBeenCalledTimes(1);
     const options = dialogFn.mock.calls[0][0];
     expect(options).toEqual({

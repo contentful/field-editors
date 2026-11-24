@@ -40,6 +40,10 @@ Also this repository contains shared packages that simplify development and test
 Feel free to reach out to us with the ones that'd be the most useful to have
 here by filing a [Github issue][github-issues]!
 
+### App SDK compatibility
+
+Field-editor dependency ranges accept App SDK v4 and v5. Each package retains its existing v4 minimum version and also accepts `^5.0.0`.
+
 ### Styles
 
 To achieve the same field editor look as in the Contentful UI, you need to render `GlobalStyled` component.

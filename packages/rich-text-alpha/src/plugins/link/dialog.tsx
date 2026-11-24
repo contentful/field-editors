@@ -121,7 +121,6 @@ function Modal(props: ModalProps) {
     const entry = await sdk.dialogs.selectSingleEntry<Entity>({
       locale: sdk.field.locale,
       contentTypes: getLinkedContentTypeIdsForNodeType(sdk.field, INLINES.ENTRY_HYPERLINK),
-      // @ts-expect-error kept from old code. Is this actually supported?
       recommendations: {
         searchQuery: props.text,
       },
@@ -136,7 +135,6 @@ function Modal(props: ModalProps) {
   }
 
   async function selectResourceEntry() {
-    // @ts-expect-error wait for update of app-sdk version
     const entityLink = await sdk.dialogs.selectSingleResourceEntity({
       allowedResources: getAllowedResourcesForNodeType(sdk.field, INLINES.RESOURCE_HYPERLINK),
       locale: sdk.field.locale,
@@ -146,7 +144,7 @@ function Modal(props: ModalProps) {
     if (entityLink) {
       setHyperlink({
         uri: null,
-        target: entityLink,
+        target: entityLink as ResourceLink,
       });
     }
   }
