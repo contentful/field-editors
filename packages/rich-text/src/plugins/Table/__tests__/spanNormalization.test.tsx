@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { getTableSize } from '../../../helpers/editor';
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
 import { setHeader } from '../actions';
+import { MAX_SPANNED_COLUMNS } from '../grid';
 import { isTableHeaderEnabled } from '../helpers';
 
 const empty = (
@@ -199,7 +200,7 @@ describe('table normalization with spans', () => {
     assertOutput({ input, expected });
   });
 
-  it('caps colspan above the HTML maximum', () => {
+  it('caps colspan at the column limit', () => {
     const input = (
       <editor>
         <htable>
@@ -216,7 +217,7 @@ describe('table normalization with spans', () => {
       <editor>
         <htable>
           <htr>
-            <htd data={{ colspan: 1000 }}>
+            <htd data={{ colspan: MAX_SPANNED_COLUMNS }}>
               <hp>A</hp>
             </htd>
           </htr>
@@ -332,6 +333,82 @@ describe('malformed tables', () => {
     );
     const { normalize } = createTestEditor({ input });
     expect(() => normalize()).not.toThrow();
+  });
+
+  it('clamps a crafted wide colspan instead of padding every row with hundreds of cells', () => {
+    const otherRows = Array.from({ length: 50 }, (_, i) => ({
+      type: 'table-row',
+      data: {},
+      children: [
+        {
+          type: 'table-cell',
+          data: {},
+          children: [{ type: 'paragraph', data: {}, children: [{ text: `row ${i + 1}` }] }],
+        },
+      ],
+    }));
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd data={{ colspan: 1000 }}>
+              <hp>wide</hp>
+            </htd>
+          </htr>
+          {otherRows}
+        </htable>
+        {empty}
+      </editor>
+    );
+    const { editor, normalize } = createTestEditor({ input });
+    normalize();
+
+    const table = editor.children[0] as any;
+    // No cell starts in columns 2-1000, so they collapse: the table renders the
+    // same and needs no padding. Previously each of the 50 rows was padded to
+    // 1000 cells (~50k cells in total).
+    expect(table.children[0].children[0].data).toEqual({});
+    expect(table.children.map((r: any) => r.children.length)).toEqual(Array(51).fill(1));
+    expect(table.children[1].children[0].children[0].children[0].text).toBe('row 1');
+  });
+
+  it('pads every short row of a table in one normalization pass', () => {
+    const input = (
+      <editor>
+        <htable>
+          <htr>
+            <htd>
+              <hp>A</hp>
+            </htd>
+            <htd>
+              <hp>B</hp>
+            </htd>
+            <htd>
+              <hp>C</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>D</hp>
+            </htd>
+          </htr>
+          <htr>
+            <htd>
+              <hp>E</hp>
+            </htd>
+            <htd>
+              <hp>F</hp>
+            </htd>
+          </htr>
+        </htable>
+        {empty}
+      </editor>
+    );
+    const { editor, normalize } = createTestEditor({ input });
+    normalize();
+
+    const table = editor.children[0] as any;
+    expect(table.children.map((r: any) => r.children.length)).toEqual([3, 3, 3]);
   });
 });
 
