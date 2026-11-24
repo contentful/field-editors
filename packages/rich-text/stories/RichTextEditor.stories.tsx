@@ -149,6 +149,8 @@ const DemoRichTextEditor = () => {
       },
       asset: {
         get: () => Promise.resolve(assets.published),
+        // used by the "Embed Asset" command of the command palette
+        getMany: () => Promise.resolve({ items: [assets.published] }),
       },
       locale: {
         getMany: () => Promise.resolve({ items: [locales.englishDefault] }),
