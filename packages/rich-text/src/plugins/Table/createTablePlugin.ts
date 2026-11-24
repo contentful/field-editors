@@ -1,6 +1,6 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 
-import { isRootLevel } from '../../helpers/editor';
+import { isRootLevel, isSelectionInSingleTableCell } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { createTablePlugin as createDefaultTablePlugin } from '../../internal/pluginFactories';
 import {
@@ -51,7 +51,19 @@ export const createTablePlugin = (): PlatePlugin =>
       editor = withInsertFragmentTableOverride(editor);
       editor = withInsertTextTable(editor, plugin);
       editor = withSelectionTable(editor);
+      const { setFragmentData: setFragmentDataWithoutTable } = editor;
       editor = withSetFragmentDataTable(editor);
+      // Plate only copies the cell content, instead of the whole table, for a single cell
+      // copy or cut. Do the same for a drag, so that dragging a block (e.g. an asset) out of a
+      // cell does not also drag along the table and drop the text of its cell.
+      const { setFragmentData: setFragmentDataWithTable } = editor;
+      editor.setFragmentData = (data, originEvent) => {
+        if (originEvent === 'drag' && isSelectionInSingleTableCell(editor)) {
+          setFragmentDataWithoutTable(data, originEvent);
+          return;
+        }
+        setFragmentDataWithTable(data, originEvent);
+      };
 
       // Resets all normalization rules added by @platejs/table as
       // they conflict with our own

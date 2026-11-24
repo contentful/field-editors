@@ -78,6 +78,27 @@ export function isNodeTypeSelected(
 }
 
 /**
+ * Whether the whole selection sits inside one single table cell, header or body.
+ */
+export function isSelectionInSingleTableCell(editor: PlateEditor | null): boolean {
+  if (!editor?.selection) return false;
+
+  const { anchor, focus } = editor.selection;
+  const cellTypes = [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL];
+  const [anchorCell, anchorCellPath] = getNodeEntryFromSelection(editor, cellTypes, anchor.path);
+  const [focusCell, focusCellPath] = getNodeEntryFromSelection(editor, cellTypes, focus.path);
+
+  return (
+    !!anchorCell &&
+    !!focusCell &&
+    !!anchorCellPath &&
+    !!focusCellPath &&
+    isCommonPath(anchorCellPath, focusCellPath) &&
+    anchorCellPath.length === focusCellPath.length
+  );
+}
+
+/**
  * Whether the whole selection sits inside one single table body cell
  * (not a header cell), and not inside a list or a quote nested in it.
  */
