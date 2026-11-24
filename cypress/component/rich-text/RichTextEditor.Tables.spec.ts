@@ -493,6 +493,35 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           });
         });
 
+        it('moves an asset between body cells without dragging the text of its cell along', () => {
+          cy.viewport(1200, 1200);
+          insertTableWithExampleData();
+          richText.toolbar.embed('asset-block');
+
+          richText.editor
+            .find('[data-entity-id="published_asset"]')
+            .dragTo(() => richText.editor.findByText('baz'));
+
+          richText.getValue().then((value) => {
+            const [firstCell, lastCell] = value.content[0].content[1].content;
+            const paragraphTexts = (cell: { content: any[] }) =>
+              cell.content
+                .filter((node) => node.nodeType === BLOCKS.PARAGRAPH)
+                .map((node) => node.content[0].value);
+
+            // the asset lands where it was dropped, splitting the text of the cell at that point
+            expect(nodeTypes(firstCell.content)).to.deep.equal([
+              BLOCKS.PARAGRAPH,
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
+            expect(paragraphTexts(firstCell).join('')).to.equal('baz');
+            // the source cell only lost the asset, no text of it was dragged along
+            expect(nodeTypes(lastCell.content)).to.deep.equal([BLOCKS.PARAGRAPH, BLOCKS.PARAGRAPH]);
+            expect(paragraphTexts(lastCell)).to.deep.equal(['quux', '']);
+          });
+        });
+
         it('does not drop an asset inside a header cell', () => {
           cy.viewport(1200, 1200);
           insertAssetBelowTable();

@@ -2,9 +2,92 @@
 import { describe, expect, it } from 'vitest';
 
 import { createTestEditor, jsx } from '../../test-utils';
-import { canInsertEmbeddedAssetBlock, isSelectionInTableBodyCell } from '../editor';
+import {
+  canInsertEmbeddedAssetBlock,
+  isSelectionInSingleTableCell,
+  isSelectionInTableBodyCell,
+} from '../editor';
 
 const embeddedAsset = <hembed type="Asset" id="asset-id" />;
+
+describe('isSelectionInSingleTableCell', () => {
+  it('is true for a cursor in a body cell and in a header cell', () => {
+    const body = createTestEditor({
+      input: (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>
+                  cell
+                  <cursor />
+                </hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      ),
+    });
+    const header = createTestEditor({
+      input: (
+        <editor>
+          <htable>
+            <htr>
+              <hth>
+                <hp>
+                  cell
+                  <cursor />
+                </hp>
+              </hth>
+            </htr>
+          </htable>
+        </editor>
+      ),
+    });
+
+    expect(isSelectionInSingleTableCell(body.editor)).toBe(true);
+    expect(isSelectionInSingleTableCell(header.editor)).toBe(true);
+  });
+
+  it('is false across two cells, outside a table and without selection', () => {
+    const across = createTestEditor({
+      input: (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hp>
+                  <anchor />
+                  one
+                </hp>
+              </htd>
+              <htd>
+                <hp>
+                  two
+                  <focus />
+                </hp>
+              </htd>
+            </htr>
+          </htable>
+        </editor>
+      ),
+    });
+    const outside = createTestEditor({
+      input: (
+        <editor>
+          <hp>
+            text
+            <cursor />
+          </hp>
+        </editor>
+      ),
+    });
+
+    expect(isSelectionInSingleTableCell(across.editor)).toBe(false);
+    expect(isSelectionInSingleTableCell(outside.editor)).toBe(false);
+    expect(isSelectionInSingleTableCell(null)).toBe(false);
+  });
+});
 
 describe('isSelectionInTableBodyCell', () => {
   it('is true for a cursor in a table body cell', () => {
