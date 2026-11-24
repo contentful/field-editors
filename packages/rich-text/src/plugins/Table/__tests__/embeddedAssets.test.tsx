@@ -61,7 +61,7 @@ describe('embedded assets in table cells', () => {
       const handler = getWithEmbeddedBlockEvents(BLOCKS.EMBEDDED_ASSET, {} as any)(editor, {
         options: { hotkey: 'mod+shift+a' },
       } as any);
-      handler({ key, preventDefault: vi.fn() } as any);
+      return handler({ key, preventDefault: vi.fn() } as any);
     };
 
     it('removes only the asset and leaves a valid cell', () => {
@@ -73,6 +73,46 @@ describe('embedded assets in table cells', () => {
       expect(hasAsset(editor)).toBe(false);
       expect(snapshot(editor)).toContain('text');
       expect(isValid(editor)).toEqual([]);
+    });
+
+    it('treats the event as handled, so that no other handler also deletes an asset next to it', () => {
+      const { editor, normalize } = createTestEditor({
+        input: (
+          <editor>
+            <htable>
+              <htr>
+                <hth>
+                  <hp>head</hp>
+                </hth>
+              </htr>
+              <htr>
+                <htd>
+                  <hp />
+                  <hembed type="Asset" id="asset-1" />
+                  <hembed type="Asset" id="asset-2" />
+                </htd>
+              </htr>
+            </htable>
+            <hp />
+          </editor>
+        ),
+      });
+      normalize();
+      editor.selection = {
+        anchor: { path: [0, 1, 0, 1, 0], offset: 0 },
+        focus: { path: [0, 1, 0, 1, 0], offset: 0 },
+      };
+
+      // Plate only stops the following handlers (including Slate's own delete handling) when the
+      // handler returns true. After the removal the selection sits on the neighbouring asset.
+      expect(press(editor)).toBe(true);
+
+      const cell = (editor.children[0] as any).children[1].children[0];
+      expect(cell.children.map((node) => node.type)).toEqual([
+        BLOCKS.PARAGRAPH,
+        BLOCKS.EMBEDDED_ASSET,
+      ]);
+      expect(cell.children[1].data.target.sys.id).toBe('asset-2');
     });
 
     it('is undone in a single step', () => {

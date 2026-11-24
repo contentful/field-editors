@@ -57,14 +57,18 @@ export function getWithEmbeddedBlockEvents(
         if (isDelete || isBackspace) {
           event.preventDefault();
           removeNodes(editor, { at: pathToSelectedElement });
+          // Treat the event as handled, so the next handlers (and Slate's own delete handling) do not
+          // run. The selection is left on the node that took the place of the removed one, which can
+          // be a neighbouring embed that would otherwise be deleted too.
+          return true;
         }
 
-        return;
+        return false;
       }
 
       if (hotkey && isHotkey(hotkey, event)) {
         if (nodeType === BLOCKS.EMBEDDED_ASSET && !canInsertEmbeddedAssetBlock(editor)) {
-          return;
+          return false;
         }
 
         if (nodeType === BLOCKS.EMBEDDED_RESOURCE) {
@@ -73,6 +77,8 @@ export function getWithEmbeddedBlockEvents(
           selectEntityAndInsert(nodeType, sdk, editor, editor.tracking.onShortcutAction);
         }
       }
+
+      return false;
     };
 }
 
