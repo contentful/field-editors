@@ -68,11 +68,7 @@ export type ReleaseV2Props = Omit<ReleaseProps, 'entities' | 'sys'> & {
 export type ReleaseAction = 'publish' | 'unpublish' | 'not-in-release';
 
 export type ReleaseEntityStatus =
-  | 'willPublish'
-  | 'becomesDraft'
-  | 'remainsDraft'
-  | 'notInRelease'
-  | 'published';
+  'willPublish' | 'becomesDraft' | 'remainsDraft' | 'notInRelease' | 'published';
 
 export type ReleaseLocalesStatus = {
   status: ReleaseEntityStatus;
