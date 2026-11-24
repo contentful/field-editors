@@ -1,53 +1,58 @@
-import { BLOCKS } from '@contentful/rich-text-types';
-
-import { getAboveNode, someNode, getStartPoint, getNextPath } from '../../../internal/queries';
+import { getStartPoint } from '../../../internal/queries';
 import { getEmptyRowNode } from '../../../internal/table';
-import { select, insertNodes } from '../../../internal/transforms';
-import { PlateEditor, NodeEntry, Element, Path, Location } from '../../../internal/types';
+import { insertNodes, select, withoutNormalizing } from '../../../internal/transforms';
+import { PlateEditor } from '../../../internal/types';
+import { GridSlot } from '../grid';
+import { CurrentCell, getCurrentCell, getSlotCell, getSlotPath, setSpan } from './spanUtils';
 
-const addRow = (editor: PlateEditor, getNextRowPath: (currentRowPath: Path) => Path) => {
-  if (
-    someNode(editor, {
-      match: { type: BLOCKS.TABLE },
-    })
-  ) {
-    const currentRowItem = getAboveNode(editor, {
-      match: { type: BLOCKS.TABLE_ROW },
-    }) as NodeEntry<Element> | undefined;
+/**
+ * Inserts a row at grid row `line` (the current cell's top edge for "above",
+ * its bottom edge for "below"). Cells crossing the line grow by one row
+ * instead of getting new cells.
+ */
+const addRow = (editor: PlateEditor, getLine: (current: CurrentCell) => number) => {
+  const current = getCurrentCell(editor, { atAnchor: true });
+  if (!current) return;
 
-    if (currentRowItem) {
-      const [currentRowElem, currentRowPath] = currentRowItem;
-      const nextRowPath = getNextRowPath(currentRowPath);
+  const { table, tablePath, grid } = current;
+  // Clamp in case an unnormalized rowspan runs past the last row
+  const line = Math.min(getLine(current), grid.height);
 
-      insertNodes(
-        editor,
-        getEmptyRowNode(editor, {
-          header: false,
-          colCount: currentRowElem.children.length,
-        }),
-        {
-          at: nextRowPath,
-          // Note: this selects the last cell of the new row
-          select: true,
-        },
-      );
-
-      // Select the first cell in the current row
-      const start = getStartPoint(editor, nextRowPath as Location);
-      if (start) select(editor, start);
-    }
+  // A cell crosses the line when it starts above it and covers row `line`
+  const crossing: GridSlot[] = [];
+  let coveredCols = 0;
+  for (const slot of grid.slots[line] ?? []) {
+    if (!slot || slot.origin[0] >= line) continue;
+    coveredCols++;
+    if (!crossing.includes(slot)) crossing.push(slot);
   }
+
+  const newRowPath = [...tablePath, line];
+
+  withoutNormalizing(editor, () => {
+    for (const slot of crossing) {
+      setSpan(editor, getSlotPath(tablePath, slot), getSlotCell(table, slot), {
+        colspan: slot.colspan,
+        rowspan: slot.rowspan + 1,
+      });
+    }
+
+    insertNodes(
+      editor,
+      getEmptyRowNode(editor, { header: false, colCount: grid.width - coveredCols }),
+      { at: newRowPath },
+    );
+
+    // Select the first cell in the new row
+    const start = getStartPoint(editor, newRowPath);
+    if (start) select(editor, start);
+  });
 };
 
 export const addRowBelow = (editor: PlateEditor) => {
-  addRow(editor, (currentRowPath) => {
-    return getNextPath(currentRowPath);
-  });
+  addRow(editor, ({ slot }) => slot.origin[0] + slot.rowspan);
 };
 
 export const addRowAbove = (editor: PlateEditor) => {
-  addRow(editor, (currentRowPath) => {
-    // The new row will be in in-place of the old row
-    return currentRowPath;
-  });
+  addRow(editor, ({ slot }) => slot.origin[0]);
 };

@@ -15,6 +15,7 @@ import {
   normalizeOrphanedListItem,
   firstNodeIsNotList,
   replaceNodeWithListItems,
+  isValidListItemChildInTableCell,
 } from './utils';
 import { withList } from './withList';
 
@@ -66,6 +67,12 @@ export const createListPlugin = (): PlatePlugin =>
           },
           {
             validChildren: LIST_ITEM_BLOCKS,
+            transform: transformParagraphs,
+          },
+          {
+            // Table cells only hold text, so lists inside them are limited
+            // to paragraphs and nested lists.
+            validChildren: isValidListItemChildInTableCell,
             transform: transformParagraphs,
           },
           {

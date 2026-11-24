@@ -8,7 +8,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { css } from '@emotion/css';
 import { useEditorSelector } from 'platejs/react';
 
-import { isNodeTypeSelected } from '../helpers/editor';
+import { canInsertListAtSelection, isNodeTypeSelected } from '../helpers/editor';
 import { isMarkEnabled, isNodeTypeEnabled } from '../helpers/validations';
 import { isMarkActive } from '../internal/queries';
 import { PlateEditor } from '../internal/types';
@@ -124,6 +124,10 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
     (editor: PlateEditor) => !isNodeTypeSelected(editor, BLOCKS.TABLE),
     [],
   );
+  const canInsertLists = useEditorSelector(
+    (editor: PlateEditor) => canInsertListAtSelection(editor),
+    [],
+  );
   const validationInfo = React.useMemo(() => getValidationInfo(sdk.field), [sdk.field]);
   const isListSelected = useEditorSelector(
     (editor: PlateEditor) =>
@@ -193,7 +197,7 @@ const Toolbar = ({ isDisabled }: ToolbarProps) => {
 
         {validationInfo.isAnyBlockFormattingEnabled && <span className={styles.divider} />}
 
-        <ToolbarListButton isDisabled={isDisabled || !canInsertBlocks} />
+        <ToolbarListButton isDisabled={isDisabled || !canInsertLists} />
 
         {isNodeTypeEnabled(sdk.field, BLOCKS.QUOTE) && (
           <ToolbarQuoteButton isDisabled={isDisabled || !canInsertBlocks} />

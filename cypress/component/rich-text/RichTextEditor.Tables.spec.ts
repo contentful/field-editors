@@ -2,7 +2,7 @@
 
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import { document as doc } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { block, document as doc } from '../../../packages/rich-text/src/helpers/nodeFactory';
 import {
   cellWithText,
   emptyCell,
@@ -447,6 +447,118 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         doAction('Delete table');
 
         richText.expectValue(undefined);
+      });
+
+      describe('Merging cells', () => {
+        const mergedHeader = (data: Record<string, number>, ...paragraphs) =>
+          block(BLOCKS.TABLE_HEADER_CELL, data, ...paragraphs);
+        const mergeTestId = {
+          right: 'cf-table-actions-merge-right',
+          down: 'cf-table-actions-merge-down',
+          split: 'cf-table-actions-split-cell',
+        };
+
+        const clickItem = (testId: string) => {
+          cy.findByTestId('cf-table-actions-button').click();
+          cy.findByTestId(testId).click({ force: true });
+        };
+
+        const focusFirstCell = () => {
+          cy.findByText('foo').click();
+        };
+
+        it('merges right', () => {
+          focusFirstCell();
+          clickItem(mergeTestId.right);
+
+          expectTable(
+            row(mergedHeader({ colspan: 2 }, paragraphWithText('foo'), paragraphWithText('bar'))),
+            row(cellWithText('baz'), cellWithText('quux')),
+          );
+        });
+
+        it('merges down', () => {
+          // the header row cannot merge down, so add a body row first
+          doAction('Add row below');
+          cy.findByText('baz').click();
+          clickItem(mergeTestId.down);
+
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(
+              block(BLOCKS.TABLE_CELL, { rowspan: 2 }, paragraphWithText('baz')),
+              cellWithText('quux'),
+            ),
+            row(emptyCell()),
+          );
+        });
+
+        it('splits a merged cell', () => {
+          focusFirstCell();
+          clickItem(mergeTestId.right);
+          clickItem(mergeTestId.split);
+
+          // content stays in the origin cell; the freed cell is empty
+          expectTable(
+            row(
+              block(
+                BLOCKS.TABLE_HEADER_CELL,
+                {},
+                paragraphWithText('foo'),
+                paragraphWithText('bar'),
+              ),
+              emptyHeader(),
+            ),
+            row(cellWithText('baz'), cellWithText('quux')),
+          );
+        });
+
+        it('adds a row below through a rowspan', () => {
+          // the header row cannot merge down, so add a body row first
+          doAction('Add row below');
+          cy.findByText('baz').click();
+          clickItem(mergeTestId.down);
+          cy.findByText('quux').click();
+          doAction('Add row below');
+
+          // the new row sits inside the rowspan, which grows instead of getting a cell
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(
+              block(BLOCKS.TABLE_CELL, { rowspan: 3 }, paragraphWithText('baz')),
+              cellWithText('quux'),
+            ),
+            row(emptyCell()),
+            row(emptyCell()),
+          );
+        });
+
+        it('deletes a column through a colspan', () => {
+          doAction('Add column right');
+          focusFirstCell();
+          clickItem(mergeTestId.right);
+          clickItem(mergeTestId.right);
+          cy.findByText('quux').click();
+          doAction('Delete column');
+
+          // the colspan shrinks instead of losing its content
+          expectTable(
+            row(mergedHeader({ colspan: 2 }, paragraphWithText('foo'), paragraphWithText('bar'))),
+            row(cellWithText('baz'), emptyCell()),
+          );
+        });
+
+        it('disables Merge right in the last column', () => {
+          cy.findByText('quux').click();
+          cy.findByTestId('cf-table-actions-button').click();
+          cy.findByTestId(mergeTestId.right).should('be.disabled');
+        });
+
+        it('disables Split cell on a plain cell', () => {
+          cy.findByText('baz').click();
+          cy.findByTestId('cf-table-actions-button').click();
+          cy.findByTestId(mergeTestId.split).should('be.disabled');
+        });
       });
     });
   });

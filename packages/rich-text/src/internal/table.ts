@@ -1,3 +1,4 @@
+import { BLOCKS } from '@contentful/rich-text-types';
 import * as table from '@platejs/table';
 import { onKeyDownTable as onNativeKeyDownTable } from '@platejs/table/react';
 import {
@@ -8,6 +9,9 @@ import {
 } from 'platejs';
 import { getEditorPlugin } from 'platejs/react';
 
+import { getTableGrid, hasSpans } from '../plugins/Table/grid';
+import { getAboveNode } from './queries';
+import type { Element } from './types';
 import type { PlateEditor } from './types/editor';
 import type { PlatePlugin } from './types/plugins';
 
@@ -42,9 +46,25 @@ export const withDeleteTable = (editor: PlateEditor) => {
 };
 export const withGetFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) =>
   applyOverride(editor, table.withGetFragmentTable);
+// Plate pastes table fragments by child index, which breaks tables with merged
+// cells. Its handling of other fragments is span-safe and stays in place.
+const isTablePasteIntoSpanTable = (
+  editor: PlateEditor,
+  fragment: Parameters<PlateEditor['insertFragment']>[0],
+): boolean => {
+  if (!fragment.some((node) => (node as Element).type === BLOCKS.TABLE)) return false;
+  const tableEntry = getAboveNode(editor, { match: { type: BLOCKS.TABLE } });
+  if (!tableEntry) return false;
+  return hasSpans(getTableGrid(tableEntry[0] as Element));
+};
+
 export const withInsertFragmentTable = (editor: PlateEditor, _plugin?: PlatePlugin) => {
   const { insertFragment } = editor;
   editor.insertFragment = (fragment) => {
+    if (isTablePasteIntoSpanTable(editor, fragment)) {
+      insertFragment(fragment);
+      return;
+    }
     // Plate registers row/column insertion after our legacy overrides. Resolve
     // its paste handler here so it captures those methods once they exist.
     const context = getSlateEditorPlugin(editor, table.BaseTablePlugin);

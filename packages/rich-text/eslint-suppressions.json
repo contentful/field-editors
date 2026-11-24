@@ -31,7 +31,7 @@
   },
   "src/test-utils/hyperscript.d.ts": {
     "@typescript-eslint/no-empty-object-type": {
-      "count": 20
+      "count": 18
     }
   }
 }

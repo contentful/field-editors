@@ -27,6 +27,7 @@ import {
 } from '../internal/transforms';
 import { EditorNodesOptions, ToggleNodeTypeOptions, Node, Path } from '../internal/types';
 import { Element, PlateEditor } from '../internal/types';
+import { getTableGrid } from '../plugins/Table/grid';
 import { IS_SAFARI } from './environment';
 
 export const LINK_TYPES: INLINES[] = [
@@ -75,6 +76,29 @@ export function isNodeTypeSelected(
   if (!editor) return false;
   const [node] = getNodeEntryFromSelection(editor, nodeType);
   return !!node;
+}
+
+const TABLE_CELL_TYPES: NodeType[] = [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL];
+
+/**
+ * Returns the table cell (body or header) that contains the given path, if any.
+ */
+export function getTableCellEntry(editor: PlateEditor, path: Path): NodeEntry | [] {
+  return getNodeEntryFromSelection(editor, TABLE_CELL_TYPES, path);
+}
+
+/**
+ * Lists can be inserted anywhere outside of tables. Inside a table they are
+ * only allowed when the whole selection sits in a single body cell; header
+ * cells only accept paragraphs.
+ */
+export function canInsertListAtSelection(editor: PlateEditor | null): boolean {
+  if (!editor?.selection || !isNodeTypeSelected(editor, BLOCKS.TABLE)) return true;
+
+  const [anchorCell] = getTableCellEntry(editor, editor.selection.anchor.path);
+  const [focusCell] = getTableCellEntry(editor, editor.selection.focus.path);
+
+  return anchorCell?.type === BLOCKS.TABLE_CELL && anchorCell === focusCell;
 }
 
 export function moveToTheNextLine(editor: PlateEditor) {
@@ -126,9 +150,7 @@ export function isList(editor?: PlateEditor) {
 export function getTableSize(table: Element): Record<'numRows' | 'numColumns', number> | null {
   const numRows = table.children.length;
   if (!numRows) return null;
-  const [firstRow] = table.children;
-  const numColumns = (firstRow as Element).children?.length;
-  return { numRows, numColumns };
+  return { numRows, numColumns: getTableGrid(table).width };
 }
 
 interface InsertLinkOptions {

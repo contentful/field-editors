@@ -9,7 +9,6 @@ import {
   getChildren,
   isFirstChildPath,
   isAncestorEmpty,
-  getParentNode,
   isElement,
   getNodeEntries,
   getPreviousPath,
@@ -21,8 +20,9 @@ import {
   ELEMENT_TR,
   getEmptyRowNode,
 } from '../../internal/table';
-import { insertNodes, removeNodes, moveNodes } from '../../internal/transforms';
-import { PlateEditor, NodeEntry, Ancestor, Node } from '../../internal/types';
+import { insertNodes, removeNodes, moveNodes, setNodes } from '../../internal/transforms';
+import { PlateEditor, NodeEntry, Ancestor, Node, Element } from '../../internal/types';
+import { getMissingCellCounts, getTableGrid, GridSlot, spanData } from './grid';
 
 export function insertTableAndFocusFirstCell(editor: PlateEditor): void {
   const table = {
@@ -99,26 +99,51 @@ export function replaceEmptyParagraphWithTable(editor: PlateEditor) {
 }
 
 /**
- * Returns the number of cells in a given row vs the table width
- *
- * Note: We should only get different table rows cell counts in between
- * normalization cycles.
+ * The span data a cell should have: spans as placed in the grid (so colspans
+ * are clamped to the table's column limit) and rowspans stopping at the last row.
  */
-export const getNoOfMissingTableCellsInRow = (editor: PlateEditor, rowEntry: NodeEntry) => {
-  const [, rowPath] = rowEntry;
-  const parent = getParentNode(editor, rowPath);
+const canonicalSpanData = (cell: Element, slot: GridSlot, height: number) =>
+  spanData(cell.data as object | undefined, {
+    colspan: slot.colspan,
+    rowspan: Math.min(slot.rowspan, height - slot.rowIndex),
+  }) as Record<string, unknown>;
 
-  // This is ensured by normalization. The error is here just in case
-  if (!parent) {
-    throw new Error('table rows must be wrapped in a table node');
-  }
+const hasCanonicalSpanData = (cell: Element, slot: GridSlot, height: number): boolean => {
+  const expected = canonicalSpanData(cell, slot, height);
+  const data = (cell.data ?? {}) as Record<string, unknown>;
+  const keys = Object.keys(data);
+  return (
+    keys.length === Object.keys(expected).length && keys.every((key) => data[key] === expected[key])
+  );
+};
 
-  // The longest table row determines its width
-  const tableWidth = Math.max(...getChildren(parent).map((entry) => getChildren(entry).length));
+/** Cells whose span data is not canonical, with their placement in the grid */
+const getNonCanonicalSpanCells = (table: Element) => {
+  const grid = getTableGrid(table);
+  const rows = table.children;
+  const result: { cell: Element; slot: GridSlot }[] = [];
+  grid.cells.forEach((rowSlots, rowIndex) =>
+    rowSlots.forEach((slot, cellIndex) => {
+      const cell = (rows[rowIndex] as Element).children[cellIndex] as Element;
+      if (!hasCanonicalSpanData(cell, slot, grid.height)) result.push({ cell, slot });
+    }),
+  );
+  return { grid, result };
+};
 
-  const rowWidth = getChildren(rowEntry).length;
+/** True when every cell's span data is canonical: within the column limit and not past the last row */
+export const hasValidSpans = (_: PlateEditor, [table]: NodeEntry): boolean =>
+  getNonCanonicalSpanCells(table as Element).result.length === 0;
 
-  return tableWidth - rowWidth;
+export const cleanSpans = (editor: PlateEditor, [table, tablePath]: NodeEntry): void => {
+  const { grid, result } = getNonCanonicalSpanCells(table as Element);
+  result.forEach(({ cell, slot }) => {
+    setNodes(
+      editor,
+      { data: canonicalSpanData(cell, slot, grid.height) },
+      { at: [...tablePath, slot.rowIndex, slot.cellIndex] },
+    );
+  });
 };
 
 export const createEmptyTableCells = (count: number): Node[] => {
@@ -135,6 +160,39 @@ export const createEmptyTableCells = (count: number): Node[] => {
   };
 
   return new Array(count).fill(emptyTableCell);
+};
+
+/**
+ * Table rows with fewer cells than the table width. Only real table rows are
+ * considered: other children (e.g. stray text) are fixed by other normalizers
+ * and can't be padded here.
+ */
+const getShortRows = (table: Element) => {
+  const rows = table.children;
+  return getMissingCellCounts(getTableGrid(table)).flatMap((missing, rowIndex) => {
+    const row = rows[rowIndex];
+    const isRow = isElement(row) && row.type === BLOCKS.TABLE_ROW && Array.isArray(row.children);
+    return missing > 0 && isRow ? [{ rowIndex, cellCount: row.children.length, missing }] : [];
+  });
+};
+
+/**
+ * True when every row fills the table width. Slots covered by rowspans from
+ * rows above count as filled.
+ *
+ * Note: We should only get different table rows cell counts in between
+ * normalization cycles.
+ */
+export const hasNoMissingTableCells = (_: PlateEditor, [table]: NodeEntry): boolean =>
+  getShortRows(table as Element).length === 0;
+
+/** Pads every short row with empty cells, using a single grid for the whole table */
+export const insertMissingTableCells = (editor: PlateEditor, [table, tablePath]: NodeEntry) => {
+  getShortRows(table as Element).forEach(({ rowIndex, cellCount, missing }) => {
+    insertNodes(editor, createEmptyTableCells(missing), {
+      at: [...tablePath, rowIndex, cellCount],
+    });
+  });
 };
 
 export const isNotEmpty = (_: PlateEditor, entry: NodeEntry) => {

@@ -3,7 +3,9 @@
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { describe, expect, it } from 'vitest';
 
+import { Element, PlateEditor } from '../../../internal/types';
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
+import { getTableGrid } from '../grid';
 
 describe('normalization', () => {
   describe('Table', () => {
@@ -438,6 +440,133 @@ describe('paste', () => {
       table([['Before pasted after', 'Keep cell']]),
       paragraph('Keep following paragraph'),
     ]);
+  });
+});
+
+describe('paste into a table with merged cells', () => {
+  const paragraph = (value: string) => ({ type: BLOCKS.PARAGRAPH, children: [{ text: value }] });
+  const cell = (value: string, data: Record<string, unknown> = {}) => ({
+    type: BLOCKS.TABLE_CELL,
+    data,
+    children: [paragraph(value)],
+  });
+  const row = (...cells: ReturnType<typeof cell>[]) => ({
+    type: BLOCKS.TABLE_ROW,
+    children: cells,
+  });
+  const table = (...rows: ReturnType<typeof row>[]) => ({ type: BLOCKS.TABLE, children: rows });
+
+  // [A colspan 2], [B, C] with the cursor in B
+  const createSpanTableEditor = () => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      table(row(cell('A', { colspan: 2 })), row(cell('B'), cell('C'))),
+      paragraph('Keep following paragraph'),
+    ];
+    editor.tf.select({ path: [0, 1, 0, 0, 0], offset: 1 });
+    return editor;
+  };
+
+  // Every grid slot is covered by exactly one cell and every row has a cell of its own
+  const expectValidGrid = (node: unknown) => {
+    const grid = getTableGrid(node as Element);
+    expect(grid.width).toBeGreaterThan(0);
+    grid.slots.forEach((slots, r) => {
+      expect(slots.every(Boolean)).toBe(true);
+      expect(slots.some((slot) => slot!.origin[0] === r)).toBe(true);
+    });
+  };
+
+  it('pasting a cell block leaves a valid grid', () => {
+    const editor = createSpanTableEditor();
+
+    editor.insertFragment([table(row(cell('x'), cell('y')))]);
+
+    const tables = editor.children.filter((node) => node.type === BLOCKS.TABLE);
+    expect(tables.length).toBeGreaterThan(0);
+    tables.forEach(expectValidGrid);
+    expect(editor.children[0]).toMatchObject(
+      table(
+        row(cell('A', { colspan: 2 })),
+        row(
+          { ...cell('B'), children: [paragraph('B'), paragraph('x'), paragraph('y')] },
+          cell('C'),
+        ),
+      ),
+    );
+  });
+
+  it('pasting a paragraph and a table does not throw and leaves a valid grid', () => {
+    const editor = createSpanTableEditor();
+
+    expect(() =>
+      editor.insertFragment([paragraph('pre'), table(row(cell('x'), cell('y'), cell('z')))]),
+    ).not.toThrow();
+
+    const tables = editor.children.filter((node) => node.type === BLOCKS.TABLE);
+    expect(tables.length).toBeGreaterThan(0);
+    tables.forEach(expectValidGrid);
+    // The pasted cells' content lands in B as paragraphs; the table structure is untouched
+    expect(editor.children[0]).toMatchObject(
+      table(
+        row(cell('A', { colspan: 2 })),
+        row(
+          {
+            ...cell('Bpre'),
+            children: [paragraph('Bpre'), paragraph('x'), paragraph('y'), paragraph('z')],
+          },
+          cell('C'),
+        ),
+      ),
+    );
+  });
+
+  // [A colspan 2], [B, C], [D, E] with B to E selected
+  const createMultiCellSelection = (spans: boolean) => {
+    const { editor } = createTestEditor({});
+    editor.children = [
+      table(
+        spans ? row(cell('A', { colspan: 2 })) : row(cell('A'), cell('A2')),
+        row(cell('B'), cell('C')),
+        row(cell('D'), cell('E')),
+      ),
+      paragraph('Keep following paragraph'),
+    ];
+    editor.tf.select({
+      anchor: { path: [0, 1, 0, 0, 0], offset: 0 },
+      focus: { path: [0, 2, 1, 0, 0], offset: 1 },
+    });
+    return editor;
+  };
+
+  it('pasting a paragraph over a multi-cell selection keeps every row', () => {
+    const editor = createMultiCellSelection(true);
+
+    editor.insertFragment([paragraph('X')]);
+
+    // Same as Plate in a span-free table: each selected cell gets the paragraph
+    expect(editor.children[0]).toMatchObject(
+      table(row(cell('A', { colspan: 2 })), row(cell('X'), cell('X')), row(cell('X'), cell('X'))),
+    );
+    expectValidGrid(editor.children[0]);
+  });
+
+  it.each([
+    ['typing a character', (editor: PlateEditor) => editor.insertText('X')],
+    ['Backspace', (editor: PlateEditor) => editor.deleteBackward('character')],
+    ['Delete', (editor: PlateEditor) => editor.deleteForward('character')],
+    ['deleting the selection', (editor: PlateEditor) => editor.deleteFragment()],
+  ])('%s over a multi-cell selection matches a span-free table', (_, action) => {
+    const editor = createMultiCellSelection(true);
+    const spanFree = createMultiCellSelection(false);
+
+    action(editor);
+    action(spanFree);
+
+    expect((editor.children[0] as Element).children.slice(1)).toEqual(
+      (spanFree.children[0] as Element).children.slice(1),
+    );
+    expectValidGrid(editor.children[0]);
   });
 });
 

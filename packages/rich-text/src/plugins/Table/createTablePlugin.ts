@@ -3,12 +3,7 @@ import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 import { isRootLevel } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { createTablePlugin as createDefaultTablePlugin } from '../../internal/pluginFactories';
-import {
-  getParentNode,
-  getBlockAbove,
-  getLastChildPath,
-  getNextPath,
-} from '../../internal/queries';
+import { getParentNode, getBlockAbove } from '../../internal/queries';
 import {
   ELEMENT_TABLE,
   ELEMENT_TD,
@@ -21,13 +16,18 @@ import {
   withSetFragmentDataTable,
   withInsertFragmentTable,
 } from '../../internal/table';
-import { insertNodes } from '../../internal/transforms';
 import { PlatePlugin } from '../../internal/types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
 import { Table } from './components/Table';
-import { createEmptyTableCells, getNoOfMissingTableCellsInRow, isNotEmpty } from './helpers';
+import {
+  cleanSpans,
+  hasNoMissingTableCells,
+  hasValidSpans,
+  insertMissingTableCells,
+  isNotEmpty,
+} from './helpers';
 import { insertTableFragment } from './insertTableFragment';
 import { onKeyDownTable } from './onKeyDownTable';
 import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
@@ -88,6 +88,17 @@ export const createTablePlugin = (): PlatePlugin =>
             transform: transformLift,
           },
           {
+            // Span data must be canonical and within the table's bounds
+            validNode: hasValidSpans,
+            transform: cleanSpans,
+          },
+          {
+            // Ensure every row fills the table width. Runs per table rather
+            // than per row so the span grid is built once, not once per row.
+            validNode: hasNoMissingTableCells,
+            transform: insertMissingTableCells,
+          },
+          {
             validChildren: CONTAINERS[BLOCKS.TABLE],
           },
         ],
@@ -111,20 +122,6 @@ export const createTablePlugin = (): PlatePlugin =>
               return parent && parent.type === BLOCKS.TABLE;
             },
             transform: transformWrapIn(BLOCKS.TABLE),
-          },
-          {
-            // ensure consistent number of cells in each row
-            validNode: (editor, entry) => {
-              return getNoOfMissingTableCellsInRow(editor, entry) === 0;
-            },
-            transform: (editor, entry) => {
-              const howMany = getNoOfMissingTableCellsInRow(editor, entry);
-              const at = getNextPath(getLastChildPath(entry));
-
-              insertNodes(editor, createEmptyTableCells(howMany), {
-                at,
-              });
-            },
           },
         ],
       },

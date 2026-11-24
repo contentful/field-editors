@@ -46,6 +46,12 @@ export const onKeyDownTable: KeyboardHandler<HotkeyPlugin> = (editor, plugin) =>
     }
 
     if (event.key === 'Tab') {
+      // Inside a list, Tab indents/outdents list items (see onKeyDownList)
+      // rather than moving between cells.
+      if (getAboveNode(editor, { match: { type: [BLOCKS.UL_LIST, BLOCKS.OL_LIST] } })) {
+        return;
+      }
+
       const entry = getTableEntries(editor, {});
 
       if (!entry) return;
