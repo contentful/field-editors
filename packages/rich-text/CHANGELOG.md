@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.7.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.17...@contentful/field-editor-rich-text@6.7.0) (2026-11-24)
+
+### Features
+
+- **dependencies:** [NT-4532] support App SDK v5 consumers ([#2314](https://github.com/contentful/field-editors/issues/2314)) ([9586578](https://github.com/contentful/field-editors/commit/9586578047398d355651e70326fd357ab66de562))
+
 ## [6.6.17](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text@6.6.16...@contentful/field-editor-rich-text@6.6.17) (2026-11-23)
 
 ### Bug Fixes

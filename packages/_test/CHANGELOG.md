@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@3.2.1...@contentful/field-editor-test-utils@3.3.0) (2026-11-24)
+
+### Features
+
+- **dependencies:** [NT-4532] support App SDK v5 consumers ([#2314](https://github.com/contentful/field-editors/issues/2314)) ([9586578](https://github.com/contentful/field-editors/commit/9586578047398d355651e70326fd357ab66de562))
+
 ## [3.2.1](https://github.com/contentful/field-editors/compare/@contentful/field-editor-test-utils@3.2.0...@contentful/field-editor-test-utils@3.2.1) (2026-10-08)
 
 **Note:** Version bump only for package @contentful/field-editor-test-utils

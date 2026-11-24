@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.6.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.5...@contentful/field-editor-reference@8.6.0) (2026-11-24)
+
+### Features
+
+- **dependencies:** [NT-4532] support App SDK v5 consumers ([#2314](https://github.com/contentful/field-editors/issues/2314)) ([9586578](https://github.com/contentful/field-editors/commit/9586578047398d355651e70326fd357ab66de562))
+
 ## [8.5.5](https://github.com/contentful/field-editors/compare/@contentful/field-editor-reference@8.5.4...@contentful/field-editor-reference@8.5.5) (2026-11-05)
 
 **Note:** Version bump only for package @contentful/field-editor-reference

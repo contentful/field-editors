@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.9...@contentful/field-editor-rich-text-alpha@0.8.0) (2026-11-24)
+
+### Features
+
+- **dependencies:** [NT-4532] support App SDK v5 consumers ([#2314](https://github.com/contentful/field-editors/issues/2314)) ([9586578](https://github.com/contentful/field-editors/commit/9586578047398d355651e70326fd357ab66de562))
+
 ## [0.7.9](https://github.com/contentful/field-editors/compare/@contentful/field-editor-rich-text-alpha@0.7.8...@contentful/field-editor-rich-text-alpha@0.7.9) (2026-11-05)
 
 ### Bug Fixes

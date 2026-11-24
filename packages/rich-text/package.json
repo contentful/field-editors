@@ -1,6 +1,6 @@
 {
   "name": "@contentful/field-editor-rich-text",
-  "version": "6.6.17",
+  "version": "6.7.0",
   "source": "./src/index.tsx",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -46,8 +46,8 @@
     "@contentful/f36-icons": "^6.7.1",
     "@contentful/f36-tokens": "^6.1.2",
     "@contentful/f36-utils": "^6.1.0",
-    "@contentful/field-editor-reference": "^8.5.5",
-    "@contentful/field-editor-shared": "^4.6.3",
+    "@contentful/field-editor-reference": "^8.6.0",
+    "@contentful/field-editor-shared": "^4.7.0",
     "@contentful/rich-text-plain-text-renderer": "^17.2.1",
     "@contentful/rich-text-types": "^17.2.7",
     "@emotion/css": "^11.13.5",
@@ -79,7 +79,7 @@
     "react-dom": ">=18.3.1"
   },
   "devDependencies": {
-    "@contentful/field-editor-test-utils": "^3.2.1",
+    "@contentful/field-editor-test-utils": "^3.3.0",
     "@contentful/rich-text-react-renderer": "^16.2.2",
     "@lingui/core": "5.9.5",
     "@platejs/test-utils": "53.3.15",
