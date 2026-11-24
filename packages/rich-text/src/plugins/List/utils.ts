@@ -95,3 +95,21 @@ export const isListTypeActive = (editor: PlateEditor, type: BLOCKS): boolean => 
 
   return listNode?.[0].type === type;
 };
+
+const TABLE_CELL_LIST_ITEM_BLOCKS: string[] = [BLOCKS.PARAGRAPH, BLOCKS.UL_LIST, BLOCKS.OL_LIST];
+
+/**
+ * Inside a table cell, list items may only contain paragraphs and nested
+ * lists. Everywhere else this always passes.
+ */
+export const isValidListItemChildInTableCell = (
+  editor: PlateEditor,
+  [node, path]: NodeEntry,
+): boolean => {
+  if (TABLE_CELL_LIST_ITEM_BLOCKS.includes(node.type as string)) return true;
+
+  return !getBlockAbove(editor, {
+    at: path,
+    match: { type: [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL] },
+  });
+};
