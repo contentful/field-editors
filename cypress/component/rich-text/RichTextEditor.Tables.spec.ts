@@ -398,6 +398,30 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
         );
       });
 
+      it('keeps the asset card inside a narrow cell', () => {
+        insertTable();
+        cy.realPress('ArrowRight');
+        cy.realPress('ArrowRight');
+        richText.toolbar.embed('asset-block');
+
+        // as in a table with many columns: the cell is narrower than the minimum width of the card
+        richText.editor.find('table').then(($table) => {
+          $table.css('width', '220px');
+          $table.find('td, th').css('width', '110px');
+        });
+
+        richText.editor
+          .find('td')
+          .first()
+          .should(($cell) => {
+            const cell = $cell[0].getBoundingClientRect();
+            const card = $cell.find('article')[0].getBoundingClientRect();
+
+            expect(cell.width).to.equal(110);
+            expect(card.right).to.be.at.most(cell.right);
+          });
+      });
+
       it('keeps the asset in the cell when adding a row below', () => {
         embedAssetInLastCell();
 
