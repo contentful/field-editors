@@ -1,6 +1,6 @@
 import { BLOCKS, CONTAINERS } from '@contentful/rich-text-types';
 
-import { isRootLevel } from '../../helpers/editor';
+import { isRootLevel, isSelectionInSingleTableCell } from '../../helpers/editor';
 import { transformLift, transformParagraphs, transformWrapIn } from '../../helpers/transformers';
 import { createTablePlugin as createDefaultTablePlugin } from '../../internal/pluginFactories';
 import {
@@ -22,7 +22,7 @@ import {
   withInsertFragmentTable,
 } from '../../internal/table';
 import { insertNodes } from '../../internal/transforms';
-import { PlatePlugin } from '../../internal/types';
+import { PlateEditor, PlatePlugin } from '../../internal/types';
 import { Cell } from './components/Cell';
 import { HeaderCell } from './components/HeaderCell';
 import { Row } from './components/Row';
@@ -33,6 +33,25 @@ import { onKeyDownTable } from './onKeyDownTable';
 import { addTableTrackingEvents, withInvalidCellChildrenTracking } from './tableTracking';
 import { withDeleteBackwardTable } from './withDeleteBackwardTable';
 import { withInsertFragmentTableOverride } from './withInsertFragmentTableOverride';
+
+/**
+ * Plate only copies the cell content, instead of the whole table, for a single cell copy or cut.
+ * Do the same for a drag, so that dragging a block (e.g. an asset) out of a cell does not also
+ * drag along the table and drop the text of its cell.
+ */
+export const getSetFragmentData =
+  (
+    editor: PlateEditor,
+    setFragmentDataWithoutTable: PlateEditor['setFragmentData'],
+    setFragmentDataWithTable: PlateEditor['setFragmentData'],
+  ): PlateEditor['setFragmentData'] =>
+  (data, originEvent) => {
+    if (originEvent === 'drag' && isSelectionInSingleTableCell(editor)) {
+      setFragmentDataWithoutTable(data, originEvent);
+      return;
+    }
+    setFragmentDataWithTable(data, originEvent);
+  };
 
 export const createTablePlugin = (): PlatePlugin =>
   createDefaultTablePlugin({
@@ -51,7 +70,13 @@ export const createTablePlugin = (): PlatePlugin =>
       editor = withInsertFragmentTableOverride(editor);
       editor = withInsertTextTable(editor, plugin);
       editor = withSelectionTable(editor);
+      const { setFragmentData: setFragmentDataWithoutTable } = editor;
       editor = withSetFragmentDataTable(editor);
+      editor.setFragmentData = getSetFragmentData(
+        editor,
+        setFragmentDataWithoutTable,
+        editor.setFragmentData,
+      );
 
       // Resets all normalization rules added by @platejs/table as
       // they conflict with our own

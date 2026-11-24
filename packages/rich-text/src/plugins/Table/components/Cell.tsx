@@ -19,6 +19,25 @@ const style = css`
   div:last-child {
     margin-bottom: 0;
   }
+
+  /* an embedded asset card is the last child of its cell: no extra space below it */
+  > div[data-entity-type]:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /*
+   * The card has a minimum width of its own, which is wider than a narrow cell: let it shrink to
+   * the cell and clip what does not fit, so that it never spills over the next cell
+   */
+  > div[data-entity-type] {
+    max-width: 100%;
+
+    article {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+  }
 `;
 
 export const Cell = (props: RenderElementProps) => {

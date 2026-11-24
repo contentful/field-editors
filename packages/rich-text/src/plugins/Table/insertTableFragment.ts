@@ -4,7 +4,7 @@ import { insertEmptyParagraph } from '../../helpers/editor';
 import { getText, isElement } from '../../internal/queries';
 import { Node } from '../../internal/types';
 import { Element, PlateEditor } from '../../internal/types';
-import { isTable } from './helpers';
+import { isTable, withoutAssetsInTableHeader } from './helpers';
 
 /**
  * Removes table wrappers when pasting a single table cell
@@ -47,6 +47,13 @@ export const insertTableFragment = (editor: PlateEditor) => {
     }
 
     fragments = fragments.flatMap(trimUnnecessaryTableWrapper);
+
+    // The Voids plugin also filters, as it handles fragments made only of voids before this override
+    fragments = withoutAssetsInTableHeader(editor, fragments);
+
+    if (fragments.length === 0) {
+      return;
+    }
 
     // We need to make sure we have a new, empty and clean paragraph in order to paste tables as-is due to how Slate behaves
     // More info: https://github.com/ianstormtaylor/slate/pull/4489 and https://github.com/ianstormtaylor/slate/issues/4542

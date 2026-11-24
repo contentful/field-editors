@@ -3,7 +3,10 @@
 import { BLOCKS } from '@contentful/rich-text-types';
 
 import { document as doc } from '../../../packages/rich-text/src/helpers/nodeFactory';
+import { mod } from '../../fixtures/utils';
 import {
+  assetBlock,
+  cell,
   cellWithText,
   emptyCell,
   emptyHeader,
@@ -335,6 +338,295 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
             row(cellWithText('baz'), cellWithText('quux')),
           );
         });
+      });
+    });
+
+    describe('Embedded assets in cells', () => {
+      const embedAssetInLastCell = () => {
+        insertTableWithExampleData();
+        richText.toolbar.embed('asset-block');
+      };
+
+      it('embeds an asset inside the body cell with the cursor', () => {
+        embedAssetInLastCell();
+
+        expectTable(
+          row(headerWithText('foo'), headerWithText('bar')),
+          row(cellWithText('baz'), cell(paragraphWithText('quux'), assetBlock(), emptyParagraph())),
+        );
+      });
+
+      it('embeds an asset inside an empty body cell', () => {
+        insertTable();
+        cy.realPress('ArrowRight');
+        cy.realPress('ArrowRight');
+        richText.toolbar.embed('asset-block');
+
+        expectTable(
+          row(emptyHeader(), emptyHeader()),
+          row(cell(assetBlock(), emptyParagraph()), emptyCell()),
+        );
+      });
+
+      it('does not offer to embed an asset in a header cell', () => {
+        insertTable();
+
+        richText.toolbar.embedDropdown.click();
+
+        // the dropdown is open, but the asset is not offered
+        cy.findByTestId('toolbar-toggle-embedded-entry-inline').should('be.visible');
+        cy.findByTestId('toolbar-toggle-embedded-asset-block').should('not.exist');
+      });
+
+      it('can delete the embedded asset and undo it', () => {
+        embedAssetInLastCell();
+
+        richText.editor.find('[data-entity-id="published_asset"]').click();
+        // .type('{backspace}') does not work on non-typable elements (contentEditable=false)
+        richText.editor.trigger('keydown', KEYS.backspace);
+
+        expectTable(
+          row(headerWithText('foo'), headerWithText('bar')),
+          row(cellWithText('baz'), cell(paragraphWithText('quux'), emptyParagraph())),
+        );
+
+        richText.toolbar.undo.click();
+
+        expectTable(
+          row(headerWithText('foo'), headerWithText('bar')),
+          row(cellWithText('baz'), cell(paragraphWithText('quux'), assetBlock(), emptyParagraph())),
+        );
+      });
+
+      it('keeps the asset card inside a narrow cell', () => {
+        insertTable();
+        cy.realPress('ArrowRight');
+        cy.realPress('ArrowRight');
+        richText.toolbar.embed('asset-block');
+
+        // as in a table with many columns: the cell is narrower than the minimum width of the card
+        richText.editor.find('table').then(($table) => {
+          $table.css('width', '220px');
+          $table.find('td, th').css('width', '110px');
+        });
+
+        richText.editor
+          .find('td')
+          .first()
+          .should(($cell) => {
+            const cell = $cell[0].getBoundingClientRect();
+            const card = $cell.find('article')[0].getBoundingClientRect();
+
+            expect(cell.width).to.equal(110);
+            expect(card.right).to.be.at.most(cell.right);
+          });
+      });
+
+      it('keeps the asset in the cell when adding a row below', () => {
+        embedAssetInLastCell();
+
+        cy.findByTestId('cf-table-actions-button').click();
+        cy.findByText('Add row below').click({ force: true });
+
+        expectTable(
+          row(headerWithText('foo'), headerWithText('bar')),
+          row(cellWithText('baz'), cell(paragraphWithText('quux'), assetBlock(), emptyParagraph())),
+          row(emptyCell(), emptyCell()),
+        );
+      });
+
+      describe('other ways to embed', () => {
+        const getCommandList = () => cy.findByTestId('rich-text-commands-list');
+
+        it('embeds an asset with the keyboard shortcut in a body cell', () => {
+          insertTableWithExampleData();
+          richText.editor.type(`{${mod}+shift+a}`);
+          richText.forms.embed.confirm();
+
+          expectTable(
+            row(headerWithText('foo'), headerWithText('bar')),
+            row(
+              cellWithText('baz'),
+              cell(paragraphWithText('quux'), assetBlock(), emptyParagraph()),
+            ),
+          );
+        });
+
+        it('ignores the keyboard shortcut in a header cell', () => {
+          insertTable();
+          richText.editor.type(`{${mod}+shift+a}`);
+          // the editor is still focused and typing works
+          richText.editor.type('x');
+
+          cy.findByTestId('fake-dialog-confirm-cta').should('not.exist');
+          expectTable(row(headerWithText('x'), emptyHeader()), row(emptyCell(), emptyCell()));
+        });
+
+        it('embeds an asset with the command palette in a body cell', () => {
+          insertTable();
+          cy.realPress('ArrowRight');
+          cy.realPress('ArrowRight');
+          richText.editor.type('/');
+          getCommandList().findByText('Embed Asset').click();
+          getCommandList().findByText('test').click();
+
+          richText.getValue().then((value) => {
+            const [tableNode] = value.content;
+            const bodyCell = tableNode.content[1].content[0];
+
+            expect(value.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.TABLE,
+              BLOCKS.PARAGRAPH,
+            ]);
+            // the asset takes the place of the empty paragraph, and a paragraph is kept after it
+            expect(bodyCell.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
+          });
+        });
+
+        it('embeds a second asset with the command palette without a paragraph in between', () => {
+          insertTable();
+          cy.realPress('ArrowRight');
+          cy.realPress('ArrowRight');
+          // only the keyboard is used, so that the focus stays in the editor
+          const embedWithKeyboard = () => {
+            cy.realType('/asset');
+            getCommandList().findByText('Embed Asset').should('exist');
+            cy.realPress('Enter');
+            getCommandList().findByText('test').should('exist');
+            cy.realPress('Enter');
+          };
+          embedWithKeyboard();
+          embedWithKeyboard();
+
+          richText.getValue().then((value) => {
+            const bodyCell = value.content[0].content[1].content[0];
+
+            expect(bodyCell.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
+          });
+        });
+
+        it('embeds an asset with the command palette using the keyboard in a body cell', () => {
+          insertTable();
+          cy.realPress('ArrowRight');
+          cy.realPress('ArrowRight');
+          // filtered, so that "Embed Asset" is the highlighted item the Enter key confirms
+          richText.editor.type('/asset');
+          getCommandList().findByText('Embed Asset').should('exist');
+          richText.editor.type('{enter}');
+          getCommandList().findByText('test').should('exist');
+          richText.editor.type('{enter}');
+
+          richText.getValue().then((value) => {
+            const bodyCell = value.content[0].content[1].content[0];
+
+            expect(bodyCell.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
+          });
+        });
+
+        it('does not offer the command palette asset in a header cell', () => {
+          insertTable();
+          richText.editor.type('/');
+
+          // the "/" was typed in the header cell, and no asset command is offered
+          expectTable(row(headerWithText('/'), emptyHeader()), row(emptyCell(), emptyCell()));
+          cy.findByText('Embed Asset').should('not.exist');
+        });
+      });
+
+      describe('drag and drop', () => {
+        const nodeTypes = (nodes: { nodeType: string }[]) => nodes.map((node) => node.nodeType);
+        const insertAssetBelowTable = () => {
+          insertTableWithExampleData();
+          cy.realPress('ArrowDown');
+          richText.toolbar.embed('asset-block');
+        };
+
+        it('drops an asset inside a body cell', () => {
+          cy.viewport(1200, 1200);
+          insertAssetBelowTable();
+
+          richText.editor
+            .find('[data-entity-id="published_asset"]')
+            .dragTo(() => richText.editor.findByText('baz'));
+
+          richText.getValue().then((value) => {
+            const [tableNode] = value.content;
+            const bodyCell = tableNode.content[1].content[0];
+
+            expect(nodeTypes(value.content)).to.not.include(BLOCKS.EMBEDDED_ASSET);
+            expect(nodeTypes(bodyCell.content)).to.include(BLOCKS.EMBEDDED_ASSET);
+          });
+        });
+
+        it('moves an asset between body cells without dragging the text of its cell along', () => {
+          cy.viewport(1200, 1200);
+          insertTableWithExampleData();
+          richText.toolbar.embed('asset-block');
+
+          richText.editor
+            .find('[data-entity-id="published_asset"]')
+            .dragTo(() => richText.editor.findByText('baz'));
+
+          richText.getValue().then((value) => {
+            const [firstCell, lastCell] = value.content[0].content[1].content;
+            const paragraphTexts = (cell: { content: any[] }) =>
+              cell.content
+                .filter((node) => node.nodeType === BLOCKS.PARAGRAPH)
+                .map((node) => node.content[0].value);
+
+            // the asset lands where it was dropped, splitting the text of the cell at that point
+            expect(nodeTypes(firstCell.content)).to.deep.equal([
+              BLOCKS.PARAGRAPH,
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
+            expect(paragraphTexts(firstCell).join('')).to.equal('baz');
+            // the source cell only lost the asset, no text of it was dragged along
+            expect(nodeTypes(lastCell.content)).to.deep.equal([BLOCKS.PARAGRAPH, BLOCKS.PARAGRAPH]);
+            expect(paragraphTexts(lastCell)).to.deep.equal(['quux', '']);
+          });
+        });
+
+        it('does not drop an asset inside a header cell', () => {
+          cy.viewport(1200, 1200);
+          insertAssetBelowTable();
+
+          richText.editor
+            .find('[data-entity-id="published_asset"]')
+            .dragTo(() => richText.editor.findByText('foo'));
+
+          richText.getValue().then((value) => {
+            const [tableNode] = value.content;
+            const headerCells = tableNode.content[0].content;
+
+            // the asset stays where it was, below the table
+            expect(nodeTypes(value.content)).to.include(BLOCKS.EMBEDDED_ASSET);
+            headerCells.forEach((headerCell) => {
+              expect(nodeTypes(headerCell.content)).to.not.include(BLOCKS.EMBEDDED_ASSET);
+            });
+          });
+        });
+      });
+
+      it('does not enable the table header while the first row has an asset', () => {
+        insertTableWithExampleData();
+        cy.findByTestId('cf-table-actions-button').click();
+        cy.findByText('Disable table header').click({ force: true });
+        richText.editor.contains('foo').click();
+        richText.toolbar.embed('asset-block');
+
+        cy.findByTestId('cf-table-actions-button').click();
+        cy.findByText('Enable table header').closest('button').should('be.disabled');
       });
     });
 

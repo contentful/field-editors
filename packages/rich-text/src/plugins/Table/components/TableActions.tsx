@@ -14,7 +14,7 @@ import { deleteColumn, deleteRow, deleteTable } from '../../../internal/table';
 import { PlateEditor } from '../../../internal/types';
 import { RichTextTrackingActionName } from '../../../plugins/Tracking';
 import { addColumnLeft, addColumnRight, addRowAbove, addRowBelow, setHeader } from '../actions';
-import { isTableHeaderEnabled } from '../helpers';
+import { isTableHeaderBlockedByAssets, isTableHeaderEnabled } from '../helpers';
 
 export const styles = {
   topRight: css({
@@ -62,6 +62,11 @@ export const TableActions = () => {
     return !headerCell;
   }, [editor]);
 
+  // Header cells only accept paragraphs: a first row with assets cannot become a header
+  const isEnableHeaderBlocked = Boolean(
+    editor && !isHeaderEnabled && isTableHeaderBlockedByAssets(editor),
+  );
+
   const toggleHeader = React.useCallback(() => {
     close();
 
@@ -69,11 +74,15 @@ export const TableActions = () => {
       return;
     }
 
+    if (isEnableHeaderBlocked) {
+      return;
+    }
+
     const value = !isHeaderEnabled;
 
     setHeaderEnabled(value);
     setHeader(editor, value);
-  }, [editor, close, isHeaderEnabled]);
+  }, [editor, close, isHeaderEnabled, isEnableHeaderBlocked]);
 
   const action = React.useCallback(
     (cb: TableAction, type: 'insert' | 'remove', element: 'Table' | 'Row' | 'Column') => () => {
@@ -123,7 +132,7 @@ export const TableActions = () => {
         <Menu.Item onClick={action(addColumnLeft, 'insert', 'Column')}>Add column left</Menu.Item>
         <Menu.Item onClick={action(addColumnRight, 'insert', 'Column')}>Add column right</Menu.Item>
         <Menu.Divider />
-        <Menu.Item onClick={toggleHeader}>
+        <Menu.Item onClick={toggleHeader} disabled={isEnableHeaderBlocked}>
           {isHeaderEnabled ? 'Disable table header' : 'Enable table header'}
         </Menu.Item>
         <Menu.Divider />

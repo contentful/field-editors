@@ -77,6 +77,72 @@ export function isNodeTypeSelected(
   return !!node;
 }
 
+/**
+ * Whether the whole selection sits inside one single table cell, header or body.
+ */
+export function isSelectionInSingleTableCell(editor: PlateEditor | null): boolean {
+  if (!editor?.selection) return false;
+
+  const { anchor, focus } = editor.selection;
+  const cellTypes = [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL];
+  const [anchorCell, anchorCellPath] = getNodeEntryFromSelection(editor, cellTypes, anchor.path);
+  const [focusCell, focusCellPath] = getNodeEntryFromSelection(editor, cellTypes, focus.path);
+
+  return (
+    !!anchorCell &&
+    !!focusCell &&
+    !!anchorCellPath &&
+    !!focusCellPath &&
+    isCommonPath(anchorCellPath, focusCellPath) &&
+    anchorCellPath.length === focusCellPath.length
+  );
+}
+
+/**
+ * Whether the whole selection sits inside one single table body cell
+ * (not a header cell), and not inside a list or a quote nested in it.
+ */
+export function isSelectionInTableBodyCell(editor: PlateEditor | null): boolean {
+  if (!editor?.selection) return false;
+
+  const { anchor, focus } = editor.selection;
+  const [anchorCell, anchorCellPath] = getNodeEntryFromSelection(
+    editor,
+    [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL],
+    anchor.path,
+  );
+  const [focusCell, focusCellPath] = getNodeEntryFromSelection(
+    editor,
+    [BLOCKS.TABLE_CELL, BLOCKS.TABLE_HEADER_CELL],
+    focus.path,
+  );
+
+  if (
+    !anchorCell ||
+    !focusCell ||
+    !anchorCellPath ||
+    !focusCellPath ||
+    anchorCell.type !== BLOCKS.TABLE_CELL ||
+    !isCommonPath(anchorCellPath, focusCellPath) ||
+    anchorCellPath.length !== focusCellPath.length
+  ) {
+    return false;
+  }
+
+  const nestedContainers = [BLOCKS.UL_LIST, BLOCKS.OL_LIST, BLOCKS.QUOTE];
+  return [anchor.path, focus.path].every(
+    (path) => !getNodeEntryFromSelection(editor, nestedContainers, path)[0],
+  );
+}
+
+/**
+ * Embedded asset blocks can be inserted outside of tables and inside table body cells.
+ * Entries and resources can only be inserted outside of tables.
+ */
+export function canInsertEmbeddedAssetBlock(editor: PlateEditor | null): boolean {
+  return !isNodeTypeSelected(editor, BLOCKS.TABLE) || isSelectionInTableBodyCell(editor);
+}
+
 export function moveToTheNextLine(editor: PlateEditor) {
   moveSelection(editor, { distance: 1, unit: 'line' });
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /** @jsx jsx */
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { assertOutput, createTestEditor, jsx } from '../../../test-utils';
 
@@ -208,6 +208,164 @@ describe('normalization', () => {
       );
 
       assertOutput({ input, expected });
+    });
+  });
+
+  describe('Table cell with embedded assets', () => {
+    it('keeps embedded assets in body cells, alone or next to paragraphs', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hembed type="Asset" id="asset-1" />
+              </htd>
+              <htd>
+                <hp>before</hp>
+                <hembed type="Asset" id="asset-2" />
+                <hembed type="Asset" id="asset-3" />
+                <hp>after</hp>
+              </htd>
+            </htr>
+          </htable>
+          <hp />
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <htd>
+                <hembed type="Asset" id="asset-1" />
+              </htd>
+              <htd>
+                <hp>before</hp>
+                <hembed type="Asset" id="asset-2" />
+                <hembed type="Asset" id="asset-3" />
+                <hp>after</hp>
+              </htd>
+            </htr>
+          </htable>
+          <hp>
+            <htext />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+
+    it('removes embedded assets from header cells and keeps their paragraphs', () => {
+      const trackingHandler = vi.fn();
+      const { editor } = createTestEditor({
+        trackingHandler,
+        input: (
+          <editor>
+            <htable>
+              <htr>
+                <hth>
+                  <hp>header</hp>
+                  <hembed type="Asset" id="asset-1" />
+                </hth>
+              </htr>
+              <htr>
+                <htd>
+                  <hembed type="Asset" id="asset-2" />
+                </htd>
+              </htr>
+            </htable>
+            <hp />
+          </editor>
+        ),
+      });
+
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <hth>
+                <hp>header</hp>
+              </hth>
+            </htr>
+            <htr>
+              <htd>
+                <hembed type="Asset" id="asset-2" />
+              </htd>
+            </htr>
+          </htable>
+          <hp>
+            <htext />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ editor, expected });
+
+      expect(trackingHandler).toHaveBeenCalledWith('invalidTablePaste', {
+        nodeType: BLOCKS.EMBEDDED_ASSET,
+        origin: 'viewport-interaction',
+      });
+    });
+
+    it('leaves an empty paragraph when a header cell only contained an asset', () => {
+      const input = (
+        <editor>
+          <htable>
+            <htr>
+              <hth>
+                <hembed type="Asset" id="asset-1" />
+              </hth>
+            </htr>
+          </htable>
+          <hp />
+        </editor>
+      );
+
+      const expected = (
+        <editor>
+          <htable>
+            <htr>
+              <hth>
+                <hp>
+                  <htext />
+                </hp>
+              </hth>
+            </htr>
+          </htable>
+          <hp>
+            <htext />
+          </hp>
+        </editor>
+      );
+
+      assertOutput({ input, expected });
+    });
+
+    it.each([
+      ['an embedded entry', () => <hembed type="Entry" id="entry-id" />, ['paragraph']],
+      ['a heading', () => <hh1>heading</hh1>, ['paragraph', 'paragraph']],
+    ])('still normalizes %s in a body cell like before', (_, createNode, expectedTypes) => {
+      const { editor, normalize } = createTestEditor({
+        input: (
+          <editor>
+            <htable>
+              <htr>
+                <htd>
+                  <hp>text</hp>
+                  {createNode()}
+                </htd>
+              </htr>
+            </htable>
+            <hp />
+          </editor>
+        ),
+      });
+
+      normalize();
+
+      const cell = (editor.children[0] as any).children[0].children[0];
+      expect(cell.children.map((child: any) => child.type)).toEqual(expectedTypes);
     });
   });
 
@@ -438,6 +596,136 @@ describe('paste', () => {
       table([['Before pasted after', 'Keep cell']]),
       paragraph('Keep following paragraph'),
     ]);
+  });
+});
+
+describe('paste with embedded assets', () => {
+  const paragraph = (value: string) => ({
+    type: BLOCKS.PARAGRAPH,
+    data: {},
+    children: [{ text: value }],
+  });
+  const asset = (id: string) => ({
+    type: BLOCKS.EMBEDDED_ASSET,
+    data: { target: { sys: { id, type: 'Link', linkType: 'Asset' } } },
+    isVoid: true,
+    children: [{ text: '' }],
+  });
+  const row = (cellType: BLOCKS, ...cells: any[][]) => ({
+    type: BLOCKS.TABLE_ROW,
+    data: {},
+    children: cells.map((children) => ({ type: cellType, data: {}, children })),
+  });
+  const table = (...rows: any[]) => ({ type: BLOCKS.TABLE, data: {}, children: rows });
+  const cellTypes = (editor: any, rowIndex: number, cellIndex: number) =>
+    editor.children[0].children[rowIndex].children[cellIndex].children.map(
+      (child: any) => child.type,
+    );
+
+  it('pastes an asset into a body cell next to the text', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [
+      table(row(BLOCKS.TABLE_CELL, [paragraph('before after')])),
+      paragraph('following'),
+    ];
+    editor.tf.select({ path: [0, 0, 0, 0, 0], offset: 6 });
+
+    editor.insertFragment([asset('asset-1')]);
+    normalize();
+
+    expect(cellTypes(editor, 0, 0)).toEqual([
+      BLOCKS.PARAGRAPH,
+      BLOCKS.EMBEDDED_ASSET,
+      BLOCKS.PARAGRAPH,
+    ]);
+    expect(editor.children).toHaveLength(2);
+  });
+
+  it('refuses to paste an asset into a header cell', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [
+      table(row(BLOCKS.TABLE_HEADER_CELL, [paragraph('header')])),
+      paragraph('following'),
+    ];
+    editor.tf.select({ path: [0, 0, 0, 0, 0], offset: 3 });
+
+    editor.insertFragment([asset('asset-1')]);
+    normalize();
+
+    expect(JSON.stringify(editor.children)).not.toContain(BLOCKS.EMBEDDED_ASSET);
+    expect(cellTypes(editor, 0, 0)).toEqual([BLOCKS.PARAGRAPH]);
+  });
+
+  it('refuses to paste an asset when the selection starts in a header cell and ends in a body cell', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [
+      table(
+        row(BLOCKS.TABLE_HEADER_CELL, [paragraph('header')]),
+        row(BLOCKS.TABLE_CELL, [paragraph('body')]),
+      ),
+      paragraph('following'),
+    ];
+    editor.tf.select({
+      anchor: { path: [0, 0, 0, 0, 0], offset: 3 },
+      focus: { path: [0, 1, 0, 0, 0], offset: 2 },
+    });
+
+    editor.insertFragment([asset('asset-1')]);
+    normalize();
+
+    expect(JSON.stringify(editor.children)).not.toContain(BLOCKS.EMBEDDED_ASSET);
+  });
+
+  it('keeps the pasted text and refuses the asset when pasting both into a header cell', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [
+      table(row(BLOCKS.TABLE_HEADER_CELL, [paragraph('header')])),
+      paragraph('following'),
+    ];
+    editor.tf.select({ path: [0, 0, 0, 0, 0], offset: 6 });
+
+    editor.insertFragment([asset('asset-1'), paragraph('more')]);
+    normalize();
+
+    expect(JSON.stringify(editor.children)).not.toContain(BLOCKS.EMBEDDED_ASSET);
+    expect(editor.api.string([0, 0, 0])).toContain('more');
+  });
+
+  it('keeps assets in body cells when pasting a whole table', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [paragraph('before'), paragraph('')];
+    editor.tf.select({ path: [1, 0], offset: 0 });
+
+    editor.insertFragment([
+      table(
+        row(BLOCKS.TABLE_HEADER_CELL, [paragraph('Photo')], [paragraph('Caption')]),
+        row(BLOCKS.TABLE_CELL, [asset('asset-1')], [paragraph('Sunset'), asset('asset-2')]),
+      ),
+    ]);
+    normalize();
+
+    const pastedTable = editor.children.find((node: any) => node.type === BLOCKS.TABLE) as any;
+    const types = (rowIndex: number, cellIndex: number) =>
+      pastedTable.children[rowIndex].children[cellIndex].children.map((c: any) => c.type);
+    expect(types(0, 0)).toEqual([BLOCKS.PARAGRAPH]);
+    expect(types(1, 0)).toEqual([BLOCKS.EMBEDDED_ASSET]);
+    expect(types(1, 1)).toEqual([BLOCKS.PARAGRAPH, BLOCKS.EMBEDDED_ASSET]);
+  });
+
+  it('drops assets from header cells when pasting a whole table', () => {
+    const { editor, normalize } = createTestEditor({});
+    editor.children = [paragraph('before'), paragraph('')];
+    editor.tf.select({ path: [1, 0], offset: 0 });
+
+    editor.insertFragment([
+      table(
+        row(BLOCKS.TABLE_HEADER_CELL, [paragraph('Photo'), asset('asset-1')]),
+        row(BLOCKS.TABLE_CELL, [paragraph('Sunset')]),
+      ),
+    ]);
+    normalize();
+
+    expect(JSON.stringify(editor.children)).not.toContain(BLOCKS.EMBEDDED_ASSET);
   });
 });
 

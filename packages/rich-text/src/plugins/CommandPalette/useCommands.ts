@@ -4,11 +4,12 @@ import type { FieldAppSDK } from '@contentful/app-sdk';
 import { useContentTypes } from '@contentful/field-editor-shared/react-query';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
-import { isNodeTypeSelected } from '../../helpers/editor';
+import { canInsertEmbeddedAssetBlock, isNodeTypeSelected } from '../../helpers/editor';
 import { isNodeTypeEnabled } from '../../helpers/validations';
 import { getRange, getAboveNode } from '../../internal/queries';
 import { select, insertNodes, deleteText, removeMark } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
+import { insertEmbeddedBlock } from '../shared/EmbeddedBlockUtil';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
@@ -68,7 +69,7 @@ function getCommandPermissions(sdk: FieldAppSDK, editor: PlateEditor) {
   return {
     inlineAllowed,
     entriesAllowed: entriesAllowed && canInsertBlocks,
-    assetsAllowed: assetsAllowed && canInsertBlocks,
+    assetsAllowed: assetsAllowed && canInsertEmbeddedAssetBlock(editor),
   };
 }
 
@@ -259,11 +260,17 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                         asset: true,
                         callback: () => {
                           removeCommand(editor);
-                          if (editor.selection) {
-                            const selection = editor.selection;
-                            editor.insertBreak();
-                            insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
-                            select(editor, selection);
+                          if (editor.selection && canInsertEmbeddedAssetBlock(editor)) {
+                            if (isNodeTypeSelected(editor, BLOCKS.TABLE)) {
+                              // In a table cell the asset takes the place of the empty paragraph, as
+                              // with the toolbar and the shortcut, and a paragraph is kept after it
+                              insertEmbeddedBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
+                            } else {
+                              const selection = editor.selection;
+                              editor.insertBreak();
+                              insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
+                              select(editor, selection);
+                            }
                             editor.tracking.onCommandPaletteAction('insert', {
                               nodeType: BLOCKS.EMBEDDED_ASSET,
                             });
