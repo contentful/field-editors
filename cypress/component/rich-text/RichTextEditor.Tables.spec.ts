@@ -454,7 +454,37 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
               BLOCKS.TABLE,
               BLOCKS.PARAGRAPH,
             ]);
-            expect(bodyCell.content.map((node) => node.nodeType)).to.include(BLOCKS.EMBEDDED_ASSET);
+            // the asset takes the place of the empty paragraph, and a paragraph is kept after it
+            expect(bodyCell.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
+          });
+        });
+
+        it('embeds a second asset with the command palette without a paragraph in between', () => {
+          insertTable();
+          cy.realPress('ArrowRight');
+          cy.realPress('ArrowRight');
+          // only the keyboard is used, so that the focus stays in the editor
+          const embedWithKeyboard = () => {
+            cy.realType('/asset');
+            getCommandList().findByText('Embed Asset').should('exist');
+            cy.realPress('Enter');
+            getCommandList().findByText('test').should('exist');
+            cy.realPress('Enter');
+          };
+          embedWithKeyboard();
+          embedWithKeyboard();
+
+          richText.getValue().then((value) => {
+            const bodyCell = value.content[0].content[1].content[0];
+
+            expect(bodyCell.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
           });
         });
 
@@ -472,7 +502,10 @@ describe('Rich Text Editor', { viewportHeight: 2000, viewportWidth: 1000 }, () =
           richText.getValue().then((value) => {
             const bodyCell = value.content[0].content[1].content[0];
 
-            expect(bodyCell.content.map((node) => node.nodeType)).to.include(BLOCKS.EMBEDDED_ASSET);
+            expect(bodyCell.content.map((node) => node.nodeType)).to.deep.equal([
+              BLOCKS.EMBEDDED_ASSET,
+              BLOCKS.PARAGRAPH,
+            ]);
           });
         });
 

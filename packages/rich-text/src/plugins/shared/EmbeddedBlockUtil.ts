@@ -138,6 +138,19 @@ export async function selectResourceEntityAndInsert(
   }
 }
 
+/**
+ * Inserts an embedded block at the selection, the way the toolbar and the keyboard shortcut do:
+ * it replaces an empty paragraph and keeps a paragraph after it to continue typing in.
+ */
+export function insertEmbeddedBlock(
+  editor: PlateEditor,
+  nodeType: BLOCKS.EMBEDDED_ENTRY | BLOCKS.EMBEDDED_ASSET,
+  entity,
+) {
+  insertBlock(editor, nodeType, entity);
+  ensureFollowingParagraph(editor, [BLOCKS.EMBEDDED_ASSET, BLOCKS.EMBEDDED_ENTRY]);
+}
+
 // TODO: incorporate this logic inside the trailingParagraph plugin instead
 function ensureFollowingParagraph(editor: PlateEditor, nodeTypes: BLOCKS[]) {
   const entityBlock = getAboveNode(editor, {

@@ -9,6 +9,7 @@ import { isNodeTypeEnabled } from '../../helpers/validations';
 import { getRange, getAboveNode } from '../../internal/queries';
 import { select, insertNodes, deleteText, removeMark } from '../../internal/transforms';
 import { PlateEditor } from '../../internal/types';
+import { insertEmbeddedBlock } from '../shared/EmbeddedBlockUtil';
 import { COMMAND_PROMPT } from './constants';
 import { createInlineEntryNode } from './utils/createInlineEntryNode';
 import { fetchAssets } from './utils/fetchAssets';
@@ -260,10 +261,16 @@ export const useCommands = (sdk: FieldAppSDK, query: string, editor: PlateEditor
                         callback: () => {
                           removeCommand(editor);
                           if (editor.selection && canInsertEmbeddedAssetBlock(editor)) {
-                            const selection = editor.selection;
-                            editor.insertBreak();
-                            insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
-                            select(editor, selection);
+                            if (isNodeTypeSelected(editor, BLOCKS.TABLE)) {
+                              // In a table cell the asset takes the place of the empty paragraph, as
+                              // with the toolbar and the shortcut, and a paragraph is kept after it
+                              insertEmbeddedBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
+                            } else {
+                              const selection = editor.selection;
+                              editor.insertBreak();
+                              insertBlock(editor, BLOCKS.EMBEDDED_ASSET, asset.entity);
+                              select(editor, selection);
+                            }
                             editor.tracking.onCommandPaletteAction('insert', {
                               nodeType: BLOCKS.EMBEDDED_ASSET,
                             });
